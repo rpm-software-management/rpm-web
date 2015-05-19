@@ -1,0 +1,2957 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Tags: Data Definitions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Inside the Spec File"
+HREF="ch-rpm-inside.html"><LINK
+REL="PREVIOUS"
+TITLE="Inside the Spec File"
+HREF="ch-rpm-inside.html"><LINK
+REL="NEXT"
+TITLE="Scripts: RPM's Workhorse"
+HREF="s1-rpm-inside-scripts.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-inside.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 13. Inside the Spec File</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-inside-scripts.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-INSIDE-TAGS"
+>Tags: Data Definitions</A
+></H1
+><P
+>        Looking at a spec file, the first thing you'll see are a number of
+        lines, all following the same basic format:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;something&#62;</I
+></TT
+>:<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;something-else&#62;</I
+></TT
+></SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;something&#62;</I
+></TT
+> is known as a "tag",
+        because it is used by RPM to name or <I
+CLASS="EMPHASIS"
+>tag</I
+> some data.
+        The tag is separated from its associated data by a colon.  The data is
+        represented by the <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;something-else&#62;</I
+></TT
+>
+        above.  Tags are grouped together at the top of the spec file, in a
+        section known as the preamble.  Here's an example of a tag and its data:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Vendor: White Socks Software, Inc.</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        In this example, the tag is "<B
+CLASS="COMMAND"
+>Vendor</B
+>".  Tags are not
+        case-sensitive &#8212; they may be all uppercase, all lowercase, or
+        anything in-between.  The <B
+CLASS="COMMAND"
+>Vendor</B
+> tag is used to
+        define the name of the organization producing the package.  The data in
+        this example is "<B
+CLASS="COMMAND"
+>White Socks Software, Inc.</B
+>".
+        Therefore, RPM will store <B
+CLASS="COMMAND"
+>White Socks Software, Inc.</B
+>
+        as the vendor of the package.
+      </P
+><P
+>        Note, also, that spacing between the tag, the colon, and the data is
+        unimportant.  Given this, and the case-insensitivity of the tag, each of
+        the following lines are equivalent to the one above:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>VeNdOr : White Socks Software, Inc.
+vendor:White Socks Software, Inc.
+VENDOR    :    White Socks Software, Inc.</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The bottom line is that you can make tag lines as neat or as ugly as you
+        like &#8212; RPM won't mind either way.  Note, however, the tag's data
+        may need to be formatted in a particular fashion.  If there are any such
+        restrictions, we'll mention them.  Below, we've grouped tags of similar
+        functions together for easier reference, starting with the tags that are
+        used to create the package name.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-PACKAGE-NAMING-TAGS"
+>Package Naming Tags</A
+></H2
+><P
+>          The following tags are used by RPM to produce the package's final
+          name.  Since the name is always in the format:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+>-<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;version&#62;</I
+></TT
+>-<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;release&#62;</I
+></TT
+></SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          it's only natural that the three tags are known as
+          <B
+CLASS="COMMAND"
+>name</B
+>, <B
+CLASS="COMMAND"
+>version</B
+>, and
+          <B
+CLASS="COMMAND"
+>release</B
+>.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-NAME-TAG"
+>The <B
+CLASS="COMMAND"
+>name</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>name</B
+> tag is used to define the name of the
+            software being packaged.  In most (if not all) cases, the name used
+            for a package should be identical in spelling and case to the
+            software being packaged.  The name cannot contain any whitespace: If
+            it does, RPM will only use the first part of the name (up to the
+            first space).  Therefore, if the name of the software being packaged
+            is <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>, the <B
+CLASS="COMMAND"
+>name</B
+>
+            tag should be something like:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Name: cdplayer</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-VERSION-TAG"
+>The <B
+CLASS="COMMAND"
+>version</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>version</B
+> tag defines the version of the
+            software being packaged.  The version specified should be as close
+            as possible to the format of the original software's version.  In
+            most cases, there should be no problem specifying the version just
+            as the software's original developer did.  However, there is a
+            restriction.  There can be no dashes in the version.  If you forget,
+            RPM will remind you:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+Illegal '-' char in version: 1.0-a</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Spaces in the version will also cause problems, in that anything
+            after the first space will be ignored by RPM.  Bottom line: Stick
+            with alphanumeric characters and periods, and you'll never have to
+            worry about it.  Here's a sample <B
+CLASS="COMMAND"
+>version</B
+> tag:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Version: 1.2</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-RELEASE-TAG"
+>The <B
+CLASS="COMMAND"
+>release</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>release</B
+> tag can be thought of as the
+            <I
+CLASS="EMPHASIS"
+>package's</I
+> version.  The release is
+            traditionally an integer &#8212; for example, when a specific piece
+            of software at a particular version is first packaged, the release
+            should be "<B
+CLASS="COMMAND"
+>1</B
+>".  If it is necessary to repackage
+            that software at the same version, the release should be
+            incremented.  When a new version of the software becomes available,
+            the release should drop back to "<B
+CLASS="COMMAND"
+>1</B
+>" when it is
+            first packaged.
+          </P
+><P
+>            Note that we used the word "traditionally", above.  The only hard
+            and fast restriction to the release format is that there can be no
+            dashes in it.  Be aware that if you buck tradition, your users may
+            not understand what your release means.
+          </P
+><P
+>            It is up to the package builder to determine which build represents
+            a new release and to update the release manually.  Here is what a
+            typical <B
+CLASS="COMMAND"
+>release</B
+> tag might look like:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Release: 5</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-DESCRIPTIVE-TAGS"
+>Descriptive Tags</A
+></H2
+><P
+>          These tags provide information primarily for people who want to know a
+          bit more about the package, and who produced it.  They are part of the
+          package file, and most of them can be seen by issuing an <B
+CLASS="COMMAND"
+>rpm
+          -qi</B
+> command.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-DESCRIPTION-TAG"
+>The <B
+CLASS="COMMAND"
+>%description</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>%description</B
+> tag is used to provide an
+            in-depth description of the packaged software.  The description
+            should be several sentences describing, to an uninformed user, what
+            the software does.
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>%description</B
+> tag is a bit different than the
+            other tags in the preamble.  For one, it starts with a percent sign.
+            The other difference is that the data specified by the
+            <B
+CLASS="COMMAND"
+>%description</B
+> tag can span more than one line.  In
+            addition, a primitive formatting capability exists.  If a line
+            starts with a space, that line will be displayed verbatim by RPM.
+            Lines that do not start with a space are assumed to be part of a
+            paragraph and will be formatted by RPM.  It's even possible to mix
+            and match formatted and unformatted lines.  Here are some examples:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%description
+It slices!  It dices!  It's a CD player app that can't be beat.  By using
+the resonant frequency of the CD itself, it is able to simulate 20X
+oversampling.  This leads to sound quality that cannot be equaled with
+more mundane software...</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The example above contains no explicit formatting.  RPM will format
+            the text as a single paragraph, breaking lines as needed.
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%description
+ It slices!
+ It dices!
+ It's a CD player app that can't be beat.
+By using the resonant frequency of the CD itself, it is able to simulate
+20X oversampling.  This leads to sound quality that cannot be equaled with
+more mundane software...</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            In this example, the first three lines will be displayed by RPM,
+            verbatim.  The remainder of the text will be formatted by RPM.  The
+            text will be formatted as one paragraph.
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%description
+ It slices!
+ It dices!
+ It's a CD player app that can't be beat.
+
+By using the resonant frequency of the CD itself, it is able to simulate
+20X oversampling.  This leads to sound quality that cannot be equaled with
+more mundane software...</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Above, we have a similar situation to the previous example, in that
+            part of the text is formatted and part is not.  However, the blank
+            line separates the text into two paragraphs.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-SUMMARY-TAG"
+>The <B
+CLASS="COMMAND"
+>summary</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>summary</B
+> tag is used to define a one-line
+            description of the packaged software.  Unlike
+            <B
+CLASS="COMMAND"
+>%description</B
+>, <B
+CLASS="COMMAND"
+>summary</B
+> is
+            restricted to one line.  RPM uses it when a succinct description of
+            the package is needed.  Here is an example of a
+            <B
+CLASS="COMMAND"
+>summary</B
+> line:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Summary: A CD player app that rocks!</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-LICENSE-TAG"
+>The <B
+CLASS="COMMAND"
+>license</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>license</B
+> tag is used to define the license
+            terms applicable to the software being packaged.  This tag is also
+            known as the <B
+CLASS="COMMAND"
+>copyright</B
+> tag. In many cases,
+            this might be nothing more than "<B
+CLASS="COMMAND"
+>GPL</B
+>", for
+            software distributed under the terms of the GNU General Public
+            License, or something similar.  For example:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>License: GPL</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-DISTRIBUTION-TAG"
+>The <B
+CLASS="COMMAND"
+>distribution</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>distribution</B
+> tag is used to define a group of
+            packages, of which this package is a part.  Since Red Hat is in the
+            business of producing a group of packages known as a Linux
+            <I
+CLASS="EMPHASIS"
+>distribution</I
+>, the name stuck.  For example, if
+            a suite of applications known as "Doors '95" were produced, each
+            package that is part of the suite would define its
+            <B
+CLASS="COMMAND"
+>distribution</B
+> line like this:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Distribution: Doors '95</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-ICON-TAG"
+>The <B
+CLASS="COMMAND"
+>icon</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>icon</B
+> tag is used to name a file containing an
+            icon representing the packaged software.  The file may be in either
+            GIF or XPM format, although XPM is preferred.  In either case, the
+            background of the icon should be transparent.  The file should be
+            placed in RPM's <TT
+CLASS="FILENAME"
+>SOURCES</TT
+> directory prior to
+            performing a build, so no path is needed.
+          </P
+><P
+>            The icon is normally used by graphically-oriented front ends to RPM.
+            RPM itself doesn't use the icon, but it's stored in the package file
+            and retained in RPM's database after the package is installed.  An
+            example <B
+CLASS="COMMAND"
+>icon</B
+> tag might look like:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Icon: foo.xpm</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-VENDOR-TAG"
+>The <B
+CLASS="COMMAND"
+>vendor</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>vendor</B
+> tag is used to define the name of the
+            entity that is responsible for packaging the software.  Normally,
+            this would be the name of an organization.  Here's an example:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Vendor: White Socks Software, Inc.</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-URL-TAG"
+>The <B
+CLASS="COMMAND"
+>url</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>url</B
+> tag is used to define a Uniform Resource
+            Locator that can be used to obtain additional information about the
+            packaged software.  At present, RPM doesn't actively make use of
+            this tag.  The data is stored in the package however, and will be
+            written into RPM's database when the package is installed.  It's
+            only a matter of time before some web-based RPM adjunct makes use of
+            this information, so make sure you include URLs!  Something like
+            this is all you'll need:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>URL: http://www.gnomovision.com/cdplayer.html</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-GROUP-TAG"
+>The <B
+CLASS="COMMAND"
+>group</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>group</B
+> tag is used to group packages together
+            by the types of functionality they provide.  The group specification
+            looks like a path and is similar in function, in that it specifies
+            more general groupings before more detailed ones.  For example, a
+            package containing a text editor might have the following group:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Group: Applications/Editors</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            In this example, the package is part of the
+            <TT
+CLASS="FILENAME"
+>Editors</TT
+> group, which is itself a part of the
+            <TT
+CLASS="FILENAME"
+>Applications</TT
+> group.  Likewise, a spreadsheet
+            package might have this group:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Group: Applications/Spreadsheets</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            This <B
+CLASS="COMMAND"
+>group</B
+> tag indicates that under the
+            <TT
+CLASS="FILENAME"
+>Applications</TT
+> group, we would find
+            <TT
+CLASS="FILENAME"
+>Editors</TT
+> and <TT
+CLASS="FILENAME"
+>Spreadsheets</TT
+>,
+            and probably some other subgroups as well.
+          </P
+><P
+>            How is this information used?  It's primarily meant to permit
+            graphical front-ends to RPM, to display packages in a hierarchical
+            fashion.  Of course, in order for groups to be as effective as
+            possible, it's necessary for all package builders to be consistent
+            in their groupings.  In the case of packages for Linux, Red Hat has
+            the definitive list.  Therefore, Linux package builders should give
+            serious consideration to using Red Hat's groups.  The current group
+            hierarchy is installed with every copy of RPM, and is available in
+            the RPM sources as well.  Check out the file
+            <TT
+CLASS="FILENAME"
+>groups</TT
+> in RPM's documentation directory
+            (normally
+            <TT
+CLASS="FILENAME"
+>/usr/share/doc/rpm-<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;version&#62;</I
+></TT
+></TT
+>),
+            or in the top-level source directory.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-PACKAGER-TAG"
+>The <B
+CLASS="COMMAND"
+>packager</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>packager</B
+> tag is used to hold the name and
+            contact information for the person or persons who built the package.
+            Normally, this would be the person that actually built the package,
+            or in a larger organization, a public relations contact.  In either
+            case, contact information such as an e-mail address or phone number
+            should be included, so customers can send either money or hate mail,
+            depending on their satisfaction with the packaged software.  Here's
+            an example of a <B
+CLASS="COMMAND"
+>packager</B
+> tag:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Packager: Fred Foonly &#60;fred@gnomovision.com&#62;</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-DEPENDENCY-TAGS"
+>Dependency Tags</A
+></H2
+><P
+>          One RPM feature that's been recently implemented is a means of
+          ensuring that if a package is installed, the system environment has
+          everything the package requires in order to operate properly.
+          Likewise, when an installed package is erased RPM can make sure no
+          other package relies on the package being erased.  This dependency
+          capability can be very helpful when end users install and erase
+          packages on their own.  It makes it more difficult for them to paint
+          themselves into a corner, package-wise.
+        </P
+><P
+>          However, in order for RPM to be able to take more than basic
+          dependency information into account, the package builder must add the
+          appropriate dependency information to the package.  This is done by
+          using the following tags.  Note, however, that adding dependency
+          information to a package requires some forethought.  For additional
+          information on RPM's dependency processing, please review <A
+HREF="ch-rpm-depend.html"
+>Chapter 14</A
+>.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-PROVIDES-TAG"
+>The <B
+CLASS="COMMAND"
+>provides</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>provides</B
+> tag is used to specify a
+            <I
+CLASS="FIRSTTERM"
+>virtual package</I
+> that the packaged software
+            makes available when it is installed.  Normally, this tag would be
+            used when different packages provide equivalent services.  For
+            example, any package that allows a user to read mail might provide
+            the <TT
+CLASS="APPLICATION"
+>mail-reader</TT
+> virtual package.  Another
+            package that depends on a mail reader of some sort, could require
+            the <TT
+CLASS="APPLICATION"
+>mail-reader</TT
+> virtual package.  It would then
+            install without dependency problems, if any one of several mail
+            programs were installed.  Here's what a <B
+CLASS="COMMAND"
+>provides</B
+>
+            tag might look like:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Provides: mail-reader</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-REQUIRES-TAG"
+>The <B
+CLASS="COMMAND"
+>requires</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>requires</B
+> tag is used to alert RPM to the fact
+            that the package needs to have certain capabilities available in
+            order to operate properly.  These capabilities refer to the name of
+            another package, or to a virtual package provided by one or more
+            packages that use the <B
+CLASS="COMMAND"
+>provides</B
+> tag.  When the
+            <B
+CLASS="COMMAND"
+>requires</B
+> tag references a package name, version
+            comparisons may also be included by following the package name with
+            <B
+CLASS="COMMAND"
+>&#60;</B
+>, <B
+CLASS="COMMAND"
+>&#62;</B
+>,
+            <B
+CLASS="COMMAND"
+>=</B
+>, <B
+CLASS="COMMAND"
+>&#62;=</B
+>, or
+            <B
+CLASS="COMMAND"
+>&#60;=</B
+>, and a version specification.  To get even
+            more specific, a package's release may be included as well.  Here's
+            a <B
+CLASS="COMMAND"
+>requires</B
+> tag in action, with a specific version
+            requirement:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: playmidi = 2.3</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            If the <B
+CLASS="COMMAND"
+>Requires</B
+> tag needs to perform a comparison
+            against an epoch number defined with the <B
+CLASS="COMMAND"
+>epoch</B
+>
+            tag (described below), then the proper format would be:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: playmidi &#62;= 4:2.3</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-CONFLICTS-TAG"
+>The <B
+CLASS="COMMAND"
+>conflicts</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>conflicts</B
+> tag is the logical complement to
+            the <B
+CLASS="COMMAND"
+>requires</B
+> tag.  The
+            <B
+CLASS="COMMAND"
+>requires</B
+> tag is used to specify what packages
+            <I
+CLASS="EMPHASIS"
+>must</I
+> be present in order for the current
+            package to operate properly.  The <B
+CLASS="COMMAND"
+>conflicts</B
+> tag
+            is used to specify what packages <I
+CLASS="EMPHASIS"
+>cannot</I
+> be
+            installed if the current package is to operate properly.
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>conflicts</B
+> tag has the same format as the
+            <B
+CLASS="COMMAND"
+>requires</B
+> tag &#8212; namely, the tag is followed
+            by a real or virtual package name.  Like
+            <B
+CLASS="COMMAND"
+>requires</B
+>, the <B
+CLASS="COMMAND"
+>conflicts</B
+> tag
+            also accepts version and release specifications:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Conflicts: playmidi = 2.3-1</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            If the <B
+CLASS="COMMAND"
+>conflicts</B
+> tag needs to perform a
+            comparison against an epoch number defined with the
+            <B
+CLASS="COMMAND"
+>epoch</B
+> tag (described below), then the proper
+            format would be:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Conflicts: playmidi = 4:</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-EPOCH-TAG"
+>The <B
+CLASS="COMMAND"
+>epoch</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>epoch</B
+> tag is another part of RPM's
+            dependency and upgrade processing.  It is also known as the
+            <B
+CLASS="COMMAND"
+>serial</B
+> tag.  The need for it is somewhat
+            obscure, but goes something like this:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  The package being built (call it package
+                  <TT
+CLASS="REPLACEABLE"
+><I
+>A</I
+></TT
+>) uses a version numbering scheme
+                  sufficiently obscure so that RPM cannot determine if one
+                  version is older or newer than another version.
+                </P
+></LI
+><LI
+><P
+>                  Another package (package <TT
+CLASS="REPLACEABLE"
+><I
+>B</I
+></TT
+>)
+                  requires that package <TT
+CLASS="REPLACEABLE"
+><I
+>A</I
+></TT
+> be
+                  installed.  More specifically, it requires RPM to compare
+                  package <TT
+CLASS="REPLACEABLE"
+><I
+>A</I
+></TT
+>'s version against a
+                  specified minimum (or maximum) version.
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            Since RPM is unable to compare package
+            <TT
+CLASS="REPLACEABLE"
+><I
+>A</I
+></TT
+>'s version against the version specified
+            by package <TT
+CLASS="REPLACEABLE"
+><I
+>B</I
+></TT
+>, there is no way to
+            determine if package <TT
+CLASS="REPLACEABLE"
+><I
+>B</I
+></TT
+>'s dependency
+            requirements can be met.  What to do?
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>epoch</B
+> tag provides a way to get around this
+            tricky problem.  By specifying a simple integer epoch number for
+            each version, you are, in essence, directing how RPM interprets the
+            relative age of the package.  The key point to keep in mind is that
+            in order for this to work, a unique epoch number must be defined
+            for each version of the software being packaged.  In addition, the
+            epoch number must increment along with the version.  Finally, the
+            package that requires the epoched software needs to specify
+            <I
+CLASS="EMPHASIS"
+>its</I
+> version requirements in terms of the epoch
+            number.
+          </P
+><P
+>            Does it sound like a lot of trouble?  You're right!  If you find
+            yourself in the position of needing to use this tag, take a deep
+            breath and seriously consider changing the way you assign version
+            numbers.  If you're packaging someone else's software, perhaps you
+            can convince them to make the change.  Chances are, if RPM can't
+            figure out the version number, most people can't, either!  An
+            example <B
+CLASS="COMMAND"
+>epoch</B
+> tag would look something like
+            this:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Epoch: 4</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Note that RPM considers a package with an epoch number as newer than
+            a package without an epoch number.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-AUTOREQPROV-TAG"
+>The <B
+CLASS="COMMAND"
+>autoreqprov</B
+>,
+            <B
+CLASS="COMMAND"
+>autoreq</B
+>, and <B
+CLASS="COMMAND"
+>autoprov</B
+>
+            Tags</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>autoreqprov</B
+>, <B
+CLASS="COMMAND"
+>autoreq</B
+>,
+            and <B
+CLASS="COMMAND"
+>autoprov</B
+> tags are used to control the
+            automatic dependency processing performed when the package is being
+            built.  Normally, as each package is built, the following steps are
+            performed:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  All executable programs and libraries being packaged are
+                  analyzed to determine their shared library requirements as
+                  well as interpreters.  These requirements are automatically
+                  added to the package's requirements.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The soname of each shared library being packaged is
+                  automatically added to the package's list of "provides"
+                  information.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The required modules for all Perl scripts and modules being
+                  packaged are automatically added to the package's
+                  requirements.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            By doing this, RPM reduces the need for package builders to manually
+            add dependency information to their packages.  However, there are
+            times when RPM's automatic dependency processing may not be
+            desirable.  In those cases the <B
+CLASS="COMMAND"
+>autoreqprov</B
+>,
+            <B
+CLASS="COMMAND"
+>autoreq</B
+>, and <B
+CLASS="COMMAND"
+>autoprov</B
+> tags
+            can be used to disable automatic dependency processing altogether
+            (<B
+CLASS="COMMAND"
+>autoreqprov</B
+>), for requirements only
+            (<B
+CLASS="COMMAND"
+>autoreq</B
+>), or for "provides" only
+            (<B
+CLASS="COMMAND"
+>autoprov</B
+>).
+          </P
+><P
+>            To disable automatic dependency processing both for requirements
+            and "provides", add the following line:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>AutoReqProv: no</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            To disable automatic processing of requirements, add the
+            following line:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>AutoReq: no</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            To disable automatic processing of "provides", add the
+            following line:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>AutoProv: no</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            (The number zero may be used instead of <B
+CLASS="COMMAND"
+>no</B
+>)
+            Although RPM defaults to performing automatic dependency
+            processing, the effect of the <B
+CLASS="COMMAND"
+>autoreqprov</B
+>,
+            <B
+CLASS="COMMAND"
+>autoreq</B
+>, and <B
+CLASS="COMMAND"
+>autoprov</B
+> tags
+            can be reversed by changing <B
+CLASS="COMMAND"
+>no</B
+> to
+            <B
+CLASS="COMMAND"
+>yes</B
+>.  (The number one may be used instead of
+            <B
+CLASS="COMMAND"
+>yes</B
+>)
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-ARCH-AND-OS-TAGS"
+>Architecture- and Operating System-Specific Tags</A
+></H2
+><P
+>          As RPM gains in popularity, more people are putting it to work on
+          different types of computer systems.  While this would not normally be
+          a problem, things start to get a little tricky when one of the
+          following two situations becomes commonplace:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                A particular operating system is ported to several different
+                hardware platforms, or architectures.
+              </P
+></LI
+><LI
+><P
+>                A particular architecture runs several different operating
+                systems.
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          The real bind hits when RPM is used to package software for several of
+          these different system environments.  Without methods of controlling
+          the build process based on architecture and operating system, package
+          builders that develop software for more than one architecture or
+          operating system will have a hard time indeed.  The only alternative
+          would be to maintain parallel RPM build environments and accept all
+          the coordination headaches that would entail.
+        </P
+><P
+>          Fortunately, RPM makes it all easier than that.  With the following
+          tags, it's possible to support package building under multiple
+          environments, all from a single set of sources, patches, and a single
+          spec file.  For a more complete discussion of multi-architecture
+          package building, please see <A
+HREF="ch-rpm-multi.html"
+>Chapter 19</A
+>.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-EXCLUDEARCH-TAG"
+>The <B
+CLASS="COMMAND"
+>excludearch</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>excludearch</B
+> tag directs RPM to ensure that
+            the package does <I
+CLASS="EMPHASIS"
+>not</I
+> attempt to build on the
+            excluded architecture(s).  The reasons for preventing a package from
+            building on a certain architecture might include:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The software has not yet been ported to the excluded
+                  architecture.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The software would serve no purpose on the excluded
+                  architecture.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            An example of the first case might be that the software was designed
+            based on the assumption that an integer is a 32-bit quantity.
+            Obviously, this assumption is not valid on a 64-bit processor.
+          </P
+><P
+>            In the second case, software that depended on or manipulated
+            low-level features of a given architecture, should be excluded from
+            building on a different architecture.  Assembly language programs
+            would fall into this category.
+          </P
+><P
+>            One or more architectures may be specified after the
+            <B
+CLASS="COMMAND"
+>excludearch</B
+> tag, separated by either spaces or
+            commas.  Here is an example:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>ExcludeArch: sparc alpha</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            In this example, RPM would not attempt to build the package on
+            either the Sun SPARC or Digital Alpha/AXP architectures.  The
+            package would build on any other architectures, however.  If a build
+            is attempted on an excluded architecture, the following message will
+            be displayed, and the build will fail:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Arch mismatch!
+cdplayer-1.0.spec doesn't build on this architecture</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Note that if your goal is to ensure that a package will only build
+            on <I
+CLASS="EMPHASIS"
+>one</I
+> architecture, then you should use the
+            <B
+CLASS="COMMAND"
+>exclusivearch</B
+> tag.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-EXCLUSIVEARCH-TAG"
+>The <B
+CLASS="COMMAND"
+>exclusivearch</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>exclusivearch</B
+> tag is used to direct RPM to
+            ensure the package is <I
+CLASS="EMPHASIS"
+>only</I
+> built on the
+            specified architecture(s).  The reasons for this are similar to the
+            those mentioned in the section on the <B
+CLASS="COMMAND"
+>excludearch</B
+>
+            tag above.  However, the <B
+CLASS="COMMAND"
+>exclusivearch</B
+> tag is
+            useful when the package builder needs to ensure that
+            <I
+CLASS="EMPHASIS"
+>only</I
+> the specified architectures will build the
+            package.  This tag ensures that no future architectures will
+            mistakenly attempt to build the package.  This would not be the case
+            if the <B
+CLASS="COMMAND"
+>excludearch</B
+> tag were used to specify every
+            architecture known at the time the package is built.
+          </P
+><P
+>            The syntax of the <B
+CLASS="COMMAND"
+>exclusivearch</B
+> tag is identical
+            to that of <B
+CLASS="COMMAND"
+>excludearch</B
+>:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>ExclusiveArch: sparc alpha</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            In this example, the package will only build on a Sun SPARC or
+            Digital Alpha/AXP system.
+          </P
+><P
+>            Note that if your goal is to ensure that a package will
+            <I
+CLASS="EMPHASIS"
+>not</I
+> build on specific architectures, then you
+            should use the <B
+CLASS="COMMAND"
+>excludearch</B
+> tag.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-EXCLUDEOS"
+>The <B
+CLASS="COMMAND"
+>excludeos</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>excludeos</B
+> tag is used to direct RPM to ensure
+            that the package does <I
+CLASS="EMPHASIS"
+>not</I
+> attempt to build on
+            the excluded operating system(s).  This is usually necessary when a
+            package is to be built on more than one operating system, but it is
+            necessary to keep a particular operating system from attempting a
+            build.
+          </P
+><P
+>            Note that if your goal is to ensure that a package will only build
+            on <I
+CLASS="EMPHASIS"
+>one</I
+> operating system, then you should use
+            the <B
+CLASS="COMMAND"
+>exclusiveos</B
+> tag.  Here's a sample
+            <B
+CLASS="COMMAND"
+>excludeos</B
+> tag:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>ExcludeOS: linux irix</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-EXCLUSIVEOS-TAG"
+>The <B
+CLASS="COMMAND"
+>exclusiveos</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>exclusiveos</B
+> tag has the same syntax as
+            <B
+CLASS="COMMAND"
+>excludeos</B
+>, but it has the opposite logic.  The
+            <B
+CLASS="COMMAND"
+>exclusiveos</B
+> tag is used to denote which operating
+            system(s) should <I
+CLASS="EMPHASIS"
+>only</I
+> be be permitted to build
+            the package.  Here's <B
+CLASS="COMMAND"
+>exclusiveos</B
+> in action:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>ExclusiveOS: linux</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Note that if your goal is to ensure that a package will
+            <I
+CLASS="EMPHASIS"
+>not</I
+> build on a specific operating system, then
+            you should use the <B
+CLASS="COMMAND"
+>excludeos</B
+> tag.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-DIRECTORY-RELATED-TAGS"
+>Directory-related Tags</A
+></H2
+><P
+>          A number of tags are used to specify directories and paths that are
+          used in various phases of RPM's build and install processes.  There's
+          not much more to say collectively about these tags, so let's dive
+          right in and look them over.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-PREFIX-TAG"
+>The <B
+CLASS="COMMAND"
+>prefix</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>prefix</B
+> tag is used when a relocatable package
+            is to be built.  A relocatable package can be installed normally or
+            can be installed in a user-specified directory, by using RPM's
+            <B
+CLASS="COMMAND"
+>--prefix</B
+> install-time option.  The data specified
+            after the <B
+CLASS="COMMAND"
+>prefix</B
+> tag should be the part of the
+            package's path that may be changed during installation.  For
+            example, if the following <B
+CLASS="COMMAND"
+>prefix</B
+> line was
+            included in a spec file:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Prefix: /opt</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            and the following file was specified in the spec file's
+            <B
+CLASS="COMMAND"
+>%files</B
+> list:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>/opt/blather/foonly</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            then the file <TT
+CLASS="FILENAME"
+>foonly</TT
+> would be installed in
+            <TT
+CLASS="FILENAME"
+>/opt/blather</TT
+> if the package was installed
+            normally.  It would be installed in
+            <TT
+CLASS="FILENAME"
+>/usr/local/blather</TT
+> if the package was installed
+            with the <B
+CLASS="COMMAND"
+>--prefix <TT
+CLASS="FILENAME"
+>/usr/local</TT
+></B
+>
+            option.
+          </P
+><P
+>            For more information about creating relocatable packages, see <A
+HREF="ch-rpm-reloc.html"
+>Chapter 15</A
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-BUILDROOT-TAG"
+>The <B
+CLASS="COMMAND"
+>buildroot</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>buildroot</B
+> tag is used to define an alternate
+            build root.  The name is a bit misleading, as the build root is
+            actually used when the software is <I
+CLASS="EMPHASIS"
+>installed</I
+>
+            during the build process.  In order for a build root to be defined
+            and actually used, a number of issues must be taken into account.
+            These issues are covered in <A
+HREF="ch-rpm-anywhere.html"
+>Chapter 16</A
+>.  This
+            is what a <B
+CLASS="COMMAND"
+>buildroot</B
+> tag would look like:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>BuildRoot: /tmp/cdplayer</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>buildroot</B
+> tag can be overridden at build-time
+            by using the <B
+CLASS="COMMAND"
+>--buildroot</B
+> command-line option.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-SOURCE-AND-PATCH-TAGS"
+>Source and Patch Tags</A
+></H2
+><P
+>          In order to build and package software, RPM needs to know where to
+          find the original sources.  But it's not quite that simple.  There
+          might be more than one set of sources that need to be part of a
+          particular build.  In some cases, it might be necessary to prevent
+          some sources from being packaged.
+        </P
+><P
+>          And then there is the matter of patches.  It's likely that changes
+          will need to be made to the sources, so it's necessary to specify a
+          patch file.  But the same issues that apply to source specifications
+          are also applicable to patches.  There might be more than one set of
+          patches required.
+        </P
+><P
+>          The tags that follow are crucial to RPM, so it pays to have a firm
+          grasp of how they are used.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-SOURCE-TAG"
+>The <B
+CLASS="COMMAND"
+>source</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>source</B
+> tag is central to nearly every spec
+            file.  Although it has only one piece of data associated with it, it
+            actually performs two functions:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  It shows where the software's developer has made the original
+                  sources available.
+                </P
+></LI
+><LI
+><P
+>                  It gives RPM the name of the original source file.
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            While there is no hard and fast rule, for the first function, it's
+            generally considered best to put this information in the form of a
+            Uniform Resource Locator (URL).
+            
+            The URL should point directly to the source file itself.  This is
+            due to the <B
+CLASS="COMMAND"
+>source</B
+> tag's second function.
+          </P
+><P
+>            As mentioned above, the <B
+CLASS="COMMAND"
+>source</B
+> tag also needs to
+            direct RPM to the source file on the build system.  How does it do
+            this?  There's only one requirement, and it is ironclad: The source
+            filename must be at the end of the line as the final element in a
+            path.  Here's an example:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Source: ftp://ftp.gnomovision.com/pub/cdplayer-1.0.tgz</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Given this <B
+CLASS="COMMAND"
+>source</B
+> line, RPM will search its
+            <TT
+CLASS="FILENAME"
+>SOURCES</TT
+> directory for
+            <TT
+CLASS="FILENAME"
+>cdplayer-1.0.tgz</TT
+>.  Everything prior to the
+            filename is ignored by RPM.  It's there strictly for any interested
+            humans.
+          </P
+><P
+>            A spec file may contain more than one <B
+CLASS="COMMAND"
+>source</B
+> tag.
+            This is necessary for those cases where the software being packaged
+            is contained in more than one source file.  However, the
+            <B
+CLASS="COMMAND"
+>source</B
+> tags must be uniquely identified.  This is
+            done by appending a number to the end of the tag itself.  In fact,
+            RPM does this internally for the first <B
+CLASS="COMMAND"
+>source</B
+> tag
+            in a spec file, in essence turning it into
+            <B
+CLASS="COMMAND"
+>source0</B
+>.  Therefore, if a package contains two
+            source files, they may either be specified as:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Source: blather-4.5.tar.gz
+Source1: bother-1.2.tar.gz</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            or as:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Source0: blather-4.5.tar.gz
+Source1: bother-1.2.tar.gz</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Either approach may be used.  The choice is yours.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-NOSOURCE-TAG"
+>The <B
+CLASS="COMMAND"
+>nosource</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>nosource</B
+> tag is used to direct RPM to omit
+            one or more source files from the source package.  Why would someone
+            want to go to the trouble of specifying a source file, only to
+            exclude it?  The reasons for this can be varied, but let's look at
+            one example: The software known as Pretty Good Privacy, or PGP.
+          </P
+><P
+>            PGP contains encryption routines of such high quality that the
+            United States government restricts their export.
+            <A
+NAME="AEN7791"
+HREF="#FTN.AEN7791"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+            While it would be nice to create a PGP package file, the resulting
+            package could not legally be transferred between the U.S. and other
+            countries, or vice-versa.
+          </P
+><P
+>            However, what if all files other than the original source, were
+            packaged using RPM?  Well, a binary package made without PGP would
+            be of little use, but what about the source package?  It would
+            contain the spec file, maybe some patches, and perhaps even an icon
+            file.  Since the controversial PGP software was not a part of the
+            source package, this sanitized source package could be downloaded
+            legally in any country.  The person that downloaded a copy could
+            then go about legally obtaining the PGP sources themselves, place
+            them in RPM's <TT
+CLASS="FILENAME"
+>SOURCES</TT
+> directory, and create a
+            binary package.  They wouldn't even need to change the
+            <B
+CLASS="COMMAND"
+>nosource</B
+> tag.  One <B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba</B
+>
+            command later, and the user would have a perfectly usable PGP binary
+            package file.
+          </P
+><P
+>            Since there may be more than one <B
+CLASS="COMMAND"
+>source</B
+> tag in a
+            spec file, the format of the <B
+CLASS="COMMAND"
+>nosource</B
+> tag is as
+            follows:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>nosource: <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;src-num&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;src-num&#62;</I
+></TT
+>&#8230;<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;src-num&#62;</I
+></TT
+></SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;src-num&#62;</I
+></TT
+></B
+>
+            represents the number following the <B
+CLASS="COMMAND"
+>source</B
+> tag.
+            If there is more than one number in the list, they may be separated
+            by either commas or spaces.  For example, consider a package
+            containing the following <B
+CLASS="COMMAND"
+>source</B
+> tags:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>source: blather-4.5.tar.gz
+Source1: bother-1.2.tar.gz
+source2: blather-lib-4.5.tar.gz
+source3: bother-lib-1.2.tar.gz</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            If the source files for <TT
+CLASS="APPLICATION"
+>blather</TT
+> and
+            <TT
+CLASS="APPLICATION"
+>blather-lib</TT
+> were not to be included in the
+            package, the following <B
+CLASS="COMMAND"
+>nosource</B
+> line could be
+            added:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>NoSource: 0, 3</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            What about that <B
+CLASS="COMMAND"
+>0</B
+>?  Keep in mind that the first
+            unnumbered <B
+CLASS="COMMAND"
+>source</B
+> tag in a spec file is
+            automatically numbered 0 by RPM.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-PATCH-TAG"
+>The <B
+CLASS="COMMAND"
+>patch</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>patch</B
+> tag is used to identify which patches
+            are associated with the software being packaged.  The patch files
+            are kept in RPM's <TT
+CLASS="FILENAME"
+>SOURCES</TT
+> directory, so only
+            the name of the patch file should be specified.  Here is an example:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Patch: cdp-0.33-fsstnd.patch</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            There are no hard and fast requirements for naming the patch files,
+            but traditionally the filename starts with the software name and
+            version, separated by dashes.  The next part of the patch file name
+            usually includes one or more words indicating the reason for the
+            patch.  In our example above, the patch file contains changes
+            necessary to bring the software into compliance with the Linux File
+            System Standard, hence the <SAMP
+CLASS="COMPUTEROUTPUT"
+>fsstnd</SAMP
+>
+            magic incantation.
+          </P
+><P
+>            RPM processes <B
+CLASS="COMMAND"
+>patch</B
+> tags the same way it does
+            <B
+CLASS="COMMAND"
+>source</B
+> tags.  Therefore, it's acceptable to use a
+            Uniform Resource Locator (URL)
+            
+            on a <B
+CLASS="COMMAND"
+>patch</B
+> line, too.
+          </P
+><P
+>            A spec file may contain more than one <B
+CLASS="COMMAND"
+>patch</B
+> tag.
+            This is necessary for those cases where the software being packaged
+            requires more than one patch.  However, the <B
+CLASS="COMMAND"
+>patch</B
+>
+            tags must be uniquely identified.  This is done by appending a
+            number to the end of the tag itself.  In fact, RPM does this
+            internally for the first <B
+CLASS="COMMAND"
+>patch</B
+> tag in a spec
+            file, in essence turning it into <B
+CLASS="COMMAND"
+>patch0</B
+>.
+            Therefore, if a package contains three patches, the following two
+            methods of specifying them are equivalent:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Patch: blather-4.5-bugfix.patch
+Patch1: blather-4.5-config.patch
+Patch2: blather-4.5-somethingelse.patch</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            This is the same as:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Patch0: blather-4.5-bugfix.patch
+Patch1: blather-4.5-config.patch
+Patch2: blather-4.5-somethingelse.patch</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Either approach may be used, but the second method looks nicer.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-NOPATCH-TAG"
+>The <B
+CLASS="COMMAND"
+>nopatch</B
+> Tag</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>nopatch</B
+> tag is similar to the
+            <B
+CLASS="COMMAND"
+>nosource</B
+> tag discussed earlier.  Just like the
+            <B
+CLASS="COMMAND"
+>nosource</B
+> tag, the <B
+CLASS="COMMAND"
+>nopatch</B
+> tag
+            is used to direct RPM to omit something from the source package.  In
+            the case of <B
+CLASS="COMMAND"
+>nosource</B
+>, that "something" was one or
+            more sources.  For the <B
+CLASS="COMMAND"
+>nopatch</B
+> tag, the
+            "something" is one or more patches.
+          </P
+><P
+>            Since each <B
+CLASS="COMMAND"
+>patch</B
+> tag in a spec file must be
+            numbered, the <B
+CLASS="COMMAND"
+>nopatch</B
+> tag uses those numbers to
+            specify which patches are not to be included in the package.  The
+            <B
+CLASS="COMMAND"
+>nopatch</B
+> tag is used in this manner:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>NoPatch: 2 3</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            In this example, the source files specified on the
+            <B
+CLASS="COMMAND"
+>source2</B
+> and <B
+CLASS="COMMAND"
+>source3</B
+> lines are
+            not to be included in the build.
+          </P
+><P
+>            This concludes our study of RPM's tags.  In the next section, we'll
+            look at the various scripts that RPM uses to build, as well as to
+            install, and erase, packages.
+          </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN7791"
+HREF="s1-rpm-inside-tags.html#AEN7791"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                There is also an "international" version that may be used in
+                non-US countries.  See <A
+HREF="ch-pgp-intro.html"
+>Appendix G</A
+>.
+              </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-inside.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-inside-scripts.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Inside the Spec File</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-inside.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Scripts: RPM's Workhorse</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

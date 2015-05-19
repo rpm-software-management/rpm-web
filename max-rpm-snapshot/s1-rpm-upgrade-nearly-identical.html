@@ -1,0 +1,609 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>They're Nearly Identical&#8230;</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Upgrade Packages"
+HREF="ch-rpm-upgrade.html"><LINK
+REL="PREVIOUS"
+TITLE="Upgrading a Package"
+HREF="s1-rpm-upgrade-upgrading-a-package.html"><LINK
+REL="NEXT"
+TITLE="Getting Information About Packages"
+HREF="ch-rpm-query.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-upgrade-upgrading-a-package.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 4. Using RPM to Upgrade Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-query.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-UPGRADE-NEARLY-IDENTICAL"
+>They're Nearly Identical&#8230;</A
+></H1
+><P
+>        Given the fact that <B
+CLASS="COMMAND"
+>rpm -U</B
+> can be used as a
+        replacement to <B
+CLASS="COMMAND"
+>rpm -i</B
+>, it follows that most of the
+        options available for <B
+CLASS="COMMAND"
+>rpm -U</B
+> are identical to those
+        used with <B
+CLASS="COMMAND"
+>rpm -i</B
+>.  Therefore, to keep the duplication
+        to a minimum, we'll discuss only those options that are unique to
+        <B
+CLASS="COMMAND"
+>rpm -U</B
+>, or that behave differently from the same
+        option when used with <B
+CLASS="COMMAND"
+>rpm -i</B
+>.  The table on <A
+HREF="ch-rpm-upgrade.html#TB-RPM-UPGRADE-SYNTAX"
+>Table 4-1</A
+> at the start of this chapter shows all
+        valid options to RPM's upgrade command, and indicates which are
+        identical to those used with <B
+CLASS="COMMAND"
+>rpm -i</B
+>.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-UPGRADE-OLDPACKAGE-OPTION"
+><B
+CLASS="COMMAND"
+>--oldpackage</B
+>: Upgrade To An Older Version</A
+></H2
+><P
+>          This option might be used a bit more by people that like to stay on
+          the "bleeding edge" of new versions of software, but eventually,
+          everyone will probably need to use it.  Usually, the situation plays
+          out like this:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                You hear about some new software that sounds pretty nifty, so
+                you download the <TT
+CLASS="FILENAME"
+>.rpm</TT
+> file and install it.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The software is <I
+CLASS="EMPHASIS"
+>great</I
+>!  It does everything
+                you ask for, and more.  You end up using it every day for the
+                next few months.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                You hear that a new version of your favorite software is
+                available.  You waste no time in getting the package.  You
+                upgrade the software by using <B
+CLASS="COMMAND"
+>rpm -U</B
+>.  No
+                problem!
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Fingers arched in anticipation, you launch the new version.
+                Your computer's screen goes blank!
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          Looks like a bug in the new version.  <I
+CLASS="EMPHASIS"
+>Now</I
+> what do
+          you do?  Hmmm.  Maybe you can just "upgrade" to the older version.
+          Let's try to go back to release 2 of <TT
+CLASS="FILENAME"
+>cdp-0.33</TT
+>
+          from release 3:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Uv cdp-0.33-2.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-2.i386.rpm
+package cdp-0.33-3 (which is newer) is already installed
+error: cdp-0.33-2.i386.rpm cannot be installed</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          That didn't work very well.  At least it told us just what the problem
+          was &#8212; we were trying to upgrade to an older version of a package
+          that is already installed.  Fortunately, there's a special option for
+          just this situation: <B
+CLASS="COMMAND"
+>--oldpackage</B
+>.  Let's give it a
+          try:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Uv --oldpackage cdp-0.33-2.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-2.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          By using the <B
+CLASS="COMMAND"
+>--oldpackage</B
+> option, release 3 of
+          <TT
+CLASS="FILENAME"
+>cdp-0.33</TT
+> is history, and has been replaced by
+          release 2.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-UPGRADE-FORCE-OPTION"
+><B
+CLASS="COMMAND"
+>--force</B
+>: The Big Hammer</A
+></H2
+><P
+>          Adding <B
+CLASS="COMMAND"
+>--force</B
+> to an upgrade command is a way of
+          saying "Upgrade it anyway!"  In essence, it adds
+          <B
+CLASS="COMMAND"
+>--replacepkgs</B
+>, <B
+CLASS="COMMAND"
+>--replacefiles</B
+>,
+          <I
+CLASS="EMPHASIS"
+>and</I
+> <B
+CLASS="COMMAND"
+>--oldpackage</B
+> to the
+          command.  Like a big hammer, <B
+CLASS="COMMAND"
+>--force</B
+> is an
+          irresistible force
+          <A
+NAME="AEN2340"
+HREF="#FTN.AEN2340"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+          that makes things happen.  In fact, the only thing that will prevent a
+          <B
+CLASS="COMMAND"
+>--force</B
+>'ed upgrade from proceeding is a dependency
+          conflict.
+        </P
+><P
+>          And like a big hammer, it pays to fully understand why you need to use
+          <B
+CLASS="COMMAND"
+>--force</B
+> before actually using it.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-UPGRADE-NOSCRIPTS-OPTION"
+><B
+CLASS="COMMAND"
+>--noscripts</B
+>: Do Not Execute Install and Uninstall
+          Scripts</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--noscripts</B
+> option prevents a package's pre-
+          and post-install scripts from being executed.  This is no different
+          than the option's behavior when used with RPM's install command.
+          However, there is an additional point to consider when the option is
+          used during an upgrade.  The following example uses specially-built
+          packages that display messages when their scripts are executed by RPM:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i bother-2.7-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This is the bother 2.7 preinstall script
+This is the bother 2.7 postinstall script</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In this case, a package has been installed.  As expected, its scripts
+          are executed.  Next, let's upgrade this package:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -U bother-3.5-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This is the bother 3.5 preinstall script
+This is the bother 3.5 postinstall script
+This is the bother 2.7 preuninstall script
+This is the bother 2.7 postuninstall script</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          This is a textbook example of the sequence of events during an
+          upgrade.  The new version of the package is installed (as shown by the
+          pre- and post-install scripts being executed).  Finally, the previous
+          version of the package is removed (showing the pre- and
+          post-<I
+CLASS="EMPHASIS"
+>un</I
+>install scripts being executed).
+        </P
+><P
+>          There are really no surprises there &#8212; it worked just the way it
+          was meant to.  This time, let's use the <B
+CLASS="COMMAND"
+>--noscripts</B
+>
+          option when the time comes to perform the upgrade:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i bother-2.7-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This is the bother 2.7 preinstall script
+This is the bother 2.7 postinstall script</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Again, the first package is installed, and its scripts are executed.
+          Now let's try the upgrade using the <B
+CLASS="COMMAND"
+>--noscripts</B
+>
+          option:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -U --noscripts bother-3.5-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This is the bother 2.7 preuninstall script
+This is the bother 2.7 postuninstall script</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The difference here is that the <B
+CLASS="COMMAND"
+>--noscripts</B
+> option
+          prevented the new package's scripts from executing.  The scripts from
+          the package being erased were still executed.
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2340"
+HREF="s1-rpm-upgrade-nearly-identical.html#AEN2340"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              Pun intended.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-upgrade-upgrading-a-package.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-query.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Upgrading a Package</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-upgrade.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Getting Information About Packages</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

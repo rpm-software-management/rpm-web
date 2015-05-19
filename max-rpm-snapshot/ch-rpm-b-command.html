@@ -1,0 +1,4760 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>rpmbuild Command Reference</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Developers &#8212; How to Distribute Your Software More Easily
+      With RPM
+    "
+HREF="p5206.html"><LINK
+REL="PREVIOUS"
+TITLE="When Things Go Wrong"
+HREF="s1-rpm-build-when-things-go-wrong.html"><LINK
+REL="NEXT"
+TITLE="Other Build-related Commands"
+HREF="s1-rpm-b-command-other-build-commands.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-build-when-things-go-wrong.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-b-command-other-build-commands.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-B-COMMAND"
+></A
+>Chapter 12. <B
+CLASS="COMMAND"
+>rpmbuild</B
+> Command Reference</H1
+><DIV
+CLASS="TABLE"
+><A
+NAME="TB-RPM-B-COMMAND-"
+></A
+><P
+><B
+>Table 12-1. <B
+CLASS="COMMAND"
+>rpmbuild</B
+> Command Syntax</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+>              <B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-b<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;stage&#62;</I
+></TT
+>
+                <TT
+CLASS="REPLACEABLE"
+><I
+>options</I
+></TT
+> <TT
+CLASS="FILENAME"
+>file1.spec</TT
+>
+              &#8230; <TT
+CLASS="FILENAME"
+>fileN.spec</TT
+></B
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;stage&#62;</I
+></TT
+>
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>p</B
+>
+            </TD
+><TD
+>              Execute <B
+CLASS="COMMAND"
+>%prep</B
+>
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-BP-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bp</B
+> &#8212; Execute <B
+CLASS="COMMAND"
+>%prep</B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>c</B
+>
+            </TD
+><TD
+>              Execute <B
+CLASS="COMMAND"
+>%prep</B
+>, <B
+CLASS="COMMAND"
+>%build</B
+>
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-BC-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bc</B
+> &#8212; Execute <B
+CLASS="COMMAND"
+>%prep</B
+>,
+          <B
+CLASS="COMMAND"
+>%build</B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>i</B
+>
+            </TD
+><TD
+>              Execute <B
+CLASS="COMMAND"
+>%prep</B
+>, <B
+CLASS="COMMAND"
+>%build</B
+>,
+              <B
+CLASS="COMMAND"
+>%install</B
+>, <B
+CLASS="COMMAND"
+>%check</B
+>
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-BI-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bi</B
+> &#8212; Execute <B
+CLASS="COMMAND"
+>%prep</B
+>,
+          <B
+CLASS="COMMAND"
+>%build</B
+>, <B
+CLASS="COMMAND"
+>%install</B
+>,
+          <B
+CLASS="COMMAND"
+>%check</B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>b</B
+>
+            </TD
+><TD
+>              Execute <B
+CLASS="COMMAND"
+>%prep</B
+>, <B
+CLASS="COMMAND"
+>%build</B
+>,
+              <B
+CLASS="COMMAND"
+>%install</B
+>, <B
+CLASS="COMMAND"
+>%check</B
+>,
+              package (bin)
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-BB-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bb</B
+> &#8212; Execute <B
+CLASS="COMMAND"
+>%prep</B
+>,
+          <B
+CLASS="COMMAND"
+>%build</B
+>, <B
+CLASS="COMMAND"
+>%install</B
+>,
+          <B
+CLASS="COMMAND"
+>%check</B
+>, package (bin)</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>a</B
+>
+            </TD
+><TD
+>              Execute <B
+CLASS="COMMAND"
+>%prep</B
+>, <B
+CLASS="COMMAND"
+>%build</B
+>,
+              <B
+CLASS="COMMAND"
+>%install</B
+>, <B
+CLASS="COMMAND"
+>%check</B
+>,
+              package (bin, src)
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-BA-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba</B
+> &#8212; Execute <B
+CLASS="COMMAND"
+>%prep</B
+>,
+          <B
+CLASS="COMMAND"
+>%build</B
+>, <B
+CLASS="COMMAND"
+>%install</B
+>,
+          <B
+CLASS="COMMAND"
+>%check</B
+>, package (bin, src)</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>l</B
+>
+            </TD
+><TD
+>              Check <B
+CLASS="COMMAND"
+>%files</B
+> list
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-BL-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bl</B
+> &#8212; Check <B
+CLASS="COMMAND"
+>%files</B
+> list</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+>              Parameters
+            </TD
+></TR
+><TR
+><TD
+>              <TT
+CLASS="FILENAME"
+>file1.spec</TT
+> &#8230;
+              <TT
+CLASS="FILENAME"
+>fileN.spec</TT
+>
+            </TD
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              One or more <TT
+CLASS="FILENAME"
+>.spec</TT
+> files
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              Build-specific Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--short-circuit</B
+>
+            </TD
+><TD
+>              Force build to start at particular stage (<B
+CLASS="COMMAND"
+>-bc</B
+>,
+              <B
+CLASS="COMMAND"
+>-bi</B
+> only)
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-SHORT-CIRCUIT-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--short-circuit</B
+> &#8212; Force build to start at
+          particular stage</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--test</B
+>
+            </TD
+><TD
+>              Create, save build scripts for review
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-TEST-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--test</B
+> &#8212; Create, Save Build Scripts For
+          Review</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--clean</B
+>
+            </TD
+><TD
+>              Clean up after build
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-CLEAN-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--clean</B
+> &#8212; Clean up after build</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--sign</B
+>
+            </TD
+><TD
+>              Add a digital signature to the package
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-SIGN-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--sign</B
+> &#8212; Add a Digital Signature to the
+          Package</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--buildroot <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;root&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Execute <B
+CLASS="COMMAND"
+>%install</B
+> using
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;root&#62;</I
+></TT
+></B
+> as the root
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-BUILDROOT-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--buildroot <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+          &#8212; Execute <B
+CLASS="COMMAND"
+>%install</B
+> using
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> as the root</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--buildarch <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;arch&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Perform build for the
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;arch&#62;</I
+></TT
+></B
+>
+              architecture
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-BUILDARCH-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--buildarch <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;arch&#62;</I
+></TT
+></B
+>
+          &#8212; Perform Build For the
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;arch&#62;</I
+></TT
+></B
+>
+          Architecture</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--buildos <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;os&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Perform build for the
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;os&#62;</I
+></TT
+></B
+> operating
+              system
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-BUILDOS-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--buildos <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;os&#62;</I
+></TT
+></B
+>
+          &#8212; Perform Build For the
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;os&#62;</I
+></TT
+></B
+> Operating
+          System</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--timecheck <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;secs&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Print a warning if files are over
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;secs&#62;</I
+></TT
+></B
+> old
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-TIMECHECK-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--timecheck <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;secs&#62;</I
+></TT
+></B
+>
+          &#8212; Print a warning if files to be packaged are over
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;secs&#62;</I
+></TT
+></B
+> old</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              General Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-vv</B
+>
+            </TD
+><TD
+>              Display debugging information
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-VV-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-vv</B
+> &#8212; Display debugging
+        information</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--quiet</B
+>
+            </TD
+><TD
+>              Produce as little output as possible
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-QUIET-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--quiet</B
+> &#8212; Produce as Little Output as
+          Possible</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Set alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-RCFILE-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+          &#8212; Set alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file to
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+></I
+></A
+>
+            </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-B-COMMAND-WHAT-IT-DOES"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> &#8212; What Does it Do?</A
+></H1
+><P
+>        When RPM is invoked with the <B
+CLASS="COMMAND"
+>-b</B
+> option, the process
+        of building a package is started.  The rest of the command will
+        determine exactly what is to be built and how far the build should
+        proceed.  In this chapter, we'll explore every aspect of <B
+CLASS="COMMAND"
+>rpm
+        -b</B
+>.
+      </P
+><P
+>        An RPM build command must have two additional pieces of information,
+        over and above "<B
+CLASS="COMMAND"
+>rpmbuild</B
+>":
+
+        <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>              The names of one or more spec files representing software to be
+              packaged.
+            </P
+></LI
+><LI
+><P
+>              The desired stage at which the build is to stop.
+            </P
+></LI
+></OL
+>
+      </P
+><P
+>        As we discussed in <A
+HREF="ch-rpm-basics.html"
+>Chapter 10</A
+>, the spec file is one
+        of the inputs to RPM's build process.  It contains the information
+        necessary for RPM to perform the build and package the software.
+      </P
+><P
+>        
+        There are a number of stages that RPM goes through during a build.  By
+        specifying that the build process is to stop at a certain stage, the
+        package builder can monitor the build's progress, make any changes
+        necessary, and restart the build.  Let's start by looking at the various
+        stages that can be specified in a build command.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-BP-OPTION"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bp</B
+> &#8212; Execute <B
+CLASS="COMMAND"
+>%prep</B
+></A
+></H2
+><P
+>          The command <B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bp</B
+> directs RPM to execute the very
+          first step in the build process.  In the spec file, this step is
+          labeled <B
+CLASS="COMMAND"
+>%prep</B
+>.  Every command in the
+          <B
+CLASS="COMMAND"
+>%prep</B
+> section will be executed when the
+          <B
+CLASS="COMMAND"
+>-bp</B
+> option is used.
+        </P
+><P
+>          Here's a simple <B
+CLASS="COMMAND"
+>%prep</B
+> section from the spec file we
+          used in <A
+HREF="ch-rpm-build.html"
+>Chapter 11</A
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%prep
+%setup</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          This <B
+CLASS="COMMAND"
+>%prep</B
+> section consists of a single
+          <B
+CLASS="COMMAND"
+>%setup</B
+> macro.  When using <B
+CLASS="COMMAND"
+>rpm
+          -bp</B
+> against this spec file, we can see exactly what
+          <B
+CLASS="COMMAND"
+>%setup</B
+> does:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bp cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+Executing(%prep):
++ umask 022
++ cd /usr/src/redhat/BUILD
++ cd /usr/src/redhat/BUILD
++ rm -rf cdplayer-1.0
++ gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz
++ tar -xvvf -
+drwxrwxr-x root/users        0 Aug  4 22:30 1996 cdplayer-1.0/
+-rw-r--r-- root/users    17982 Nov 10 01:10 1995 cdplayer-1.0/COPYING
+-rw-r--r-- root/users      627 Nov 10 01:10 1995 cdplayer-1.0/ChangeLog
+&#8230;
+-rw-r--r-- root/users     2806 Nov 10 01:10 1995 cdplayer-1.0/volume.c
+-rw-r--r-- root/users     1515 Nov 10 01:10 1995 cdplayer-1.0/volume.h
++ [ 0 -ne 0 ]
++ cd cdplayer-1.0
++ cd /usr/src/redhat/BUILD/cdplayer-1.0
++ chown -R root.root .
++ chmod -R a+rX,g-w,o-w .
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          First, RPM confirms that the <TT
+CLASS="FILENAME"
+>cdplayer</TT
+> package is
+          the subject of this build.  Then it sets the umask and starts
+          executing the <B
+CLASS="COMMAND"
+>%prep</B
+> section.  At this point, the
+          <B
+CLASS="COMMAND"
+>%setup</B
+> macro is doing its thing.  It changes
+          directory into the build area and removes any old copies of
+          <TT
+CLASS="FILENAME"
+>cdplayer</TT
+>'s build tree.
+        </P
+><P
+>          Next, <B
+CLASS="COMMAND"
+>%setup</B
+> unzips the sources and uses
+          <B
+CLASS="COMMAND"
+>tar</B
+> to create the build tree.  We've removed the
+          complete listing of files, but be prepared to see
+          <I
+CLASS="EMPHASIS"
+>lots</I
+> of output if the software being packaged is
+          large.
+        </P
+><P
+>          Finally, <B
+CLASS="COMMAND"
+>%setup</B
+> changes directory into
+          <TT
+CLASS="FILENAME"
+>cdplayer</TT
+>'s build tree and changes ownership and
+          file permissions appropriately.  The <SAMP
+CLASS="COMPUTEROUTPUT"
+>exit
+          0</SAMP
+> signifies the end of the <B
+CLASS="COMMAND"
+>%prep</B
+>
+          section, and therefore, the end of the <B
+CLASS="COMMAND"
+>%setup</B
+>
+          macro.  Since we used the <B
+CLASS="COMMAND"
+>-bp</B
+> option, RPM stopped
+          at this point.  Let's see what RPM left in the build area:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>cd /usr/src/redhat/BUILD</B
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>ls -l</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 1
+drwxr-xr-x   2 root     root         1024 Aug  4 22:30 cdplayer-1.0</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          There's the top-level directory.  Changing directory into
+          <TT
+CLASS="FILENAME"
+>cdplayer-1.0</TT
+>, we find the sources are ready to be
+          built:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>cd cdplayer-1.0</B
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>ls -lF</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 216
+-rw-r--r--   1 root     root        17982 Nov 10  1995 COPYING
+-rw-r--r--   1 root     root          627 Nov 10  1995 ChangeLog
+&#8230;
+-rw-r--r--   1 root     root         2806 Nov 10  1995 volume.c
+-rw-r--r--   1 root     root         1515 Nov 10  1995 volume.h</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          We can see that <B
+CLASS="COMMAND"
+>%setup</B
+>'s <B
+CLASS="COMMAND"
+>chown</B
+>
+          and <B
+CLASS="COMMAND"
+>chmod</B
+> commands did what they were supposed to
+          &#8212; the files are owned by root, with permissions set
+          appropriately.
+        </P
+><P
+>          If not stopped by the <B
+CLASS="COMMAND"
+>-bp</B
+> option, the next step in
+          RPM's build process would be to build the software.  RPM can also be
+          stopped at the end of the <B
+CLASS="COMMAND"
+>%build</B
+> section in the
+          spec file.  This is done by using the <B
+CLASS="COMMAND"
+>-bc</B
+> option:
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-BC-OPTION"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bc</B
+> &#8212; Execute <B
+CLASS="COMMAND"
+>%prep</B
+>,
+          <B
+CLASS="COMMAND"
+>%build</B
+></A
+></H2
+><P
+>          When the <B
+CLASS="COMMAND"
+>-bc</B
+> option is used during a build, RPM
+          stops once the software has been built.  In terms of the spec file,
+          every command in the <B
+CLASS="COMMAND"
+>%build</B
+> section will be
+          executed.  In the following example, we've removed the output from the
+          <B
+CLASS="COMMAND"
+>%prep</B
+> section to cut down on the redundant output,
+          but keep in mind that it is executed nonetheless:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bc cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+Executing(%prep):
+&#8230;
++ exit 0
+Executing(%build):
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ make
+gcc -Wall -O2  -c -I/usr/include/ncurses  cdp.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  color.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  display.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  misc.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  volume.c 
+volume.c: In function `mix_set_volume':
+volume.c:67: warning: implicit declaration of function `ioctl'
+gcc -Wall -O2  -c -I/usr/include/ncurses  hardware.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  database.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  getline.c 
+gcc -o cdp cdp.o color.o display.o misc.o volume.o hardware.o database.o
+getline.o  -I/usr/include/ncurses  -L/usr/lib -lncurses
+groff -Tascii -man cdp.1 | compress &#62;cdp.1.Z
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          After the command, we see RPM executing the <B
+CLASS="COMMAND"
+>%prep</B
+>
+          section (which we've removed almost entirely).  Next, RPM starts
+          executing the contents of the <B
+CLASS="COMMAND"
+>%build</B
+> section.  In
+          our example spec file, the <B
+CLASS="COMMAND"
+>%build</B
+> section looks
+          like this:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%build
+make </SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          We see that prior to the <B
+CLASS="COMMAND"
+>make</B
+> command, RPM changes
+          directory into <TT
+CLASS="FILENAME"
+>cdplayer</TT
+>'s top-level directory.
+          RPM then starts the <B
+CLASS="COMMAND"
+>make</B
+>, which ends with the
+          <B
+CLASS="COMMAND"
+>groff</B
+> command.  At this point, the execution of the
+          <B
+CLASS="COMMAND"
+>%build</B
+> section has been completed.  Since the
+          <B
+CLASS="COMMAND"
+>-bc</B
+> option was used, RPM stops at this point.
+        </P
+><P
+>          The next step in the build process would be to install the newly built
+          software.  This is done in the <B
+CLASS="COMMAND"
+>%install</B
+> (and
+          <B
+CLASS="COMMAND"
+>%check</B
+>) section of the spec file.  RPM can be
+          stopped after the install has taken place by using the
+          <B
+CLASS="COMMAND"
+>-bi</B
+> option:
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-BI-OPTION"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bi</B
+> &#8212; Execute <B
+CLASS="COMMAND"
+>%prep</B
+>,
+          <B
+CLASS="COMMAND"
+>%build</B
+>, <B
+CLASS="COMMAND"
+>%install</B
+>,
+          <B
+CLASS="COMMAND"
+>%check</B
+></A
+></H2
+><P
+>          By using the <B
+CLASS="COMMAND"
+>-bi</B
+> option, RPM is directed to stop
+          once the software is completely built and installed, and the
+          test suite has been run on the build system.  Here's what the
+          output of a build using the <B
+CLASS="COMMAND"
+>-bi</B
+> option looks like:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bi cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+Executing(%prep):
+&#8230;
++ exit 0
+Executing(%build):
+&#8230;
++ exit 0
+Executing(%install):
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ make install
+chmod 755 cdp
+chmod 644 cdp.1.Z
+cp cdp /usr/local/bin
+ln -s /usr/local/bin/cdp /usr/local/bin/cdplay
+cp cdp.1 /usr/local/man/man1
++ exit 0
+Executing(%check):
++ umask 022
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ make test
+All tests run successfully.
++ exit 0
+Executing(%doc):
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ DOCDIR=//usr/doc/cdplayer-1.0-1
++ rm -rf //usr/doc/cdplayer-1.0-1
++ mkdir -p //usr/doc/cdplayer-1.0-1
++ cp -ar README //usr/doc/cdplayer-1.0-1
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As before, we've excised most of the previously described sections.
+          In this example, the <B
+CLASS="COMMAND"
+>%install</B
+> section looks like:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%install
+make install</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          After the <B
+CLASS="COMMAND"
+>%prep</B
+> and <B
+CLASS="COMMAND"
+>%build</B
+>
+          sections, the <B
+CLASS="COMMAND"
+>%install</B
+> section is executed.
+          Looking at the output, we see that RPM changes directory into
+          <TT
+CLASS="FILENAME"
+>cdplayer</TT
+>'s top-level directory and issues the
+          <B
+CLASS="COMMAND"
+>make install</B
+> command, the sole command in the
+          <B
+CLASS="COMMAND"
+>%install</B
+> section.  The output from that point until
+          the first <SAMP
+CLASS="COMPUTEROUTPUT"
+>exit 0</SAMP
+>, is from
+          <B
+CLASS="COMMAND"
+>make install</B
+>.
+        </P
+><P
+>          The next part of the output is from the <B
+CLASS="COMMAND"
+>%check</B
+>
+          section, ie. the sole command <B
+CLASS="COMMAND"
+>make test</B
+>.
+        </P
+><P
+>          The remaining commands are due to the contents of the spec file's
+          <B
+CLASS="COMMAND"
+>%files</B
+> list.  Here's what it looks like:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files
+%doc README
+/usr/local/bin/cdp
+/usr/local/bin/cdplay
+/usr/local/man/man1/cdp.1</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The line responsible is <B
+CLASS="COMMAND"
+>%doc README</B
+>.  The
+          <B
+CLASS="COMMAND"
+>%doc</B
+> tag identifies the file as being
+          documentation.  RPM handles documentation files by creating a
+          directory in <TT
+CLASS="FILENAME"
+>/usr/doc</TT
+> and placing all
+          documentation in it.  The <SAMP
+CLASS="COMPUTEROUTPUT"
+>exit 0</SAMP
+> at
+          the end signifies the end of the <B
+CLASS="COMMAND"
+>%install</B
+> section.
+          RPM stops due to the <B
+CLASS="COMMAND"
+>-bi</B
+> option.
+        </P
+><P
+>          The next step at which RPM's build process can be stopped is after the
+          software's binary package file has been created.  This is done using
+          the <B
+CLASS="COMMAND"
+>-bb</B
+> option:
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-BB-OPTION"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bb</B
+> &#8212; Execute <B
+CLASS="COMMAND"
+>%prep</B
+>,
+          <B
+CLASS="COMMAND"
+>%build</B
+>, <B
+CLASS="COMMAND"
+>%install</B
+>,
+          <B
+CLASS="COMMAND"
+>%check</B
+>, package (bin)</A
+></H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bb cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+Executing(%prep):
+&#8230;
++ exit 0
+Executing(%build):
+&#8230;
++ exit 0
+Executing(%install):
+&#8230;
++ exit 0
+Executing(%check):
+&#8230;
++ exit 0
+Executing(%doc):
+&#8230;
++ exit 0
+Binary Packaging: cdplayer-1.0-1
+Finding dependencies...
+Requires (2): libc.so.5 libncurses.so.2.0
+usr/doc/cdplayer-1.0-1
+usr/doc/cdplayer-1.0-1/README
+usr/local/bin/cdp
+usr/local/bin/cdplay
+usr/local/man/man1/cdp.1
+93 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/cdplayer-1.0-1.i386.rpm
+Executing(%clean):
++ umask 022
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+><P
+>          After executing the <B
+CLASS="COMMAND"
+>%prep</B
+>,
+          <B
+CLASS="COMMAND"
+>%build</B
+>, <B
+CLASS="COMMAND"
+>%install</B
+>, and
+          <B
+CLASS="COMMAND"
+>%check</B
+> sections, and handling any special
+          documentation files, RPM then creates a binary package file.
+          In the sample output, we see that first RPM
+          performs automatic dependency checking.  It does this by determining
+          which shared libraries are required by the executable programs
+          contained in the package.  Next, RPM actually archives the files to be
+          packaged, optionally signs the package file, and outputs the finished
+          product.
+        </P
+><P
+>          The last part of RPM's output looks suspiciously like a section in the
+          spec file being executed.  In our example, there is no
+          <B
+CLASS="COMMAND"
+>%clean</B
+> section.  If there were, however, RPM would
+          have executed any commands in the section.  In the absence of a
+          <B
+CLASS="COMMAND"
+>%clean</B
+> section, RPM simply issues the usual
+          <B
+CLASS="COMMAND"
+>cd</B
+> commands and exits normally.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-BA-OPTION"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba</B
+> &#8212; Execute <B
+CLASS="COMMAND"
+>%prep</B
+>,
+          <B
+CLASS="COMMAND"
+>%build</B
+>, <B
+CLASS="COMMAND"
+>%install</B
+>,
+          <B
+CLASS="COMMAND"
+>%check</B
+>, package (bin, src)</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>-ba</B
+> option directs RPM to perform
+          <I
+CLASS="EMPHASIS"
+>all</I
+> the stages in building a package.  With this
+          one command, RPM:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Unpacks the original sources.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Applies patches (if desired).
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Builds the software.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Installs the software.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Runs the test suite for the software.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Creates the binary package file.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Creates the source package file.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          That's quite a bit of work for one command!  Here it is, in action:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+Executing(%prep):
+&#8230;
++ exit 0
+Executing(%build):
+&#8230;
++ exit 0
+Executing(%install):
+&#8230;
++ exit 0
+Executing(%check):
+&#8230;
++ exit 0
+Executing(%doc):
+&#8230;
++ exit 0
+Binary Packaging: cdplayer-1.0-1
+&#8230;
+Executing(%clean):
+&#8230;
++ exit 0
+Source Packaging: cdplayer-1.0-1
+cdplayer-1.0.spec
+cdplayer-1.0.tgz
+80 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/SRPMS/cdplayer-1.0-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As in previous examples, RPM executes the <B
+CLASS="COMMAND"
+>%prep</B
+>,
+          <B
+CLASS="COMMAND"
+>%build</B
+>, <B
+CLASS="COMMAND"
+>%install</B
+>, and
+          <B
+CLASS="COMMAND"
+>%check</B
+> sections, handles any special
+          documentation files, creates a binary package file, and cleans up
+          after itself.
+        </P
+><P
+>          The final step in the build process is to create a source package
+          file.  As the output shows, it consists of the spec file and the
+          original sources.  A source package may optionally include one or more
+          patch files, although in our example, <TT
+CLASS="FILENAME"
+>cdplayer</TT
+>
+          requires none.
+        </P
+><P
+>          At the end of a build using the <B
+CLASS="COMMAND"
+>-ba</B
+> option, the
+          software has been successfully built and packaged in both binary and
+          source form.  But there are a few more build-time options that we can
+          use.  One of them is the <B
+CLASS="COMMAND"
+>-bl</B
+> option:
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-BL-OPTION"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bl</B
+> &#8212; Check <B
+CLASS="COMMAND"
+>%files</B
+> list</A
+></H2
+><P
+>          There's one last letter that may be specified with <B
+CLASS="COMMAND"
+>rpm
+          -b</B
+>, but unlike the others, which indicate the stage at which
+          the build process is to stop, this option performs a variety of checks
+          on the <B
+CLASS="COMMAND"
+>%files</B
+> list in the named spec file.  When
+          <B
+CLASS="COMMAND"
+>l</B
+> is added to <B
+CLASS="COMMAND"
+>rpmbuild</B
+>, the
+          following checks are performed:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Expands the spec file's <B
+CLASS="COMMAND"
+>%files</B
+> list and
+                checks that each file listed actually exists.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Determines what shared libraries the software requires by
+                examining every executable file listed.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Determines what shared libraries are provided by the package.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          Why is it necessary to do all this checking?  When would it be useful?
+          Keep in mind that the <B
+CLASS="COMMAND"
+>%files</B
+> list must be generated
+          manually.  By using the <B
+CLASS="COMMAND"
+>-bl</B
+> option, the following
+          steps are all that's necessary to create a <B
+CLASS="COMMAND"
+>%files</B
+>
+          list:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Writing the <B
+CLASS="COMMAND"
+>%files</B
+> list.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Using the <B
+CLASS="COMMAND"
+>-bl</B
+> option to check the
+                <B
+CLASS="COMMAND"
+>%files</B
+> list.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Making any necessary changes to the <B
+CLASS="COMMAND"
+>%files</B
+>
+                list.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          It may take more than one iteration through these steps, but
+          eventually the list check will pass.  Using the <B
+CLASS="COMMAND"
+>-bl</B
+>
+          option to check the <B
+CLASS="COMMAND"
+>%files</B
+> list is certainly better
+          than starting a two-hour package build, only to find out at the very
+          end that the list contains a misspelled filename.
+        </P
+><P
+>          Here's an example of the <B
+CLASS="COMMAND"
+>-bl</B
+> option in action:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bl cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+File List Check: cdplayer-1.0-1
+Finding dependencies...
+Requires (2): libc.so.5 libncurses.so.2.0</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          It's hard to see exactly what RPM is doing from the output, but if we
+          add <B
+CLASS="COMMAND"
+>-vv</B
+>, we can get a bit more information:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bl -vv cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: Switched to BASE package
+D: Source(0) = sunsite.unc.edu:/pub/Linux/apps/sound/cds/cdplayer-1.0.tgz
+D: Switching to part: 12
+D: fileFile = 
+D: Switched to package: (null)
+D: Switching to part: 2
+D: fileFile = 
+D: Switching to part: 3
+D: fileFile = 
+D: Switching to part: 4
+D: fileFile = 
+D: Switching to part: 10
+D: fileFile = 
+D: Switched to package: (null)
+* Package: cdplayer
+File List Check: cdplayer-1.0-1
+D: ADDING: /usr/doc/cdplayer-1.0-1
+D: ADDING: /usr/doc/cdplayer-1.0-1/README
+D: ADDING: /usr/local/bin/cdp
+D: ADDING: /usr/local/bin/cdplay
+D: ADDING: /usr/local/man/man1/cdp.1
+D: md5(/usr/doc/cdplayer-1.0-1/README) = 2c149b2fb1a4d65418131a19b242601c
+D: md5(/usr/local/bin/cdp) = 0f2a7a2f81812c75fd01c52f456798d6
+D: md5(/usr/local/bin/cdplay) = d41d8cd98f00b204e9800998ecf8427e
+D: md5(/usr/local/man/man1/cdp.1) = b32cc867ae50e2bdfa4d6780b084adfa
+Finding dependencies...
+D: Adding require: libncurses.so.2.0
+D: Adding require: libc.so.5
+Requires (2): libc.so.5 libncurses.so.2.0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Looking at this more verbose output, it's easy to see there's a great
+          deal going on.  Some of it is not directly pertinent to checking the
+          <B
+CLASS="COMMAND"
+>%files</B
+> list, however.  For example, the output
+          extending from the first line, to the line reading <SAMP
+CLASS="COMPUTEROUTPUT"
+>*
+          Package: cdplayer</SAMP
+>, reflects processing that takes
+          place during actual package building, and can be ignored.
+        </P
+><P
+>          Following that section is the actual <B
+CLASS="COMMAND"
+>%files</B
+> list
+          check.  In this section, every file named in the
+          <B
+CLASS="COMMAND"
+>%files</B
+> list is checked to make sure it exists.  The
+          phrase, <SAMP
+CLASS="COMPUTEROUTPUT"
+>ADDING:</SAMP
+>, again reflects RPM's
+          package building roots.  When using the <B
+CLASS="COMMAND"
+>-bl</B
+> option,
+          however, RPM is simply making sure the files exist on the build
+          system.  If the <B
+CLASS="COMMAND"
+>--timecheck</B
+> option (described a bit
+          later, on <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-TIMECHECK-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--timecheck <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;secs&#62;</I
+></TT
+></B
+>
+          &#8212; Print a warning if files to be packaged are over
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;secs&#62;</I
+></TT
+></B
+> old</I
+></A
+>) is
+          present, the checks required by that option are performed here, as
+          well.
+        </P
+><P
+>          After the list check, the MD5 checksums of each file are calculated
+          and displayed.  While this information is vital during actual package
+          building, it is not used when using the <B
+CLASS="COMMAND"
+>-bl</B
+> option.
+        </P
+><P
+>          Finally, RPM determines which shared libraries the listed files
+          require.  In this case, there are only two &#8212;
+          <TT
+CLASS="FILENAME"
+>libc.so.5</TT
+>, and
+          <TT
+CLASS="FILENAME"
+>libncurses.so.2.0</TT
+>.  While not strictly a part of
+          the list-checking process, displaying shared library dependencies can
+          be quite helpful at this point.  It can point out possible problems,
+          such as assuming that the target systems have a certain library
+          installed when, in fact, they do not.
+        </P
+><P
+>          So far, we've only seen what happens when the
+          <B
+CLASS="COMMAND"
+>%files</B
+> list is correct.  Let's see what happens
+          where the list has problems.  In this example, we've added a bogus
+          file to the package's <B
+CLASS="COMMAND"
+>%files</B
+> list:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bl cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+File List Check: cdplayer-1.0-1
+File not found: /usr/local/bin/bogus
+Build failed.</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Reflecting more of its package building roots, <B
+CLASS="COMMAND"
+>rpm
+          -bl</B
+> says that the "build failed".  But the bottom line is
+          that there is no such file as <TT
+CLASS="FILENAME"
+>/usr/bin/bogus</TT
+>.  In
+          this example we made the name obviously wrong, but in a more
+          real-world setting, the name will more likely be a misspelling in the
+          <B
+CLASS="COMMAND"
+>%files</B
+> list.  OK, let's correct the
+          <B
+CLASS="COMMAND"
+>%files</B
+> list and try again:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bl cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+File List Check: cdplayer-1.0-1
+File not found: /usr/local/bin/cdplay
+Build failed.</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Another error!  In this case the file is spelled correctly, but it is
+          not on the build system, even though it should be.  Perhaps it was
+          deleted accidentally.  In any case, let's rebuild the software and try
+          again:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bi cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+Executing(%prep):
+&#8230;
++ exit 0
+Executing(%build):
+&#8230;
++ exit 0
+Executing(%install):
+&#8230;
+ln -s /usr/local/bin/cdp /usr/local/bin/cdplay
+&#8230;
++ exit 0
+Executing(%check):
+&#8230;
++ exit 0
+Executing(%doc):
+&#8230;
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bl cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+File List Check: cdplayer-1.0-1
+Finding dependencies...
+Requires (2): libc.so.5 libncurses.so.2.0</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Done!  The moral to this story is that using <B
+CLASS="COMMAND"
+>rpm
+          -bl</B
+> and fixing the error it flagged doesn't necessarily mean
+          your <B
+CLASS="COMMAND"
+>%files</B
+> list is ready for prime-time: Always
+          run it again to make sure!
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-SHORT-CIRCUIT-OPTION"
+><B
+CLASS="COMMAND"
+>--short-circuit</B
+> &#8212; Force build to start at
+          particular stage</A
+></H2
+><P
+>          Although it sounds dangerous, the <B
+CLASS="COMMAND"
+>--short-circuit</B
+>
+          option can be your friend.  This option is used during the initial
+          development of a package.  Earlier in the chapter, we explored
+          stopping RPM's build process at different stages.  Using
+          <B
+CLASS="COMMAND"
+>--short-circuit</B
+>, we can <I
+CLASS="EMPHASIS"
+>start</I
+>
+          the build process at different stages.
+        </P
+><P
+>          One time that <B
+CLASS="COMMAND"
+>--short-circuit</B
+> comes in handy is
+          when you're trying to get software to build properly.  Just think what
+          it would be like &#8212; you're hacking away at the sources, trying a
+          build, getting an error, and hacking some more to fix that error.
+          Without <B
+CLASS="COMMAND"
+>--short-circuit</B
+>, you'd have to:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                Make your change to the sources.
+              </P
+></LI
+><LI
+><P
+>                Use <B
+CLASS="COMMAND"
+>tar</B
+> to create a new source archive.
+              </P
+></LI
+><LI
+><P
+>                Start a build with something like <B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bc</B
+>.
+              </P
+></LI
+><LI
+><P
+>                See another bug.
+              </P
+></LI
+><LI
+><P
+>                Go back to step 1.
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          Pretty cumbersome!  Since RPM's build process is designed to start
+          with the sources in their original <B
+CLASS="COMMAND"
+>tar</B
+> file, unless
+          your modifications end up in that <B
+CLASS="COMMAND"
+>tar</B
+> file, they
+          won't be used in the next build.
+          <A
+NAME="AEN6552"
+HREF="#FTN.AEN6552"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        </P
+><P
+>          But there's another way.  Just follow these steps:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                Place the original source <B
+CLASS="COMMAND"
+>tar</B
+> file in RPM's
+                <TT
+CLASS="FILENAME"
+>SOURCES</TT
+> directory.
+              </P
+></LI
+><LI
+><P
+>                Create a partial spec file in RPM's <TT
+CLASS="FILENAME"
+>SPECS</TT
+>
+                directory (Be sure to include a valid <B
+CLASS="COMMAND"
+>Source</B
+>
+                line).
+              </P
+></LI
+><LI
+><P
+>                Issue an <B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bp</B
+> to properly create the build
+                environment.
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          Now use <B
+CLASS="COMMAND"
+>--short-circuit</B
+> to attempt a compile.
+          Here's an example:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bc --short-circuit cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+Executing(%build):
++ umask 022
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ make
+gcc -Wall -O2  -c -I/usr/include/ncurses  cdp.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  color.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  display.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  misc.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  volume.c 
+volume.c: In function `mix_set_volume':
+volume.c:67: warning: implicit declaration of function `ioctl'
+gcc -Wall -O2  -c -I/usr/include/ncurses  hardware.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  database.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  getline.c 
+gcc -o cdp cdp.o color.o display.o misc.o volume.o
+     hardware.o database.o getline.o  -I/usr/include/ncurses
+     -L/usr/lib -lncurses
+groff -Tascii -man cdp.1 | compress &#62;cdp.1.Z
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Normally, the <B
+CLASS="COMMAND"
+>-bc</B
+> option instructs RPM to
+          <I
+CLASS="EMPHASIS"
+>stop</I
+> the build after the
+          <B
+CLASS="COMMAND"
+>%build</B
+> section of the spec file has been executed.
+          By adding <B
+CLASS="COMMAND"
+>--short-circuit</B
+>, however, RPM
+          <I
+CLASS="EMPHASIS"
+>starts</I
+> the build by executing the
+          <B
+CLASS="COMMAND"
+>%build</B
+> section and stops when everything in
+          <B
+CLASS="COMMAND"
+>%build</B
+> has been executed.
+        </P
+><P
+>          There is only one other build stage that can be
+          <B
+CLASS="COMMAND"
+>--short-circuit</B
+>'ed, and that is the install stage.
+          The reason for this restriction is to make it difficult to bypass
+          RPM's use of pristine sources.  If it were possible to
+          <B
+CLASS="COMMAND"
+>--short-circuit</B
+> to <B
+CLASS="COMMAND"
+>-bb</B
+> or
+          <B
+CLASS="COMMAND"
+>-ba</B
+>, a package builder might take the "easy" way
+          out and simply hack at the build tree until the software built
+          successfully, then package the hacked sources.  So, RPM will only
+          <B
+CLASS="COMMAND"
+>--short-circuit</B
+> to <B
+CLASS="COMMAND"
+>-bc</B
+> or
+          <B
+CLASS="COMMAND"
+>-bi</B
+>.  Nothing else will do.
+        </P
+><P
+>          What exactly does an <B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bi --short-circuit</B
+> do,
+          anyway?  Like an <B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bc --short-circuit</B
+>, it starts
+          executing at the named stage, which in this case is
+          <B
+CLASS="COMMAND"
+>%install</B
+>.  Note that the build environment must be
+          ready to perform an install before attempting to
+          <B
+CLASS="COMMAND"
+>--short-circuit</B
+> to the <B
+CLASS="COMMAND"
+>%install</B
+>
+          stage.  If the software installs via <B
+CLASS="COMMAND"
+>make install</B
+>,
+          <B
+CLASS="COMMAND"
+>make</B
+> will automatically compile the software
+          anyway.
+        </P
+><P
+>          And what happens if the build environment isn't ready and a
+          <B
+CLASS="COMMAND"
+>--short-circuit</B
+> is attempted?  Let's see:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bi --short-circuit cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+Executing(%install):
++ umask 022
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
+/var/tmp/rpmbu01157aaa: cdplayer-1.0: No such file or directory
+Bad exit status</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          RPM blindly started executing the <B
+CLASS="COMMAND"
+>%install</B
+> stage,
+          but came to an abrupt halt when it attempted to change directory into
+          <TT
+CLASS="FILENAME"
+>cdplayer-1.0</TT
+>, which didn't exist.  After giving a
+          descriptive error message, RPM exited with a failure status.  Except
+          for some minor differences, <B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bc</B
+> would have
+          failed in the same way.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-BUILDARCH-OPTION"
+><B
+CLASS="COMMAND"
+>--buildarch <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;arch&#62;</I
+></TT
+></B
+>
+          &#8212; Perform Build For the
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;arch&#62;</I
+></TT
+></B
+>
+          Architecture</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--buildarch</B
+> option is used to override RPM's
+          architecture detection logic.  The option is followed by the desired
+          architecture name.  Here's an example:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba --buildarch i486 cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+&#8230;
+Binary Packaging: cdplayer-1.0-1
+&#8230;
+Wrote: /usr/src/redhat/RPMS/i486/cdplayer-1.0-1.i486.rpm
+&#8230;
+Wrote: /usr/src/redhat/SRPMS/cdplayer-1.0-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          We've removed most of RPM's output from this example, but the main
+          thing we can see from this example is that the package was built for
+          the <TT
+CLASS="FILENAME"
+>i486</TT
+> architecture, due to the inclusion of
+          the <B
+CLASS="COMMAND"
+>--buildarch</B
+> option on the command line.  We can
+          also see that RPM wrote the binary package in the
+          architecture-specific directory,
+          <TT
+CLASS="FILENAME"
+>/usr/src/redhat/RPMS/i486</TT
+>.  Using RPM's
+          <B
+CLASS="COMMAND"
+>--queryformat</B
+> option confirms the package's
+          architecture:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmquery</B
+> <B
+CLASS="COMMAND"
+>-qp --queryformat '%{arch}\n' /usr/src/redhat/RPMS/i486/cdplayer-1.0-1.i486.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>i486</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          For more information on build packages for multiple architectures,
+          please see <A
+HREF="ch-rpm-multi.html"
+>Chapter 19</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-BUILDOS-OPTION"
+><B
+CLASS="COMMAND"
+>--buildos <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;os&#62;</I
+></TT
+></B
+>
+          &#8212; Perform Build For the
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;os&#62;</I
+></TT
+></B
+> Operating
+          System</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--buildos</B
+> option is used to override RPM's
+          operating system detection logic.  The option is followed by the
+          desired operating system name.  Here's an example:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba --buildos osf1 cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#8230;
+Binary Packaging: cdplayer-1.0-1
+&#8230;
+Wrote: /usr/src/redhat/RPMS/i386/cdplayer-1.0-1.i386.rpm
+Source Packaging: cdplayer-1.0-1
+&#8230;
+Wrote: /usr/src/redhat/SRPMS/cdplayer-1.0-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          There's nothing in the build output that explicitly states the build
+          operating system as been set to <B
+CLASS="COMMAND"
+>osf1</B
+>.  Let's see if
+          <B
+CLASS="COMMAND"
+>--queryformat</B
+> will tell us:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmquery</B
+> <B
+CLASS="COMMAND"
+>-qp --queryformat '%{os}\n' /usr/src/redhat/RPMS/i386/cdplayer-1.0-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>osf1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The package was indeed built for the specified operating system.  For
+          more information on building packages for multiple operating systems,
+          please see <A
+HREF="ch-rpm-multi.html"
+>Chapter 19</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-SIGN-OPTION"
+><B
+CLASS="COMMAND"
+>--sign</B
+> &#8212; Add a Digital Signature to the
+          Package</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--sign</B
+> option directs RPM to add a digital
+          signature to the package being built.  Currently, this is done using
+          PGP.  Here's an example of <B
+CLASS="COMMAND"
+>--sign</B
+> in action:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba --sign cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Enter pass phrase: <KBD
+CLASS="USERINPUT"
+>passphrase</KBD
+> (not echoed)
+Pass phrase is good.
+* Package: cdplayer
+&#8230;
+Binary Packaging: cdplayer-1.0-1
+&#8230;
+Generating signature: 1002
+Wrote: /usr/src/redhat/RPMS/i386/cdplayer-1.0-1.i386.rpm
+&#8230;
+Source Packaging: cdplayer-1.0-1
+&#8230;
+Generating signature: 1002
+Wrote: /usr/src/redhat/SRPMS/cdplayer-1.0-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The most obvious effect of adding the <B
+CLASS="COMMAND"
+>--sign</B
+> option
+          to a build command is that RPM then asks for your private key's
+          passphrase.  After entering the passphrase (which isn't echoed), the
+          build proceeds as usual.  The only other difference between this and a
+          non-signed build is that the <SAMP
+CLASS="COMPUTEROUTPUT"
+>Generating
+          signature:</SAMP
+> lines have a non-zero value.
+        </P
+><P
+>          Let's check the source and binary packages we've just created and see
+          if they are, in fact, signed:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmsign</B
+> <B
+CLASS="COMMAND"
+>--checksig /usr/src/redhat/SRPMS/cdplayer-1.0-1.src.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/src/redhat/SRPMS/cdplayer-1.0-1.src.rpm: size pgp md5 OK</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmsign</B
+> <B
+CLASS="COMMAND"
+>--checksig /usr/src/redhat/RPMS/i386/cdplayer-1.0-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/src/redhat/RPMS/i386/cdplayer-1.0-1.i386.rpm: size pgp md5 OK</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The fact that there is a <B
+CLASS="COMMAND"
+>pgp</B
+> in
+          <B
+CLASS="COMMAND"
+>--checksig</B
+>'s output indicates that the packages
+          have been signed.
+        </P
+><P
+>          For more information on signing packages, please see <A
+HREF="ch-rpm-pgp.html"
+>Chapter 17</A
+>.  Also, <A
+HREF="ch-pgp-intro.html"
+>Appendix G</A
+>
+          contains information on obtaining and installing PGP.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-TEST-OPTION"
+><B
+CLASS="COMMAND"
+>--test</B
+> &#8212; Create, Save Build Scripts For
+          Review</A
+></H2
+><P
+>          There are times when it might be necessary to get a more in-depth view
+          of a particular build.  By using the <B
+CLASS="COMMAND"
+>--test</B
+> option,
+          it's easy.  When <B
+CLASS="COMMAND"
+>--test</B
+> is added to a build
+          command, the scripts RPM would normally use to actually perform the
+          build, are created and saved for you to review.  Let's see how it
+          works:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba --test cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Unlike a normal build, there's not much output.  But the
+          <B
+CLASS="COMMAND"
+>--test</B
+> option has caused a set of scripts to be
+          written and saved for you.  The question is: Where are they?
+        </P
+><P
+>          If you are using a customized <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file, the
+          scripts will be written to the directory specified by the
+          <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> entry <B
+CLASS="COMMAND"
+>tmppath</B
+>.  If you
+          haven't changed this setting, RPM, by default, writes the scripts in
+          <TT
+CLASS="FILENAME"
+>/var/tmp</TT
+>.  Here they are:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>ls -l /var/tmp</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 4
+-rw-rw-r--   1 root     root          670 Sep 17 20:35 rpmbu00236aaa
+-rw-rw-r--   1 root     root          449 Sep 17 20:35 rpmbu00236baa
+-rw-rw-r--   1 root     root          482 Sep 17 20:35 rpmbu00236caa
+-rw-rw-r--   1 root     root          552 Sep 17 20:35 rpmbu00236daa</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Each file contains a script that performs a given part of the build.
+          Here's the first file:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#!/bin/sh -e
+# Script generated by rpm
+
+RPM_SOURCE_DIR="/usr/src/redhat/SOURCES"
+RPM_BUILD_DIR="/usr/src/redhat/BUILD"
+RPM_DOC_DIR="/usr/doc"
+RPM_OPT_FLAGS="-O2 -m486 -fno-strength-reduce"
+RPM_ARCH="i386"
+RPM_OS="Linux"
+RPM_ROOT_DIR="/tmp/cdplayer"
+RPM_BUILD_ROOT="/tmp/cdplayer"
+RPM_PACKAGE_NAME="cdplayer"
+RPM_PACKAGE_VERSION="1.0"
+RPM_PACKAGE_RELEASE="1"
+set -x
+
+umask 022
+
+echo Executing(%prep)
+cd /usr/src/redhat/BUILD
+
+cd /usr/src/redhat/BUILD
+rm -rf cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd cdplayer-1.0
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As we can see, this script contains the <B
+CLASS="COMMAND"
+>%prep</B
+>
+          section from the spec file.  The script starts off by defining a
+          number of environment variables and then leads into the
+          <B
+CLASS="COMMAND"
+>%prep</B
+> section.  In the spec file used in this
+          build, the <B
+CLASS="COMMAND"
+>%prep</B
+> section consists of a single
+          <B
+CLASS="COMMAND"
+>%setup</B
+> macro.  In this file, we can see exactly how
+          RPM expands that macro.  The remaining files follow the same basic
+          layout &#8212; a section defining environment variables, followed by
+          the commands to be executed.
+        </P
+><P
+>          Note that the <B
+CLASS="COMMAND"
+>--test</B
+> option will only create script
+          files for each build stage, as specified in the command line.  For
+          example, if the above command was changed to:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bp --test cdplayer-1.0.spec</B
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          only one script file, containing the <B
+CLASS="COMMAND"
+>%prep</B
+>
+          commands, would be written.  In any case, no matter what RPM build
+          command is used, the <B
+CLASS="COMMAND"
+>--test</B
+> option can let you see
+          exactly what is going to happen during a build.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-CLEAN-OPTION"
+><B
+CLASS="COMMAND"
+>--clean</B
+> &#8212; Clean up after build</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--clean</B
+> option can be used to ensure that the
+          package's build directory tree is removed at the end of a build.
+          Although it can be used with any build stage, it doesn't always make
+          much sense to do so:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bp --clean cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+Executing(%prep):
+&#8230;
++ exit 0
+Executing(--clean):
++ cd /usr/src/redhat/BUILD
++ rm -rf cdplayer-1.0
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In this example, we see a typical <B
+CLASS="COMMAND"
+>%prep</B
+> section
+          being executed.  The line
+          "<SAMP
+CLASS="COMPUTEROUTPUT"
+>Executing(--clean):</SAMP
+>" indicates
+          the start of the <B
+CLASS="COMMAND"
+>--clean</B
+>'s activity.
+          After changing directory into
+          the build directory, RPM then issues a recursive delete on the
+          package's top-level directory.
+        </P
+><P
+>          As we noted above, this particular example doesn't make much sense.
+          We're only executing the <B
+CLASS="COMMAND"
+>%prep</B
+> section, which
+          creates the package's build tree, and using
+          <B
+CLASS="COMMAND"
+>--clean</B
+>, which removes it!  Using
+          <B
+CLASS="COMMAND"
+>--clean</B
+> with the <B
+CLASS="COMMAND"
+>-bc</B
+> option
+          isn't very productive either, as the newly built software remains in
+          the build tree.  Once again, there would be no remnants left after
+          <B
+CLASS="COMMAND"
+>--clean</B
+> has done its thing.
+        </P
+><P
+>          Normally, the <B
+CLASS="COMMAND"
+>--clean</B
+> option is used once the
+          software builds and can be packaged successfully.  It is particularly
+          useful when more than one package is to be built, since
+          <B
+CLASS="COMMAND"
+>--clean</B
+> ensures that the filesystem holding the
+          build area will not fill up with build trees from each package.
+        </P
+><P
+>          Note also that the <B
+CLASS="COMMAND"
+>--clean</B
+> option only removes the
+          files that reside in the software's build tree.  If there are any
+          files that the build creates outside of this hierarchy, it will be
+          necessary to write a script for the spec file's
+          <B
+CLASS="COMMAND"
+>%clean</B
+> section.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-BUILDROOT-OPTION"
+><B
+CLASS="COMMAND"
+>--buildroot <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+          &#8212; Execute <B
+CLASS="COMMAND"
+>%install</B
+> using
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> as the root</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--buildroot</B
+> option can make two difficult
+          situations much easier:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Performing a build without impacting the build system.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Allowing non-root users to build packages.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          Let's study the first situation in a bit more detail.  Say, for
+          example, that <TT
+CLASS="APPLICATION"
+>sendmail</TT
+> is to be packaged.
+          In the course of creating a <TT
+CLASS="APPLICATION"
+>sendmail</TT
+>
+          package, the software must be installed.  This would mean that
+          critical <TT
+CLASS="APPLICATION"
+>sendmail</TT
+> files, such as
+          <TT
+CLASS="FILENAME"
+>sendmail.cf</TT
+> and <TT
+CLASS="FILENAME"
+>aliases</TT
+>,
+          would be overwritten.  Mail handling on the build system would almost
+          certainly be disrupted.
+        </P
+><P
+>          In the second case, it's certainly possible to set permissions such
+          that non-root users can install software, but highly unlikely that any
+          system administrator worth their salt would do so.  What can be done
+          to make these situations more tenable?
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>--buildroot</B
+> option is used to instruct RPM to
+          use a directory other than <TT
+CLASS="FILENAME"
+>/</TT
+> as a "build root".
+          This phrase is a bit misleading, in that the build root is
+          <I
+CLASS="EMPHASIS"
+>not</I
+> the root directory under which the software
+          is built.  Rather, it is the root directory for the install phase of
+          the build.  When a build root is not specified, the software being
+          packaged is installed relative to the build system's root directory
+          "<TT
+CLASS="FILENAME"
+>/</TT
+>".
+        </P
+><P
+>          However, it's not enough to just specify a build root on the command
+          line.  The spec file for the package must be set up to support a build
+          root.  If you don't make the necessary changes, this is what you'll
+          see:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba --buildroot /tmp/foo cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Package can not do build prefixes
+Build failed.</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          <A
+HREF="ch-rpm-anywhere.html"
+>Chapter 16</A
+> has complete instructions on
+          the modifications necessary to configure a package to use an alternate
+          build root, as well as methods to permit users to build packages
+          without root access.  Assuming that the necessary modifications have
+          been made, here is what the build would look like:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba --buildroot /tmp/foonly cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+Executing(%prep):
++ cd /usr/src/redhat/BUILD
+&#8230;
++ exit 0
+Executing(%build):
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
+&#8230;
++ exit 0
+Executing(%install):
++ umask 022
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ make ROOT=/tmp/foonly install
+install -m 755 -o 0 -g 0 -d /tmp/foonly/usr/local/bin/
+install -m 755 -o 0 -g 0 cdp /tmp/foonly/usr/local/bin/cdp
+rm -f /tmp/foonly/usr/local/bin/cdplay
+ln -s /tmp/foonly/usr/local/bin/cdp /tmp/foonly/usr/local/bin/cdplay
+install -m 755 -o 0 -g 0 -d /tmp/foonly/usr/local/man/man1/
+install -m 755 -o 0 -g 0 cdp.1 /tmp/foonly/usr/local/man/man1/cdp.1
++ exit 0
+Executing(%check):
++ umask 022
+&#8230;
++ exit 0
+Executing(%doc):
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ DOCDIR=/tmp/foonly//usr/doc/cdplayer-1.0-1
++ rm -rf /tmp/foonly//usr/doc/cdplayer-1.0-1
++ mkdir -p /tmp/foonly//usr/doc/cdplayer-1.0-1
++ cp -ar README /tmp/foonly//usr/doc/cdplayer-1.0-1
++ exit 0
+Binary Packaging: cdplayer-1.0-1
+Finding dependencies...
+Requires (2): libc.so.5 libncurses.so.2.0
+usr/doc/cdplayer-1.0-1
+usr/doc/cdplayer-1.0-1/README
+usr/local/bin/cdp
+usr/local/bin/cdplay
+usr/local/man/man1/cdp.1
+93 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/cdplayer-1.0-1.i386.rpm
+Executing(%clean):
++ umask 022
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ exit 0
+Source Packaging: cdplayer-1.0-1
+cdplayer-1.0.spec
+cdplayer-1.0.tgz
+82 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/SRPMS/cdplayer-1.0-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As the somewhat edited output shows, the <B
+CLASS="COMMAND"
+>%prep</B
+>,
+          <B
+CLASS="COMMAND"
+>%build</B
+>, and <B
+CLASS="COMMAND"
+>%install</B
+> sections
+          are executed in RPM's normal build directory.  However, the
+          <B
+CLASS="COMMAND"
+>--buildroot</B
+> option comes into play when the
+          <B
+CLASS="COMMAND"
+>make install</B
+> is done.  As we can see, the
+          <CODE
+CLASS="ENVAR"
+>ROOT</CODE
+> variable is set to
+          <TT
+CLASS="FILENAME"
+>/tmp/foonly</TT
+>, which was the value following
+          <B
+CLASS="COMMAND"
+>--buildroot</B
+> on the command line.  From that point
+          on, we can see that <B
+CLASS="COMMAND"
+>make</B
+> substituted the new build
+          root value during the install phase.
+        </P
+><P
+>          The build root is also used when documentation files are installed.
+          The documentation directory <TT
+CLASS="FILENAME"
+>cdplayer-1.0-1</TT
+> is
+          created in <TT
+CLASS="FILENAME"
+>/tmp/foonly/usr/doc</TT
+>, and the
+          <TT
+CLASS="FILENAME"
+>README</TT
+> file is placed in it.
+        </P
+><P
+>          The only remaining difference that results from using
+          <B
+CLASS="COMMAND"
+>--buildroot</B
+>, is that the files to be included in
+          the binary package are not located relative to the build system's root
+          directory.  Instead they are located relative to the build root
+          <TT
+CLASS="FILENAME"
+>/tmp/foonly</TT
+>.  The resulting binary and source
+          package files are functionally equivalent to packages built without
+          the use of <B
+CLASS="COMMAND"
+>--buildroot</B
+>.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-B-COMMAND-BUILDROOT-WARNING"
+>Using <B
+CLASS="COMMAND"
+>--buildroot</B
+> Can Bite You!</A
+></H3
+><P
+>            Although the <B
+CLASS="COMMAND"
+>--buildroot</B
+> option can solve some
+            problems, using a build root can actually be dangerous.  How?
+            Consider the following situation:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  A spec file is configured to have a build root of
+                  <TT
+CLASS="FILENAME"
+>/tmp/blather</TT
+>, for instance.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  In the <B
+CLASS="COMMAND"
+>%prep</B
+> section
+                  <A
+NAME="AEN6863"
+HREF="#FTN.AEN6863"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+                  , there is an <B
+CLASS="COMMAND"
+>rm -rf $RPM_BUILD_ROOT</B
+>
+                  command to clean out any old installed software.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  You decide to build the software so that it installs relative
+                  to your system's root directory, so you enter the following
+                  command: "<B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba --buildroot / foo.spec</B
+>".
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            The end result?  Since specifying "<TT
+CLASS="FILENAME"
+>/</TT
+>" as the
+            build root sets <CODE
+CLASS="ENVAR"
+>$RPM_BUILD_ROOT</CODE
+> to
+            "<TT
+CLASS="FILENAME"
+>/</TT
+>", that innocuous little <B
+CLASS="COMMAND"
+>rm -rf
+            <CODE
+CLASS="ENVAR"
+>$RPM_BUILD_ROOT</CODE
+></B
+> turns into <B
+CLASS="COMMAND"
+>rm -rf
+            /</B
+>!  A recursive delete, starting at your system's root
+            directory, might not be a total disaster if you catch it quickly,
+            but in either case, you'll be testing your ability to restore from
+            backup&#8230; Er, you <I
+CLASS="EMPHASIS"
+>do</I
+> have backups, don't
+            you?
+          </P
+><P
+>            The moral of this story is to be <I
+CLASS="EMPHASIS"
+>very</I
+> careful
+            when using <B
+CLASS="COMMAND"
+>--buildroot</B
+>.  A good rule of thumb is
+            to always specify a unique build root.  For example, instead of
+            specifying <TT
+CLASS="FILENAME"
+>/tmp</TT
+> as a build root (and possibly
+            losing your system's directory for holding temporary files), use the
+            path <TT
+CLASS="FILENAME"
+>/tmp/mypackage</TT
+>, where the directory
+            <TT
+CLASS="FILENAME"
+>mypackage</TT
+> is used only by the package you're
+            building.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-TIMECHECK-OPTION"
+><B
+CLASS="COMMAND"
+>--timecheck <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;secs&#62;</I
+></TT
+></B
+>
+          &#8212; Print a warning if files to be packaged are over
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;secs&#62;</I
+></TT
+></B
+> old</A
+></H2
+><P
+>          While it's possible to detect many errors in the
+          <B
+CLASS="COMMAND"
+>%files</B
+> list using <B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bl</B
+>, there
+          is another type of problem that can't be detected.  Consider the
+          following scenario:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                A package you're building creates the file
+                <TT
+CLASS="FILENAME"
+>/usr/bin/foo</TT
+>.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Because of a problem with the package's makefile,
+                <TT
+CLASS="FILENAME"
+>foo</TT
+> is never copied into
+                <TT
+CLASS="FILENAME"
+>/usr/bin</TT
+>.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                An older, incompatible version of <TT
+CLASS="FILENAME"
+>foo</TT
+>,
+                created several months ago, already exists in
+                <TT
+CLASS="FILENAME"
+>/usr/bin</TT
+>.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                RPM creates the binary package file.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          Is the incompatible <TT
+CLASS="FILENAME"
+>/usr/bin/foo</TT
+> included in the
+          package?  You bet it is!  If only there was some way for RPM to catch
+          this type of problem&#8230;
+        </P
+><P
+>          Well, there is!  By adding <B
+CLASS="COMMAND"
+>--timecheck</B
+>, followed by
+          a number, RPM will check each file being packaged, to see if the file
+          is more than the specified number of seconds old.  If it is, a warning
+          message is displayed.  The <B
+CLASS="COMMAND"
+>--timecheck</B
+> option works
+          with either the <B
+CLASS="COMMAND"
+>-ba</B
+> or <B
+CLASS="COMMAND"
+>-bl</B
+>
+          options.  Here's an example using <B
+CLASS="COMMAND"
+>-bl</B
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bl --timecheck 3600 cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+File List Check: cdplayer-1.0-1
+warning: TIMECHECK failure: /usr/doc/cdplayer-1.0-1/README
+Finding dependencies...
+Requires (2): libc.so.5 libncurses.so.2.0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In this example, the file
+          <TT
+CLASS="FILENAME"
+>/usr/doc/cdplayer-1.0-1/README</TT
+> is more than 3,600
+          seconds, or one hour, old.  If we take a look at the file, we find
+          that it is:
+          <A
+NAME="AEN6928"
+HREF="#FTN.AEN6928"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>ls -al /usr/doc/cdplayer-1.0-1/README</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r--   1 root     root         1085 Nov 10  1995 README</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In this particular case, the warning from
+          <B
+CLASS="COMMAND"
+>--timecheck</B
+> is no cause for alarm.  Since the
+          <TT
+CLASS="FILENAME"
+>README</TT
+> file was simply copied from the original
+          source, which was created November 10th, 1995, its date is unchanged.
+          If the file had been an executable or a library that was supposedly
+          built recently, <B
+CLASS="COMMAND"
+>--timecheck</B
+>'s warning should be
+          taken more seriously.
+        </P
+><P
+>          If you'd like to set a default time check value of one hour, you can
+          include the following line in your <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>timecheck: 3600</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          This value can still be overridden by a value on the command line, if
+          desired.  For more information on the use of
+          <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files, see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-VV-OPTION"
+><B
+CLASS="COMMAND"
+>-vv</B
+> &#8212; Display debugging
+        information</A
+></H2
+><P
+>          Unlike most other RPM commands, there is no <B
+CLASS="COMMAND"
+>-v</B
+>
+          option for <B
+CLASS="COMMAND"
+>rpmbuild</B
+>.  That's because the command's
+          default is to be verbose.  However, even more information can be
+          obtained by adding <B
+CLASS="COMMAND"
+>-vv</B
+>.  Here's an example:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bp -vv cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: Switched to BASE package
+D: Source(0) = sunsite.unc.edu:/pub/Linux/apps/sound/cds/cdplayer-1.0.tgz
+D: Switching to part: 12
+D: fileFile = 
+D: Switched to package: (null)
+D: Switching to part: 2
+D: fileFile = 
+D: Switching to part: 3
+D: fileFile = 
+D: Switching to part: 4
+D: fileFile = 
+D: Switching to part: 10
+D: fileFile = 
+D: Switched to package: (null)
+* Package: cdplayer
+D: RUNNING: %prep
+Executing(%prep):
++ umask 022
++ cd /usr/src/redhat/BUILD
++ cd /usr/src/redhat/BUILD
++ rm -rf cdplayer-1.0
++ gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz
++ tar -xvvf -
+drwxrwxr-x root/users        0 Aug  4 22:30 1996 cdplayer-1.0/
+-rw-r--r-- root/users    17982 Nov 10 01:10 1995 cdplayer-1.0/COPYING
+&#8230;
+-rw-r--r-- root/users     1515 Nov 10 01:10 1995 cdplayer-1.0/volume.h
++ [ 0 -ne 0 ]
++ cd cdplayer-1.0
++ cd /usr/src/redhat/BUILD/cdplayer-1.0
++ chown -R root.root .
++ chmod -R a+rX,g-w,o-w .
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Most of the output generated by the <B
+CLASS="COMMAND"
+>-vv</B
+> option is
+          preceded by a <SAMP
+CLASS="COMPUTEROUTPUT"
+>D:</SAMP
+>.  In this example,
+          the additional output represents RPM's internal processing during the
+          start of the build process.  Using the <B
+CLASS="COMMAND"
+>-vv</B
+> option
+          with other build commands will produce different output.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-QUIET-OPTION"
+><B
+CLASS="COMMAND"
+>--quiet</B
+> &#8212; Produce as Little Output as
+          Possible</A
+></H2
+><P
+>          As we mentioned above, the build command is normally verbose.  The
+          <B
+CLASS="COMMAND"
+>--quiet</B
+> option can be used to cut down on the
+          command's output:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba --quiet cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+volume.c: In function `mix_set_volume':
+volume.c:67: warning: implicit declaration of function `ioctl'
+90 blocks
+82 blocks</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          This is the entire output from a package build of
+          <TT
+CLASS="FILENAME"
+>cdplayer</TT
+>.  Note that warning messages (actually,
+          anything sent to stdout) are still printed.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-RCFILE-OPTION"
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+          &#8212; Set alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file to
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+></A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--rcfile</B
+> option is used to specify a file
+          containing default settings for RPM.  Normally, this option is not
+          needed.  By default, RPM uses <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> and a
+          file named <TT
+CLASS="FILENAME"
+>.rpmrc</TT
+> located in your login
+          directory.
+        </P
+><P
+>          This option would be used if there was a need to switch between
+          several sets of RPM defaults.  Software developers and package
+          builders will normally be the only people using the
+          <B
+CLASS="COMMAND"
+>--rcfile</B
+> option.  For more information on
+          <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files, see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+        </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN6552"
+HREF="ch-rpm-b-command.html#AEN6552"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              As we mentioned in <A
+HREF="ch-rpm-basics.html"
+>Chapter 10</A
+>, if the original
+              sources need to be modified, the modifications should be kept as a
+              separate set of patches.  However, during development, it makes
+              more sense to not generate patches every time a change to the
+              original source is made.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN6863"
+HREF="ch-rpm-b-command.html#AEN6863"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                      Or the <B
+CLASS="COMMAND"
+>%clean</B
+> section, it doesn't
+                      matter &#8212; the end result is the same.
+                    </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN6928"
+HREF="ch-rpm-b-command.html#AEN6928"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              It should be noted that the package was built
+              <I
+CLASS="EMPHASIS"
+>substantially</I
+> later than November of 1995!
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-build-when-things-go-wrong.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-b-command-other-build-commands.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>When Things Go Wrong</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p5206.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Other Build-related Commands</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

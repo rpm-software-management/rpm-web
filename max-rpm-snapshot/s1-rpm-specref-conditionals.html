@@ -1,0 +1,510 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Conditionals</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Concise Spec File Reference"
+HREF="ch-rpm-specref.html"><LINK
+REL="PREVIOUS"
+TITLE="%package Directive"
+HREF="s1-rpm-specref-package.html"><LINK
+REL="NEXT"
+TITLE="RPM-related Resources"
+HREF="ch-rpm-resources.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-specref-package.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix E. Concise Spec File Reference</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-resources.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-SPECREF-CONDITIONALS"
+>Conditionals</A
+></H1
+><P
+>      The <B
+CLASS="COMMAND"
+>%if<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+> conditionals are
+      used to begin a section of the spec file that is specific to a particular
+      architecture or operating system.  They are followed by one or more
+      architecture or operating system specifiers, each separated by commas or
+      whitespace.
+    </P
+><P
+>      Conditionals may be nested within other conditionals, provided that the
+      inner conditional is completely enclosed by the outer conditional.
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-IFARCH"
+>The <B
+CLASS="COMMAND"
+>%ifarch</B
+> Conditional</A
+></H2
+><P
+>        If the build system's architecture is specified, the part of the spec
+        file following the <B
+CLASS="COMMAND"
+>%ifarch</B
+>, but before a
+        <B
+CLASS="COMMAND"
+>%else</B
+> or <B
+CLASS="COMMAND"
+>%endif</B
+> will be used
+        during the build.
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifarch i386 sparc</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        See also: <A
+HREF="s1-rpm-inside-conditionals.html#S2-RPM-INSIDE-IFARCH-CONDITIONAL"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%ifarch</B
+> Conditional</I
+> in Chapter 13</A
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-IFNARCH"
+>The <B
+CLASS="COMMAND"
+>%ifnarch</B
+> Conditional</A
+></H2
+><P
+>        If the build system's architecture is specified, the part of the spec
+        file following the <B
+CLASS="COMMAND"
+>%ifarch</B
+> but before a
+        <B
+CLASS="COMMAND"
+>%else</B
+> or <B
+CLASS="COMMAND"
+>%endif</B
+> will
+        <I
+CLASS="EMPHASIS"
+>not</I
+> be used during the build.
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifnarch i386 sparc</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        See also: <A
+HREF="s1-rpm-inside-conditionals.html#S2-RPM-INSIDE-IFNARCH-CONDITIONAL"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%ifnarch</B
+> Conditional</I
+> in Chapter 13</A
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-IFOS"
+>The <B
+CLASS="COMMAND"
+>%ifos</B
+> Conditional</A
+></H2
+><P
+>        If the build system is running one of the specified operating systems,
+        the part of the spec file following the <B
+CLASS="COMMAND"
+>%ifos</B
+> but
+        before a <B
+CLASS="COMMAND"
+>%else</B
+> or <B
+CLASS="COMMAND"
+>%endif</B
+> will be
+        used during the build.
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifos linux</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        See also: <A
+HREF="s1-rpm-inside-conditionals.html#S2-RPM-INSIDE-IFOS-CONDITIONAL"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%ifos</B
+> Conditional</I
+> in Chapter 13</A
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-IFNOS"
+>The <B
+CLASS="COMMAND"
+>%ifnos</B
+> Conditional</A
+></H2
+><P
+>        If the build system is running one of the specified operating systems,
+        the part of the spec file following the <B
+CLASS="COMMAND"
+>%ifnos</B
+> but
+        before a <B
+CLASS="COMMAND"
+>%else</B
+> or <B
+CLASS="COMMAND"
+>%endif</B
+> will
+        <I
+CLASS="EMPHASIS"
+>not</I
+> be used during the build.
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifnos linux</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        See also: <A
+HREF="s1-rpm-inside-conditionals.html#S2-RPM-INSIDE-IFNOS-CONDITIONAL"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%ifnos</B
+> Conditional</I
+> in Chapter 13</A
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-ELSE"
+>The <B
+CLASS="COMMAND"
+>%else</B
+> Conditional</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>%else</B
+> conditional is placed between a
+        <B
+CLASS="COMMAND"
+>%if</B
+> conditional of some persuasion, and an
+        <B
+CLASS="COMMAND"
+>%endif</B
+>.  It is used to create two blocks of spec file
+        statements, only one of which will be used in any given case.
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifarch alpha
+make RPM_OPT_FLAGS="$RPM_OPT_FLAGS -I ."
+%else
+make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+%endif</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        See also: <A
+HREF="s1-rpm-inside-conditionals.html#S2-RPM-INSIDE-ELSE-CONDITIONAL"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%else</B
+> Conditional</I
+> in Chapter 13</A
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-ENDIF"
+>The <B
+CLASS="COMMAND"
+>%endif</B
+> Conditional</A
+></H2
+><P
+>        An <B
+CLASS="COMMAND"
+>%endif</B
+> is used to end a conditional block of spec
+        file statements.  The <B
+CLASS="COMMAND"
+>%endif</B
+> is always needed after a
+        conditional, otherwise, the build will fail.
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifarch i386
+make INTELFLAG=-DINTEL
+%endif</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        See also: <A
+HREF="s1-rpm-inside-conditionals.html#S2-RPM-INSIDE-ENDIF-CONDITIONAL"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%endif</B
+> Conditional</I
+> in Chapter 13</A
+>.
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-specref-package.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-resources.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><B
+CLASS="COMMAND"
+>%package</B
+> Directive</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-specref.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>RPM-related Resources</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

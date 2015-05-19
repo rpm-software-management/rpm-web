@@ -1,0 +1,358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>When Things Go Wrong</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Building Packages: A Simple Example"
+HREF="ch-rpm-build.html"><LINK
+REL="PREVIOUS"
+TITLE="Starting the Build"
+HREF="s1-rpm-build-starting-build.html"><LINK
+REL="NEXT"
+TITLE="rpmbuild Command Reference"
+HREF="ch-rpm-b-command.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-build-starting-build.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 11. Building Packages: A Simple Example</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-b-command.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-BUILD-WHEN-THINGS-GO-WRONG"
+>When Things Go Wrong</A
+></H1
+><P
+>        This example is a bit of a fairy tale, in that it went perfectly the
+        first time.  In real life, it often takes several tries to get it right.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-BUILD-PROBLEMS-DURING-BUILD"
+>Problems During the Build</A
+></H2
+><P
+>          As we alluded to earlier in the chapter, RPM can stop at various
+          points in the build process.  This allows package builders to look
+          through the build directory and make sure everything is proceeding
+          properly.  If there are problems, stopping during the build process
+          permits them to see exactly what is going wrong, and where.  Here is a
+          list of points RPM can be stopped at during the build:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                After the <B
+CLASS="COMMAND"
+>%prep</B
+> section.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                After doing some cursory checks on the <B
+CLASS="COMMAND"
+>%files</B
+>
+                list.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                After the <B
+CLASS="COMMAND"
+>%build</B
+> section.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                After the <B
+CLASS="COMMAND"
+>%install</B
+> section.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                After the binary package has been created.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          In addition, there is also a method that permits the package builder
+          to "short circuit" the build process and direct RPM to skip over the
+          initial steps.  This is handy when the application is not yet ready
+          for packaging and needs some fine tuning.  This way, once the package
+          builds, installs, and operates properly, the required patches to the
+          original sources can be created, and plugged into the package's spec
+          file.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-BUILD-TESTING-PACKAGES"
+>Testing Newly Built Packages</A
+></H2
+><P
+>          Of course, the fact that an application has been packaged successfully
+          doesn't necessarily mean that it will operate correctly when the
+          package is actually installed.  Testing is required.  In the case of
+          our example, it's perfect and doesn't need such testing.
+          <A
+NAME="AEN5947"
+HREF="#FTN.AEN5947"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+          But here is how testing would proceed:
+        </P
+><P
+>          The first step is to find a test system.  If you thought of simply
+          using the build system, <I
+CLASS="EMPHASIS"
+>bzzzzt</I
+>, try again!  Think
+          about it &#8212; in the course of building the package, the build
+          system actually had the application installed on it.  That is how RPM
+          gets the files that are to be packaged: by building the software,
+          installing it, and grabbing copies of the installed files, which are
+          found using the <B
+CLASS="COMMAND"
+>%files</B
+> list.
+        </P
+><P
+>          Some of you dissenters that have read the first half of the book might
+          be thinking, "Why not just install the package on the build system
+          using the <B
+CLASS="COMMAND"
+>--replacefiles</B
+> option?  That way, it'll
+          just blow away the files installed by the build process and replace
+          them with the packaged files."  Well, you folks get a
+          <I
+CLASS="EMPHASIS"
+>bzzzzt</I
+>, too!  Here's why.
+        </P
+><P
+>          Say, for example, that the software you're packaging installs a bunch
+          of files &#8212; maybe a hundred.  What does this mean?  Well for one
+          thing, it means that the package's <B
+CLASS="COMMAND"
+>%files</B
+> list is
+          going to be quite large.  For another thing, the sheer number of files
+          makes it likely that you'll miss one or two.  What would happen then?
+        </P
+><P
+>          When RPM builds the software, there's no problem: the software builds,
+          and the application's makefile merrily installs all the files.  The
+          next step in RPM's build process is to collect the files by reading
+          the <B
+CLASS="COMMAND"
+>%files</B
+> list, and to add each file listed to a
+          <B
+CLASS="COMMAND"
+>cpio</B
+> archive.  What happens to the files you've
+          missed?  Nothing &#8212; they aren't added to the package file, but
+          they <I
+CLASS="EMPHASIS"
+>are</I
+> on your build system, installed just
+          where they should be.
+        </P
+><P
+>          Next, when the package is installed using
+          <B
+CLASS="COMMAND"
+>--replacefiles</B
+>, RPM dutifully installs each of the
+          packaged files, replacing the ones originally installed on the build
+          system.  The missed files?  They aren't overwritten by RPM since they
+          weren't in the package.  But they're still on disk, right where the
+          application expects them to be!  If you go to test the application
+          then, it will find every file it needs.  But not every file came from
+          the package.  Bad news!  Using a different system on which the
+          application had never been built is one sure way to test for missing
+          files.
+        </P
+><P
+>          That wraps up our fictional build.  Now that we have some experience
+          with RPM's build process, we can take a more in-depth look at RPM's
+          build command.
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN5947"
+HREF="s1-rpm-build-when-things-go-wrong.html#AEN5947"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              Like we said, it's a fairy tale!
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-build-starting-build.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-b-command.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Starting the Build</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-build.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> Command Reference</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

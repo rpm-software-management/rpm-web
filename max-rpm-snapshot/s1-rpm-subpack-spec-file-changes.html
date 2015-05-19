@@ -1,0 +1,1461 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Spec File Changes For Subpackages</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Creating Subpackages"
+HREF="ch-rpm-subpack.html"><LINK
+REL="PREVIOUS"
+TITLE="Our Example Spec File: Subpackages Galore!"
+HREF="s1-rpm-subpack-example-intro.html"><LINK
+REL="NEXT"
+TITLE="Build-Time Scripts: Unchanged For Subpackages"
+HREF="s1-rpm-subpack-build-time-scripts.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-subpack-example-intro.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 18. Creating Subpackages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-subpack-build-time-scripts.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-SUBPACK-SPEC-FILE-CHANGES"
+>Spec File Changes For Subpackages</A
+></H1
+><P
+>        The creation of subpackages is based strictly on the contents of the
+        spec file.  This doesn't mean that you'll have to learn an entirely new
+        set of tags, conditionals, and directives in order to create
+        subpackages.  In fact, you'll only need to learn one.
+      </P
+><P
+>        The primary change to a spec file is structural and starts with the
+        definition of a preamble for each subpackage.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SUBPACK-SUBPACKAGE-PREAMBLE"
+>The Subpackage's "Preamble"</A
+></H2
+><P
+>          When we introduced RPM package building in <A
+HREF="ch-rpm-basics.html"
+>Chapter 10</A
+>, we said that every spec file contains a
+          preamble.  The preamble contains a variety of tags that define all
+          sorts of information about the package.  In a single package
+          situation, the preamble must be at the start of the spec file.  The
+          spec file we're creating will have one there, too.
+        </P
+><P
+>          When creating a spec file that will build subpackages, each subpackage
+          also needs a preamble of its own.  These "sub-preambles" need only
+          define information for the subpackage when that information differs
+          from what is defined in the main preamble.  For example, if we wanted
+          to define an installation prefix for a subpackage, we would add the
+          appropriate <B
+CLASS="COMMAND"
+>prefix</B
+> tag to that subpackage's
+          preamble.
+          
+          That subpackage would then be relocatable.
+        </P
+><P
+>          In a single-package spec file, there is nothing that explicitly
+          identifies the preamble, other than its position at the top of the
+          file.  For subpackages, however, we need to be a bit more explicit.
+          So we use the <B
+CLASS="COMMAND"
+>%package</B
+> directive to identify the
+          preamble for each subpackage.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SUBPACK-PACKAGE-DIRECTIVE"
+>The <B
+CLASS="COMMAND"
+>%package</B
+> Directive</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>%package</B
+> directive actually performs two
+            functions.  As we mentioned above, it is used to denote the start of
+            a subpackage's preamble.  It also plays a role in forming the
+            subpackage's name.  As an example, let's say the main preamble
+            contains the following <B
+CLASS="COMMAND"
+>name</B
+> tag:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>name: foo</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Later in the spec file, there is a <B
+CLASS="COMMAND"
+>%package</B
+>
+            directive:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%package bar</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            This would result in the name of the subpackage being
+            <TT
+CLASS="FILENAME"
+>foo-bar</TT
+>.
+          </P
+><P
+>            In this way, it's easy to see the relationship of the subpackage to
+            the main package (or other subpackages, for that matter).  Of
+            course, this naming convention might not be appropriate in every
+            case.  So there is an option to the <B
+CLASS="COMMAND"
+>%package</B
+>
+            directive for just this circumstance.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SUBPACK-PACKAGE-DIRECTIVE-N-OPTION"
+>Adding <B
+CLASS="COMMAND"
+>-n</B
+> To the <B
+CLASS="COMMAND"
+>%package</B
+>
+            directive</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>-n</B
+> option is used to change the final name of
+            a subpackage from
+            <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;mainpackage&#62;</I
+></TT
+>-<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;subpackage&#62;</I
+></TT
+></TT
+>
+            to
+            <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;subpackage&#62;</I
+></TT
+></TT
+>.
+            Let's modify the <B
+CLASS="COMMAND"
+>%package</B
+> directive in our
+            example above to be:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%package -n bar</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The result is that the subpackage name would then be
+            <TT
+CLASS="FILENAME"
+>bar</TT
+> instead of <TT
+CLASS="FILENAME"
+>foo-bar</TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SUBPACK-UPDATING-SPEC-FILE"
+>Updating Our Spec File</A
+></H3
+><P
+>            Let's apply some of our newly found knowledge to the spec file we're
+            writing.  Here's the list of subpackages that we need to create:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The server subpackage, to be called
+                  <TT
+CLASS="FILENAME"
+>foo-server</TT
+>.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The client subpackage, to be called
+                  <TT
+CLASS="FILENAME"
+>foo-client</TT
+>.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The <TT
+CLASS="FILENAME"
+>baz</TT
+> development library subpackage,
+                  to be called <TT
+CLASS="FILENAME"
+>bazlib</TT
+>.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            Since our package name is <TT
+CLASS="FILENAME"
+>foo</TT
+>, and since the
+            <B
+CLASS="COMMAND"
+>%package</B
+> directive creates subpackage names by
+            prepending the package name, the <B
+CLASS="COMMAND"
+>%package</B
+>
+            directives for the <TT
+CLASS="FILENAME"
+>foo-server</TT
+> and
+            <TT
+CLASS="FILENAME"
+>foo-client</TT
+> subpackages would be written as:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%package server
+%package client</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Since the <TT
+CLASS="FILENAME"
+>baz</TT
+> library's package name is
+            <I
+CLASS="EMPHASIS"
+>not</I
+> to start with <TT
+CLASS="FILENAME"
+>foo</TT
+>, we
+            need to use the <B
+CLASS="COMMAND"
+>-n</B
+> option on its
+            <B
+CLASS="COMMAND"
+>%package</B
+> directive:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%package -n bazlib</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Our requirements further state that <TT
+CLASS="FILENAME"
+>foo-server</TT
+>
+            and <TT
+CLASS="FILENAME"
+>foo-client</TT
+> are to have the same version as
+            the main package.
+          </P
+><P
+>            One of the time-saving aspects of using subpackages is that there is
+            no need to duplicate information for each subpackage if it is
+            already defined in the main package.  Therefore, since the main
+            package's preamble has a <B
+CLASS="COMMAND"
+>version</B
+> tag defining the
+            version as 2.7, the two subpackages that lack a
+            <B
+CLASS="COMMAND"
+>version</B
+> tag in their preambles will simply
+            inherit the main package's version definition.
+          </P
+><P
+>            Since the <TT
+CLASS="FILENAME"
+>bazlib</TT
+> subpackage's preamble contains
+            a <B
+CLASS="COMMAND"
+>version</B
+> tag, it must have its own unique
+            version.
+          </P
+><P
+>            In addition, each subpackage must have its own
+            <B
+CLASS="COMMAND"
+>summary</B
+> tag.
+          </P
+><P
+>            So based on these requirements, our spec file now looks like this:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Name: foo
+Version: 2.7
+Release: 1
+Source: foo-2.7.tgz
+License: probably not
+Summary: The foo app, and the baz library needed to build it
+Group: bogus/junque
+%description
+This is the long description of the foo app, and the baz library needed to
+build it...
+
+%package server
+Summary: The foo server
+
+%package client
+Summary: The foo client
+
+%package -n bazlib
+Version: 5.6
+Summary: The baz library</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            We can see the subpackage structure starting to appear now.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SUBPACK-REQUIRED-TAGS"
+>Required Tags In Subpackages</A
+></H3
+><P
+>            There are a few more tags we should add to the subpackages in our
+            example spec file.  In fact, if these tags are
+            <I
+CLASS="EMPHASIS"
+>not</I
+> present, RPM will issue a most impressive
+            warning:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba foo-2.7.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: foo
+* Package: foo-server
+Field must be present    : Description
+Field must be present    : Group
+* Package: foo-client
+Field must be present    : Description
+Field must be present    : Group
+* Package: bazlib
+Field must be present    : Description
+Field must be present    : Group
+
+Spec file check failed!!
+Tell rpm-list@redhat.com if this is incorrect.</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Our spec file is incomplete.  The bottom line is that each
+            subpackage <I
+CLASS="EMPHASIS"
+>must</I
+> have these three tags:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  The <B
+CLASS="COMMAND"
+>%description</B
+> tag.
+                </P
+></LI
+><LI
+><P
+>                  The <B
+CLASS="COMMAND"
+>group</B
+> tag.
+                </P
+></LI
+><LI
+><P
+>                  The <B
+CLASS="COMMAND"
+>summary</B
+> tag.
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            It's easy to see that the first two tags are required, but what
+            about <B
+CLASS="COMMAND"
+>summary</B
+>?  Well, we lucked out on that one:
+            we already included a <B
+CLASS="COMMAND"
+>summary</B
+> for each subpackage
+            in our example spec file.
+          </P
+><P
+>            Let's take a look at the <B
+CLASS="COMMAND"
+>%description</B
+> tag first.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SUBPACK-DESCRIPTION-TAG"
+>The <B
+CLASS="COMMAND"
+>%description</B
+> Tag</A
+></H3
+><P
+>            As you've probably noticed, the <B
+CLASS="COMMAND"
+>%description</B
+> tag
+            differs from other tags.  First of all, it starts with a percent
+            sign.  Secondly, its data can span multiple lines.  The third
+            difference is that the <B
+CLASS="COMMAND"
+>%description</B
+> tag must
+            include the name of the subpackage it describes.  This is done by
+            appending the subpackage name to the <B
+CLASS="COMMAND"
+>%description</B
+>
+            tag itself.  So given these <B
+CLASS="COMMAND"
+>%package</B
+> directives:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%package server
+%package client
+%package -n bazlib</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            our <B
+CLASS="COMMAND"
+>%description</B
+> tags would start with:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%description server
+%description client
+%description -n bazlib</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Notice that we've included the <B
+CLASS="COMMAND"
+>-n</B
+> option in the
+            <B
+CLASS="COMMAND"
+>%description</B
+> tag for <TT
+CLASS="FILENAME"
+>bazlib</TT
+>.
+            This was intentional, as it makes the name completely unambiguous.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SUBPACK-SPEC-FILE-SO-FAR"
+>Our Spec File So Far&#8230;</A
+></H3
+><P
+>            OK, let's take a look at the spec file after we've added the
+            appropriate <B
+CLASS="COMMAND"
+>%description</B
+>s, along with
+            <B
+CLASS="COMMAND"
+>group</B
+> tags for each subpackage:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Name: foo
+Version: 2.7
+Release: 1
+Source: foo-2.7.tgz
+License: probably not
+Summary: The foo app, and the baz library needed to build it
+Group: bogus/junque
+%description
+This is the long description of the foo app, and the baz library needed to
+build it...
+
+%package server
+Summary: The foo server
+Group: bogus/junque
+%description server
+This is the long description for the foo server...
+
+%package client
+Summary: The foo client
+Group: bogus/junque
+%description client
+This is the long description for the foo client...
+
+%package -n bazlib
+Version: 5.6
+Summary: The baz library
+Group: bogus/junque
+%description -n bazlib
+This is the long description for the bazlib...</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Let's take a look at what we've done.  We've created a main preamble
+            as we normally would.  We then created three additional preambles,
+            each starting with a <B
+CLASS="COMMAND"
+>%package</B
+> directive.
+            Finally, we added a few tags to the subpackage preambles.
+          </P
+><P
+>            But what about <B
+CLASS="COMMAND"
+>version</B
+> tags?  Aren't the
+            <TT
+CLASS="FILENAME"
+>server</TT
+> and <TT
+CLASS="FILENAME"
+>client</TT
+>
+            subpackages missing them?
+          </P
+><P
+>            Not really.  Remember that if a subpackage is missing a given tag,
+            it will inherit the value of that tag from the main preamble.  We're
+            well on our way to having a complete spec file, but we aren't quite
+            there yet.
+          </P
+><P
+>            Let's continue by looking at the next part of the spec file that
+            changes when building subpackages.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SUBPACK-FILES-LIST"
+>The <B
+CLASS="COMMAND"
+>%files</B
+> List</A
+></H2
+><P
+>          In an ordinary single-package spec file, the <B
+CLASS="COMMAND"
+>%files</B
+>
+          list is used to determine which files are actually going to be
+          packaged.  It is no different when building subpackages.  What
+          <I
+CLASS="EMPHASIS"
+>is</I
+> different, is that there must be a
+          <B
+CLASS="COMMAND"
+>%files</B
+> list for each subpackage.
+        </P
+><P
+>          Since each <B
+CLASS="COMMAND"
+>%files</B
+> list must be associated with a
+          particular <B
+CLASS="COMMAND"
+>%package</B
+> directive, we simply label each
+          <B
+CLASS="COMMAND"
+>%files</B
+> list with the name of the subpackage, as
+          specified by each <B
+CLASS="COMMAND"
+>%package</B
+> directive. Going back to
+          our example, our <B
+CLASS="COMMAND"
+>%package</B
+> lines were:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%package server
+%package client
+%package -n bazlib</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Therefore, our <B
+CLASS="COMMAND"
+>%files</B
+> lists should start with:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files server
+%files client
+%files -n bazlib</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In addition, we need the main package's <B
+CLASS="COMMAND"
+>%files</B
+>
+          list, which remains unnamed:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The contents of each <B
+CLASS="COMMAND"
+>%files</B
+> list is dictated
+          entirely by the software's requirements.  If, for example, a certain
+          file needs to be packaged in more than one package, it's perfectly all
+          right to include the filename in more than one list.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SUBPACK-CONTROLLING-PACKAGES"
+>Controlling Packages With the <B
+CLASS="COMMAND"
+>%files</B
+> List</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>%files</B
+> list wields considerable power over
+            subpackages.  It's even possible to prevent a package from being
+            created by using the <B
+CLASS="COMMAND"
+>%files</B
+> list.  But is there a
+            reason why you'd want to go to the trouble of setting up
+            subpackages, only to keep one from being created?
+          </P
+><P
+>            Actually, there is.  Take, for example, the case where
+            client/server-based software is to be packaged.  Certainly, it makes
+            sense to create two subpackages: one for the client and one for the
+            server.  But what about the main package?  Is there any need for it?
+          </P
+><P
+>            Quite often there's no need for a main package.  In those cases,
+            removing the main <B
+CLASS="COMMAND"
+>%files</B
+> list entirely will
+            result in no main package being built.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SUBPACK-POINT-WORTH-NOTING"
+>A Point Worth Noting</A
+></H3
+><P
+>            Please keep in mind that an empty <B
+CLASS="COMMAND"
+>%files</B
+> list
+            (ie, a <B
+CLASS="COMMAND"
+>%files</B
+> list that contains no files) is
+            <I
+CLASS="EMPHASIS"
+>not</I
+> the same as not having a
+            <B
+CLASS="COMMAND"
+>%files</B
+> list at all.  As we noted above, entirely
+            removing a <B
+CLASS="COMMAND"
+>%files</B
+> list results in RPM not
+            creating that package.  However, if RPM comes across a
+            <B
+CLASS="COMMAND"
+>%files</B
+> list with no files, it will happily create
+            an empty package file.
+          </P
+><P
+>            This feature (which also works with subpackage
+            <B
+CLASS="COMMAND"
+>%files</B
+> lists) comes in handy when used in concert
+            with conditionals.  If a <B
+CLASS="COMMAND"
+>%files</B
+> list is enclosed
+            by a conditional, the package will be created (or not) based on the
+            evaluation of the conditional.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SUBPACK-SPEC-FILE-REVISITED"
+>Our Spec File So Far&#8230;</A
+></H3
+><P
+>            Ok, let's update our example spec file.  Here's what it looks like
+            after adding each of the subpackages' <B
+CLASS="COMMAND"
+>%files</B
+>
+            lists:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Name: foo
+Version: 2.7
+Release: 1
+Source: foo-2.7.tgz
+License: probably not
+Summary: The foo app, and the baz library needed to build it
+Group: bogus/junque
+%description
+This is the long description of the foo app, and the baz library needed to
+build it...
+
+%package server
+Summary: The foo server
+Group: bogus/junque
+
+%package client
+Summary: The foo client
+Group: bogus/junque
+
+%package -n bazlib
+Version: 5.6
+Summary: The baz library
+Group: bogus/junque
+
+
+%files
+/usr/local/foo-file
+
+%files server
+/usr/local/server-file
+
+%files client
+/usr/local/client-file
+
+%files -n bazlib
+/usr/local/bazlib-file</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            As you can see we've added <B
+CLASS="COMMAND"
+>%files</B
+> lists for:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The main <TT
+CLASS="FILENAME"
+>foo</TT
+> package.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The <TT
+CLASS="FILENAME"
+>foo-server</TT
+> subpackage.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The <TT
+CLASS="FILENAME"
+>foo-client</TT
+> subpackage.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The <TT
+CLASS="FILENAME"
+>bazlib</TT
+> subpackage.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            Each package contains a single file.
+            <A
+NAME="AEN11083"
+HREF="#FTN.AEN11083"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+            If there was no need for a main package, we could simply remove the
+            unnamed <B
+CLASS="COMMAND"
+>%files</B
+> list.  Keep in mind that even if
+            you do not create a main package, the tags defined in the main
+            package's preamble <I
+CLASS="EMPHASIS"
+>will</I
+> appear somewhere
+            &#8212; specifically, in the source package file.
+          </P
+><P
+>            Let's look at the last subpackage-specific part of the spec file:
+            the install- and erase-time scripts.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SUBPACK-INSTALL-ERASE-SCRIPTS"
+>Install- and Erase-time Scripts</A
+></H2
+><P
+>          The install- and erase-time scripts, <B
+CLASS="COMMAND"
+>%pre</B
+>,
+          <B
+CLASS="COMMAND"
+>%preun</B
+>, <B
+CLASS="COMMAND"
+>%post</B
+>, and
+          <B
+CLASS="COMMAND"
+>%postun</B
+>, can all be named using exactly the same
+          method as was used for the other subpackage-specific sections of the
+          spec file.  The script used during package verification,
+          <B
+CLASS="COMMAND"
+>%verifyscript</B
+>, can be made package-specific as
+          well.  Using the subpackage structure from our example spec file, we
+          would end up with script definitions like:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>%pre server</B
+>
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>%postun client</B
+>
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>%preun -n bazlib</B
+>
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>%verifyscript client</B
+>
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          Other than the change in naming, there's only one thing to be aware of
+          when creating scripts for subpackages.  It's important that you
+          consider the possibility of scripts from various subpackages
+          interacting with each other.  Of course, this is simply good
+          script-writing practice, even if the packages involved are not
+          related.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SUBPACK-SPEC-FILE-LISTING-SCRIPTS"
+>Back At the Spec File&#8230;</A
+></H3
+><P
+>            Here we've added some scripts to our spec file.  So that our example
+            doesn't get too complex, we've just added preinstall scripts for
+            each package:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Name: foo
+Version: 2.7
+Release: 1
+Source: foo-2.7.tgz
+License: probably not
+Summary: The foo app, and the baz library needed to build it
+Group: bogus/junque
+%description
+This is the long description of the foo app, and the baz library needed to
+build it...
+
+%package server
+Summary: The foo server
+Group: bogus/junque
+%description server
+This is the long description for the foo server...
+
+%package client
+Summary: The foo client
+Group: bogus/junque
+%description client
+This is the long description for the foo client...
+
+%package -n bazlib
+Version: 5.6
+Summary: The baz library
+Group: bogus/junque
+%description -n bazlib
+This is the long description for the bazlib...
+
+
+%pre
+echo "This is the foo package preinstall script"
+
+%pre server
+echo "This is the foo-server subpackage preinstall script"
+
+%pre client
+echo "This is the foo-client subpackage preinstall script"
+
+%pre -n bazlib
+echo "This is the bazlib subpackage preinstall script"
+
+%files
+/usr/local/foo-file
+
+%files server
+/usr/local/server-file
+
+%files client
+/usr/local/client-file
+
+%files -n bazlib
+/usr/local/bazlib-file</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            As pre-install scripts go, these don't do very much.  But they will
+            allow us to see how subpackage-specific scripts can be defined.
+          </P
+><P
+>            Those of you that have built packages before probably realize that
+            our spec file is missing something.  Let's add that part now.
+          </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN11083"
+HREF="s1-rpm-subpack-spec-file-changes.html#AEN11083"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                Hey, we said it was a simple example!
+              </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-subpack-example-intro.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-subpack-build-time-scripts.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Our Example Spec File: Subpackages Galore!</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-subpack.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Build-Time Scripts: Unchanged For Subpackages</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

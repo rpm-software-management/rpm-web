@@ -1,0 +1,612 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Installing PGP for RPM's Use</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="An Introduction to PGP"
+HREF="ch-pgp-intro.html"><LINK
+REL="PREVIOUS"
+TITLE="An Introduction to PGP"
+HREF="ch-pgp-intro.html"><LINK
+REL="NEXT"
+TITLE="RPM Man Pages"
+HREF="p18926.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-pgp-intro.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix G. An Introduction to PGP</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="p18926.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-PGP-INTRO-INSTALLING-PGP"
+>Installing PGP for RPM's Use</A
+></H1
+><P
+>      To use RPM's PGP-related capabilities, you'll need to have PGP installed
+      on your system.  If it's installed already, you should be able to flip
+      to the chapters on verifying package signatures and signing packages and
+      be in business in a matter of minutes.  Otherwise, read on for a
+      thumbnail sketch of what's required to install PGP.
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-PGP-INTRO-OBTAINING-PGP"
+>Obtaining PGP</A
+></H2
+><P
+>        The first step in being able to verify .rpm files is to get a copy of
+        PGP.  Unfortunately, this is not quite as simple as it might sound.
+        The reason is that PGP is very controversial stuff.
+      </P
+><P
+>        Why the controversy?  It centers on PGP's primary mission &#8212; to
+        provide a means of communicating with others in complete privacy.  As
+        we've discussed, PGP uses encryption to provide this privacy.  Good
+        encryption.  <I
+CLASS="EMPHASIS"
+>Very</I
+> good encryption.  Encryption so
+        good, it appears some of the world's governments consider PGP a threat
+        to their national security.
+      </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-PGP-INTRO-KNOW-LAWS"
+>Know Your Laws!</A
+></H3
+><P
+>          Various countries have differing stances on the use of "strong
+          encryption" products such as PGP.  In some countries, possession of
+          encryption software is strictly forbidden.  Other countries attempt
+          to control the flow of encryption technology into (or out of) their
+          country.  It is <I
+CLASS="EMPHASIS"
+>vital</I
+> you know your country's
+          laws, lest you find yourself in prison, or possibly in front of a
+          firing squad!
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-PGP-INTRO-PATENT-ISSUES"
+>Patent/Licensing Issues Surrounding PGP</A
+></H3
+><P
+>          Over and above PGP's legal status, there are other aspects to PGP
+          that people living in the U.S. and Canada should keep in mind:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                PGP is free &#8212; for non-commercial use only.  If you are
+                going to use PGP for business purposes, you should look into
+                getting a commercial copy.  PGP is marketed in the United States
+                by:
+              </P
+><P
+>                Pretty Good Privacy, Inc.
+                <P
+CLASS="ADDRESS"
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN
+CLASS="STREET"
+>                    2121 S. El Camino Real
+                  </SPAN
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN
+CLASS="OTHERADDR"
+>                    Suite 902
+                  </SPAN
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN
+CLASS="CITY"
+>San Mateo</SPAN
+>,&nbsp;<SPAN
+CLASS="STATE"
+>CA</SPAN
+>&nbsp;<SPAN
+CLASS="POSTCODE"
+>94403</SPAN
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN
+CLASS="PHONE"
+>(415) 572-0430</SPAN
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN
+CLASS="FAX"
+>(415) 572-1932</SPAN
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<SPAN
+CLASS="OTHERADDR"
+>                    http://www.pgp.com/
+                  </SPAN
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P
+>
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Part of the software that comprises PGP is protected by
+                several United States patents.  Versions of PGP approved for
+                use in the U.S. contain a licensed version of this software,
+                known as RSAREF.  RSAREF includes a patent license that allows
+                the use of the software in noncommercial settings only.
+                Commercial use of the technology contained in RSAREF requires
+                a separate license.  This is one reason why there are
+                restrictions on the commercial use of PGP in the United States
+                and Canada.
+              </P
+><P
+>                While people outside the U.S. and Canada can use RSAREF-based
+                PGP, they will probably choose the so-called "international"
+                version.  This version replaces RSAREF with software known as
+                MPILIB. MPILIB is, in general, faster than RSAREF, but it
+                cannot legally be used in the United States or Canada.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          To summarize, if you are using PGP for commercial purposes in the
+          U.S. or Canada, you'll need to purchase it.  Otherwise, people
+          living in the U.S. or Canada should use a version of PGP
+          incorporating RSAREF.  People in other countries can use any version
+          of PGP they desire, though they'll probably choose the MPILIB-based
+          "international" version
+          <A
+NAME="AEN18564"
+HREF="#FTN.AEN18564"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+          .
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-PGP-INTRO-RSAREF-BASED-PGP"
+>Getting RSAREF-based PGP</A
+></H3
+><P
+>          The official source for the latest version of PGP based on RSAREF is
+          the Massachusetts Institute of Technology.  Due to the restrictions
+          on the export of encryption technology, the process is somewhat
+          convoluted.  The easiest way to obtain PGP from the official MIT
+          archive is to use the World Wide Web.  Point your web browser at:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><A
+HREF="http://web.mit.edu/network/pgp.html"
+TARGET="_top"
+>http://web.mit.edu/network/pgp.html</A
+></SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Simply follow the steps, and you'll have the necessary software on
+          your system in no time.
+        </P
+><P
+>          There is a more cumbersome method that doesn't use the Web.  It
+          involves first using anonymous ftp to obtain several files of
+          instructions and license agreements.  You will then be directed to
+          use telnet to obtain the name of a temporary ftp directory
+          containing the PGP software.  Finally, you can use anonymous ftp to
+          retrieve the software.  To start this process, ftp to:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><A
+HREF="ftp://net-dist.mit.edu"
+TARGET="_top"
+>ftp://net-dist.mit.edu</A
+></SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Then change directory to:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><TT
+CLASS="FILENAME"
+>/pub/PGP</TT
+></SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Obtain a copy of the file <TT
+CLASS="FILENAME"
+>README</TT
+> and follow the
+          instructions in it <I
+CLASS="EMPHASIS"
+>exactly</I
+>.
+        </P
+><P
+>          If all this seems like too much trouble, there is another
+          alternative.  You can find copies of PGP on just about any BBS, FTP,
+          or Web site advertising freely available software.  Be aware,
+          however, that "Floyd's Storm Door and BBS Company" may not be as
+          trustworthy a place as MIT to obtain encryption software.  It's
+          really a question of how paranoid you are.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-PGP-INTRO-PGP-OUTSIDE-US"
+>Outside the United States and Canada</A
+></H3
+><P
+>          For people living in other countries, it is much easier to find PGP
+          (depending on the legality of encryption software, of course).  Try
+          any of the places you'd normally look for free software.  Keep in
+          mind, however, that you shouldn't download PGP from any sites in the
+          U.S.  Doing so is considered an "export" of munitions, and can get
+          the people responsible for the site in deep trouble.  Wherever you
+          eventually get PGP from, since the patents that complicate matters
+          for the U.S. do not apply abroad, you'll probably end up with the
+          "international" versions of PGP.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-PGP-INTRO-BUILDING-PGP"
+>Building PGP</A
+></H2
+><P
+>        Building PGP is mostly a matter of following instructions.  However,
+        users of ELF-based Linux distributions (Such as Red Hat Linux) will find that
+        PGP will not build.  The problem, according to the PGP FAQ, is that
+        two files do not properly handle the C preprocessor directives that
+        affect support for ELF.  The changes are to two files:
+        <TT
+CLASS="FILENAME"
+>80386.S</TT
+> and <TT
+CLASS="FILENAME"
+>zmatch.S</TT
+>.  Near
+        the beginning of each, you'll find either a <B
+CLASS="COMMAND"
+>#ifndef</B
+>
+        or a <B
+CLASS="COMMAND"
+>#ifdef</B
+> for <TT
+CLASS="LITERAL"
+>SYSV</TT
+>.  If you
+        find:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#ifndef SYSV</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        It should be changed to read:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#if !defined(SYSV) &#38;&#38; !defined(__ELF__)</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        If you find:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#ifdef SYSV</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        It should be changed to read:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#if defined(SYSV) || defined(__ELF__)</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        After making these changes, PGP should build with no problems.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-PGP-INTRO-READY-TO-GO"
+>Ready to Go!</A
+></H2
+><P
+>        After building and installing PGP, you're ready to start using RPM's
+        package signature capabilities.  If your primary interest is in checking
+        the signatures on packages built by someone else, <A
+HREF="ch-rpm-checksig.html"
+>Chapter 7</A
+> will tell you everything you need to know.
+      </P
+><P
+>        On the other hand, if you are a package builder and would like to start
+        signing packages, <A
+HREF="ch-rpm-pgp.html"
+>Chapter 17</A
+> will have you signing
+        packages in no time.
+      </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN18564"
+HREF="s1-pgp-intro-installing-pgp.html#AEN18564"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              Note that there are no commercial restrictions regarding PGP in
+              countries other than the U.S. and Canada.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-pgp-intro.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="p18926.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>An Introduction to PGP</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-pgp-intro.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>RPM Man Pages</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

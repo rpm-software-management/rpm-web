@@ -1,0 +1,599 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Performing an Install</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Install Packages"
+HREF="ch-rpm-install.html"><LINK
+REL="PREVIOUS"
+TITLE="Using RPM to Install Packages"
+HREF="ch-rpm-install.html"><LINK
+REL="NEXT"
+TITLE="Two handy options"
+HREF="s1-rpm-install-handy-options.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-install.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Using RPM to Install Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-install-handy-options.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-INSTALL-PERFORMING-INSTALL"
+>Performing an Install</A
+></H1
+><P
+>        Let's have RPM install a package.  The only thing necessary is to give
+        the command (<B
+CLASS="COMMAND"
+>rpm -i</B
+>) followed by the name of the
+        package file:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i eject-1.2-2.i386.rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        At this point, all the steps outlined above have been performed.  The
+        package is now installed.  Note that the file name need not adhere to
+        RPM's file naming convention:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>mv eject-1.2-2.i386.rpm baz.txt</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i baz.txt</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        In this case, we changed the name of the package file
+        <TT
+CLASS="FILENAME"
+>eject-1.2-2.i386.rpm</TT
+> to
+        <TT
+CLASS="FILENAME"
+>baz.txt</TT
+> and then proceeded to install the package.
+        The result is identical to the previous install, that is, the
+        <TT
+CLASS="FILENAME"
+>eject-1.2-2</TT
+> package successfully installed.  The
+        name of the package file, although normally incorporating the package
+        label, is not used by RPM during the installation process.  RPM uses the
+        contents of the package file, which means that even if the file was
+        placed on a DOS floppy and the name truncated, the installation would
+        still proceed normally.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-URLS"
+>URLs &#8212; Another Way to Specify Package Files</A
+></H2
+><P
+>          If you've surfed the World Wide Web, you've no doubt noticed the way
+          web pages are identified:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>http://www.redhat.com/support/docs/rpm/RPM-HOWTO/RPM-HOWTO.html
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          This is called a Uniform Resource Locator, or URL.  RPM can also use
+          URLs, although they look a little bit different.  Here's one:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>ftp://ftp.redhat.com/pub/redhat/code/rpm/rpm-2.3-1.i386.rpm
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The <SAMP
+CLASS="COMPUTEROUTPUT"
+>ftp:</SAMP
+> signifies that this URL is a
+          File Transfer Protocol URL.  As the name implies, this type of URL is
+          used to move files around.  The section containing
+          <TT
+CLASS="FILENAME"
+>ftp.redhat.com</TT
+> specifies the hostname, or the
+          name of the system where the package file resides.
+        </P
+><P
+>          The remainder of the URL
+          (<TT
+CLASS="FILENAME"
+>/pub/redhat/code/rpm/rpm-2.3-1.i386.rpm</TT
+>)
+          specifies the path to the package file, followed by the package file
+          itself.
+        </P
+><P
+>          RPM's use of URLs gives us the ability to install a package located on
+          the other side of the world, with a single command:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i ftp://ftp.gnomovision.com/pub/rpms/foobar-1.0-1.i386.rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          This command would use anonymous FTP to obtain the
+          <TT
+CLASS="FILENAME"
+>foobar</TT
+> version 1.0 package file and install it on
+          your system.  Of course, anonymous FTP (no username and password
+          required) is not always available.  Therefore, the URL may also
+          contain a
+          
+
+          
+          username and password preceding the hostname:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>ftp://smith:mypass@ftp.gnomovision.com/pub/rpms/foobar-1.0-1.i386.rpm
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          However, entering a password where it can be seen by anyone looking at
+          your screen is a bad idea.  So try this format:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>ftp://smith@ftp.gnomovision.com/pub/rpms/foobar-1.0-1.i386.rpm
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          RPM will prompt you for your password, and you'll be in business:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i ftp://smith@ftp.gnomovision.com/pub/rpms/apmd-2.4-1.i386.rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+>Password for smith@ftp.gnomovision.com: </TT
+><KBD
+CLASS="USERINPUT"
+>mypass</KBD
+> (not echoed)
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+          After entering a valid password, RPM installs the package.
+        </P
+><P
+>          On some systems, the FTP daemon doesn't run on the standard port 21.
+          Normally this is done for the sake of enhanced security.  Fortunately,
+          there is a way to specify a non-standard
+          
+
+          
+          port in a URL:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+>ftp://ftp.gnomovision.com:1024/pub/rpms/foobar-1.0-1.i386.rpm
+          </PRE
+></TD
+></TR
+></TABLE
+>
+
+          This URL will direct the FTP request to port 1024.  The
+          <B
+CLASS="COMMAND"
+>--ftpport</B
+> option is another way to specify the
+          port.  This option is discussed later, in <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-FTPPORT"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--ftpport <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+> In FTP-based
+          Installs</I
+></A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-WARNING-MESSAGE"
+>A warning message you might never see</A
+></H2
+><P
+>          Depending on circumstances, the following message might be rare or
+          very common.  While performing an ordinary install, RPM prints a
+          warning message:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i cdp-0.33-100.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>warning: /etc/cdp-config saved as /etc/cdp-config.rpmorig</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+          What does it mean?  It has to do with RPM's handling of config files.
+          
+          In the example above, RPM found a file
+          (<TT
+CLASS="FILENAME"
+>/etc/cdp-config</TT
+>) that didn't belong to any
+          RPM-installed package.  Since the <TT
+CLASS="FILENAME"
+>cdp-0.33-100</TT
+>
+          package contains a file of the same name that is to be installed in
+          the same directory, there is a problem.
+        </P
+><P
+>          RPM solves this the best way it can.  It performs two steps:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                It renames the original file to
+                <TT
+CLASS="FILENAME"
+>cdp-config.rpmorig</TT
+>.
+              </P
+></LI
+><LI
+><P
+>                It installs the new <TT
+CLASS="FILENAME"
+>cdp-config</TT
+> file that
+                came with the package.
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          Continuing our example, if we look in <TT
+CLASS="FILENAME"
+>/etc</TT
+>, we
+          see that this is exactly what has happened:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al /etc/cdp*</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r--   1 root     root      119 Jun 23 16:00 /etc/cdp-config
+-rw-rw-r--   1 root     root       56 Jun 14 21:44 /etc/cdp-config.rpmorig</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+          This is the best possible solution to a tricky problem.
+          
+          The package is installed with a config file that is known to work.
+          After all, the original file may be for an older, incompatible version
+          of the software.  However, the original file is saved so that it can
+          be studied by the system administrator, who can decide whether the
+          original file should be put back into service or not.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-install.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-install-handy-options.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using RPM to Install Packages</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-install.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Two handy options</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

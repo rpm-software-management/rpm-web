@@ -1,0 +1,1505 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Selecting What to Verify, and How</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Verify Installed Packages"
+HREF="ch-rpm-verify.html"><LINK
+REL="PREVIOUS"
+TITLE="When Verification Fails &#8212; rpm -V
+      Output"
+HREF="s1-rpm-verify-output.html"><LINK
+REL="NEXT"
+TITLE="We've Lied to You&#8230;"
+HREF="s1-rpm-verify-we-lied.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-verify-output.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 6. Using RPM to Verify Installed Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-verify-we-lied.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-VERIFY-WHAT-TO-VERIFY"
+>Selecting What to Verify, and How</A
+></H1
+><P
+>        There are several ways to verify packages installed on your system.  If
+        you've taken a look at RPM's query command, you'll find that many of
+        them are similar.  Let's start with the simplest method of specifying
+        packages &#8212; the package label.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-PACKAGE-LABEL"
+>The Package Label &#8212; Verify an Installed Package Against the RPM
+          Database</A
+></H2
+><P
+>          You can simply follow the <B
+CLASS="COMMAND"
+>rpm -V</B
+> command with all
+          or part of a package label.  As with every other RPM command that
+          accepts package labels, you'll need to carefully specify each part of
+          the label you include.  Keep in mind that package names are
+          case-sensitive, so <B
+CLASS="COMMAND"
+>rpm -V PackageName</B
+> and
+          <B
+CLASS="COMMAND"
+>rpm -V packagename</B
+> are <I
+CLASS="EMPHASIS"
+>not</I
+> the
+          same.  Let's verify the <TT
+CLASS="FILENAME"
+>initscripts</TT
+> package:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -V initscripts</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          While it looks like RPM didn't do anything, the following steps were
+          performed:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                For every file in the package, RPM checked the nine file
+                attributes that were discussed above.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                If the package was built with dependencies, the RPM database was
+                searched to ensure the packages that satisfy those dependencies
+                were installed.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                If the package was built with a verification script, that script
+                was executed.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          In our example, each of these steps was performed without error
+          &#8212; the package verified successfully.  Remember, with
+          <B
+CLASS="COMMAND"
+>rpm -V</B
+> you'll only see output if a package fails to
+          verify.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-A-OPTION"
+><B
+CLASS="COMMAND"
+>-a</B
+> &#8212; Verify All Installed Packages Against
+          the RPM Database</A
+></H2
+><P
+>          If you add <B
+CLASS="COMMAND"
+>-a</B
+> to <B
+CLASS="COMMAND"
+>rpm -V</B
+>, you can
+          easily verify every installed package on your system.  It might take a
+          while, but when it's done, you'll know exactly what's been changed on
+          your system:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Va</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>.M5....T   /usr/X11R6/lib/X11/fonts/misc/fonts.dir
+missing    /var/spool/at/.lockfile
+missing    /var/spool/at/spool
+S.5....T   /usr/lib/rhs/glint/icon.pyc
+..5....T c /etc/inittab
+..5.....   /usr/bin/loadkeys</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Don't be too surprised if <B
+CLASS="COMMAND"
+>rpm -Va</B
+> turns up a
+          surprising number of files that failed verification.  RPM's
+          verification process is <I
+CLASS="EMPHASIS"
+>very</I
+> strict!  In many
+          cases, the changes flagged don't indicate problems &#8212; they are
+          only an indication of your system's configuration being different than
+          what the builders of the installed packages had on
+          <I
+CLASS="EMPHASIS"
+>their</I
+> system.  Also, some attributes change
+          during normal system operation.  However, it would be wise to check
+          into each verification failure, just to make sure.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-F-OPTION"
+><B
+CLASS="COMMAND"
+>-f <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+> &#8212;
+          Verify the Package Owning
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+> Against the
+          RPM Database</A
+></H2
+><P
+>          Imagine this: you're hard at work when a program you've used a million
+          times before suddenly stops working.  What do you do?  Well, before
+          using RPM, you probably tried to find other files associated with that
+          program and see if they had changed recently.
+        </P
+><P
+>          Now you can let RPM do at least part of that sleuthing for you.
+          Simply direct RPM to verify the package owning the ailing program:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>% </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vf /sbin/cardmgr</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>S.5....T c /etc/sysconfig/pcmcia</SAMP
+>
+<TT
+CLASS="PROMPT"
+>% </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+
+          Hmmmm.  Looks like a config file was recently changed.
+        </P
+><P
+>          This isn't to say that using RPM to verify a package will always get
+          you out of trouble, but it's such a quick step it should be one of the
+          first things you try.  Here's an example of <B
+CLASS="COMMAND"
+>rpm -Vf</B
+>
+          not working out as well:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>% </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vf /etc/blunder</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>file /etc/blunder is not owned by any package</SAMP
+>
+<TT
+CLASS="PROMPT"
+>% </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          (Note that the issue surrounding RPM and symbolic links mentioned in
+          <A
+HREF="s1-rpm-query-parts.html#S4-RPM-QUERY-TRICKY-DETAIL"
+>the Section called <I
+>A Tricky Detail</I
+> in Chapter 5</A
+> also applies to
+          <B
+CLASS="COMMAND"
+>rpm -Vf</B
+>.  Watch those symlinks!)
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-P-OPTION"
+><B
+CLASS="COMMAND"
+>-p <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+> &#8212;
+          Verify Against a Specific Package File</A
+></H2
+><P
+>          Unlike the previous options to <B
+CLASS="COMMAND"
+>rpm -V</B
+>, each of
+          which verified one or more packages against RPM's database, the
+          <B
+CLASS="COMMAND"
+>-p</B
+> option performs the same verification, but
+          against a package file.  Why on earth would you want to do this when
+          the RPM database is sitting there just waiting to be used?
+        </P
+><P
+>          Well, what if you didn't <I
+CLASS="EMPHASIS"
+>have</I
+> an RPM database?
+          While it isn't a common occurrence, power failures, hardware problems,
+          and inadvertent deletions (along with non-existent backups) can leave
+          your system "sans database".  Then your system hiccups &#8212; what do
+          you do now?
+        </P
+><P
+>          This is where a CD full of package files can be worth its weight in
+          gold.  Simply mount the CD and verify to your heart's content:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vp /mnt/cdrom/RedHat/RPMS/i386/adduser-1.1-1.i386.rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Whatever else might be wrong with this system, at least we can add new
+          users.  But what if you have <I
+CLASS="EMPHASIS"
+>many</I
+> packages to
+          verify?  It would be a very slow process doing it one package at a
+          time.  That's where the next option comes in handy&#8230;
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-G-OPTION"
+><B
+CLASS="COMMAND"
+>-g <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+> &#8212;
+          Verify Packages Belonging To
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+></A
+></H2
+><P
+>          When a package is built, the package builder must classify the
+          package, grouping it with other packages that perform similar
+          functions.  RPM gives you the ability to verify installed packages
+          based on their groups.  For example, there is a group known as
+          <TT
+CLASS="FILENAME"
+>Shells</TT
+>.  This group consists of packages that
+          contain, strangely enough, shells.  Let's verify the proper
+          installation of every shell-related package on the system:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vg Shells</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>missing    /etc/bashrc</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          One thing to keep in mind is that group specifications are
+          case-sensitive.  Issuing the command <B
+CLASS="COMMAND"
+>rpm -Vg shells</B
+>
+          wouldn't verify many packages:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vg shells</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>group shells does not contain any packages</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-NODEPS-OPTION"
+><B
+CLASS="COMMAND"
+>--nodeps</B
+>: Do Not Check Dependencies During
+          Verification</A
+></H2
+><P
+>          When the <B
+CLASS="COMMAND"
+>--nodeps</B
+> option is added to a verify
+          command, RPM will bypass its dependency verification processing.  In
+          this example, we've added the <B
+CLASS="COMMAND"
+>-vv</B
+> option to so we
+          can watch RPM at work:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vvv rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: opening database in //var/lib/rpm/
+D: verifying record number 2341208
+D: dependencies: looking for libz.so.1
+D: dependencies: looking for libdb.so.2
+D: dependencies: looking for libc.so.5</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As we can see, there are three different capabilities that the
+          <B
+CLASS="COMMAND"
+>rpm</B
+> package requires:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <TT
+CLASS="FILENAME"
+>libz.so.1</TT
+>
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <TT
+CLASS="FILENAME"
+>libdb.so.2</TT
+>
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <TT
+CLASS="FILENAME"
+>libc.so.5</TT
+>
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          If we add the <B
+CLASS="COMMAND"
+>--nodeps</B
+> option, the dependency
+          verification of the three capabilities is no longer performed:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vvv --nodeps rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: opening database in //var/lib/rpm/
+D: verifying record number 2341208</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The line <SAMP
+CLASS="COMPUTEROUTPUT"
+>D: verifying record number
+          2341208</SAMP
+> indicates that RPM's normal file-based
+          verification proceeded normally.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-NOSCRIPTS-OPTION"
+><B
+CLASS="COMMAND"
+>--noscripts</B
+>: Do Not Execute Verification Script</A
+></H2
+><P
+>          Adding the <B
+CLASS="COMMAND"
+>--noscripts</B
+> option to a verify command
+          prevents execution of the verification scripts of each package being
+          verified.  In the following example, the package verification script
+          is executed:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vvv bother</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: opening database in //var/lib/rpm/
+D: verifying record number 616728
+D: verify script found - running from file /var/tmp/rpm-321.vscript
++ PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin
++ export PATH
++ echo This is the bother 3.5 verification script
+This is the bother 3.5 verification script</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          While the actual script is not very interesting, it did execute when
+          the package was being verified.  In the next example, we'll use the
+          <B
+CLASS="COMMAND"
+>--noscripts</B
+> option to prevent its execution:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vvv --noscripts bother</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: opening database in //var/lib/rpm/
+D: verifying record number 616728</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As expected, the output is identical to the prior example &#8212;
+          minus the lines dealing with the verification script, of course.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-NOFILES-OPTION"
+><B
+CLASS="COMMAND"
+>--nofiles</B
+>: Do Not Verify File
+          Attributes</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--nofiles</B
+> option disables RPM's file-related
+          verification processing.  When this option is used, only the
+          verification script and dependency verification processing are
+          performed.  In this example, the package has a file-related
+          verification problem:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vvv bash</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: opening database in //var/lib/rpm/
+D: verifying record number 279448
+D: dependencies: looking for libc.so.5
+D: dependencies: looking for libtermcap.so.2
+missing    /etc/bashrc</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          When the <B
+CLASS="COMMAND"
+>--nofiles</B
+> option is added, the missing
+          file doesn't cause a message any more:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vvv --nofiles bash</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: opening database in //var/lib/rpm/
+D: verifying record number 279448
+D: dependencies: looking for libc.so.5
+D: dependencies: looking for libtermcap.so.2</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          This is not to say that the missing file problem is solved, just that
+          no file verification was performed.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-V-OPTION"
+><B
+CLASS="COMMAND"
+>-v</B
+> &#8212; Display Additional
+        Information</A
+></H2
+><P
+>          Although RPM won't report an error with the command syntax if you
+          include the <B
+CLASS="COMMAND"
+>-v</B
+> option, you won't see much in the
+          way of additional output:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vv bash</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Even if there are verification errors, adding <B
+CLASS="COMMAND"
+>-v</B
+>
+          won't change the output:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vv apmd</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>S.5....T   /etc/rc.d/init.d/apm
+S.5....T   /usr/X11R6/bin/xapm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The only time that the <B
+CLASS="COMMAND"
+>-v</B
+> option
+          <I
+CLASS="EMPHASIS"
+>will</I
+> produce output is when the package being
+          verified has a verification script.  Any normal output from the script
+          won't be displayed by RPM, when run without <B
+CLASS="COMMAND"
+>-v</B
+>:
+          <A
+NAME="AEN4311"
+HREF="#FTN.AEN4311"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -V bother</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          But when <B
+CLASS="COMMAND"
+>-v</B
+> is added, the script's
+          non-error-related output is displayed:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vv bother</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This is the bother 3.5 verification script</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          If you're looking for more insight into RPM's inner workings, you'll
+          have to try the next option:
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-VV-OPTION"
+><B
+CLASS="COMMAND"
+>-vv</B
+> &#8212; Display Debugging
+        Information</A
+></H2
+><P
+>          Sometimes it's necessary to have even <I
+CLASS="EMPHASIS"
+>more</I
+>
+          information than we can get with <B
+CLASS="COMMAND"
+>-v</B
+>.  By adding
+          another <B
+CLASS="COMMAND"
+>v</B
+>, that's just what we'll get:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Vvv rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: opening database in //var/lib/rpm/
+D: verifying record number 2341208
+D: dependencies: looking for libz.so.1
+D: dependencies: looking for libdb.so.2
+D: dependencies: looking for libc.so.5</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The lines starting with <SAMP
+CLASS="COMPUTEROUTPUT"
+>D:</SAMP
+> have been
+          added by using <B
+CLASS="COMMAND"
+>-vv</B
+>.  We can see where the RPM
+          database is located and what record number contains information on the
+          <TT
+CLASS="FILENAME"
+>rpm-2.3-1</TT
+> package.  Following that is the list of
+          dependencies that the <TT
+CLASS="FILENAME"
+>rpm</TT
+> package requires.
+        </P
+><P
+>          In the vast majority of cases, it will not be necessary to use
+          <B
+CLASS="COMMAND"
+>-vv</B
+>.  It is normally used by software engineers
+          working on RPM itself, and the output can change without notice.
+          However, it's a handy way to gain insights into RPM.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-DBPATH-OPTION"
+><B
+CLASS="COMMAND"
+>--dbpath <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>:
+          Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> To Find
+          RPM Database</A
+></H2
+><P
+>          In order for RPM to do its handiwork, it needs access to an RPM
+          database.  Normally, this database exists in the directory specified
+          by the <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entry,
+          <B
+CLASS="COMMAND"
+>dbpath</B
+>.  By default, <B
+CLASS="COMMAND"
+>dbpath</B
+> is
+          set to <TT
+CLASS="FILENAME"
+>/var/lib/rpm</TT
+>.
+        </P
+><P
+>          Although the <B
+CLASS="COMMAND"
+>dbpath</B
+> entry can be modified in the
+          appropriate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file, the
+          <B
+CLASS="COMMAND"
+>--dbpath</B
+> option is probably a better choice when
+          the database path needs to be changed temporarily.  An example of a
+          time the <B
+CLASS="COMMAND"
+>--dbpath</B
+> option would come in handy is
+          when it's necessary to examine an RPM database copied from another
+          system.  Granted, it's not a common occurrence, but it's difficult to
+          handle any other way.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-ROOT-OPTION"
+><B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Set
+          Alternate Root to
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+></A
+></H2
+><P
+>          Adding <B
+CLASS="COMMAND"
+>--root
+          <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> to a verify command
+          forces RPM to assume that the directory specified by
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> is actually
+          the "root" directory.  In addition, RPM expects its database to reside
+          in the directory specified by the <B
+CLASS="COMMAND"
+>dbpath</B
+>
+          <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entry, relative to
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>.
+          <A
+NAME="AEN4384"
+HREF="#FTN.AEN4384"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+        </P
+><P
+>          Normally this option is only used during an initial system install, or
+          when a system has been booted off a "rescue disk", and some packages
+          need to be re-installed in order to restore normal operation.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-RCFILE-OPTION"
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>:
+          Set Alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file to
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+></A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--rcfile</B
+> option is used to specify a file
+          containing default settings for RPM.  Normally, this option is not
+          needed.  By default, RPM uses <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> and a
+          file named <TT
+CLASS="FILENAME"
+>.rpmrc</TT
+>, located in your login
+          directory.
+        </P
+><P
+>          This option would be used if there was a need to switch between
+          several sets of RPM options.  Software developer and package builders
+          will be the people using <B
+CLASS="COMMAND"
+>--rcfile</B
+>.  For more
+          information on <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files, see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN4311"
+HREF="s1-rpm-verify-what-to-verify.html#AEN4311"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              Failure messages will always be displayed.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN4384"
+HREF="s1-rpm-verify-what-to-verify.html#AEN4384"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              For more information on <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries,
+              see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-verify-output.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-verify-we-lied.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>When Verification Fails &#8212; <B
+CLASS="COMMAND"
+>rpm -V</B
+>
+      Output</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-verify.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>We've Lied to You&#8230;</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

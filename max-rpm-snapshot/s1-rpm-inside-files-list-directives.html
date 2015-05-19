@@ -1,0 +1,1827 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Directives For the %files list</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Inside the Spec File"
+HREF="ch-rpm-inside.html"><LINK
+REL="PREVIOUS"
+TITLE="The %files List"
+HREF="s1-rpm-inside-files-list.html"><LINK
+REL="NEXT"
+TITLE="The Lone Directive: %package"
+HREF="s1-rpm-inside-package-directive.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-inside-files-list.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 13. Inside the Spec File</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-inside-package-directive.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-INSIDE-FILES-LIST-DIRECTIVES"
+>Directives For the <B
+CLASS="COMMAND"
+>%files</B
+> list</A
+></H1
+><P
+>        The <B
+CLASS="COMMAND"
+>%files</B
+> list may contain a number of different
+        directives.  They are used to:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Identify documentation and configuration files.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Ensure that a file has the correct permissions and ownership set.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Control which aspects of a file are to be checked during package
+              verification.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Eliminate some of the tedium in creating the
+              <B
+CLASS="COMMAND"
+>%files</B
+> list.
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        In the <B
+CLASS="COMMAND"
+>%files</B
+> list, one or more directives may be
+        placed on a line, separated by spaces, before one or more filenames.
+        Therefore, if <B
+CLASS="COMMAND"
+>%foo</B
+> and <B
+CLASS="COMMAND"
+>%bar</B
+> are
+        two <B
+CLASS="COMMAND"
+>%files</B
+> list directives, they may be applied to a
+        file <TT
+CLASS="FILENAME"
+>baz</TT
+> in the following manner:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%foo %bar baz</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Now it's time to take a look at the directives that inhabit the
+        <B
+CLASS="COMMAND"
+>%files</B
+> list.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-FLIST-FILE-DIRECTIVES"
+>File-related Directives</A
+></H2
+><P
+>          RPM processes files differently according to their type.  However, RPM
+          does not have a method of automatically determining file types.
+          Therefore, it is up to the package builder to appropriately mark files
+          in the <B
+CLASS="COMMAND"
+>%files</B
+> list.  This is done using one of the
+          directives below.
+        </P
+><P
+>          Keep in mind that not every file will need to be marked.  As you read
+          the following sections, you'll see that directives are only used in
+          special circumstances.  In most packages, the majority of files in the
+          <B
+CLASS="COMMAND"
+>%files</B
+> list will not need to be marked.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-FLIST-DOC-DIRECTIVE"
+>The <B
+CLASS="COMMAND"
+>%doc</B
+> Directive</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>%doc</B
+> directive flags the filename(s) that
+            follow, as being documentation.  RPM keeps track of documentation
+            files in its database, so that a user can easily find information
+            about an installed package.  In addition, RPM can create a
+            package-specific documentation directory during installation and
+            copy documentation into it.  Whether or not this additional step is
+            taken, is dependent on how a file is specified.  Here is an example:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%doc README
+%doc /usr/local/foonly/README</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The file <TT
+CLASS="FILENAME"
+>README</TT
+> exists in the software's
+            top-level directory during the build, and is included in the package
+            file.  When the package is installed, RPM creates a directory in the
+            documentation directory named the same as the package (ie,
+            <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;software&#62;</I
+></TT
+>-<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;version&#62;</I
+></TT
+>-<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;release&#62;</I
+></TT
+></TT
+>),
+            and copies the <TT
+CLASS="FILENAME"
+>README</TT
+> file there.  The newly
+            created directory and the <TT
+CLASS="FILENAME"
+>README</TT
+> file are
+            marked in the RPM database as being documentation.  The default
+            documentation directory is <TT
+CLASS="FILENAME"
+>/usr/doc</TT
+>, and can be
+            changed by setting the <B
+CLASS="COMMAND"
+>defaultdocdir</B
+>
+            <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entry.  For more information on
+            <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files, please see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+          </P
+><P
+>            The file <TT
+CLASS="FILENAME"
+>/usr/local/foonly/README</TT
+> was installed
+            into that directory during the build and is included in the package
+            file.  When the package is installed, the
+            <TT
+CLASS="FILENAME"
+>README</TT
+> file is copied into
+            <TT
+CLASS="FILENAME"
+>/usr/local/foonly</TT
+> and marked in the RPM
+            database as being documentation.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-FLIST-CONFIG-DIRECTIVE"
+>The <B
+CLASS="COMMAND"
+>%config</B
+> Directive</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>%config</B
+> directive is used to flag the
+            specified file as being a configuration file.  RPM performs
+            additional processing for config files when packages are erased, and
+            during installations and upgrades.  This is due to the nature of
+            config files: They are often changed by the system administrator,
+            and those changes should not be lost.
+          </P
+><P
+>            There is a restriction to the <B
+CLASS="COMMAND"
+>%config</B
+> directive,
+            and that restriction is that no more than one filename may follow
+            the <B
+CLASS="COMMAND"
+>%config</B
+>.  This means that the following
+            example is the only allowable way to specify config files:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%config /etc/foonly</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Note that the full path to the file, as it is installed at build
+            time, is required.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-FLIST-ATTR-DIRECTIVE"
+>The <B
+CLASS="COMMAND"
+>%attr</B
+> Directive</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>%attr</B
+> directive permits finer control over
+            three key file attributes:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  The file's permissions, or "mode".
+                </P
+></LI
+><LI
+><P
+>                  The file's user ID.
+                </P
+></LI
+><LI
+><P
+>                  The file's group ID.
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>%attr</B
+> directive has the following format:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%attr(<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;mode&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;user&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+>) <TT
+CLASS="REPLACEABLE"
+><I
+>file</I
+></TT
+></SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The mode is specified in the traditional numeric format, while the
+            user and group are specified as a string, such as
+            "<B
+CLASS="COMMAND"
+>root</B
+>".  Here's a sample <B
+CLASS="COMMAND"
+>%attr</B
+>
+            directive:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%attr(755, root, root) foo.bar</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            This would set <TT
+CLASS="FILENAME"
+>foo.bar</TT
+>'s permissions to 755.
+            The file would be owned by user root, group root.  If a particular
+            attribute does not need to be specified (usually because the file is
+            installed with that attribute set properly), then that attribute may
+            be replaced with a dash:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%attr(755, -, root) foo.bar</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The main reason to use the <B
+CLASS="COMMAND"
+>%attr</B
+> directive is to
+            permit users without root access to build packages.  The techniques
+            for doing this (and a more in-depth discussion of the
+            <B
+CLASS="COMMAND"
+>%attr</B
+> directive) can be found in <A
+HREF="ch-rpm-anywhere.html"
+>Chapter 16</A
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-FLIST-DEFATTR-DIRECTIVE"
+>The <B
+CLASS="COMMAND"
+>%defattr</B
+> Directive</A
+></H3
+><P
+>	    The <B
+CLASS="COMMAND"
+>%defattr</B
+> directive allows setting
+	    of default attributes for files and directives. The
+	    <B
+CLASS="COMMAND"
+>%defattr</B
+> has a similar format to the
+	    <B
+CLASS="COMMAND"
+>%attr</B
+> directive:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  The default permissions, or "mode" for files.
+                </P
+></LI
+><LI
+><P
+>		  The default user id.
+		</P
+></LI
+><LI
+><P
+>		  The default group id.
+		</P
+></LI
+><LI
+><P
+>		  The default permissions, or "mode" for directories.
+		</P
+></LI
+></OL
+>
+	  </P
+><P
+>            The <B
+CLASS="COMMAND"
+>%attr</B
+> directive has the following
+            format:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%defattr(<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file mode&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;user&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;dir mode&#62;</I
+></TT
+>)</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+	    </P
+><P
+>	      As with <B
+CLASS="COMMAND"
+>%attr</B
+> if a particular
+	      attribute does not need to be specified (usually because
+	      the file is installed with that attribute set properly),
+	      then that attribute may be replaced with a dash. In
+	      addition the directory mode may be ommited.
+	      <B
+CLASS="COMMAND"
+>%defattr</B
+> tends to be used at the top
+	      of <B
+CLASS="COMMAND"
+>%files</B
+>.
+	    </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-FLIST-GHOST-DIRECTIVE"
+>The <B
+CLASS="COMMAND"
+>%ghost</B
+> Directive</A
+></H3
+><P
+>            As we mentioned in <A
+HREF="s1-rpm-inside-files-list.html"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%files</B
+> List</I
+></A
+>, if a
+            file is specified in the <B
+CLASS="COMMAND"
+>%files</B
+> list, that file
+            will automatically be included in the package.  There are times
+            when a file should be owned by the package but not installed - log
+            files and state files are good examples of cases you might desire
+            this to happen.
+          </P
+><P
+>            The way to achieve this, is to use the <B
+CLASS="COMMAND"
+>%ghost</B
+>
+            directive.  By adding this directive to the line containing a file,
+            RPM will know about the ghosted file, but will not add it to the
+            package. However it still needs to be in the buildroot.  Here's an
+            example of <B
+CLASS="COMMAND"
+>%ghost</B
+> in action.
+          </P
+><P
+>            The <TT
+CLASS="APPLICATION"
+>blather-1.0</TT
+> package logs to
+            <TT
+CLASS="FILENAME"
+>/var/log/blather.log</TT
+> in it's default config.
+            In the spec file, the <TT
+CLASS="FILENAME"
+>/var/log/blather.log</TT
+> 
+            file is included in the <B
+CLASS="COMMAND"
+>%files</B
+> list.  We can
+	    see that blather.log belongs to the package, and it is removed
+	    when the package is.
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%install
+touch $RPM_BUILD_ROOT%{_localstatedir}/log/blather.log
+&#8230;
+%files
+&#8230;
+%ghost %{_localstatedir}/log/blather.log
+&#8230;</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -qf /var/log/blather.log</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>blather-1.0-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -ql blather | grep blather.log</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+></SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -e blather &#38;&#38; ls /var/log/blather.log</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>ls: /var/log/blather.log: No such file or directory</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            There file touched in the <B
+CLASS="COMMAND"
+>%install</B
+> stage will
+            not be installed to <TT
+CLASS="FILENAME"
+>/var/log/blather.log</TT
+>
+            although it will be added to the rpm database, as we can see from
+            querying the file, however it is not visible from a package listing,
+            but as it is owned by the package it will be removed when the package
+            is removed.  In addition it is possible to use setperms to fix the
+            permissions on a <B
+CLASS="COMMAND"
+>%ghost</B
+> file.
+	    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>ls -al /var/log/blather.log</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r--    1 root     root         3448 Jun 18 17:00 /var/log/blather.log</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+><B
+CLASS="COMMAND"
+>chmod 666 /var/log/blather.log</B
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>ls -al /var/log/blather.log</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-rw-rw-    1 root     root         3448 Jun 18 17:00 /var/log/blather.log</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+><B
+CLASS="COMMAND"
+>rpm --setperms blather</B
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>ls -al /var/log/blather.log</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r--    1 root     root         3448 Jun 18 17:00 /var/log/blather.log</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-FLIST-VERIFY-DIRECTIVE"
+>The <B
+CLASS="COMMAND"
+>%verify</B
+> Directive</A
+></H3
+><P
+>            RPM's ability to verify the integrity of the software it has
+            installed is impressive.  But sometimes it's a bit
+            <I
+CLASS="EMPHASIS"
+>too</I
+> impressive.  After all, RPM can verify as
+            many as nine different aspects of every file.  The
+            <B
+CLASS="COMMAND"
+>%verify</B
+> directive can control which of these file
+            attributes are to be checked when an RPM verification is done.  Here
+            are the attributes, along with the names used by the
+            <B
+CLASS="COMMAND"
+>%verify</B
+> directive:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  Owner (<B
+CLASS="COMMAND"
+>owner</B
+>)
+                </P
+></LI
+><LI
+><P
+>                  Group (<B
+CLASS="COMMAND"
+>group</B
+>)
+                </P
+></LI
+><LI
+><P
+>                  Mode (<B
+CLASS="COMMAND"
+>mode</B
+>)
+                </P
+></LI
+><LI
+><P
+>                  MD5 Checksum (<B
+CLASS="COMMAND"
+>md5</B
+>)
+                </P
+></LI
+><LI
+><P
+>                  Size (<B
+CLASS="COMMAND"
+>size</B
+>)
+                </P
+></LI
+><LI
+><P
+>                  Major Number (<B
+CLASS="COMMAND"
+>maj</B
+>)
+                </P
+></LI
+><LI
+><P
+>                  Minor Number (<B
+CLASS="COMMAND"
+>min</B
+>)
+                </P
+></LI
+><LI
+><P
+>                  Symbolic Link String (<B
+CLASS="COMMAND"
+>symlink</B
+>)
+                </P
+></LI
+><LI
+><P
+>                  Modification Time (<B
+CLASS="COMMAND"
+>mtime</B
+>)
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            How is <B
+CLASS="COMMAND"
+>%verify</B
+> used?  Say, for instance, that a
+            package installs device files.  Since the owner of a device will
+            change, it doesn't make sense to have RPM verify the device file's
+            owner/group and give out a false alarm.  Instead, the following
+            <B
+CLASS="COMMAND"
+>%verify</B
+> directive could be used:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%verify(mode md5 size maj min symlink mtime) /dev/ttyS0</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            We've left out <B
+CLASS="COMMAND"
+>owner</B
+> and
+            <B
+CLASS="COMMAND"
+>group</B
+>, since we'd rather RPM not verify those.
+            <A
+NAME="AEN8936"
+HREF="#FTN.AEN8936"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+          </P
+><P
+>            However, if all you want to do is prevent RPM from verifying one or
+            two attributes, you can use <B
+CLASS="COMMAND"
+>%verify</B
+>'s alternate
+            syntax:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%verify(not owner group) /dev/ttyS0</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            This use of <B
+CLASS="COMMAND"
+>%verify</B
+> produces identical results to
+            the previous example.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-FLIST-DIRECTORY-DIRECTIVES"
+>Directory-related Directives</A
+></H2
+><P
+>          While the two directives in this section perform different functions,
+          each is related to directories in some way.  Let's see what they do:
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-DOCDIR-DIRECTIVE"
+>The <B
+CLASS="COMMAND"
+>%docdir</B
+> Directive</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>%docdir</B
+> directive is used to add a directory
+            to the list of directories that will contain documentation.  RPM
+            includes the directories <TT
+CLASS="FILENAME"
+>/usr/doc</TT
+>,
+            <TT
+CLASS="FILENAME"
+>/usr/info</TT
+>, and <TT
+CLASS="FILENAME"
+>/usr/man</TT
+> in
+            the <B
+CLASS="COMMAND"
+>%docdir</B
+> list by default.
+          </P
+><P
+>            For example, if the following line is part of the
+            <B
+CLASS="COMMAND"
+>%files</B
+> list:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%docdir /usr/blather</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            any files in the <B
+CLASS="COMMAND"
+>%files</B
+> list that RPM packages
+            from <TT
+CLASS="FILENAME"
+>/usr/blather</TT
+> will be included in the
+            package as usual, but will also be automatically flagged as
+            documentation.  This directive is handy when a package creates its
+            own documentation directory and contains a large number of files.
+            Let's give it a try by adding the following line to our spec file:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%docdir /usr/blather</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Our <B
+CLASS="COMMAND"
+>%files</B
+> list contains no references to the
+            several files the package installs in the
+            <TT
+CLASS="FILENAME"
+>/usr/blather</TT
+> directory.  After building the
+            package, looking at the package's file list shows:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -qlp ../RPMS/i386/blather-1.0-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#8230;</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Wait a minute: There's nothing there, not even
+            <TT
+CLASS="FILENAME"
+>/usr/blather</TT
+>!  What happened?
+          </P
+><P
+>            The problem is that <B
+CLASS="COMMAND"
+>%docdir</B
+> only directs RPM to
+            mark the specified directory as holding documentation.  It
+            <I
+CLASS="EMPHASIS"
+>doesn't</I
+> direct RPM to package any files in the
+            directory.  To do that, we need to clue RPM in to the fact that
+            there are files in the directory that must be packaged.
+          </P
+><P
+>            One way to do this is to simply add the files to the
+            <B
+CLASS="COMMAND"
+>%files</B
+> list:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%docdir /usr/blather
+/usr/blather/INSTALL</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Looking at the package, we see that <TT
+CLASS="FILENAME"
+>INSTALL</TT
+> was
+            packaged:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -qlp ../RPMS/i386/blather-1.0-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#8230;
+/usr/blather/INSTALL</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Directing RPM to only show the documentation files, we see that
+            <TT
+CLASS="FILENAME"
+>INSTALL</TT
+> has indeed been marked as
+            documentation, even though the <B
+CLASS="COMMAND"
+>%doc</B
+> directive had
+            not been used:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -qdp ../RPMS/i386/blather-1.0-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#8230;
+/usr/blather/INSTALL</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Of course, if you go to the trouble of adding each file to the
+            <B
+CLASS="COMMAND"
+>%files</B
+> list, it wouldn't be that much more work
+            to add <B
+CLASS="COMMAND"
+>%doc</B
+> to each one.  So the way to get the
+            most benefit from <B
+CLASS="COMMAND"
+>%docdir</B
+> is to add another line
+            to the <B
+CLASS="COMMAND"
+>%files</B
+> list:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%docdir /usr/blather
+/usr/blather</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Since the first line directs RPM to flag any file in
+            <TT
+CLASS="FILENAME"
+>/usr/blather</TT
+> as being documentation, and the
+            second line tells RPM to automatically package any files found in
+            <TT
+CLASS="FILENAME"
+>/usr/blather</TT
+>, every single file in there will
+            be packaged <I
+CLASS="EMPHASIS"
+>and</I
+> marked as documentation:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -qdp ../RPMS/i386/blather-1.0-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/blather
+/usr/blather/COPYING
+/usr/blather/INSTALL
+/usr/blather/README
+&#8230;</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>%docdir</B
+> directive can save quite a bit of
+            effort in creating the <B
+CLASS="COMMAND"
+>%files</B
+> list.  The only
+            caveat is that you must be sure the directory will only contain
+            files you want marked as documentation.  Keep in mind, also, that
+            all subdirectories of the <B
+CLASS="COMMAND"
+>%docdir</B
+>'ed directory
+            will be marked as documentation directories, too.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-DIR-DIRECTIVE"
+>The <B
+CLASS="COMMAND"
+>%dir</B
+> Directive</A
+></H3
+><P
+>            As we mentioned in <A
+HREF="s1-rpm-inside-files-list.html"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%files</B
+> List</I
+></A
+>, if a
+            directory is specified in the <B
+CLASS="COMMAND"
+>%files</B
+> list, the
+            contents of that directory, and the contents of every directory
+            under it, will automatically be included in the package.  While this
+            feature can be handy (assuming you are <I
+CLASS="EMPHASIS"
+>sure</I
+>
+            that every file under the directory should be packaged) there are
+            times when this could be a problem.
+          </P
+><P
+>            The way to get around this, is to use the <B
+CLASS="COMMAND"
+>%dir</B
+>
+            directive.  By adding this directive to the line containing the
+            directory, RPM will package only the directory itself, regardless of
+            what files are in the directory at the time the package is created.
+            Here's an example of <B
+CLASS="COMMAND"
+>%dir</B
+> in action.
+          </P
+><P
+>            The <TT
+CLASS="APPLICATION"
+>blather-1.0</TT
+> package creates the directory
+            <TT
+CLASS="FILENAME"
+>/usr/blather</TT
+> as part of its build.  It also
+            puts several files in that directory.  In the spec file, the
+            <TT
+CLASS="FILENAME"
+>/usr/blather</TT
+> directory is included in the
+            <B
+CLASS="COMMAND"
+>%files</B
+> list:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files
+&#8230;
+/usr/blather
+&#8230;</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            There are no other entries in the <B
+CLASS="COMMAND"
+>%files</B
+> list
+            that have <TT
+CLASS="FILENAME"
+>/usr/blather</TT
+> as part of their path.
+            After building the package, we use RPM to look at the files in the
+            package:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -qlp ../RPMS/i386/blather-1.0-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#8230;
+/usr/blather
+/usr/blather/COPYING
+/usr/blather/INSTALL
+/usr/blather/README
+&#8230;</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The files present in <TT
+CLASS="FILENAME"
+>/usr/blather</TT
+> at the time
+            the package was built were included in the package automatically,
+            without entering their names in the <B
+CLASS="COMMAND"
+>%files</B
+> list.
+          </P
+><P
+>            However, after changing the <TT
+CLASS="FILENAME"
+>/usr/blather</TT
+> line
+            in the <B
+CLASS="COMMAND"
+>%files</B
+> list to:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%dir /usr/blather</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            and rebuilding the package, a listing of the package's files now
+            includes only the <TT
+CLASS="FILENAME"
+>/usr/blather</TT
+> directory:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -qlp ../RPMS/i386/blather-1.0-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#8230;
+/usr/blather
+&#8230;</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-FLIST-F-OPTION"
+><B
+CLASS="COMMAND"
+>-f <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>
+            &#8212; Read the <B
+CLASS="COMMAND"
+>%files</B
+> List From
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+></A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>-f</B
+> option is used to direct RPM to read the
+            <B
+CLASS="COMMAND"
+>%files</B
+> list from the named file.  Like the
+            <B
+CLASS="COMMAND"
+>%files</B
+> list in a spec file, the file named using
+            the <B
+CLASS="COMMAND"
+>-f</B
+> option should contain one filename per
+            line and also include any of the directives named in this section.
+          </P
+><P
+>            Why is it necessary to read filenames from a file rather than have
+            the filenames in the spec file?  Here's a possible reason:
+          </P
+><P
+>            The filenames' paths may contain a directory name that can only be
+            determined at build-time, such as an architecture specification.
+            The list of files, minus the variable part of the path, can be
+            created, and <B
+CLASS="COMMAND"
+>sed</B
+> can be used at build-time to
+            update the path appropriately.
+          </P
+><P
+>            It's not necessary that every filename to be packaged reside in the
+            file.  If there are any filenames present in the spec file, they
+            will be packaged as well:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files latex -f tetex-latex-skel
+/usr/bin/latex
+/usr/bin/pslatex
+&#8230;</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Here, the filenames present in the file
+            <TT
+CLASS="FILENAME"
+>tetex-latex-skel</TT
+> would be packaged, followed by
+            every filename following the <B
+CLASS="COMMAND"
+>%files</B
+> line.
+          </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN8936"
+HREF="s1-rpm-inside-files-list-directives.html#AEN8936"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                RPM will automatically exclude file attributes from verification
+                if it doesn't make sense for the type of file.  In our example,
+                getting the MD5 checksum of a device file is an example of such
+                a situation.
+              </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-inside-files-list.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-inside-package-directive.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The <B
+CLASS="COMMAND"
+>%files</B
+> List</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-inside.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The Lone Directive: <B
+CLASS="COMMAND"
+>%package</B
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

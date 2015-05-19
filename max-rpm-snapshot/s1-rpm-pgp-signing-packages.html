@@ -1,0 +1,1028 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Signing Packages</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Adding PGP Signatures to a Package"
+HREF="ch-rpm-pgp.html"><LINK
+REL="PREVIOUS"
+TITLE="Getting Ready to Sign"
+HREF="s1-rpm-pgp-getting-ready.html"><LINK
+REL="NEXT"
+TITLE="Creating Subpackages"
+HREF="ch-rpm-subpack.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-pgp-getting-ready.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 17. Adding PGP Signatures to a Package</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-subpack.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-PGP-SIGNING-PACKAGES"
+>Signing Packages</A
+></H1
+><P
+>        There are three different ways to sign a package:
+
+        <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>              Signing a package at build-time.
+            </P
+></LI
+><LI
+><P
+>              Replacing the signature on an already-existing package.
+            </P
+></LI
+><LI
+><P
+>              Adding a signature to an already-existing package.
+            </P
+></LI
+></OL
+>
+      </P
+><P
+>        Lets take a look at each one, starting with build-time signing.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-PGP-SIGN-OPTION"
+><B
+CLASS="COMMAND"
+>--sign</B
+> &#8212; Sign a Package At Build-Time</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--sign</B
+> option is used to sign a package as it
+          is being built.  When this option is added to an RPM build command,
+          RPM will ask for your PGP pass phrase.  If the pass phrase is correct,
+          the build will proceed.  If not, the build stops immediately.
+        </P
+><P
+>          Here's an example of <B
+CLASS="COMMAND"
+>--sign</B
+> in action:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba --sign blather-7.9.spec</KBD
+>
+            <TT
+CLASS="PROMPT"
+>Enter pass phrase: </TT
+><KBD
+CLASS="USERINPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;passphrase&#62;</I
+></TT
+></KBD
+> (Not echoed)
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#13;Pass phrase is good.
+* Package: blather
+&#8230;
+Binary Packaging: blather-7.9-1
+Finding dependencies...
+&#8230;
+Generating signature: 1002
+Wrote: /usr/src/redhat/RPMS/i386/blather-7.9-1.i386.rpm
+&#8230;
+Source Packaging: blather-7.9-1
+&#8230;
+Generating signature: 1002
+Wrote: /usr/src/redhat/SRPMS/blather-7.9-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Once the pass phrase is entered, there's very little that is different
+          from a normal build.  The only obvious difference is the
+          <SAMP
+CLASS="COMPUTEROUTPUT"
+>Generating signature</SAMP
+> message in both
+          the binary and source packaging sections.  The number following the
+          message indicates that the signature added was created using PGP.
+          <A
+NAME="AEN10608"
+HREF="#FTN.AEN10608"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        </P
+><P
+>          Notice, that since RPM only signs the source and binary package files,
+          only the <B
+CLASS="COMMAND"
+>-bb</B
+>, and <B
+CLASS="COMMAND"
+>-ba</B
+> options
+          make any sense when used with <B
+CLASS="COMMAND"
+>--sign</B
+>.  This is due
+          to the fact that only the <B
+CLASS="COMMAND"
+>-bb</B
+> and
+          <B
+CLASS="COMMAND"
+>-ba</B
+> options create package files.
+        </P
+><P
+>          If we issue a quick signature check using RPM's
+          <B
+CLASS="COMMAND"
+>--checksig</B
+> option, we can see that there is, in
+          fact, a PGP signature present:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --checksig blather-7.9-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>blather-7.9-1.i386.rpm: size pgp md5 OK</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          It's clear to see that, in addition to the usual size and MD5
+          signatures, the package has a PGP signature.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-PGP-MULTIPLE-BUILDS"
+>Multiple Builds?  No Problem!</A
+></H3
+><P
+>            You might be wondering how the <B
+CLASS="COMMAND"
+>--sign</B
+> option
+            would work if more than one package is to be built.  Do you have to
+            enter the pass phrase for every single package you build?  The
+            answer is no, as long as you build the packages with a single RPM
+            command.  Here's an example:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba --sign b*.spec</KBD
+>
+              <TT
+CLASS="PROMPT"
+>Enter pass phrase: </TT
+><KBD
+CLASS="USERINPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;passphrase&#62;</I
+></TT
+></KBD
+> (Not echoed)
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#13;Pass phrase is good.
+* Package: blather
+&#8230;
+Binary Packaging: blather-7.9-1
+&#8230;
+Generating signature: 1002
+Wrote: /usr/src/redhat/RPMS/i386/blather-7.9-1.i386.rpm
+&#8230;
+Source Packaging: blather-7.9-1
+&#8230;
+Generating signature: 1002
+Wrote: /usr/src/redhat/SRPMS/blather-7.9-1.src.rpm
+&#8230;
+* Package: bother
+&#8230;
+Binary Packaging: bother-3.5-1
+&#8230;
+Generating signature: 1002
+Wrote: /usr/src/redhat/RPMS/i386/bother-3.5-1.i386.rpm
+&#8230;
+Source Packaging: bother-3.5-1
+&#8230;
+Generating signature: 1002
+Wrote: /usr/src/redhat/SRPMS/bother-3.5-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Using the <B
+CLASS="COMMAND"
+>--sign</B
+> option makes it as easy to sign
+            one package as it is to sign one hundred.  But what happens if you
+            need to change your public key?  Will you need to rebuild every
+            single one of your packages just to update the signature?
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-PGP-RESIGN-OPTION"
+><B
+CLASS="COMMAND"
+>--resign</B
+> &#8212; Replace a Package's Signature(s)</A
+></H2
+><P
+>          As we mentioned at the end of the previous section, from time to time
+          it may be necessary to change your public key.  Certainly this would
+          be necessary if your key's security was compromised, but other, more
+          mundane situations might require this.
+        </P
+><P
+>          Fortunately, RPM has an option that permits you to replace the
+          signature on an already-built package, with a new one.  The option is
+          called <B
+CLASS="COMMAND"
+>--resign</B
+>, and here's an example of its use:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --resign blather-7.9-1.i386.rpm</KBD
+>
+            <TT
+CLASS="PROMPT"
+>Enter pass phrase: </TT
+><KBD
+CLASS="USERINPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;passphrase&#62;</I
+></TT
+></KBD
+> (Not echoed)
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#13;Pass phrase is good.
+blather-7.9-1.i386.rpm:</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          While the output is not as exciting as a package build, the
+          <B
+CLASS="COMMAND"
+>--resign</B
+> option can be a life-saver if you need to
+          change a package's signature, and you don't want to rebuild.
+        </P
+><P
+>          As you might have guessed, the <B
+CLASS="COMMAND"
+>--resign</B
+> option
+          works properly on multiple package files:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --resign b*.rpm</KBD
+>
+            <TT
+CLASS="PROMPT"
+>Enter pass phrase: </TT
+><KBD
+CLASS="USERINPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;passphrase&#62;</I
+></TT
+></KBD
+> (Not echoed)
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#13;Pass phrase is good.
+blather-7.9-1.i386.rpm:
+bother-3.5-1.i386.rpm:</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-PGP-RESIGN-LIMITATIONS"
+>There Are Limits, However&#8230;</A
+></H3
+><P
+>            Unfortunately, older package files cannot be re-signed.  The package
+            file must be in version 3 format, at least.  If you attempt to
+            resign a package that is too old, here's what you'll see:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --resign blah.rpm</KBD
+>
+              <TT
+CLASS="PROMPT"
+>Enter pass phrase: </TT
+><KBD
+CLASS="USERINPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;passphrase&#62;</I
+></TT
+></KBD
+> (Not echoed)
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#13;Pass phrase is good.
+blah.rpm:
+blah.rpm: Can't re-sign v2.0 RPM</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Not sure what version your package files are at?  Just use the
+            <B
+CLASS="COMMAND"
+>file</B
+> command to check:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>file blather-7.9-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>blather-7.9-1.i386.rpm: RPM v3 bin i386 blather-7.9-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The "<SAMP
+CLASS="COMPUTEROUTPUT"
+>v3</SAMP
+>" in
+            <B
+CLASS="COMMAND"
+>file</B
+>'s output indicates the package file format.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-PGP-ADDSIGN-OPTION"
+><B
+CLASS="COMMAND"
+>--addsign</B
+> &#8212; Add a Signature To a Package</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--addsign</B
+> option, as the name suggests, is used
+          to add another signature to the package.  It's pretty easy to see why
+          someone would want to have a package that had been signed by the
+          package builders.  But what reason would there be for
+          <I
+CLASS="EMPHASIS"
+>adding</I
+> a signature to a package?
+        </P
+><P
+>          One reason to have more than one signature on a package would be to
+          provide a means of documenting the path of ownership from the package
+          builder to the end-user.
+        </P
+><P
+>          As an example, the division of a company creates a package and signs
+          it with the division's key.  The company's headquarters then checks
+          the package's signature and adds the corporate signature to the
+          package, in essence stating that the signed package received by them
+          is authentic.
+        </P
+><P
+>          Continuing the example, the doubly-signed package makes its way to a
+          retailer.  The retailer checks the package's signatures and, when they
+          check out, adds their signature to the package.
+        </P
+><P
+>          The package now makes its way to a company that wishes to deploy the
+          package.  After checking every signature on the package, they know
+          that it is an authentic copy, unchanged since it was first created.
+          Depending on the deploying company's internal controls, they may
+          choose to add their own signature, thereby reassuring their employees
+          that the package has received their corporate "blessing".
+        </P
+><P
+>          After this lengthy example, the actual output from the
+          <B
+CLASS="COMMAND"
+>--addsign</B
+> option is a bit anti-climactic:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --addsign blather-7.9-1.i386.rpm</KBD
+>
+            <TT
+CLASS="PROMPT"
+>Enter pass phrase: </TT
+><KBD
+CLASS="USERINPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;passphrase&#62;</I
+></TT
+></KBD
+> (Not echoed)
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#13;Pass phrase is good.
+blather-7.9-1.i386.rpm:</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          If we check the signatures of this package, we'll be able to see the
+          multiple signatures:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --checksig blather-7.9-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>blather-7.9-1.i386.rpm: size pgp pgp md5 OK</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The two <SAMP
+CLASS="COMPUTEROUTPUT"
+>pgp</SAMP
+>'s in
+          <B
+CLASS="COMMAND"
+>--checksig</B
+>'s output clearly shows that the package
+          has been signed twice.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-PGP-ADDSIGN-CAVEATS"
+>A Few Caveats</A
+></H3
+><P
+>            As with the <B
+CLASS="COMMAND"
+>--resign</B
+> option, the
+            <B
+CLASS="COMMAND"
+>--addsign</B
+> option cannot do its magic on pre-V3
+            package files:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --addsign blah.rpm</KBD
+>
+              <TT
+CLASS="PROMPT"
+>Enter pass phrase: </TT
+><KBD
+CLASS="USERINPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;passphrase&#62;</I
+></TT
+></KBD
+> (Not echoed)
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#13;Pass phrase is good.
+blah.rpm:
+blah.rpm: Can't re-sign v2.0 RPM</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            OK, the error message may not be 100% accurate, but you get the
+            idea.
+          </P
+><P
+>            Another thing to be aware of is that the
+            <B
+CLASS="COMMAND"
+>--addsign</B
+> option does not check for multiple
+            identical signatures.  Although it doesn't make much sense to do so,
+            RPM will happily let you add the same signature as many times as
+            you'd like:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --addsig blather-7.9-1.i386.rpm</KBD
+>
+              <TT
+CLASS="PROMPT"
+>Enter pass phrase: </TT
+><KBD
+CLASS="USERINPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;passphrase&#62;</I
+></TT
+></KBD
+> (Not echoed)
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#13;Pass phrase is good.
+blather-7.9-1.i386.rpm:</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --addsig blather-7.9-1.i386.rpm</KBD
+>
+              <TT
+CLASS="PROMPT"
+>Enter pass phrase: </TT
+><KBD
+CLASS="USERINPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;passphrase&#62;</I
+></TT
+></KBD
+> (Not echoed)
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#13;Pass phrase is good.
+blather-7.9-1.i386.rpm:</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --addsig blather-7.9-1.i386.rpm</KBD
+>
+              <TT
+CLASS="PROMPT"
+>Enter pass phrase: </TT
+><KBD
+CLASS="USERINPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;passphrase&#62;</I
+></TT
+></KBD
+> (Not echoed)
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#13;Pass phrase is good.
+blather-7.9-1.i386.rpm:</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --checksig blather-7.9-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>blather-7.9-1.i386.rpm: size pgp pgp pgp pgp md5 OK</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            As we can see from <B
+CLASS="COMMAND"
+>--checksig</B
+>'s output, the
+            package now has four identical signatures.  Maybe this is the
+            digital equivalent of pressing down extra hard while writing your
+            name&#8230;
+          </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN10608"
+HREF="s1-rpm-pgp-signing-packages.html#AEN10608"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              The list of possible signature types can be found in the RPM
+              sources, specifically <TT
+CLASS="FILENAME"
+>signature.h</TT
+> in RPM's
+              <TT
+CLASS="FILENAME"
+>lib</TT
+> subdirectory.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-pgp-getting-ready.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-subpack.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Getting Ready to Sign</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-pgp.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Creating Subpackages</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

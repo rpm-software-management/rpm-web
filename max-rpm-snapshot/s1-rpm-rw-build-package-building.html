@@ -1,0 +1,2004 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Package Building</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Real-World Package Building"
+HREF="ch-rpm-rw-build.html"><LINK
+REL="PREVIOUS"
+TITLE="Initial Building With RPM"
+HREF="s1-rpm-rw-build-initial-build-with-rpm.html"><LINK
+REL="NEXT"
+TITLE="A Guide to the RPM Library API"
+HREF="ch-rpm-rpmlib.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-rw-build-initial-build-with-rpm.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 20. Real-World Package Building</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-rpmlib.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-RW-BUILD-PACKAGE-BUILDING"
+>Package Building</A
+></H1
+><P
+>        OK, let's go for broke and tell RPM to do the works, including the
+        creation of the binary and source packages:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba amanda-2.3.0.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: amanda
+* Package: amanda-client
+* Package: amanda-server
+&#8230;
+ echo Executing: %build
+Executing: %build
++ cd /usr/src/redhat/BUILD
++ cd amanda-2.3.0
++ make
+Making all in common-src
+&#8230;
++ echo Executing: %install
+Executing: %install
++ cd /usr/src/redhat/BUILD
++ cd amanda-2.3.0
++ make install
+Making install in common-src
+&#8230;
++ echo Executing: special doc
+Executing: special doc
+&#8230;
+Binary Packaging: amanda-client-2.3.0-1
+Finding dependencies...
+Requires (1): dump
+1 block
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/amanda-client-2.3.0-1.i386.rpm
+Binary Packaging: amanda-server-2.3.0-1
+Finding dependencies...
+1 block
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/amanda-server-2.3.0-1.i386.rpm
++ umask 022
++ echo Executing: %clean
+Executing: %clean
++ cd /usr/src/redhat/BUILD
++ cd amanda-2.3.0
++ exit 0
+Source Packaging: amanda-2.3.0-1
+amanda-2.3.0.spec
+amanda-2.3.0-linux.patch
+amanda-2.3.0.tar.gz
+374 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/SRPMS/amanda-2.3.0-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Great!  Let's take a look at our handiwork:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/src/redhat/RPMS/i386/</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -l</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 2
+-rw-r--r-- 1 root  root   1246 Nov 20 21:19 amanda-client-2.3.0-1.i386.rpm
+-rw-r--r-- 1 root  root   1308 Nov 20 21:19 amanda-server-2.3.0-1.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Hmmm, those binary packages look sort of small.  We'd better see what's
+        in there:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qilp amanda-*-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Name        : amanda-client         Distribution: (none)
+Version     : 2.3.0                       Vendor: (none)
+Release     : 1                       Build Date: Wed Nov 20 21:19:44 1996
+Install date: (none)                  Build Host: moocow.rpm.org
+Group       : System/Backup           Source RPM: amanda-2.3.0-1.src.rpm
+Size        : 0
+Summary     : Client-side Amanda package
+Description :
+The Amanda Network Backup system contains software necessary to
+automatically perform backups across a network.  Amanda consists of
+two packages -- a client (this package), and a server:
+
+The client package enable a network-capable system to have its
+filesystems backed up by a system running the Amanda server.
+
+NOTE: In order for a system to perform backups of itself, install both
+the client and server packages!
+(contains no files)
+
+Name        : amanda-server         Distribution: (none)
+Version     : 2.3.0                       Vendor: (none)
+Release     : 1                       Build Date: Wed Nov 20 21:19:44 1996
+Install date: (none)                  Build Host: moocow.rpm.org
+Group       : System/Backup           Source RPM: amanda-2.3.0-1.src.rpm
+Size        : 0
+Summary     : Server-side Amanda package
+Description :
+The Amanda Network Backup system contains software necessary to
+automatically perform backups across a network.  Amanda consists of
+two package -- a client, and a server (this package):
+
+The server package enables a network-capable system to control one
+or more Amanda client systems performing backups.  The server system
+will direct all backups to a locally attached tape drive.  Therefore,
+the server system requires a tape drive.
+
+NOTE: In order for a system to perform backups of itself, install both
+the client and server packages!
+(contains no files)</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        What do they mean, <SAMP
+CLASS="COMPUTEROUTPUT"
+>(contains no files)</SAMP
+>?
+        The spec file has perfectly good <B
+CLASS="COMMAND"
+>%files</B
+> lists&#8230;
+      </P
+><P
+>        Oops.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-CREATING-FILES-LIST"
+>Creating the <B
+CLASS="COMMAND"
+>%files</B
+> list</A
+></H2
+><P
+>          Everything was going so smoothly, we forgot that the
+          <B
+CLASS="COMMAND"
+>%files</B
+> lists were going to need files.  No problem,
+          we just need to put the filenames in there, and we'll be all set.  But
+          is it <I
+CLASS="EMPHASIS"
+>really</I
+> that easy?
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RW-BUILD-HOW-TO-FIND-FILES"
+>How to find the installed files?</A
+></H3
+><P
+>            Luckily, it's not too bad.  Since we saved the output from our first
+            <B
+CLASS="COMMAND"
+>make install</B
+>, we can see the filenames as they're
+            installed.  Of course, it's important to make sure the install
+            output is valid.  Fortunately for us, amanda didn't require much
+            fiddling by the time we got it built and tested.  If it had, we
+            would have had to get more recent output from the installation
+            phase.
+          </P
+><P
+>            It's time for more decisions.  We have one list of installed files,
+            and two <B
+CLASS="COMMAND"
+>%files</B
+> lists.  It would be silly to put
+            all the files in both <B
+CLASS="COMMAND"
+>%files</B
+> lists, so we have to
+            decide which file goes where.
+          </P
+><P
+>            This is where experience with the software really pays off, because
+            the wrong decision made here can result in awkward, ill-featured
+            packages.  Here's the <B
+CLASS="COMMAND"
+>%files</B
+> list we came up with
+            for the client subpackage:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files client
+/usr/lib/amanda/amandad
+/usr/lib/amanda/sendsize
+/usr/lib/amanda/calcsize
+/usr/lib/amanda/sendbackup-dump
+/usr/lib/amanda/selfcheck
+/usr/lib/amanda/sendbackup-gnutar
+/usr/lib/amanda/runtar
+README
+COPYRIGHT
+docs/INSTALL
+docs/SYSTEM.NOTES
+docs/WHATS.NEW</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The files in <TT
+CLASS="FILENAME"
+>/usr/lib/amanda</TT
+> are all the
+            client-side amanda programs, so that part was easy.  The remaining
+            files are part of the original source archive.  Amanda doesn't
+            install them, but they contain information that users should see.
+          </P
+><P
+>            Realizing that RPM can't package these files specified as they are,
+            let's leave the client <B
+CLASS="COMMAND"
+>%files</B
+> list for a moment,
+            and check out the list for the server subpackage:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files server
+/usr/sbin/amadmin
+/usr/sbin/amcheck
+/usr/sbin/amcleanup
+/usr/sbin/amdump
+/usr/sbin/amflush
+/usr/sbin/amlabel
+/usr/sbin/amrestore
+/usr/sbin/amtape
+/usr/lib/amanda/taper
+/usr/lib/amanda/dumper
+/usr/lib/amanda/driver
+/usr/lib/amanda/planner
+/usr/lib/amanda/reporter
+/usr/lib/amanda/getconf
+/usr/lib/amanda/chg-generic
+/usr/man/man8/amanda.8
+/usr/man/man8/amadmin.8
+/usr/man/man8/amcheck.8
+/usr/man/man8/amcleanup.8
+/usr/man/man8/amdump.8
+/usr/man/man8/amflush.8
+/usr/man/man8/amlabel.8
+/usr/man/man8/amrestore.8
+/usr/man/man8/amtape.8
+README
+COPYRIGHT
+docs/INSTALL
+docs/KERBEROS
+docs/SUNOS4.BUG
+docs/SYSTEM.NOTES
+docs/TAPE.CHANGERS
+docs/WHATS.NEW
+docs/MULTITAPE
+example</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The files in <TT
+CLASS="FILENAME"
+>/usr/sbin</TT
+> are programs that will
+            be run by the amanda administrator in order to perform backups and
+            restores.  The files in <TT
+CLASS="FILENAME"
+>/usr/lib/amanda</TT
+> are the
+            server-side programs that do the actual work during backups.
+            Following that are a number of man pages: one for each program to be
+            run by the amanda administrator, and one with an overview of amanda.
+          </P
+><P
+>            Bringing up the rear are a number of files that are not installed,
+            but would be handy for the amanda administrator to have available.
+            There is some overlap with the files that will be part of the client
+            subpackage, but the additional files here discuss features that
+            would interest only amanda administrators.  Included here is the
+            <TT
+CLASS="FILENAME"
+>example</TT
+> subdirectory, which contains a few
+            example configuration files for the amanda server.
+          </P
+><P
+>            As in the client <B
+CLASS="COMMAND"
+>%files</B
+> list, these last files
+            can't be packaged by RPM as we've listed them.  We need to use a few
+            more of RPM's tricks to get them packaged.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RW-BUILD-APPYING-DIRECTIVES"
+>Applying Directives</A
+></H3
+><P
+>            Since we'd like the client subpackage to include those files that
+            are not normally installed, and since the files are documentation,
+            let's use the <B
+CLASS="COMMAND"
+>%doc</B
+> directive on them.  That will
+            accomplish two things:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  When the client subpackage is installed, it will direct RPM to
+                  place them in a package-specific directory in
+                  <TT
+CLASS="FILENAME"
+>/usr/doc</TT
+>
+                </P
+></LI
+><LI
+><P
+>                  It will tag the files as being documentation, making it
+                  possible for users to easily track down the documentation with
+                  a simple <B
+CLASS="COMMAND"
+>rpm -qd</B
+> command
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            In the course of looking over the <B
+CLASS="COMMAND"
+>%files</B
+> lists,
+            it becomes apparent that the directory
+            <TT
+CLASS="FILENAME"
+>/usr/lib/amanda</TT
+> will contain only files from
+            the two amanda subpackages.  If the subpackages are erased, the
+            directory will remain, which won't hurt anything, but it isn't as
+            neat as it could be.  But if we add the directory to the list, RPM
+            will automatically package every file in the directory.  Since the
+            files in that directory are part of both the client and the server
+            subpackages, we'll need to use the <B
+CLASS="COMMAND"
+>%dir</B
+> directive
+            to instruct RPM to package only the directory.
+          </P
+><P
+>            After these changes, here's what the client
+            <B
+CLASS="COMMAND"
+>%files</B
+> list looks like now:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files client
+%dir /usr/lib/amanda/
+/usr/lib/amanda/amandad
+/usr/lib/amanda/sendsize
+/usr/lib/amanda/calcsize
+/usr/lib/amanda/sendbackup-dump
+/usr/lib/amanda/selfcheck
+/usr/lib/amanda/sendbackup-gnutar
+/usr/lib/amanda/runtar
+%doc README
+%doc COPYRIGHT
+%doc docs/INSTALL
+%doc docs/SYSTEM.NOTES
+%doc docs/WHATS.NEW</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            We've also applied the same directives to the server
+            <B
+CLASS="COMMAND"
+>%files</B
+> list:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files server
+/usr/sbin/amadmin
+/usr/sbin/amcheck
+/usr/sbin/amcleanup
+/usr/sbin/amdump
+/usr/sbin/amflush
+/usr/sbin/amlabel
+/usr/sbin/amrestore
+/usr/sbin/amtape
+%dir /usr/lib/amanda/
+/usr/lib/amanda/taper
+/usr/lib/amanda/dumper
+/usr/lib/amanda/driver
+/usr/lib/amanda/planner
+/usr/lib/amanda/reporter
+/usr/lib/amanda/getconf
+/usr/lib/amanda/chg-generic
+/usr/man/man8/amanda.8
+/usr/man/man8/amadmin.8
+/usr/man/man8/amcheck.8
+/usr/man/man8/amcleanup.8
+/usr/man/man8/amdump.8
+/usr/man/man8/amflush.8
+/usr/man/man8/amlabel.8
+/usr/man/man8/amrestore.8
+/usr/man/man8/amtape.8
+%doc README
+%doc COPYRIGHT
+%doc docs/INSTALL
+%doc docs/KERBEROS
+%doc docs/SUNOS4.BUG
+%doc docs/SYSTEM.NOTES
+%doc docs/TAPE.CHANGERS
+%doc docs/WHATS.NEW
+%doc docs/MULTITAPE
+%doc example</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            You'll note that we neglected to use the <B
+CLASS="COMMAND"
+>%doc</B
+>
+            directive on the man page files.  The reason is that RPM
+            automatically tags any file destined for
+            <TT
+CLASS="FILENAME"
+>/usr/man</TT
+> as documentation.  Now our spec file
+            has a complete set of tags, the two subpackages are defined, it has
+            build-time scripts that work, and now, <B
+CLASS="COMMAND"
+>%files</B
+>
+            lists for each subpackage.  Why don't we try that build again?
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba amanda-2.3.0.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: amanda
+* Package: amanda-client
+* Package: amanda-server
+&#8230;
+ echo Executing: %build
+Executing: %build
++ cd /usr/src/redhat/BUILD
++ cd amanda-2.3.0
++ make
+Making all in common-src
+&#8230;
++ echo Executing: %install
+Executing: %install
++ cd /usr/src/redhat/BUILD
++ cd amanda-2.3.0
++ make install
+Making install in common-src
+&#8230;
++ echo Executing: special doc
+Executing: special doc
+&#8230;
+Binary Packaging: amanda-client-2.3.0-6
+Finding dependencies...
+Requires (3): libc.so.5 libdb.so.2 dump
+usr/doc/amanda-client-2.3.0-6
+usr/doc/amanda-client-2.3.0-6/COPYRIGHT
+usr/doc/amanda-client-2.3.0-6/INSTALL
+&#8230;
+usr/lib/amanda/sendbackup-gnutar
+usr/lib/amanda/sendsize
+1453 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/amanda-client-2.3.0-6.i386.rpm
+Binary Packaging: amanda-server-2.3.0-6
+Finding dependencies...
+Requires (2): libc.so.5 libdb.so.2
+usr/doc/amanda-server-2.3.0-6
+usr/doc/amanda-server-2.3.0-6/COPYRIGHT
+usr/doc/amanda-server-2.3.0-6/INSTALL
+&#8230;
+usr/sbin/amrestore
+usr/sbin/amtape
+3404 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/amanda-server-2.3.0-6.i386.rpm
+&#8230;
+Source Packaging: amanda-2.3.0-6
+amanda-2.3.0.spec
+amanda-2.3.0-linux.patch
+amanda-rpm-instructions.tar.gz
+amanda-2.3.0.tar.gz
+393 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/SRPMS/amanda-2.3.0-6.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            If we take a quick look at the client and server subpackages, we
+            find that, sure enough, this time they contain files:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/src/redhat/RPMS/i386/</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -l amanda-*</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r-- 1 root  root  211409 Nov 21 15:56 amanda-client-2.3.0-1.i386.rpm
+-rw-r--r-- 1 root  root  512814 Nov 21 15:57 amanda-server-2.3.0-1.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qilp amanda-*</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Name        : amanda-client         Distribution: (none)
+Version     : 2.3.0                       Vendor: (none)
+Release     : 1                       Build Date: Thu Nov 21 15:55:59 1996
+Install date: (none)                  Build Host: moocow.rpm.org
+Group       : System/Backup           Source RPM: amanda-2.3.0-1.src.rpm
+Size        : 737101
+Summary     : Client-side Amanda package
+Description :
+The Amanda Network Backup system contains software necessary to
+automatically perform backups across a network.  Amanda consists of
+two packages -- a client (this package), and a server:
+
+The client package enable a network-capable system to have its
+filesystems backed up by a system running the Amanda server.
+
+NOTE: In order for a system to perform backups of itself, install both
+the client and server packages!
+
+/usr/doc/amanda-client-2.3.0-1
+/usr/doc/amanda-client-2.3.0-1/COPYRIGHT
+/usr/doc/amanda-client-2.3.0-1/INSTALL
+&#8230;
+/usr/lib/amanda/sendbackup-gnutar
+/usr/lib/amanda/sendsize
+
+Name        : amanda-server         Distribution: (none)
+Version     : 2.3.0                       Vendor: (none)
+Release     : 1                       Build Date: Thu Nov 21 15:55:59 1996
+Install date: (none)                  Build Host: moocow.rpm.org
+Group       : System/Backup           Source RPM: amanda-2.3.0-1.src.rpm
+Size        : 1733825
+Summary     : Server-side Amanda package
+Description :
+The Amanda Network Backup system contains software necessary to
+automatically perform backups across a network.  Amanda consists of
+two package -- a client, and a server (this package):
+
+The server package enables a network-capable system to control one
+or more Amanda client systems performing backups.  The server system
+will direct all backups to a locally attached tape drive.  Therefore,
+the server system requires a tape drive.
+
+NOTE: In order for a system to perform backups of itself, install both
+the client and server packages!
+
+/usr/doc/amanda-server-2.3.0-1
+/usr/doc/amanda-server-2.3.0-1/COPYRIGHT
+/usr/doc/amanda-server-2.3.0-1/INSTALL
+&#8230;
+/usr/sbin/amrestore
+/usr/sbin/amtape</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            We're finally ready to test these packages!
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-TESTING-FIRST-PACKAGES"
+>Testing those first packages</A
+></H2
+><P
+>          The system we've built the packages on already has amanda installed.
+          This is due to the build process itself.  However, we can install the
+          new packages on top of the already-existing files:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/src/redhat/RPMS/i386</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -ivh amanda-*-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>amanda-client       ##################################################
+amanda-server       ##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Running some tests, it looks like everything is running well.  But
+          back in <A
+HREF="s1-rpm-build-when-things-go-wrong.html#S2-RPM-BUILD-TESTING-PACKAGES"
+>the Section called <I
+>Testing Newly Built Packages</I
+> in Chapter 11</A
+>, we mentioned
+          that it was possible to install a newly-built package on the build
+          system, and not realize that the package was missing files.  Well,
+          there's another reason why installing the package on the build-system
+          for testing is a bad idea.  Let's bring our packages to a different
+          system, test them there, and see what happens.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RW-BUILD-INSTALLING-DIFFERENT-SYSTEM"
+>Installing the Package On A Different System</A
+></H3
+><P
+>            Looks like we're almost through.  Let's install the packages on
+            another system that had not previously run amanda, and test it
+            there:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -ivh amanda-*-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>amanda-client       ##################################################
+amanda-server       ##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The install went smoothly enough.  However, testing did not.  Why?
+            Nothing was set up!  The server configuration files, the
+            <TT
+CLASS="FILENAME"
+>inetd.conf</TT
+> entry for the client, everything was
+            missing.  If we stop and think about it for a moment that makes
+            sense: we had gone through all those steps on the build system, but
+            none of those steps can be packaged as files.
+          </P
+><P
+>            After following the steps in the installation instructions,
+            everything works.  While we could expect users to do most of the
+            grunt work associated with getting amanda configured, RPM
+            <I
+CLASS="EMPHASIS"
+>does</I
+> have the ability to run scripts when
+            packages are installed and erased.  Why don't we use that feature to
+            make life easier for our users?
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-FINISHING-TOUCHES"
+>Finishing Touches</A
+></H2
+><P
+>          At this point in the build process, we're on the home stretch.  The
+          software builds correctly and is packaged.  It's time to stop looking
+          at things from a "build the software" perspective, and time to
+          starting looking at things from a "package the software" point of
+          view.
+        </P
+><P
+>          The difference lies in looking at the packages from the user's
+          perspective.  Does the package install easily, or does it require a
+          lot of effort to make it operative?  When the package is removed, does
+          it clean up after itself, or does it leave bits and pieces strewn
+          throughout the filesystem?
+        </P
+><P
+>          Let's put a bit more effort into this spec file, and make life easier
+          on our users.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RW-BUILD-CREATING-INSTALL-SCRIPTS"
+>Creating Install Scripts</A
+></H3
+><P
+>            When it comes to needing post-installation configuration, amanda
+            certainly is no slouch!  We'll work on the client first.  Let's look
+            at a section of the script we wrote, comment on it, and move on:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%post client
+
+# See if they've installed amanda before...
+# If they have, none of this should be necessary...
+
+if [ "$1" = 1 ];
+then</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            First, we start the script with a <B
+CLASS="COMMAND"
+>%post</B
+>
+            statement, and indicate that this script is for the
+            <TT
+CLASS="FILENAME"
+>client</TT
+> subpackage.  As the comments indicate,
+            we only want to perform the following tasks if this is the first
+            time the client subpackage has been installed.  To do this, we use
+            the first and only argument passed to the script.  It is a number
+            indicating how many instances of this package will be installed
+            after the current installation is complete.
+          </P
+><P
+>            If the argument is equal to 1, that means that no other instances of
+            the client subpackage are presently installed, and that this one is
+            the first.  Let's continue:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+># Set disk devices so that bin can read them
+# (This is actually done on Red Hat Linux; only need to add bin to
+#  group disk)
+
+if grep "^disk::.*bin" /etc/group &#62; /dev/null
+then
+        true
+else
+
+# If there are any members in group disk, add bin after a comma...
+ sed -e 's/\(^disk::[0-9]\{1,\}:.\{1,\}\)/\1,bin/' /etc/group &#62; /etc/group.tmp
+
+# If there are no members in group disk, add bin...
+sed -e 's/\(^disk::[0-9]\{1,\}:$\)/\1bin/' /etc/group.tmp &#62; /etc/group
+
+# clean up!
+ rm -f /etc/group.tmp
+fi</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            One of amanda's requirements is that the user ID running the dumps
+            on the client needs to be able to read from every disk's device
+            file.  The folks at Red Hat have done half the work for us by creating
+            a group <TT
+CLASS="FILENAME"
+>disk</TT
+> and giving that group read/write
+            access to every disk device.  Since our dumpuser is
+            <TT
+CLASS="FILENAME"
+>bin</TT
+>, we only need to add
+            <TT
+CLASS="FILENAME"
+>bin</TT
+> to the <TT
+CLASS="FILENAME"
+>disk</TT
+> group.
+            Two lines of <B
+CLASS="COMMAND"
+>sed</B
+>, and we're done!
+          </P
+><P
+>            The next section is related to the last.  It also focuses on making
+            sure <TT
+CLASS="FILENAME"
+>bin</TT
+> can access everything it needs while
+            doing backups:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+># Also set /etc/dumpdates to be writable by group disk
+
+chgrp disk /etc/dumpdates
+chmod g+w /etc/dumpdates</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Since amanda uses <B
+CLASS="COMMAND"
+>dump</B
+> to obtain the backups, and
+            since <B
+CLASS="COMMAND"
+>dump</B
+> keeps track of the backups in
+            <TT
+CLASS="FILENAME"
+>/etc/dumpdates</TT
+>, it's only natural that
+            <B
+CLASS="COMMAND"
+>bin</B
+> will need read/write access to the file.  In
+            a perfect world, <TT
+CLASS="FILENAME"
+>/etc/dumpdates</TT
+> would have
+            already been set to allow group <TT
+CLASS="FILENAME"
+>disk</TT
+> to read
+            and write, but we had to do it ourselves.  It's not a big problem,
+            though.
+          </P
+><P
+>            Next, we need to create the appropriate network-related entries, so
+            that amanda clients can communicate with amanda servers, and vice
+            versa:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+># Add amanda line to /etc/services
+
+if grep "^amanda" /etc/services &#62;/dev/null
+then
+        true
+else
+        echo "amanda    10080/udp # Added by package amanda-client" &#62;&#62;
+/etc/services
+fi</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            By using <B
+CLASS="COMMAND"
+>grep</B
+> to look for lines that begin with
+            the letters <B
+CLASS="COMMAND"
+>amanda</B
+>, we can easily see if
+            <TT
+CLASS="FILENAME"
+>/etc/services</TT
+> is already configured properly.
+            It it isn't, we simply append a line to the end.
+          </P
+><P
+>            We also added a comment so that sysadmins will know where the entry
+            came from, and either take our word for it or issue an <B
+CLASS="COMMAND"
+>rpm
+            -q --scripts amanda-client</B
+> command and see for themselves.
+            We did it all on one line because it makes the script simpler.
+          </P
+><P
+>            Let's look at the rest of the network-related part of this script:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+># Add amanda line to /etc/inetd.conf
+
+if grep "^amanda" /etc/inetd.conf &#62;/dev/null
+then
+        true 
+else
+        echo "amanda dgram udp wait bin /usr/lib/amanda/amandad amandad
+  # added by package amanda-client" &#62;&#62;/etc/inetd.conf
+
+# Kick inetd
+
+if [ -f /var/run/inetd.pid ];
+then
+        kill -HUP `cat /var/run/inetd.pid`
+fi
+fi
+fi</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Here, we've used the same approach to add an entry to
+            <TT
+CLASS="FILENAME"
+>/etc/inetd.conf</TT
+>.  We then HUP
+            <B
+CLASS="COMMAND"
+>inetd</B
+> so the change will take affect, and we're
+            done!
+          </P
+><P
+>            Oh, and that last <B
+CLASS="COMMAND"
+>fi</B
+> at the end?  That's to close
+              the <B
+CLASS="COMMAND"
+>if [ "$1" = 1 ]</B
+> at the start of the
+              script.  Now let's look at the server's post-install script:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%post server
+
+# See if they've installed amanda before...
+
+if [ "$1" = 1 ];
+then
+
+# Add amanda line to /etc/services
+
+if grep "^amanda" /etc/services &#62;/dev/null
+then
+        true
+else
+        echo "amanda    10080/udp # Added by package amanda-server"
+ &#62;&#62;/etc/services
+fi
+
+fi</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            That was short!  And this huge difference brings up a good point
+            about writing install scripts: It's important to understand what you
+            as the package builder should do for the user, and what they should
+            do for themselves.
+          </P
+><P
+>            In the case of the client package, every one of the steps performed
+            by the post-install script was something that a fairly knowledgeable
+            user could have done.  But each of these steps have one thing in
+            common.  No matter how the user configures amanda, these steps will
+            never change.  And given the nature of client/server applications,
+            there's a good chance that <I
+CLASS="EMPHASIS"
+>many</I
+> more amanda
+            client packages will be installed than amanda servers.  Would
+            <I
+CLASS="EMPHASIS"
+>you</I
+> like to be tasked with installing this
+            package on twenty systems, and performing each of the steps we've
+            automated, twenty times?  We thought not.
+          </P
+><P
+>            There is one step that we did <I
+CLASS="EMPHASIS"
+>not</I
+> automate for
+            the client package.  The step we left out is the creation of a
+            <TT
+CLASS="FILENAME"
+>.rhosts</TT
+> file.  Since this file must contain the
+            name of the amanda server, we have no way of knowing what the file
+            should look like.  Therefore, that's one step we can't automate.
+          </P
+><P
+>            The server's post-install script is so short because there's little
+            else that can be automated.  The other steps required to set up an
+            amanda server include:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  Choosing a configuration name, which requires user input
+                </P
+></LI
+><LI
+><P
+>                  Creating a directory to hold the server configuration files,
+                  named according to the configuration name, which depends on
+                  the first step
+                </P
+></LI
+><LI
+><P
+>                  Modifying example configuration files to suit the site, which
+                  requires user input
+                </P
+></LI
+><LI
+><P
+>                  Adding crontab entries to run amanda nightly, which requires
+                  user input
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            Since every step depends on the user making decisions, the best way
+            to handle them is to not handle them at all.  Let the user do it!
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RW-BUILD-UNINSTALL-SCRIPTS"
+>Creating Uninstall Scripts</A
+></H3
+><P
+>            Where there are install scripts, there are uninstall scripts.  While
+            there is no ironclad rule to that effect, it is a good practice.
+            Following this practice, we have an uninstall script for the client
+            package, and one for the server.  Let's take the client first:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%postun client
+
+# First, see if we're the last amanda-client package on the system...
+# If not, then we don't need to do this stuff...
+
+if [ "$1" = 0 ];
+then</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            As before, we start out with a declaration of the type of script
+            this is, and which subpackage it is for.  Following that we have an
+            <B
+CLASS="COMMAND"
+>if</B
+> statement similar to the one we used in the
+            install scripts, save one difference.  Here, we're comparing the
+            argument against zero.  The reason is that we are trying to see if
+            there will be zero instances of this package after the uninstall is
+            complete.  If this is the case, the remainder of the script needs to
+            be run, since there are no other amanda client packages left.
+          </P
+><P
+>            Next, we remove <TT
+CLASS="FILENAME"
+>bin</TT
+> from the
+            <TT
+CLASS="FILENAME"
+>disk</TT
+> group:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+># First, get rid of bin from the disk group...
+
+if grep "^disk::.*bin" /etc/group &#62; /dev/null
+then
+
+#       Nuke bin at the end of the line...
+        sed -e 's/\(^disk::[0-9]\{1,\}:.\{1,\}\),bin$/\1/' /etc/group &#62; /etc/group.tmp
+
+#       Nuke bin on the line by itself...
+        sed -e 's/\(^disk::[0-9]\{1,\}:\)bin$/\1/' /etc/group.tmp &#62; /etc/group1.tmp
+
+#       Nuke bin in the middle of the line...
+        sed -e 's/\(^disk::[0-9]\{1,\}:.\{1,\}\),bin,\(.\{1,\}\)/\1,\2/' /etc/group1.tmp &#62; /etc/group2.tmp
+
+#       Nuke bin at the start of the line...
+        sed -e 's/\(^disk::[0-9]\{1,\}:\)bin,\(.\{1,\}\)/\1\2/' /etc/group2.tmp &#62; /etc/group
+
+#       Clean up after ourselves...
+        rm -f /etc/group.tmp /etc/group1.tmp /etc/group2.tmp
+fi</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            No surprises there.  Continuing our uninstall, we start on the
+            network-related tasks:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+># Next, lose the amanda line in /etc/services...
+# We only want to do this if the server package isn't installed
+# Look for /usr/sbin/amdump, and leave it if there...
+
+if [ ! -f /usr/sbin/amdump ];
+then
+
+        if grep "^amanda" /etc/services &#62; /dev/null
+        then
+                grep -v "^amanda" /etc/services &#62; /etc/services.tmp
+                mv -f /etc/services.tmp /etc/services
+        fi
+fi</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            That's odd.  Why are we looking for a file from the server package?
+            If you look back at the install scripts for the client and server
+            packages, you'll find that the one thing they have in common is that
+            both the client and the server require the same entry in
+            <TT
+CLASS="FILENAME"
+>/etc/services</TT
+>.
+          </P
+><P
+>            If an amanda server is going to back itself up, it also needs the
+            amanda client software.  Therefore, both subpackages need to add an
+            entry to <TT
+CLASS="FILENAME"
+>/etc/services</TT
+>.  But what if one of the
+            packages is removed?  Perhaps the server is being demoted to a
+            client, or maybe the server is no longer going to be backed up using
+            amanda.  In these cases, the entry
+            in <TT
+CLASS="FILENAME"
+>/etc/services</TT
+> must stay.  So, in the case of
+            the client, we look for a file from the server subpackage, and if
+            it's there, we leave the entry alone.
+          </P
+><P
+>            Granted, this is a somewhat unsightly way to see if a certain
+            package is installed.  Some of you are probably even saying, "Why
+            can't RPM be used?  Just do an <B
+CLASS="COMMAND"
+>rpm -q
+            amanda-server</B
+>, and decide what to do based on that."  And
+            that would be the best way to do it, except for one small point:
+          </P
+><P
+>            Only one invocation of RPM can run at any given time.
+          </P
+><P
+>            Since RPM is running to perform the uninstall, if the
+            uninstall-script were to attempt to run RPM again, it would fail.
+            The reason it would fail is because only one copy of RPM can access
+            the database at a time.  So we are stuck with our unsightly friend.
+          </P
+><P
+>            Continuing the network-related uninstall tasks:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+># Finally, the amanda entry in /etc/inetd.conf
+
+if grep "^amanda" /etc/inetd.conf &#62; /dev/null
+then
+        grep -v "^amanda" /etc/inetd.conf &#62; /etc/inetd.conf.tmp
+        mv -f /etc/inetd.conf.tmp /etc/inetd.conf
+
+# Kick inetd
+
+if [ -f /var/run/inetd.pid ];
+then
+        kill -HUP `cat /var/run/inetd.pid`
+fi
+fi
+
+fi</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Here, we're using <B
+CLASS="COMMAND"
+>grep</B
+>'s ability to return lines
+            that <I
+CLASS="EMPHASIS"
+>don't</I
+> match the search string, in order to
+            remove every trace of amanda from
+            <TT
+CLASS="FILENAME"
+>/etc/inetd.conf</TT
+>.  After issuing a HUP on inetd,
+            we're done.
+          </P
+><P
+>            On to the server.  If you've been noticing a pattern between the
+            various scripts, you won't be disappointed here:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%postun server
+
+# See if we're the last server package on the system...
+# If not, we don't need to do any of this stuff...
+
+if [ "$1" = 0 ];
+then
+
+# Lose the amanda line in /etc/services...
+# We only want to do this if the client package isn't installed
+# Look for /usr/lib/amandad, and leave it if there...
+
+if [ ! -f /usr/lib/amanda/amandad ];
+then
+
+        if grep "^amanda" /etc/services &#62; /dev/null
+        then
+                grep -v "^amanda" /etc/services &#62; /etc/services.tmp
+                mv -f /etc/services.tmp /etc/services
+        fi
+fi
+
+fi</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            By now the opening <B
+CLASS="COMMAND"
+>if</B
+> statement is an old friend.
+            As you might have expected, we are verifying whether the client
+            package is installed, by looking for a file from that package.  If
+            the client package isn't there, the entry is removed from
+            <TT
+CLASS="FILENAME"
+>/etc/services</TT
+>.  And that, is that.
+          </P
+><P
+>            Obviously, these scripts must be carefully tested.  In the case of
+            amanda, since the two subpackages have some measure of
+            interdependency, it's necessary to try different sequences of
+            installing and erasing the two packages to make sure the
+            <TT
+CLASS="FILENAME"
+>/etc/services</TT
+> logic works properly in all
+            cases.
+          </P
+><P
+>            After a bit of testing, our install and uninstall scripts pass with
+            flying colors.  From a technological standpoint, the client and
+            server subpackages are ready to go.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RW-BUILD-BITS-AND-PIECES"
+>Bits and Pieces</A
+></H3
+><P
+>            However, just because a package has been properly built, and
+            installs and can be erased without problems, doesn't mean that the
+            package builder's job is done.  It's necessary to look at each
+            newly-built package from the user's perspective.  Does the package
+            contain everything the user needs in order to deploy it effectively?
+            Or will the user need to fiddle with it, guessing as they go?
+          </P
+><P
+>            In the case of our amanda packages, it was obvious that some
+            additional documentation was required so that the user would know
+            what needed to be done in order to finalize the installation.
+            Simply directing the user to the standard amanda documentation
+            wasn't the right solution, either.  Many of the steps outlined in
+            the <TT
+CLASS="FILENAME"
+>INSTALL</TT
+> document had already been done by
+            the post-install scripts.  No, an interim document was required.
+            Two, actually: one for the client, and one for the server.
+          </P
+><P
+>            So two files were created, one to be added to each subpackage.  The
+            question was, how to do it?  Essentially, there were two options:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  Put the files in the amanda directory tree that had been used
+                  to perform the initial builds and generate a new patch file
+                </P
+></LI
+><LI
+><P
+>                  Create a <B
+CLASS="COMMAND"
+>tar</B
+> file containing the two files,
+                  and modify the spec file to unpack the documentation into the
+                  amanda directory tree.
+                </P
+></LI
+><LI
+><P
+>                  Drop the files directly into the amanda directory tree without
+                  using <B
+CLASS="COMMAND"
+>tar</B
+>.
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            Since the second approach was more interesting, that's the approach
+            we chose.  It required an additional <B
+CLASS="COMMAND"
+>source</B
+> tag
+            in the spec file:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Source1: amanda-rpm-instructions.tar.gz</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Also required was an additional <B
+CLASS="COMMAND"
+>%setup</B
+> macro in
+            the <B
+CLASS="COMMAND"
+>%prep</B
+> script:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -T -D -a 1</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            While the <B
+CLASS="COMMAND"
+>%setup</B
+> macro might look intimidating,
+            it wasn't that hard to construct.  Here's what each options means:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <B
+CLASS="COMMAND"
+>-T</B
+> &#8212; Do not perform the default
+                  archive unpacking.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <B
+CLASS="COMMAND"
+>-D</B
+> &#8212; Do not delete the directory
+                  before unpacking.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <B
+CLASS="COMMAND"
+>-a1</B
+> &#8212; Unpack the archive specified by
+                  the <B
+CLASS="COMMAND"
+>source1</B
+> tag after changing directory.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            Finally, two additions to the <B
+CLASS="COMMAND"
+>%files</B
+> lists were
+            required.  One for the client:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%doc amanda-client.README</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            And one for the server:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%doc amanda-server.README</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            At this point, the packages were complete.  Certainly there is
+            software out there that doesn't require this level of effort to
+            package.  Just as certainly there is software that is much more of a
+            challenge.  Hopefully this chapter has given you some idea about how
+            to approach package building for more complex applications.
+          </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-rw-build-initial-build-with-rpm.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-rpmlib.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Initial Building With RPM</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-rw-build.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>A Guide to the RPM Library API</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

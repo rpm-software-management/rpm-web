@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Upgrading a Package</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Upgrade Packages"
+HREF="ch-rpm-upgrade.html"><LINK
+REL="PREVIOUS"
+TITLE="Using RPM to Upgrade Packages"
+HREF="ch-rpm-upgrade.html"><LINK
+REL="NEXT"
+TITLE="They're Nearly Identical&#8230;"
+HREF="s1-rpm-upgrade-nearly-identical.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-upgrade.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 4. Using RPM to Upgrade Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-upgrade-nearly-identical.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-UPGRADE-UPGRADING-A-PACKAGE"
+>Upgrading a Package</A
+></H1
+><P
+>        The most basic version of the <B
+CLASS="COMMAND"
+>rpm -U</B
+> command is
+        simply "<B
+CLASS="COMMAND"
+>rpm -U</B
+>", followed by the name of a
+        <TT
+CLASS="FILENAME"
+>.rpm</TT
+> package file:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -U eject-1.2-2.i386.rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Here, RPM performed all the steps necessary to upgrade the
+        <TT
+CLASS="FILENAME"
+>eject-1.2-2</TT
+> package, faster than could have been
+        done by hand.  As in RPM's install command, Uniform Resource Locators,
+        or URLs, can also be used to specify the package file.
+        <A
+NAME="AEN2248"
+HREF="#FTN.AEN2248"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-UPGRADE-SECRET"
+><B
+CLASS="COMMAND"
+>rpm -U</B
+>'s Dirty Little Secret</A
+></H2
+><P
+>          Well, in the example above, we didn't tell the whole story.  There was
+          no older version of the <TT
+CLASS="FILENAME"
+>eject</TT
+> package installed.
+          Yes, it's true &#8212; <B
+CLASS="COMMAND"
+>rpm -U</B
+> works just fine as a
+          replacement for the normal install command <B
+CLASS="COMMAND"
+>rpm -i</B
+>.
+        </P
+><P
+>          This is another, more concrete example of the strength of RPM's method
+          of performing upgrades.  Since RPM's install command is smart enough
+          to handle upgrades, RPM's upgrade command is really just another way
+          to specify an install.  Some people never even bother to use RPM's
+          install command; they always use <B
+CLASS="COMMAND"
+>rpm -U</B
+>.  Maybe the
+          "<B
+CLASS="COMMAND"
+>-U</B
+>" should stand for, "Uh, do the right
+          thing"&#8230;
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2248"
+HREF="s1-rpm-upgrade-upgrading-a-package.html#AEN2248"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>            For more information on RPM's use of URLs, please see <A
+HREF="s1-rpm-install-performing-install.html#S2-RPM-INSTALL-URLS"
+>the Section called <I
+>URLs &#8212; Another Way to Specify Package Files</I
+> in Chapter 2</A
+>.
+          </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-upgrade.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-upgrade-nearly-identical.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using RPM to Upgrade Packages</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-upgrade.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>They're Nearly Identical&#8230;</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

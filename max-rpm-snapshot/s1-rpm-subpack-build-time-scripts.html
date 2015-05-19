@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Build-Time Scripts: Unchanged For Subpackages</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Creating Subpackages"
+HREF="ch-rpm-subpack.html"><LINK
+REL="PREVIOUS"
+TITLE="Spec File Changes For Subpackages"
+HREF="s1-rpm-subpack-spec-file-changes.html"><LINK
+REL="NEXT"
+TITLE="Building Subpackages"
+HREF="s1-rpm-subpack-building-subpackages.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-subpack-spec-file-changes.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 18. Creating Subpackages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-subpack-building-subpackages.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-SUBPACK-BUILD-TIME-SCRIPTS"
+>Build-Time Scripts: Unchanged For Subpackages</A
+></H1
+><P
+>        While creating subpackages changes the general structure of the spec
+        file, there's one section that doesn't change: the build-time scripts.
+        This means there is only one set of <B
+CLASS="COMMAND"
+>%prep</B
+>,
+        <B
+CLASS="COMMAND"
+>%build</B
+>, and <B
+CLASS="COMMAND"
+>%install</B
+> scripts in
+        any spec file.
+      </P
+><P
+>        Of course, even if RPM doesn't require any changes to these scripts, you
+        still might need to make some subpackage-related changes to them.
+        Normally these changes are related to doing whatever is required to get
+        the all the software unpacked, built, and installed.  For example, if
+        packaging client/server software, the software for both the client
+        <I
+CLASS="EMPHASIS"
+>and</I
+> the server must be unpacked, and then both the
+        client <I
+CLASS="EMPHASIS"
+>and</I
+> server binaries must be built and
+        installed.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SUBPACK-ONE-LAST-LOOK"
+>Our Spec File: One Last Look&#8230;</A
+></H2
+><P
+>          Let's add some build-time scripts and take a final look at the spec
+          file:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Name: foo
+Version: 2.7
+Release: 1
+Source: foo-2.7.tgz
+License: probably not
+Summary: The foo app, and the baz library needed to build it
+Group: bogus/junque
+%description
+This is the long description of the foo app, and the baz library needed to
+build it...
+
+%package server
+Summary: The foo server
+Group: bogus/junque
+%description server
+This is the long description for the foo server...
+
+%package client
+Summary: The foo client
+Group: bogus/junque
+%description client
+This is the long description for the foo client...
+
+%package -n bazlib
+Version: 5.6
+Summary: The baz library
+Group: bogus/junque
+%description -n bazlib
+This is the long description for the bazlib...
+
+%prep
+%setup
+
+%build
+make
+
+%install
+make install
+
+%pre
+echo "This is the foo package preinstall script"
+
+%pre server
+echo "This is the foo-server subpackage preinstall script"
+
+#%pre client
+#echo "This is the foo-client subpackage preinstall script"
+
+%pre -n bazlib
+echo "This is the bazlib subpackage preinstall script"
+
+%files
+/usr/local/foo-file
+
+%files server
+/usr/local/server-file
+
+%files client
+/usr/local/client-file
+
+%files -n bazlib
+/usr/local/bazlib-file</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As you can see, the build-time scripts are about as simple as they can
+          be.
+          <A
+NAME="AEN11138"
+HREF="#FTN.AEN11138"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN11138"
+HREF="s1-rpm-subpack-build-time-scripts.html#AEN11138"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              This is the advantage to making up an example.  A more real-world
+              spec file would undoubtedly have more interesting scripts.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-subpack-spec-file-changes.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-subpack-building-subpackages.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Spec File Changes For Subpackages</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-subpack.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Building Subpackages</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

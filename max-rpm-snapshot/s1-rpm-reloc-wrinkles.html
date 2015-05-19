@@ -1,0 +1,438 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Relocatable Wrinkles: Things to Consider</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Making a Relocatable Package"
+HREF="ch-rpm-reloc.html"><LINK
+REL="PREVIOUS"
+TITLE="The prefix tag: Relocation Central"
+HREF="s1-rpm-reloc-prefix-tag.html"><LINK
+REL="NEXT"
+TITLE="Building a Relocatable Package"
+HREF="s1-rpm-reloc-building-relocatable.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-reloc-prefix-tag.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 15. Making a Relocatable Package</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-reloc-building-relocatable.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-RELOC-WRINKLES"
+>Relocatable Wrinkles: Things to Consider</A
+></H1
+><P
+>        While it's certainly no problem to add a <B
+CLASS="COMMAND"
+>prefix</B
+> tag
+        line to a spec file, it's necessary to consider a few other issues:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Every file in the <B
+CLASS="COMMAND"
+>%files</B
+> list must start with
+              the path specified on the <B
+CLASS="COMMAND"
+>prefix</B
+> tag line.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              The software must be written such that it can operate properly if
+              relocated.  Absolute symlinks are a prime example of this.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Other software must not rely on the relocatable package being
+              installed in any particular location.
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        Let's cover each of these issues, starting with the
+        <B
+CLASS="COMMAND"
+>%files</B
+> list.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RELOC-FILES-LIST-RESTRICTIONS"
+><B
+CLASS="COMMAND"
+>%files</B
+> List Restrictions</A
+></H2
+><P
+>          As mentioned above, each file in the <B
+CLASS="COMMAND"
+>%files</B
+> list
+          must start with the relocation prefix.  If this isn't done, the build
+          will fail:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba cdplayer-1.0.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
++ umask 022
++ echo Executing: %prep
+&#8230;
+Binary Packaging: cdplayer-1.0-1
+Package Prefix = usr/local
+File doesn't match prefix (usr/local): /usr/doc/cdplayer-1.0-1
+File not found: /usr/doc/cdplayer-1.0-1
+Build failed.</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In our example, the build proceeded normally until the time came to
+          create the binary package file.  At that point RPM detected the
+          problem.  The error message says it all: The <B
+CLASS="COMMAND"
+>prefix</B
+>
+          line in the spec file (<TT
+CLASS="FILENAME"
+>/usr/local</TT
+>) was not
+          present in the first part of the file's
+          (<TT
+CLASS="FILENAME"
+>/usr/doc/cdplayer-1.0-1</TT
+>) path.  This stopped the
+          build in its tracks.
+        </P
+><P
+>          The fact that every file in a relocatable package must be installed
+          under the directory specified in the <B
+CLASS="COMMAND"
+>prefix</B
+> line,
+          raises some issues.  For example, what about a program that reads a
+          configuration file normally kept in <TT
+CLASS="FILENAME"
+>/etc</TT
+>?
+          
+        </P
+><P
+>          This question leads right into our next section.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RELOC-MUST-BE-RELOCATABLE"
+>Relocatable Packages Must Contain Relocatable Software</A
+></H2
+><P
+>          While this section's title seems pretty obvious, it's not always easy
+          to tell if a particular piece of software can be relocated.  Let's
+          take a look at the question raised at the end of the previous section.
+          If a program has been written to read its configuration file from
+          <TT
+CLASS="FILENAME"
+>/etc</TT
+>, there are three possible approaches to
+          making that program relocatable:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                Set the prefix to <TT
+CLASS="FILENAME"
+>/etc</TT
+> and package
+                everything under <TT
+CLASS="FILENAME"
+>/etc</TT
+>.
+              </P
+></LI
+><LI
+><P
+>                Package everything somewhere other than
+                <TT
+CLASS="FILENAME"
+>/etc</TT
+> and leave out the config file
+                entirely.
+                
+              </P
+></LI
+><LI
+><P
+>                Modify the program.
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          The first approach would certainly work from a purely technical
+          standpoint, but not many people would be happy with a program that
+          installed itself in <TT
+CLASS="FILENAME"
+>/etc</TT
+>.  So this approach isn't
+          viable.
+        </P
+><P
+>          The second approach might be more appropriate, but it forces users to
+          complete the install by having them create the config file themselves.
+          If RPM's goal is to make software easier to install and remove, this
+          is not a viable approach, either!
+        </P
+><P
+>          The final approach might be the best.  Once the program is installed,
+          when the rewritten software is first run, it could see that no
+          configuration file existed in <TT
+CLASS="FILENAME"
+>/etc</TT
+>, and create
+          one.
+          
+        </P
+><P
+>          However, even though this would work, when the time came to erase the
+          package, the config file would be left behind.  RPM had never
+          installed it, so RPM couldn't get rid of it.  There's also the fact
+          that this approach is probably more labor intensive than most package
+          builders would like.
+        </P
+><P
+>          None of these approaches are very appealing, are they?  Some software
+          just doesn't relocate very well.  In general, any of the following
+          things are warning signs that relocation is going to be a problem:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The software contains one or more files that must be installed
+                in specific directories
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The software refers to system files using relative paths (Which
+                is really just another way of saying the software must be
+                installed in a particular directory)
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          If these kinds of issues crop up, then making the software relocatable
+          is going to be tough.  And there's still one issue left to consider.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RELOC-REFERENCED"
+>The Relocatable Software Is Referenced By Other Software</A
+></H2
+><P
+>          Even assuming the software is written so that it can be put in a
+          relocatable package, there still might be a problem.  And that problem
+          centers not on the relocatable software itself, but on other programs
+          that reference the relocatable software.
+        </P
+><P
+>          For example, there are times when a package needs to execute other
+          programs.  This might include backup software that needs to send mail,
+          or a communications program that needs to compress files.  If these
+          underlying programs were relocatable, and not installed where other
+          packages expect them, then they would be of little use.
+        </P
+><P
+>          Granted, this isn't a common problem, but it can happen.  And for the
+          package builder interested in building relocatable packages, it's an
+          issue that needs to be explored.  Unfortunately, this type of problem
+          can be the hardest to find.
+        </P
+><P
+>          If, however, a software product has been found to be relocatable, the
+          mechanics of actually building a relocatable package are pretty
+          straightforward.  Let's give it a try.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-reloc-prefix-tag.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-reloc-building-relocatable.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The <B
+CLASS="COMMAND"
+>prefix</B
+> tag: Relocation Central</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-reloc.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Building a Relocatable Package</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

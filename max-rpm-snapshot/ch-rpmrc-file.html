@@ -1,0 +1,317 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>The rpmrc File</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      Appendixes
+    "
+HREF="p14028.html"><LINK
+REL="PREVIOUS"
+TITLE="      Identifying RPM files with the file(1) command
+    "
+HREF="s1-rpm-file-format-file-command.html"><LINK
+REL="NEXT"
+TITLE="Different Places an rpmrc File Resides"
+HREF="s1-rpmrc-file-rpmrc-file-locations.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-file-format-file-command.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpmrc-file-rpmrc-file-locations.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="CH-RPMRC-FILE"
+></A
+>Appendix B. The <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</H1
+><P
+>    The <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file is used to control RPM's actions.  The
+    file's entries have an effect on nearly every aspect of RPM's operations.
+    Here, we describe the <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files in more detail, as
+    well as the command used to show how RPM interprets the files.
+  </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPMRC-FILE-SHOWRC-OPTION"
+>Using the <B
+CLASS="COMMAND"
+>--showrc</B
+> Option</A
+></H1
+><P
+>      As we'll see in a moment, RPM can read more than one
+      <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file, and each file can contain nearly thirty
+      different types of entries.  This can make it difficult to determine what
+      values RPM is actually using.
+    </P
+><P
+>      Luckily, there's an option that can be used to help make sense of it all.
+      The <B
+CLASS="COMMAND"
+>--showrc</B
+> option displays the value for each of the
+      entries.  The output is divided into two sections:
+
+      <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>            Architecture and operating system values.
+          </P
+></LI
+><LI
+><P
+>            <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> values.
+          </P
+></LI
+></OL
+>
+    </P
+><P
+>      The architecture and operating system values define the architecture and
+      operating system that RPM is running on.  These values define the
+      environment for both building and installing packages. They also define
+      which architectures and operating systems are compatible with each other.
+    </P
+><P
+>      The <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> values define many aspects of RPM's
+      operation.  These values range from the path to RPM's database, to the
+      name of the person listed as having built the package.
+    </P
+><P
+>      Here's an example of <B
+CLASS="COMMAND"
+>--showrc</B
+>'s output:
+
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --showrc</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>ARCHITECTURE AND OS:
+build arch           : i386
+build os             : Linux
+install arch         : i486
+install os           : Linux
+compatible arch list : i486 i386
+compatible os list   : Linux
+RPMRC VALUES:
+builddir             : /usr/src/redhat/BUILD
+buildroot            : (not set)
+cpiobin              : cpio
+dbpath               : /var/lib/rpm
+defaultdocdir        : /usr/doc
+distribution         : (not set)
+excludedocs          : (not set)
+ftpport              : (not set)
+ftpproxy             : (not set)
+messagelevel         : (not set)
+netsharedpath        : (not set)
+optflags             : -O2 -m486 -fno-strength-reduce
+packager             : (not set)
+pgp_name             : (not set)
+pgp_path             : (not set)
+require_distribution : (not set)
+require_icon         : (not set)
+require_vendor       : (not set)
+root                 : (not set)
+rpmdir               : /usr/src/redhat/RPMS
+signature            : none
+sourcedir            : /usr/src/redhat/SOURCES
+specdir              : /usr/src/redhat/SPECS
+srcrpmdir            : /usr/src/redhat/SRPMS
+timecheck            : (not set)
+tmppath              : /var/tmp
+topdir               : /usr/src/redhat
+vendor               : (not set)</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+      </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>      As you can see, the <B
+CLASS="COMMAND"
+>--showrc</B
+> option clearly displays
+      the values RPM will use.  <B
+CLASS="COMMAND"
+>--showrc</B
+> can also be used
+      with the <B
+CLASS="COMMAND"
+>--rcfile</B
+> option, which makes it easy to see
+      the effect of specifying a different <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-file-format-file-command.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpmrc-file-rpmrc-file-locations.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Identifying RPM files with the <B
+CLASS="COMMAND"
+>file(1)</B
+> command</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p14028.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Different Places an <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File Resides</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

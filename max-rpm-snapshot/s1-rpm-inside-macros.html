@@ -1,0 +1,2389 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Macros: Helpful Shorthand for Package Builders</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Inside the Spec File"
+HREF="ch-rpm-inside.html"><LINK
+REL="PREVIOUS"
+TITLE="Scripts: RPM's Workhorse"
+HREF="s1-rpm-inside-scripts.html"><LINK
+REL="NEXT"
+TITLE="The %files List"
+HREF="s1-rpm-inside-files-list.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-inside-scripts.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 13. Inside the Spec File</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-inside-files-list.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-INSIDE-MACROS"
+>Macros: Helpful Shorthand for Package Builders</A
+></H1
+><P
+>        RPM does not support macros in the sense of ad-hoc sequences of commands
+        being defined as a macro and executed by simply referring to the macro
+        name.
+      </P
+><P
+>        However, there are two parts of RPM's build process that are fairly
+        constant from one package to another, and they are the unpacking and
+        patching of sources.  Because of this, RPM makes two macros available to
+        simplify these tasks:
+
+        <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>              The <B
+CLASS="COMMAND"
+>%setup</B
+> macro, which is used to unpack the
+              original sources.
+            </P
+></LI
+><LI
+><P
+>              The <B
+CLASS="COMMAND"
+>%patch</B
+> macro, which is used to apply
+              patches to the original sources.
+            </P
+></LI
+></OL
+>
+      </P
+><P
+>        These macros are used exclusively in the <B
+CLASS="COMMAND"
+>%prep</B
+>
+        script; it wouldn't make sense to use them anywhere else.  The use of
+        these macros is not mandatory &#8212; It is certainly possible to write
+        a <B
+CLASS="COMMAND"
+>%prep</B
+> script without them.  But in the vast
+        majority of cases they make life easier for the package builder.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-SETUP-MACRO"
+>The <B
+CLASS="COMMAND"
+>%setup</B
+> Macro</A
+></H2
+><P
+>          As we mentioned above, the <B
+CLASS="COMMAND"
+>%setup</B
+> macro is used to
+          unpack the original sources, in preparation for the build.  In its
+          simplest form, the macro is used with no options and gets the name of
+          the source archive from the <B
+CLASS="COMMAND"
+>source</B
+> tag specified
+          earlier in the spec file.  Let's look at an example.  The
+          <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+> package has the following
+          <B
+CLASS="COMMAND"
+>source</B
+> tag:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Source: ftp://ftp.gnomovision.com/pub/cdplayer/cdplayer-1.0.tgz</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          and the following <B
+CLASS="COMMAND"
+>%prep</B
+> script:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%prep
+%setup</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In this simple case, the <B
+CLASS="COMMAND"
+>%setup</B
+> macro expands into
+          the following commands:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd cdplayer-1.0
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As we can see, the <B
+CLASS="COMMAND"
+>%setup</B
+> macro starts by changing
+          directory into RPM's build area and removing any
+          <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+> build trees from previous builds.  It
+          then uses <B
+CLASS="COMMAND"
+>gzip</B
+> to uncompress the original source
+          (whose name was taken from the <B
+CLASS="COMMAND"
+>source</B
+> tag), and
+          pipes the result to <B
+CLASS="COMMAND"
+>tar</B
+> for unpacking.  The return
+          status of the unpacking is tested.  If successful, the macro continues.
+        </P
+><P
+>          At this point, the original sources have been unpacked.  The
+          <B
+CLASS="COMMAND"
+>%setup</B
+> macro continues by changing directory into
+          <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>'s top-level directory.  The two
+          <B
+CLASS="COMMAND"
+>cd</B
+> commands are an artifact of
+          <B
+CLASS="COMMAND"
+>%setup</B
+>'s macro expansion.  Finally,
+          <B
+CLASS="COMMAND"
+>%setup</B
+> makes sure every file in the build tree is
+          owned by root and has appropriate permissions set.
+        </P
+><P
+>          But that's just the simplest way that <B
+CLASS="COMMAND"
+>%setup</B
+> can be
+          used.  There are a number of other options that can be added to
+          accommodate different situations.  Let's look at them.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-SETUP-N-OPTION"
+><B
+CLASS="COMMAND"
+>-n <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+></B
+>
+            &#8212; Set Name of Build Directory</A
+></H3
+><P
+>            In our example above, the <B
+CLASS="COMMAND"
+>%setup</B
+> macro simply
+            uncompressed and unpacked the sources.  In this case, the
+            <B
+CLASS="COMMAND"
+>tar</B
+> file containing the original sources was
+            created such that the top-level directory was included in the tar
+            file.  The name of the top-level directory was also identical to
+            that of the <B
+CLASS="COMMAND"
+>tar</B
+> file, which was in
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+>-<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;version&#62;</I
+></TT
+></B
+>
+            format.
+          </P
+><P
+>            However, this is not always the case.  Quite often, the original
+            sources unpack into a directory whose name is different than the
+            original <B
+CLASS="COMMAND"
+>tar</B
+> file.  Since RPM assumes the
+            directory will be called
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+>-<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;version&#62;</I
+></TT
+></B
+>,
+            when the directory is called something else, it's necessary to use
+            <B
+CLASS="COMMAND"
+>%setup</B
+>'s <B
+CLASS="COMMAND"
+>-n</B
+> option.  Here's an
+            example:
+          </P
+><P
+>            Assume, for a moment, that the <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>
+            sources, when unpacked, create a top-level directory named
+            <TT
+CLASS="APPLICATION"
+>cd-player</TT
+>.  In this case, our
+            <B
+CLASS="COMMAND"
+>%setup</B
+> line would look like this:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -n cd-player</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            and the resulting commands would look like this:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf cd-player
+gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd cd-player
+cd /usr/src/redhat/BUILD/cd-player
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The results are identical to using <B
+CLASS="COMMAND"
+>%setup</B
+> with no
+            options, except for the fact that <B
+CLASS="COMMAND"
+>%setup</B
+> now does
+            a recursive delete on the directory <TT
+CLASS="APPLICATION"
+>cd-player</TT
+>
+            (instead of <TT
+CLASS="APPLICATION"
+>cdplayer-1.0</TT
+>), and changes
+            directory into <TT
+CLASS="APPLICATION"
+>cd-player</TT
+> (instead of
+            <TT
+CLASS="APPLICATION"
+>cdplayer-1.0</TT
+>).
+          </P
+><P
+>            Note that all subsequent build-time scripts will change directory
+            into the directory specified by the <B
+CLASS="COMMAND"
+>-n</B
+> option.
+            This makes <B
+CLASS="COMMAND"
+>-n</B
+> unsuitable as a means of unpacking
+            sources in directories other than the top-level build directory.  In
+            the upcoming example on <A
+HREF="s1-rpm-inside-macros.html#S3-RPM-INSIDE-SETUP-MULTI-SOURCE"
+>the Section called <I
+>Using <B
+CLASS="COMMAND"
+>%setup</B
+> in a Multi-source Spec File</I
+></A
+>, we'll show a way around
+            this restriction.
+          </P
+><P
+>            A quick word of warning: If the name specified with the
+            <B
+CLASS="COMMAND"
+>-n</B
+> option doesn't match the name of the directory
+            created when the sources are unpacked, the build will stop pretty
+            quickly, so it pays to be careful when using this option.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-SETUP-C-OPTION"
+><B
+CLASS="COMMAND"
+>-c</B
+> &#8212; Create Directory (and change to it)
+            Before Unpacking</A
+></H3
+><P
+>            How many times have you grabbed a <B
+CLASS="COMMAND"
+>tar</B
+> file and
+            unpacked it, only to find that it splattered files all over your
+            current directory?  Sometimes source archives are created without a
+            top-level directory.
+          </P
+><P
+>            As you can see from the examples so far, <B
+CLASS="COMMAND"
+>%setup</B
+>
+            expects the archive to create its own top-level directory.  If this
+            isn't the case, you'll need to use the <B
+CLASS="COMMAND"
+>-c</B
+> option.
+          </P
+><P
+>            This option simply creates the directory and changes directory into
+            it before unpacking the sources.  Here's what it looks like:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf cdplayer-1.0
+mkdir -p cdplayer-1.0
+cd cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The only changes from using <B
+CLASS="COMMAND"
+>%setup</B
+> with no
+            options, are the <B
+CLASS="COMMAND"
+>mkdir</B
+> and <B
+CLASS="COMMAND"
+>cd</B
+>
+            commands, prior to the commands that unpack the sources.  Note that
+            you can use the <B
+CLASS="COMMAND"
+>-n</B
+> option along with
+            <B
+CLASS="COMMAND"
+>-c</B
+>, so something like <B
+CLASS="COMMAND"
+>%setup -c -n
+            blather</B
+> works as expected.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-SETUP-D-OPTION"
+><B
+CLASS="COMMAND"
+>-D</B
+> &#8212; Do Not Delete Directory Before
+            Unpacking Sources</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>-D</B
+> option keeps the <B
+CLASS="COMMAND"
+>%setup</B
+>
+            macro from deleting the software's top-level directory.  This option
+            is handy when the sources being unpacked are to be added to an
+            already-existing directory tree.  This would be the case when more
+            than one <B
+CLASS="COMMAND"
+>%setup</B
+> macro is used.  Here's what
+            <B
+CLASS="COMMAND"
+>%setup</B
+> does when the <B
+CLASS="COMMAND"
+>-D</B
+> option
+            is employed:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd cdplayer-1.0
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            As advertised, the <B
+CLASS="COMMAND"
+>rm</B
+> prior to the
+            <B
+CLASS="COMMAND"
+>tar</B
+> command is gone.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-SETUP-T-OPTION"
+><B
+CLASS="COMMAND"
+>-T</B
+> &#8212; Do Not Perform Default Archive
+            Unpacking</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>-T</B
+> option disables
+            <B
+CLASS="COMMAND"
+>%setup</B
+>'s normal unpacking of the archive file
+            specified on the <B
+CLASS="COMMAND"
+>source0</B
+> line.  Here's what the
+            resulting commands look like:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf cdplayer-1.0
+cd cdplayer-1.0
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Doesn't make much sense, does it?  There's a method to this madness.
+            We'll see the <B
+CLASS="COMMAND"
+>-T</B
+> in action in the next section.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-SETUP-B-OPTION"
+><B
+CLASS="COMMAND"
+>-b <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;n&#62;</I
+></TT
+></B
+> &#8212;
+            Unpack The <I
+CLASS="EMPHASIS"
+>n</I
+>th Sources Before Changing
+            Directory</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>-b</B
+> option is used in conjunction with the
+            <B
+CLASS="COMMAND"
+>source</B
+> tag.  Specifically, it is used to identify
+            which of the numbered <B
+CLASS="COMMAND"
+>source</B
+> tags in the spec
+            file are to be unpacked.
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>-b</B
+> option requires a numeric argument
+            matching an existing <B
+CLASS="COMMAND"
+>source</B
+> tag.  If a numeric
+            argument is not provided, the build will fail:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba cdplayer-1.0.spec</B
+>
+* Package: cdplayer
+Need arg to %setup -b
+Build failed.
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Remembering that the first <B
+CLASS="COMMAND"
+>source</B
+> tag is
+            implicitly numbered 0, let's see what happens when the
+            <B
+CLASS="COMMAND"
+>%setup</B
+> line is changed to <B
+CLASS="COMMAND"
+>%setup -b
+            0</B
+>:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd cdplayer-1.0
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            That's strange.  The sources were unpacked twice.  It doesn't make
+            sense, until you realize that this is why there is a
+            <B
+CLASS="COMMAND"
+>-T</B
+> option.  Since <B
+CLASS="COMMAND"
+>-T</B
+> disables
+            the default source file unpacking, and <B
+CLASS="COMMAND"
+>-b</B
+> selects
+            a particular source file to be unpacked, the two are meant to go
+            together, like this:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -T -b 0</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Looking at the resulting commands, we find:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd cdplayer-1.0
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            That's more like it!  Let's go on to the next option.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-SETUP-A-OPTION"
+><B
+CLASS="COMMAND"
+>-a <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;n&#62;</I
+></TT
+></B
+> &#8212;
+            Unpack The <I
+CLASS="EMPHASIS"
+>n</I
+>th Sources After Changing Directory</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>-a</B
+> option works similarly to the
+            <B
+CLASS="COMMAND"
+>-b</B
+> option, except that the sources are unpacked
+            <I
+CLASS="EMPHASIS"
+>after</I
+> changing directory into the top-level
+            build directory.  Like the <B
+CLASS="COMMAND"
+>-b</B
+> option,
+            <B
+CLASS="COMMAND"
+>-a</B
+> requires <B
+CLASS="COMMAND"
+>-T</B
+> in order to
+            prevent two sets of unpacking commands.  Here are the commands that
+            a <B
+CLASS="COMMAND"
+>%setup -T -a 0</B
+> line would produce:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf cdplayer-1.0
+cd cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Note that there is no <B
+CLASS="COMMAND"
+>mkdir</B
+> command to create the
+            top-level directory prior to issuing a <B
+CLASS="COMMAND"
+>cd</B
+> into
+            it.  In our example, adding the <B
+CLASS="COMMAND"
+>-c</B
+> option will
+            make things right:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf cdplayer-1.0
+mkdir -p cdplayer-1.0
+cd cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The result is the proper sequence of commands for unpacking a
+            <B
+CLASS="COMMAND"
+>tar</B
+> file with no top-level directory.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-SETUP-MULTI-SOURCE"
+>Using <B
+CLASS="COMMAND"
+>%setup</B
+> in a Multi-source Spec File</A
+></H3
+><P
+>            If all these interrelated options seem like overkill for unpacking a
+            single source file, you're right.  The real reason for the various
+            options is to make it easier to combine several separate source
+            archives into a single, build-able entity.  Let's see how they work
+            in that type of environment.
+          </P
+><P
+>            For the purposes of this example, our spec file will have the
+            following three <B
+CLASS="COMMAND"
+>source</B
+> tags:
+            <A
+NAME="AEN8439"
+HREF="#FTN.AEN8439"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>source: source-zero.tar.gz
+source1: source-one.tar.gz
+source2: source-two.tar.gz</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            To unpack the first source is not hard; all that's required is to
+            use <B
+CLASS="COMMAND"
+>%setup</B
+> with no options:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            This produces the following set of commands:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/source-zero.tar.gz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd cdplayer-1.0
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            If <TT
+CLASS="FILENAME"
+>source-zero.tar.gz</TT
+> didn't include a
+            top-level directory, we could have made one by adding the
+            <B
+CLASS="COMMAND"
+>-c</B
+> option:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -c</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            which would result in:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf cdplayer-1.0
+mkdir -p cdplayer-1.0
+cd cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/source-zero.tar.gz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Of course, if the top-level directory did not match the package
+            name, the <B
+CLASS="COMMAND"
+>-n</B
+> option could have been added:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -n blather</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            which results in:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf blather
+gzip -dc /usr/src/redhat/SOURCES/source-zero.tar.gz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd blather
+cd /usr/src/redhat/BUILD/blather
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            or
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -c -n blather</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            This results in:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf blather
+mkdir -p blather
+cd blather
+gzip -dc /usr/src/redhat/SOURCES/source-zero.tar.gz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd /usr/src/redhat/BUILD/blather
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Now let's add the second source file.  Things get a bit more
+            interesting here.  First, we need to identify which
+            <B
+CLASS="COMMAND"
+>source</B
+> tag (and therefore, which source file)
+            we're talking about.  So we need to use either the
+            <B
+CLASS="COMMAND"
+>-a</B
+> or <B
+CLASS="COMMAND"
+>-b</B
+> option, depending on
+            the characteristics of the source archive.  For this example, let's
+            say that <B
+CLASS="COMMAND"
+>-a</B
+> is the option we want.  Adding that
+            option, plus a "1" to point to the source file specified in the
+            <B
+CLASS="COMMAND"
+>source1</B
+> tag, we have:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -a 1</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Since we've already seen that using the <B
+CLASS="COMMAND"
+>-a</B
+> or
+            <B
+CLASS="COMMAND"
+>-b</B
+> option results in duplicate unpacking, we need
+            to disable the default unpacking by adding the <B
+CLASS="COMMAND"
+>-T</B
+>
+            option:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -T -a 1</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Next, we need to make sure that the top-level directory isn't
+            deleted.  Otherwise, the first source file we just unpacked would be
+            gone.  That means we need to include the <B
+CLASS="COMMAND"
+>-D</B
+>
+            option to prevent that from happening.  Adding this final option,
+            and including the now complete macro in our <B
+CLASS="COMMAND"
+>%prep</B
+>
+            script, we now have:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup
+%setup -T -D -a 1</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            This will result in the following commands:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/source-zero.tar.gz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd cdplayer-1.0
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .
+cd /usr/src/redhat/BUILD
+cd cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/source-one.tar.gz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            So far, so good.  Let's include the last source file, but with this
+            one, we'll say that it needs to be unpacked in a subdirectory of
+            <TT
+CLASS="APPLICATION"
+>cdplayer-1.0</TT
+> called
+            <TT
+CLASS="FILENAME"
+>database</TT
+>.  Can we use <B
+CLASS="COMMAND"
+>%setup</B
+>
+            in this case?
+          </P
+><P
+>            We could, if <TT
+CLASS="FILENAME"
+>source-two.tgz</TT
+> created the
+            <TT
+CLASS="FILENAME"
+>database</TT
+> subdirectory.  If not, then it'll be
+            necessary to do it by hand.  For the purposes of our example, let's
+            say that <TT
+CLASS="FILENAME"
+>source-two.tgz</TT
+> wasn't created to
+            include the <TT
+CLASS="FILENAME"
+>database</TT
+> subdirectory, so we'll
+            have to do it ourselves.  Here's our <B
+CLASS="COMMAND"
+>%prep</B
+> script
+            now:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup
+%setup -T -D -a 1
+mkdir database
+cd database
+gzip -dc /usr/src/redhat/SOURCES/source-two.tar.gz | tar -xvvf -</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Here's the resulting script:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd /usr/src/redhat/BUILD
+rm -rf cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/source-zero.tar.gz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+cd cdplayer-1.0
+cd /usr/src/redhat/BUILD/cdplayer-1.0
+chown -R root.root .
+chmod -R a+rX,g-w,o-w .
+cd /usr/src/redhat/BUILD
+cd cdplayer-1.0
+gzip -dc /usr/src/redhat/SOURCES/source-one.tar.gz | tar -xvvf -
+if [ $? -ne 0 ]; then
+  exit $?
+fi
+mkdir database
+cd database
+gzip -dc /usr/src/redhat/SOURCES/source-two.tar.gz | tar -xvvf -</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The three commands we added to unpack the last set of sources were
+            added to the end of the <B
+CLASS="COMMAND"
+>%prep</B
+> script.
+          </P
+><P
+>            The bottom line to using the <B
+CLASS="COMMAND"
+>%setup</B
+> macro is that
+            you can probably get it to do what you want, but don't be afraid to
+            tinker.  And even if <B
+CLASS="COMMAND"
+>%setup</B
+> can't be used, it's
+            easy enough to add the necessary commands to do the work manually.
+            Above all, make sure you use the <B
+CLASS="COMMAND"
+>--test</B
+> option
+            when testing your <B
+CLASS="COMMAND"
+>%setup</B
+> macros, so you can see
+            what commands they're translating to.
+          </P
+><P
+>            Next, let's look at RPM's second macro, <B
+CLASS="COMMAND"
+>%patch</B
+>.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-PATCH-MACRO"
+>The <B
+CLASS="COMMAND"
+>%patch</B
+> Macro</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>%patch</B
+> macro, as its name implies, is used to
+          apply patches to the unpacked sources.  In the following examples, our
+          spec file has the following <B
+CLASS="COMMAND"
+>patch</B
+> tag lines:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>patch0: patch-zero
+patch1: patch-one
+patch2: patch-two</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          At its simplest, the <B
+CLASS="COMMAND"
+>%patch</B
+> macro can be invoked
+          without any options:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%patch</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Here are the resulting commands:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>echo "Patch #0:"
+patch -p0  -s &#60; /usr/src/redhat/SOURCES/patch-zero</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>%patch</B
+> macro nicely displays a message showing
+          that a patch is being applied, then invokes the
+          <B
+CLASS="COMMAND"
+>patch</B
+> command to actually do the dirty work.  There
+          are two options to the <B
+CLASS="COMMAND"
+>patch</B
+> command:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                The <B
+CLASS="COMMAND"
+>-p</B
+> option, which directs
+                <B
+CLASS="COMMAND"
+>patch</B
+> to remove the specified number of
+                slashes (and any intervening directories) from the front of any
+                filenames specified in the patch file.  In this case, nothing
+                will be removed.
+              </P
+></LI
+><LI
+><P
+>                The <B
+CLASS="COMMAND"
+>-s</B
+> option, which directs
+                <B
+CLASS="COMMAND"
+>patch</B
+> to apply the patch without displaying
+                any informational messages.  Only errors from
+                <B
+CLASS="COMMAND"
+>patch</B
+> will be displayed.
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          How did the <B
+CLASS="COMMAND"
+>%patch</B
+> macro know which patch to apply?
+          Keep in mind that, like the <B
+CLASS="COMMAND"
+>source</B
+> tag lines, every
+          <B
+CLASS="COMMAND"
+>patch</B
+> tag is numbered, starting at zero.  The
+          <B
+CLASS="COMMAND"
+>%patch</B
+> macro, by default, applies the patch file
+          named on the <B
+CLASS="COMMAND"
+>patch</B
+> (or <B
+CLASS="COMMAND"
+>patch0</B
+>)
+          tag line.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-WHICH-PATCH-TAG"
+>Specifying Which <B
+CLASS="COMMAND"
+>patch</B
+> Tag to Use</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>%patch</B
+> macro actually has two different ways
+            to specify the <B
+CLASS="COMMAND"
+>patch</B
+> tag line it is to use.  The
+            first method is to simply append the number of the desired
+            <B
+CLASS="COMMAND"
+>patch</B
+> tag to the end of the
+            <B
+CLASS="COMMAND"
+>%patch</B
+> macro itself.  For example, in order to
+            apply the patch specified on the <B
+CLASS="COMMAND"
+>patch2</B
+> tag line,
+            the following <B
+CLASS="COMMAND"
+>%patch</B
+> macro could be used:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%patch2</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The other approach is to use the <B
+CLASS="COMMAND"
+>-P</B
+> option.  This
+            option is followed by the number of the <B
+CLASS="COMMAND"
+>patch</B
+> tag
+            line desired.  Therefore, this line is identical in function to the
+            previous one:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%patch -P 2</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Note that the <B
+CLASS="COMMAND"
+>-P</B
+> option will
+            <I
+CLASS="EMPHASIS"
+>not</I
+> apply the file specified on the
+            <B
+CLASS="COMMAND"
+>patch0</B
+> line, by default.  Therefore, if you
+            choose to use the <B
+CLASS="COMMAND"
+>-P</B
+> option to specify patch
+            numbers, you'll need to use the following format when applying patch
+            zero:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%patch -P 0</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-PATCH-P-OPTION"
+><B
+CLASS="COMMAND"
+>-p <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;#&#62;</I
+></TT
+></B
+> &#8212;
+            Strip <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;#&#62;</I
+></TT
+></B
+>
+            leading slashes and directories from patch filenames</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>-p</B
+> (Note the <I
+CLASS="EMPHASIS"
+>lowercase</I
+>
+            "p"!) option is sent directly to the <B
+CLASS="COMMAND"
+>patch</B
+>
+            command.  It is followed by a number, which specifies the number of
+            leading slashes (and the directories in between) to strip from any
+            filenames present in the patch file.  For more information on this
+            option, please consult the <B
+CLASS="COMMAND"
+>patch</B
+> man page.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-B-OPTION"
+><B
+CLASS="COMMAND"
+>-b <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+></B
+>
+            &#8212; Set the backup file extension to
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+></B
+></A
+></H3
+><P
+>            When the <B
+CLASS="COMMAND"
+>patch</B
+> command is used to apply a patch,
+            unmodified copies of the files patched are renamed to end with the
+            extension <TT
+CLASS="FILENAME"
+>.orig</TT
+>.  The <B
+CLASS="COMMAND"
+>-b</B
+>
+            option is used to change the extension used by
+            <B
+CLASS="COMMAND"
+>patch</B
+>.  This is normally done when multiple
+            patches are to be applied to a given file.  By doing this, copies of
+            the file as it existed prior to each patch, are readily available.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-E-OPTION"
+><B
+CLASS="COMMAND"
+>-E</B
+> &#8212; Remove Empty Output Files</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>-E</B
+> option is passed directly to the
+            <B
+CLASS="COMMAND"
+>patch</B
+> program.  When <B
+CLASS="COMMAND"
+>patch</B
+> is
+            run with the <B
+CLASS="COMMAND"
+>-E</B
+> option, any output files that are
+            empty after the patches have been applied, are removed.
+          </P
+><P
+>            Now let's take <B
+CLASS="COMMAND"
+>%patch</B
+> on a test-drive, and put it
+            through its paces.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSIDE-PATCH-RW"
+>An example of the <B
+CLASS="COMMAND"
+>%patch</B
+> Macro in Action</A
+></H3
+><P
+>            Using the example <B
+CLASS="COMMAND"
+>patch</B
+> tag lines we've used
+            throughout this section, let's put together an example and look at
+            the resulting commands.  In our example, the first patch to be
+            applied needs to have the root directory stripped.  Its
+            <B
+CLASS="COMMAND"
+>%patch</B
+> macro will look like this:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%patch -p1</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The next patch is to be applied to files in the software's
+            <TT
+CLASS="FILENAME"
+>lib</TT
+> subdirectory, so we'll need to add a
+            <B
+CLASS="COMMAND"
+>cd</B
+> command to get us there.  We'll also need to
+            strip an additional directory:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd lib
+%patch -P 1 -p2</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Finally, the last patch is to be applied from the software's
+            top-level directory, so we need to <B
+CLASS="COMMAND"
+>cd</B
+> back up a
+            level.  In addition, this patch modifies some files that were also
+            patched the first time, so we'll need to change the backup file
+            extension:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>cd ..
+%patch -P 2 -p1 -b .last-patch</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Here's what the <B
+CLASS="COMMAND"
+>%prep</B
+> script (minus any
+            <B
+CLASS="COMMAND"
+>%setup</B
+> macros) looks like:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%patch -p1
+cd lib
+%patch -P 1 -p2
+cd ..
+%patch -P 2 -p1 -b .last-patch</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            And here's what the macros expand to:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>echo "Patch #0:"
+patch -p1  -s &#60; /usr/src/redhat/SOURCES/patch-zero
+cd lib
+echo "Patch #1:"
+patch -p2  -s &#60; /usr/src/redhat/SOURCES/patch-one
+cd ..
+echo "Patch #2:"
+patch -p1 -b .last-patch -s &#60; /usr/src/redhat/SOURCES/patch-two</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            No surprises here.  Note that the <B
+CLASS="COMMAND"
+>%setup</B
+> macro
+            leaves the current working directory set to the software's top-level
+            directory, so our <B
+CLASS="COMMAND"
+>cd</B
+> commands with their relative
+            paths will do the right thing.  Of course, we have environment
+            variables available that could be used here, too.
+          </P
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="S4-RPM-INSIDE-PATCH-COMPRESSED"
+>Compressed Patch Files</A
+></H4
+><P
+>              If a patch file is compressed with <B
+CLASS="COMMAND"
+>gzip</B
+>, RPM
+              will automatically decompress it before applying the patch.
+              Here's a compressed patch file as specified in the spec file:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Patch: bother-3.5-hack.patch.gz</SAMP
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              This is part of the script RPM will execute when the
+              <B
+CLASS="COMMAND"
+>%prep</B
+> section is executed:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>echo Executing: %prep
+&#8230;
+echo "Patch #0:"
+gzip -dc /usr/src/redhat/SOURCES/bother-3.5-hack.patch.gz | patch -p1  -s
+&#8230;</SAMP
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              First, the patch file is decompressed using
+              <B
+CLASS="COMMAND"
+>gzip</B
+>.  The output from <B
+CLASS="COMMAND"
+>gzip</B
+>
+              is then piped into <B
+CLASS="COMMAND"
+>patch</B
+>.
+            </P
+><P
+>              That's about it for RPM's macros.  Next, let's take a look at the
+              <B
+CLASS="COMMAND"
+>%files</B
+> list.
+            </P
+></DIV
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN8439"
+HREF="s1-rpm-inside-macros.html#AEN8439"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                Yes, the <B
+CLASS="COMMAND"
+>source</B
+> tags should include a URL
+                pointing to the sources.
+              </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-inside-scripts.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-inside-files-list.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Scripts: RPM's Workhorse</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-inside.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The <B
+CLASS="COMMAND"
+>%files</B
+> List</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

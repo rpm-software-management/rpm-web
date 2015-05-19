@@ -1,0 +1,1601 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Using RPM to Upgrade Packages</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Computer Users &#8212; How to Use RPM to Effectively Manage Your
+      Computer
+    "
+HREF="p108.html"><LINK
+REL="PREVIOUS"
+TITLE="Watch Out!"
+HREF="s1-rpm-erase-watch-out.html"><LINK
+REL="NEXT"
+TITLE="Upgrading a Package"
+HREF="s1-rpm-upgrade-upgrading-a-package.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-erase-watch-out.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-upgrade-upgrading-a-package.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-UPGRADE"
+></A
+>Chapter 4. Using RPM to Upgrade Packages</H1
+><DIV
+CLASS="TABLE"
+><A
+NAME="TB-RPM-UPGRADE-SYNTAX"
+></A
+><P
+><B
+>Table 4-1. <B
+CLASS="COMMAND"
+>rpm -U</B
+> Command Syntax</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+>              <B
+CLASS="COMMAND"
+>rpm -U</B
+> (or
+              <B
+CLASS="COMMAND"
+>--upgrade</B
+>)<I
+CLASS="EMPHASIS"
+>options</I
+>
+              <TT
+CLASS="FILENAME"
+>file1.rpm</TT
+> &#8230;
+              <TT
+CLASS="FILENAME"
+>fileN.rpm</TT
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+>              Parameters
+            </TD
+></TR
+><TR
+><TD
+>              <TT
+CLASS="FILENAME"
+>file1.rpm</TT
+> &#8230;
+              <TT
+CLASS="FILENAME"
+>fileN.rpm</TT
+>
+            </TD
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              One or more RPM package files (URLs OK)
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              Upgrade-specific Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-h</B
+> (or <B
+CLASS="COMMAND"
+>--hash</B
+>)
+            </TD
+><TD
+>              Print hash marks ("<SAMP
+CLASS="COMPUTEROUTPUT"
+>#</SAMP
+>") during
+              upgrade<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-handy-options.html#S2-RPM-INSTALL-INSTALL-H"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-h</B
+>: Perfect for the Impatient</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--oldpackage</B
+>
+            </TD
+><TD
+>              Permit "upgrading" to an older package
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-upgrade-nearly-identical.html#S2-RPM-UPGRADE-OLDPACKAGE-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--oldpackage</B
+>: Upgrade To An Older Version</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--test</B
+>
+            </TD
+><TD
+>              Perform upgrade tests only<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-TEST-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--test</B
+>: Perform Installation Tests Only</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--excludedocs</B
+>
+            </TD
+><TD
+>              Do not install documentation<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-EXCLUDEDOCS-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--excludedocs</B
+>: Do Not Install Documentation For
+          This Package</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--includedocs</B
+>
+            </TD
+><TD
+>              Install documentation<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-INCLUDEDOCS"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--includedocs</B
+>: Install Documentation For This Package</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--replacepkgs</B
+>
+            </TD
+><TD
+>              Replace a package with a new copy of itself<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-REPLACEPKGS"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--replacepkgs</B
+>: Install the Package Even If Already Installed</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--replacefiles</B
+>
+            </TD
+><TD
+>              Replace files owned by another package<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-REPLACEFILES-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--replacefiles</B
+>: Install the Package Even If It Replaces Another Package's Files</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--force</B
+>
+            </TD
+><TD
+>              Ignore package and file conflicts
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-upgrade-nearly-identical.html#S2-RPM-UPGRADE-FORCE-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--force</B
+>: The Big Hammer</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--percent</B
+>
+            </TD
+><TD
+>              Print percentages during upgrade<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-PERCENT"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--percent</B
+>: Not Meant for Human Consumption</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--noscripts</B
+>
+            </TD
+><TD
+>              Do not execute pre- and post-install scripts
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-upgrade-nearly-identical.html#S2-RPM-UPGRADE-NOSCRIPTS-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--noscripts</B
+>: Do Not Execute Install and Uninstall
+          Scripts</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--prefix
+              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Relocate package to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> if
+              possible<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-PREFIX"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--prefix <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>:
+          Relocate the package to
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>, if possible</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--ignorearch</B
+>
+            </TD
+><TD
+>              Do not verify package architecture<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-IGNOREARCH"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--ignorearch</B
+>: Do Not Verify Package Architecture</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--ignoreos</B
+>
+            </TD
+><TD
+>              Do not verify package operating system<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-IGNOREOS"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--ignoreos</B
+>: Do Not Verify Package Operating System</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--nodeps</B
+>
+            </TD
+><TD
+>              Do not check dependencies<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-NODEPS"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--nodeps</B
+>: Do Not Check Dependencies Before
+          Installing Package</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--ftpproxy
+              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;host&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;host&#62;</I
+></TT
+></B
+> as
+              the FTP proxy<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-FTPPROXY"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--ftpproxy <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;host&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;host&#62;</I
+></TT
+></B
+> As Proxy In
+          FTP-based Installs</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--ftpport
+              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+> as
+              the FTP port<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-FTPPORT"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--ftpport <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+> In FTP-based
+          Installs</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              General Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-v</B
+>
+            </TD
+><TD
+>              Display additional information<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-handy-options.html#S2-RPM-INSTALL-MORE-FEEDBACK"
+>the Section called <I
+>Getting a bit more feedback with <B
+CLASS="COMMAND"
+>-v</B
+></I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-vv</B
+>
+            </TD
+><TD
+>              Display debugging information<A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-VV-OPTION"
+>the Section called <I
+>Getting a <I
+CLASS="EMPHASIS"
+>lot</I
+> more information with <B
+CLASS="COMMAND"
+>-vv</B
+></I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Set alternate root to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+><A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-ROOT"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> As An Alternate
+          Root</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--rcfile
+              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Set alternate rpmrc file to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+><A
+HREF="ch-rpm-upgrade.html#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-RCFILE"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+> As An
+          Alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--dbpath
+              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> to
+              find the RPM database
+              <A
+NAME="FN-RPM-UPGRADE-TABLEFOOT"
+HREF="#FTN.FN-RPM-UPGRADE-TABLEFOOT"
+><SPAN
+CLASS="footnote"
+>[a]</SPAN
+></A
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-DBPATH"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--dbpath <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> To Find RPM
+          Database</I
+> in Chapter 2</A
+>
+            </TD
+></TR
+></TBODY
+><TR
+><TD
+COLSPAN="3"
+>Notes:<BR><A
+NAME="FTN.FN-RPM-UPGRADE-TABLEFOOT"
+>a. </A
+>                  This option behaves identically to the same option used with
+                  <B
+CLASS="COMMAND"
+>rpm -i</B
+>.  Please see <A
+HREF="ch-rpm-install.html"
+>Chapter 2</A
+> for more information on this option.
+                <BR></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-UPGRADE-WHAT-IT-DOES"
+><B
+CLASS="COMMAND"
+>rpm -U</B
+> &#8212; What Does it Do?</A
+></H1
+><P
+>        If there was one RPM command that could win over friends, it would be
+        RPM's upgrade command.  After all, anyone who has ever tried to install
+        a newer version of <I
+CLASS="EMPHASIS"
+>any</I
+> software knows what a
+        traumatic experience it can be.  With RPM, though, this process is
+        reduced to a single command: <B
+CLASS="COMMAND"
+>rpm -U</B
+>. The <B
+CLASS="COMMAND"
+>rpm
+        -U</B
+> command (<B
+CLASS="COMMAND"
+>--upgrade</B
+> is equivalent)
+        performs two distinct operations:
+
+        <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>              Installs the desired package.
+            </P
+></LI
+><LI
+><P
+>              Erases all older versions of the package, if any exist.
+            </P
+></LI
+></OL
+>
+      </P
+><P
+>        If it sounds to you like <B
+CLASS="COMMAND"
+>rpm -U</B
+> is nothing more than
+        an <B
+CLASS="COMMAND"
+>rpm -i</B
+> command (see <A
+HREF="ch-rpm-install.html"
+>Chapter 2</A
+>) followed by the appropriate number of
+        <B
+CLASS="COMMAND"
+>rpm -e</B
+> commands, (see <A
+HREF="ch-rpm-erase.html"
+>Chapter 3</A
+>)
+        you'd be exactly right.  In fact, we'll be referring back to those
+        chapters as we discuss <B
+CLASS="COMMAND"
+>rpm -U</B
+>, so if you haven't
+        skimmed those chapters yet, you might want to do that now.
+      </P
+><P
+>        While some people might think it's a "cheap shot" to claim that RPM
+        performs an upgrade when in fact it's just doing the equivalent of a
+        couple of other commands, in fact, it's a very smart thing to do.  By
+        carefully crafting RPM's package installation and erasure commands to do
+        the work required during an upgrade, it makes RPM more tolerant of
+        misuse by preserving important files even if an upgrade isn't being
+        done.
+      </P
+><P
+>        If RPM had been written with a very "smart" upgrade command, and the
+        install and erase commands couldn't handle upgrade situations at all,
+        installing a package could overwrite a modified configuration file.
+        
+        Likewise, erasing a package would also mean that config files could be
+        erased.  Not a good situation!  However, RPM's approach to upgrades
+        makes it possible to handle even the most tricky situation &#8212;
+        having multiple versions of a package install simultaneously.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-UPGRADE-CONFIG-FILE-MAGIC"
+>Config file magic</A
+></H2
+><P
+>          While the <B
+CLASS="COMMAND"
+>rpm -i</B
+> and <B
+CLASS="COMMAND"
+>rpm -e</B
+>
+          commands each do their part to keep config files straight, it is with
+          <B
+CLASS="COMMAND"
+>rpm -U</B
+> that the full power of RPM's config file
+          handling shows through.  There are no less than
+          <I
+CLASS="EMPHASIS"
+>six</I
+> different scenarios that RPM takes into
+          account when handling config files.
+        </P
+><P
+>          In order to make the appropriate decisions, RPM needs information.
+          The information used to decide how to handle config files is a set of
+          three large numbers known as <I
+CLASS="EMPHASIS"
+>MD5 checksums</I
+>.  An
+          MD5 checksum is produced when a file is used as the input to a complex
+          series of mathematical operations.  The resulting checksum has a
+          unique property, in that <I
+CLASS="EMPHASIS"
+>any</I
+> change to the file's
+          contents will result in a change to the checksum of that file.
+          <A
+NAME="AEN2156"
+HREF="#FTN.AEN2156"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+          Therefore, MD5 checksums are a powerful tool for quickly determining
+          whether two different files have the same contents or not.
+        </P
+><P
+>          In the previous paragraph, we stated that RPM uses three different MD5
+          checksums to determine what should be done with a config file.  The
+          three checksums are:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                The MD5 checksum of the file when it was originally installed.
+                We'll call this the <I
+CLASS="EMPHASIS"
+>original file</I
+>.
+              </P
+></LI
+><LI
+><P
+>                The MD5 checksum of the file as it exists at upgrade time.
+                We'll call this the <I
+CLASS="EMPHASIS"
+>current file</I
+>.
+              </P
+></LI
+><LI
+><P
+>                The MD5 checksum of the corresponding file in the new package.
+                We'll call this the <I
+CLASS="EMPHASIS"
+>new file</I
+>.
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          Let's take a look at the various combinations of checksums, see what
+          RPM will do because of them, and discuss why.  In the following
+          examples, we'll use the letters <TT
+CLASS="REPLACEABLE"
+><I
+>X</I
+></TT
+>,
+          <TT
+CLASS="REPLACEABLE"
+><I
+>Y</I
+></TT
+>, and <TT
+CLASS="REPLACEABLE"
+><I
+>Z</I
+></TT
+> in
+          place of lengthy MD5
+          checksums.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-UPGRADE-XXX"
+>Original file = <TT
+CLASS="REPLACEABLE"
+><I
+>X</I
+></TT
+>, Current file =
+            <TT
+CLASS="REPLACEABLE"
+><I
+>X</I
+></TT
+>, New file =
+            <TT
+CLASS="REPLACEABLE"
+><I
+>X</I
+></TT
+></A
+></H3
+><P
+>            In this case, the file originally installed was never modified.
+            <A
+NAME="AEN2180"
+HREF="#FTN.AEN2180"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+            The file in the new version of the package is identical to the file
+            on disk.
+          </P
+><P
+>            In this case, RPM installs the new file, overwriting the original.
+            You may be wondering why go to the trouble of installing the new
+            file if it's just the same as the existing one.  The reason is that
+            aspects of the file <I
+CLASS="EMPHASIS"
+>other</I
+> than its name and
+            contents might have changed.  The file's ownership, for example,
+            might be different in the new version.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-UPGRADE-XXY"
+>Original file = <TT
+CLASS="REPLACEABLE"
+><I
+>X</I
+></TT
+>, Current file =
+            <TT
+CLASS="REPLACEABLE"
+><I
+>X</I
+></TT
+>, New file =
+            <TT
+CLASS="REPLACEABLE"
+><I
+>Y</I
+></TT
+></A
+></H3
+><P
+>            The original file has not been modified, but the file in the new
+            package <I
+CLASS="EMPHASIS"
+>is</I
+> different.  Perhaps the difference
+            represents a bug-fix, or a new feature.  It makes no difference to
+            RPM.
+          </P
+><P
+>            In this case, RPM installs the new file, overwriting the original.
+            This makes sense.  If it didn't, RPM would never permit newer,
+            modified versions of software to be installed!  The original file is
+            not saved, since it had not been changed.  A lack of changes here
+            means that no site-specific modifications were made to the file.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-UPGRADE-XYX"
+>Original file = <TT
+CLASS="REPLACEABLE"
+><I
+>X</I
+></TT
+>, Current file =
+            <TT
+CLASS="REPLACEABLE"
+><I
+>Y</I
+></TT
+>, New file =
+            <TT
+CLASS="REPLACEABLE"
+><I
+>X</I
+></TT
+></A
+></H3
+><P
+>            Here we have a file that <I
+CLASS="EMPHASIS"
+>was</I
+> changed at some
+            point.  However, the new file is identical to the existing file
+            <I
+CLASS="EMPHASIS"
+>prior</I
+> to the local modifications.
+          </P
+><P
+>            In this case, RPM takes the viewpoint that since the original file
+            and the new file are identical, the modifications made to the
+            original version must still be valid for the new version.  It leaves
+            the existing, modified file in place.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-UPGRADE-XYY"
+>Original file = <TT
+CLASS="REPLACEABLE"
+><I
+>X</I
+></TT
+>, Current file =
+            <TT
+CLASS="REPLACEABLE"
+><I
+>Y</I
+></TT
+>, New file =
+            <TT
+CLASS="REPLACEABLE"
+><I
+>Y</I
+></TT
+></A
+></H3
+><P
+>            At some point the original file was modified, and those
+            modifications happen to make the file identical to the new file.
+            Perhaps the modification was made to fix a security problem, and the
+            new version of the file has the same fix applied to it.
+          </P
+><P
+>            In this case, RPM installs the new version, overwriting the modified
+            original.  The same philosophy used in the first scenario applies
+            here &#8212; although the file has not changed, perhaps some other
+            aspect of the file has, so the new version is installed.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-UPGRADE-XYZ"
+>Original file = <TT
+CLASS="REPLACEABLE"
+><I
+>X</I
+></TT
+>, Current file =
+            <TT
+CLASS="REPLACEABLE"
+><I
+>Y</I
+></TT
+>, New file =
+            <TT
+CLASS="REPLACEABLE"
+><I
+>Z</I
+></TT
+></A
+></H3
+><P
+>            Here the original file was modified at some point.  The new file is
+            different from both the original <I
+CLASS="EMPHASIS"
+>and</I
+> the
+            modified versions of the original file.
+          </P
+><P
+>            RPM is not able to analyze the contents of the files, and determine
+            what is going on.  In this instance, it takes the best possible
+            approach.  The new file is known to work properly with the rest of
+            the software in the new package &#8212; at least the people building
+            the new package should have insured that it does.  The modified
+            original file is an unknown: it might work with the new package, it
+            might not.  So RPM installs the new file.
+          </P
+><P
+>            BUT&#8230; The existing file was definitely modified.  Someone made
+            an effort to change the file, for some reason.  Perhaps the
+            information contained in the file is still of use.  Therefore, RPM
+            saves the modified file, naming it
+            <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+>.rpmsave</TT
+>,
+            and prints a warning, so the user knows what happened:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>warning: /etc/skel/.bashrc saved as /etc/skel/.bashrc.rpmsave</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+            These five scenarios cover just about every possible circumstance,
+            save one.  The missing scenario?
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-UPGRADE-NONE-HUH-HUH"
+>Original file = <I
+CLASS="EMPHASIS"
+>none</I
+>, Current file =
+            <TT
+CLASS="REPLACEABLE"
+><I
+>??</I
+></TT
+>, New file =
+            <TT
+CLASS="REPLACEABLE"
+><I
+>??</I
+></TT
+></A
+></H3
+><P
+>            While RPM doesn't use checksums in this particular case, we'll
+            describe it in those terms, for the sake of consistency.  In this
+            instance, RPM had not installed the file originally, so there is no
+            original checksum.
+          </P
+><P
+>            Because the file had not originally been installed as part of a
+            package, there is no way for RPM to determine if the file currently
+            in place had been modified.  Therefore, the checksums for the
+            current file and the new file are irrelevant; they cannot be used to
+            clear up the mystery.
+          </P
+><P
+>            When this happens, RPM renames the file to
+            <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+>.rpmorig</TT
+>,
+            prints a warning, and installs the new file.  This way, any
+            modifications contained in the original file are saved.  The system
+            administrator can review the differences between the original and
+            the newly installed files and determine what action should be taken.
+          </P
+><P
+>            As you can see, in the majority of cases RPM will automatically take
+            the proper course of action when performing an upgrade.  It is only
+            when config files have been modified and are to be overwritten, that
+            RPM leaves any post-upgrade work for the system administrator.  Even
+            in those cases, many times the modified files are not worth saving
+            and can be deleted.
+          </P
+></DIV
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2156"
+HREF="ch-rpm-upgrade.html#AEN2156"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              Actually, there's a one in 2<SUP
+>128</SUP
+> chance
+              a change will go undetected, but for all practical purposes, it's
+              as close to perfect as we can get.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2180"
+HREF="ch-rpm-upgrade.html#AEN2180"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                Or, as some sticklers for detail may note, it may have been
+                modified, and subsequently those modifications were undone.
+              </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-erase-watch-out.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-upgrade-upgrading-a-package.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Watch Out!</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p108.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Upgrading a Package</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

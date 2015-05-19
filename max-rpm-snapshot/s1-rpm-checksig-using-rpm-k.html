@@ -1,0 +1,1082 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Using rpm -K</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Verify Package Files"
+HREF="ch-rpm-checksig.html"><LINK
+REL="PREVIOUS"
+TITLE="Configuring PGP for rpm -K"
+HREF="s1-rpm-checksig-configuring-pgp.html"><LINK
+REL="NEXT"
+TITLE="Miscellanea"
+HREF="ch-rpm-miscellania.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-checksig-configuring-pgp.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 7. Using RPM to Verify Package Files</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-miscellania.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-CHECKSIG-USING-RPM-K"
+>Using <B
+CLASS="COMMAND"
+>rpm -K</B
+></A
+></H1
+><P
+>        After all the preliminaries with PGP, it's time to get down to business.
+        First, we need to get the package builder's public key and add it to the
+        public keyring file used by RPM.  You'll need to do this once for each
+        package builder whose packages you'll want to check.  This is what
+        you'll need to do:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>pgp -ka RPM-PGP-KEY ./pubring.pgp</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Pretty Good Privacy(tm) 2.6.3a - Public-key encryption for the masses.
+(c) 1990-96 Philip Zimmermann, Phil's Pretty Good Software. 1996-03-04
+Uses the RSAREF(tm) Toolkit, which is copyright RSA Data Security, Inc.
+Distributed by the Massachusetts Institute of Technology.
+Export of this software may be restricted by the U.S. government.
+Current time: 1996/06/01 22:50 GMT
+
+Looking for new keys...
+pub  1024/CBA29BF9 1996/02/20  Red Hat Software, Inc. &#60;redhat@redhat.com&#62;
+
+Checking signatures...
+
+Keyfile contains:
+   1 new key(s)
+
+One or more of the new keys are not fully certified.</SAMP
+>
+<TT
+CLASS="PROMPT"
+>Do you want to certify any of these keys yourself (y/N)? </TT
+><KBD
+CLASS="USERINPUT"
+>n</KBD
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Here we've added Red Hat's public key, since we're going to check some
+        package files produced by them.  The file
+        <TT
+CLASS="FILENAME"
+>RPM-PGP-KEY</TT
+> contains the key.  At the end, PGP asks
+        us if we want to certify the new key.  We've answered "no" since it
+        isn't necessary to certify keys to verify package files.
+      </P
+><P
+>        Next, we'll verify a package file:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -K rpm-2.3-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-2.3-1.i386.rpm: size pgp md5 OK</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        While the output might seem somewhat anti-climactic, we can now be nearly
+        100% certain this package:
+
+        <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>              was produced by Red Hat.
+            </P
+></LI
+><LI
+><P
+>              is unchanged from their original copy.
+            </P
+></LI
+></OL
+>
+      </P
+><P
+>        The output from this command shows that there are actually three
+        distinct features of the package file that are checked by the
+        <B
+CLASS="COMMAND"
+>-K</B
+> option:
+
+        <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>              The <SAMP
+CLASS="COMPUTEROUTPUT"
+>size</SAMP
+> message indicates that
+              the size of the packaged files has not changed.
+            </P
+></LI
+><LI
+><P
+>              The <SAMP
+CLASS="COMPUTEROUTPUT"
+>pgp</SAMP
+> message indicates that
+              the digital signature contained in the package file is a valid
+              signature of the package file contents, and was produced by the
+              organization that originally signed the package.
+            </P
+></LI
+><LI
+><P
+>              The <SAMP
+CLASS="COMPUTEROUTPUT"
+>md5</SAMP
+> message indicates that a
+              checksum contained in the package file and calculated when the
+              package was built, matches a checksum calculated by RPM during
+              verification.  Because the two checksums match, it is unlikely
+              that the package has been modified.
+            </P
+></LI
+></OL
+>
+      </P
+><P
+>        The <SAMP
+CLASS="COMPUTEROUTPUT"
+>OK</SAMP
+> means that each of these tests
+        were successful.  If any had failed, the name would have been printed in
+        parentheses.  A bit later in the chapter, we'll see what happens when
+        there are verification problems.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-CHECKSIG-V-OPTION"
+><B
+CLASS="COMMAND"
+>-v</B
+> &#8212; Display Additional
+        Information</A
+></H2
+><P
+>          Adding <B
+CLASS="COMMAND"
+>v</B
+> to a verification command will produce
+          more interesting output:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -Kv rpm-2.3-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-2.3-1.i386.rpm:
+Header+Archive size OK: 278686 bytes
+Good signature from user "Red Hat Software, Inc. &#60;redhat@redhat.com&#62;".
+Signature made 1996/12/24 18:37 GMT using 1024-bit key, key ID CBA29BF9
+
+WARNING:  Because this public key is not certified with a trusted
+signature, it is not known with high confidence that this public key
+actually belongs to: "Red Hat Software, Inc. &#60;redhat@redhat.com&#62;".
+MD5 sum OK: 8873682c5e036a307dee87d990e75349</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          With a bit of digging, we can see that each of the three tests was
+          performed, and each passed.  The reason for that dire-sounding warning
+          is that PGP is meant to operate without a central authority managing
+          key distribution.  PGP certifies keys based on <I
+CLASS="FIRSTTERM"
+>webs of
+          trust</I
+>.  For example, if an acquaintance of yours creates a
+          public key, you can certify it by attaching your digital signature to
+          it.  Then anyone that knows and trusts you can also trust your
+          acquaintance's public key.
+        </P
+><P
+>          In this case, the key came directly from a mass-produced Red Hat Linux CDROM.
+          If someone was trying to masquerade as Red Hat then they have certainly
+          gone through a lot of trouble to do so.  In this case, the lack of a
+          certified public key is not a major problem, given the fact that the
+          CDROM came directly from the Red Hat offices.
+          <A
+NAME="AEN4677"
+HREF="#FTN.AEN4677"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-CHECKSIG-WHEN-NOT-SIGNED"
+>When the Package is Not Signed</A
+></H2
+><P
+>          As mentioned earlier, not every package you'll run across is going to
+          be signed.  If this is the case, here's what you'll see from RPM:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -K bother-3.5-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bother-3.5-1.i386.rpm: size md5 OK</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Note the lack of a <SAMP
+CLASS="COMPUTEROUTPUT"
+>pgp</SAMP
+> message.  The
+          <SAMP
+CLASS="COMPUTEROUTPUT"
+>size</SAMP
+> and
+          <SAMP
+CLASS="COMPUTEROUTPUT"
+>md5</SAMP
+> messages indicate that the
+          package still has size and checksum information that verified
+          properly.  In fact, all recently-produced package files will have
+          these verification measures built in automatically.
+        </P
+><P
+>          If you happen to run across an older unsigned package, you'll know it
+          right away:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -K apmd-2.4-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>apmd-2.4-1.i386.rpm: No signature available</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Older package files had only a PGP-based signature; if that was missing,
+          there was nothing left to verify.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-CHECKSIG-MISSING-PUBLIC-KEY"
+>When You Are Missing the Correct Public Key</A
+></H2
+><P
+>          If you happen to forget to add the right public key to RPM's keyring,
+          you'll see the following response:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -K rpm-2.3-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-2.3-1.i386.rpm: size (PGP) md5 OK (MISSING KEYS)</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Here the <SAMP
+CLASS="COMPUTEROUTPUT"
+>PGP</SAMP
+> in parentheses indicates
+          that there's a problem with the signature, and the message at the end
+          of the line <SAMP
+CLASS="COMPUTEROUTPUT"
+>(MISSING KEYS)</SAMP
+> shows what
+          the problem is.  Basically, RPM asked PGP to verify the package
+          against a key that PGP didn't have, and PGP complained.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-CHECKSIG-VERIFICATION-FAILURES"
+>When a Package Just Doesn't Verify</A
+></H2
+><P
+>          Eventually it's going to happen &#8212; you go to verify a package,
+          and it fails.  We'll look at an example of a package that fails
+          verification a bit later.  Before we do that, let's
+          <I
+CLASS="EMPHASIS"
+>make</I
+> a package that won't verify, to demonstrate
+          how sensitive RPM's verification is.
+        </P
+><P
+>          First, we made a copy of a signed package,
+          <TT
+CLASS="FILENAME"
+>rpm-2.3-1.i386.rpm</TT
+>, to be specific.  We called
+          the copy <TT
+CLASS="FILENAME"
+>rpm-2.3-1.i386-bogus.rpm</TT
+>.  Next, using
+          Emacs (in hexl-mode, for all you Emacs buffs), we changed the first
+          letter of the name of the system that built the original package.  The
+          file <TT
+CLASS="FILENAME"
+>rpm-2.3-1.i386-bogus.rpm</TT
+> is now truly bogus:
+          it has been changed from the original file.
+        </P
+><P
+>          Although the change was a small one, it still showed up when the
+          package file was queried.  Here's a listing from the original package:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -qip rpm-2.3-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Name        : rpm                   Distribution: Red Hat Linux Vanderbilt
+Version     : 2.3                         Vendor: Red Hat Software
+Release     : 1                       Build Date: Tue Dec 24 09:07:59 1996
+Install date: (none)                  Build Host: porky.redhat.com
+Group       : Utilities/System        Source RPM: rpm-2.3-1.src.rpm
+Size        : 631157
+Summary     : Red Hat Package Manager
+Description :
+RPM is a powerful package manager, which can be used to build, install,
+query, verify, update, and uninstall individual software packages. A
+package consists of an archive of files, and package information,
+including name, version, and description.</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          And here's the same listing from the bogus package file:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -qip rpm-2.3-1.i386-bogus.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Name        : rpm                   Distribution: Red Hat Linux Vanderbilt
+Version     : 2.3                         Vendor: Red Hat Software
+Release     : 1                       Build Date: Tue Dec 24 09:07:59 1996
+Install date: (none)                  Build Host: qorky.redhat.com
+Group       : Utilities/System        Source RPM: rpm-2.3-1.src.rpm
+Size        : 631157
+Summary     : Red Hat Package Manager
+Description :
+RPM is a powerful package manager, which can be used to build, install,
+query, verify, update, and uninstall individual software packages. A
+package consists of an archive of files, and package information,
+including name, version, and description.</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Notice that the build host name changed from
+          <TT
+CLASS="FILENAME"
+>porky.redhat.com</TT
+> to
+          <TT
+CLASS="FILENAME"
+>qorky.redhat.com</TT
+>.  Using the
+          <B
+CLASS="COMMAND"
+>cmp</B
+> utility to compare the two files, we find that
+          the difference occurs at byte 1201, which changed from "p" (octal
+          160), to "q" (octal 161):
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>cmp -cl rpm-2.3-1.i386.rpm rpm-2.3-1.i386-bogus.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>  1201 160 p    161 q</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          People versed in octal numbers will note that only <I
+CLASS="EMPHASIS"
+>one
+          bit</I
+> has been changed in the entire file.  That's the
+          smallest possible change you can make!  Let's see how our bogus friend
+          fares:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -K rpm-2.3-1.i386-bogus.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-2.3-1.i386-bogus.rpm: size PGP MD5 NOT OK</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Given that the command's output ends with <SAMP
+CLASS="COMPUTEROUTPUT"
+>NOT
+          OK</SAMP
+> in big capital letters, it's obvious there's a
+          problem.  Since the word <SAMP
+CLASS="COMPUTEROUTPUT"
+>size</SAMP
+> was
+          printed in lowercase, the bogus package's size was OK, which makes
+          sense &#8212; we only changed the value of one bit without adding or
+          subtracting anything else.
+        </P
+><P
+>          However, the PGP signature, printed in uppercase, didn't verify.
+          Again, this makes sense, too. The package that was signed by Red Hat has
+          been changed.  The fact that the package's MD5 checksum also failed to
+          verify provides further evidence that the bogus package is just that:
+          bogus.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-CHECKSIG-NOPGP-OPTION"
+><B
+CLASS="COMMAND"
+>--nopgp</B
+> &#8212; Do Not Verify Any PGP Signatures</A
+></H2
+><P
+>          Perhaps you want to be able to verify packages but, for one reason or
+          another, you cannot use PGP.  Maybe you don't have a trustworthy
+          source of the necessary public keys, or maybe it's illegal to possess
+          encryption (like PGP) software in your country.  Is it still possible
+          to verify packages?
+        </P
+><P
+>          Certainly &#8212; in fact, we've already done it, in <A
+HREF="s1-rpm-checksig-using-rpm-k.html#S2-RPM-CHECKSIG-MISSING-PUBLIC-KEY"
+>the Section called <I
+>When You Are Missing the Correct Public Key</I
+></A
+>.  You lose the ability
+          to verify the package's origins, as well as some level of confidence
+          in the package's integrity, but the size and MD5 checksums still give
+          some measure of assurance as to the package's state.
+        </P
+><P
+>          Of course, when PGP can't be used, the output from a verification
+          always looks like something's wrong:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -K rpm-2.3-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-2.3-1.i386.rpm: size (PGP) md5 OK (MISSING KEYS)</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>--nopgp</B
+> option directs RPM to ignore PGP
+          entirely.  If we use the <B
+CLASS="COMMAND"
+>--nopgp</B
+> option on our
+          example above, we find that things look a whole lot better:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -K --nopgp rpm-2.3-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-2.3-1.i386.rpm: size md5 OK</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-CHECKSIG-VV-OPTION"
+><B
+CLASS="COMMAND"
+>-vv</B
+> &#8212; Display Debugging
+        Information</A
+></H2
+><P
+>          Nine times out of ten, you'll probably never have to use it, but if
+          you're the curious type, the <B
+CLASS="COMMAND"
+>-vv</B
+> option will give
+          you insights into how RPM verifies packages.  Here's an example:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -Kvv rpm-2.3-1.i386.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: New Header signature
+D: magic: 8e ad e8 01
+D: got  : 8e ad e8 01
+D: Signature size: 236
+D: Signature pad : 4
+D: sigsize         : 240
+D: Header + Archive: 278686
+D: expected size   : 278686
+rpm-2.3-1.i386.rpm:
+Header+Archive size OK: 278686 bytes
+Good signature from user "Red Hat Software, Inc. &#60;redhat@redhat.com&#62;".
+Signature made 1996/12/24 18:37 GMT using 1024-bit key, key ID CBA29BF9
+
+WARNING:  Because this public key is not certified with a trusted
+signature, it is not known with high confidence that this public key
+actually belongs to: "Red Hat Software, Inc. &#60;redhat@redhat.com&#62;".
+MD5 sum OK: 8873682c5e036a307dee87d990e75349</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The lines starting with <SAMP
+CLASS="COMPUTEROUTPUT"
+>D:</SAMP
+> represent
+          extra output produced by the <B
+CLASS="COMMAND"
+>-vv</B
+> option.  This
+          output is normally used by software developers in the course of adding
+          new features to RPM and is subject to change, but there's no law
+          against looking at it.
+        </P
+><P
+>          Briefly, the output shows that RPM has detected a new-style signature
+          block, containing size, MD5 checksum, and PGP signature information.
+          The size of the signature, the size of the package file's header and
+          archive sections, and the expected size of those sections are all
+          displayed.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-CHECKSIG-RCFILE-OPTION"
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+> As An
+          Alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--rcfile</B
+> option is used to specify a file
+          containing default settings for RPM.  Normally, this option is not
+          needed.  By default, RPM uses <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> and a
+          file named <TT
+CLASS="FILENAME"
+>.rpmrc</TT
+> located in your login
+          directory.
+        </P
+><P
+>          This option would be used if there was a need to switch between
+          several sets of RPM defaults.  Software developers and package
+          builders will normally be the only people using the
+          <B
+CLASS="COMMAND"
+>--rcfile</B
+> option.  For more information on
+          <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files, see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN4677"
+HREF="s1-rpm-checksig-using-rpm-k.html#AEN4677"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              Red Hat Software's public key is also available from their
+              website, at
+              <A
+HREF="http://www.redhat.com/redhat/contact.html"
+TARGET="_top"
+>                http://www.redhat.com/redhat/contact.html </A
+>.  The RPM
+              sources also contain the key, and are available from their FTP
+              site at
+              <A
+HREF="ftp://ftp.redhat.com/pub/redhat/code/rpm"
+TARGET="_top"
+>                ftp://ftp.redhat.com/pub/redhat/code/rpm</A
+>.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-checksig-configuring-pgp.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-miscellania.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Configuring PGP for <B
+CLASS="COMMAND"
+>rpm -K</B
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-checksig.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Miscellanea</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

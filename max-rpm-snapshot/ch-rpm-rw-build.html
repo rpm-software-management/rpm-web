@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Real-World Package Building</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Developers &#8212; How to Distribute Your Software More Easily
+      With RPM
+    "
+HREF="p5206.html"><LINK
+REL="PREVIOUS"
+TITLE="Hints and Kinks"
+HREF="s1-rpm-multi-hints-and-kinks.html"><LINK
+REL="NEXT"
+TITLE="Initial Building Without RPM"
+HREF="s1-rpm-rw-build-build-without-rpm.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-multi-hints-and-kinks.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-rw-build-build-without-rpm.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-RW-BUILD"
+></A
+>Chapter 20. Real-World Package Building</H1
+><P
+>      In <A
+HREF="ch-rpm-build.html"
+>Chapter 11</A
+>, we packaged a fairly simple application.
+      Since our goal was to introduce package building, we kept things as simple
+      as possible.  However, things aren't always that simple in the real world.
+    </P
+><P
+>      In this chapter, we'll package a more complex application that will call
+      on most of RPM's capabilities.  We'll start with a general overview of the
+      application and end with a completed package, just as you would if you
+      were tasked with packaging an application that you'd not seen before.
+    </P
+><P
+>      So without further ado, let's meet amanda&#8230;
+    </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-RW-BUILD-AMANDA-OVERVIEW"
+>An Overview of Amanda</A
+></H1
+><P
+>        Amanda is a network backup utility.  The name amanda stands for
+        "Advanced Maryland Automatic Network Disk Archiver".  If the word
+        "Maryland" seems somewhat incongruous, it helps to realize that the
+        program was developed at the University of Maryland by James Da Silva,
+        and has subsequently been enhanced by many people around the world.
+      </P
+><P
+>        The sources are available at <TT
+CLASS="FILENAME"
+>ftp.cs.umd.edu</TT
+>, in
+        directory <TT
+CLASS="FILENAME"
+>/pub/amanda</TT
+>.  At the time of writing, the
+        latest version of amanda is version 2.3.0.  Therefore, it should come as
+        no surprise that the amanda source <B
+CLASS="COMMAND"
+>tar</B
+> file is called
+        amanda-2.3.0.tar.gz.
+      </P
+><P
+>        As with most network-centric applications, amanda has a server
+        component, and a client component.  An amanda server controls how the
+        various client systems are backed up to the server's tape drive.  Each
+        amanda client uses the operating system's native <B
+CLASS="COMMAND"
+>dump</B
+>
+        utility to perform the actual backup, which is then compressed and sent
+        to the server.  A server can back itself up simply by having the client
+        software installed and configured, just like any other client system.
+      </P
+><P
+>        The software builds with <B
+CLASS="COMMAND"
+>make</B
+>, and most customization
+        is done in two <TT
+CLASS="FILENAME"
+>.h</TT
+> files in the
+        <TT
+CLASS="FILENAME"
+>config</TT
+> subdirectory.  A fair amount of
+        documentation is available in the <TT
+CLASS="FILENAME"
+>doc</TT
+> subdirectory.
+        All in all, amanda is a typical non-trivial application.
+      </P
+><P
+>        Amanda can be built on several Unix-based operating systems.  In this
+        chapter, we'll build and package amanda for Red Hat Linux Linux version 4.0.
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-multi-hints-and-kinks.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-rw-build-build-without-rpm.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Hints and Kinks</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p5206.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Initial Building Without RPM</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

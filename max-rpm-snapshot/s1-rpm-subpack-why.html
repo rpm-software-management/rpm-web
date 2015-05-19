@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Why Are They Needed?</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Creating Subpackages"
+HREF="ch-rpm-subpack.html"><LINK
+REL="PREVIOUS"
+TITLE="Creating Subpackages"
+HREF="ch-rpm-subpack.html"><LINK
+REL="NEXT"
+TITLE="Our Example Spec File: Subpackages Galore!"
+HREF="s1-rpm-subpack-example-intro.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-subpack.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 18. Creating Subpackages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-subpack-example-intro.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-SUBPACK-WHY"
+>Why Are They Needed?</A
+></H1
+><P
+>        If all the software in the world followed the usual "one source, one
+        binary" structure, there would be no need for subpackages.  After all,
+        RPM handles the building and packaging of a program into a single
+        package file just fine.
+      </P
+><P
+>        But software doesn't always conform to this simplistic structure.  It's
+        not unusual for software to support two or more different modes of
+        operation.  A client/server program, for example, comes in two flavors:
+        a client, and a server.
+      </P
+><P
+>        And it can get more complicated than that.  Sometimes software relies on
+        another program so completely that the two cannot be built separately.
+        The result is often several packages.
+      </P
+><P
+>        While it is certainly possible that some convoluted procedure could be
+        devised to force these kinds of software into a single-package
+        structure, it makes more sense to let RPM manage the creation of
+        subpackages.  Why?  From the package builder's viewpoint, the main
+        reason to use subpackages is to eliminate any duplication of effort.
+      </P
+><P
+>        By using subpackages, there's no need to maintain separate spec files
+        and endure the resulting headaches when new versions of the software
+        become available.  By keeping everything in one spec file, new software
+        versions can be quickly integrated, and every related subpackage rebuilt
+        with a single command.
+      </P
+><P
+>        But that's enough of the preliminaries.  Let's see how subpackages are
+        created.
+      </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-subpack.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-subpack-example-intro.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Creating Subpackages</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-subpack.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Our Example Spec File: Subpackages Galore!</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

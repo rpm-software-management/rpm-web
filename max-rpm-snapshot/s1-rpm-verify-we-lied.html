@@ -1,0 +1,464 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>We've Lied to You&#8230;</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Verify Installed Packages"
+HREF="ch-rpm-verify.html"><LINK
+REL="PREVIOUS"
+TITLE="Selecting What to Verify, and How"
+HREF="s1-rpm-verify-what-to-verify.html"><LINK
+REL="NEXT"
+TITLE="Using RPM to Verify Package Files"
+HREF="ch-rpm-checksig.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-verify-what-to-verify.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 6. Using RPM to Verify Installed Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-checksig.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-VERIFY-WE-LIED"
+>We've Lied to You&#8230;</A
+></H1
+><P
+>        Not really; we just omitted a few details until you've had a chance to
+        see <B
+CLASS="COMMAND"
+>rpm -V</B
+> in action.  Here are the details:
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-VERIFICATION-CONTROL"
+>RPM Controls What Gets Verified</A
+></H2
+><P
+>          Depending on the type of file being verified, RPM will not verify
+          every possible attribute.  Here is a table showing the attributes
+          checked for each of the different file types:
+
+          <DIV
+CLASS="TABLE"
+><A
+NAME="TB-RPM-VERIFY-VERIFICATION-CONTROL"
+></A
+><P
+><B
+>Table 6-2. Verification Versus File Types</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+>                    File Type
+                  </TD
+><TD
+>                    File Size
+                  </TD
+><TD
+>                    Mode
+                  </TD
+><TD
+>                    MD5 Checksum
+                  </TD
+><TD
+>                    Major Number
+                  </TD
+><TD
+>                    Minor Number
+                  </TD
+><TD
+>                    Symlink String
+                  </TD
+><TD
+>                    Owner
+                  </TD
+><TD
+>                    Group
+                  </TD
+><TD
+>                    Modification Time
+                  </TD
+></TR
+><TR
+><TD
+>                    Directory File
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    -
+                  </TD
+></TR
+><TR
+><TD
+>                    Symbolic Links
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    -
+                  </TD
+></TR
+><TR
+><TD
+>                    FIFO
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    -
+                  </TD
+></TR
+><TR
+><TD
+>                    Devices
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    -
+                  </TD
+></TR
+><TR
+><TD
+>                    Regular Files
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    -
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    X
+                  </TD
+><TD
+>                    X
+                  </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-VERIFY-PACKAGE-BUILDER-CONTROL"
+>The Package Builder Can Also Control What Gets Verified</A
+></H3
+><P
+>            When a package builder creates a new package, they can control what
+            attributes are to be verified on a file-by-file basis.  The reasons
+            for excluding specific attributes from verification can be quite
+            involved, but here's an example just to give you the flavor:
+          </P
+><P
+>            When a person logs into a system, there are device files associated
+            with that user's terminal session.  In order for the terminal device
+            (called <TT
+CLASS="FILENAME"
+>tty</TT
+>) to function properly, the owner
+            and group of the device must change to that of the person logging
+            in.  Therefore, if RPM were to verify the package that created the
+            <TT
+CLASS="FILENAME"
+>tty</TT
+> device files, any ttys that were in use at
+            the time would fail to verify.  However, by using the
+            <B
+CLASS="COMMAND"
+>%verify</B
+>
+            <A
+NAME="AEN4495"
+HREF="#FTN.AEN4495"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+            directive, a package builder can save you from trivial
+            verification failures.
+          </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN4495"
+HREF="s1-rpm-verify-we-lied.html#AEN4495"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                See <A
+HREF="s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-FLIST-VERIFY-DIRECTIVE"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%verify</B
+> Directive</I
+> in Chapter 13</A
+> for
+                details on <B
+CLASS="COMMAND"
+>%verify</B
+>
+              </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-verify-what-to-verify.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-checksig.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Selecting What to Verify, and How</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-verify.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Using RPM to Verify Package Files</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

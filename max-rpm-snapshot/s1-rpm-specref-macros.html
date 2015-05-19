@@ -1,0 +1,1008 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Macros</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Concise Spec File Reference"
+HREF="ch-rpm-specref.html"><LINK
+REL="PREVIOUS"
+TITLE="Scriptlets"
+HREF="s1-rpm-specref-scripts.html"><LINK
+REL="NEXT"
+TITLE="The %files List"
+HREF="s1-rpm-specref-files-list.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-specref-scripts.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix E. Concise Spec File Reference</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-specref-files-list.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-SPECREF-MACROS"
+>Macros</A
+></H1
+><P
+>      This section describes the various macros used by RPM.
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-SETUP"
+>The <B
+CLASS="COMMAND"
+>%setup</B
+> Macro</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>%setup</B
+> macro is used to unpack the original
+        sources in preparation for the build.  It is used in the
+        <B
+CLASS="COMMAND"
+>%prep</B
+> script:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%prep
+%setup</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        See also: <A
+HREF="s1-rpm-inside-macros.html#S2-RPM-INSIDE-SETUP-MACRO"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%setup</B
+> Macro</I
+> in Chapter 13</A
+>.
+      </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-SETUP-N-OPTION"
+>The <CODE
+CLASS="OPTION"
+>-n <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+></CODE
+>
+          Option</A
+></H3
+><P
+>          The <CODE
+CLASS="OPTION"
+>-n</CODE
+> option is used to set the name of the
+          software's build directory.  This is necessary only when the source
+          archive unpacks into a directory named other than
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+>-
+          <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;version&#62;</I
+></TT
+></B
+>.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -n cd-player</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-macros.html#S3-RPM-INSIDE-SETUP-N-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-n <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+></B
+>
+            &#8212; Set Name of Build Directory</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-SETUP-Q-OPTION"
+>The <CODE
+CLASS="OPTION"
+>-q</CODE
+> Option</A
+></H3
+><P
+>          The <CODE
+CLASS="OPTION"
+>-q</CODE
+> option is used to direct
+          <B
+CLASS="COMMAND"
+>%setup</B
+> to quiet its output.  Verbose file listings
+          won't be displayed when unpacking archives with this option.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -c</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-macros.html#S3-RPM-INSIDE-SETUP-C-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-c</B
+> &#8212; Create Directory (and change to it)
+            Before Unpacking</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-SETUP-C-OPTION"
+>The <CODE
+CLASS="OPTION"
+>-c</CODE
+> Option</A
+></H3
+><P
+>          The <CODE
+CLASS="OPTION"
+>-c</CODE
+> option is used to direct
+          <B
+CLASS="COMMAND"
+>%setup</B
+> to create the top-level build directory
+          before unpacking the sources.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -c</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-macros.html#S3-RPM-INSIDE-SETUP-C-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-c</B
+> &#8212; Create Directory (and change to it)
+            Before Unpacking</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-SETUP-D-OPTION"
+>The <CODE
+CLASS="OPTION"
+>-D</CODE
+> Option</A
+></H3
+><P
+>          The <CODE
+CLASS="OPTION"
+>-D</CODE
+> option is used to direct
+          <B
+CLASS="COMMAND"
+>%setup</B
+> to not delete the build directory prior to
+          unpacking the sources.  This option is used when more than one source
+          archive is to be unpacked into the build directory, normally with the
+          <CODE
+CLASS="OPTION"
+>-b</CODE
+> or <CODE
+CLASS="OPTION"
+>-a</CODE
+> options.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -D -T -b 3</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-macros.html#S3-RPM-INSIDE-SETUP-D-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-D</B
+> &#8212; Do Not Delete Directory Before
+            Unpacking Sources</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-SETUP-T-OPTION"
+>The <CODE
+CLASS="OPTION"
+>-T</CODE
+> Option</A
+></H3
+><P
+>          The <CODE
+CLASS="OPTION"
+>-T</CODE
+> option is used to direct
+          <B
+CLASS="COMMAND"
+>%setup</B
+> to not perform the default unpacking of the
+          source archive specified by the first <B
+CLASS="COMMAND"
+>Source:</B
+> tag.
+          It is used with the <CODE
+CLASS="OPTION"
+>-a</CODE
+> or <CODE
+CLASS="OPTION"
+>-b</CODE
+>
+          options.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -D -T -a 1</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-macros.html#S3-RPM-INSIDE-SETUP-T-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-T</B
+> &#8212; Do Not Perform Default Archive
+            Unpacking</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-SETUP-B-OPTION"
+>The <CODE
+CLASS="OPTION"
+>-b <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;n&#62;</I
+></TT
+></CODE
+> Option</A
+></H3
+><P
+>          The <CODE
+CLASS="OPTION"
+>-b</CODE
+> option is used to direct
+          <B
+CLASS="COMMAND"
+>%setup</B
+> to unpack the source archive specified on
+          the <I
+CLASS="EMPHASIS"
+>n</I
+>th <B
+CLASS="COMMAND"
+>Source:</B
+> tag line before
+          changing directory into the build directory.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -D -T -b 2</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-macros.html#S3-RPM-INSIDE-SETUP-B-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-b <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;n&#62;</I
+></TT
+></B
+> &#8212;
+            Unpack The <I
+CLASS="EMPHASIS"
+>n</I
+>th Sources Before Changing
+            Directory</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-SETUP-A-OPTION"
+>The <CODE
+CLASS="OPTION"
+>-a <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;n&#62;</I
+></TT
+></CODE
+> Option</A
+></H3
+><P
+>          The <CODE
+CLASS="OPTION"
+>-a</CODE
+> option is used to direct
+          <B
+CLASS="COMMAND"
+>%setup</B
+> to unpack the source archive specified on
+          the <I
+CLASS="EMPHASIS"
+>n</I
+>th <B
+CLASS="COMMAND"
+>Source:</B
+> tag line after
+          changing directory into the build directory.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%setup -D -T -a 5</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-macros.html#S3-RPM-INSIDE-SETUP-A-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-a <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;n&#62;</I
+></TT
+></B
+> &#8212;
+            Unpack The <I
+CLASS="EMPHASIS"
+>n</I
+>th Sources After Changing Directory</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-PATCH-MACRO"
+>The <B
+CLASS="COMMAND"
+>%patch</B
+> Macro</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>%patch</B
+> macro, as its name implies, is used to
+        apply patches to the unpacked sources.  With no additional options
+        specified, it will apply the patch file specified by the
+        <B
+CLASS="COMMAND"
+>Patch:</B
+> (or <B
+CLASS="COMMAND"
+>Patch0:</B
+>) tag.
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%patch</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        When there is more than one <B
+CLASS="COMMAND"
+>Patch:</B
+> tag line in a spec
+        file, they can be specified by appending the number of the
+        <B
+CLASS="COMMAND"
+>Patch:</B
+> tag to the <B
+CLASS="COMMAND"
+>%patch</B
+> macro name
+        itself.
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%patch2</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        See also: <A
+HREF="s1-rpm-inside-macros.html#S2-RPM-INSIDE-PATCH-MACRO"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%patch</B
+> Macro</I
+> in Chapter 13</A
+>.
+      </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-PATCH-P-OPTION"
+>The <CODE
+CLASS="OPTION"
+>-P <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;n&#62;</I
+></TT
+></CODE
+> Option</A
+></H3
+><P
+>          The <CODE
+CLASS="OPTION"
+>-P</CODE
+> option is another method of applying a
+          specific patch.  The number from the <B
+CLASS="COMMAND"
+>Patch:</B
+> tag
+          follows the <CODE
+CLASS="OPTION"
+>-P</CODE
+> option.  The following
+          <B
+CLASS="COMMAND"
+>%patch</B
+> macros both apply the patch specified on the
+          <B
+CLASS="COMMAND"
+>Patch2:</B
+> tag line:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%patch -P 2
+
+%patch2</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-macros.html#S3-RPM-INSIDE-WHICH-PATCH-TAG"
+>the Section called <I
+>Specifying Which <B
+CLASS="COMMAND"
+>patch</B
+> Tag to Use</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-PATCH-P-OPTION2"
+>The <CODE
+CLASS="OPTION"
+>-p<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;#&#62;</I
+></TT
+></CODE
+> Option</A
+></H3
+><P
+>          The <CODE
+CLASS="OPTION"
+>-p</CODE
+> option is sent directly to the
+          <B
+CLASS="COMMAND"
+>patch</B
+> command.  It is followed by a number which
+          specifies the number of leading slashes (and the directories in
+          between) to strip from any filenames present in the patch file.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%patch -p2</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-macros.html#S3-RPM-INSIDE-PATCH-P-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-p <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;#&#62;</I
+></TT
+></B
+> &#8212;
+            Strip <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;#&#62;</I
+></TT
+></B
+>
+            leading slashes and directories from patch filenames</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-PATCH-B-OPTION"
+>The <CODE
+CLASS="OPTION"
+>-b <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+></CODE
+>
+          Option</A
+></H3
+><P
+>          When the <B
+CLASS="COMMAND"
+>patch</B
+> command is used to apply a patch,
+          unmodified copies of the files patched are renamed to end with the
+          extension <TT
+CLASS="FILENAME"
+>.orig</TT
+>.  The <CODE
+CLASS="OPTION"
+>-b</CODE
+>
+          option is used to change the extension used by
+          <B
+CLASS="COMMAND"
+>patch</B
+>.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%patch -b .fsstnd</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-macros.html#S3-RPM-INSIDE-B-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-b <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+></B
+>
+            &#8212; Set the backup file extension to
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+></B
+></I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-PATCH-E-OPTION"
+>The <B
+CLASS="COMMAND"
+>%patch -E</B
+> Option</A
+></H3
+><P
+>          The <CODE
+CLASS="OPTION"
+>-E</CODE
+> option is sent directly to the
+          <B
+CLASS="COMMAND"
+>patch</B
+> command.  It is used to direct
+          <B
+CLASS="COMMAND"
+>patch</B
+> to remove any empty files after the patches
+          have been applied.
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-macros.html#S3-RPM-INSIDE-E-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-E</B
+> &#8212; Remove Empty Output Files</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-specref-scripts.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-specref-files-list.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Scriptlets</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-specref.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The <B
+CLASS="COMMAND"
+>%files</B
+> List</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

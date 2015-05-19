@@ -1,0 +1,815 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Build and Install Platform Detection</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      Building Packages for Multiple Architectures and Operating Systems
+    "
+HREF="ch-rpm-multi.html"><LINK
+REL="PREVIOUS"
+TITLE="What Does RPM Do To Make Multi-Platform Packaging Easier?"
+HREF="s1-rpm-multi-multi-platform-easier.html"><LINK
+REL="NEXT"
+TITLE="        optflags &#8212; The Other rpmrc
+        File Entry
+      "
+HREF="s1-rpm-multi-optflags.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-multi-multi-platform-easier.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 19. Building Packages for Multiple Architectures and Operating Systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-multi-optflags.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-MULTI-BUILD-INSTALL-DETECTION"
+>Build and Install Platform Detection</A
+></H1
+><P
+>        As we mentioned above, the first step to multi-platform package building
+        is to identify the build platform.  This is done by matching information
+        from the build system's <B
+CLASS="COMMAND"
+>uname</B
+> output against a number
+        of <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries.
+      </P
+><P
+>        Normally, it's not necessary to worry too much about the following
+        <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries, as RPM comes with a set of
+        entries that support all platforms that currently run RPM.  However,
+        when adding support for new platforms, it will be necessary to use the
+        following entries to add support for the new build platform.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MULTI-PLATFORM-RPMRC-ENTRIES"
+>Platform-Specific <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> Entries</A
+></H2
+><P
+>          Normally, the file <TT
+CLASS="FILENAME"
+>/usr/lib/rpmrc</TT
+> contains the
+          following <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries.  They can be
+          overridden by entries in <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> or
+          <TT
+CLASS="FILENAME"
+>~/.rpmrc</TT
+>.  This is discussed more completely in
+          <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+        </P
+><P
+>          Because each entry type is available in both architecture and
+          operating system flavors, we'll just use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+> in place of
+          <B
+CLASS="COMMAND"
+>arch</B
+> and <B
+CLASS="COMMAND"
+>os</B
+> in the following
+          descriptions.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-MULTI-XXX-CANON"
+><B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>_canon</B
+> &#8212;
+            Define Canonical Platform Name and Number</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>_canon</B
+> entry is
+            used to convert information obtained from the system running RPM
+            into a canonical name and number that RPM will use internally.
+            Here's the format:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>_canon: <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+>: <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+> <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;value&#62;</I
+></TT
+></SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+> is compared against
+            information from <B
+CLASS="COMMAND"
+>uname(2)</B
+>.  If a match is found,
+            then <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+> is used by RPM as the
+            canonical name, and <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;value&#62;</I
+></TT
+> is used
+            as a unique numeric value.  Here are two examples:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>arch_canon: sun4:  sparc  3
+os_canon:  Linux:  Linux  1</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>arch_canon</B
+> tag above is used to define the
+            canonical architecture information for Sun Microsystems' SPARC
+            architecture.  In this case, the output from
+            <B
+CLASS="COMMAND"
+>uname</B
+> is compared against
+            <B
+CLASS="COMMAND"
+>sun4</B
+>.  If there's a match, the canonical
+            architecture name is set to <B
+CLASS="COMMAND"
+>sparc</B
+> and the
+            architecture number is set to <B
+CLASS="COMMAND"
+>3</B
+>.
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>os_canon</B
+> tag above is used to define the
+            canonical operating system information for the Linux operating
+            system.  In this case, the output from <B
+CLASS="COMMAND"
+>uname</B
+> is
+            compared against <B
+CLASS="COMMAND"
+>Linux</B
+>.  If there's a match, the
+            canonical operating system name is set to <B
+CLASS="COMMAND"
+>Linux</B
+>,
+            and the operating system number is set to <B
+CLASS="COMMAND"
+>1</B
+>.
+          </P
+><P
+>            The description above is not 100% complete &#8212; There is an
+            additional step performed during the time RPM gets the system
+            information from <B
+CLASS="COMMAND"
+>uname</B
+>, and compares it against a
+            canonical name.  Next, let's look at the <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>
+            file entry that comes into play during this intermediate step.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-MULTI-BUILDXXXTRANSLATE"
+><B
+CLASS="COMMAND"
+>build<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>translate</B
+>
+            &#8212; Define Build Platform</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>build<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>translate</B
+>
+            entry is used to define the build platform information.
+            Specifically, these entries are used to create a table that maps
+            information from <B
+CLASS="COMMAND"
+>uname</B
+> to the appropriate
+            architecture/operating system name.
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>build<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>translate</B
+>
+            entry looks like this:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><B
+CLASS="COMMAND"
+>build<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>translate: <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+>: <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+></B
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+> is compared against
+            information from <B
+CLASS="COMMAND"
+>uname(2)</B
+>.  If a match is found,
+            then <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+> is used by RPM as the
+            build platform information, after it has been canonicalized by
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>_canon</B
+>.  Here are
+            two examples:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>buildarchtranslate: i586: i386
+buildostranslate: Linux: Linux</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>buildarchtranslate</B
+> tag shown above is used to
+            define the build architecture for an Intel Pentium (or
+            <B
+CLASS="COMMAND"
+>i586</B
+> as it's shown here) processor.  Any
+            Pentium-based system will, by default, build packages for the Intel
+            80386 (or <B
+CLASS="COMMAND"
+>i386</B
+>) architecture.
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>buildostranslate</B
+> tag shown above is used to
+            define the build operating system for systems running the Linux
+            operating system.  In this case, the build operating system remains
+            unchanged.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-MULTI-XXX-COMPAT"
+><B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>_compat</B
+> &#8212;
+            Define Compatible Architectures</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>_compat</B
+> entry is
+            used to define which architectures and operating systems are
+            compatible with one another.  It is used at install-time only.  The
+            format of the entry is:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>_compat: <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+>: <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;list&#62;</I
+></TT
+></B
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+> is a name string as
+            defined by an
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>_canon</B
+> entry.  The
+            <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;list&#62;</I
+></TT
+> following it consists of one
+            or more names, also defined by <B
+CLASS="COMMAND"
+>arch_canon</B
+>.  If
+            there is more than one name in the list, they should be separated by
+            a space.
+          </P
+><P
+>            The names in the list are considered compatible to the name
+            specified in the label.
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>arch_compat: i586: i486
+arch_compat: i486: i386
+os_compat: Linux: AIX</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>arch_compat</B
+> lines shown above illustrate how
+            a family of upwardly compatible architectures may be represented.
+            For example, if the build architecture was defined as an
+            <B
+CLASS="COMMAND"
+>i586</B
+>, the compatible architectures would be
+            <B
+CLASS="COMMAND"
+>i486</B
+>, and <B
+CLASS="COMMAND"
+>i386</B
+>.  However, if
+            the build system was an <B
+CLASS="COMMAND"
+>i486</B
+>, the only compatible
+            architecture would be an <B
+CLASS="COMMAND"
+>i386</B
+>.
+          </P
+><P
+>            While the <B
+CLASS="COMMAND"
+>os_compat</B
+> line shown above is entirely
+            fictional, its purpose would be to declare <B
+CLASS="COMMAND"
+>AIX</B
+>
+            compatible with <B
+CLASS="COMMAND"
+>Linux</B
+>.  If it were only that
+            simple&#8230;
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MULTI-PLATFORM-OVERRIDE"
+>Overriding Platform Information At Build-Time</A
+></H2
+><P
+>          By using the <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries discussed above,
+          RPM usually makes the right decisions in selecting the build and
+          install platforms.  However, there might be times when RPM's
+          selections aren't the best.  Normally the circumstances are unusual,
+          as in the case of cross-compiling software.  In these cases, it is
+          nice to have an easy way of overriding the build-time architecture and
+          operating system.
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>--buildarch</B
+> and <B
+CLASS="COMMAND"
+>--buildos</B
+>
+          options can be used to set the build-time architecture and operating
+          system rather than relying on RPM's automatic detection capabilities.
+          These options are added to a normal RPM build command.  One important
+          point to remember is that, although RPM does try to find the specified
+          architecture name, it does no checking as to the sanity of the entered
+          architecture or operating system.  For example, if you enter an
+          entirely fictional operating system, RPM will issue a warning message,
+          and then happily build a package for it.
+        </P
+><P
+>          Why?  Wouldn't it make more sense for RPM to perform some sort of
+          sanity check?  In a word, no.  One of RPM's main design goals was to
+          never get in the way of the package builder.  If someone has a need to
+          override their build platform information, they should know what
+          they're doing, and what the full implications of their actions are.
+        </P
+><P
+>          Bottom line: Unless you <I
+CLASS="EMPHASIS"
+>know</I
+> why you need to use
+          <B
+CLASS="COMMAND"
+>--buildarch</B
+> or <B
+CLASS="COMMAND"
+>--buildos</B
+>, you
+          probably don't need to use them.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MULTI-PLATFORM-OVERRIDE-INSTALL-TIME"
+>Overriding Platform Information At Install-Time</A
+></H2
+><P
+>          It's also possible to direct RPM to ignore platform information while
+          a package is being installed.  The <B
+CLASS="COMMAND"
+>--ignorearch</B
+> and
+          <B
+CLASS="COMMAND"
+>--ignoreos</B
+> options, when added to any install or
+          upgrade command, will direct RPM to proceed with the install or
+          upgrade, even if the package's platform doesn't match the install
+          platform.
+        </P
+><P
+>          Dangerous?  Yes.  But it can be indispensable in certain
+          circumstances.  Like the ability to override platform information at
+          build-time, unless you know why you need to use
+          <B
+CLASS="COMMAND"
+>--ignorearch</B
+> or <B
+CLASS="COMMAND"
+>--ignoreos</B
+>, you
+          probably don't need to use them.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-multi-multi-platform-easier.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-multi-optflags.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>What Does RPM Do To Make Multi-Platform Packaging Easier?</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-multi.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><B
+CLASS="COMMAND"
+>optflags</B
+> &#8212; The Other <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>
+        File Entry</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

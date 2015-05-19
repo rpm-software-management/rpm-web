@@ -1,0 +1,562 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>RPM-related Resources</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      Appendixes
+    "
+HREF="p14028.html"><LINK
+REL="PREVIOUS"
+TITLE="Conditionals"
+HREF="s1-rpm-specref-conditionals.html"><LINK
+REL="NEXT"
+TITLE="Where to Talk About RPM"
+HREF="s1-rpm-resources-where-to-talk.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-specref-conditionals.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-resources-where-to-talk.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="CH-RPM-RESOURCES"
+></A
+>Appendix F. RPM-related Resources</H1
+><P
+>    There are a number of resources available to help you with RPM, over and
+    above the RPM <B
+CLASS="COMMAND"
+>man</B
+> page, and this book.  Here are some
+    pointers to them.
+  </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-RESOURCES-WHERE-TO-GET"
+>Where to Get RPM</A
+></H1
+><P
+>      Perhaps before asking, Where can I get RPM? it might be better to see if
+      RPM is already installed on your system.  If you have Red Hat Linux on your
+      system, it's there already.  But be sure to check on other systems &#8212;
+      people are porting RPM to different systems every day, and it just might
+      be there waiting for you.
+    </P
+><P
+>      Here's a quick way to see if RPM is installed on your system:
+
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>% </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --version</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>RPM version 4.2</SAMP
+>
+<TT
+CLASS="PROMPT"
+>%</TT
+>
+      </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>      If this command doesn't work, it might be that your path doesn't include
+      the directory where RPM resides.  Check the usual "binary" directories
+      before declaring RPM a no-show!
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RESOURCES-FTP-SITES"
+>FTP Sites</A
+></H2
+><P
+>        If you can't find RPM on your system, you'll have to grab a copy by FTP.
+        RPM can be found at <TT
+CLASS="FILENAME"
+>ftp.rpm.org</TT
+>.  It is no longer
+        available from <TT
+CLASS="FILENAME"
+>ftp.redhat.com</TT
+> since version 2.5.1.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RESOURCES-WHAT-DO-I-NEED"
+>What Do I Need?</A
+></H2
+><P
+>        Once you find a nearby site with RPM, and have found the directory where
+        it's kept, you'll notice a variety of files, all starting with
+        "<TT
+CLASS="FILENAME"
+>rpm</TT
+>".  What are they?  Which ones do you need?
+        Here's a representative list, along with the ways in which each file
+        would be used:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>ftp&#62; </TT
+><KBD
+CLASS="USERINPUT"
+>ls</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>227 Entering Passive Mode (66,187,233,245,39,44)
+150 Here comes the directory listing.
+-rw-r--r--    1 2369   300      79155 Sep 17 21:17 popt-1.7-8x.alpha.rpm
+-rw-r--r--    1 2369   300      69704 Sep 17 21:17 popt-1.7-8x.i386.rpm
+-rw-r--r--    1 2369   300      88284 Sep 17 21:17 popt-1.7-8x.ia64.rpm
+-rw-rw-r--    1 2369   300     574549 Sep 17 20:57 popt-1.7.tar.gz
+-rw-r--r--    1 2369   300    2647153 Sep 17 21:17 rpm-4.1-8x.alpha.rpm
+-rw-r--r--    1 2369   300    2222224 Sep 17 21:17 rpm-4.1-8x.i386.rpm
+-rw-r--r--    1 2369   300    3390500 Sep 17 21:17 rpm-4.1-8x.ia64.rpm
+-rw-r--r--    1 2369   300    6469152 Sep 17 21:17 rpm-4.1-8x.src.rpm
+-rw-rw-r--    1 2369   300    5670825 Sep 17 20:55 rpm-4.1.i386.tar.gz
+-rw-rw-r--    1 2369   300    6494145 Sep 17 19:38 rpm-4.1.tar.gz
+-rw-r--r--    1 2369   300      83884 Sep 17 21:17 rpm-build-4.1-8x.alpha.rpm
+-rw-r--r--    1 2369   300      79365 Sep 17 21:17 rpm-build-4.1-8x.i386.rpm
+-rw-r--r--    1 2369   300      95701 Sep 17 21:17 rpm-build-4.1-8x.ia64.rpm
+-rw-r--r--    1 2369   300    3798135 Sep 17 21:17 rpm-devel-4.1-8x.alpha.rpm
+-rw-r--r--    1 2369   300    3259143 Sep 17 21:17 rpm-devel-4.1-8x.i386.rpm
+-rw-r--r--    1 2369   300    3978604 Sep 17 21:17 rpm-devel-4.1-8x.ia64.rpm
+-rw-r--r--    1 2369   300     104653 Sep 17 21:17 rpm-python-4.1-8x.alpha.rpm
+-rw-r--r--    1 2369   300      97407 Sep 17 21:17 rpm-python-4.1-8x.i386.rpm
+-rw-r--r--    1 2369   300     132830 Sep 17 21:17 rpm-python-4.1-8x.ia64.rpm
+226 Directory send OK.</SAMP
+>
+<TT
+CLASS="PROMPT"
+>ftp&#62;</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Although the version numbers may change, the types of files kept in this
+        directory will not.  Here's the first group of files:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r--    1 2369   300      79155 Sep 17 21:17 popt-1.7-8x.alpha.rpm
+-rw-r--r--    1 2369   300      69704 Sep 17 21:17 popt-1.7-8x.i386.rpm
+-rw-r--r--    1 2369   300      88284 Sep 17 21:17 popt-1.7-8x.ia64.rpm
+-rw-r--r--    1 2369   300    2647153 Sep 17 21:17 rpm-4.1-8x.alpha.rpm
+-rw-r--r--    1 2369   300    2222224 Sep 17 21:17 rpm-4.1-8x.i386.rpm
+-rw-r--r--    1 2369   300    3390500 Sep 17 21:17 rpm-4.1-8x.ia64.rpm</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The files above are the binary package files for RPM version 4.1,
+        release 8x (intended for Red Hat Linux 8.x), on the Digital Alpha, the Intel
+        x86, and the Intel IA-64.  Note that the version number will change in
+        time, but the other parts of the file naming convention won't.  As
+        binary package files, they must be installed using RPM.  So if you
+        don't have RPM yet, they won't do you much good.
+        <A
+NAME="AEN18238"
+HREF="#FTN.AEN18238"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+      </P
+><P
+>        Let's look at the next file:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r--    1 2369   300    6469152 Sep 17 21:17 rpm-4.1-8x.src.rpm</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        This is the source package file for RPM version 4.1, release 8x.  Like
+        the binary packages, the source package requires RPM to install &#8212;
+        therefore, it cannot be used to perform an initial install of RPM.
+        Let's see what else there is here:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r--    1 2369   300    3798135 Sep 17 21:17 rpm-devel-4.1-8x.alpha.rpm
+-rw-r--r--    1 2369   300    3259143 Sep 17 21:17 rpm-devel-4.1-8x.i386.rpm
+-rw-r--r--    1 2369   300    3978604 Sep 17 21:17 rpm-devel-4.1-8x.ia64.rpm</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The files above are binary package files that contain the
+        <TT
+CLASS="FILENAME"
+>rpm-devel</TT
+> subpackage.  The
+        <TT
+CLASS="FILENAME"
+>rpm-devel</TT
+> package contains header files and the RPM
+        library, and is used for developing programs that can perform
+        RPM-related functions.  These files cannot be used to get RPM running.
+        That leaves two files left:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-rw-r--  1 root  97  278620 Jul 18 06:05 rpm-2.2.2-1.i386.cpio.gz
+-rw-rw-r--  1 root  97  356943 Jul 18 06:05 rpm-2.2.2.tar.gz</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The first file is a gzipped <B
+CLASS="COMMAND"
+>cpio</B
+> archive of the files
+        comprising RPM.  After uncompressing the file, <B
+CLASS="COMMAND"
+>cpio</B
+>
+        can be used to extract the files and place them on your system.  Note,
+        however, that there is a <B
+CLASS="COMMAND"
+>cpio</B
+> archive for the i386
+        architecture only.  To extract the files, issue the following command:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>zcat <TT
+CLASS="REPLACEABLE"
+><I
+>file.cpio.gz</I
+></TT
+> | (cd / ; cpio --extract)</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        (When actually issuing the command,
+        <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>file.cpio.gz</I
+></TT
+></TT
+> should be
+        replaced with the actual name of the <B
+CLASS="COMMAND"
+>cpio</B
+> archive.)
+      </P
+><P
+>        Note that the archive should be extracted using GNU
+        <B
+CLASS="COMMAND"
+>cpio</B
+> version 2.4.1 or greater.  It may also be
+        necessary to issue the following command prior to using RPM:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>mkdir /var/lib/rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The last file, <TT
+CLASS="FILENAME"
+>rpm-2.2.2.tar.gz</TT
+>, contains the
+        sources for RPM.  Using it, you can build RPM from scratch.  This is the
+        most involved option, but it is the only choice for people interested in
+        porting RPM to a new architecture.  See <A
+HREF="ch-rpm-miscellania.html"
+>Chapter 8</A
+> for an example of RPM being built from the
+        sources.
+      </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN18238"
+HREF="ch-rpm-resources.html#AEN18238"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>            If your goal is to install RPM on one of these systems, it might be
+            a good idea to copy the appropriate binary package.  That way, once
+            you have RPM running, you can reinstall it with the
+            <B
+CLASS="COMMAND"
+>--force</B
+> option to ensure that RPM is properly
+            installed and configured.
+          </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-specref-conditionals.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-resources-where-to-talk.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Conditionals</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p14028.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Where to Talk About RPM</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

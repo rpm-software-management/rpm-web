@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Our Example Spec File: Subpackages Galore!</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Creating Subpackages"
+HREF="ch-rpm-subpack.html"><LINK
+REL="PREVIOUS"
+TITLE="Why Are They Needed?"
+HREF="s1-rpm-subpack-why.html"><LINK
+REL="NEXT"
+TITLE="Spec File Changes For Subpackages"
+HREF="s1-rpm-subpack-spec-file-changes.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-subpack-why.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 18. Creating Subpackages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-subpack-spec-file-changes.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-SUBPACK-EXAMPLE-INTRO"
+>Our Example Spec File: Subpackages Galore!</A
+></H1
+><P
+>        Throughout this chapter, we'll be constructing a spec file that will
+        consist of a number of subpackages.  Let's start by listing the spec
+        file's requirements:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              The main package name is to be <TT
+CLASS="FILENAME"
+>foo</TT
+>.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              The version is to be 2.7.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              There are three subpackages:
+              <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    The server subpackage, to be called
+                    <TT
+CLASS="FILENAME"
+>foo-server</TT
+>.
+                  </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    The client subpackage, to be called
+                    <TT
+CLASS="FILENAME"
+>foo-client</TT
+>.
+                  </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    The <TT
+CLASS="FILENAME"
+>baz</TT
+> development library subpackage,
+                    to be called <TT
+CLASS="FILENAME"
+>bazlib</TT
+>.
+                  </P
+></LI
+></UL
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              The <TT
+CLASS="FILENAME"
+>bazlib</TT
+> subpackage has a version of 5.6.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Each subpackage will have its own <B
+CLASS="COMMAND"
+>summary</B
+> and
+              <B
+CLASS="COMMAND"
+>description</B
+> tags.
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        Every spec file starts with a preamble, and this one is no different.
+        In this case, the preamble will contain the following tags:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Name: foo
+Version: 2.7
+Release: 1
+Source: foo-2.7.tgz
+License: probably not
+Summary: The foo app, and the baz library needed to build it
+Group: bogus/junque
+%description
+This is the long description of the foo app, and the baz library needed to
+build it...</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        As we can see, there's nothing different here: this is an ordinary spec
+        file so far.  Let's delve into things a bit more and see what we'll need
+        to add to this spec file to create the subpackages we require.
+      </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-subpack-why.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-subpack-spec-file-changes.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Why Are They Needed?</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-subpack.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Spec File Changes For Subpackages</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

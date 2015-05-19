@@ -1,0 +1,444 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Using RPM to Verify Package Files</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Computer Users &#8212; How to Use RPM to Effectively Manage Your
+      Computer
+    "
+HREF="p108.html"><LINK
+REL="PREVIOUS"
+TITLE="We've Lied to You&#8230;"
+HREF="s1-rpm-verify-we-lied.html"><LINK
+REL="NEXT"
+TITLE="Configuring PGP for rpm -K"
+HREF="s1-rpm-checksig-configuring-pgp.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-verify-we-lied.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-checksig-configuring-pgp.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-CHECKSIG"
+></A
+>Chapter 7. Using RPM to Verify Package Files</H1
+><DIV
+CLASS="TABLE"
+><A
+NAME="TB-RPM-CHECKSIG-COMMAND-SYNTAX"
+></A
+><P
+><B
+>Table 7-1. <B
+CLASS="COMMAND"
+>rpm -K</B
+> Command Syntax</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+>              <B
+CLASS="COMMAND"
+>rpm -K</B
+> (or
+              <B
+CLASS="COMMAND"
+>--checksig</B
+>) <TT
+CLASS="REPLACEABLE"
+><I
+>options</I
+></TT
+>
+              <TT
+CLASS="FILENAME"
+>file1.rpm</TT
+> &#8230;
+              <TT
+CLASS="FILENAME"
+>file<TT
+CLASS="REPLACEABLE"
+><I
+>N</I
+></TT
+>.rpm</TT
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+>              Parameters
+            </TD
+></TR
+><TR
+><TD
+>              <TT
+CLASS="FILENAME"
+>file1.rpm</TT
+> &#8230;
+              <TT
+CLASS="FILENAME"
+>file<TT
+CLASS="REPLACEABLE"
+><I
+>N</I
+></TT
+>.rpm</TT
+>
+              </TD
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              One or more RPM package files (URLs OK)
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              Checksig-specific Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--nopgp</B
+>
+            </TD
+><TD
+>              Do not verify PGP signatures
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-checksig-using-rpm-k.html#S2-RPM-CHECKSIG-NOPGP-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--nopgp</B
+> &#8212; Do Not Verify Any PGP Signatures</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              General Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-v</B
+>
+            </TD
+><TD
+>              Display additional information
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-checksig-using-rpm-k.html#S2-RPM-CHECKSIG-V-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-v</B
+> &#8212; Display Additional
+        Information</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-vv</B
+>
+            </TD
+><TD
+>              Display debugging information
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-checksig-using-rpm-k.html#S2-RPM-CHECKSIG-VV-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-vv</B
+> &#8212; Display Debugging
+        Information</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Set alternate rpmrc file to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-checksig-using-rpm-k.html#S2-RPM-CHECKSIG-RCFILE-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+> As An
+          Alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</I
+></A
+>
+            </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-CHECKSIG-WHAT-IT-DOES"
+><B
+CLASS="COMMAND"
+>rpm -K</B
+> &#8212; What Does it Do?</A
+></H1
+><P
+>        One aspect of RPM is that you can get a package from the Internet, and
+        easily install it.  But what do you know about that package file?  Is
+        the organization listed as being the "vendor" of the package
+        <I
+CLASS="EMPHASIS"
+>really</I
+> the organization that built it?  Did someone
+        make unauthorized changes to it?  Can you trust that, if installed, it
+        won't mail a copy of your password file to a system cracker?
+      </P
+><P
+>        Features built into RPM allow you to make sure that the package file
+        you've just gotten won't cause you problems once it's installed, whether
+        the package was corrupted by line noise when you downloaded it, or
+        something more sinister happened to it.
+      </P
+><P
+>        The command <B
+CLASS="COMMAND"
+>rpm -K</B
+> (The option
+        <B
+CLASS="COMMAND"
+>--checksig</B
+> is equivalent) verifies a package file.
+        Using this command, it is easy to make sure the file has not been
+        changed in any way.  <B
+CLASS="COMMAND"
+>rpm -K</B
+> can also be used to make
+        sure that the package was actually built by the organization listed as
+        being the package's vendor.  That's all very impressive, but how does it
+        do that?  Well, it just needs help from some "Pretty Good" software.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-CHECKSIG-PGP-RPMS-ASSISTANT"
+>Pretty Good Privacy: RPM's Assistant</A
+></H2
+><P
+>          The "Pretty Good" software we're referring to is known as "Pretty Good
+          Privacy", or PGP.  While all the information on PGP could fill a book
+          (or several), we've provided a quick introduction to help you get
+          started.
+        </P
+><P
+>          If PGP is new to you, a quick glance through <A
+HREF="ch-pgp-intro.html"
+>Appendix G</A
+> should get you well on your way to
+          understanding, building, and installing PGP.  If, on the other hand,
+          you've got PGP already installed and have sent an encrypted message or
+          two, you're probably more than ready to continue with this chapter.
+        </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-verify-we-lied.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-checksig-configuring-pgp.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>We've Lied to You&#8230;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p108.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Configuring PGP for <B
+CLASS="COMMAND"
+>rpm -K</B
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

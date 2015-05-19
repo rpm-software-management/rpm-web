@@ -1,0 +1,652 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Source Package Files and How To Use Them</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Miscellanea"
+HREF="ch-rpm-miscellania.html"><LINK
+REL="PREVIOUS"
+TITLE="Using rpm2cpio"
+HREF="s1-rpm-miscellania-rpm2cpio.html"><LINK
+REL="NEXT"
+TITLE="      RPM and Developers &#8212; How to Distribute Your Software More Easily
+      With RPM
+    "
+HREF="p5206.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-miscellania-rpm2cpio.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 8. Miscellanea</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="p5206.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-MISCELLANIA-SRPMS"
+>Source Package Files and How To Use Them</A
+></H1
+><P
+>        One day, you may run across a package file with a name similar to the
+        following:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><B
+CLASS="COMMAND"
+>etcskel-1.0-3.<KBD
+CLASS="USERINPUT"
+>src</KBD
+>.rpm</B
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Notice the <TT
+CLASS="FILENAME"
+>src</TT
+>.  Is that a new kind of computer?
+        If you use RPM on an Intel-based computer, you'd normally expect to find
+        <TT
+CLASS="FILENAME"
+>i386</TT
+> there.  Maybe someone messed up the name of
+        the file.  Well, we know that the <B
+CLASS="COMMAND"
+>file</B
+> command can
+        display information about a package file, even if the filename has been
+        changed.  We've used it before to figure out what package a file
+        contains:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>file foo.bar</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>foo.bar: RPM v2 bin i386 eject-1.2-2</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        In this example, <TT
+CLASS="FILENAME"
+>foo.bar</TT
+> is an RPM version 2 file,
+        containing an executable package &#8212; hence, the
+        "<TT
+CLASS="FILENAME"
+>bin</TT
+>" &#8212; built for Intel processors &#8212;
+        the "<TT
+CLASS="FILENAME"
+>i386</TT
+>".  The package is eject version 1.2,
+        release 2.
+      </P
+><P
+>        Let's try the <B
+CLASS="COMMAND"
+>file</B
+> command on this mystery file and
+        see what we can find out about it:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>file etcskel-1.0-3.src.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>etcskel-1.0-3.src.rpm: RPM v2 src i386 etcskel-1.0-3</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Well, it's a package file all right &#8212; for version 1.0, release 3
+        of the <TT
+CLASS="FILENAME"
+>etcskel</TT
+> package.  It's in RPM version 2
+        format, and built for Intel-based systems.  But what does the
+        "<TT
+CLASS="FILENAME"
+>src</TT
+>" mean?
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MISCELLANIA-SRPMS-SOURCE-CODE"
+>A gentle introduction to source code</A
+></H2
+><P
+>          This package file contains not the executable, or "binary", files that
+          a normal package contains, but rather the "source" files required to
+          create those binaries.  When programmers create a new program, they
+          write the instructions, often called "code", in one or more files.
+          The source code is then compiled into a binary that can be executed by
+          the computer.
+        </P
+><P
+>          As part of the process of building package files (a process we cover
+          in great detail in the second half of this book), two types of package
+          files are created:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                The binary, or executable, package file
+              </P
+></LI
+><LI
+><P
+>                The source package file
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          The source package contains everything needed to recreate not only the
+          programs and associated files that are contained in the binary package
+          file, but the binary and source package files themselves.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MISCELLANIA-SRPMS-INFO-NEEDED"
+>Do you <I
+CLASS="EMPHASIS"
+>really</I
+> need more information than this?</A
+></H2
+><P
+>          The following discussion is going to get rather technical.  Unless
+          you're the type of person who likes to take other people's code and
+          modify it, chances are you won't need much more information than this.
+          But if you're still interested, let's explore further.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MISCELLANIA-SRPMS-WHAT-CAN-I-DO"
+>So what can I do with it?</A
+></H2
+><P
+>          In the case of source package files, one of the things that can be
+          done with them is that they can be installed.  Let's try an install of
+          a source package:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i cdp-0.33-3.src.rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Well that doesn't tell us very much and, take our word for it, adding
+          <B
+CLASS="COMMAND"
+>-v</B
+> doesn't improve the situation appreciably.
+          Let's haul out the big guns and try <B
+CLASS="COMMAND"
+>-vv</B
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -ivv cdp-0.33-3.src.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: installing cdp-0.33-3.src.rpm
+Installing cdp-0.33-3.src.rpm
+D: package is a source package major = 2
+D: installing a source package
+D: sources in: ///usr/src/redhat/SOURCES
+D: spec file in: ///usr/src/redhat/SPECS
+D: file "cdp-0.33-cdplay.patch" complete
+D: file "cdp-0.33-fsstnd.patch" complete
+D: file "cdp-0.33.spec" complete
+D: file "cdp-0.33.tgz" complete
+D: renaming ///usr/src/redhat/SOURCES/cdp-0.33.spec to ///usr/src/redhat/SPECS/cdp-0.33.spec</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          What does this output tell us?  Well, RPM recognizes that the file is
+          a source package.  It mentions that sources (we know what
+          <I
+CLASS="EMPHASIS"
+>they</I
+> are) are in
+          <TT
+CLASS="FILENAME"
+>/usr/src/redhat/SOURCES</TT
+>.  Let's take a look:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al /usr/src/redhat/SOURCES/</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-rw-r--   1 root     root          364 Apr 24 22:35 cdp-0.33-cdplay.patch
+-rw-r--r--   1 root     root          916 Jan  8 12:07 cdp-0.33-fsstnd.patch
+-rw-r--r--   1 root     root       148916 Nov 10  1995 cdp-0.33.tgz</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          There are some files that seem to be related to
+          <TT
+CLASS="FILENAME"
+>cdp</TT
+> there.  The two files ending with
+          "<TT
+CLASS="FILENAME"
+>.patch</TT
+>" are patches to the source.  RPM permits
+          patches to be processed when building binary packages.  The patches
+          are bundled along with the original, unmodified sources in the source
+          package.
+        </P
+><P
+>          The last file is a gzipped tar file.  If you've gotten software off
+          the Internet, you're probably familiar with <B
+CLASS="COMMAND"
+>tar</B
+>
+          files, gzipped or not.  If we look inside the file, we should see all
+          the usual kinds of things: <TT
+CLASS="FILENAME"
+>README</TT
+> files, a
+          <TT
+CLASS="FILENAME"
+>Makefile</TT
+> or two, and some source code:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>tar ztf cdp-0.33.tgz</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>cdp-0.33/COPYING
+cdp-0.33/ChangeLog
+cdp-0.33/INSTALL
+cdp-0.33/Makefile
+cdp-0.33/README
+cdp-0.33/cdp
+cdp-0.33/cdp-0.33.lsm
+cdp-0.33/cdp.1
+cdp-0.33/cdp.1.Z
+cdp-0.33/cdp.c
+cdp-0.33/cdp.h</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          There's more, but you get the idea.  OK, so there are the sources.
+          But what is that "spec" file mentioned in the output?  It mentions
+          something about "<TT
+CLASS="FILENAME"
+>/usr/src/redhat/SPECS</TT
+>", so let's
+          see what we have in that directory:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al /usr/src/redhat/SPECS</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r--   1 root     root          397 Apr 24 22:36 cdp-0.33.spec</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Without making a long story too short, a spec file contains
+          information used by RPM to create the binary and source packages.
+          Using the spec file, RPM:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Unpacks the sources.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Applies patches (if any exist).
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Builds the software.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Creates the binary package file.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Creates the source package file.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Cleans up after itself.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          The neatest part of this is that RPM does this all automatically,
+          under the control of the spec file.  That's about all we're going to
+          say about how RPM builds packages.  For more information, please refer
+          to the second half of this book.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MISCELLANIA-STICK-WITH-US"
+>Stick with us!</A
+></H2
+><P
+>          As we've noted several times, we'll be covering the entire subject of
+          building packages with RPM, in the second half of the book.  Be
+          forewarned, however: Package building, while straightforward, is not a
+          task for people new to programming.  But if you've written a program
+          or two, you'll probably find RPM's package building a piece of cake.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-miscellania-rpm2cpio.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="p5206.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using <B
+CLASS="COMMAND"
+>rpm2cpio</B
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-miscellania.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>RPM and Developers &#8212; How to Distribute Your Software More Easily
+      With RPM</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

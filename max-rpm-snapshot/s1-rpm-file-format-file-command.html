@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>      Identifying RPM files with the file(1) command
+    </TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Format of the RPM File"
+HREF="ch-rpm-file-format.html"><LINK
+REL="PREVIOUS"
+TITLE="Tools For Studying RPM Files"
+HREF="s1-rpm-file-format-rpm-tools.html"><LINK
+REL="NEXT"
+TITLE="The rpmrc File"
+HREF="ch-rpmrc-file.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-file-format-rpm-tools.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix A. Format of the RPM File</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpmrc-file.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-FILE-FORMAT-FILE-COMMAND"
+>Identifying RPM files with the <B
+CLASS="COMMAND"
+>file(1)</B
+> command</A
+></H1
+><P
+>      The <TT
+CLASS="FILENAME"
+>magic</TT
+> file on most UNIX-like systems today should
+      have the necessary information to identify RPM files.  But in case your
+      system doesn't, the following information can be added to the file:
+
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#-------------------------------------------------------------------
+#
+# RPM: file(1) magic for Red Hat Packages
+#
+0       beshort         0xedab          
+&#62;2      beshort         0xeedb          RPM
+&#62;&#62;4     byte            x               v%d
+&#62;&#62;6     beshort         0               bin
+&#62;&#62;6     beshort         1               src
+&#62;&#62;8     beshort         1               i386
+&#62;&#62;8     beshort         2               Alpha
+&#62;&#62;8     beshort         3               Sparc
+&#62;&#62;8     beshort         4               MIPS
+&#62;&#62;8     beshort         5               PowerPC
+&#62;&#62;8     beshort         6               68000
+&#62;&#62;8     beshort         7               SGI
+&#62;&#62;10    string          x               %s</SAMP
+>
+      </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>      The output of the <B
+CLASS="COMMAND"
+>file</B
+> command is succinct:
+
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>file baz</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>baz: RPM v3 bin i386 vlock-1.0-2</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+      </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>      In this case, the file called <TT
+CLASS="FILENAME"
+>baz</TT
+> is a version 3
+      format RPM file containing release 2 of version 1.0 of the
+      <TT
+CLASS="FILENAME"
+>vlock</TT
+> package, which has been built for the Intel x86
+      architecture.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-file-format-rpm-tools.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpmrc-file.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Tools For Studying RPM Files</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-file-format.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

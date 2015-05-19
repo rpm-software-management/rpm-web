@@ -1,0 +1,3184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Additional options to rpm -i</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Install Packages"
+HREF="ch-rpm-install.html"><LINK
+REL="PREVIOUS"
+TITLE="Two handy options"
+HREF="s1-rpm-install-handy-options.html"><LINK
+REL="NEXT"
+TITLE="Using RPM to Erase Packages"
+HREF="ch-rpm-erase.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-install-handy-options.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Using RPM to Install Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-erase.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-INSTALL-ADDITIONAL-OPTIONS"
+>Additional options to <B
+CLASS="COMMAND"
+>rpm -i</B
+></A
+></H1
+><P
+>        Normally <B
+CLASS="COMMAND"
+>rpm -i</B
+>, perhaps with the
+        <B
+CLASS="COMMAND"
+>-v</B
+> and <B
+CLASS="COMMAND"
+>-h</B
+>, is all you'll need.
+        However, there may be times when a basic install is not going to get the
+        job done.  Fortunately, RPM has a wealth of install options to make the
+        tough times a little easier.  As with any other powerful tool, you
+        should understand these options before putting them to use.  Let's take
+        a look at them:
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-VV-OPTION"
+>Getting a <I
+CLASS="EMPHASIS"
+>lot</I
+> more information with <B
+CLASS="COMMAND"
+>-vv</B
+></A
+></H2
+><P
+>          Sometimes it's necessary to have even <I
+CLASS="EMPHASIS"
+>more</I
+>
+          information than we can get with <B
+CLASS="COMMAND"
+>-v</B
+>.  By adding
+          another <B
+CLASS="COMMAND"
+>v</B
+>, we can start to see more of RPM's inner
+          workings:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -ivv eject-1.2-2.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: installing eject-1.2-2.i386.rpm
+Installing eject-1.2-2.i386.rpm
+D: package: eject-1.2-2 files test = 0
+D: running preinstall script (if any)
+D: setting file owners and groups by name (not id)
+D: ///usr/bin/eject owned by root (0), group root (0) mode 755
+D: ///usr/man/man1/eject.1 owned by root (0), group root (0) mode 644
+D: running postinstall script (if any)</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The lines starting with <SAMP
+CLASS="COMPUTEROUTPUT"
+>D:</SAMP
+> have been
+          added by using <B
+CLASS="COMMAND"
+>-vv</B
+>.  The line ending with
+          "<SAMP
+CLASS="COMPUTEROUTPUT"
+>files test = 0</SAMP
+>", means that RPM is
+          actually going to install the package.  If the number were non-zero,
+          it would mean that the <B
+CLASS="COMMAND"
+>--test</B
+> option was present,
+          and RPM would not actually perform the installation.  For more
+          information on using <B
+CLASS="COMMAND"
+>--test</B
+> with <B
+CLASS="COMMAND"
+>rpm
+          -i</B
+>, see <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-TEST-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--test</B
+>: Perform Installation Tests Only</I
+></A
+>.
+        </P
+><P
+>          Continuing with the above example, we see that RPM next executes a
+          pre-install script (if there is one), followed by the actual
+          installation of the files in the package.  There is one line for each
+          file being installed, and that line shows the filename, ownership,
+          group membership, and permissions (or mode) applied to the file.  With
+          larger packages, the output from <B
+CLASS="COMMAND"
+>-vv</B
+> can get quite
+          lengthy!  Finally, RPM runs a post-install script, if one exists for
+          the package.  We'll be discussing pre- and post-install scripts in
+          more detail in <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-NOSCRIPTS"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--noscripts</B
+>: Do Not Execute Pre- and Post-install Scripts</I
+></A
+>.
+        </P
+><P
+>          In the vast majority of cases, it will not be necessary to use
+          <B
+CLASS="COMMAND"
+>-vv</B
+>.  It is normally used by software engineers
+          working on RPM itself, and the output can change without notice.
+          However, it's a handy way to gain insights into RPM's inner workings.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-TEST-OPTION"
+><B
+CLASS="COMMAND"
+>--test</B
+>: Perform Installation Tests Only</A
+></H2
+><P
+>          There are times when it's more appropriate to take it slow and not try
+          to install a package right away.  RPM provides the
+          <B
+CLASS="COMMAND"
+>--test</B
+> option for that.  As the names implies, it
+          performs all the checks that RPM normally does during an install, but
+          stops short of actually performing the steps necessary to install the
+          package:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i --test eject-1.2-2.i386.rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Once again, there's not very much output.  This is because the test
+          succeeded; had there been a problem, the output would have been a bit
+          more interesting.  In this example, there are some problems:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i --test rpm-2.0.11-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/bin/rpm conflicts with file from rpm-2.3-1
+/usr/bin/gendiff conflicts with file from rpm-2.3-1
+/usr/bin/rpm2cpio conflicts with file from rpm-2.3-1
+/usr/bin/rpmconvert conflicts with file from rpm-2.3-1
+/usr/man/man8/rpm.8 conflicts with file from rpm-2.3-1
+error: rpm-2.0.11-1.i386.rpm cannot be installed</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          If you'll note the version numbers, we're trying to install an older
+          version of RPM (2.0.11) "on top of" a newer version(2.3).  RPM
+          faithfully reported the various file conflicts and summarized with a
+          message saying that the install would not have proceeded, even if
+          <B
+CLASS="COMMAND"
+>--test</B
+> had not been on the command line.
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>--test</B
+> option will also catch
+          dependency-related problems:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i --test blather-7.9-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>failed dependencies:
+        bother &#62;= 3.1 is needed by blather-7.9-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Here's a tip for all you script-writers out there: RPM will return a
+          non-zero status if the <B
+CLASS="COMMAND"
+>--test</B
+> option detects
+          problems&#8230;
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-REPLACEPKGS"
+><B
+CLASS="COMMAND"
+>--replacepkgs</B
+>: Install the Package Even If Already Installed</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--replacepkgs</B
+> option is used to force RPM to
+          install a package that it believes to be installed already.  This
+          option is normally used if the installed package has been damaged
+          somehow and needs to be fixed up.
+        </P
+><P
+>          To see how the <B
+CLASS="COMMAND"
+>--replacepkgs</B
+> option works, let's
+          first install some software:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv cdp-0.33-2.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-2.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          OK, now that we have <TT
+CLASS="FILENAME"
+>cdp-0.33-2</TT
+> installed, let's
+          see what happens if we try to install the same version "on top of"
+          itself:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv cdp-0.33-2.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-2.i386.rpm
+package cdp-0.33-2 is already installed
+error: cdp-0.33-2.i386.rpm cannot be installed</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          That didn't go very well.  Let's see what adding
+          <B
+CLASS="COMMAND"
+>--replacepkgs</B
+> will do :
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv --replacepkgs cdp-0.33-2.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-2.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Much better.  The original package was replaced by a new copy of
+          itself.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-REPLACEFILES-OPTION"
+><B
+CLASS="COMMAND"
+>--replacefiles</B
+>: Install the Package Even If It Replaces Another Package's Files</A
+></H2
+><P
+>          While the <B
+CLASS="COMMAND"
+>--replacepkgs</B
+> option permitted a package
+          to be installed "on top of" itself, <B
+CLASS="COMMAND"
+>--replacefiles</B
+>
+          is used to allow a package to overwrite files belonging to a different
+          package.  Sounds strange?  Let's go over it in a bit more detail.
+        </P
+><P
+>          One thing that sets RPM apart from many other package managers is that
+          it keeps track of all the files it installs in a database.  Each
+          file's database entry contains a variety of information about the
+          file, including a means of summarizing the file's contents.
+          <A
+NAME="AEN970"
+HREF="#FTN.AEN970"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+          By using these summaries, known as <I
+CLASS="FIRSTTERM"
+>MD5 checksums</I
+>,
+          RPM can determine if a particular file is going to be replaced by a
+          file with the same name, but different contents.  Here's an example:
+        </P
+><P
+>          Package "A" installs a file (we'll call it
+          <TT
+CLASS="FILENAME"
+>/bin/foo.bar</TT
+>).  Once Package A is installed,
+          <TT
+CLASS="FILENAME"
+>foo.bar</TT
+> resides happily in the
+          <TT
+CLASS="FILENAME"
+>/bin</TT
+> directory.  In the RPM database, there is an
+          entry for <TT
+CLASS="FILENAME"
+>/bin/foo.bar</TT
+>, including the file's MD5
+          checksum.
+        </P
+><P
+>          However, there is a another package, "B".  Package B also has a file
+          called <TT
+CLASS="FILENAME"
+>foo.bar</TT
+> that <I
+CLASS="EMPHASIS"
+>it</I
+> wants
+          to install in <TT
+CLASS="FILENAME"
+>/bin</TT
+>.  There can't be two files in
+          the same directory with the same name.  The files are different; their
+          MD5 checksums do not match.  What happens if Package B is installed?
+          Let's find out.  Here, we've installed a package:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv cdp-0.33-2.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-2.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          OK, no problem there.  But we have another package to install.  In
+          this case, it is a new release of the <TT
+CLASS="FILENAME"
+>cdp</TT
+>
+          package.  It should be noted that RPM's detection of file conflicts
+          does not depend on the two packages being related.  It is strictly
+          based on the name of the file, the directory in which it resides, and
+          the file's MD5 checksum.  Here's what happens when we try to install
+          the package:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv cdp-0.33-3.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-3.i386.rpm
+/usr/bin/cdp conflicts with file from cdp-0.33-2
+error: cdp-0.33-3.i386.rpm cannot be installed</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          What's happening?  The package <TT
+CLASS="FILENAME"
+>cdp-0.33-2</TT
+> has a
+          file, <TT
+CLASS="FILENAME"
+>/usr/bin/cdp</TT
+>, that it installed.  Sure
+          enough, there it is.  Let's highlight the size and creation date of
+          the file for future reference:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al /usr/bin/cdp</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rwxr-xr-x   1 root     root        <TT
+CLASS="REPLACEABLE"
+><I
+>34460</I
+></TT
+> <TT
+CLASS="REPLACEABLE"
+><I
+>Feb 25 14:27</I
+></TT
+> /usr/bin/cdp</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The package we just tried to install,
+          <TT
+CLASS="FILENAME"
+>cdp-0.33-<TT
+CLASS="REPLACEABLE"
+><I
+>3</I
+></TT
+></TT
+> (note the
+          different release), also installs a file <TT
+CLASS="FILENAME"
+>cdp</TT
+> in
+          <TT
+CLASS="FILENAME"
+>/usr/bin</TT
+>.  Since there is a conflict, that means
+          that the two package's <TT
+CLASS="FILENAME"
+>cdp</TT
+> files must be
+          different &#8212; their checksums don't match.  Because of this, RPM
+          won't let the second package install.  But with
+          <B
+CLASS="COMMAND"
+>--replacefiles</B
+>, we can force RPM to let the
+          <TT
+CLASS="FILENAME"
+>/usr/bin/cdp</TT
+> from <TT
+CLASS="FILENAME"
+>cdp-0.33-3</TT
+>
+          replace the <TT
+CLASS="FILENAME"
+>/usr/bin/cdp</TT
+> from
+          <TT
+CLASS="FILENAME"
+>cdp-0.33-2</TT
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv --replacefiles cdp-0.33-3.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-3.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Taking a closer look at <TT
+CLASS="FILENAME"
+>/usr/bin/cdp</TT
+>, we find
+          that they certainly <I
+CLASS="EMPHASIS"
+>are</I
+> different, both in size
+          and creation date:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al /usr/bin/cdp</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rwxr-xr-x   1 root     root        <TT
+CLASS="REPLACEABLE"
+><I
+>34444</I
+></TT
+> <TT
+CLASS="REPLACEABLE"
+><I
+>Apr 24 22:37</I
+></TT
+> /usr/bin/cdp</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          File conflicts should be a relatively rare occurrence.  They only
+          happen when two packages attempt to install files with the same name
+          but different contents.  There are two possible reasons for this to
+          happen:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Installing a newer version of a package without erasing the
+                older version.  A newer version of a package is a
+                <I
+CLASS="EMPHASIS"
+>wonderful</I
+> source of file conflicts against
+                older versions &#8212; the filenames remain the same, but the
+                contents change.  We used it in our example because it's an easy
+                way to show what happens when there are file conflicts.
+                However, it is usually a <I
+CLASS="EMPHASIS"
+>bad</I
+> idea when it
+                comes to doing this as a way to upgrade packages.  RPM has a
+                special option for this (<B
+CLASS="COMMAND"
+>rpm -U</B
+>) that is
+                discussed in <A
+HREF="ch-rpm-upgrade.html"
+>Chapter 4</A
+>.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Installing two unrelated packages that each install a file with
+                the same name.  This may happen because of poor package design
+                (hence the file residing in more than one package), or a lack of
+                coordination between the people building the packages.
+              </P
+></LI
+></UL
+>
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSTALL-REPLACEFILES-AND-CONFIG-FILES"
+><B
+CLASS="COMMAND"
+>--replacefiles</B
+> and Config Files</A
+></H3
+><P
+>            What happens if a conflicting file is a config file that you've
+            sweated over and worked on until it's just right?  Will issuing a
+            <B
+CLASS="COMMAND"
+>--replacefiles</B
+> on a package with a conflicting
+            config file blow all your changes away?
+          </P
+><P
+>            No!  RPM won't cook your goose.
+            <A
+NAME="AEN1054"
+HREF="#FTN.AEN1054"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+          </P
+><P
+>            It will save any changes you've made, to a config file called
+            <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+>.rpmsave</TT
+>.
+            Let's give it a try:
+          </P
+><P
+>            As system administrator, you want to make sure your new users have a
+            rich environment the first time they log in.  So you've come up with
+            a really nifty <TT
+CLASS="FILENAME"
+>.bashrc</TT
+> file that will be
+            executed whenever they log in.  Knowing that
+            <I
+CLASS="EMPHASIS"
+>everyone</I
+> will enjoy your wonderful
+            <TT
+CLASS="FILENAME"
+>.bashrc</TT
+> file, you place it in
+            <TT
+CLASS="FILENAME"
+>/etc/skel</TT
+>.  That way, every time a new account
+            is created, your <TT
+CLASS="FILENAME"
+>.bashrc</TT
+> will be copied into
+            the new user's login directory.
+          </P
+><P
+>            Not realizing that the <TT
+CLASS="FILENAME"
+>.bashrc</TT
+> file you
+            modified in <TT
+CLASS="FILENAME"
+>/etc/skel</TT
+> is listed as a config
+            file in a package called (strangely enough)
+            <TT
+CLASS="FILENAME"
+>etcskel</TT
+>, you decide to experiment with RPM
+            using the <TT
+CLASS="FILENAME"
+>etcskel</TT
+> package.  First you try to
+            install it:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv etcskel-1.0-100.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>etcskel       /etc/skel/.bashrc conflicts with file from etcskel-1.0-3
+error: etcskel-1.0-100.i386.rpm cannot be installed</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Hmmm. That didn't work.  Wait a minute!  I can add
+            <B
+CLASS="COMMAND"
+>--replacefiles</B
+> to the command and it should
+            install just fine:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv --replacefiles etcskel-1.0-100.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing etcskel-1.0-100.i386.rpm
+warning: /etc/skel/.bashrc saved as /etc/skel/.bashrc.rpmsave</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Wait a minute&#8230; That's my customized
+            <TT
+CLASS="FILENAME"
+>.bashrc</TT
+>!  Was it <I
+CLASS="EMPHASIS"
+>really</I
+>
+            saved?
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al /etc/skel/</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 8
+-rwxr-xr-x   1 root     root          186 Oct 12  1994 .Xclients
+-rw-r--r--   1 root     root         1126 Aug 23  1995 .Xdefaults
+-rw-r--r--   1 root     root           24 Jul 13  1994 .bash_logout
+-rw-r--r--   1 root     root          220 Aug 23  1995 .bash_profile
+-rw-r--r--   1 root     root          169 Jun 17 20:02 .bashrc
+-rw-r--r--   1 root     root          159 Jun 17 20:46 <TT
+CLASS="REPLACEABLE"
+><I
+>.bashrc.rpmsave</I
+></TT
+>
+drwxr-xr-x   2 root     root         1024 May 13 13:18 .xfm
+lrwxrwxrwx   1 root     root            9 Jun 17 20:46 .xsession -&#62; .Xclients</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cat /etc/skel/.bashrc.rpmsave</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+># .bashrc
+# User specific aliases and functions
+# Modified by the sysadmin
+uptime
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Whew!  You heave a sigh of relief, and study the new
+            <TT
+CLASS="FILENAME"
+>.bashrc</TT
+> to see if the changes need to be
+            integrated into your customized version.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-INSTALL-REPLACEFILES-TROUBLE"
+><B
+CLASS="COMMAND"
+>--replacefiles</B
+> Can Mean Trouble Down the Road</A
+></H3
+><P
+>            While <B
+CLASS="COMMAND"
+>--replacefiles</B
+> can make today's difficult
+            install go away, it can mean big headaches in the future.  When the
+            time comes for erasing the packages involved in a file conflict, bad
+            things can happen.
+          </P
+><P
+>            What bad things?  Well, files can be deleted.  Here's how, in three
+            easy steps:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  Two packages are installed.  When the second package is
+                  installed, there is a conflict with a file installed by the
+                  first package.  Therefore, the
+                  <B
+CLASS="COMMAND"
+>--replacefiles</B
+> option is used to force RPM
+                  to replace the conflicting file with the one from the second
+                  package.
+                </P
+></LI
+><LI
+><P
+>                  At some point in the future, the second package is erased.
+                </P
+></LI
+><LI
+><P
+>                  The conflicting file is gone!
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            Let's look at an example.  First, we install a new package.  Next,
+            we take a look at a file it installed, noting the size and creation
+            date.
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv cdp-0.33-2.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-2.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al /usr/bin/cdp</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rwxr-xr-x   1 root     root        <TT
+CLASS="REPLACEABLE"
+><I
+>34460</I
+></TT
+> <TT
+CLASS="REPLACEABLE"
+><I
+>Feb 25 14:27</I
+></TT
+> /usr/bin/cdp</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Next, we try to install a newer release of the same package.  It
+            fails:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv cdp-0.33-3.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-3.i386.rpm
+/usr/bin/cdp conflicts with file from cdp-0.33-2
+error: cdp-0.33-3.i386.rpm cannot be installed</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            So, we use <B
+CLASS="COMMAND"
+>--replacefiles</B
+> to convince the newer
+            package to install.  We note that the newer package installed a file
+            on top of the file originally installed:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv --replacefiles cdp-0.33-3.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-3.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al /usr/bin/cdp</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rwxr-xr-x   1 root     root        34444 Apr 24 22:37 /usr/bin/cdp</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The original <TT
+CLASS="FILENAME"
+>cdp</TT
+> file, 34,460 bytes long, and
+            dated February 25th, has been replaced with a file with the same
+            name, but 34,444 bytes long from the 24th of April.  The original
+            file is long gone.
+          </P
+><P
+>           Next, we erased the package we just installed.
+           <A
+NAME="AEN1144"
+HREF="#FTN.AEN1144"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>
+           Finally, we tried to find the file:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -e cdp-0.33-3</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al /usr/bin/cdp</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>ls: /usr/bin/cdp: No such file or directory</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The file is gone.  Why is this?  The reason is that
+            <TT
+CLASS="FILENAME"
+>/usr/bin/cdp</TT
+> from the first package was
+            replaced when the second package was installed using the
+            <B
+CLASS="COMMAND"
+>--replacefiles</B
+> option.  Then, when the second
+            package was erased, the <TT
+CLASS="FILENAME"
+>/usr/bin/cdp</TT
+> file was
+            removed, since it belonged to the second package.  If the first
+            package had been erased first, there would have been no problem,
+            since RPM would have realized that the first package's file had
+            already been deleted, and would have left the file in place.
+          </P
+><P
+>            The only problem with this state of affairs is that the first
+            package is still installed, <I
+CLASS="EMPHASIS"
+>except</I
+> for
+            <TT
+CLASS="FILENAME"
+>/usr/bin/cdp</TT
+>.  So now there's a partially
+            installed package on the system.  What to do?  Perhaps it's time to
+            exercise your new-found knowledge by issuing an <B
+CLASS="COMMAND"
+>rpm -i
+            --replacepkgs</B
+> command to fix up the first package&#8230;
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-NODEPS"
+><B
+CLASS="COMMAND"
+>--nodeps</B
+>: Do Not Check Dependencies Before
+          Installing Package</A
+></H2
+><P
+>          One day it'll happen.  You'll be installing a new package, when
+          suddenly, the install bombs:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i blather-7.9-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>failed dependencies:
+        bother &#62;= 3.1 is needed by blather-7.9-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          What happened?  The problem is that the package you're installing
+          requires another package to be installed in order for it to work
+          properly.  In our example, the <TT
+CLASS="FILENAME"
+>blather</TT
+> package
+          won't work properly unless the <TT
+CLASS="FILENAME"
+>bother</TT
+> package
+          (and more specifically, <TT
+CLASS="FILENAME"
+>bother</TT
+> version 3.1 or
+          later) is installed.  Since our system doesn't have an appropriate
+          version of <TT
+CLASS="FILENAME"
+>bother</TT
+> installed at all, RPM aborted
+          the installation of <TT
+CLASS="FILENAME"
+>blather</TT
+>.
+        </P
+><P
+>          Now, 99 times out of 100, this exactly the right thing for RPM to do.
+          After all, if the package doesn't have everything it needs to work
+          properly, why try to install it?  Well, as with everything else in
+          life, there are exceptions to the rule.  And that is why there is a
+          <B
+CLASS="COMMAND"
+>--nodeps</B
+> option.
+        </P
+><P
+>          Adding the <B
+CLASS="COMMAND"
+>--nodeps</B
+> options to an install command
+          directs RPM to ignore any dependency-related problems and to complete
+          the package installation.  Going back to our example above, let's add
+          the <B
+CLASS="COMMAND"
+>--nodeps</B
+> option to the command line and see
+          what happens:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i --nodeps blather-7.9-1.i386.rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The package was installed without a peep.  Whether it will work
+          properly is another matter, but it is installed.  In general, it's not
+          a good idea to use <B
+CLASS="COMMAND"
+>--nodeps</B
+> to get around
+          dependency problems.  The package builders included the dependency
+          requirements for a reason, and it's best not to second-guess them.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-FORCE-OPTION"
+><B
+CLASS="COMMAND"
+>--force</B
+>: The Big Hammer</A
+></H2
+><P
+>          Adding <B
+CLASS="COMMAND"
+>--force</B
+> to an install command is a way of
+          saying "Install it anyway!"  In essence, it adds
+          <B
+CLASS="COMMAND"
+>--replacepkgs</B
+> and <B
+CLASS="COMMAND"
+>--replacefiles</B
+>
+          to the command.  Like a big hammer, <B
+CLASS="COMMAND"
+>--force</B
+> is an
+          irresistible force
+          <A
+NAME="AEN1209"
+HREF="#FTN.AEN1209"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+>
+          that makes things happen.  In fact, the only thing that will prevent a
+          <B
+CLASS="COMMAND"
+>--force</B
+>'ed install from proceeding is a dependency
+          conflict.
+        </P
+><P
+>          And like a big hammer, it pays to fully understand why you need to use
+          <B
+CLASS="COMMAND"
+>--force</B
+> before actually using it.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-EXCLUDEDOCS-OPTION"
+><B
+CLASS="COMMAND"
+>--excludedocs</B
+>: Do Not Install Documentation For
+          This Package</A
+></H2
+><P
+>          RPM has a number of good features.  One of them is the fact that RPM
+          classifies the files it installs into one of three categories:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                Config files.
+                
+              </P
+></LI
+><LI
+><P
+>                Files containing documentation.
+              </P
+></LI
+><LI
+><P
+>                All other files.
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          RPM uses the <B
+CLASS="COMMAND"
+>--excludedocs</B
+> option to prevent files
+          classified as documentation from being installed.  In the following
+          example, we know that the package contains documentation:
+          specifically, the man page, <TT
+CLASS="FILENAME"
+>/usr/man/man1/cdp.1</TT
+>.
+          Let's see how <B
+CLASS="COMMAND"
+>--excludedocs</B
+> keeps it from being
+          installed:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv --excludedocs cdp-0.33-3.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-3.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al /usr/man/man1/cdp.1</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>ls: /usr/man/man1/cdp.1: No such file or directory</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The primary reason to use <B
+CLASS="COMMAND"
+>--excludedocs</B
+> is to save
+          on disk space.  The savings can be sizeable.  For example, on an
+          RPM-installed Linux system, there can be over 5,000 documentation
+          files, using nearly 50 megabytes.
+          
+        </P
+><P
+>          If you like, you can make <B
+CLASS="COMMAND"
+>--excludedocs</B
+> the default
+          for <I
+CLASS="EMPHASIS"
+>all</I
+> installs.  To do this, simply add the
+          following line to <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+>,
+          <TT
+CLASS="FILENAME"
+>.rpmrc</TT
+> in your login directory, or the file
+          specified with the <B
+CLASS="COMMAND"
+>--rcfile</B
+> (which is discussed in
+          <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-RCFILE"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+> As An
+          Alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</I
+></A
+>) option:
+        </P
+><P
+>          <B
+CLASS="COMMAND"
+>excludedocs: 1</B
+>
+        </P
+><P
+>          After that, every time an <B
+CLASS="COMMAND"
+>rpm -i</B
+> command is run, it will not
+          install any documentation files.
+          <A
+NAME="AEN1261"
+HREF="#FTN.AEN1261"
+><SPAN
+CLASS="footnote"
+>[5]</SPAN
+></A
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-INCLUDEDOCS"
+><B
+CLASS="COMMAND"
+>--includedocs</B
+>: Install Documentation For This Package</A
+></H2
+><P
+>          As the name implies, <B
+CLASS="COMMAND"
+>--includedocs</B
+> directs RPM to
+          install any files marked as being documentation.  This option is
+          normally not required, unless the rpmrc file entry
+          "<B
+CLASS="COMMAND"
+>excludedocs: 1</B
+>" is included in the referenced
+          rpmrc file.  Here's an example.  Note that in this example,
+          <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> contains "<B
+CLASS="COMMAND"
+>excludedocs:
+          1</B
+>", which directs RPM not to install documentation files:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls /usr/man/man1/cdp.1</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>ls: /usr/man/man1/cdp.1: No such file or directory</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv cdp-0.33-3.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-3.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls /usr/man/man1/cdp.1</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>ls: /usr/man/man1/cdp.1: No such file or directory</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Here we've checked to make sure that the cdp man page did not
+          previously exist on the system.  Then after installing the cdp
+          package, we find that the "<B
+CLASS="COMMAND"
+>excludedocs: 1</B
+>" in
+          <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> did its job: the man page wasn't
+          installed.  Let's try it again, this time adding the
+          <B
+CLASS="COMMAND"
+>--includedocs</B
+> option:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls /usr/man/man1/cdp.1</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>ls: /usr/man/man1/cdp.1: No such file or directory</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv --includedocs cdp-0.33-3.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdp-0.33-3.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls /usr/man/man1/cdp.1</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r--   1 root     root         4550 Apr 24 22:37 /usr/man/man1/cdp.1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>--includedocs</B
+> option overrode the rpmrc file's
+          "<B
+CLASS="COMMAND"
+>excludedocs: 1</B
+>" entry, causing RPM to install the
+          documentation file.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-PREFIX"
+><B
+CLASS="COMMAND"
+>--prefix <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>:
+          Relocate the package to
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>, if possible</A
+></H2
+><P
+>          Some packages give the person installing them flexibility in
+          determining where on their system they should be installed.  These are
+          known as relocatable packages.  A relocatable package differs from a
+          package that cannot be relocated, in only one way &#8212; the
+          definition of a default prefix.  Because of this, it takes a bit of
+          additional effort to determine if a package is relocatable.  But
+          here's an RPM command that can be used to find out:
+          <A
+NAME="AEN1314"
+HREF="#FTN.AEN1314"
+><SPAN
+CLASS="footnote"
+>[6]</SPAN
+></A
+>
+
+          
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><B
+CLASS="COMMAND"
+>rpm -qp --queryformat "%{defaultprefix}\n" <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;packagefile&#62;</I
+></TT
+></B
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Just replace
+          <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;packagefile&#62;</I
+></TT
+></TT
+> with
+          the name of the package file you want to check out.  If the package is
+          not relocatable, you'll only see the word
+          <SAMP
+CLASS="COMPUTEROUTPUT"
+>(none)</SAMP
+>.  If, on the other hand, the
+          command displays a path, that means the package is relocatable.
+          Unless specified otherwise, every file in the package will be
+          installed somewhere below the path specified by the default prefix.
+        </P
+><P
+>          What if you want to specify otherwise?  Easy: just use the
+          <B
+CLASS="COMMAND"
+>--prefix</B
+> option.  Let's give it a try:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qp --queryformat "%{defaultprefix}\n" cdplayer-1.0-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/local</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i --prefix /tmp/test cdplayer-1.0-1.i386.rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Here we've used our magic query command to determine that the
+          <TT
+CLASS="FILENAME"
+>cdplayer</TT
+> package is relocatable.  It normally
+          installs below <TT
+CLASS="FILENAME"
+>/usr/local</TT
+>, but we wanted to move
+          it around.  By adding the <B
+CLASS="COMMAND"
+>--prefix</B
+> option, we were
+          able to make the package install in <TT
+CLASS="FILENAME"
+>/tmp/test</TT
+>.
+          If we take a look there, we'll see that RPM created all the necessary
+          directories to hold the package's files:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -lR /tmp/test/</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 2
+drwxr-xr-x   2 root     root         1024 Dec 16 13:21 bin/
+drwxr-xr-x   3 root     root         1024 Dec 16 13:21 man/
+
+/tmp/test/bin:
+total 41
+-rwxr-xr-x   1 root     root        40739 Oct 14 20:25 cdp*
+lrwxrwxrwx   1 root     root           17 Dec 16 13:21 cdplay -&#62; /tmp/test/bin/cdp*
+
+/tmp/test/man:
+total 1
+drwxr-xr-x   2 root     root         1024 Dec 16 13:21 man1/
+
+/tmp/test/man/man1:
+total 5
+-rwxr-xr-x   1 root     root         4550 Oct 14 20:25 cdp.1*</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-NOSCRIPTS"
+><B
+CLASS="COMMAND"
+>--noscripts</B
+>: Do Not Execute Pre- and Post-install Scripts</A
+></H2
+><P
+>          Before we talk about the <B
+CLASS="COMMAND"
+>--noscripts</B
+> option, we
+          need to cover a bit of background.  In <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-VV-OPTION"
+>the Section called <I
+>Getting a <I
+CLASS="EMPHASIS"
+>lot</I
+> more information with <B
+CLASS="COMMAND"
+>-vv</B
+></I
+></A
+>, we saw some output from an
+          install using the <B
+CLASS="COMMAND"
+>-vv</B
+> option.  As can be seen,
+          there are two lines that mention pre-install and post-install scripts.
+          When some packages are installed, they may require that certain
+          programs be executed before, after, or before <I
+CLASS="EMPHASIS"
+>and</I
+>
+          after the package's files are copied to disk.
+          <A
+NAME="AEN1358"
+HREF="#FTN.AEN1358"
+><SPAN
+CLASS="footnote"
+>[7]</SPAN
+></A
+>
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>--noscripts</B
+> option prevents these scripts from
+          being executed during an install.  <I
+CLASS="EMPHASIS"
+>This is a very dangerous
+          thing to do!</I
+> The <B
+CLASS="COMMAND"
+>--noscripts</B
+> option is
+          really meant for package builders to use during the development of
+          their packages.  By preventing the pre- and post-install scripts from
+          running, a package builder can keep a buggy package from bringing down
+          their development system.  Once the bugs are found and eliminated, the
+          <B
+CLASS="COMMAND"
+>--noscripts</B
+> option is no longer necessary.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-PERCENT"
+><B
+CLASS="COMMAND"
+>--percent</B
+>: Not Meant for Human Consumption</A
+></H2
+><P
+>          An option that will probably <I
+CLASS="EMPHASIS"
+>never</I
+> be very
+          popular is <B
+CLASS="COMMAND"
+>--percent</B
+>.  This option is meant to be
+          used by programs that interact with the user, perhaps presenting a
+          graphical user interface for RPM.  When the
+          <B
+CLASS="COMMAND"
+>--percent</B
+> option is used, RPM displays a series of
+          numbers.  Each number is a percentage that indicates how far along the
+          install is.  When the number reaches 100%, the installation is
+          complete.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -i --percent iBCS-1.2-3.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>%f iBCS:1.2:3
+%% 0.002140
+%% 1.492386
+%% 5.296632
+%% 9.310026
+%% 15.271010
+%% 26.217846
+%% 31.216000
+%% 100.000000
+%% 100.000000</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+
+          The list of percentages will vary depending on the number of files in
+          the package, but every package ends at 100% when completely
+          installed.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-RCFILE"
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+> As An
+          Alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--rcfile</B
+> option is used to specify a file
+          containing default settings for RPM.  Normally, this option is not
+          needed.  By default, RPM uses <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> and a
+          file named <TT
+CLASS="FILENAME"
+>.rpmrc</TT
+> located in your login
+          directory.
+        </P
+><P
+>          This option would be used if there was a need to switch between
+          several sets of RPM defaults.  Software developers and package
+          builders will normally be the only people using the
+          <B
+CLASS="COMMAND"
+>--rcfile</B
+> option.  For more information on
+          <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files, see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-ROOT"
+><B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> As An Alternate
+          Root</A
+></H2
+><P
+>          Adding <B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+          to an install command forces RPM to assume that the directory
+          specified by <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></TT
+>
+          is actually the "root" directory.  The <B
+CLASS="COMMAND"
+>--root</B
+>
+          option affects every aspect of the install process, so pre- and
+          post-install scripts are run with
+          <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></TT
+> as their root
+          directory (using <TT
+CLASS="FUNCTION"
+>chroot(2)</TT
+>, if you must know).
+          In addition, RPM expects its database to reside in the directory
+          specified by the <B
+CLASS="COMMAND"
+>dbpath</B
+> <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>
+          file entry, relative to
+          <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></TT
+>.
+          <A
+NAME="AEN1421"
+HREF="#FTN.AEN1421"
+><SPAN
+CLASS="footnote"
+>[8]</SPAN
+></A
+>
+        </P
+><P
+>          Normally this option is only used during an initial system install, or
+          when a system has been booted off a "rescue disk" and some packages
+          need to be re-installed.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-DBPATH"
+><B
+CLASS="COMMAND"
+>--dbpath <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> To Find RPM
+          Database</A
+></H2
+><P
+>          In order for RPM to do its handiwork, it needs access to an RPM
+          database.  Normally, this database exists in the directory specified
+          by the <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entry,
+          <B
+CLASS="COMMAND"
+>dbpath</B
+>.  By default, <B
+CLASS="COMMAND"
+>dbpath</B
+> is
+          set to <TT
+CLASS="FILENAME"
+>/var/lib/rpm</TT
+>.
+        </P
+><P
+>          Although the <TT
+CLASS="FILENAME"
+>dbpath</TT
+> entry can be modified in the
+          appropriate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file, the
+          <B
+CLASS="COMMAND"
+>--dbpath</B
+> option is probably a better choice when
+          the database path needs to be changed temporarily.  An example of a
+          time the <B
+CLASS="COMMAND"
+>--dbpath</B
+> option would come in handy is
+          when it's necessary to examine an RPM database copied from another
+          system.  Granted, it's not a common occurrence, but it's difficult to
+          handle any other way.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-FTPPORT"
+><B
+CLASS="COMMAND"
+>--ftpport <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+> In FTP-based
+          Installs</A
+></H2
+><P
+>          Back in <A
+HREF="s1-rpm-install-performing-install.html#S2-RPM-INSTALL-URLS"
+>the Section called <I
+>URLs &#8212; Another Way to Specify Package Files</I
+></A
+> we showed how RPM can
+          access package files by the use of a URL.
+          
+          We also mentioned that some systems may not use the standard FTP port.
+          In those cases, it's necessary to give RPM the proper port number to
+          use.  As we mentioned above, one approach is to embed the port number
+          in the URL itself.
+        </P
+><P
+>          Another approach is to use the <B
+CLASS="COMMAND"
+>--ftpport</B
+> option.
+          RPM will access the desired port when this option, along with the port
+          number, is added to the command line.  In cases where the desired port
+          seldom changes, it may be entered in an <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>
+          file by using the <B
+CLASS="COMMAND"
+>ftpport</B
+> entry.
+        <A
+NAME="AEN1462"
+HREF="#FTN.AEN1462"
+><SPAN
+CLASS="footnote"
+>[9]</SPAN
+></A
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-FTPPROXY"
+><B
+CLASS="COMMAND"
+>--ftpproxy <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;host&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;host&#62;</I
+></TT
+></B
+> As Proxy In
+          FTP-based Installs</A
+></H2
+><P
+>          Many companies and Internet Service Providers (ISPs) employ various
+          methods to protect their network connections against misuse.  One of
+          these methods is to use a system that will process all FTP requests on
+          behalf of the other systems on the company or ISP network.  By having
+          a single computer act as a proxy for the other systems, it serves to
+          protect the other systems against any FTP-related misuse.
+        </P
+><P
+>          When RPM is employed on a network with an FTP proxy system, it will be
+          necessary for RPM to direct all its FTP requests to the FTP proxy.
+          RPM will send its FTP requests to the specified proxy system when the
+          <B
+CLASS="COMMAND"
+>--ftpproxy</B
+> option, along with the proxy hostname,
+          is added to the command line.
+        </P
+><P
+>          In cases where the proxy host seldom changes, it may be entered in an
+          <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file by using the
+          <B
+CLASS="COMMAND"
+>ftpproxy</B
+> entry.
+          <A
+NAME="AEN1481"
+HREF="#FTN.AEN1481"
+><SPAN
+CLASS="footnote"
+>[10]</SPAN
+></A
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-IGNOREARCH"
+><B
+CLASS="COMMAND"
+>--ignorearch</B
+>: Do Not Verify Package Architecture</A
+></H2
+><P
+>          When a package file is created, RPM specifies the architecture, or
+          type of computer hardware, for which the package was created.  This is
+          a good thing, as the architecture is one of the main factors in
+          determining whether a package written for one computer is going to be
+          compatible with another computer.
+        </P
+><P
+>          When a package is installed, RPM uses the
+          <B
+CLASS="COMMAND"
+>arch_compat</B
+> <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> entries in
+          order to determine what are normally considered compatible
+          architectures.  Unless you're porting RPM to a new architecture, you
+          shouldn't make any changes to these entries.
+          <A
+NAME="AEN1495"
+HREF="#FTN.AEN1495"
+><SPAN
+CLASS="footnote"
+>[11]</SPAN
+></A
+>
+          While RPM attempts to make the right decisions regarding package
+          compatibility, there are times when it errs on the side of
+          conservatism.  In those cases, it's necessary to override RPM's
+          decision.  The <B
+CLASS="COMMAND"
+>--ignorearch</B
+> option is used in those
+          cases.  When added to the command line, RPM will not perform any
+          architecture-related checking.
+        </P
+><P
+>          Unless you really know what you're doing, you should
+          <I
+CLASS="EMPHASIS"
+>never</I
+> use <B
+CLASS="COMMAND"
+>--ignorearch</B
+>!
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-IGNOREOS"
+><B
+CLASS="COMMAND"
+>--ignoreos</B
+>: Do Not Verify Package Operating System</A
+></H2
+><P
+>          When a package file is created, RPM specifies the operating system for
+          which the package was created.  This is a good thing as the operating
+          system is one of the main factors in determining whether a package
+          written for one computer is going to be compatible with another
+          computer.
+        </P
+><P
+>          When a package is installed, RPM uses the <B
+CLASS="COMMAND"
+>os_compat</B
+>
+          <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> entries to determine what are normally
+          considered compatible operating systems.  Unless you're porting RPM to
+          a new operating system, you shouldn't make any changes to these
+          entries.
+          <A
+NAME="AEN1514"
+HREF="#FTN.AEN1514"
+><SPAN
+CLASS="footnote"
+>[12]</SPAN
+></A
+>
+          While RPM attempts to make the right decisions regarding package
+          compatibility, there are times when it errs on the side of
+          conservatism. In those cases, it's necessary to override RPM's
+          decision.  The <B
+CLASS="COMMAND"
+>--ignoreos</B
+> option is used in those
+          cases.  When added to the command line, RPM will not perform any
+          operating system-related checking.
+        </P
+><P
+>          Unless you really know what you're doing, you should
+          <I
+CLASS="EMPHASIS"
+>never</I
+> use <B
+CLASS="COMMAND"
+>--ignoreos</B
+>!
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN970"
+HREF="s1-rpm-install-additional-options.html#AEN970"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              We'll get more into this aspect of RPM in <A
+HREF="ch-rpm-verify.html#S1-RPM-VERIFY-WHAT-IT-DOES"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>rpm -V</B
+> &#8212; What Does it Do?</I
+> in Chapter 6</A
+> when we discuss <B
+CLASS="COMMAND"
+>rpm
+              -V</B
+>.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1054"
+HREF="s1-rpm-install-additional-options.html#AEN1054"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                You'll have to do that yourself!
+              </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1144"
+HREF="s1-rpm-install-additional-options.html#AEN1144"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                For more information on erasing packages with <B
+CLASS="COMMAND"
+>rpm
+                -e</B
+>, see <A
+HREF="ch-rpm-erase.html"
+>Chapter 3</A
+>.
+              </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1209"
+HREF="s1-rpm-install-additional-options.html#AEN1209"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              No pun intended.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1261"
+HREF="s1-rpm-install-additional-options.html#AEN1261"
+><SPAN
+CLASS="footnote"
+>[5]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              For more information on rpmrc files, refer to <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1314"
+HREF="s1-rpm-install-additional-options.html#AEN1314"
+><SPAN
+CLASS="footnote"
+>[6]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              We discuss RPM's query commands in <A
+HREF="ch-rpm-query.html"
+>Chapter 5</A
+>.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1358"
+HREF="s1-rpm-install-additional-options.html#AEN1358"
+><SPAN
+CLASS="footnote"
+>[7]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              It's possible to use RPM's query command to see if a package has
+              pre- or post-install scripts.  See <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-SCRIPTS-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--scripts</B
+> &#8212; Show Scripts Associated With a
+            Package</I
+> in Chapter 5</A
+> for more information.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1421"
+HREF="s1-rpm-install-additional-options.html#AEN1421"
+><SPAN
+CLASS="footnote"
+>[8]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              For more information on <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries,
+              see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1462"
+HREF="s1-rpm-install-additional-options.html#AEN1462"
+><SPAN
+CLASS="footnote"
+>[9]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              The use of <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files is described in <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1481"
+HREF="s1-rpm-install-additional-options.html#AEN1481"
+><SPAN
+CLASS="footnote"
+>[10]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              The use of <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files is described in <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1495"
+HREF="s1-rpm-install-additional-options.html#AEN1495"
+><SPAN
+CLASS="footnote"
+>[11]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              If you <I
+CLASS="EMPHASIS"
+>are</I
+> porting RPM, you'll find more on
+              <B
+CLASS="COMMAND"
+>arch_compat</B
+> in <A
+HREF="s1-rpm-multi-build-install-detection.html#S3-RPM-MULTI-XXX-COMPAT"
+>the Section called <I
+><B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>_compat</B
+> &#8212;
+            Define Compatible Architectures</I
+> in Chapter 19</A
+>.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1514"
+HREF="s1-rpm-install-additional-options.html#AEN1514"
+><SPAN
+CLASS="footnote"
+>[12]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              If you <I
+CLASS="EMPHASIS"
+>are</I
+> porting RPM, you'll find more on
+              <B
+CLASS="COMMAND"
+>os_compat</B
+> in <A
+HREF="s1-rpm-multi-build-install-detection.html#S3-RPM-MULTI-XXX-COMPAT"
+>the Section called <I
+><B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+>_compat</B
+> &#8212;
+            Define Compatible Architectures</I
+> in Chapter 19</A
+>.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-install-handy-options.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-erase.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Two handy options</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-install.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Using RPM to Erase Packages</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

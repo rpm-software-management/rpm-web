@@ -1,0 +1,702 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Automatic Dependencies</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Adding Dependency Information to a Package"
+HREF="ch-rpm-depend.html"><LINK
+REL="PREVIOUS"
+TITLE="Adding Dependency Information to a Package"
+HREF="ch-rpm-depend.html"><LINK
+REL="NEXT"
+TITLE="Manual Dependencies"
+HREF="s1-rpm-depend-manual-dependencies.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-depend.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 14. Adding Dependency Information to a Package</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-depend-manual-dependencies.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-DEPEND-AUTO-DEPEND"
+>Automatic Dependencies</A
+></H1
+><P
+>        When a package is built by RPM, if any file in the package's
+        <B
+CLASS="COMMAND"
+>%files</B
+> list is a shared library, the library's
+        <I
+CLASS="FIRSTTERM"
+>soname</I
+> is automatically added to the list of
+        capabilities the package provides.  The soname is the name used to
+        determine compatibility between different versions of a library.
+      </P
+><P
+>        Note that this is <I
+CLASS="EMPHASIS"
+>not</I
+> a filename.  In fact, no
+        aspect of RPM's dependency processing is based on filenames.  Many
+        people new to RPM often make the assumption that a failed dependency
+        represents a missing file.  This is not the case.
+      </P
+><P
+>        Remember that RPM's dependency processing is based on knowing what
+        capabilities are provided by a package and what capabilities a package
+        requires.  We've seen how RPM automatically determines what shared
+        library resources a package provides.  But does it automatically
+        determine what shared libraries a package <I
+CLASS="EMPHASIS"
+>requires</I
+>?
+      </P
+><P
+>        Yes!  RPM does this by running <B
+CLASS="COMMAND"
+>ldd</B
+> on every
+        executable program in a package's <B
+CLASS="COMMAND"
+>%files</B
+> list.  Since
+        <B
+CLASS="COMMAND"
+>ldd</B
+> provides a list of the shared libraries each
+        program requires, both halves of the equation are complete &#8212; that
+        is, the packages that make shared libraries available,
+        <I
+CLASS="EMPHASIS"
+>and</I
+> the packages that require those shared
+        libraries, are tracked by RPM.  RPM can then take that information into
+        account when packages are installed, upgraded, or erased.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-DEPEND-AUTO-DEPEND-SCRIPTS"
+>The Automatic Dependency Scripts</A
+></H2
+><P
+>          RPM uses two scripts to handle automatic dependency processing.  They
+          reside in <TT
+CLASS="FILENAME"
+>/usr/bin</TT
+> and are called
+          <TT
+CLASS="FILENAME"
+>find-requires</TT
+>, and
+          <TT
+CLASS="FILENAME"
+>find-provides</TT
+>.  We'll take a look at them in a
+          minute, but first let's look at why there are scripts to do this sort
+          of thing.  Wouldn't it be better to have this built into RPM itself?
+        </P
+><P
+>          Actually, creating scripts for this sort of thing
+          <I
+CLASS="EMPHASIS"
+>is</I
+> a better idea.  The reason?  RPM has already
+          been ported to a variety of different operating systems.  Determining
+          what shared libraries an executable requires, and the soname of shared
+          libraries, is simple, but the exact steps required vary widely from
+          one operating system to another.  Putting this part of RPM into a
+          script makes it easier to port RPM.
+        </P
+><P
+>          Let's take a look at the scripts that are used by RPM under the Linux
+          operating system.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-DEPEND-FIND-REQUIRES"
+><TT
+CLASS="FILENAME"
+>find-requires</TT
+> &#8212; Automatically Determine
+            Shared Library Requirements</A
+></H3
+><P
+>            The <TT
+CLASS="FILENAME"
+>find-requires</TT
+> script for Linux is quite
+            simple:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#!/bin/sh
+
+# note this works for both a.out and ELF executables
+
+ulimit -c 0
+
+filelist=`xargs -r file | fgrep executable | cut -d: -f1 `
+
+for f in $filelist; do
+    ldd $f | awk '/=&#62;/ { print $1 }'
+done | sort -u | xargs -r -n 1 basename | sort -u</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            This script first creates a list of executable files.  Then, for
+            each file in the list, <B
+CLASS="COMMAND"
+>ldd</B
+> determines the file's
+            shared library requirements, producing a list of sonames.  Finally,
+            the list of sonames is sanitized by removing duplicates, and
+            removing any paths.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-DEPEND-FIND-PROVIDES"
+><TT
+CLASS="FILENAME"
+>find-provides</TT
+> &#8212; Automatically Determine
+            Shared Library Sonames</A
+></H3
+><P
+>            The <TT
+CLASS="FILENAME"
+>find-provides</TT
+> script for Linux is a bit
+            more complex, but still pretty straightforward:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#!/bin/bash
+
+# This script reads filenames from STDIN and outputs any relevant
+# provides information that needs to be included in the package.
+
+filelist=$(grep ".so" | grep -v "^/lib/ld.so" | 
+xargs file -L 2&#62;/dev/null | grep "ELF.*shared object" | cut -d: -f1)
+
+for f in $filelist; do
+    soname=$(objdump -p $f | awk '/SONAME/ {print $2}')
+
+    if [ "$soname" != "" ]; then
+        if [ ! -L $f ]; then
+            echo $soname
+        fi
+    else
+        echo ${f##*/}
+    fi
+done | sort -u</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            First, a list of shared libraries is created.  Then, for each file
+            on the list, the soname is extracted, cleaned up, and duplicates
+            removed.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-DEPEND-AUTO-DEPEND-EXAMPLE"
+>Automatic Dependencies: An Example</A
+></H2
+><P
+>          Let's take a widely used program, <B
+CLASS="COMMAND"
+>ls</B
+>, the directory
+          lister, as an example.  On a Red Hat Linux system, <B
+CLASS="COMMAND"
+>ls</B
+> is
+          part of the <TT
+CLASS="FILENAME"
+>fileutils</TT
+> package and is installed in
+          <TT
+CLASS="FILENAME"
+>/bin</TT
+>.  Let's play the part of RPM during
+          <TT
+CLASS="FILENAME"
+>fileutils</TT
+>' package build and run
+          <TT
+CLASS="FILENAME"
+>find-requires</TT
+> on <TT
+CLASS="FILENAME"
+>/bin/ls</TT
+>.
+          Here's what we'll see:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>find-requires</B
+>
+<KBD
+CLASS="USERINPUT"
+>/bin/ls</KBD
+>
+<KBD
+CLASS="USERINPUT"
+>&#60;ctrl-d&#62;</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>libc.so.5</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The <TT
+CLASS="FILENAME"
+>find-requires</TT
+> script returned
+          <TT
+CLASS="FILENAME"
+>libc.so.5</TT
+>.  Therefore, RPM should add a
+          requirement for <TT
+CLASS="FILENAME"
+>libc.so.5</TT
+> when the
+          <TT
+CLASS="FILENAME"
+>fileutils</TT
+> package is built.  We can verify that
+          RPM did add <B
+CLASS="COMMAND"
+>ls</B
+>' requirement for
+          <TT
+CLASS="FILENAME"
+>libc.so.5</TT
+> by using RPM's
+          <B
+CLASS="COMMAND"
+>--requires</B
+> option to display
+          <TT
+CLASS="FILENAME"
+>fileutils</TT
+>' requirements:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -q --requires fileutils</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>libc.so.5</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          OK, that's the first half of the equation &#8212; RPM automatically
+          detecting a package's shared library requirements.  Now let's look at
+          the second half of the equation -- RPM detecting packages that provide
+          shared libraries.  Since the <TT
+CLASS="FILENAME"
+>libc</TT
+> package
+          includes, among others, the shared library
+          <TT
+CLASS="FILENAME"
+>/lib/libc.so.5.3.12</TT
+>, RPM would obtain its soname.
+          We can simulate this by using <TT
+CLASS="FILENAME"
+>find-provides</TT
+> to
+          print out the library's soname:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>find-provides</B
+>
+<KBD
+CLASS="USERINPUT"
+>/lib/libc.so.5.3.12</KBD
+>
+<KBD
+CLASS="USERINPUT"
+><B
+CLASS="KEYCAP"
+>Ctrl</B
+>-<B
+CLASS="KEYCAP"
+>D</B
+></KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>libc.so.5</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          OK, so <TT
+CLASS="FILENAME"
+>/lib/libc.so.5.3.12</TT
+>'s soname is
+          <TT
+CLASS="FILENAME"
+>libc.so.5</TT
+>.  Let's see if the
+          <TT
+CLASS="FILENAME"
+>libc</TT
+> package really does "provide" the
+          <TT
+CLASS="FILENAME"
+>libc.so.5</TT
+> soname:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -q --provides libc</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>libm.so.5
+libc.so.5</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Yes, there it is, along with the soname of another library contained
+          in the package.  In this way, RPM can ensure that any package
+          requiring <TT
+CLASS="FILENAME"
+>libc.so.5</TT
+> will have a compatible
+          library available as long as the <TT
+CLASS="FILENAME"
+>libc</TT
+> package,
+          which provides <TT
+CLASS="FILENAME"
+>libc.so.5</TT
+>, is installed.
+        </P
+><P
+>          In most cases, automatic dependencies are enough to fill the bill.
+          However, there are circumstances when the package builder has to
+          manually add dependency information to a package.  Fortunately, RPM's
+          approach to manual dependencies is both simple and flexible.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-DEPEND-AUTOREQPROV"
+>The <B
+CLASS="COMMAND"
+>autoreqprov</B
+>, <B
+CLASS="COMMAND"
+>autoreq</B
+>,
+          and <B
+CLASS="COMMAND"
+>autoprov</B
+> Tags &#8212; Disable Automatic
+          Dependency Processing</A
+></H2
+><P
+>          There may be times when RPM's automatic dependency processing is not
+          desired.  In these cases, the <B
+CLASS="COMMAND"
+>autoreqprov</B
+>,
+          <B
+CLASS="COMMAND"
+>autoreq</B
+>, and <B
+CLASS="COMMAND"
+>autoprov</B
+> tags may
+          be used to disable it.  This tag takes a <B
+CLASS="COMMAND"
+>yes/no</B
+> or
+          <B
+CLASS="COMMAND"
+>0/1</B
+> value.  For example, to disable automatic
+          dependency processing, the following line may be used:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>AutoReqProv: no</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>autoreq</B
+> and <B
+CLASS="COMMAND"
+>autoprov</B
+> tags
+          can be used to disable automatic processing of requirements or
+          "provides" only, respectively.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-depend.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-depend-manual-dependencies.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Adding Dependency Information to a Package</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-depend.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Manual Dependencies</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

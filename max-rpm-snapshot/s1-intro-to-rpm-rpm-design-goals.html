@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>RPM Design Goals</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="An Introduction to Package Management"
+HREF="ch-intro-to-rpm.html"><LINK
+REL="PREVIOUS"
+TITLE="Package Management: How to Do It?"
+HREF="s1-intro-to-rpm-package-management-how.html"><LINK
+REL="NEXT"
+TITLE="What's in a package?"
+HREF="s1-intro-to-rpm-whats-in-package.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-intro-to-rpm-package-management-how.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 1. An Introduction to Package Management</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-intro-to-rpm-whats-in-package.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-INTRO-TO-RPM-RPM-DESIGN-GOALS"
+>RPM Design Goals</A
+></H1
+><P
+>        The design goals of RPM could best be summed up with the phrase
+        "something for everyone".  While the main reason for the existence of
+        RPM was to make it easier for Red Hat to build the several hundred
+        packages that comprised their Linux distribution, it was not the only
+        reason RPM was created.  Let's take a look at the various requirements
+        the Red Hat team used in their design of RPM:
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-INTRO-TO-RPM-PACKAGES-ON-OFF"
+>Make it easy to get packages on and off the system</A
+></H2
+><P
+>          As we've seen earlier in this chapter, the act of installing a package
+          can involve many complex steps.  Entrusting these steps to a person
+          who may not have the necessary experience is a strategy for failure.
+          So the goal for RPM was to make it as easy as possible for
+          <I
+CLASS="EMPHASIS"
+>anyone</I
+> to install packages.  The same holds true
+          for removing packages.  It is a complex and error-prone operation, and
+          one that RPM should handle for the user.
+        </P
+><P
+>          The other side of this issue is that RPM should give the package
+          builder almost total control in terms of <I
+CLASS="EMPHASIS"
+>how</I
+> the
+          package is installed.  The reason for this is simple: if the package
+          builders do their homework, their package should install and uninstall
+          properly.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-INTRO-TO-RPM-VERIFY"
+>Make it easy to verify a package was installed correctly</A
+></H2
+><P
+>          Because software problems are a fact of life, the ability to verify
+          the proper installation of a package is vital.  If done properly, it
+          should be possible to catch a variety of problems, including things
+          such as missing or modified files.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-INTRO-TO-RPM-PACKAGE-BUILDER"
+>Make it easy for the package builder</A
+></H2
+><P
+>          While we're dedicating an entire book to package management, in
+          reality it should be a small portion of the package builder's job.
+          Why?  They've got better things to do!  If they are the people that
+          are actually creating the software to be packaged,
+          <I
+CLASS="EMPHASIS"
+>that's</I
+> where they should be spending the majority
+          of their time.
+        </P
+><P
+>          Even if the package builder isn't actually writing software, they
+          still have better things to do than worry about building packages.
+          For instance, they may be responsible for building many packages.  The
+          less time spent on building an individual package translates to more
+          packages that can be built.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-INTRO-TO-RPM-ORIGINAL-SOURCE"
+>Make it start with the original source code</A
+></H2
+><P
+>          Delving a bit more into the package builder's world, it was deemed
+          important that RPM start with the original, unmodified source code.
+          Why is this so important?
+        </P
+><P
+>          Using the original sources makes it possible to separate the changes
+          required to build the package from any changes implemented to fix
+          bugs, add new features, or anything else.  This is a good thing for
+          package builders, since many of them are <I
+CLASS="EMPHASIS"
+>not</I
+> the
+          original authors of the programs they package.
+        </P
+><P
+>          This separation makes it easy, months down the road, to know exactly
+          what changes were made in order to get the package to build.  This is
+          important when a new version of the packaged software becomes
+          available.  Many times it's only necessary to apply the original
+          "package building" changes to the newer software.  At worst, the
+          changes provide a starting point to determine what sorts of things
+          might need to be changed in the new version.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-INTRO-TO-RPM-DIFFERENT-ARCHITECTURES"
+>Make it work on different computer architectures</A
+></H2
+><P
+>          One of the tougher things for a package builder to do is to take a
+          program, make it run on more than one type of computer, and distribute
+          packages for each.  Because RPM makes it easy to take a program's
+          original source code, add the changes necessary to get it to build,
+          and produce a package for each architecture in one step, it can be
+          pretty handy.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-intro-to-rpm-package-management-how.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-intro-to-rpm-whats-in-package.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Package Management: How to Do It?</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-intro-to-rpm.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>What's in a package?</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

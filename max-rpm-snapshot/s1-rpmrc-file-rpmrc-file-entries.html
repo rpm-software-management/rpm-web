@@ -1,0 +1,1994 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>rpmrc File Entries</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The rpmrc File"
+HREF="ch-rpmrc-file.html"><LINK
+REL="PREVIOUS"
+TITLE="rpmrc File Syntax"
+HREF="s1-rpmrc-file-rpmrc-file-syntax.html"><LINK
+REL="NEXT"
+TITLE="Concise RPM Command Reference"
+HREF="ch-rpm-commands.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpmrc-file-rpmrc-file-syntax.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix B. The <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-commands.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPMRC-FILE-RPMRC-FILE-ENTRIES"
+><TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File Entries</A
+></H1
+><P
+>      In this section, we discuss the various entries that can be used in each
+      of the <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files.
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-ARCH-CANON"
+><B
+CLASS="COMMAND"
+>arch_canon</B
+></A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>arch_canon</B
+> entry is used to define a table of
+        architecture names and their associated numbers.  These canonical
+        architecture names and numbers are then used internally by RPM whenever
+        architecture-specific processing takes place.  This entry's format is:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>arch_canon:<SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+></SPAN
+>: <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+></SPAN
+> <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;value&#62;</I
+></TT
+></SPAN
+></SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+></SPAN
+> is
+        compared against information from <B
+CLASS="COMMAND"
+>uname(2)</B
+> after it's
+        been translated using the appropriate
+        <B
+CLASS="COMMAND"
+>buildarchtranslate</B
+> entry.  If a match is found, then
+        <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+></SPAN
+> is used by
+        RPM to reference the system's architecture.  When building a binary
+        package, RPM uses
+        <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+></SPAN
+> as part of
+        the package's filename, for instance.
+      </P
+><P
+>        The <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;value&#62;</I
+></TT
+></SPAN
+> is a
+        numeric value RPM uses internally to identify the architecture.  For
+        example, this number is written in the header of each package file so
+        that the <B
+CLASS="COMMAND"
+>file</B
+> command can identify the architecture
+        for which the package was built.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-OS-CANON"
+><B
+CLASS="COMMAND"
+>os_canon</B
+></A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>os_canon</B
+> entry is used to define a table of
+        operating system names and their associated numbers.  These canonical
+        operating system names and numbers are then used internally by RPM
+        whenever operating system-specific processing takes place.  This entry's
+        format is:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>os_canon:<SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+></SPAN
+>: <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+></SPAN
+> <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;value&#62;</I
+></TT
+></SPAN
+></SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+></SPAN
+> is
+        compared against information from <B
+CLASS="COMMAND"
+>uname(2)</B
+> after it's
+        been translated using the appropriate
+        <B
+CLASS="COMMAND"
+>buildostranslate</B
+> entry.
+        <A
+NAME="AEN14754"
+HREF="#FTN.AEN14754"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        If a match is found, then
+        <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+></SPAN
+> is used by
+        RPM to reference the operating system.
+      </P
+><P
+>        The <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;value&#62;</I
+></TT
+></SPAN
+> is a
+        numeric value used to uniquely identify the operating system.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-BUILDARCHTRANSLATE"
+><B
+CLASS="COMMAND"
+>buildarchtranslate</B
+></A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>buildarchtranslate</B
+> entry is used in the process
+        of defining the architecture that RPM will use as the "build"
+        architecture.  As the name implies, it is used to translate the raw
+        information returned from <B
+CLASS="COMMAND"
+>uname(2)</B
+> to the canonical
+        architecture defined by <B
+CLASS="COMMAND"
+>arch_canon</B
+>.
+      </P
+><P
+>        The format of the <B
+CLASS="COMMAND"
+>buildarchtranslate</B
+> entry is
+        slightly different from most other <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file
+        entries.  Instead of the usual
+        <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;:&#60;value&#62;</I
+></TT
+></SPAN
+>
+        format, the <B
+CLASS="COMMAND"
+>buildarchtranslate</B
+> entry looks like this:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>buildarchtranslate:<SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+></SPAN
+>: <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+></SPAN
+></SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+></SPAN
+> is
+        compared against information from <B
+CLASS="COMMAND"
+>uname(2)</B
+>.  If a
+        match is found, then
+        <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+></SPAN
+> is used by
+        RPM to define the build architecture.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-BUILDOSTRANSLATE"
+><B
+CLASS="COMMAND"
+>buildostranslate</B
+></A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>buildostranslate</B
+> entry is used in the process of
+        defining the operating system RPM will use as the "build" operating
+        system.  As the name implies, it is used to translate the raw
+        information returned by <B
+CLASS="COMMAND"
+>uname(2)</B
+> to the canonical
+        operating system defined by <B
+CLASS="COMMAND"
+>os_canon</B
+>.
+      </P
+><P
+>        The format of the <B
+CLASS="COMMAND"
+>buildostranslate</B
+> entry is slightly
+        different from most other <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries.
+        Instead of the usual
+        <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+>:<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;value&#62;</I
+></TT
+></SPAN
+>
+        format, the <B
+CLASS="COMMAND"
+>buildostranslate</B
+> entry looks like this:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>buildostranslate:<SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+></SPAN
+>: <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+></SPAN
+></SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+></SPAN
+> is
+        compared against information from <B
+CLASS="COMMAND"
+>uname(2)</B
+>.  If a
+        match is found, then
+        <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+></SPAN
+> is used by
+        RPM to define the build operating system.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-ARCH-COMPAT"
+><B
+CLASS="COMMAND"
+>arch_compat</B
+></A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>arch_compat</B
+> entry is used to define which
+        architectures are compatible with one another.  This information is used
+        when packages are installed; in this way, RPM can determine whether a
+        given package file is compatible with the system.  The format of the
+        entry is:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>arch_compat:<SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+></SPAN
+>: <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;list&#62;</I
+></TT
+></SPAN
+></SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+></SPAN
+> is an
+        architecture string, as defined by an <B
+CLASS="COMMAND"
+>arch_canon</B
+>
+        entry.  The <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;list&#62;</I
+></TT
+></SPAN
+>
+        following it consists of one or more architectures, also defined by
+        <B
+CLASS="COMMAND"
+>arch_canon</B
+>.  If there is more than one architecture
+        in the list, they should be separated by a space.
+      </P
+><P
+>        The architectures in the list are considered compatible to the
+        architecture specified in the label.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-OS-COMPAT"
+><B
+CLASS="COMMAND"
+>os_compat</B
+></A
+></H2
+><P
+>        Default value: (operating system-specific)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>os_compat</B
+> entry is used to define which operating
+        systems are compatible with one another.  This information is used when
+        packages are installed; in this way, RPM can determine whether a given
+        package file is compatible with the system.  The format of the entry is:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>&#60;name&#62;:&#60;label&#62;: &#60;list&#62;</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;label&#62;</I
+></TT
+></SPAN
+> is an
+        operating system string, as defined by an <B
+CLASS="COMMAND"
+>os_canon</B
+>
+        entry.  The <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;list&#62;</I
+></TT
+></SPAN
+>
+        following it consists of one or more operating systems, also defined by
+        <B
+CLASS="COMMAND"
+>os_canon</B
+>.  If there is more than one operating system
+        in the list, they should be separated by a space.
+      </P
+><P
+>        The operating systems in the list are considered compatible to the
+        operating system specified in the label.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-BUILDDIR"
+><B
+CLASS="COMMAND"
+>builddir</B
+></A
+></H2
+><P
+>        Default value:
+        <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;topdir&#62;</I
+></TT
+>/BUILD</TT
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>builddir</B
+> entry is used to define the path to the
+        directory in which RPM will build packages.  Its default value is taken
+        from the value of the <B
+CLASS="COMMAND"
+>topdir</B
+> entry, with
+        "<TT
+CLASS="FILENAME"
+>/BUILD</TT
+>" appended to it.  Note that if you redefine
+        <B
+CLASS="COMMAND"
+>builddir</B
+>, you'll need to specify a complete path.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-BUILDROOT"
+><B
+CLASS="COMMAND"
+>buildroot</B
+></A
+></H2
+><P
+>        Default value: (none)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>buildroot</B
+> entry defines the path used as the root
+        directory during the install phase of a package build.  For more
+        information on using build roots, please see <A
+HREF="ch-rpm-anywhere.html#S1-RPM-ANYWHERE-USING-BUILD-ROOTS"
+>the Section called <I
+>Using Build Roots in a Package</I
+> in Chapter 16</A
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-CPIOBIN"
+><B
+CLASS="COMMAND"
+>cpiobin</B
+></A
+></H2
+><P
+>        Default value: <B
+CLASS="COMMAND"
+>cpio</B
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>cpiobin</B
+> entry is used to define the name (and
+        optionally, path) of the <B
+CLASS="COMMAND"
+>cpio</B
+> program.  RPM uses
+        <B
+CLASS="COMMAND"
+>cpio</B
+> to perform a variety of functions, and needs to
+        know where the program can be found.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-DBPATH"
+><B
+CLASS="COMMAND"
+>dbpath</B
+></A
+></H2
+><P
+>        Default value: <TT
+CLASS="FILENAME"
+>/var/lib/rpm</TT
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>dbpath</B
+> entry is used to define the directory in
+        which the RPM database files are stored.  It can be overridden by using
+        the <B
+CLASS="COMMAND"
+>--dbpath</B
+> option on the RPM command line.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-DEFAULTDOCDIR"
+><B
+CLASS="COMMAND"
+>defaultdocdir</B
+></A
+></H2
+><P
+>        Default value: <TT
+CLASS="FILENAME"
+>/usr/doc</TT
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>defaultdocdir</B
+> entry is used to define the
+        directory in which RPM will store documentation for all installed
+        packages.  It is used only during builds to support the
+        <B
+CLASS="COMMAND"
+>%doc</B
+> directive.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-DISTRIBUTION"
+><B
+CLASS="COMMAND"
+>distribution</B
+></A
+></H2
+><P
+>        Default value: (none)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>distribution</B
+> entry is used to define the
+        distribution for each package.  The distribution can also be set by
+        adding the <B
+CLASS="COMMAND"
+>distribution</B
+> tag to a particular spec
+        file.  The <B
+CLASS="COMMAND"
+>distribution</B
+> tag in the spec file
+        overrides the <B
+CLASS="COMMAND"
+>distribution</B
+> <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>
+        file entry.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-EXCLUDEDOCS"
+><B
+CLASS="COMMAND"
+>excludedocs</B
+></A
+></H2
+><P
+>        Default value: <SPAN
+CLASS="TOKEN"
+>0</SPAN
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>excludedocs</B
+> entry is used to control if
+        documentation should be written to disk when a package is installed.  By
+        default, documentation <I
+CLASS="EMPHASIS"
+>is</I
+> installed; however, this
+        can be overridden by setting the value of <B
+CLASS="COMMAND"
+>excludedocs</B
+>
+        to <SPAN
+CLASS="TOKEN"
+>1</SPAN
+>.  Note also that the
+        <B
+CLASS="COMMAND"
+>--excludedocs</B
+> and <B
+CLASS="COMMAND"
+>--includedocs</B
+>
+        options can be added to the RPM command line to override the
+        <B
+CLASS="COMMAND"
+>excludedocs</B
+> entry's behavior.  For more information
+        on the <B
+CLASS="COMMAND"
+>--excludedocs</B
+> and
+        <B
+CLASS="COMMAND"
+>--includedocs</B
+> options, please refer to <A
+HREF="ch-rpm-install.html"
+>Chapter 2</A
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-FTPPORT"
+><B
+CLASS="COMMAND"
+>ftpport</B
+></A
+></H2
+><P
+>        Default value: (none)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>ftpport</B
+> entry is used to define the port RPM
+        should use when manipulating package files via FTP.  See <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-FTPPORT"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--ftpport <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+> In FTP-based
+          Installs</I
+> in Chapter 2</A
+> for more information on how FTP ports
+        are used by RPM.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-FTPPROXY"
+><B
+CLASS="COMMAND"
+>ftpproxy</B
+></A
+></H2
+><P
+>        Default value: (none)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>ftpproxy</B
+> entry is used to define the hostname of
+        the FTP proxy system RPM should use when manipulating package files via
+        FTP.  See <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-FTPPROXY"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--ftpproxy <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;host&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;host&#62;</I
+></TT
+></B
+> As Proxy In
+          FTP-based Installs</I
+> in Chapter 2</A
+> for more information
+        on how FTP proxy systems are used by RPM.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-MESSAGELEVEL"
+><B
+CLASS="COMMAND"
+>messagelevel</B
+></A
+></H2
+><P
+>        Default value: 3
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>messagelevel</B
+> entry is used to define the desired
+        verbosity level.  Levels less than 3 produce greater amounts of output,
+        while levels greater than 3 produce less output.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-NETSHAREDPATH"
+><B
+CLASS="COMMAND"
+>netsharedpath</B
+></A
+></H2
+><P
+>        Default value: (none)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>netsharedpath</B
+> entry is used to define one or more
+        paths that, on the local system, are shared with other systems.  If more
+        than one path is specified, they must be separated with colons.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-OPTFLAGS"
+><B
+CLASS="COMMAND"
+>optflags</B
+></A
+></H2
+><P
+>        Default value: (architecture-specific)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>optflags</B
+> entry is used to define a standard set
+        of options that can be used during the build process, specifically
+        during compilation.
+      </P
+><P
+>        The format of the <B
+CLASS="COMMAND"
+>optflags</B
+> entry is slightly
+        different from most other <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries.
+        Instead of the usual
+        <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;name&#62;</I
+></TT
+>:<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;value&#62;</I
+></TT
+></SPAN
+>
+        format, the <B
+CLASS="COMMAND"
+>optflags</B
+> entry looks like this:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>optflags:<SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;architecture&#62;</I
+></TT
+></SPAN
+> <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;value&#62;</I
+></TT
+></SPAN
+></SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        For example, assume the following <B
+CLASS="COMMAND"
+>optflags</B
+> entries
+        were placed in an <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>optflags: i386 -O2 -m486 -fno-strength-reduce
+optflags: sparc -O2</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        If RPM was running on an Intel 80386-compatible architecture, the
+        <B
+CLASS="COMMAND"
+>optflags</B
+> value would be set to <B
+CLASS="COMMAND"
+>-O2 -m486
+        -fno-strength-reduce</B
+>.  If, however, RPM was running on a Sun
+        SPARC-based system, <B
+CLASS="COMMAND"
+>optflags</B
+> would be set to
+        <B
+CLASS="COMMAND"
+>-O2</B
+>.
+      </P
+><P
+>        This entry sets the <CODE
+CLASS="ENVAR"
+>RPM_OPT_FLAGS</CODE
+> environment variable,
+        which can be used in the <B
+CLASS="COMMAND"
+>%prep</B
+>,
+        <B
+CLASS="COMMAND"
+>%build</B
+>, and <B
+CLASS="COMMAND"
+>%install</B
+> scripts.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-PACKAGER"
+><B
+CLASS="COMMAND"
+>packager</B
+></A
+></H2
+><P
+>        Default value: (none)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>packager</B
+> entry is used to define the name and
+        contact information for the individual responsible for building the
+        package.  The contact information is traditionally defined in the
+        following format:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>packager:Erik Troan &#60;ewt@redhat.com&#62;</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-PGP-NAME"
+><B
+CLASS="COMMAND"
+>pgp_name</B
+></A
+></H2
+><P
+>        Default value: (none)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>pgp_name</B
+> entry is used to define the name of the
+        PGP public key that will be used to sign each package built.  The value
+        is not case sensitive, but the key name entered here must match the
+        actual key name in every other aspect.
+      </P
+><P
+>        For more information on signing packages with PGP, please read <A
+HREF="ch-rpm-pgp.html"
+>Chapter 17</A
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-PGP-PATH"
+><B
+CLASS="COMMAND"
+>pgp_path</B
+></A
+></H2
+><P
+>        Default value: (none)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>pgp_path</B
+> entry is used to point to a directory
+        containing PGP keyring files.  These files will be searched for the
+        public key specified by the <B
+CLASS="COMMAND"
+>pgp_name</B
+> entry.
+      </P
+><P
+>        For more information on signing packages with PGP, please read <A
+HREF="ch-rpm-pgp.html"
+>Chapter 17</A
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-REQUIRE-DISTRIBUTION"
+><B
+CLASS="COMMAND"
+>require_distribution</B
+></A
+></H2
+><P
+>        Default value: <SPAN
+CLASS="TOKEN"
+>0</SPAN
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>require_distribution</B
+> entry is used to direct RPM
+        to require that every package built must contain distribution
+        information.  The default value directs RPM to not enforce this
+        requirement.  If the entry has a non-zero value, RPM will only build
+        packages that define a distribution.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-REQUIRE-ICON"
+><B
+CLASS="COMMAND"
+>require_icon</B
+></A
+></H2
+><P
+>        Default value: <SPAN
+CLASS="TOKEN"
+>0</SPAN
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>require_icon</B
+> entry is used to direct RPM to
+        require that every package built must contain an icon.  The default
+        value directs RPM to not enforce this requirement.  If the entry has a
+        non-zero value, RPM will only build packages that contain an icon.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-REQUIRE-VENDOR"
+><B
+CLASS="COMMAND"
+>require_vendor</B
+></A
+></H2
+><P
+>        Default value: <SPAN
+CLASS="TOKEN"
+>0</SPAN
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>require_vendor</B
+> entry is used to direct RPM to
+        require that every package built must contain vendor information.  The
+        default value directs RPM to not enforce this requirement.  If the entry
+        has a non-zero value, RPM will only build packages that define a vendor.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-RPMDIR"
+><B
+CLASS="COMMAND"
+>rpmdir</B
+></A
+></H2
+><P
+>        Default value:
+        <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;topdir&#62;</I
+></TT
+>/RPMS</TT
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>rpmdir</B
+> entry is used to define the path to the
+        directory in which RPM will write binary package files.  Its default
+        value is taken from the value of the <B
+CLASS="COMMAND"
+>topdir</B
+> entry,
+        with "<TT
+CLASS="FILENAME"
+>/RPMS</TT
+>" appended to it.  Note that if you
+        redefine <B
+CLASS="COMMAND"
+>rpmdir</B
+>, you'll need to specify a complete
+        path.  RPM will automatically add an architecture-specific directory to
+        the end of the path.  For example, on an Intel-based system, the actual
+        path would be:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/src/redhat/RPMS/i386</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-SIGNATURE"
+><B
+CLASS="COMMAND"
+>signature</B
+></A
+></H2
+><P
+>        Default value: (none)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>signature</B
+> entry is used to define the type of
+        signature that is to be added to each package built.  At the present
+        time, only signatures from PGP are supported.  Therefore, the only
+        acceptable value is "<SPAN
+CLASS="TOKEN"
+>pgp</SPAN
+>".
+      </P
+><P
+>        For more information on signing packages with PGP, please read <A
+HREF="ch-rpm-pgp.html"
+>Chapter 17</A
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-SOURCEDIR"
+><B
+CLASS="COMMAND"
+>sourcedir</B
+></A
+></H2
+><P
+>        Default value:
+        <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;topdir&#62;</I
+></TT
+>/SOURCES</TT
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>sourcedir</B
+> entry is used to define the path to the
+        directory in which RPM will look for sources.  Its default value is
+        taken from the value of the <B
+CLASS="COMMAND"
+>topdir</B
+> entry, with
+        "<TT
+CLASS="FILENAME"
+>/SOURCES</TT
+>" appended to it.  Note that if you
+        redefine <B
+CLASS="COMMAND"
+>sourcedir</B
+>, you'll need to specify a complete
+        path.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-SPECDIR"
+><B
+CLASS="COMMAND"
+>specdir</B
+></A
+></H2
+><P
+>        Default value:
+        <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;topdir&#62;</I
+></TT
+>/SPECS</TT
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>specdir</B
+> entry is used to define the path to the
+        directory in which RPM will look for spec files.  Its default value is
+        taken from the value of the <B
+CLASS="COMMAND"
+>topdir</B
+> entry, with
+        "<TT
+CLASS="FILENAME"
+>/SPECS</TT
+>" appended to it.  Note that if you redefine
+        <B
+CLASS="COMMAND"
+>specdir</B
+>, you'll need to specify a complete path.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-SRCRPMDIR"
+><B
+CLASS="COMMAND"
+>srcrpmdir</B
+></A
+></H2
+><P
+>        Default value:
+        <TT
+CLASS="FILENAME"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;topdir&#62;</I
+></TT
+>/SRPMS</TT
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>srcrpmdir</B
+> entry is used to define the path to the
+        directory in which RPM will write source package files.  Its default
+        value is taken from the value of the <B
+CLASS="COMMAND"
+>topdir</B
+> entry,
+        with "<TT
+CLASS="FILENAME"
+>/SRPMS</TT
+>" appended to it.  Note that if you
+        redefine <B
+CLASS="COMMAND"
+>srcrpmdir</B
+>, you'll need to specify a complete
+        path.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-TIMECHECK"
+><B
+CLASS="COMMAND"
+>timecheck</B
+></A
+></H2
+><P
+>        Default value: (none)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>timecheck</B
+> entry is used to define the default
+        number of seconds to apply to the <B
+CLASS="COMMAND"
+>--timecheck</B
+> option
+        when building packages.  For more information on the
+        <B
+CLASS="COMMAND"
+>--timecheck</B
+> option, please see <A
+HREF="ch-rpm-b-command.html#S2-RPM-B-COMMAND-TIMECHECK-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--timecheck <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;secs&#62;</I
+></TT
+></B
+>
+          &#8212; Print a warning if files to be packaged are over
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;secs&#62;</I
+></TT
+></B
+> old</I
+> in Chapter 12</A
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-TMPPATH"
+><B
+CLASS="COMMAND"
+>tmppath</B
+></A
+></H2
+><P
+>        Default value: <TT
+CLASS="FILENAME"
+>/var/tmp</TT
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>tmpdir</B
+> entry is used to define a path to the
+        directory that RPM will use for temporary work space.  This normally
+        consists of temporary scripts that are used during the build process.
+        It should be set to an absolute path (ie, starting with
+        "<TT
+CLASS="FILENAME"
+>/</TT
+>").
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-TOPDIR"
+><B
+CLASS="COMMAND"
+>topdir</B
+></A
+></H2
+><P
+>        Default value: <TT
+CLASS="FILENAME"
+>/usr/src/redhat</TT
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>topdir</B
+> entry is used to define the path to the
+        top-level directory in RPM's build directory tree.  It should be set to
+        an absolute path (ie, starting with "<TT
+CLASS="FILENAME"
+>/</TT
+>").  The
+        following entries base their default values on the value of
+        <B
+CLASS="COMMAND"
+>topdir</B
+>:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>builddir</B
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>rpmdir</B
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>sourcedir</B
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>specdir</B
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>srcrpmdir</B
+>
+            </P
+></LI
+></UL
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-VENDOR"
+><B
+CLASS="COMMAND"
+>vendor</B
+></A
+></H2
+><P
+>        Default value: (none)
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>vendor</B
+> entry is used to define the name of the
+        organization that is responsible for distributing the packaged software.
+        Normally, this would be the name of a business or other such entity.
+      </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN14754"
+HREF="s1-rpmrc-file-rpmrc-file-entries.html#AEN14754"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>            The <B
+CLASS="COMMAND"
+>buildostranslate</B
+> <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>
+            file entry is discussed on <A
+HREF="s1-rpmrc-file-rpmrc-file-entries.html#S2-RPMRC-FILE-BUILDOSTRANSLATE"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>buildostranslate</B
+></I
+></A
+>.
+          </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpmrc-file-rpmrc-file-syntax.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-commands.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File Syntax</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpmrc-file.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Concise RPM Command Reference</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

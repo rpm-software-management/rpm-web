@@ -1,0 +1,1068 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Manual Dependencies</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Adding Dependency Information to a Package"
+HREF="ch-rpm-depend.html"><LINK
+REL="PREVIOUS"
+TITLE="Automatic Dependencies"
+HREF="s1-rpm-depend-auto-depend.html"><LINK
+REL="NEXT"
+TITLE="To Summarize&#8230;"
+HREF="s1-rpm-depend-summary.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-depend-auto-depend.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 14. Adding Dependency Information to a Package</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-depend-summary.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-DEPEND-MANUAL-DEPENDENCIES"
+>Manual Dependencies</A
+></H1
+><P
+>        You might have noticed that we've been using the words "requires" and
+        "provides" to describe the dependency relationships between packages.
+        As it turns out, these are the exact words used in spec files to
+        manually add dependency information.  Let's look at the first tag:
+        <B
+CLASS="COMMAND"
+>Requires</B
+>.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-DEPEND-REQUIRES-TAG"
+>The <B
+CLASS="COMMAND"
+>Requires</B
+> Tag</A
+></H2
+><P
+>          We've been deliberately vague when discussing exactly what it is that
+          a package requires.  Although we've used the word "capabilities", in
+          fact, manual dependency requirements are always represented in terms
+          of packages.  For example, if package <TT
+CLASS="FILENAME"
+>foo</TT
+>
+          requires that package <TT
+CLASS="FILENAME"
+>bar</TT
+> is installed, it's only
+          necessary to add the following line to <TT
+CLASS="FILENAME"
+>foo</TT
+>'s spec
+          file:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: bar</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Later, when the <TT
+CLASS="FILENAME"
+>foo</TT
+> package is being installed,
+          RPM will consider <TT
+CLASS="FILENAME"
+>foo</TT
+>'s dependency requirements
+          met if any version of package <TT
+CLASS="FILENAME"
+>bar</TT
+> is already
+          installed.
+          <A
+NAME="AEN9473"
+HREF="#FTN.AEN9473"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        </P
+><P
+>          If more than one package is required, they can be added to the
+          <B
+CLASS="COMMAND"
+>Requires</B
+> tag, one after another, separated by
+          commas and/or spaces.  So if package <TT
+CLASS="FILENAME"
+>foo</TT
+> requires
+          packages <TT
+CLASS="FILENAME"
+>bar</TT
+> <I
+CLASS="EMPHASIS"
+>and</I
+>
+          <TT
+CLASS="FILENAME"
+>baz</TT
+>, the following line will do the trick:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: bar, baz</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As long as any version of <TT
+CLASS="FILENAME"
+>bar</TT
+> and
+          <TT
+CLASS="FILENAME"
+>baz</TT
+> is installed, <TT
+CLASS="FILENAME"
+>foo</TT
+>'s
+          dependencies will be met.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-DEPEND-VERSION-REQUIREMENTS"
+>Adding Version Requirements</A
+></H3
+><P
+>            When a package has slightly more stringent needs, it's possible to
+            require certain versions of a package.  All that's necessary is to
+            add the desired version number, preceded by one of the following
+            comparison operators:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Requires package with a version less than the specified
+                  version.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Requires package with a version less than or equal to the
+                  specified version.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Requires package with a version equal to the specified
+                  version.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Requires package with a version equal to or greater than the
+                  specified version.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Requires package with a version greater than the specified
+                  version.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            Continuing with our example, let's suppose that the required version
+            of package <TT
+CLASS="FILENAME"
+>bar</TT
+> actually needs to be at least
+            2.7, and that the <TT
+CLASS="FILENAME"
+>baz</TT
+> package must be version
+            2.1 &#8212; no other version will do.  Here's what the
+            <B
+CLASS="COMMAND"
+>Requires</B
+> tag line would look like:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: bar &#62;= 2.7, baz = 2.1</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            We can get even more specific and require a particular
+            <I
+CLASS="EMPHASIS"
+>release</I
+> of a package:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: bar &#62;= 2.7-4, baz = 2.1-1</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-DEPEND-VERSION-NOT-ENOUGH"
+>When Version Numbers Aren't Enough</A
+></H3
+><P
+>            You might think that with all these features, RPM's dependency
+            processing can handle every conceivable situation.  You'd be right,
+            except for the problem of version numbers.  RPM needs to be able to
+            determine which version numbers are more recent than others, in
+            order to perform its version comparisons.
+          </P
+><P
+>            It's pretty simple to determine that version 1.5 is older than
+            version 1.6.  But what about 2.01 and 2.1?  Or 7.6a and 7.6?
+            There's no way for RPM to keep up with all the different
+            version-numbering schemes in use.  But there <I
+CLASS="EMPHASIS"
+>is</I
+>
+            a solution; two, in fact&#8230;
+          </P
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="S4-RPM-DEPEND-VERSION-EPOCH"
+>Solution Number 1: Epoch numbers</A
+></H4
+><P
+>              When RPM can't decipher a package's version number, it's time to
+              pull out the <B
+CLASS="COMMAND"
+>Epoch</B
+> tag.  This tag is used to
+              help RPM determine version number ordering.  Here's a sample
+              <B
+CLASS="COMMAND"
+>Epoch</B
+> tag line:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Epoch: 42</SAMP
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              This line indicates that the package has an epoch number of 42.
+              What does the 42 mean?  Only that this version of the package is
+              newer than the same package with an epoch number of 41, but
+              older than the same package with an epoch number of 43.  If you
+              think of epoch numbers as being nothing more than very simple
+              version numbers, you'll be on the mark.  In other words,
+              <B
+CLASS="COMMAND"
+>Epoch</B
+> is the <I
+CLASS="EMPHASIS"
+>most significant
+              component</I
+> of a package's complete version identifier
+              with regards to RPM's version comparison algorithm.
+            </P
+><P
+>              In order to direct RPM to look at the epoch number instead of the
+              version number when doing dependency checking, it's necessary to
+	      use a "<B
+CLASS="COMMAND"
+>:</B
+>" before the version in the
+	      <B
+CLASS="COMMAND"
+>Requires</B
+> tag line.  So if a package
+	      requires package <TT
+CLASS="FILENAME"
+>foo</TT
+> to have an
+	      epoch number equal to 42, the following tag line would
+	      be used:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: foo = 42:</SAMP
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              If the <TT
+CLASS="FILENAME"
+>foo</TT
+> package needs to have an epoch
+              number greater than or equal to 42, this line would work:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: foo &#62;= 42:</SAMP
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              If the <TT
+CLASS="FILENAME"
+>foo</TT
+> package needs to have version with
+	      an epoch number 42 and version 1.0, this line would work:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: foo &#62;= 42:1.0</SAMP
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+	      You <I
+CLASS="EMPHASIS"
+>must</I
+> include the epoch in a
+	      requires if it exists in the package.
+            </P
+><P
+>	       
+              It might seem that using epoch numbers is a lot of extra trouble,
+              and you're right.  But there is an alternative:
+            </P
+></DIV
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="S4-RPM-DEPEND-SAY-NO"
+>Solution Number 2: Just Say No!</A
+></H4
+><P
+>              If you have the option between changing the software's
+              version-numbering scheme, or using epoch numbers in RPM, please
+              consider changing the version-numbering scheme.  Chances are, if
+              RPM can't figure it out, most of the people using your software
+              can't, either.  But in case you aren't the author of the software
+              you're packaging, and its version numbering scheme is giving RPM
+              fits, the <B
+CLASS="COMMAND"
+>epoch</B
+> tag can help you out.
+            </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-DEPEND-FINE-GRAINED"
+>Fine Grained Dependencies</A
+></H3
+><P
+>            For the vast majority of dependencies, using the normal
+            <B
+CLASS="COMMAND"
+>Requires</B
+> is enough.  However, there are some
+            special situations where one might want more fine grained control
+            over them.  When multiple packages are being installed in a
+            transaction, installation order and dependency loops are such
+            cases.  Erasure order of packages within a transaction is
+            the opposite of their installation order.
+          </P
+><P
+>            A very trivial example of a dependency loop is when package
+            <TT
+CLASS="FILENAME"
+>foo</TT
+> requires <TT
+CLASS="FILENAME"
+>bar</TT
+>, and
+            <TT
+CLASS="FILENAME"
+>bar</TT
+> requires <TT
+CLASS="FILENAME"
+>foo</TT
+>.
+            However, when the number of packages involved in a loop grows, the
+            loops get more and more complex.  The special dependency types in
+            this chapter are at best <I
+CLASS="EMPHASIS"
+>hints</I
+> for RPM; as a
+            rule of thumb, it is best to try to
+            <I
+CLASS="EMPHASIS"
+>avoid dependency loops</I
+> altogether.
+            However, in some rare cases, they may be desired.
+          </P
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="S3-RPM-DEPEND-PREREQ"
+>The <B
+CLASS="COMMAND"
+>PreReq</B
+> Tag</A
+></H4
+><P
+>              The <B
+CLASS="COMMAND"
+>PreReq</B
+> tag is the same as
+              <B
+CLASS="COMMAND"
+>Requires</B
+>, originally with one additional
+              property.  Using it used to tell RPM that the package marked as
+              <B
+CLASS="COMMAND"
+>PreReq</B
+> should be installed before the package
+              containing the dependency.  However, as of RPM version 4.4, this
+              special property is being phased out, and
+              <B
+CLASS="COMMAND"
+>PreReq</B
+> and <B
+CLASS="COMMAND"
+>Requires</B
+> will
+              soon have no functional differences.
+            </P
+><P
+>              A plain <B
+CLASS="COMMAND"
+>Requires</B
+> is enough to ensure proper
+              installation order <I
+CLASS="EMPHASIS"
+>if there are no dependency
+              loops</I
+> present in the transaction.  If dependency
+              loops are present and cannot be avoided, packagers should strive
+              to construct them in a way that the order of installation of the
+              the this way interdependent packages does not matter.
+            </P
+><P
+>              Historically, in dependency loops
+              <B
+CLASS="COMMAND"
+>PreReq</B
+> used to "win" over the conventional
+              <B
+CLASS="COMMAND"
+>Requires</B
+> when RPM determined the
+              installation order in a transaction.  But as said above, this
+              functionality is being phased out, and one should no longer
+              assume things will work that way.
+            </P
+></DIV
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="S3-RPM-DEPEND-CONTEXT-DEPENDS"
+>Context Marked Dependencies</A
+></H4
+><P
+>              Recent versions of RPM support context marked dependencies.
+              This is a special type of a dependency that applies only in a
+              specified <I
+CLASS="EMPHASIS"
+>context</I
+>.  Using this feature,
+              one can specify dependencies for pre- and post(un)install
+              scriptlets, ie. the context of a dependency is the execution
+              time of the specified scriptlet.
+            </P
+><P
+>              The syntax for specifying these dependencies is:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires(<TT
+CLASS="REPLACEABLE"
+><I
+>X</I
+></TT
+>): foo</SAMP
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              Here, <TT
+CLASS="REPLACEABLE"
+><I
+>X</I
+></TT
+> can be one of
+              <B
+CLASS="COMMAND"
+>pre</B
+>, <B
+CLASS="COMMAND"
+>post</B
+>,
+              <B
+CLASS="COMMAND"
+>preun</B
+>, or <B
+CLASS="COMMAND"
+>postun</B
+>, which
+              tells RPM that the package depends on package
+              <TT
+CLASS="FILENAME"
+>foo</TT
+> for running the corresponding
+              <B
+CLASS="COMMAND"
+>%pre</B
+>, <B
+CLASS="COMMAND"
+>%post</B
+>,
+              <B
+CLASS="COMMAND"
+>%preun</B
+>, or <B
+CLASS="COMMAND"
+>%postun</B
+> script.
+            </P
+><P
+>              In practice, RPM enforces the above dependencies
+              <I
+CLASS="EMPHASIS"
+>until</I
+> the specified script has been run,
+              not <I
+CLASS="EMPHASIS"
+>at</I
+> that time.  In other words,
+              it will allow erasing a dependency that was marked for eg. the
+              <B
+CLASS="COMMAND"
+>%post</B
+> script for an already installed package,
+              but will not allow erasing one that is required for a
+              <B
+CLASS="COMMAND"
+>%postun</B
+> script for such a package.
+              This is to reduce confusion; it would be somewhat odd if RPM
+              told one to install a package in order to get another one erased.
+            </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-DEPEND-CONFLICTS-TAG"
+>The <B
+CLASS="COMMAND"
+>Conflicts</B
+> Tag</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>Conflicts</B
+> tag is the logical complement to the
+          <B
+CLASS="COMMAND"
+>Requires</B
+> tag.  It is used to specify which packages
+          conflict with the current package.  RPM will not permit conflicting
+          packages to be installed unless overridden with the
+          <B
+CLASS="COMMAND"
+>--nodeps</B
+> option.
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>Conflicts</B
+> tag has the same format as
+          <B
+CLASS="COMMAND"
+>Requires</B
+>.  It accepts a real or virtual package
+          name and can optionally include version and release specifications or
+          an epoch number.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-DEPEND-PROVIDES-TAG"
+>The <B
+CLASS="COMMAND"
+>Provides</B
+> Tag</A
+></H2
+><P
+>          Now that you've seen how it's possible to require a package using the
+          <B
+CLASS="COMMAND"
+>Requires</B
+> tag, you're probably expecting that you'll
+          need to use the <B
+CLASS="COMMAND"
+>Provides</B
+> tag in every single
+          package.  After all, RPM has to get those package names from
+          <I
+CLASS="EMPHASIS"
+>somewhere</I
+>, right?
+        </P
+><P
+>          While it is true that RPM needs to have the package names available,
+          the <B
+CLASS="COMMAND"
+>Provides</B
+> tag is normally not required.  It
+          would actually be redundant, because the RPM database already contains
+          the name of every package installed.  There's no need to duplicate
+          that information.
+        </P
+><P
+>          But wait &#8212; We said earlier that manual dependency requirements
+          are <I
+CLASS="EMPHASIS"
+>always</I
+> represented in terms of packages.  If
+          RPM doesn't require the package builder to use the
+          <B
+CLASS="COMMAND"
+>Provides</B
+> tag to provide the package name, then what
+          is the <B
+CLASS="COMMAND"
+>Provides</B
+> tag used for?
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-DEPEND-VIRTUAL-PACKAGES"
+>Virtual Packages</A
+></H3
+><P
+>            Enter the virtual package.  A virtual package is nothing more than a
+            name specified with the <B
+CLASS="COMMAND"
+>Provides</B
+> tag.  Virtual
+            packages are handy when a package requires a certain capability, and
+            that capability can be provided by any one of several packages.
+            Here's an example:
+          </P
+><P
+>            In order to work properly, <B
+CLASS="COMMAND"
+>sendmail</B
+> needs a local
+            delivery agent to handle mail delivery.  There are a number of
+            different local delivery agents available &#8212;
+            <B
+CLASS="COMMAND"
+>sendmail</B
+> will work just fine with any of them.
+          </P
+><P
+>            In this case, it doesn't make sense to force the use of a particular
+            local delivery agent; as long as one's installed,
+            <TT
+CLASS="FILENAME"
+>sendmail</TT
+>'s requirements will have been
+            satisfied.  So <TT
+CLASS="FILENAME"
+>sendmail</TT
+>'s package builder adds
+            the following line to <TT
+CLASS="FILENAME"
+>sendmail</TT
+>'s spec file:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: lda</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            There is no package with that name available, so
+            <TT
+CLASS="FILENAME"
+>sendmail</TT
+>'s requirements must be met with a
+            virtual package.  The creators of the various local delivery agents
+            indicate that their packages satisfy the requirements of the
+            <TT
+CLASS="FILENAME"
+>lda</TT
+> virtual package by adding the following
+            line to <I
+CLASS="EMPHASIS"
+>their</I
+> packages' spec files:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Provides: lda</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            (Note that virtual packages may not have version numbers.)  Now,
+            when <TT
+CLASS="FILENAME"
+>sendmail</TT
+> is installed, as long as there is
+            a package installed that provides the <TT
+CLASS="FILENAME"
+>lda</TT
+>
+            virtual package, there will be no problem.
+          </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN9473"
+HREF="s1-rpm-depend-manual-dependencies.html#AEN9473"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              As long as the requiring <I
+CLASS="EMPHASIS"
+>and</I
+> the providing
+              packages are installed using the same invocation of RPM, the
+              dependency checking will succeed.  For example, the command
+              <B
+CLASS="COMMAND"
+>rpm -ivh *.rpm</B
+> will properly check for
+              dependencies, even if the requiring package ends up being
+              installed <I
+CLASS="EMPHASIS"
+>before</I
+> the providing package.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-depend-auto-depend.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-depend-summary.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Automatic Dependencies</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-depend.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>To Summarize&#8230;</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

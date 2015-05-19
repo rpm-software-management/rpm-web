@@ -1,0 +1,1047 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Getting Information About Packages</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Computer Users &#8212; How to Use RPM to Effectively Manage Your
+      Computer
+    "
+HREF="p108.html"><LINK
+REL="PREVIOUS"
+TITLE="They're Nearly Identical&#8230;"
+HREF="s1-rpm-upgrade-nearly-identical.html"><LINK
+REL="NEXT"
+TITLE="The Parts of an RPM Query"
+HREF="s1-rpm-query-parts.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-upgrade-nearly-identical.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-query-parts.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-QUERY"
+></A
+>Chapter 5. Getting Information About Packages</H1
+><DIV
+CLASS="TABLE"
+><A
+NAME="TB-RPM-QUERY-Q-SYNTAX"
+></A
+><P
+><B
+>Table 5-1. <B
+CLASS="COMMAND"
+>rpm -q</B
+> Command Syntax</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+>              <B
+CLASS="COMMAND"
+>rpm -q</B
+> (or <B
+CLASS="COMMAND"
+>--query</B
+>)
+              <I
+CLASS="EMPHASIS"
+>options</I
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              Package Selection Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <TT
+CLASS="FILENAME"
+>pkg1</TT
+> &#8230;
+              <TT
+CLASS="FILENAME"
+>pkg<TT
+CLASS="REPLACEABLE"
+><I
+>N</I
+></TT
+></TT
+>
+            </TD
+><TD
+>              Query installed package(s)
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-PACKAGE-LABEL"
+>the Section called <I
+>The Package Label</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-p <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>(or
+              "<B
+CLASS="COMMAND"
+><KBD
+CLASS="USERINPUT"
+>-</KBD
+></B
+>")
+            </TD
+><TD
+>              Query package file
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+> (URLs
+              OK)
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-P-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-p <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>
+            &#8212; Query a Specific RPM Package File</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-f <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Query package owning
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-BY-FILE"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-f <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>
+            &#8212; Query the Package Owning
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-a</B
+>
+            </TD
+><TD
+>              Query all installed packages
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-A-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-a</B
+> &#8212; Query All Installed Packages</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--whatprovides <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;x&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Query packages providing capability
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;x&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-WHATPROVIDES-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--whatprovides <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;x&#62;</I
+></TT
+></B
+>:
+            Query the Packages That Provide Capability
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;x&#62;</I
+></TT
+></B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-g <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Query packages belonging to group
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-G-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-g <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+>: Query
+            Packages Belonging To Group
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--whatrequires <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;x&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Query packages requiring capability
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;x&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-WHATREQUIRES"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--whatrequires <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;x&#62;</I
+></TT
+></B
+>:
+            Query the Packages That Require Capability
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;x&#62;</I
+></TT
+></B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              Information Selection Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;null&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Display full package label
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-PACKAGE-LABEL"
+>the Section called <I
+>The Package Label</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-i</B
+>
+            </TD
+><TD
+>              Display summary package information
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-I-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-i</B
+> &#8212; Display Package
+          Information</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-l</B
+>
+            </TD
+><TD
+>              Display list of files in package
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-L-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-l</B
+> &#8212; Display the Package's File
+          List</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-c</B
+>
+            </TD
+><TD
+>              Display list of configuration files
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-C-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-c</B
+> &#8212; Display the Package's List of
+            Configuration Files</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-d</B
+>
+            </TD
+><TD
+>              Display list of documentation files
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-D-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-d</B
+> &#8212; Display a List of the Package's
+            Documentation</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-s</B
+>
+            </TD
+><TD
+>              Display list of files in package, with state
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-S-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-s</B
+> &#8212; Display the State of Each File in the
+            Package</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--scripts</B
+>
+            </TD
+><TD
+>              Display install, uninstall, verify scripts
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-SCRIPTS-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--scripts</B
+> &#8212; Show Scripts Associated With a
+            Package</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--queryformat</B
+> (or <B
+CLASS="COMMAND"
+>--qf</B
+>)
+            </TD
+><TD
+>              Display queried data in custom format
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-QUERYFORMAT-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--queryformat</B
+> &#8212; Construct a Custom Query
+            Response</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--dump</B
+>
+            </TD
+><TD
+>              Display all verifiable information for each file
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-DUMP-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--dump</B
+>: Display All Verifiable Information for
+            Each File</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--provides</B
+>
+            </TD
+><TD
+>              Display capabilities package provides
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-PROVIDES-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--provides</B
+>: Display Capabilities Provided by the
+            Package</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--requires</B
+> (or <B
+CLASS="COMMAND"
+>-R</B
+>)
+            </TD
+><TD
+>              Display capabilities package requires
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-REQUIRES-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--requires</B
+>: Display Capabilities Required by the
+            Package</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              General Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-v</B
+>
+            </TD
+><TD
+>              Display additional information
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S4-RPM-QUERY-V-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-v</B
+> &#8212; Display Additional Information</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-vv</B
+>
+            </TD
+><TD
+>              Display debugging information
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S2-RPM-QUERY-VV-OPTION"
+>the Section called <I
+>Getting a <I
+CLASS="EMPHASIS"
+>lot</I
+> more information with
+          <B
+CLASS="COMMAND"
+>-vv</B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Set alternate root to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S2-RPM-QUERY-ROOT-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> As An
+          Alternate Root</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Set alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S2-RPM-QUERY-RCFILE-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+> As An
+          Alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--dbpath <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> to
+              find the RPM database
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-query-parts.html#S2-RPM-QUERY-DBPATH-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--dbpath <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> To Find RPM
+          Database</I
+></A
+>
+            </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-QUERY-WHAT-IT-DOES"
+><B
+CLASS="COMMAND"
+>rpm -q</B
+> &#8212; What does it do?</A
+></H1
+><P
+>        One of the nice things about using RPM is that the packages you manage
+        don't end up going into some kind of black hole.  Nothing would be worse
+        than to install, upgrade, and erase several different packages and not
+        have a clue as to what's on your system.  In fact, RPM's query function
+        can help you get out of sticky situations like:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              You're poking around your system, and you come across a file that
+              you just can't identify.  Where did it come from?
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Your friend sends you a package file, and you have no idea what
+              the package does, what it installs, or where it originally came
+              from.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              You know that you installed XFree86 a couple months ago, but you
+              don't know what version, and you can't find any documentation on
+              it.
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        The list could go on, but you get the idea.  The <B
+CLASS="COMMAND"
+>rpm
+        -q</B
+> command is what you need.  If you're the kind of person
+        that doesn't like to have more options than you know what to do with,
+        <B
+CLASS="COMMAND"
+>rpm -q</B
+> might look imposing.  But fear not.  Once you
+        have a handle on the basic structure of an RPM query, it'll be a piece
+        of cake. 
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-upgrade-nearly-identical.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-query-parts.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>They're Nearly Identical&#8230;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p108.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The Parts of an RPM Query</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

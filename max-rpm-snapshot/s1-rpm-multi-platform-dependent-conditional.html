@@ -1,0 +1,556 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Platform-Dependent Conditionals</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      Building Packages for Multiple Architectures and Operating Systems
+    "
+HREF="ch-rpm-multi.html"><LINK
+REL="PREVIOUS"
+TITLE="Platform-Dependent Tags"
+HREF="s1-rpm-multi-platform-dependent-tags.html"><LINK
+REL="NEXT"
+TITLE="Hints and Kinks"
+HREF="s1-rpm-multi-hints-and-kinks.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-multi-platform-dependent-tags.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 19. Building Packages for Multiple Architectures and Operating Systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-multi-hints-and-kinks.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-MULTI-PLATFORM-DEPENDENT-CONDITIONAL"
+>Platform-Dependent Conditionals</A
+></H1
+><P
+>        Of course, the control exerted by the
+        <B
+CLASS="COMMAND"
+>exclude<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+> and
+        <B
+CLASS="COMMAND"
+>exclusive<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+> tags over package
+        building is often too coarse.  There may be packages, for example, that
+        would build just fine on another platform, if only you could substitute
+        a platform-specific patch file or change some paths in the
+        <B
+CLASS="COMMAND"
+>%files</B
+> list.
+      </P
+><P
+>        The key to exerting this kind of platform-specific control in the spec
+        file is to use RPM's conditionals.  The conditionals provide a
+        general-purpose means of constructing a platform-specific version of the
+        spec file during the actual build process.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MULTI-CONDITIONALS-COMMON-FEATURES"
+>Common Features of All Conditionals</A
+></H2
+><P
+>          There are a few things that are common to each conditional, so let's
+          discuss them first.  The first thing is that conditionals are
+          block-structured.  The second is that conditionals can be nested.
+          Finally, conditionals can span any part of the spec file.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-MULTI-CONDITIONALS-BLOCK-STRUCTURED"
+>Conditionals Are Block Structured</A
+></H3
+><P
+>            Every conditional is block-structured &#8212; in other words, the
+            conditional begins at a certain point within the spec file and
+            continues some number of lines until it is ended.  This forms a
+            block that will be used or ignored, depending on the platform the
+            conditional is checking for, as well as the build platform itself.
+          </P
+><P
+>            Every conditional starts with a line beginning with the characters
+            <B
+CLASS="COMMAND"
+>%if</B
+> and is followed by one of four
+            platform-related conditions.  Every conditional ends with a line
+            containing the characters <B
+CLASS="COMMAND"
+>%endif</B
+>.
+          </P
+><P
+>            Ignoring the platform-related conditions for a moment, here's an
+            example of a conditional block:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifos Linux
+Summary: This is a package for the Linux operating system
+%endif</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            It's a one-line block, but a block nonetheless.
+          </P
+><P
+>            There's also another style of conditional block.  As before, it
+            starts with a <B
+CLASS="COMMAND"
+>%if</B
+>, and ends with a
+            <B
+CLASS="COMMAND"
+>%endif</B
+>.  But there's something new in the middle:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifos Linux
+Summary: This is a package for the Linux operating system
+%else
+Summary: This is a package for some other operating system
+%endif</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Here we've replaced one <B
+CLASS="COMMAND"
+>summary</B
+> tag with another.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-MULTI-NESTED-CONDITIONALS"
+>Conditionals Can Be Nested</A
+></H3
+><P
+>            Conditionals can be nested &#8212; That is, the block formed by one
+            conditional can enclose another conditional.  Here's an example:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifarch i386
+
+echo "This is an i386"
+
+%ifos Linux
+echo "This is a Linux system"
+%else
+echo "This is not a Linux system"
+%endif
+
+%else
+
+echo "This is not an i386"
+
+%endif</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            In this example, the first conditional block formed by the
+              <B
+CLASS="COMMAND"
+>%ifarch i386</B
+> line contains a complete
+              <B
+CLASS="COMMAND"
+>%ifos &#8212; %else &#8212; %endif</B
+> conditional.
+              Therefore, if the build system was Intel-based, the
+              <B
+CLASS="COMMAND"
+>%ifos</B
+> conditional would be tested.  If the
+              build system was <I
+CLASS="EMPHASIS"
+>not</I
+> Intel-based, the
+              <B
+CLASS="COMMAND"
+>%ifos</B
+> conditional would not be tested.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-MULTI-CONDITIONALS-CROSS"
+>Conditionals Can Cross Spec File Sections</A
+></H3
+><P
+>            The next thing each conditional has in common is that there is no
+            limit to the number of lines a conditional block can contain.  You
+            could enclose the entire spec file within a conditional, if you
+            like.  But it's much better to use conditionals to insert only the
+            appropriate platform-specific contents.
+          </P
+><P
+>            Now that we have the basics out of the way, let's take a look at
+            each of the conditionals and see how they work.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MULTI-IFXXX-CONDITIONAL"
+><B
+CLASS="COMMAND"
+>%if<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+></A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>%if<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+> conditionals are
+          used to control the inclusion of a block, as long as the
+          platform-dependent information is true.  Here are two examples:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifarch i386 alpha</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In this case, the block following the conditional would be included
+          only if the build architecture was <B
+CLASS="COMMAND"
+>i386</B
+> or
+          <B
+CLASS="COMMAND"
+>alpha</B
+>.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifos Linux</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          This example would include the block following the conditional only if
+          the operating system was <B
+CLASS="COMMAND"
+>Linux</B
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MULTI-IFNXXX-CONDITIONAL"
+><B
+CLASS="COMMAND"
+>%ifn<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+></A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>%ifn<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+> conditionals are
+          used to control the inclusion of a block, as long as the
+          platform-dependent information is <I
+CLASS="EMPHASIS"
+>not</I
+> true.  Here
+          are two examples:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifnarch i386 alpha</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In this case, the block following the conditional would be included
+          only if the build architecture was <I
+CLASS="EMPHASIS"
+>not</I
+>
+          <B
+CLASS="COMMAND"
+>i386</B
+> or <B
+CLASS="COMMAND"
+>alpha</B
+>.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifnos Linux</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          This example would include the block following the conditional only if
+          the operating system was <I
+CLASS="EMPHASIS"
+>not</I
+>
+          <B
+CLASS="COMMAND"
+>Linux</B
+>.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-multi-platform-dependent-tags.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-multi-hints-and-kinks.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Platform-Dependent Tags</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-multi.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Hints and Kinks</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

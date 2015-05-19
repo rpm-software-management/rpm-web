@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Inside the Spec File</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Developers &#8212; How to Distribute Your Software More Easily
+      With RPM
+    "
+HREF="p5206.html"><LINK
+REL="PREVIOUS"
+TITLE="Other Build-related Commands"
+HREF="s1-rpm-b-command-other-build-commands.html"><LINK
+REL="NEXT"
+TITLE="Tags: Data Definitions"
+HREF="s1-rpm-inside-tags.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-b-command-other-build-commands.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-inside-tags.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-INSIDE"
+></A
+>Chapter 13. Inside the Spec File</H1
+><P
+>      In this chapter, we're going to cover the spec file in detail.  There are
+      a number of different types of entries that comprise a spec file, and
+      every one will be documented here.  The different types of entries are:
+
+      <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>            Comments &#8212; Human-readable notes ignored by RPM.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            Tags &#8212; Define data.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            Scripts &#8212; Contain commands to be executed at specific times.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            Macros &#8212; A method of executing multiple commands easily.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            The <B
+CLASS="COMMAND"
+>%files</B
+> list &#8212; A list of files to be
+            included in the package.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            Directives &#8212; Used in the <B
+CLASS="COMMAND"
+>%files</B
+> list to
+            direct RPM to handle certain files in a specific way.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            Conditionals &#8212; Permit operating system- or
+            architecture-specific preprocessing of the spec file.
+          </P
+></LI
+></UL
+>
+    </P
+><P
+>      Let's start by looking at comments.
+    </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-INSIDE-COMMENTS"
+>Comments: Notes Ignored by RPM</A
+></H1
+><P
+>        Comments are a way to make RPM ignore a line in the spec file.  The
+        contents of a comment line are entirely up to the person writing the
+        spec file.
+      </P
+><P
+>        To create a comment, enter an octothorp (<B
+CLASS="COMMAND"
+>#</B
+>) at the
+        start of the line.  Any text following the comment character will be
+        ignored by RPM.  Here's an example comment:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+># This is the spec file for playmidi 2.3...</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+        Comments can be placed in any section of the spec file. Note
+        that macros are expanded everywhere, so with multiline macros
+        which would only have the first line commented also escape the
+        percent (<B
+CLASS="COMMAND"
+>%</B
+>) character:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+># %%configure</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+> 
+
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-b-command-other-build-commands.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-inside-tags.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Other Build-related Commands</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p5206.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Tags: Data Definitions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,728 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Building Subpackages</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Creating Subpackages"
+HREF="ch-rpm-subpack.html"><LINK
+REL="PREVIOUS"
+TITLE="Build-Time Scripts: Unchanged For Subpackages"
+HREF="s1-rpm-subpack-build-time-scripts.html"><LINK
+REL="NEXT"
+TITLE="      Building Packages for Multiple Architectures and Operating Systems
+    "
+HREF="ch-rpm-multi.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-subpack-build-time-scripts.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 18. Creating Subpackages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-multi.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-SUBPACK-BUILDING-SUBPACKAGES"
+>Building Subpackages</A
+></H1
+><P
+>        Now it's time to give our example spec file a try.  The build process is
+        not that much different from a single-package spec file:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba foo-2.7.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: foo
+* Package: foo-server
+* Package: foo-client
+* Package: bazlib
+&#8230;
+Executing: %prep
+&#8230;
+Executing: %build
+&#8230;
+Executing: %install
+&#8230;
+Executing: special doc
++ cd /usr/src/redhat/BUILD
++ cd foo-2.7
++ DOCDIR=//usr/doc/foo-2.7-1
++ DOCDIR=//usr/doc/foo-server-2.7-1
++ DOCDIR=//usr/doc/foo-client-2.7-1
++ DOCDIR=//usr/doc/bazlib-5.6-1
++ exit 0
+Binary Packaging: foo-2.7-1
+Finding dependencies...
+usr/local/foo-file
+1 block
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/foo-2.7-1.i386.rpm
+Binary Packaging: foo-server-2.7-1
+Finding dependencies...
+usr/local/server-file
+1 block
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/foo-server-2.7-1.i386.rpm
+Binary Packaging: foo-client-2.7-1
+Finding dependencies...
+usr/local/client-file
+1 block
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/foo-client-2.7-1.i386.rpm
+Binary Packaging: bazlib-5.6-1
+Finding dependencies...
+usr/local/bazlib-file
+1 block
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/bazlib-5.6-1.i386.rpm
+&#8230;
+Source Packaging: foo-2.7-1
+foo-2.7.spec
+foo-2.7.tgz
+4 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/SRPMS/foo-2.7-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Starting at the top, we start the build with the usual command.
+        Immediately following the command, RPM indicates that four packages are
+        to be built from this spec file.  The <B
+CLASS="COMMAND"
+>%prep</B
+>,
+        <B
+CLASS="COMMAND"
+>%build</B
+>, and <B
+CLASS="COMMAND"
+>%install</B
+> scripts then
+        execute as usual.
+      </P
+><P
+>        Next, RPM executes its "special doc" internal script, even though we
+        haven't declared any files to be documentation.  It's worth noting,
+        however, that the <CODE
+CLASS="ENVAR"
+>DOCDIR</CODE
+> environment variables show that
+        if the spec file <I
+CLASS="EMPHASIS"
+>had</I
+> declared some of the files as
+        documentation, RPM would have created the appropriate documentation
+        directories for each of the packages.
+      </P
+><P
+>        At this point, RPM creates the binary packages.  As we can see, each
+        package contains the file defined in its <B
+CLASS="COMMAND"
+>%files</B
+> list.
+      </P
+><P
+>        Finally, the source package file is created.  It contains the spec file
+        and the original sources, just like any other source package.
+      </P
+><P
+>        One spec file.  One set of sources.  One build command.  Four packages.
+        <A
+NAME="AEN11163"
+HREF="#FTN.AEN11163"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        All in all, a pretty good deal, isn't it?
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SUBPACK-SUBPACKAGE-TESTING"
+>Giving Subpackages the Once-Over</A
+></H2
+><P
+>          Let's take a look at our newly created packages.  As with any other
+          package, each subpackage should be tested by installing it on a system
+          that has not had that software installed before.  In this section,
+          we'll just snoop around the subpackages and point out how they differ
+          from packages built one to a spec file.
+        </P
+><P
+>          First, let's just look at each package's information:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qip foo-2.7-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Name        : foo                   Distribution: (none)
+Version     : 2.7                         Vendor: (none)
+Release     : 1                       Build Date: Wed Nov 06 13:33:37 1996
+Install date: (none)                  Build Host: foonly.rpm.org
+Group       : bogus/junque            Source RPM: foo-2.7-1.src.rpm
+Size        : 35
+Summary     : The foo app, and the baz library needed to build it
+Description :
+This is the long description of the foo app, and the baz library needed to
+build it...</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qip foo-server-2.7-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Name        : foo-server            Distribution: (none)
+Version     : 2.7                         Vendor: (none)
+Release     : 1                       Build Date: Wed Nov 06 13:33:37 1996
+Install date: (none)                  Build Host: foonly.rpm.org
+Group       : bogus/junque            Source RPM: foo-2.7-1.src.rpm
+Size        : 42
+Summary     : The foo server
+Description :
+This is the long description for the foo server...</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qip foo-client-2.7-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Name        : foo-client            Distribution: (none)
+Version     : 2.7                         Vendor: (none)
+Release     : 1                       Build Date: Wed Nov 06 13:33:37 1996
+Install date: (none)                  Build Host: foonly.rpm.org
+Group       : bogus/junque            Source RPM: foo-2.7-1.src.rpm
+Size        : 42
+Summary     : The foo client
+Description :
+This is the long description for the foo client...</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qip bazlib-5.6-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Name        : bazlib                Distribution: (none)
+Version     : 5.6                         Vendor: (none)
+Release     : 1                       Build Date: Wed Nov 06 13:33:37 1996
+Install date: (none)                  Build Host: foonly.rpm.org
+Group       : bogus/junque            Source RPM: foo-2.7-1.src.rpm
+Size        : 38
+Summary     : The baz library
+Description :
+This is the long description for the bazlib...</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Here we've used RPM's query capability to display a list of summary
+          information for each package.  A few points are worth noting.
+        </P
+><P
+>          First, each package lists <TT
+CLASS="FILENAME"
+>foo-2.7-1.src.rpm</TT
+> as
+          its source package file.  This is the only way to tell if two package
+          files were created from the same set of sources.  Trying to use a
+          package's name as an indicator is futile, as the
+          <TT
+CLASS="FILENAME"
+>bazlib</TT
+> package shows us.
+        </P
+><P
+>          The next thing to notice is that the summaries and descriptions for
+          each package are specific to that package.  Since these tags were
+          placed and named according to each package, that should be no
+          surprise.
+        </P
+><P
+>          Finally, we can see that each package's version has been either
+          "inherited" from the main package's preamble, or, as in the case of
+          the <TT
+CLASS="FILENAME"
+>bazlib</TT
+> package, the main package's version
+          has been overridden by a <B
+CLASS="COMMAND"
+>version</B
+> tag added to
+          <TT
+CLASS="FILENAME"
+>bazlib</TT
+>'s preamble.
+        </P
+><P
+>          If we look at the source package's information, we see that its
+          information has been taken entirely from the main package's set of
+          tags:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qip foo-2.7-1.src.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Name        : foo                   Distribution: (none)
+Version     : 2.7                         Vendor: (none)
+Release     : 1                       Build Date: Wed Nov 06 13:33:37 1996
+Install date: (none)                  Build Host: foonly.rpm.org
+Group       : bogus/junque            Source RPM: (none)
+Size        : 1415
+Summary     : The foo app, and the baz library needed to build it
+Description :
+This is the long description of the foo app, and the baz library needed to
+build it...</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          It's easy to see that if there was no <B
+CLASS="COMMAND"
+>%files</B
+> list
+          for the main package, and therefore, no main package, the tags in the
+          main preamble would still be used in the source package.  This is why
+          RPM enforces the requirement that the main preamble contain
+          <B
+CLASS="COMMAND"
+>copyright</B
+>, <B
+CLASS="COMMAND"
+>%description</B
+>, and
+          <B
+CLASS="COMMAND"
+>group</B
+> tags.  So, here's a word to the wise: Don't
+          put something stupid in the main preamble's
+          <B
+CLASS="COMMAND"
+>%description</B
+> just to satisfy RPM.  Your witty
+          saying will be immortalized for all time in every source package you
+          distribute.
+          <A
+NAME="AEN11210"
+HREF="#FTN.AEN11210"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SUBPACK-INSTALL-ERASE-SCRIPTS-VERIFY"
+>Verifying Subpackage-specific Install and Erase Scripts</A
+></H3
+><P
+>            The easiest way to verify that the <B
+CLASS="COMMAND"
+>%pre</B
+> scripts
+            we defined for each package were actually used is to simply install
+            each package:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Uvh foo-2.7-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>foo                    This is the foo package preinstall script
+##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Uvh foo-server-2.7-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>foo-server             This is the foo-server subpackage preinstall script
+##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Uvh foo-client-2.7-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>foo-client             This is the foo-client subpackage preinstall script
+##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Uvh bazlib-5.6-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bazlib                 This is the bazlib subpackage preinstall script
+##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            As expected, the unique <B
+CLASS="COMMAND"
+>%pre</B
+> script for each
+            package has been included.  Of course, if we hadn't wanted to
+            actually install the packages, we could have used RPM's
+            <B
+CLASS="COMMAND"
+>--scripts</B
+> option to display the scripts:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qp --scripts foo-2.7-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>preinstall script:
+echo "This is the foo package preinstall script"
+
+postinstall script:
+(none)
+preuninstall script:
+(none)
+postuninstall script:
+(none)
+verify script:
+(none)</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            This approach might be a bit safer, particularly if installing the
+            newly built package would disrupt operations on your build system.
+          </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN11163"
+HREF="s1-rpm-subpack-building-subpackages.html#AEN11163"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>            Five, if you count the source package.
+          </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN11210"
+HREF="s1-rpm-subpack-building-subpackages.html#AEN11210"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              Yes, the author found out about this hard way!
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-subpack-build-time-scripts.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-multi.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Build-Time Scripts: Unchanged For Subpackages</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-subpack.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Building Packages for Multiple Architectures and Operating Systems</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

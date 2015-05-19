@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>rpm -e and Config files</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Erase Packages"
+HREF="ch-rpm-erase.html"><LINK
+REL="PREVIOUS"
+TITLE="Additional Options"
+HREF="s1-rpm-erase-additional-options.html"><LINK
+REL="NEXT"
+TITLE="Watch Out!"
+HREF="s1-rpm-erase-watch-out.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-erase-additional-options.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. Using RPM to Erase Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-erase-watch-out.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-ERASE-AND-CONFIG-FILES"
+><B
+CLASS="COMMAND"
+>rpm -e</B
+> and Config files</A
+></H1
+><P
+>        If you've made changes to a configuration file that was originally
+        installed by RPM, your changes won't be lost if you erase the package.
+        Say, for example, that we've made changes to
+        <TT
+CLASS="FILENAME"
+>/etc/skel/.bashrc</TT
+> (a config file), which was
+        installed as part of the <TT
+CLASS="FILENAME"
+>etcskel</TT
+> package.  Later,
+        we remove <TT
+CLASS="FILENAME"
+>etcskel</TT
+>:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -e etcskel</B
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        But if we take a look in <TT
+CLASS="FILENAME"
+>/etc/skel</TT
+>, look what's
+        there:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>ls -al</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 5
+drwxr-xr-x   3 root     root         1024 Jun 17 22:01 .
+drwxr-xr-x   8 root     root         2048 Jun 17 19:01 ..
+-rw-r--r--   1 root     root          152 Jun 17 21:54 <KBD
+CLASS="USERINPUT"
+>.bashrc.rpmsave</KBD
+>
+drwxr-xr-x   2 root     root         1024 May 13 13:18 .xfm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Sure enough: <TT
+CLASS="FILENAME"
+>.bashrc.rpmsave</TT
+> is a copy of your
+        modified <TT
+CLASS="FILENAME"
+>.bashrc</TT
+> file!  Remember, however, that
+        this feature only works with config files.  Not sure how to determine
+        which files RPM thinks are config files?  <A
+HREF="ch-rpm-query.html"
+>Chapter 5</A
+>
+        will show you how.
+      </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-erase-additional-options.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-erase-watch-out.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Additional Options</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-erase.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Watch Out!</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

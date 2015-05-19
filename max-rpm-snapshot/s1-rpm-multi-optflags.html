@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>        optflags &#8212; The Other rpmrc
+        File Entry
+      </TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      Building Packages for Multiple Architectures and Operating Systems
+    "
+HREF="ch-rpm-multi.html"><LINK
+REL="PREVIOUS"
+TITLE="Build and Install Platform Detection"
+HREF="s1-rpm-multi-build-install-detection.html"><LINK
+REL="NEXT"
+TITLE="Platform-Dependent Tags"
+HREF="s1-rpm-multi-platform-dependent-tags.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-multi-build-install-detection.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 19. Building Packages for Multiple Architectures and Operating Systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-multi-platform-dependent-tags.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-MULTI-OPTFLAGS"
+><B
+CLASS="COMMAND"
+>optflags</B
+> &#8212; The Other <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>
+        File Entry</A
+></H1
+><P
+>        While the <B
+CLASS="COMMAND"
+>optflags</B
+> entry doesn't play a part in
+        determining the build or install platform, it <I
+CLASS="EMPHASIS"
+>does</I
+>
+        play a role in multi-platform package building.  The
+        <B
+CLASS="COMMAND"
+>optflags</B
+> entry is used to define a standard set of
+        options that can be used during the build process, specifically during
+        compilation.
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>optflags</B
+> entry looks like this:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><B
+CLASS="COMMAND"
+>optflags: <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;architecture&#62;</I
+></TT
+> <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;value&#62;</I
+></TT
+></B
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        For example, assume the following <B
+CLASS="COMMAND"
+>optflags</B
+> entries
+        were placed in an <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>optflags: i386 -O2 -m486 -fno-strength-reduce
+optflags: sparc -O2</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        If RPM was running on an Intel 80386-compatible architecture, the
+        <B
+CLASS="COMMAND"
+>optflags</B
+> value would be set to <B
+CLASS="COMMAND"
+>-O2 -m486
+        -fno-strength-reduce</B
+>.  If, however, RPM was running on a Sun
+        SPARC-based system, <B
+CLASS="COMMAND"
+>optflags</B
+> would be set to
+        <B
+CLASS="COMMAND"
+>-O2</B
+>.
+      </P
+><P
+>        This entry sets the <CODE
+CLASS="ENVAR"
+>RPM_OPT_FLAGS</CODE
+> environment variable,
+        which can be used in the <B
+CLASS="COMMAND"
+>%prep</B
+>,
+        <B
+CLASS="COMMAND"
+>%build</B
+>, and <B
+CLASS="COMMAND"
+>%install</B
+> scripts.
+      </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-multi-build-install-detection.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-multi-platform-dependent-tags.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Build and Install Platform Detection</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-multi.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Platform-Dependent Tags</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

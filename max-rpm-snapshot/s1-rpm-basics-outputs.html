@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>The Outputs</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The Basics of Developing With RPM"
+HREF="ch-rpm-basics.html"><LINK
+REL="PREVIOUS"
+TITLE="The Engine: RPM"
+HREF="s1-rpm-basics-the-engine.html"><LINK
+REL="NEXT"
+TITLE="And Now&#8230;"
+HREF="s1-rpm-basics-and-now.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-basics-the-engine.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 10. The Basics of Developing With RPM</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-basics-and-now.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-BASICS-OUTPUTS"
+>The Outputs</A
+></H1
+><P
+>        The end product of this entire process is a source package file and a
+        binary package file.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-BASICS-SOURCE-PACKAGE-FILE"
+>The Source Package File</A
+></H2
+><P
+>          The source package file is a specially formatted archive that contains
+          the following files:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The original compressed <B
+CLASS="COMMAND"
+>tar</B
+> file(s).
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The spec file.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The patches.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          Since the source package contains everything needed to create the
+          binary package, the source package, <I
+CLASS="EMPHASIS"
+>and</I
+> provide
+          the original sources, it's a great way to distribute source code.  As
+          mentioned earlier, it's also a great way to archive all the
+          information needed to rebuild a particular version of the package.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-BASICS-BINARY-PACKAGE"
+>The Binary RPM</A
+></H2
+><P
+>          The binary package file is the one part of the entire RPM building
+          process that is most visible to the user.  It contains the files that
+          comprise the application, along with any additional information needed
+          to install and erase it.  The binary package file is where the "rubber
+          hits the road."
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-basics-the-engine.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-basics-and-now.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The Engine: RPM</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-basics.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>And Now&#8230;</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

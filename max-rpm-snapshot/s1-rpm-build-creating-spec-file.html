@@ -1,0 +1,1169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Creating the Spec File</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Building Packages: A Simple Example"
+HREF="ch-rpm-build.html"><LINK
+REL="PREVIOUS"
+TITLE="Getting the Sources"
+HREF="s1-rpm-build-getting-sources.html"><LINK
+REL="NEXT"
+TITLE="Starting the Build"
+HREF="s1-rpm-build-starting-build.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-build-getting-sources.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 11. Building Packages: A Simple Example</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-build-starting-build.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-BUILD-CREATING-SPEC-FILE"
+>Creating the Spec File</A
+></H1
+><P
+>        The way we direct RPM in the build process is to create a spec file.  As
+        we saw in the previous chapter, the spec file contains eight different
+        sections, most of which are required.  Let's go through each section and
+        create <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>'s spec file as we go.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-BUILD-SPEC-FILE-PREAMBLE"
+>The Preamble</A
+></H2
+><P
+>          The preamble contains a wealth of information about the package being
+          built, and the people that built it.  Here's
+          <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>'s preamble:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#
+# Example spec file for cdplayer app...
+#
+Summary: A CD player app that rocks!
+Name: cdplayer
+Version: 1.0
+Release: 1
+License: GPL
+Group: Applications/Sound
+Source: ftp://ftp.gnomovision.com/pub/cdplayer/cdplayer-1.0.tgz
+URL: http://www.gnomovision.com/cdplayer/cdplayer.html
+Distribution: WSS Linux
+Vendor: White Socks Software, Inc.
+Packager: Santa Claus &#60;sclaus@northpole.com&#62;
+
+%description
+It slices!  It dices!  It's a CD player app that
+can't be beat.  By using the resonant frequency
+of the CD itself, it is able to simulate 20X
+oversampling.  This leads to sound quality that
+cannot be equaled with more mundane software...</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In general, the preamble consists of entries, one per line, that start
+          with a <I
+CLASS="FIRSTTERM"
+>tag</I
+> followed by a colon, and then some
+          information.  For example, the line starting with
+          "<B
+CLASS="COMMAND"
+>Summary:</B
+>" gives a short description of the
+          packaged software that can be displayed by RPM.  The order of the
+          lines is not important, as long as they appear in the preamble.
+        </P
+><P
+>          Let's take a look at each line and see what function it performs:
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-PREAMBLE-NAME"
+>Name</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>name</B
+> line defines what the package will
+            actually be called.  In general, it's a good idea to use the name of
+            the software.  The name will also be included in the package label,
+            and the package filename.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-PREAMBLE-VERSION"
+>Version</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>version</B
+> line should be set to the version of
+            the software being packaged.  The version will also be included in
+            the package label, and the package filename.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-PREAMBLE-RELEASE"
+>Release</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>release</B
+> is a number that is used to represent
+            the number of times the software, at the present version, has been
+            packaged.  You can think of it as the package's version number.  The
+            release is also part of the package label and package filename.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-PREAMBLE-LICENSE"
+>License</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>license</B
+> line is used to hold the packaged
+            software's license information.  This makes it easy to determine
+            which packages can be freely redistributed, and which cannot.  In
+            our case, <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+> is made available
+            under the terms of the GNU General Public License, so we've put
+            <KBD
+CLASS="USERINPUT"
+>GPL</KBD
+> on the line.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-PREAMBLE-GROUP"
+>Group</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>group</B
+> line is used to hold a string that
+            defines how the packaged software should be grouped with other
+            packages.  The string consists of a series of words separated by
+            slashes.  From left to right, the words describe the packaged
+            software more explicitly.  We grouped <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>
+            under <TT
+CLASS="FILENAME"
+>Applications</TT
+>, because it is an
+            application, and then under <TT
+CLASS="FILENAME"
+>Sound</TT
+>, since it is
+            an application that is sound-related.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-PREAMBLE-SOURCE"
+>Source</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>source</B
+> line serves two purposes:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  To document where the packaged software's sources can be found.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  To give the name of the source file as it exists in the
+                  <TT
+CLASS="FILENAME"
+>SOURCES</TT
+> subdirectory.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            In our example, the <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+> sources are
+            contained in the file <TT
+CLASS="FILENAME"
+>cdplayer-1.0.tgz</TT
+>, which
+            is available from <TT
+CLASS="FILENAME"
+>ftp.gnomovision.com</TT
+>, in the
+            directory <TT
+CLASS="FILENAME"
+>/pub/cdplayer</TT
+>.  RPM actually ignores
+            everything prior to the last filename in the source line, so the
+            first part of the source string could be anything you'd like.
+            Traditionally, the <B
+CLASS="COMMAND"
+>source</B
+> line usually contains a
+            Uniform Resource Locator, or URL.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-PREAMBLE-URL"
+>URL</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>URL</B
+> line is used to contain a URL, like the
+            <B
+CLASS="COMMAND"
+>source</B
+> line.  How are they different?  While the
+            <B
+CLASS="COMMAND"
+>source</B
+> line is used to provide the source
+            filename to RPM, the <B
+CLASS="COMMAND"
+>URL</B
+> line points to
+            <I
+CLASS="EMPHASIS"
+>documentation</I
+> for the software being packaged.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-PREAMBLE-DISTRIBUTION"
+>Distribution</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>distribution</B
+> line contains the name of the
+            product which the packaged software is a part of.  In the Linux
+            world, the operating system is often packaged together into a
+            "distribution", hence the name.  Since we're using a fictional
+            application in this example, we've filled in the distribution line
+            with the name of a fictional distribution.  There's no requirement
+            that the spec file contain a <B
+CLASS="COMMAND"
+>distribution</B
+> line,
+            so individuals will probably omit this.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-PREAMBLE-VENDOR"
+>Vendor</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>vendor</B
+> line identifies the organization that
+            distributes the software.  Maintaining our fictional motif, we've
+            invented fictional company, White Socks Software, to add to our spec
+            file.  Individuals will probably omit this as well.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-PREAMBLE-PACKAGER"
+>Packager</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>packager</B
+> line is used to identify the
+            organization that actually <I
+CLASS="EMPHASIS"
+>packaged</I
+> the
+            software, as opposed to the author of the software.  In our example,
+            we've chosen the greatest packager of them all, Santa Claus, to work
+            at White Socks Software.  Note that we've included contact
+            information, in the form of an e-mail address.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-PREAMBLE-DESCRIPTION"
+>Description</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>description</B
+> line is a bit different, in that
+            it starts with a percent sign.  It is also different because the
+            information can take up more than one line.  It is used to provide a
+            more detailed description of the packaged software than the
+            <B
+CLASS="COMMAND"
+>summary</B
+> line.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-PREAMBLE-COMMENTS"
+>A Comment on Comments</A
+></H3
+><P
+>            At the top of the spec file, there are three lines, each starting
+            with a pound sign.  These are comments and can be sprinkled
+            throughout the spec file to make it more easily understood.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-BUILD-PREP-SECTION"
+>The <B
+CLASS="COMMAND"
+>%prep</B
+> Section</A
+></H2
+><P
+>          With the preamble, we provided a wealth of information.  The majority
+          of this information is meant for human consumption.  Only the
+          <B
+CLASS="COMMAND"
+>name</B
+>, <B
+CLASS="COMMAND"
+>version</B
+>,
+          <B
+CLASS="COMMAND"
+>release</B
+>, and <B
+CLASS="COMMAND"
+>source</B
+> lines have a
+          direct bearing on the package building process.  However, in the
+          <B
+CLASS="COMMAND"
+>%prep</B
+> section, the focus is entirely on directing
+          RPM through the process of preparing the software for building.
+        </P
+><P
+>          It is in the <B
+CLASS="COMMAND"
+>%prep</B
+> section that the build
+          environment for the software is created, starting with removing the
+          remnants of any previous builds.  Following this, the source archive
+          is expanded.  Here is what the <B
+CLASS="COMMAND"
+>%prep</B
+> section looks
+          like in our example spec file:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%prep
+rm -rf $RPM_BUILD_DIR/cdplayer-1.0
+zcat $RPM_SOURCE_DIR/cdplayer-1.0.tgz | tar -xvf -</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          If the <B
+CLASS="COMMAND"
+>%prep</B
+> section looks like a script, that's
+          because it is.  Any <B
+CLASS="COMMAND"
+>sh</B
+> constructs can be used here,
+          including expansion of environment variables (Like the
+          <CODE
+CLASS="ENVAR"
+>$RPM_BUILD_DIR</CODE
+> variable defined by RPM), and piping the
+          output of <B
+CLASS="COMMAND"
+>zcat</B
+> through <B
+CLASS="COMMAND"
+>tar</B
+>.
+          <A
+NAME="AEN5679"
+HREF="#FTN.AEN5679"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        </P
+><P
+>          In this case, we perform a recursive delete in the build directory to
+          remove any old builds.  We then uncompress the gzipped
+          <B
+CLASS="COMMAND"
+>tar</B
+> file, and extract its contents into the build
+          directory.
+        </P
+><P
+>          Quite often, the sources may require patching in order to build
+          properly.  The <B
+CLASS="COMMAND"
+>%prep</B
+> section is the appropriate
+          place to patch the sources, but in this example, no patching is
+          required.  Fear not, however, as we'll explore patching in all its
+          glory in <A
+HREF="ch-rpm-rw-build.html"
+>Chapter 20</A
+>, when we build a more
+          complex package.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-MACROS"
+>Making Life Easier With Macros</A
+></H3
+><P
+>            While the <B
+CLASS="COMMAND"
+>%prep</B
+> section as we've described it
+            isn't <I
+CLASS="EMPHASIS"
+>that</I
+> difficult to understand, RPM
+            provides macros to make life even easier.  In this simple example,
+            there's precious little that can be made easier, but macros will
+            prevent a wealth of headaches when it's time to build more complex
+            packages.  The macro we'll introduce here is the
+            <B
+CLASS="COMMAND"
+>%setup</B
+> macro.
+          </P
+><P
+>            The average gzipped <B
+CLASS="COMMAND"
+>tar</B
+> file is
+            <B
+CLASS="COMMAND"
+>%setup</B
+>'s stock in trade.  Like the hand-crafted
+            <B
+CLASS="COMMAND"
+>%prep</B
+> section we described above, it cleans up
+            old build trees and then uncompresses and extracts the files from
+            the original source.  While <B
+CLASS="COMMAND"
+>%setup</B
+> has a number
+            of options that we'll cover in later chapters, for now all we need
+            for a <B
+CLASS="COMMAND"
+>%prep</B
+> section is:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%prep
+%setup</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            That is simpler than our <B
+CLASS="COMMAND"
+>%prep</B
+> section, so let's
+            use the <B
+CLASS="COMMAND"
+>%setup</B
+> macro instead.  The
+            <B
+CLASS="COMMAND"
+>%setup</B
+> macro has a number of options to handle
+            many different situations.  For more information on this and other
+            macros, please see <A
+HREF="s1-rpm-inside-macros.html"
+>the Section called <I
+>Macros: Helpful Shorthand for Package Builders</I
+> in Chapter 13</A
+>.
+          </P
+><P
+>            In our example here, the <B
+CLASS="COMMAND"
+>%prep</B
+> section is
+            complete.  Next comes the actual build.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-BUILD-BUILD-SECTION"
+>The <B
+CLASS="COMMAND"
+>%build</B
+> Section</A
+></H2
+><P
+>          Not surprisingly, the part of the spec file that is responsible for
+          performing the build, is the <B
+CLASS="COMMAND"
+>%build</B
+> section.  Like
+          the <B
+CLASS="COMMAND"
+>%prep</B
+> section, the <B
+CLASS="COMMAND"
+>%build</B
+>
+          section is an ordinary <B
+CLASS="COMMAND"
+>sh</B
+> script.  Unlike the
+          <B
+CLASS="COMMAND"
+>%prep</B
+> section, there are no macros.  The reason for
+          this is that the process of building software is either going to be
+          very easy, or highly complicated. In either case, macros won't help
+          much.  In our example, the build process is simple:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%build
+make </SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Thanks to the <B
+CLASS="COMMAND"
+>make</B
+> utility, only one command is
+          necessary to build the <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+> application.  In
+          the case of an application with more esoteric build requirements, the
+          <B
+CLASS="COMMAND"
+>%build</B
+> section could get a bit more interesting.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-BUILD-INSTALL-SECTION"
+>The <B
+CLASS="COMMAND"
+>%install</B
+> Section</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>%install</B
+> section is executed as a
+          <B
+CLASS="COMMAND"
+>sh</B
+> script, just like <B
+CLASS="COMMAND"
+>%prep</B
+> and
+          <B
+CLASS="COMMAND"
+>%build</B
+>.  If the application is built with
+          <B
+CLASS="COMMAND"
+>make</B
+> and has an "install" target, the
+          <B
+CLASS="COMMAND"
+>%install</B
+> section will also be straightforward.  The
+          <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+> application is a good example of this:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%install
+make install</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          If the application doesn't have a means of automatically installing
+          itself, it will be necessary to create a script to do so, and place it
+          in the <B
+CLASS="COMMAND"
+>%install</B
+> section.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-BUILD-FILES-SECTION"
+>The <B
+CLASS="COMMAND"
+>%files</B
+> Section</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>%files</B
+> section is different from the others, in
+          that it contains a list of the files that are part of the package.
+          Always remember &#8212; if it isn't in the file list, it won't be put
+          in the package!
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files
+%doc README
+/usr/local/bin/cdp
+/usr/local/bin/cdplay
+/usr/local/man/man1/cdp.1</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The line starting with <B
+CLASS="COMMAND"
+>%doc</B
+> is an example of RPM's
+          handling of different file types.  As you might guess,
+          <B
+CLASS="COMMAND"
+>%doc</B
+> stands for documentation.  The
+          <B
+CLASS="COMMAND"
+>%doc</B
+> directive is used to mark files as being
+          documentation.  In the example above, the <TT
+CLASS="FILENAME"
+>README</TT
+>
+          file will be placed in a package-specific directory, located in
+          <TT
+CLASS="FILENAME"
+>/usr/doc</TT
+>, and called
+          <TT
+CLASS="FILENAME"
+>cdplayer-1.0-1</TT
+>.  It's also possible to mark files
+          as documentation and have them installed in other directories.  This
+          is covered in more detail in <A
+HREF="s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-FLIST-DOC-DIRECTIVE"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%doc</B
+> Directive</I
+> in Chapter 13</A
+>.
+        </P
+><P
+>          The rest of the files in the example are shown with complete paths.
+          This is necessary as the files will actually be installed in those
+          directories by the application's makefile.  Since RPM needs to be able
+          to find the files prior to packaging them, complete paths are
+          required.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-CREATING-FILES-LIST"
+>How Do You Create the File List?</A
+></H3
+><P
+>            Since RPM automates so many aspects of software installation, it's
+            easy to fall into the trap of assuming that RPM does
+            <I
+CLASS="EMPHASIS"
+>everything</I
+> for you.  Not so!  One task that is
+            still a manual process is creating the file list.  While it may seem
+            at first glance, that it could be automated somehow, it's actually a
+            more difficult problem than it seems.
+          </P
+><P
+>            Since the majority of an application's files are installed by its
+            makefile, RPM has no control over that part of the build process,
+            and therefore, cannot automatically determine which files should be
+            part of the package.  Some people have attempted to use a modified
+            version of <B
+CLASS="COMMAND"
+>install</B
+> that logs the name of every
+            file it installs.  But not every makefile uses
+            <B
+CLASS="COMMAND"
+>install</B
+>, or if it does, uses it sporadically.
+          </P
+><P
+>            Another approach tried was to obtain a list of every file on the
+            build system, immediately before and after a build, and use the
+            differences as the file list.  While this approach will certainly
+            find every file that the application installed, it can also pick up
+            extraneous files, such as system logs, files in
+            <TT
+CLASS="FILENAME"
+>/tmp</TT
+>, and the like.  The only way to begin to
+            make this approach workable would be to do nothing else on the build
+            system, which is highly inconvenient.  This approach also precludes
+            building more than one package on the system at any given time.
+          </P
+><P
+>            At present, the best way to create the file list is to read the
+            makefile to see what files it installs, verify this against the
+            files installed on the build system, and create the list.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-BUILD-MISSING-SECTIONS"
+>The Missing Spec File Sections</A
+></H2
+><P
+>          Since our example spec file is somewhat simplistic, it's missing two
+          sections that might be used in more complex situations.  We'll go over
+          each one briefly here.  More complete information on these sections
+          will be covered at various points in the book.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-INSTALL-UNINSTALL-SCRIPTS"
+>The Install/Uninstall Scripts</A
+></H3
+><P
+>            One missing section to our spec file is the section that would
+            define one or more of four possible scripts.  The scripts are
+            executed at various times when a package is installed or erased.
+          </P
+><P
+>            The scripts can be executed:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Before a package is installed.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  After a package is installed.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Before a package is erased.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  After a package is erased.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            We'll see how these scripts are used in <A
+HREF="ch-rpm-rw-build.html"
+>Chapter 20</A
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-BUILD-CLEAN-SECTION"
+>The <B
+CLASS="COMMAND"
+>%clean</B
+> Section</A
+></H3
+><P
+>            The other missing section has the rather descriptive title of
+            <B
+CLASS="COMMAND"
+>%clean</B
+>.  This section can be used to clean up any
+            files that are not part of the application's normal build area.  For
+            example, if the application creates a directory structure in
+            <TT
+CLASS="FILENAME"
+>/tmp</TT
+> as part of its build, it will not be
+            removed.  By adding a <B
+CLASS="COMMAND"
+>sh</B
+> script to the
+            <B
+CLASS="COMMAND"
+>%clean</B
+> section, such situations can be handled
+            gracefully, right after the binary package is created.
+          </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN5679"
+HREF="s1-rpm-build-creating-spec-file.html#AEN5679"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              For more information on the environment variables used in the
+              build-time scripts, please refer to <A
+HREF="s1-rpm-inside-scripts.html#S2-RPM-INSIDE-BUILD-TIME-SCRIPTS"
+>the Section called <I
+>Build-time Scripts</I
+> in Chapter 13</A
+>.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-build-getting-sources.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-build-starting-build.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Getting the Sources</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-build.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Starting the Build</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

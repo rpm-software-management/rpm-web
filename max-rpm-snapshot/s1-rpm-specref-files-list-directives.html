@@ -1,0 +1,702 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Directives For the %files list</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Concise Spec File Reference"
+HREF="ch-rpm-specref.html"><LINK
+REL="PREVIOUS"
+TITLE="The %files List"
+HREF="s1-rpm-specref-files-list.html"><LINK
+REL="NEXT"
+TITLE="%package Directive"
+HREF="s1-rpm-specref-package.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-specref-files-list.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix E. Concise Spec File Reference</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-specref-package.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-SPECREF-FILES-LIST-DIRECTIVES"
+>Directives For the <B
+CLASS="COMMAND"
+>%files</B
+> list</A
+></H1
+><P
+>      This section lists the various directives used in the
+      <B
+CLASS="COMMAND"
+>%files</B
+> lists.
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-FILE-RELATED-DIRECTIVES"
+>File-related Directives</A
+></H2
+><P
+>        This section lists those directives that are related to files.
+      </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-DOC"
+>The <B
+CLASS="COMMAND"
+>%doc</B
+> Directive</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%doc</B
+> directive flags the filename(s) that
+          follow as being documentation.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%doc README</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-FLIST-DOC-DIRECTIVE"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%doc</B
+> Directive</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-CONFIG"
+>The <B
+CLASS="COMMAND"
+>%config</B
+> Directive</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%config</B
+> directive is used to flag the specified
+          file as being a configuration file.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%config /etc/fstab</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-FLIST-CONFIG-DIRECTIVE"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%config</B
+> Directive</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-ATTR"
+>The <B
+CLASS="COMMAND"
+>%attr</B
+> Directive</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%attr</B
+> directive is used to permit RPM to
+          directly control a file's permissions and ownership.  It is normally
+          used when non-root users build packages.  The <B
+CLASS="COMMAND"
+>%attr</B
+>
+          directive has the following format:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%attr(<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;mode&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;user&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+>) <TT
+CLASS="REPLACEABLE"
+><I
+>file</I
+></TT
+></SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The user and group identifiers must be non-numeric.  Attributes that
+          do not need to be set by <B
+CLASS="COMMAND"
+>%attr</B
+> may be replaced with
+          a dash:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%attr(755, root, -) foo.bar</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-FLIST-ATTR-DIRECTIVE"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%attr</B
+> Directive</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-DEFATTR"
+>The <B
+CLASS="COMMAND"
+>%attr</B
+> Directive</A
+></H3
+><P
+>	  The <B
+CLASS="COMMAND"
+>%defattr</B
+> sets default
+	  <B
+CLASS="COMMAND"
+>%attr</B
+> for RPM.
+	</P
+><P
+>&#13;	  The <B
+CLASS="COMMAND"
+>%defattr</B
+>
+          directive has the following format:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%attr(<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file mode&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;user&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;dir mode&#62;</I
+></TT
+>)</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The user and group identifiers must be non-numeric.
+          Attributes that do not need to be set by
+          <B
+CLASS="COMMAND"
+>%defattr</B
+> may be replaced with a
+          dash. Directory mode may be ommited:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%defattr(644, root, root, -)</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-FLIST-DEFATTR-DIRECTIVE"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%defattr</B
+> Directive</I
+> in Chapter 13</A
+>.
+       </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-VERIFY"
+>The <B
+CLASS="COMMAND"
+>%verify</B
+> Directive</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%verify</B
+> directive is used to control which of
+          nine different file attributes are to be verified by RPM.  The
+          attributes are:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                <B
+CLASS="COMMAND"
+>owner</B
+> &#8212; The file's owner.
+              </P
+></LI
+><LI
+><P
+>                <B
+CLASS="COMMAND"
+>group</B
+> &#8212; The file's group.
+              </P
+></LI
+><LI
+><P
+>                <B
+CLASS="COMMAND"
+>mode</B
+> &#8212; The file's mode.
+              </P
+></LI
+><LI
+><P
+>                <B
+CLASS="COMMAND"
+>md5</B
+> &#8212; The file's MD5 checksum.
+              </P
+></LI
+><LI
+><P
+>                <B
+CLASS="COMMAND"
+>size</B
+> &#8212; The file's size.
+              </P
+></LI
+><LI
+><P
+>                <B
+CLASS="COMMAND"
+>maj</B
+> &#8212; The file's major number.
+              </P
+></LI
+><LI
+><P
+>                <B
+CLASS="COMMAND"
+>min</B
+> &#8212; The file's minor number.
+              </P
+></LI
+><LI
+><P
+>                <B
+CLASS="COMMAND"
+>symlink</B
+> &#8212; The file's symbolic link
+                string.
+              </P
+></LI
+><LI
+><P
+>                <B
+CLASS="COMMAND"
+>mtime</B
+> &#8212; The file's modification time.
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          If the keyword <B
+CLASS="COMMAND"
+>not</B
+> precedes the list, every
+          attribute <I
+CLASS="EMPHASIS"
+>except</I
+> those listed will be verified.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%verify(mode md5 size maj min symlink mtime) /dev/ttyS0</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-FLIST-VERIFY-DIRECTIVE"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%verify</B
+> Directive</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-DIRECTORY-RELATED-DIRECTIVES"
+>Directory-related Directives</A
+></H2
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-DOCDIR"
+>The <B
+CLASS="COMMAND"
+>%docdir</B
+> Directive</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%docdir</B
+> directive is used to add the specified
+          directory to RPM's internal list of directories containing
+          documentation.  When a directory is added to this list, every file
+          packaged in this directory (and any subdirectories) will automatically
+          be marked as documentation.
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-DOCDIR-DIRECTIVE"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%docdir</B
+> Directive</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-DIR"
+>The <B
+CLASS="COMMAND"
+>%dir</B
+> Directive</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%dir</B
+> directive is used to direct RPM to package
+          only the directory itself, regardless of what files may reside in the
+          directory at the time the package is created.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%dir /usr/blather</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-DIR-DIRECTIVE"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%dir</B
+> Directive</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-specref-files-list.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-specref-package.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The <B
+CLASS="COMMAND"
+>%files</B
+> List</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-specref.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><B
+CLASS="COMMAND"
+>%package</B
+> Directive</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,516 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>What's in a package?</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="An Introduction to Package Management"
+HREF="ch-intro-to-rpm.html"><LINK
+REL="PREVIOUS"
+TITLE="RPM Design Goals"
+HREF="s1-intro-to-rpm-rpm-design-goals.html"><LINK
+REL="NEXT"
+TITLE="Let's Get Started"
+HREF="s1-intro-to-rpm-lets-get-started.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-intro-to-rpm-rpm-design-goals.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 1. An Introduction to Package Management</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-intro-to-rpm-lets-get-started.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-INTRO-TO-RPM-WHATS-IN-PACKAGE"
+>What's in a package?</A
+></H1
+><P
+>        With all the magical things we've claimed that package management
+        software in general (and RPM in particular) can do, you'd think there
+        was a tiny computer guru bundled in every package.  However, the reality
+        is not that magical.  Here's a quick overview of the more important
+        parts of an RPM package
+        <A
+NAME="AEN376"
+HREF="#FTN.AEN376"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        .
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-INTRO-TO-RPM-PACKAGE-LABELS"
+>RPM's Package Labels</A
+></H2
+><P
+>          Every package built for RPM has to have a specific set of information
+          that uniquely identifies it.  We call this information a package
+          label.  Here are two sample package labels:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <TT
+CLASS="FILENAME"
+>nls-1.0-1</TT
+>
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <TT
+CLASS="FILENAME"
+>perl-5.001m-4</TT
+>
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          While these labels look like they have very little in common, in fact
+          they all follow RPM's package labeling convention.  There are three
+          different components in every package label.  Let's look at each one
+          in order:
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-INTRO-TO-RPM-SOFTWARE-NAME"
+>Component #1: The Software's Name</A
+></H3
+><P
+>            Every package label begins with the name of the software.  The name
+            may be derived from the name of the application packaged, or it may
+            be a name describing a group of related programs bundled together by
+            the package builder.  The software names in the packages listed
+            above are: <TT
+CLASS="FILENAME"
+>nls</TT
+> and <TT
+CLASS="FILENAME"
+>perl</TT
+>.
+            As you can see, the software name is separated from the rest of the
+            package label by a dash.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-INTRO-TO-RPM-SOFTWARE-VERSION"
+>Component #2: The Software's Version</A
+></H3
+><P
+>            Next in the package label is an identifier that describes the
+            version of the software being packaged.  If the package builder
+            bundled a number of related programs together, the software version
+            is probably a number of their own choosing.  However, if the package
+            consists of one major application, the software version normally
+            comes directly from the application's developer.  The actual version
+            specification is quite flexible, as can be seen in the examples
+            above.  The versions shown are: <TT
+CLASS="FILENAME"
+>1.0</TT
+> and
+            <TT
+CLASS="FILENAME"
+>5.001m</TT
+>.  A dash separates the software version
+            from the remainder of the package label.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-INTRO-TO-RPM-PACKAGE-RELEASE"
+>Component #3: The Package's Release</A
+></H3
+><P
+>            The package release is the most unambiguous part of a package label.
+            It is a number chosen by the package builder.  It reflects the
+            number of times the package has been rebuilt using the same version
+            software.  Normally, the rebuilds are due to bugs uncovered after
+            the package has been in use for a while.  By tradition, the package
+            release starts at <TT
+CLASS="FILENAME"
+>1</TT
+>.  The package releases in
+            the example above are: <TT
+CLASS="FILENAME"
+>1</TT
+> and
+            <TT
+CLASS="FILENAME"
+>4</TT
+>.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-INTRO-TO-RPM-LABELS-NAMES"
+>Labels And Names: Similar, But Distinct</A
+></H2
+><P
+>          Package labels are used internally by RPM.  For example, if you ask
+          RPM to list every installed package, it will respond with a list of
+          package labels.  When a package file is created, part of the filename
+          consists of the package label.  There is no technical requirement for
+          this, but it does make it easier to keep track of things.
+        </P
+><P
+>          However, a package file may be renamed, and the new filename won't
+          confuse RPM in the least.  That's because the package label is
+          contained within the file.  For a fairly technical view of the inside
+          of a package file, refer to <A
+HREF="ch-rpm-file-format.html"
+>Appendix A</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-INTRO-TO-RPM-PACKAGE-WIDE-INFORMATION"
+>Package-wide Information</A
+></H2
+><P
+>          Some of the information contained in a package is general in nature.
+          This information includes such items as:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The date and time the package was built.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                A description of the package's contents.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The total size of all the files installed by the package.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Information that allows the package to be grouped with similar
+                packages.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                A digital "signature" that can be used to verify the
+                authenticity and integrity of the package.
+                <A
+NAME="AEN434"
+HREF="#FTN.AEN434"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+              </P
+></LI
+></UL
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-INTRO-TO-RPM-PER-FILE-INFORMATION"
+>Per-file Information</A
+></H2
+><P
+>          Each package also contains information about every file contained in
+          the package.  The information includes:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The name of every file and where it is to be installed.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Each file's permissions.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Each file's owner and group specifications.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The MD5 checksum of each file.
+                <A
+NAME="AEN452"
+HREF="#FTN.AEN452"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The file's contents.
+              </P
+></LI
+></UL
+>
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN376"
+HREF="s1-intro-to-rpm-whats-in-package.html#AEN376"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>            See <A
+HREF="ch-rpm-file-format.html"
+>Appendix A</A
+> for complete
+            details on the contents of a .rpm file.
+          </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN434"
+HREF="s1-intro-to-rpm-whats-in-package.html#AEN434"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                    For more information on RPM's signature checking capability,
+                    refer to <A
+HREF="ch-rpm-checksig.html#S1-RPM-CHECKSIG-WHAT-IT-DOES"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>rpm -K</B
+> &#8212; What Does it Do?</I
+> in Chapter 7</A
+>.
+                  </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN452"
+HREF="s1-intro-to-rpm-whats-in-package.html#AEN452"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                    We'll discuss MD5 checksums in greater detail in <A
+HREF="ch-rpm-verify.html#S3-RPM-VERIFY-MD5-CHECKSUM"
+>the Section called <I
+>MD5 Checksum</I
+> in Chapter 6</A
+>.
+                  </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-intro-to-rpm-rpm-design-goals.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-intro-to-rpm-lets-get-started.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>RPM Design Goals</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-intro-to-rpm.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Let's Get Started</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

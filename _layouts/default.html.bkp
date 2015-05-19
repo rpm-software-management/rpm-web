@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Rpm : ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ baseurl }}/stylesheets/stylesheet.css">
+
+    <title>{{ page.title }}</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/lkardos/rpm">View on GitHub</a>
+
+          <h1 id="project_title">Rpm</h1>
+          <h2 id="project_tagline"></h2>
+        <div id="menu">
+           <ul id="nav">
+              <li><a href="{{ baseurl }}/index.html">Home</a></li>
+              <li><a href="{{ baseurl }}/documentation.html">Docs</a></li>
+              <li><a href="{{ baseurl }}/source.html">Download</a></li>
+              <li><a href="{{ baseurl }}/help.html">Getting help</a></li>
+              <li><a href="{{ baseurl }}/contribute.html">Contribute</a></li>
+              <li><a href="{{ baseurl }}/software.html">Related Software</a></li>
+           </ul>
+        </div>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+      {{ content }}
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Rpm maintained by <a href="https://github.com/lkardos">lkardos</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

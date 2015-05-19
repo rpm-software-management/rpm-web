@@ -1,0 +1,4161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>rpm</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="RPM Man Pages"
+HREF="p18926.html"><LINK
+REL="PREVIOUS"
+TITLE="RPM Man Pages"
+HREF="p18926.html"><LINK
+REL="NEXT"
+TITLE="rpmbuild"
+HREF="rpmbuild.8.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="p18926.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="rpmbuild.8.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="RPM.8"
+></A
+>rpm</H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN18933"
+></A
+><H2
+>Name</H2
+><B
+CLASS="COMMAND"
+>rpm</B
+>&nbsp;--&nbsp;RPM Package Manager</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN18937"
+></A
+><H2
+>Synopsis</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18938"
+></A
+><H3
+>Querying and Verifying Packages:</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-q|--query</CODE
+>} [<I
+><A
+HREF="rpm.8.html#SELECT-OPTIONS"
+>(1)</A
+>	    select-options
+	  </I
+>] [<I
+><A
+HREF="rpm.8.html#QUERY-OPTIONS"
+>(1)</A
+>	    query-options
+	  </I
+>]</P
+>
+      </TD
+></TR
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-V|--verify</CODE
+>} [<I
+><A
+HREF="rpm.8.html#SELECT-OPTIONS"
+>(1)</A
+>	    select-options
+	  </I
+>] [<I
+><A
+HREF="rpm.8.html#VERIFY-OPTIONS"
+>(1)</A
+>	    verify-options
+	  </I
+>]</P
+>
+      </TD
+></TR
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>--import</CODE
+>}  <TT
+CLASS="REPLACEABLE"
+><I
+>PUBKEY</I
+></TT
+>... </P
+>
+      </TD
+></TR
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-K|--checksig</CODE
+>} [<CODE
+CLASS="OPTION"
+>--nogpg</CODE
+>] [<CODE
+CLASS="OPTION"
+>--nopgp</CODE
+>] [<CODE
+CLASS="OPTION"
+>--nomd5</CODE
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>... </P
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN18980"
+></A
+><H3
+>Installing, Upgrading, and Removing Packages:</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-i|--install</CODE
+>} [<I
+><A
+HREF="rpm.8.html#INSTALL-OPTIONS"
+>(1)</A
+>	    install-options
+	  </I
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>... </P
+>
+      </TD
+></TR
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-U|--upgrade</CODE
+>} [<I
+><A
+HREF="rpm.8.html#INSTALL-OPTIONS"
+>(1)</A
+>	    install-options
+	  </I
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>... </P
+>
+      </TD
+></TR
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-F|--freshen</CODE
+>} [<I
+><A
+HREF="rpm.8.html#INSTALL-OPTIONS"
+>(1)</A
+>	    install-options
+	  </I
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>... </P
+>
+      </TD
+></TR
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-e|--erase</CODE
+>} [<CODE
+CLASS="OPTION"
+>--allmatches</CODE
+>] [<CODE
+CLASS="OPTION"
+>--nodeps</CODE
+>] [<CODE
+CLASS="OPTION"
+>--noscripts</CODE
+>] [<CODE
+CLASS="OPTION"
+>--notriggers</CODE
+>]<BR> [<CODE
+CLASS="OPTION"
+>--repackage</CODE
+>] [<CODE
+CLASS="OPTION"
+>--test</CODE
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_NAME</I
+></TT
+>... </P
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19031"
+></A
+><H3
+>Miscellaneous:</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>--initdb|--rebuilddb</CODE
+>}</P
+>
+      </TD
+></TR
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>--addsign|--resign</CODE
+>}  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>... </P
+>
+      </TD
+></TR
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>--querytags|--showrc</CODE
+>}</P
+>
+      </TD
+></TR
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>--setperms|--setugids</CODE
+>}  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_NAME</I
+></TT
+>... </P
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19059"
+></A
+><H3
+>select-options</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+></B
+><P
+><A
+NAME="SELECT-OPTIONS"
+>(1)</A
+>&nbsp; <CODE
+CLASS="OPTION"
+><TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_NAME</I
+></TT
+></CODE
+> | <CODE
+CLASS="OPTION"
+>-a,--all</CODE
+><BR> | <CODE
+CLASS="OPTION"
+>-f,--file</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>FILE</I
+></TT
+> | <CODE
+CLASS="OPTION"
+>-g,--group</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>GROUP</I
+></TT
+> | <CODE
+CLASS="OPTION"
+>-p,--package</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+><BR> | <CODE
+CLASS="OPTION"
+>--fileid</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>MD5</I
+></TT
+> | <CODE
+CLASS="OPTION"
+>--hdrid</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>SHA1</I
+></TT
+> | <CODE
+CLASS="OPTION"
+>--pkgid</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>MD5</I
+></TT
+><BR> | <CODE
+CLASS="OPTION"
+>--querybynumber</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>HDRNUM</I
+></TT
+> | <CODE
+CLASS="OPTION"
+>--tid</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>TID</I
+></TT
+> | <CODE
+CLASS="OPTION"
+>--triggeredby</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_NAME</I
+></TT
+><BR> | <CODE
+CLASS="OPTION"
+>--whatprovides</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>CAPABILITY</I
+></TT
+> | <CODE
+CLASS="OPTION"
+>--whatrequires</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>CAPABILITY</I
+></TT
+> </P
+></P
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19110"
+></A
+><H3
+>query-options</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+></B
+><P
+><A
+NAME="QUERY-OPTIONS"
+>(1)</A
+>&nbsp; <CODE
+CLASS="OPTION"
+>--changelog</CODE
+> | <CODE
+CLASS="OPTION"
+>-c,--configfiles</CODE
+> | <CODE
+CLASS="OPTION"
+>-d,--docfiles</CODE
+> | <CODE
+CLASS="OPTION"
+>--dump</CODE
+> | <CODE
+CLASS="OPTION"
+>--filesbypkg</CODE
+><BR> | <CODE
+CLASS="OPTION"
+>-i,--info</CODE
+> | <CODE
+CLASS="OPTION"
+>--last</CODE
+> | <CODE
+CLASS="OPTION"
+>-l,--list</CODE
+> | <CODE
+CLASS="OPTION"
+>--provides</CODE
+> | <CODE
+CLASS="OPTION"
+>--qf,--queryformat</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>QUERYFMT</I
+></TT
+> | <CODE
+CLASS="OPTION"
+>-R,--requires</CODE
+><BR> | <CODE
+CLASS="OPTION"
+>--scripts</CODE
+> | <CODE
+CLASS="OPTION"
+>-s,--state</CODE
+> | <CODE
+CLASS="OPTION"
+>--triggers,--triggerscripts</CODE
+> </P
+></P
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19150"
+></A
+><H3
+>verify-options</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+></B
+><P
+><A
+NAME="VERIFY-OPTIONS"
+>(1)</A
+>&nbsp; <CODE
+CLASS="OPTION"
+>--nodeps</CODE
+> | <CODE
+CLASS="OPTION"
+>--nofiles</CODE
+> | <CODE
+CLASS="OPTION"
+>--noscripts</CODE
+><BR> | <CODE
+CLASS="OPTION"
+>--nodigest</CODE
+> | <CODE
+CLASS="OPTION"
+>--nosignature</CODE
+><BR> | <CODE
+CLASS="OPTION"
+>--nolinkto</CODE
+> | <CODE
+CLASS="OPTION"
+>--nomd5</CODE
+> | <CODE
+CLASS="OPTION"
+>--nosize</CODE
+> | <CODE
+CLASS="OPTION"
+>--nouser</CODE
+><BR> | <CODE
+CLASS="OPTION"
+>--nogroup</CODE
+> | <CODE
+CLASS="OPTION"
+>--nomtime</CODE
+> | <CODE
+CLASS="OPTION"
+>--nomode</CODE
+> | <CODE
+CLASS="OPTION"
+>--nordev</CODE
+> </P
+></P
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19188"
+></A
+><H3
+>install-options</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+></B
+><P
+><A
+NAME="INSTALL-OPTIONS"
+>(1)</A
+>&nbsp; <CODE
+CLASS="OPTION"
+>--aid</CODE
+> | <CODE
+CLASS="OPTION"
+>--allfiles</CODE
+> | <CODE
+CLASS="OPTION"
+>--badreloc</CODE
+> | <CODE
+CLASS="OPTION"
+>--excludepath</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>OLDPATH</I
+></TT
+> | <CODE
+CLASS="OPTION"
+>--excludedocs</CODE
+> | <CODE
+CLASS="OPTION"
+>--force</CODE
+> | <CODE
+CLASS="OPTION"
+>-h,--hash</CODE
+><BR> | <CODE
+CLASS="OPTION"
+>--ignoresize</CODE
+> | <CODE
+CLASS="OPTION"
+>--ignorearch</CODE
+> | <CODE
+CLASS="OPTION"
+>--ignoreos</CODE
+> | <CODE
+CLASS="OPTION"
+>--includedocs</CODE
+> | <CODE
+CLASS="OPTION"
+>--justdb</CODE
+><BR> | <CODE
+CLASS="OPTION"
+>--nodigest</CODE
+> | <CODE
+CLASS="OPTION"
+>--nosignature</CODE
+> | <CODE
+CLASS="OPTION"
+>--nodeps</CODE
+> | <CODE
+CLASS="OPTION"
+>--nosuggest</CODE
+> | <CODE
+CLASS="OPTION"
+>--noorder</CODE
+><BR> | <CODE
+CLASS="OPTION"
+>--noscripts</CODE
+> | <CODE
+CLASS="OPTION"
+>--notriggers</CODE
+><BR> | <CODE
+CLASS="OPTION"
+>--oldpackage</CODE
+> | <CODE
+CLASS="OPTION"
+>--percent</CODE
+> | <CODE
+CLASS="OPTION"
+>--prefix</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>NEWPATH</I
+></TT
+> | <CODE
+CLASS="OPTION"
+>--relocate</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>OLDPATH</I
+></TT
+>=<TT
+CLASS="REPLACEABLE"
+><I
+>NEWPATH</I
+></TT
+><BR> | <CODE
+CLASS="OPTION"
+>--repackage</CODE
+> | <CODE
+CLASS="OPTION"
+>--replacefiles</CODE
+> | <CODE
+CLASS="OPTION"
+>--replacepkgs</CODE
+> | <CODE
+CLASS="OPTION"
+>--test</CODE
+> </P
+></P
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN19260"
+></A
+><H2
+>Description</H2
+><P
+>	<B
+CLASS="COMMAND"
+>rpm</B
+> is a powerful <I
+CLASS="EMPHASIS"
+>Package Manager</I
+>,
+	which can be used to build, install, query, verify, update, and
+	erase individual software packages.
+	A <I
+CLASS="EMPHASIS"
+>package</I
+> consists of an archive of files and
+	meta-data used to install and erase the archive files. The meta-data
+	includes helper scripts, file attributes, and descriptive information
+	about the package.
+	<I
+CLASS="EMPHASIS"
+>Packages</I
+> come in two varieties: binary packages,
+	used to encapsulate software to be installed, and source packages,
+	containing the source code and recipe necessary to produce binary
+	packages.
+  </P
+><P
+>    One of the following basic modes must be selected:
+	<I
+CLASS="EMPHASIS"
+>Query</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Verify</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Signature Check</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Install/Upgrade/Freshen</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Uninstall</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Recompile Package</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Initialize Database</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Rebuild Database</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Resign</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Add Signature</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Set Owners/Groups</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Show Querytags</I
+>, and
+	<I
+CLASS="EMPHASIS"
+>Show Configuration</I
+>.
+  </P
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19281"
+></A
+><H3
+>General Options</H3
+><P
+>  These options can be used in all the different modes.
+  </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="OPTION"
+>-?, --help</CODE
+></DT
+><DD
+><P
+>	Print a longer usage message then normal.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--version</CODE
+></DT
+><DD
+><P
+>	Print a single line containing the version number of <B
+CLASS="COMMAND"
+>rpm</B
+>
+	being used. </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--quiet</CODE
+></DT
+><DD
+><P
+>	Print as little as possible - normally only error messages will
+	be displayed.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-v</CODE
+></DT
+><DD
+><P
+>	Print verbose information - normally routine progress messages will be
+	displayed.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-vv</CODE
+></DT
+><DD
+><P
+>	Print lots of ugly debugging information.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--rcfile</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>FILELIST</I
+></TT
+></DT
+><DD
+><P
+>	Each of the files in the colon separated
+	<TT
+CLASS="REPLACEABLE"
+><I
+>FILELIST</I
+></TT
+>
+	is read sequentially by <B
+CLASS="COMMAND"
+>rpm</B
+> for configuration
+	information.
+	Only the first file in the list must exist, and tildes will be
+	expanded to the value of <CODE
+CLASS="ENVAR"
+>$HOME</CODE
+>.
+	The default <TT
+CLASS="REPLACEABLE"
+><I
+>FILELIST</I
+></TT
+> is
+		<TT
+CLASS="FILENAME"
+>/usr/lib/rpm/rpmrc</TT
+>:<TT
+CLASS="FILENAME"
+>/usr/lib/rpm/redhat/rpmrc</TT
+>:<TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+>:<TT
+CLASS="FILENAME"
+>~/.rpmrc</TT
+>.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--pipe</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>CMD</I
+></TT
+></DT
+><DD
+><P
+>	Pipes the output of <B
+CLASS="COMMAND"
+>rpm</B
+> to the command <TT
+CLASS="REPLACEABLE"
+><I
+>CMD</I
+></TT
+>.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--dbpath</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+></DT
+><DD
+><P
+>	Use the database in <TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+> rather
+	than the default path <TT
+CLASS="FILENAME"
+>/var/lib/rpm</TT
+>
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--root</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+></DT
+><DD
+><P
+>	Use the file system tree rooted at <TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+> for all operations.
+	Note that this means the database within
+		<TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+>
+	will be used for dependency checks and any scriptlet(s) (e.g.
+		<B
+CLASS="COMMAND"
+>%post</B
+> if installing, or
+		<B
+CLASS="COMMAND"
+>%prep</B
+> if building, a package)
+	will be run after a chroot(2) to
+		<TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+>.
+      </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19352"
+></A
+><H3
+>Install and Upgrade Options</H3
+><P
+>	The general form of an rpm install command is 
+    </P
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-i|--install</CODE
+>} [<I
+><A
+HREF="rpm.8.html#INSTALL-OPTIONS"
+>(1)</A
+>	    install-options
+	  </I
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>... </P
+>
+    </P
+><P
+>	This installs a new package.
+    </P
+><P
+>	The general form of an rpm upgrade command is 
+    </P
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-U|--upgrade</CODE
+>} [<I
+><A
+HREF="rpm.8.html#INSTALL-OPTIONS"
+>(1)</A
+>	    install-options
+	  </I
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>... </P
+>
+    </P
+><P
+>	This upgrades or installs the package currently installed
+	to a newer version.  This is the same as install, except
+	all other version(s) of the package are removed after the
+	new package is installed.
+    </P
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-F|--freshen</CODE
+>} [<I
+><A
+HREF="rpm.8.html#INSTALL-OPTIONS"
+>(1)</A
+>	    install-options
+	  </I
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>... </P
+>
+    </P
+><P
+>	This will upgrade packages, but only if an earlier version
+	currently exists. The <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>
+	may be specified as an
+		<B
+CLASS="COMMAND"
+>ftp</B
+> or
+		<B
+CLASS="COMMAND"
+>http</B
+> URL,
+	in which case the package will be downloaded before being
+	installed. See <B
+CLASS="COMMAND"
+>FTP/HTTP OPTIONS</B
+>
+	for information on <B
+CLASS="COMMAND"
+>rpm</B
+>'s internal
+		<B
+CLASS="COMMAND"
+>ftp</B
+> and
+		<B
+CLASS="COMMAND"
+>http</B
+>
+	client support. 
+    </P
+><P
+>    <P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="OPTION"
+>--aid</CODE
+></DT
+><DD
+><P
+>	Add suggested packages to the transaction set when needed.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--allfiles</CODE
+></DT
+><DD
+><P
+>	Installs or upgrades all the missingok files in the package,
+	regardless if they exist.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--badreloc</CODE
+></DT
+><DD
+><P
+>	Used with <CODE
+CLASS="OPTION"
+>--relocate</CODE
+>, permit relocations on
+	all file paths, not just those <TT
+CLASS="REPLACEABLE"
+><I
+>OLDPATH</I
+></TT
+>'s
+	included in the binary package relocation hint(s).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--excludepath</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>OLDPATH</I
+></TT
+></DT
+><DD
+><P
+>	Don't install files whose name begins with
+	<TT
+CLASS="REPLACEABLE"
+><I
+>OLDPATH</I
+></TT
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--excludedocs</CODE
+></DT
+><DD
+><P
+>	Don't install any files which are marked as documentation
+	(which includes man pages and texinfo documents).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--force</CODE
+></DT
+><DD
+><P
+>	Same as using
+	<CODE
+CLASS="OPTION"
+>--replacepkgs</CODE
+>,
+	<CODE
+CLASS="OPTION"
+>--replacefiles</CODE
+>, and
+	<CODE
+CLASS="OPTION"
+>--oldpackage</CODE
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-h, --hash</CODE
+></DT
+><DD
+><P
+>	Print 50 hash marks as the package archive is unpacked.
+	Use with <CODE
+CLASS="OPTION"
+>-v|--verbose</CODE
+> for a nicer display.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--ignoresize</CODE
+></DT
+><DD
+><P
+>	Don't check mount file systems for sufficient disk space before
+	installing this package.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--ignorearch</CODE
+></DT
+><DD
+><P
+>	Allow installation or upgrading even if the architectures
+	of the binary package and host don't match.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--ignoreos</CODE
+></DT
+><DD
+><P
+>	Allow installation or upgrading even if the operating
+systems of the binary package and host don't match.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--includedocs</CODE
+></DT
+><DD
+><P
+>	Install documentation files. This is the default behavior.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--justdb</CODE
+></DT
+><DD
+><P
+>	Update only the database, not the filesystem.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nodigest</CODE
+></DT
+><DD
+><P
+>	Don't verify package or header digests when reading.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nosignature</CODE
+></DT
+><DD
+><P
+>	Don't verify package or header signatures when reading.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nodeps</CODE
+></DT
+><DD
+><P
+>	Don't do a dependency check before installing or upgrading
+	a package.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nosuggest</CODE
+></DT
+><DD
+><P
+>	Don't suggest package(s) that provide a missing dependency.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--noorder</CODE
+></DT
+><DD
+><P
+>	Don't reorder the packages for an install. The list of
+	packages would normally be reordered to satisfy dependencies.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--noscripts</CODE
+>, <CODE
+CLASS="OPTION"
+>--nopre</CODE
+>, <CODE
+CLASS="OPTION"
+>--nopost</CODE
+>, <CODE
+CLASS="OPTION"
+>--nopreun</CODE
+>, <CODE
+CLASS="OPTION"
+>--nopostun</CODE
+></DT
+><DD
+><P
+>	Don't execute the scriptlet of the same name.
+	The <CODE
+CLASS="OPTION"
+>--noscripts</CODE
+> option is equivalent to
+	</P
+><P
+>		<CODE
+CLASS="OPTION"
+>--nopre</CODE
+>
+		<CODE
+CLASS="OPTION"
+>--nopost</CODE
+>
+		<CODE
+CLASS="OPTION"
+>--nopreun</CODE
+>
+		<CODE
+CLASS="OPTION"
+>--nopostun</CODE
+>
+	</P
+><P
+>	and turns off the execution of the corresponding
+		<B
+CLASS="COMMAND"
+>%pre</B
+>,
+		<B
+CLASS="COMMAND"
+>%post</B
+>,
+		<B
+CLASS="COMMAND"
+>%preun</B
+>, and
+		<B
+CLASS="COMMAND"
+>%postun</B
+>
+	scriptlet(s).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--notriggers</CODE
+>, <CODE
+CLASS="OPTION"
+>--notriggerin</CODE
+>, <CODE
+CLASS="OPTION"
+>--notriggerun</CODE
+>, <CODE
+CLASS="OPTION"
+>--notriggerpostun</CODE
+></DT
+><DD
+><P
+>	Don't execute any trigger scriptlet of the named type.
+	The <CODE
+CLASS="OPTION"
+>--notriggers</CODE
+> option is equivalent to
+	</P
+><P
+>		<CODE
+CLASS="OPTION"
+>--notriggerin</CODE
+>
+		<CODE
+CLASS="OPTION"
+>--notriggerun</CODE
+>
+		<CODE
+CLASS="OPTION"
+>--notriggerpostun</CODE
+>
+	</P
+><P
+>	and turns off execution of the corresponding
+		<B
+CLASS="COMMAND"
+>%triggerin</B
+>,
+		<B
+CLASS="COMMAND"
+>%triggerun</B
+>, and
+		<B
+CLASS="COMMAND"
+>%triggerpostun</B
+>
+	scriptlet(s).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--oldpackage</CODE
+></DT
+><DD
+><P
+>	Allow an upgrade to replace a newer package with an older one.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--percent</CODE
+></DT
+><DD
+><P
+>	Print percentages as files are unpacked from the package archive.
+	This is intended to make <B
+CLASS="COMMAND"
+>rpm</B
+> easy to run from
+	other tools.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--prefix</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>NEWPATH</I
+></TT
+></DT
+><DD
+><P
+>	For relocateable binary packages, translate all file paths that
+	start with the installation prefix in the package relocation hint(s)
+	to <TT
+CLASS="REPLACEABLE"
+><I
+>NEWPATH</I
+></TT
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--relocate</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>OLDPATH</I
+></TT
+>=<TT
+CLASS="REPLACEABLE"
+><I
+>NEWPATH</I
+></TT
+></DT
+><DD
+><P
+>	For relocatable binary packages, translate all file paths
+	that start with <TT
+CLASS="REPLACEABLE"
+><I
+>OLDPATH</I
+></TT
+> in the
+	package relocation hint(s) to <TT
+CLASS="REPLACEABLE"
+><I
+>NEWPATH</I
+></TT
+>.
+	This option can be used repeatedly if several
+	<TT
+CLASS="REPLACEABLE"
+><I
+>OLDPATH</I
+></TT
+>'s in the package are to
+	be relocated.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--repackage</CODE
+></DT
+><DD
+><P
+>	Re-package the files before erasing. The previously installed
+	package will be named according to the macro
+		<B
+CLASS="COMMAND"
+>%_repackage_name_fmt</B
+>
+	and will be created in the directory named by
+	the macro <B
+CLASS="COMMAND"
+>%_repackage_dir</B
+> (default value
+	is <TT
+CLASS="FILENAME"
+>/var/spool/repackage</TT
+>).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--replacefiles</CODE
+></DT
+><DD
+><P
+>	Install the packages even if they replace files from other,
+	already installed, packages.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--replacepkgs</CODE
+></DT
+><DD
+><P
+>	Install the packages even if some of them are already installed
+	on this system.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--test</CODE
+></DT
+><DD
+><P
+>	Do not install the package, simply check for and report
+	potential conflicts.
+    </P
+></DD
+></DL
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19583"
+></A
+><H3
+>Erase Options</H3
+><P
+>	The general form of an rpm erase command is 
+    </P
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-e|--erase</CODE
+>} [<CODE
+CLASS="OPTION"
+>--allmatches</CODE
+>] [<CODE
+CLASS="OPTION"
+>--nodeps</CODE
+>] [<CODE
+CLASS="OPTION"
+>--noscripts</CODE
+>] [<CODE
+CLASS="OPTION"
+>--notriggers</CODE
+>] [<CODE
+CLASS="OPTION"
+>--repackage</CODE
+>] [<CODE
+CLASS="OPTION"
+>--test</CODE
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_NAME</I
+></TT
+>... </P
+>
+    </P
+><P
+>	The following options may also be used:
+    </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="OPTION"
+>--allmatches</CODE
+></DT
+><DD
+><P
+>	Remove all versions of the package which match
+	<TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_NAME</I
+></TT
+>. Normally an
+	error is issued if <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_NAME</I
+></TT
+>
+	matches multiple packages.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nodeps</CODE
+></DT
+><DD
+><P
+>	Don't check dependencies before uninstalling the packages.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--noscripts</CODE
+>, <CODE
+CLASS="OPTION"
+>--nopreun</CODE
+>, <CODE
+CLASS="OPTION"
+>--nopostun</CODE
+></DT
+><DD
+><P
+>	Don't execute the scriptlet of the same name.
+	The <CODE
+CLASS="OPTION"
+>--noscripts</CODE
+> option during package erase is
+	equivalent to
+	</P
+><P
+>		<CODE
+CLASS="OPTION"
+>--nopreun</CODE
+>
+		<CODE
+CLASS="OPTION"
+>--nopostun</CODE
+>
+	</P
+><P
+>	and turns off the execution of the corresponding
+		<B
+CLASS="COMMAND"
+>%preun</B
+>, and
+		<B
+CLASS="COMMAND"
+>%postun</B
+>
+	scriptlet(s).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--notriggers</CODE
+>, <CODE
+CLASS="OPTION"
+>--notriggerun</CODE
+>, <CODE
+CLASS="OPTION"
+>--notriggerpostun</CODE
+></DT
+><DD
+><P
+>	Don't execute any trigger scriptlet of the named type.
+	The <CODE
+CLASS="OPTION"
+>--notriggers</CODE
+> option is equivalent to
+	</P
+><P
+>		<CODE
+CLASS="OPTION"
+>--notriggerun</CODE
+>
+		<CODE
+CLASS="OPTION"
+>--notriggerpostun</CODE
+>
+	</P
+><P
+>	and turns off execution of the corresponding
+		<B
+CLASS="COMMAND"
+>%triggerun</B
+>, and
+		<B
+CLASS="COMMAND"
+>%triggerpostun</B
+>
+	scriptlet(s).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--repackage</CODE
+></DT
+><DD
+><P
+>	Re-package the files before erasing. The previously installed
+	package will be named according to the macro
+		<B
+CLASS="COMMAND"
+>%_repackage_name_fmt</B
+>
+	and will be created in the directory named by
+	the macro <B
+CLASS="COMMAND"
+>%_repackage_dir</B
+> (default value
+	is <TT
+CLASS="FILENAME"
+>/var/spool/repackage</TT
+>).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--test</CODE
+></DT
+><DD
+><P
+>	Don't really uninstall anything, just go through the motions.
+	Useful in conjunction with the <CODE
+CLASS="OPTION"
+>-vv</CODE
+> option
+	for debugging.
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19665"
+></A
+><H3
+>Query Options</H3
+><P
+>	The general form of an rpm query command is 
+    </P
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-q|--query</CODE
+>} [<I
+><A
+HREF="rpm.8.html#SELECT-OPTIONS"
+>(1)</A
+>	    select-options
+	  </I
+>] [<I
+><A
+HREF="rpm.8.html#QUERY-OPTIONS"
+>(1)</A
+>	    query-options
+	  </I
+>]</P
+>
+    </P
+><P
+>	You may specify the format that package information should be
+	printed in. To do this, you use the
+	<P
+>{<CODE
+CLASS="OPTION"
+>--qf|--queryformat</CODE
+>}  <TT
+CLASS="REPLACEABLE"
+><I
+>QUERYFMT</I
+></TT
+> </P
+>
+	option, followed by the <TT
+CLASS="REPLACEABLE"
+><I
+>QUERYFMT</I
+></TT
+>
+	format string.  Query formats are modified versions of the
+	standard <B
+CLASS="COMMAND"
+>printf(3)</B
+> formatting. The format
+	is made up of static strings (which may include standard C
+	character escapes for newlines, tabs, and other special
+	characters) and <B
+CLASS="COMMAND"
+>printf(3)</B
+> type formatters.
+	As <B
+CLASS="COMMAND"
+>rpm</B
+> already knows the type to print, the
+	type specifier must be omitted however, and replaced by the name
+	of the header tag to be printed, enclosed by <B
+CLASS="COMMAND"
+>{}</B
+>
+	characters. Tag names are case insensitive, and the leading
+	<B
+CLASS="COMMAND"
+>RPMTAG_</B
+> portion of the tag name may be omitted
+	as well.
+    </P
+><P
+>	Alternate output formats may be requested by following
+	the tag with <CODE
+CLASS="OPTION"
+>:<TT
+CLASS="REPLACEABLE"
+><I
+>typetag</I
+></TT
+></CODE
+>.
+	Currently, the following types are supported:
+    </P
+><P
+>	<P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>:armor</B
+></DT
+><DD
+><P
+>		Wrap a public key in ASCII armor.
+		</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>:base64</B
+></DT
+><DD
+><P
+>		Encode binary data using base64.
+		</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>:date</B
+></DT
+><DD
+><P
+>		Use strftime(3) "%c" format.
+		</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>:day</B
+></DT
+><DD
+><P
+>		Use strftime(3) "%a %b %d %Y" format.
+		</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>:depflags</B
+></DT
+><DD
+><P
+>		Format dependency flags.
+		</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>:fflags</B
+></DT
+><DD
+><P
+>		Format file flags.
+		</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>:hex</B
+></DT
+><DD
+><P
+>		Format in hexadecimal.
+		</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>:octal</B
+></DT
+><DD
+><P
+>		Format in octal.
+		</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>:perms</B
+></DT
+><DD
+><P
+>		Format file permissions.
+		</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>:shescape</B
+></DT
+><DD
+><P
+>		Escape single quotes for use in a script.
+		</P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>:triggertype</B
+></DT
+><DD
+><P
+>		Display trigger suffix.
+		</P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>	For example, to print only the names of the packages queried,
+	you could use <B
+CLASS="COMMAND"
+>%{NAME}</B
+> as the format string.
+	To print the packages name and distribution information in
+	two columns, you could use <B
+CLASS="COMMAND"
+>%-30{NAME}%{DISTRIBUTION}</B
+>.
+	<B
+CLASS="COMMAND"
+>rpm</B
+> will print a list of all of the tags it knows about when it
+	is invoked with the <CODE
+CLASS="OPTION"
+>--querytags</CODE
+> argument.
+    </P
+><P
+>	There are two subsets of options for querying: package selection,
+	and information selection.
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19755"
+></A
+><H3
+>Package selection options:</H3
+><P
+>&#13;    <P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="OPTION"
+><TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_NAME</I
+></TT
+></CODE
+></DT
+><DD
+><P
+>	Query installed package named <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_NAME</I
+></TT
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-a, --all</CODE
+></DT
+><DD
+><P
+>	Query all installed packages.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-f, --file</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>FILE</I
+></TT
+></DT
+><DD
+><P
+>	Query package owning <TT
+CLASS="REPLACEABLE"
+><I
+>FILE</I
+></TT
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--fileid</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>MD5</I
+></TT
+></DT
+><DD
+><P
+>	Query package that contains a given file identifier, i.e. the
+	<TT
+CLASS="REPLACEABLE"
+><I
+>MD5</I
+></TT
+> digest of the file contents.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-g, --group</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>GROUP</I
+></TT
+></DT
+><DD
+><P
+>	Query packages with the group of <TT
+CLASS="REPLACEABLE"
+><I
+>GROUP</I
+></TT
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--hdrid</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>SHA1</I
+></TT
+></DT
+><DD
+><P
+>	Query package that contains a given header identifier, i.e. the
+	<TT
+CLASS="REPLACEABLE"
+><I
+>SHA1</I
+></TT
+> digest of the immutable header region.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-p, --package</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+></DT
+><DD
+><P
+>	Query an (uninstalled) package <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>.
+	The <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+> may be specified
+	as an <B
+CLASS="COMMAND"
+>ftp</B
+> or <B
+CLASS="COMMAND"
+>http</B
+> style URL, in
+	which case the package header will be downloaded and queried.
+	See <B
+CLASS="COMMAND"
+>FTP/HTTP OPTIONS</B
+> for information on
+		<B
+CLASS="COMMAND"
+>rpm</B
+>'s internal
+		<B
+CLASS="COMMAND"
+>ftp</B
+> and
+		<B
+CLASS="COMMAND"
+>http</B
+>
+	client support. The <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+> argument(s),
+	if not a binary package, will be interpreted as an ASCII package
+	manifest.  Comments are permitted, starting with a '#', and each
+	line of a package manifest file may include white space separated
+	glob expressions, including URL's with remote glob expressions,
+	that will be expanded to paths that are substituted in place of
+	the package manifest as additional <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>
+	arguments to the query.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--pkgid</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>MD5</I
+></TT
+></DT
+><DD
+><P
+>	Query package that contains a given package identifier, i.e. the
+	<TT
+CLASS="REPLACEABLE"
+><I
+>MD5</I
+></TT
+> digest of the combined header and
+	payload contents.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--querybynumber</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>HDRNUM</I
+></TT
+></DT
+><DD
+><P
+>	Query the <TT
+CLASS="REPLACEABLE"
+><I
+>HDRNUM</I
+></TT
+>th database entry
+	directly; this is useful only for debugging.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--specfile</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>SPECFILE</I
+></TT
+></DT
+><DD
+><P
+>	Parse and query <TT
+CLASS="REPLACEABLE"
+><I
+>SPECFILE</I
+></TT
+> as if
+	it were a package. Although not all the information (e.g. file lists)
+	is available, this type of query permits rpm to be used to extract
+	information from spec files without having to write a specfile
+	parser.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--tid</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>TID</I
+></TT
+></DT
+><DD
+><P
+>	Query package(s) that have a given <TT
+CLASS="REPLACEABLE"
+><I
+>TID</I
+></TT
+>
+	transaction identifier. A unix time stamp is currently used as a
+	transaction identifier. All package(s) installed or erased within
+	a single transaction have a common identifier.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--triggeredby</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_NAME</I
+></TT
+></DT
+><DD
+><P
+>	Query packages that are triggered by package(s)
+	<TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_NAME</I
+></TT
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--whatprovides</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>CAPABILITY</I
+></TT
+></DT
+><DD
+><P
+>	Query all packages that provide the <TT
+CLASS="REPLACEABLE"
+><I
+>CAPABILITY</I
+></TT
+> capability.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--whatrequires</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>CAPABILITY</I
+></TT
+></DT
+><DD
+><P
+>    Query all packages that requires <TT
+CLASS="REPLACEABLE"
+><I
+>CAPABILITY</I
+></TT
+> for proper functioning.
+    </P
+></DD
+></DL
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19864"
+></A
+><H3
+>Package query options:</H3
+><P
+>    <P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="OPTION"
+>--changelog</CODE
+></DT
+><DD
+><P
+>	Display change information for the package.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-c, --configfiles</CODE
+></DT
+><DD
+><P
+>	List only configuration files (implies <CODE
+CLASS="OPTION"
+>-l</CODE
+>).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-d, --docfiles</CODE
+></DT
+><DD
+><P
+>	List only documentation files (implies <CODE
+CLASS="OPTION"
+>-l</CODE
+>).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--dump</CODE
+></DT
+><DD
+><P
+>	Dump file information as follows:
+	</P
+><A
+NAME="AEN19890"
+></A
+><BLOCKQUOTE
+CLASS="BLOCKQUOTE"
+><P
+CLASS="LITERALLAYOUT"
+>path&nbsp;size&nbsp;mtime&nbsp;md5sum&nbsp;mode&nbsp;owner&nbsp;group&nbsp;isconfig&nbsp;isdoc&nbsp;rdev&nbsp;symlink<br>
+	</P
+></BLOCKQUOTE
+><P
+>	This option must be used with at least one of
+		<CODE
+CLASS="OPTION"
+>-l</CODE
+>,
+		<CODE
+CLASS="OPTION"
+>-c</CODE
+>,
+		<CODE
+CLASS="OPTION"
+>-d</CODE
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--filesbypkg</CODE
+></DT
+><DD
+><P
+>	List all the files in each selected package.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-i, --info</CODE
+></DT
+><DD
+><P
+>	Display package information, including name, version, and description.
+	This uses the <CODE
+CLASS="OPTION"
+>--queryformat</CODE
+> if one was specified.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--last</CODE
+></DT
+><DD
+><P
+>	Orders the package listing by install time such that the latest
+	packages are at the top.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-l, --list</CODE
+></DT
+><DD
+><P
+>	List files in package.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--provides</CODE
+></DT
+><DD
+><P
+>	List capabilities this package provides.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-R, --requires</CODE
+></DT
+><DD
+><P
+>	List packages on which this package depends.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--scripts</CODE
+></DT
+><DD
+><P
+>	List the package specific scriptlet(s) that are used as part
+	of the installation and uninstallation processes.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-s, --state</CODE
+></DT
+><DD
+><P
+>	Display the <TT
+CLASS="REPLACEABLE"
+><I
+>states</I
+></TT
+> of files in the package
+	(implies <CODE
+CLASS="OPTION"
+>-l</CODE
+>).  The state of each file is one of
+	<TT
+CLASS="REPLACEABLE"
+><I
+>normal</I
+></TT
+>,
+	<TT
+CLASS="REPLACEABLE"
+><I
+>not installed</I
+></TT
+>, or
+	<TT
+CLASS="REPLACEABLE"
+><I
+>replaced</I
+></TT
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--triggers, --triggerscripts</CODE
+></DT
+><DD
+><P
+>	Display the trigger scripts, if any, which are contained in
+	the package.
+    </P
+></DD
+></DL
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN19947"
+></A
+><H3
+>Verify Options</H3
+><P
+>	The general form of an rpm verify command is 
+    </P
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>-V|--verify</CODE
+>} [<I
+><A
+HREF="rpm.8.html#SELECT-OPTIONS"
+>(1)</A
+>	    select-options
+	  </I
+>] [<I
+><A
+HREF="rpm.8.html#VERIFY-OPTIONS"
+>(1)</A
+>	    verify-options
+	  </I
+>]</P
+>
+    </P
+><P
+>	Verifying a package compares information about the installed files in
+	the package with information about the files taken from the package
+	metadata stored in the rpm database.  Among other things, verifying
+	compares the size, MD5 sum, permissions, type, owner and group of
+	each file.  Any discrepancies are displayed.
+	Files that were not installed from the package, for example,
+	documentation files excluded on installation using the
+		"<CODE
+CLASS="OPTION"
+>--excludedocs</CODE
+>" option,
+	will be silently ignored.
+    </P
+><P
+>	The package selection options are the same as for package
+	querying (including package manifest files as arguments).
+	Other options unique to verify mode are:
+    <P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="OPTION"
+>--nodeps</CODE
+></DT
+><DD
+><P
+>	Don't verify dependencies of packages.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nodigest</CODE
+></DT
+><DD
+><P
+>	Don't verify package or header digests when reading.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nofiles</CODE
+></DT
+><DD
+><P
+>	Don't verify any attributes of package files.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--noscripts</CODE
+></DT
+><DD
+><P
+>	Don't execute the <B
+CLASS="COMMAND"
+>%verifyscript</B
+> scriptlet (if any).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nosignature</CODE
+></DT
+><DD
+><P
+>	Don't verify package or header signatures when reading.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nolinkto</CODE
+>, <CODE
+CLASS="OPTION"
+>--nomd5</CODE
+>, <CODE
+CLASS="OPTION"
+>--nosize</CODE
+>, <CODE
+CLASS="OPTION"
+>--nouser</CODE
+>, <CODE
+CLASS="OPTION"
+>--nogroup</CODE
+>, <CODE
+CLASS="OPTION"
+>--nomtime</CODE
+>, <CODE
+CLASS="OPTION"
+>--nomode</CODE
+>, <CODE
+CLASS="OPTION"
+>--nordev</CODE
+></DT
+><DD
+><P
+>	Don't verify the corresponding file attribute.
+    </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>	The format of the output is a string of 8 characters, a possible
+	attribute marker:
+	<P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>c</B
+>
+		<B
+CLASS="COMMAND"
+>%config</B
+> configuration file.
+	</TD
+></TR
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>d</B
+>
+		<B
+CLASS="COMMAND"
+>%doc</B
+> documentation file.
+	</TD
+></TR
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>g</B
+>
+		<B
+CLASS="COMMAND"
+>%ghost</B
+> file (i.e. the file contents are
+		not included in the package payload).
+	</TD
+></TR
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>l</B
+>
+		<B
+CLASS="COMMAND"
+>%license</B
+> license file.
+	</TD
+></TR
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>r</B
+>
+		<B
+CLASS="COMMAND"
+>%readme</B
+> readme file.
+	</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+><P
+>	from the package header, followed by the file name.
+    </P
+><P
+>	Each of the 8 characters denotes the result of a comparison of
+	attribute(s) of the file to the value of those attribute(s) recorded
+	in the database.  A single
+		"<B
+CLASS="COMMAND"
+>.</B
+>" (period)
+	means the test passed, while a single
+		"<B
+CLASS="COMMAND"
+>?</B
+>" (question mark)
+	indicates the test could not be performed (e.g. file permissions
+	prevent reading). Otherwise, the (mnemonically
+		em<B
+CLASS="COMMAND"
+>B</B
+>oldened) character denotes failure of
+	the corresponding <CODE
+CLASS="OPTION"
+>--verify</CODE
+> test:
+
+	<P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>S</B
+>
+		file <B
+CLASS="COMMAND"
+>S</B
+>ize differs
+	</TD
+></TR
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>M</B
+>
+		<B
+CLASS="COMMAND"
+>M</B
+>ode differs (includes permissions and file type)
+	</TD
+></TR
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>5</B
+>
+		MD<B
+CLASS="COMMAND"
+>5</B
+> sum differs
+	</TD
+></TR
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>D</B
+>
+		<B
+CLASS="COMMAND"
+>D</B
+>evice major/minor number mismatch
+	</TD
+></TR
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>L</B
+>
+		read<B
+CLASS="COMMAND"
+>L</B
+>ink(2) path mismatch
+	</TD
+></TR
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>U</B
+>
+		<B
+CLASS="COMMAND"
+>U</B
+>ser ownership differs
+	</TD
+></TR
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>G</B
+>
+		<B
+CLASS="COMMAND"
+>G</B
+>roup ownership differs
+	</TD
+></TR
+><TR
+><TD
+>		<B
+CLASS="COMMAND"
+>T</B
+>
+		m<B
+CLASS="COMMAND"
+>T</B
+>ime differs
+	</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20056"
+></A
+><H3
+>Digital Signature and Digest Verification</H3
+><P
+>	The general forms of rpm digital signature commands are
+    </P
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>--import</CODE
+>}  <TT
+CLASS="REPLACEABLE"
+><I
+>PUBKEY</I
+></TT
+>... </P
+><P
+><B
+CLASS="COMMAND"
+>rpm</B
+>  <CODE
+CLASS="OPTION"
+>--checksig</CODE
+>  [<CODE
+CLASS="OPTION"
+>--nogpg</CODE
+>] [<CODE
+CLASS="OPTION"
+>--nopgp</CODE
+>] [<CODE
+CLASS="OPTION"
+>--nomd5</CODE
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>... </P
+>
+    </P
+><P
+>	The <CODE
+CLASS="OPTION"
+>--checksig</CODE
+> option checks all the digests and
+	signatures contained in <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>
+	to ensure the integrity and origin of the package. Note that
+	signatures are now verified whenever a package is read, and
+	<CODE
+CLASS="OPTION"
+>--checksig</CODE
+> is useful to verify
+	all of the digests and signatures associated with a package.
+    </P
+><P
+>	Digital signatures cannot be verified without a public key.
+	An ASCII armored public key can be added to the <B
+CLASS="COMMAND"
+>rpm</B
+> database
+	using <CODE
+CLASS="OPTION"
+>--import</CODE
+>. An imported public key is
+	carried in a header, and key ring management is performed
+	exactly like package management. For example, all currently imported
+	public keys can be displayed by:
+    </P
+><P
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><B
+CLASS="COMMAND"
+><B
+CLASS="COMMAND"
+>rpm</B
+> -qa gpg-pubkey*</B
+></SAMP
+>
+    </P
+><P
+>	Details about a specific public key, when imported, can be displayed
+	by querying.  Here's information about the Red Hat GPG/DSA key:
+    </P
+><P
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><B
+CLASS="COMMAND"
+><B
+CLASS="COMMAND"
+>rpm</B
+> -qi gpg-pubkey-db42a60e</B
+></SAMP
+>
+    </P
+><P
+>	Finally, public keys can be erased after importing just like
+	packages. Here's how to remove the Red Hat GPG/DSA key
+    </P
+><P
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><B
+CLASS="COMMAND"
+><B
+CLASS="COMMAND"
+>rpm</B
+> -e gpg-pubkey-db42a60e</B
+></SAMP
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20099"
+></A
+><H3
+>Signing a Package</H3
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>--addsign|--resign</CODE
+>}  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>... </P
+>
+    </P
+><P
+>	Both of the <CODE
+CLASS="OPTION"
+>--addsign</CODE
+> and <CODE
+CLASS="OPTION"
+>--resign</CODE
+>
+	options generate and insert new signatures for each package
+	<TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+> given, replacing any
+	existing signatures. There are two options for historical reasons,
+	there is no difference in behavior currently.
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20112"
+></A
+><H3
+>Using GPG to sign packages</H3
+><P
+>	In order to sign packages using GPG, <B
+CLASS="COMMAND"
+>rpm</B
+>
+	must be configured to run GPG and be able to find a key
+	ring with the appropriate keys. By default,
+	<B
+CLASS="COMMAND"
+>rpm</B
+> uses the same conventions as GPG
+	to find key rings, namely the <CODE
+CLASS="ENVAR"
+>$GNUPGHOME</CODE
+> environment
+	variable.  If your key rings are not located where GPG expects
+	them to be, you will need to configure the macro
+		<B
+CLASS="COMMAND"
+>%_gpg_path</B
+>
+	to be the location of the GPG key rings to use.
+    </P
+><P
+>	For compatibility with older versions of GPG, PGP, and rpm,
+	only V3 OpenPGP signature packets should be configured.
+	Either DSA or RSA verification algorithms can be used, but DSA
+	is preferred.
+    </P
+><P
+>	If you want to be able to sign packages you create yourself, you
+	also need to create your own public and secret key pair (see the
+	GPG manual). You will also need to configure the <B
+CLASS="COMMAND"
+>rpm</B
+> macros
+    <P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><B
+CLASS="COMMAND"
+>%_signature</B
+></DT
+><DD
+><P
+>	The signature type.  Right now only gpg and pgp are supported.
+    </P
+></DD
+><DT
+><B
+CLASS="COMMAND"
+>%_gpg_name</B
+></DT
+><DD
+><P
+>	The name of the "user" whose key you wish to use to sign your packages.
+    </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>	For example, to be able to use GPG to sign packages as the user
+	<TT
+CLASS="REPLACEABLE"
+><I
+>"John Doe &#60;jdoe@foo.com&#62;"</I
+></TT
+>
+	from the key rings located in <TT
+CLASS="FILENAME"
+>/etc/rpm/.gpg</TT
+>
+	using the executable <TT
+CLASS="FILENAME"
+>/usr/bin/gpg</TT
+> you would include
+    </P
+><P
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%_signature gpg
+%_gpg_path /etc/rpm/.gpg
+%_gpg_name John Doe &#60;jdoe@foo.com&#62;
+%_gpgbin /usr/bin/gpg</SAMP
+>
+    </P
+><P
+>	in a macro configuration file. Use <TT
+CLASS="FILENAME"
+>/etc/rpm/macros</TT
+>
+	for per-system configuration and <TT
+CLASS="FILENAME"
+>~/.rpmmacros</TT
+>
+	for per-user configuration. 
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20142"
+></A
+><H3
+>Rebuild Database Options</H3
+><P
+>	The general form of an rpm rebuild database command is 
+    </P
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpm</B
+> {<CODE
+CLASS="OPTION"
+>--initdb|--rebuilddb</CODE
+>} [<CODE
+CLASS="OPTION"
+>-v</CODE
+>] [<CODE
+CLASS="OPTION"
+>--dbpath</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+>] [<CODE
+CLASS="OPTION"
+>--root</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+>]</P
+>
+    </P
+><P
+>	Use <CODE
+CLASS="OPTION"
+>--initdb</CODE
+> to create a new database, use
+	<CODE
+CLASS="OPTION"
+>--rebuilddb</CODE
+> to rebuild the database indices from
+	the installed package headers.
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20161"
+></A
+><H3
+>Showrc</H3
+><P
+>	The command
+    </P
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpm</B
+>  <CODE
+CLASS="OPTION"
+>--showrc</CODE
+> </P
+>
+    </P
+><P
+>	shows the values <B
+CLASS="COMMAND"
+>rpm</B
+> will use for all of the
+	options are currently set in
+		<TT
+CLASS="FILENAME"
+>rpmrc</TT
+> and
+		<TT
+CLASS="FILENAME"
+>macros</TT
+>
+	configuration file(s).
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20173"
+></A
+><H3
+>Ftp/Http Options</H3
+><P
+>	<B
+CLASS="COMMAND"
+>rpm</B
+> can act as an FTP and/or HTTP client so
+	that packages can be queried or installed from the internet.
+	Package files for install, upgrade, and query operations may be
+	specified as an
+		<B
+CLASS="COMMAND"
+>ftp</B
+> or
+		<B
+CLASS="COMMAND"
+>http</B
+>
+	style URL:  
+    </P
+><P
+>	ftp://USER:PASSWORD@HOST:PORT/path/to/package.rpm
+    </P
+><P
+>	If the <B
+CLASS="COMMAND"
+>:PASSWORD</B
+> portion is omitted, the password will be
+	prompted for (once per user/hostname pair). If both the user and
+	password are omitted, anonymous <B
+CLASS="COMMAND"
+>ftp</B
+> is used.
+	In all cases, passive (PASV) <B
+CLASS="COMMAND"
+>ftp</B
+> transfers are
+	performed.
+    </P
+><P
+>	<B
+CLASS="COMMAND"
+>rpm</B
+> allows the following options to be used with
+	ftp URLs:
+    <P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="OPTION"
+>--ftpproxy</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>HOST</I
+></TT
+></DT
+><DD
+><P
+>	The host <TT
+CLASS="REPLACEABLE"
+><I
+>HOST</I
+></TT
+> will be used as a proxy server
+	for all ftp transfers, which allows users to ftp through firewall
+	machines which use proxy systems. This option may also be specified
+	by configuring the macro <B
+CLASS="COMMAND"
+>%_ftpproxy</B
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--ftpport</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>PORT</I
+></TT
+></DT
+><DD
+><P
+>	The TCP <TT
+CLASS="REPLACEABLE"
+><I
+>PORT</I
+></TT
+> number to use for
+	the ftp connection on the proxy ftp server instead of the default
+	port. This option may also be specified by configuring the macro
+	<B
+CLASS="COMMAND"
+>%_ftpport</B
+>.
+    </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>	<B
+CLASS="COMMAND"
+>rpm</B
+> allows the following options to be used with
+	<B
+CLASS="COMMAND"
+>http</B
+> URLs:
+    <P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="OPTION"
+>--httpproxy</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>HOST</I
+></TT
+></DT
+><DD
+><P
+>	The host <TT
+CLASS="REPLACEABLE"
+><I
+>HOST</I
+></TT
+> will be used as
+	a proxy server for all <B
+CLASS="COMMAND"
+>http</B
+> transfers. This
+	option may also be specified by configuring the macro
+	<B
+CLASS="COMMAND"
+>%_httpproxy</B
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--httpport</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>PORT</I
+></TT
+></DT
+><DD
+><P
+>	The TCP <TT
+CLASS="REPLACEABLE"
+><I
+>PORT</I
+></TT
+> number to use for the
+	<B
+CLASS="COMMAND"
+>http</B
+> connection on the proxy http server instead
+	of the default port. This option may also be specified by configuring
+	the macro <B
+CLASS="COMMAND"
+>%_httpport</B
+>.
+    </P
+></DD
+></DL
+></DIV
+>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20225"
+></A
+><H2
+>Legacy Issues</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20227"
+></A
+><H3
+>Executing rpmbuild</H3
+><P
+>    The build modes of rpm are now resident in the
+	<TT
+CLASS="FILENAME"
+>/usr/bin/rpmbuild</TT
+>
+    executable. Although legacy compatibility provided by the popt aliases
+    below has been adequate, the compatibility is not perfect; hence build
+    mode compatibility through popt aliases is being removed from rpm.
+    Install the <B
+CLASS="COMMAND"
+>rpm-build</B
+> package, and see
+	<B
+CLASS="COMMAND"
+>rpmbuild</B
+>(8) for documentation of all the
+    <B
+CLASS="COMMAND"
+>rpm</B
+> build modes previously documented here in
+	<B
+CLASS="COMMAND"
+>rpm</B
+>(8).
+    </P
+><P
+>    Add the following lines to <TT
+CLASS="FILENAME"
+>/etc/popt</TT
+>
+    if you wish to continue invoking <B
+CLASS="COMMAND"
+>rpmbuild</B
+> from
+    the <B
+CLASS="COMMAND"
+>rpm</B
+> command line:
+    </P
+><P
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm     exec --bp               rpmb -bp
+rpm     exec --bc               rpmb -bc
+rpm     exec --bi               rpmb -bi
+rpm     exec --bl               rpmb -bl
+rpm     exec --ba               rpmb -ba
+rpm     exec --bb               rpmb -bb
+rpm     exec --bs               rpmb -bs 
+rpm     exec --tp               rpmb -tp 
+rpm     exec --tc               rpmb -tc 
+rpm     exec --ti               rpmb -ti 
+rpm     exec --tl               rpmb -tl 
+rpm     exec --ta               rpmb -ta
+rpm     exec --tb               rpmb -tb
+rpm     exec --ts               rpmb -ts 
+rpm     exec --rebuild          rpmb --rebuild
+rpm     exec --recompile        rpmb --recompile
+rpm     exec --clean            rpmb --clean
+rpm     exec --rmsource         rpmb --rmsource
+rpm     exec --rmspec           rpmb --rmspec
+rpm     exec --target           rpmb --target
+rpm     exec --short-circuit    rpmb --short-circuit</SAMP
+>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20241"
+></A
+><H2
+>Files</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20243"
+></A
+><H3
+>rpmrc Configuration</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/usr/lib/rpm/rpmrc</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/usr/lib/rpm/redhat/rpmrc</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>~/.rpmrc</TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20255"
+></A
+><H3
+>Macro Configuration</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/usr/lib/rpm/macros</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/usr/lib/rpm/redhat/macros</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/etc/rpm/macros</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>~/.rpmmacros</TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20267"
+></A
+><H3
+>Database</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Basenames</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Conflictname</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Dirnames</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Filemd5s</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Group</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Installtid</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Name</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Packages</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Providename</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Provideversion</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Requirename</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Requireversion</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Sha1header</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Sigmd5</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Triggername</TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20301"
+></A
+><H3
+>Temporary</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/tmp/rpm*</TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20307"
+></A
+><H2
+>See Also</H2
+><P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="COMMAND"
+>popt</B
+>(3),</TD
+></TR
+><TR
+><TD
+><B
+CLASS="COMMAND"
+>rpm2cpio</B
+>(8),</TD
+></TR
+><TR
+><TD
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+>(8),</TD
+></TR
+><TR
+><TD
+>	<B
+CLASS="COMMAND"
+>	<A
+HREF="http://www.rpm.org/"
+TARGET="_top"
+>http://www.rpm.org/</A
+>
+	</B
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20319"
+></A
+><H2
+>Authors</H2
+><P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>Marc Ewing &#60;marc@redhat.com&#62;</TD
+></TR
+><TR
+><TD
+>Jeff Johnson &#60;jbj@redhat.com&#62;</TD
+></TR
+><TR
+><TD
+>Erik Troan &#60;ewt@redhat.com&#62;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="p18926.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="rpmbuild.8.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>RPM Man Pages</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p18926.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>rpmbuild</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

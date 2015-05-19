@@ -1,0 +1,1203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Maximum RPM</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="NEXT"
+TITLE="Preface"
+HREF="ch-preface.html"></HEAD
+><BODY
+CLASS="BOOK"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="INDEX"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+>Maximum RPM</A
+></H1
+><P
+CLASS="COPYRIGHT"
+><A
+HREF="ln55.html"
+>Copyright</A
+> &copy; 2000 Red Hat, Inc.</P
+><H2
+CLASS="SUBTITLE"
+>Taking the RPM Package Manager to the Limit</H2
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN31"
+></A
+>Edward C. Bailey</H3
+><DIV
+CLASS="AFFILIATION"
+><SPAN
+CLASS="ORGNAME"
+>Red Hat, Inc.<BR></SPAN
+></DIV
+><H3
+CLASS="OTHERCREDIT"
+><A
+NAME="AEN40"
+></A
+>Paul Nasrat</H3
+><H3
+CLASS="OTHERCREDIT"
+><A
+NAME="AEN44"
+></A
+>Matthias Saou</H3
+><H3
+CLASS="OTHERCREDIT"
+><A
+NAME="AEN48"
+></A
+>Ville Skytt&#228;</H3
+><SPAN
+CLASS="ISBN"
+>      
+       1-888172-78-9
+    <BR></SPAN
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="ch-preface.html"
+>Preface</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-preface.html#S1-PREFACE-LINUX-AND-RPM-HISTORY"
+>Linux and RPM &#8212; A Brief History</A
+></DT
+><DT
+><A
+HREF="s1-preface-parts.html"
+>Parts of the book, and who they're for</A
+></DT
+><DT
+><A
+HREF="s1-preface-acknowledgements.html"
+>Acknowledgements</A
+></DT
+></DL
+></DD
+><DT
+>I. <A
+HREF="p108.html"
+>RPM and Computer Users &#8212; How to Use RPM to Effectively Manage Your
+      Computer</A
+></DT
+><DD
+><DL
+><DT
+>1. <A
+HREF="ch-intro-to-rpm.html"
+>An Introduction to Package Management</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-intro-to-rpm.html#S1-INTRO-TO-RPM-WHAT-ARE-PACKAGES"
+>What are Packages, and Why Manage Them?</A
+></DT
+><DT
+><A
+HREF="s1-intro-to-rpm-package-management-how.html"
+>Package Management: How to Do It?</A
+></DT
+><DT
+><A
+HREF="s1-intro-to-rpm-rpm-design-goals.html"
+>RPM Design Goals</A
+></DT
+><DT
+><A
+HREF="s1-intro-to-rpm-whats-in-package.html"
+>What's in a package?</A
+></DT
+><DT
+><A
+HREF="s1-intro-to-rpm-lets-get-started.html"
+>Let's Get Started</A
+></DT
+></DL
+></DD
+><DT
+>2. <A
+HREF="ch-rpm-install.html"
+>Using RPM to Install Packages</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-install.html#S1-RPM-INSTALL-RPM-I-WHAT-DOES-IT-DO"
+><B
+CLASS="COMMAND"
+>rpm -i</B
+> &#8212; What does it do?</A
+></DT
+><DT
+><A
+HREF="s1-rpm-install-performing-install.html"
+>Performing an Install</A
+></DT
+><DT
+><A
+HREF="s1-rpm-install-handy-options.html"
+>Two handy options</A
+></DT
+><DT
+><A
+HREF="s1-rpm-install-additional-options.html"
+>Additional options to <B
+CLASS="COMMAND"
+>rpm -i</B
+></A
+></DT
+></DL
+></DD
+><DT
+>3. <A
+HREF="ch-rpm-erase.html"
+>Using RPM to Erase Packages</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-erase.html#S1-RPM-ERASE-WHAT-DOES-IT-DO"
+><B
+CLASS="COMMAND"
+>rpm -e</B
+> &#8212; What Does it Do?</A
+></DT
+><DT
+><A
+HREF="s1-rpm-erase-erasing-package.html"
+>Erasing a Package</A
+></DT
+><DT
+><A
+HREF="s1-rpm-erase-additional-options.html"
+>Additional Options</A
+></DT
+><DT
+><A
+HREF="s1-rpm-erase-and-config-files.html"
+><B
+CLASS="COMMAND"
+>rpm -e</B
+> and Config files</A
+></DT
+><DT
+><A
+HREF="s1-rpm-erase-watch-out.html"
+>Watch Out!</A
+></DT
+></DL
+></DD
+><DT
+>4. <A
+HREF="ch-rpm-upgrade.html"
+>Using RPM to Upgrade Packages</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-upgrade.html#S1-RPM-UPGRADE-WHAT-IT-DOES"
+><B
+CLASS="COMMAND"
+>rpm -U</B
+> &#8212; What Does it Do?</A
+></DT
+><DT
+><A
+HREF="s1-rpm-upgrade-upgrading-a-package.html"
+>Upgrading a Package</A
+></DT
+><DT
+><A
+HREF="s1-rpm-upgrade-nearly-identical.html"
+>They're Nearly Identical&#8230;</A
+></DT
+></DL
+></DD
+><DT
+>5. <A
+HREF="ch-rpm-query.html"
+>Getting Information About Packages</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-query.html#S1-RPM-QUERY-WHAT-IT-DOES"
+><B
+CLASS="COMMAND"
+>rpm -q</B
+> &#8212; What does it do?</A
+></DT
+><DT
+><A
+HREF="s1-rpm-query-parts.html"
+>The Parts of an RPM Query</A
+></DT
+><DT
+><A
+HREF="s1-rpm-query-handy-queries.html"
+>A Few Handy Queries</A
+></DT
+></DL
+></DD
+><DT
+>6. <A
+HREF="ch-rpm-verify.html"
+>Using RPM to Verify Installed Packages</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-verify.html#S1-RPM-VERIFY-WHAT-IT-DOES"
+><B
+CLASS="COMMAND"
+>rpm -V</B
+> &#8212; What Does it Do?</A
+></DT
+><DT
+><A
+HREF="s1-rpm-verify-output.html"
+>When Verification Fails &#8212; <B
+CLASS="COMMAND"
+>rpm -V</B
+>
+      Output</A
+></DT
+><DT
+><A
+HREF="s1-rpm-verify-what-to-verify.html"
+>Selecting What to Verify, and How</A
+></DT
+><DT
+><A
+HREF="s1-rpm-verify-we-lied.html"
+>We've Lied to You&#8230;</A
+></DT
+></DL
+></DD
+><DT
+>7. <A
+HREF="ch-rpm-checksig.html"
+>Using RPM to Verify Package Files</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-checksig.html#S1-RPM-CHECKSIG-WHAT-IT-DOES"
+><B
+CLASS="COMMAND"
+>rpm -K</B
+> &#8212; What Does it Do?</A
+></DT
+><DT
+><A
+HREF="s1-rpm-checksig-configuring-pgp.html"
+>Configuring PGP for <B
+CLASS="COMMAND"
+>rpm -K</B
+></A
+></DT
+><DT
+><A
+HREF="s1-rpm-checksig-using-rpm-k.html"
+>Using <B
+CLASS="COMMAND"
+>rpm -K</B
+></A
+></DT
+></DL
+></DD
+><DT
+>8. <A
+HREF="ch-rpm-miscellania.html"
+>Miscellanea</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-miscellania.html#S1-RPM-MISCELLANIA-OTHER-OPTIONS"
+>Other RPM Options</A
+></DT
+><DT
+><A
+HREF="s1-rpm-miscellania-rpm2cpio.html"
+>Using <B
+CLASS="COMMAND"
+>rpm2cpio</B
+></A
+></DT
+><DT
+><A
+HREF="s1-rpm-miscellania-srpms.html"
+>Source Package Files and How To Use Them</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>II. <A
+HREF="p5206.html"
+>RPM and Developers &#8212; How to Distribute Your Software More Easily
+      With RPM</A
+></DT
+><DD
+><DL
+><DT
+>9. <A
+HREF="ch-rpm-philosophy.html"
+>The Philosophy Behind RPM</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-philosophy.html#S1-RPM-PHILOSOPHY-PRISTINE-SOURCES"
+>Pristine Sources</A
+></DT
+><DT
+><A
+HREF="s1-rpm-philosophy-easy-builds.html"
+>Easy Builds</A
+></DT
+><DT
+><A
+HREF="s1-rpm-philosophy-multi-architecture.html"
+>Multi-architecture/operating system Support</A
+></DT
+><DT
+><A
+HREF="s1-rpm-philosophy-easier-for-users.html"
+>Easier For Your Users</A
+></DT
+><DT
+><A
+HREF="s1-rpm-philosophy-summary.html"
+>To Summarize&#8230;</A
+></DT
+></DL
+></DD
+><DT
+>10. <A
+HREF="ch-rpm-basics.html"
+>The Basics of Developing With RPM</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-basics.html#S1-RPM-BASICS-INPUTS"
+>The Inputs</A
+></DT
+><DT
+><A
+HREF="s1-rpm-basics-the-engine.html"
+>The Engine: RPM</A
+></DT
+><DT
+><A
+HREF="s1-rpm-basics-outputs.html"
+>The Outputs</A
+></DT
+><DT
+><A
+HREF="s1-rpm-basics-and-now.html"
+>And Now&#8230;</A
+></DT
+></DL
+></DD
+><DT
+>11. <A
+HREF="ch-rpm-build.html"
+>Building Packages: A Simple Example</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-build.html#S1-RPM-BUILD-CREATING-BUILD-DIRECTORIES"
+>Creating the Build Directory Structure</A
+></DT
+><DT
+><A
+HREF="s1-rpm-build-getting-sources.html"
+>Getting the Sources</A
+></DT
+><DT
+><A
+HREF="s1-rpm-build-creating-spec-file.html"
+>Creating the Spec File</A
+></DT
+><DT
+><A
+HREF="s1-rpm-build-starting-build.html"
+>Starting the Build</A
+></DT
+><DT
+><A
+HREF="s1-rpm-build-when-things-go-wrong.html"
+>When Things Go Wrong</A
+></DT
+></DL
+></DD
+><DT
+>12. <A
+HREF="ch-rpm-b-command.html"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> Command Reference</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-b-command.html#S1-RPM-B-COMMAND-WHAT-IT-DOES"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> &#8212; What Does it Do?</A
+></DT
+><DT
+><A
+HREF="s1-rpm-b-command-other-build-commands.html"
+>Other Build-related Commands</A
+></DT
+></DL
+></DD
+><DT
+>13. <A
+HREF="ch-rpm-inside.html"
+>Inside the Spec File</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-inside.html#S1-RPM-INSIDE-COMMENTS"
+>Comments: Notes Ignored by RPM</A
+></DT
+><DT
+><A
+HREF="s1-rpm-inside-tags.html"
+>Tags: Data Definitions</A
+></DT
+><DT
+><A
+HREF="s1-rpm-inside-scripts.html"
+>Scripts: RPM's Workhorse</A
+></DT
+><DT
+><A
+HREF="s1-rpm-inside-macros.html"
+>Macros: Helpful Shorthand for Package Builders</A
+></DT
+><DT
+><A
+HREF="s1-rpm-inside-files-list.html"
+>The <B
+CLASS="COMMAND"
+>%files</B
+> List</A
+></DT
+><DT
+><A
+HREF="s1-rpm-inside-files-list-directives.html"
+>Directives For the <B
+CLASS="COMMAND"
+>%files</B
+> list</A
+></DT
+><DT
+><A
+HREF="s1-rpm-inside-package-directive.html"
+>The Lone Directive: <B
+CLASS="COMMAND"
+>%package</B
+></A
+></DT
+><DT
+><A
+HREF="s1-rpm-inside-conditionals.html"
+>Conditionals</A
+></DT
+></DL
+></DD
+><DT
+>14. <A
+HREF="ch-rpm-depend.html"
+>Adding Dependency Information to a Package</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-depend.html#S1-RPM-DEPEND-OVERVIEW"
+>An Overview of Dependencies</A
+></DT
+><DT
+><A
+HREF="s1-rpm-depend-auto-depend.html"
+>Automatic Dependencies</A
+></DT
+><DT
+><A
+HREF="s1-rpm-depend-manual-dependencies.html"
+>Manual Dependencies</A
+></DT
+><DT
+><A
+HREF="s1-rpm-depend-summary.html"
+>To Summarize&#8230;</A
+></DT
+></DL
+></DD
+><DT
+>15. <A
+HREF="ch-rpm-reloc.html"
+>Making a Relocatable Package</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-reloc.html#S1-RPM-RELOC-WHY"
+>Why relocatable packages?</A
+></DT
+><DT
+><A
+HREF="s1-rpm-reloc-prefix-tag.html"
+>The <B
+CLASS="COMMAND"
+>prefix</B
+> tag: Relocation Central</A
+></DT
+><DT
+><A
+HREF="s1-rpm-reloc-wrinkles.html"
+>Relocatable Wrinkles: Things to Consider</A
+></DT
+><DT
+><A
+HREF="s1-rpm-reloc-building-relocatable.html"
+>Building a Relocatable Package</A
+></DT
+></DL
+></DD
+><DT
+>16. <A
+HREF="ch-rpm-anywhere.html"
+>Making a Package That Can Build Anywhere</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-anywhere.html#S1-RPM-ANYWHERE-USING-BUILD-ROOTS"
+>Using Build Roots in a Package</A
+></DT
+><DT
+><A
+HREF="s1-rpm-anywhere-different-build-area.html"
+>Having RPM Use a Different Build Area</A
+></DT
+><DT
+><A
+HREF="s1-rpm-anywhere-specifying-file-attributes.html"
+>Specifying File Attributes</A
+></DT
+></DL
+></DD
+><DT
+>17. <A
+HREF="ch-rpm-pgp.html"
+>Adding PGP Signatures to a Package</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-pgp.html#S1-RPM-PGP-WHY-SIGN"
+>Why Sign a Package?</A
+></DT
+><DT
+><A
+HREF="s1-rpm-pgp-getting-ready.html"
+>Getting Ready to Sign</A
+></DT
+><DT
+><A
+HREF="s1-rpm-pgp-signing-packages.html"
+>Signing Packages</A
+></DT
+></DL
+></DD
+><DT
+>18. <A
+HREF="ch-rpm-subpack.html"
+>Creating Subpackages</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-subpack.html#S1-RPM-SUBPACK-WHAT-ARE-THEY"
+>What Are Subpackages?</A
+></DT
+><DT
+><A
+HREF="s1-rpm-subpack-why.html"
+>Why Are They Needed?</A
+></DT
+><DT
+><A
+HREF="s1-rpm-subpack-example-intro.html"
+>Our Example Spec File: Subpackages Galore!</A
+></DT
+><DT
+><A
+HREF="s1-rpm-subpack-spec-file-changes.html"
+>Spec File Changes For Subpackages</A
+></DT
+><DT
+><A
+HREF="s1-rpm-subpack-build-time-scripts.html"
+>Build-Time Scripts: Unchanged For Subpackages</A
+></DT
+><DT
+><A
+HREF="s1-rpm-subpack-building-subpackages.html"
+>Building Subpackages</A
+></DT
+></DL
+></DD
+><DT
+>19. <A
+HREF="ch-rpm-multi.html"
+>Building Packages for Multiple Architectures and Operating Systems</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-multi.html#S1-RPM-MULTI-PRIMER"
+>Architectures and Operating Systems: A Primer</A
+></DT
+><DT
+><A
+HREF="s1-rpm-multi-multi-platform-easier.html"
+>What Does RPM Do To Make Multi-Platform Packaging Easier?</A
+></DT
+><DT
+><A
+HREF="s1-rpm-multi-build-install-detection.html"
+>Build and Install Platform Detection</A
+></DT
+><DT
+><A
+HREF="s1-rpm-multi-optflags.html"
+><B
+CLASS="COMMAND"
+>optflags</B
+> &#8212; The Other <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>
+        File Entry</A
+></DT
+><DT
+><A
+HREF="s1-rpm-multi-platform-dependent-tags.html"
+>Platform-Dependent Tags</A
+></DT
+><DT
+><A
+HREF="s1-rpm-multi-platform-dependent-conditional.html"
+>Platform-Dependent Conditionals</A
+></DT
+><DT
+><A
+HREF="s1-rpm-multi-hints-and-kinks.html"
+>Hints and Kinks</A
+></DT
+></DL
+></DD
+><DT
+>20. <A
+HREF="ch-rpm-rw-build.html"
+>Real-World Package Building</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-rw-build.html#S1-RPM-RW-BUILD-AMANDA-OVERVIEW"
+>An Overview of Amanda</A
+></DT
+><DT
+><A
+HREF="s1-rpm-rw-build-build-without-rpm.html"
+>Initial Building Without RPM</A
+></DT
+><DT
+><A
+HREF="s1-rpm-rw-build-initial-build-with-rpm.html"
+>Initial Building With RPM</A
+></DT
+><DT
+><A
+HREF="s1-rpm-rw-build-package-building.html"
+>Package Building</A
+></DT
+></DL
+></DD
+><DT
+>21. <A
+HREF="ch-rpm-rpmlib.html"
+>A Guide to the RPM Library API</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-rpmlib.html#S1-RPM-RPMLIB-OVERVIEW"
+>An Overview of rpmlib</A
+></DT
+><DT
+><A
+HREF="s1-rpm-rpmlib-functions.html"
+>rpmlib Functions</A
+></DT
+><DT
+><A
+HREF="s1-rpm-rpmlib-example-code.html"
+>Example Code</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>III. <A
+HREF="p14028.html"
+>Appendixes</A
+></DT
+><DD
+><DL
+><DT
+>A. <A
+HREF="ch-rpm-file-format.html"
+>Format of the RPM File</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-file-format.html#S1-RPM-FILE-FORMAT-FILE-NAMING-CONVENTION"
+>RPM File Naming Convention</A
+></DT
+><DT
+><A
+HREF="s1-rpm-file-format-rpm-file-format.html"
+>RPM File Format</A
+></DT
+><DT
+><A
+HREF="s1-rpm-file-format-rpm-tools.html"
+>Tools For Studying RPM Files</A
+></DT
+><DT
+><A
+HREF="s1-rpm-file-format-file-command.html"
+>Identifying RPM files with the <B
+CLASS="COMMAND"
+>file(1)</B
+> command</A
+></DT
+></DL
+></DD
+><DT
+>B. <A
+HREF="ch-rpmrc-file.html"
+>The <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpmrc-file.html#S1-RPMRC-FILE-SHOWRC-OPTION"
+>Using the <B
+CLASS="COMMAND"
+>--showrc</B
+> Option</A
+></DT
+><DT
+><A
+HREF="s1-rpmrc-file-rpmrc-file-locations.html"
+>Different Places an <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File Resides</A
+></DT
+><DT
+><A
+HREF="s1-rpmrc-file-rpmrc-file-syntax.html"
+><TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File Syntax</A
+></DT
+><DT
+><A
+HREF="s1-rpmrc-file-rpmrc-file-entries.html"
+><TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File Entries</A
+></DT
+></DL
+></DD
+><DT
+>C. <A
+HREF="ch-rpm-commands.html"
+>Concise RPM Command Reference</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-commands.html#S1-RPM-COMMANDS-GLOBAL-OPTIONS"
+>Global Options</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-information-options.html"
+>Informational Options</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-query-mode.html"
+>Query Mode</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-verify-mode.html"
+>Verify Mode</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-install-mode.html"
+>Install Mode</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-upgrade-mode.html"
+>Upgrade Mode</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-erase-mode.html"
+>Erase Mode</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-build-mode.html"
+>Build Mode</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-rebuild-mode.html"
+>Rebuild Mode</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-recompile-mode.html"
+>Recompile Mode</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-resign-mode.html"
+>Resign Mode</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-add-signature-mode.html"
+>Add Signature Mode</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-check-signature-mode.html"
+>Check Signature Mode</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-initialize-database-mode.html"
+>Initialize Database Mode</A
+></DT
+><DT
+><A
+HREF="s1-rpm-commands-rebuild-database-mode.html"
+>Rebuild Database Mode</A
+></DT
+></DL
+></DD
+><DT
+>D. <A
+HREF="ch-queryformat-tags.html"
+>Available Tags For <B
+CLASS="COMMAND"
+>--queryformat</B
+></A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-queryformat-tags.html#S1-QUERYFORMAT-TAGS-QUERYFORMAT-TAGS"
+>List of <B
+CLASS="COMMAND"
+>--queryformat</B
+> Tags</A
+></DT
+></DL
+></DD
+><DT
+>E. <A
+HREF="ch-rpm-specref.html"
+>Concise Spec File Reference</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-specref.html#S1-RPM-SPECREF-COMMENTS"
+>Comments</A
+></DT
+><DT
+><A
+HREF="s1-rpm-specref-preamble.html"
+>The Preamble</A
+></DT
+><DT
+><A
+HREF="s1-rpm-specref-scripts.html"
+>Scriptlets</A
+></DT
+><DT
+><A
+HREF="s1-rpm-specref-macros.html"
+>Macros</A
+></DT
+><DT
+><A
+HREF="s1-rpm-specref-files-list.html"
+>The <B
+CLASS="COMMAND"
+>%files</B
+> List</A
+></DT
+><DT
+><A
+HREF="s1-rpm-specref-files-list-directives.html"
+>Directives For the <B
+CLASS="COMMAND"
+>%files</B
+> list</A
+></DT
+><DT
+><A
+HREF="s1-rpm-specref-package.html"
+><B
+CLASS="COMMAND"
+>%package</B
+> Directive</A
+></DT
+><DT
+><A
+HREF="s1-rpm-specref-conditionals.html"
+>Conditionals</A
+></DT
+></DL
+></DD
+><DT
+>F. <A
+HREF="ch-rpm-resources.html"
+>RPM-related Resources</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-rpm-resources.html#S1-RPM-RESOURCES-WHERE-TO-GET"
+>Where to Get RPM</A
+></DT
+><DT
+><A
+HREF="s1-rpm-resources-where-to-talk.html"
+>Where to Talk About RPM</A
+></DT
+><DT
+><A
+HREF="s1-rpm-resources-www-resources.html"
+>RPM On the World Wide Web</A
+></DT
+><DT
+><A
+HREF="s1-rpm-resources-license.html"
+>RPM's License</A
+></DT
+><DT
+><A
+HREF="s1-rpm-resources-gpl.html"
+>GNU GENERAL PUBLIC LICENSE</A
+></DT
+></DL
+></DD
+><DT
+>G. <A
+HREF="ch-pgp-intro.html"
+>An Introduction to PGP</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="ch-pgp-intro.html#S1-PGP-INTRO-PGP-OVERVIEW"
+>PGP &#8212; Privacy for Regular People</A
+></DT
+><DT
+><A
+HREF="s1-pgp-intro-installing-pgp.html"
+>Installing PGP for RPM's Use</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+>IV. <A
+HREF="p18926.html"
+>RPM Man Pages</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="rpm.8.html"
+>rpm</A
+>&nbsp;--&nbsp;RPM Package Manager</DT
+><DT
+><A
+HREF="rpmbuild.8.html"
+>rpmbuild</A
+>&nbsp;--&nbsp;Build RPM Package(s)</DT
+><DT
+><A
+HREF="rpmgraph.8.html"
+>rpmgraph</A
+>&nbsp;--&nbsp;Display RPM Package Dependency Graph</DT
+></DL
+></DD
+><DT
+><A
+HREF="i20751.html"
+>Index</A
+></DT
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-preface.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Preface</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

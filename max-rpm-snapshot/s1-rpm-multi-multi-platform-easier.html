@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>What Does RPM Do To Make Multi-Platform Packaging Easier?</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      Building Packages for Multiple Architectures and Operating Systems
+    "
+HREF="ch-rpm-multi.html"><LINK
+REL="PREVIOUS"
+TITLE="      Building Packages for Multiple Architectures and Operating Systems
+    "
+HREF="ch-rpm-multi.html"><LINK
+REL="NEXT"
+TITLE="Build and Install Platform Detection"
+HREF="s1-rpm-multi-build-install-detection.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-multi.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 19. Building Packages for Multiple Architectures and Operating Systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-multi-build-install-detection.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-MULTI-MULTI-PLATFORM-EASIER"
+>What Does RPM Do To Make Multi-Platform Packaging Easier?</A
+></H1
+><P
+>        As we mentioned above, RPM supports multi-platform package building
+        through a set of tags, <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries, and
+        conditionals.  None of these tools are difficult to use.  In fact, the
+        hardest part of multi-platform package building is figuring out how the
+        software needs to be changed to support different platforms.
+      </P
+><P
+>        Let's take a look at each multi-platform tool RPM provides.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MULTI-AUTO-DETECTION-BUILD"
+>Automatic Detection of Build Platform</A
+></H2
+><P
+>          The first thing necessary for easy multi-platform package building is
+          to identify which platform the package is to be built for.  Except in
+          the fairly esoteric case of cross-compilation, the build platform is
+          the platform on which the package is built.  RPM does this for you
+          automatically, although it can be overridden at build-time.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MULTI-AUTO-DETECTION-INSTALL"
+>Automatic Detection of Install Platform</A
+></H2
+><P
+>          The other important platform in package building is the platform on
+          which the package is to be installed.  Here again, RPM does this for
+          you, though it's possible to override this when the package is
+          installed.
+        </P
+><P
+>          But there is more to multi-platform package building than simply being
+          able to determine the platform during package building and
+          installation.  The next component in multi-platform package building
+          is a set of platform-dependent tags.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MULTI-PLATFORM-TAGS"
+>Platform-Dependent Tags</A
+></H2
+><P
+>          RPM uses a number of tags that control which platforms can build a
+          package.  These tags make it easier for the package builder to build
+          multiple packages automatically, since the tags will keep RPM from
+          attempting to build packages that are incompatible with the build
+          platform.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MULTI-PLATFORM-CONDITIONALS"
+>Platform-Dependent Conditionals</A
+></H2
+><P
+>          While the platform-dependent tags provide a crude level of
+          multi-platform control (i.e., the package will be built or not,
+          depending on the tags and the build platform), RPM's
+          platform-dependent conditionals provide a much finer level of control.
+          By using these conditionals, it's possible to excise those parts of
+          the spec file that are specific to another platform and replace them
+          with one or more lines that are compatible with the build platform.
+        </P
+><P
+>          Now that we have a basic idea of RPM's multi-platform support
+          features, let's take a more in-depth look at each one.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-multi.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-multi-build-install-detection.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Building Packages for Multiple Architectures and Operating Systems</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-multi.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Build and Install Platform Detection</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

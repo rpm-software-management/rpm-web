@@ -1,0 +1,1400 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Initial Building With RPM</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Real-World Package Building"
+HREF="ch-rpm-rw-build.html"><LINK
+REL="PREVIOUS"
+TITLE="Initial Building Without RPM"
+HREF="s1-rpm-rw-build-build-without-rpm.html"><LINK
+REL="NEXT"
+TITLE="Package Building"
+HREF="s1-rpm-rw-build-package-building.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-rw-build-build-without-rpm.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 20. Real-World Package Building</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-rw-build-package-building.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-RW-BUILD-INITIAL-BUILD-WITH-RPM"
+>Initial Building With RPM</A
+></H1
+><P
+>        Now that amanda has been configured, built, and is operational on our
+        build system, it's time to have RPM take over each of these tasks.  The
+        first task is to have RPM make the necessary changes to the original
+        sources.  To do that, RPM needs a patch file.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-GENERATING-PATCHES"
+>Generating patches</A
+></H2
+><P
+>          The <TT
+CLASS="FILENAME"
+>amanda-2.3.0</TT
+> directory tree is where we did
+          all our work building amanda.  We need to take all the work we've done
+          in that directory tree and compare it against the original sources
+          contained in the <TT
+CLASS="FILENAME"
+>amanda-2.3.0-orig</TT
+> directory
+          tree.  But before we do that, we need to clean things up a bit.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RW-BUILD-CLEANING-UP-TEST-BUILD-AREA"
+>Cleaning up the test build area</A
+></H3
+><P
+>            Looking through our work tree, it has all sorts of junk in it: emacs
+            save files, object files, and the executable programs.  In order to
+            generate a clean set of patches, all these extraneous files must go.
+            Looking over amanda's makefiles, there is a <B
+CLASS="COMMAND"
+>clean</B
+>
+            target that should take care of most of the junk:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>make clean</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Making clean in common-src
+&#8230;
+rm -f *~ *.o *.a genversion version.c Makefile.out
+&#8230;
+Making clean in client-src
+&#8230;
+rm -f amandad sendsize calcsize sendbackup-dump
+ sendbackup-gnutar runtar selfcheck  *~ *.o Makefile.out
+&#8230;
+Making clean in server-src
+&#8230;
+rm -f amrestore amadmin amflush amlabel amcheck amdump
+ amcleanup amtape taper dumper driver planner reporter
+ getconf *~ *.o Makefile.out
+&#8230;
+Making clean in changer-src
+&#8230;
+rm -f chg-generic *~ *.o Makefile.out
+&#8230;
+Making clean in man
+&#8230;
+rm -f *~ Makefile.out
+&#8230;</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Looking in the <TT
+CLASS="FILENAME"
+>tools</TT
+> and
+            <TT
+CLASS="FILENAME"
+>config</TT
+> directories where we did all our work,
+            we see there are still emacs save files there.  A bit of studying
+            confirms that the makefiles don't bother to clean these two
+            directories.  That's a nice touch because a <B
+CLASS="COMMAND"
+>make
+            clean</B
+> won't wipe out old copies of the config files,
+            giving you a chance to go back to them in case you've botched
+            something.  However, in our case, we're sure we won't need the save
+            files, so out they go:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/src/redhat/SOURCES/amanda-2.3.0</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>find . -name "*~" -exec rm -vf \;</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>./config/config.h~
+./config/options.h~
+./tools/munge~</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            We let <B
+CLASS="COMMAND"
+>find</B
+> take a look at the whole directory
+            tree, just in case there was something still out there that we'd
+            forgotten about.  As you can see, the only save files are from the
+            three files we've been working on.
+          </P
+><P
+>            You'll note that we've left our modified <TT
+CLASS="FILENAME"
+>munge</TT
+>
+            file, as well as the <TT
+CLASS="FILENAME"
+>config.h</TT
+> and
+            <TT
+CLASS="FILENAME"
+>options.h</TT
+> files we so carefully crafted.
+            That's intentional, as we want to make sure those changes are
+            applied when RPM patches the sources.  Everything looks pretty
+            clean, so it's time to make the patches.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RW-BUILD-ACTUALLY-GENERATING-PATCHES"
+>Actually Generating patches</A
+></H3
+><P
+>            This step is actually pretty anticlimactic:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>diff -uNr amanda-2.3.0-orig/ amanda-2.3.0/ &#62; amanda-2.3.0-linux.patch</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            With that one command, we've compared each file in the untouched
+            directory tree (<TT
+CLASS="FILENAME"
+>amanda-2.3.0-orig</TT
+>) with the
+            directory tree we've been working in
+            (<TT
+CLASS="FILENAME"
+>amanda-2.3.0</TT
+>).  If we've done our homework,
+            the only things in the patch file should be related to the files
+            we've changed.  Let's take a look through it to make sure:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/src/redhat/SOURCES</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cat amanda-2.3.0-linux.patch</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>diff -uNr amanda-2.3.0-orig/config/config.h amanda-2.3.0/config/config.h
+--- amanda-2.3.0-orig/config/config.h	Wed Dec 31 19:00:00 1969
++++ amanda-2.3.0/config/config.h	Sat Nov 16 16:22:47 1996
+@@ -0,0 +1,52 @@
+&#8230;
+diff -uNr amanda-2.3.0-orig/config/options.h amanda-2.3.0/config/options.h
+--- amanda-2.3.0-orig/config/options.h	Wed Dec 31 19:00:00 1969
++++ amanda-2.3.0/config/options.h	Sat Nov 16 17:08:57 1996
+@@ -0,0 +1,211 @@
+&#8230;
+diff -uNr amanda-2.3.0-orig/tools/munge amanda-2.3.0/tools/munge
+--- amanda-2.3.0-orig/tools/munge	Sun May 19 22:11:25 1996
++++ amanda-2.3.0/tools/munge	Sat Nov 16 16:23:50 1996
+@@ -35,10 +35,10 @@
+ # Customize CPP to point to your system's C preprocessor.
+ 
+ # if cpp is on your path:
+-CPP=cpp
++# CPP=cpp
+ 
+ # if cpp is not on your path, try one of these:
+-# CPP=/lib/cpp	                # traditional
++CPP=/lib/cpp                   # traditional
+ # CPP=/usr/lib/cpp             # also traditional
+ # CPP=/usr/ccs/lib/cpp         # Solaris 2.x
+#</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The patch file contains complete copies of our
+            <TT
+CLASS="FILENAME"
+>config.h</TT
+> and <TT
+CLASS="FILENAME"
+>options.h</TT
+>
+            files, followed by the changes we've made to
+            <TT
+CLASS="FILENAME"
+>munge</TT
+>.  Looks good!  Time to hand this grunt
+            work over to RPM.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-FIRST-CUT-SPEC-FILE"
+>Making a first-cut spec file</A
+></H2
+><P
+>          Since amanda comes in two parts, it's obvious we'll need to use
+          subpackages: one for the client software, and one for the server.
+          Given that, and the fact that the first part of any spec file consists
+          of tags that are easily filled in, let's sit down and fill in the
+          blanks, tag-wise:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Summary: Amanda Network Backup System
+Name: amanda
+Version: 2.3.08
+Release: 1
+Group: System/Backup
+License: BSD-like, but see COPYRIGHT file for details
+Packager: Edward C. Bailey &#60;bailey@rpm.org&#62;
+URL: http://www.cs.umd.edu/projects/amanda/
+Source: ftp://ftp.cs.umd.edu/pub/amanda/amanda-2.3.0.tar.gz
+Patch: amanda-2.3.0-linux.patch
+%description
+Amanda is a client/server backup system.  It uses standard tape
+devices and networking, so all you need is any working tape drive
+and a network.  You can use it for local backups as well.</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          That part was pretty easy.  We set the package's release number to 1.
+          We'll undoubtedly be changing that as we continue work on the spec
+          file.  You'll notice that we've included a <B
+CLASS="COMMAND"
+>URL</B
+> tag
+          line; the Uniform Resource Locator there points to the homepage for
+          the amanda project, making it easier for the user to get additional
+          information on amanda.
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>Source</B
+> tag above includes the name of the
+          original source tar file and is preceded by the URL pointing to the
+          file's primary location.  Again, this makes it easy for the user to
+          grab a copy of the sources from the software's "birthplace".
+        </P
+><P
+>          Finally, the patch file that we've just created gets a line of its own
+          on the <B
+CLASS="COMMAND"
+>Patch</B
+> tag line.  Next, let's take a look at
+          the tags for our two subpackages.  Let's start with the client:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%package client
+Summary: Client-side Amanda package
+Group: System/Backup
+Requires: dump
+%description client
+The Amanda Network Backup system contains software necessary to
+automatically perform backups across a network.  Amanda consists of
+two packages -- a client (this package), and a server:
+
+The client package enable a network-capable system to have its
+filesystems backed up by a system running the Amanda server.
+
+NOTE: In order for a system to perform backups of itself, install both
+the client and server packages!</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>%package</B
+> directive names the package.  Since we
+          wanted the subpackages to be named
+          <TT
+CLASS="FILENAME"
+>amanda-&#60;something&#62;</TT
+>, we didn't use the
+          <B
+CLASS="COMMAND"
+>-n</B
+> option.  This means our client subpackage will
+          be called <TT
+CLASS="FILENAME"
+>amanda-client</TT
+>, just as we wanted.  RPM
+          requires unique <B
+CLASS="COMMAND"
+>summary</B
+>,
+          <B
+CLASS="COMMAND"
+>%description</B
+>, and <B
+CLASS="COMMAND"
+>group</B
+> tags for
+          each subpackage, so we've included them.  Of course, it would be a
+          good idea even if RPM <I
+CLASS="EMPHASIS"
+>didn't</I
+> require them &#8212;
+          we've used the tags to provide client-specific information.
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>requires</B
+> tag is the only other tag in the
+          client subpackage.  Since amanda uses <B
+CLASS="COMMAND"
+>dump</B
+> on the
+          client system, we included this tag so that RPM will ensure that the
+          <B
+CLASS="COMMAND"
+>dump</B
+> package is present on client systems.
+        </P
+><P
+>          Next, let's take a look at the tags for the server subpackage:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%package server
+Summary: Server-side Amanda package
+Group: System/Backup
+%description server
+The Amanda Network Backup system contains software necessary to
+automatically perform backups across a network.  Amanda consists of
+two package -- a client, and a server (this package):
+
+The server package enables a network-capable system to control one
+or more Amanda client systems performing backups.  The server system
+will direct all backups to a locally attached tape drive.  Therefore,
+the server system requires a tape drive.
+
+NOTE: In order for a system to perform backups of itself, install both
+the client and server packages!</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          No surprises here, really.  You'll note that the server subpackage has
+          no <B
+CLASS="COMMAND"
+>requires</B
+> tag for the dump package.  The reason
+          for that is due to a design decision we've made.  Since amanda is
+          comprised of a client and a server component, in order for the server
+          system to perform backups of itself, the client component must be
+          installed.  Since we've already made the client subpackage require
+          <B
+CLASS="COMMAND"
+>dump</B
+>, we've already covered the bases.
+        </P
+><P
+>          Since an amanda server cannot back itself up without the client
+          software, why don't we have the server subpackage require the client
+          subpackage?  Well, that could be done, but the fact of the matter is
+          that there are cases where an amanda server won't need to back itself
+          up.  So the server subpackage needs no package requirements.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RW-BUILD-ADDING-BUILD-TIME-SCRIPTS"
+>Adding the build-time scripts</A
+></H3
+><P
+>            Next we need to add the build-time scripts.  There's really not much
+            to them:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%prep
+%setup
+
+%build
+make
+
+%install
+make install</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>%prep</B
+> script consists of one line containing
+            the simplest flavor of <B
+CLASS="COMMAND"
+>%setup</B
+> macro.  Since we
+            only need <B
+CLASS="COMMAND"
+>%setup</B
+> to unpack one set of sources,
+            there are no options we need to add.
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>%build</B
+> script is just as simple, with the
+            single <B
+CLASS="COMMAND"
+>make</B
+> command required to build amanda.
+          </P
+><P
+>            Finally, the <B
+CLASS="COMMAND"
+>%install</B
+> script maintains our
+            singe-line trend for build-time scripts.  Here a simple
+            <B
+CLASS="COMMAND"
+>make install</B
+> will put all the files where they
+            need to be for RPM to package them.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RW-BUILD-ADDING-FILES-LISTS"
+>Adding <B
+CLASS="COMMAND"
+>%files</B
+> Lists</A
+></H3
+><P
+>            The last part of our initial attempt at a spec file is a
+            <B
+CLASS="COMMAND"
+>%files</B
+> list for each package the spec file will
+            build.  Since we're planning on a client and a server subpackage,
+            we'll need two <B
+CLASS="COMMAND"
+>%files</B
+> lists.  For the time being,
+            we'll just add the <B
+CLASS="COMMAND"
+>%files</B
+> lines &#8212; we'll be
+            adding the actual filenames later:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files client
+
+%file server</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            There's certainly more to come, but this is enough to get us
+            started.  And the first thing we want RPM to do is to unpack the
+            amanda sources.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-RPM-UNPACKING-SOURCES"
+>Getting the original sources unpacked</A
+></H2
+><P
+>          In keeping with a step-by-step approach, RPM has an option that let's
+          us stop the build process after the <B
+CLASS="COMMAND"
+>%prep</B
+> script
+          has run.  Let's give the <B
+CLASS="COMMAND"
+>-bp</B
+> option a try, and see
+          how things look:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-bp amanda-2.3.0.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: amanda
+* Package: amanda-client
+* Package: amanda-server
++ umask 022
++ echo Executing: %prep
+Executing: %prep
++ cd /usr/src/redhat/BUILD
++ cd /usr/src/redhat/BUILD
++ rm -rf amanda-2.3.0
++ gzip -dc /usr/src/redhat/SOURCES/amanda-2.3.0.tar.gz
++ tar -xvvf -
+drwxr-xr-x 3/20              0 May 19 22:10 1996 amanda-2.3.0/
+-rw-r--r-- 3/20           1389 May 19 22:11 1996 amanda-2.3.0/COPYRIGHT
+-rw-r--r-- 3/20           1958 May 19 22:11 1996 amanda-2.3.0/Makefile
+-rw-r--r-- 3/20          11036 May 19 22:11 1996 amanda-2.3.0/README
+&#8230;
+-rw-r--r-- 3/20           2010 May 19 22:11 1996 amanda-2.3.0/man/amtape.8
+drwxr-xr-x 3/20              0 May 19 22:11 1996 amanda-2.3.0/tools/
+-rwxr-xr-x 3/20           2437 May 19 22:11 1996 amanda-2.3.0/tools/munge
++ [ 0 -ne 0 ]
++ cd amanda-2.3.0
++ cd /usr/src/redhat/BUILD/amanda-2.3.0
++ chown -R root.root .
++ chmod -R a+rX,g-w,o-w .
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          By looking at the output, it would be pretty hard to miss the fact
+          that the sources were unpacked.  If we look in RPM's default build
+          area (<TT
+CLASS="FILENAME"
+>/usr/src/redhat/BUILD</TT
+>), we'll see an amanda
+          directory tree:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/src/redhat/BUILD/</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -l</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 3
+drwxr-xr-x  11 root     root         1024 May 19  1996 amanda-2.3.0</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          After a quick look around, it seems like the sources were unpacked
+          properly.  But wait &#8212; where are our carefully crafted
+          configuration files in <TT
+CLASS="FILENAME"
+>config</TT
+>?  Why isn't
+          <TT
+CLASS="FILENAME"
+>tools/munge</TT
+> modified?
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-APPLYING-PATCHES"
+>Getting patches properly applied</A
+></H2
+><P
+>          Ah, perhaps our <B
+CLASS="COMMAND"
+>%prep</B
+> script was a bit
+          <I
+CLASS="EMPHASIS"
+>too</I
+> simple.  We need to apply our patch.  So
+          let's add two things to our spec file:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                A <B
+CLASS="COMMAND"
+>patch</B
+> tag line pointing to our patch file
+              </P
+></LI
+><LI
+><P
+>                A <B
+CLASS="COMMAND"
+>%patch</B
+> macro in our
+                <B
+CLASS="COMMAND"
+>%prep</B
+> script
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          Easy enough.  At the top of the spec file, along with the other tags,
+          let's add:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Patch: amanda-2.3.0-linux.patch</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Then we'll make our <B
+CLASS="COMMAND"
+>%prep</B
+> script look like this:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%prep
+%setup
+%patch -p 1</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          There, that should do it.  Let's give that <B
+CLASS="COMMAND"
+>-bp</B
+>
+          option another try:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-bp amanda-2.3.0.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: amanda
+* Package: amanda-client
+* Package: amanda-server
++ umask 022
++ echo Executing: %prep
+Executing: %prep
++ cd /usr/src/redhat/BUILD
++ cd /usr/src/redhat/BUILD
++ rm -rf amanda-2.3.0
++ gzip -dc /usr/src/redhat/SOURCES/amanda-2.3.0.tar.gz
++ tar -xvvf -
+drwxr-xr-x 3/20              0 May 19 22:10 1996 amanda-2.3.0/
+-rw-r--r-- 3/20           1389 May 19 22:11 1996 amanda-2.3.0/COPYRIGHT
+-rw-r--r-- 3/20           1958 May 19 22:11 1996 amanda-2.3.0/Makefile
+-rw-r--r-- 3/20          11036 May 19 22:11 1996 amanda-2.3.0/README
+&#8230;
+-rw-r--r-- 3/20           2010 May 19 22:11 1996 amanda-2.3.0/man/amtape.8
+drwxr-xr-x 3/20              0 May 19 22:11 1996 amanda-2.3.0/tools/
+-rwxr-xr-x 3/20           2437 May 19 22:11 1996 amanda-2.3.0/tools/munge
++ [ 0 -ne 0 ]
++ cd amanda-2.3.0
++ cd /usr/src/redhat/BUILD/amanda-2.3.0
++ chown -R root.root .
++ chmod -R a+rX,g-w,o-w .
++ echo Patch #0:
+Patch #0:
++ patch -p1 -s
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Not much difference, until the very end, where we see the patch being
+          applied.  Let's take a look into the build area and see if our
+          configuration files are there:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/src/redhat/BUILD/amanda-2.3.0/config</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -l</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 58
+-rw-r--r--   1 root     root         7518 May 19  1996 config-common.h
+-rw-r--r--   1 root     root         1846 Nov 20 20:46 config.h
+-rw-r--r--   1 root     root         2081 May 19  1996 config.h-aix
+-rw-r--r--   1 root     root         1690 May 19  1996 config.h-bsdi1
+&#8230;
+-rw-r--r--   1 root     root         1830 May 19  1996 config.h-ultrix4
+-rw-r--r--   1 root     root            0 Nov 20 20:46 config.h.orig
+-rw-r--r--   1 root     root         7196 Nov 20 20:46 options.h
+-rw-r--r--   1 root     root         7236 May 19  1996 options.h-vanilla
+-rw-r--r--   1 root     root            0 Nov 20 20:46 options.h.orig</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Much better.  Those zero-length <TT
+CLASS="FILENAME"
+>.orig</TT
+> files are a
+          dead giveaway that patch has been here, as are the dates on
+          <TT
+CLASS="FILENAME"
+>config.h</TT
+>, and <TT
+CLASS="FILENAME"
+>options.h</TT
+>.  In
+          the <TT
+CLASS="FILENAME"
+>tools</TT
+> directory, <TT
+CLASS="FILENAME"
+>munge</TT
+>
+          has been modified, too.  These sources are ready for building!
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-RPM-BUILDING"
+>Letting RPM do the Building</A
+></H2
+><P
+>          We know that the sources are ready.  We know that the
+          <B
+CLASS="COMMAND"
+>%build</B
+> script is ready.  There shouldn't be much in
+          the way of surprises if we let RPM build amanda.  Let's use the
+          <B
+CLASS="COMMAND"
+>-bc</B
+> option to stop things after the
+          <B
+CLASS="COMMAND"
+>%build</B
+> script completes:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-bc amanda-2.3.0.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: amanda
+* Package: amanda-client
+* Package: amanda-server
+&#8230;
+ echo Executing: %build
+Executing: %build
++ cd /usr/src/redhat/BUILD
++ cd amanda-2.3.0
++ make
+Making all in common-src
+make[1]: Entering directory `/usr/src/redhat/BUILD/amanda-2.3.0/common-src'
+../tools/munge Makefile.in Makefile.out
+make[2]: Entering directory `/usr/src/redhat/BUILD/amanda-2.3.0/common-src'
+cc  -g  -I. -I../config   -c error.c -o error.o
+cc  -g  -I. -I../config   -c alloc.c -o alloc.o
+&#8230;
+Making all in man
+make[1]: Entering directory `/usr/src/redhat/BUILD/amanda-2.3.0/man'
+../tools/munge Makefile.in Makefile.out
+make[2]: Entering directory `/usr/src/redhat/BUILD/amanda-2.3.0/man'
+make[2]: Nothing to be done for `all'.
+make[2]: Leaving directory `/usr/src/redhat/BUILD/amanda-2.3.0/man'
+make[1]: Leaving directory `/usr/src/redhat/BUILD/amanda-2.3.0/man'
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As we thought, no surprises.  A quick look through the build area
+          shows a full assortment of binaries, all ready to be installed.  So it
+          seems that the most natural thing to do next would be to let RPM
+          install amanda.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-RPM-INSTALLING"
+>Letting RPM do the Installing</A
+></H2
+><P
+>          And that's just what we're going to do!  Our
+          <B
+CLASS="COMMAND"
+>%install</B
+> script has the necessary <B
+CLASS="COMMAND"
+>make
+          install</B
+> command, so let's give it a shot:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-bi amanda-2.3.0.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: amanda
+* Package: amanda-client
+* Package: amanda-server
+&#8230;
+ echo Executing: %build
+Executing: %build
++ cd /usr/src/redhat/BUILD
++ cd amanda-2.3.0
++ make
+Making all in common-src
+make[1]: Entering directory `/usr/src/redhat/BUILD/amanda-2.3.0/common-src'
+../tools/munge Makefile.in Makefile.out
+make[2]: Entering directory `/usr/src/redhat/BUILD/amanda-2.3.0/common-src'
+cc  -g  -I. -I../config   -c error.c -o error.o
+cc  -g  -I. -I../config   -c alloc.c -o alloc.o
+&#8230;
++ umask 022
++ echo Executing: %install
+Executing: %install
++ cd /usr/src/redhat/BUILD
++ cd amanda-2.3.0
++ make install
+Making install in common-src
+make[1]: Entering directory `/usr/src/redhat/BUILD/amanda-2.3.0/common-src'
+&#8230;
+  install -c -o bin amrestore.8 /usr/man/man8
+  install -c -o bin amtape.8 /usr/man/man8
+make[2]: Leaving directory `/usr/src/redhat/BUILD/amanda-2.3.0/man'
+make[1]: Leaving directory `/usr/src/redhat/BUILD/amanda-2.3.0/man'
++ exit 0
++ umask 022
++ echo Executing: special doc
+Executing: special doc
++ cd /usr/src/redhat/BUILD
++ cd amanda-2.3.0
++ DOCDIR=//usr/doc/amanda-2.3.0-1
++ DOCDIR=//usr/doc/amanda-client-2.3.0-1
++ DOCDIR=//usr/doc/amanda-server-2.3.0-1
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Everything looks pretty good.  At this point, the amanda software,
+          built by RPM, has been installed on the build system.  Since performed
+          all the configuration steps before, when we were manually building
+          amanda, everything should still be configured properly to test this
+          new build.
+          <A
+NAME="AEN12213"
+HREF="#FTN.AEN12213"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+          So why don't we give the new binaries a try?
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-BUILDING-PACKAGES"
+>Testing RPM's Handiwork</A
+></H2
+><P
+>          After a quick double-check to ensure that all the configuration steps
+          were still in place from our manual build, we reran our tests.  No
+          problems were found.  It's time to build some packages!
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN12213"
+HREF="s1-rpm-rw-build-initial-build-with-rpm.html#AEN12213"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              Of course, if the process of installing the software changed some
+              necessary config files, they would have to be redone, but in this
+              case it didn't happen.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-rw-build-build-without-rpm.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-rw-build-package-building.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Initial Building Without RPM</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-rw-build.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Package Building</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

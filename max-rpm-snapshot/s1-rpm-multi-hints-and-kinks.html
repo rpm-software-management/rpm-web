@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Hints and Kinks</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      Building Packages for Multiple Architectures and Operating Systems
+    "
+HREF="ch-rpm-multi.html"><LINK
+REL="PREVIOUS"
+TITLE="Platform-Dependent Conditionals"
+HREF="s1-rpm-multi-platform-dependent-conditional.html"><LINK
+REL="NEXT"
+TITLE="Real-World Package Building"
+HREF="ch-rpm-rw-build.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-multi-platform-dependent-conditional.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 19. Building Packages for Multiple Architectures and Operating Systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-rw-build.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-MULTI-HINTS-AND-KINKS"
+>Hints and Kinks</A
+></H1
+><P
+>        There isn't much in the way of hard and fast rules when it comes to
+        multi-platform package building.  But in general, the following uses of
+        RPM's multi-platform capabilities seem to work the best:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              The <B
+CLASS="COMMAND"
+>exclude<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+> and
+              <B
+CLASS="COMMAND"
+>exclusive<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+> tags are
+              best used when it's known there's no reason for the package to be
+              built on specific architectures.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              The <B
+CLASS="COMMAND"
+>%if<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+> and
+              <B
+CLASS="COMMAND"
+>%ifn<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+> conditionals are
+              most likely to be used in the following areas:
+
+              <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    Controlling the inclusion of <B
+CLASS="COMMAND"
+>%patch</B
+>
+                    macros for platform-specific patches.
+                  </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    Setting up platform-specific initialization prior to
+                    building the software.
+                  </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    Tailoring the <B
+CLASS="COMMAND"
+>%files</B
+> list when the
+                    software creates platform-specific files.
+                  </P
+></LI
+></UL
+>
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        Given that some software is more easily ported to different platforms
+        than others, this list is far from complete.  If there's one thing to
+        remember about multi-platform package building, it's don't be afraid to
+        experiment!
+      </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-multi-platform-dependent-conditional.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-rw-build.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Platform-Dependent Conditionals</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-multi.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Real-World Package Building</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,591 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>A Few Handy Queries</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Getting Information About Packages"
+HREF="ch-rpm-query.html"><LINK
+REL="PREVIOUS"
+TITLE="The Parts of an RPM Query"
+HREF="s1-rpm-query-parts.html"><LINK
+REL="NEXT"
+TITLE="Using RPM to Verify Installed Packages"
+HREF="ch-rpm-verify.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-query-parts.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. Getting Information About Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-verify.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-QUERY-HANDY-QUERIES"
+>A Few Handy Queries</A
+></H1
+><P
+>        Below are some examples of situations you might find yourself in, and
+        ways you can use RPM to get the information you need.  Keep in mind that
+        these are just examples.  Don't be afraid to experiment!
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-FINDING-CONFIG-FILES"
+>Finding Config Files Based on a Program Name</A
+></H2
+><P
+>          You're setting up a new system, and you'd like to implement some
+          system-wide aliases for people using the Bourne Again SHell,
+          <B
+CLASS="COMMAND"
+>bash</B
+>.  The problem is you just can't remember the
+          name of the system-wide initialization file used by
+          <B
+CLASS="COMMAND"
+>bash</B
+>, or where it resides:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qcf /bin/bash</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/etc/bashrc</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+
+          Rather than spending time trying to hunt down the file, RPM finds it
+          for you in seconds.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-UNINSTALLED-PACKAGES"
+>Learning More About an Uninstalled Package</A
+></H2
+><P
+>          Practically any option can be combined with <B
+CLASS="COMMAND"
+>-qp</B
+> to
+          extract information from a .rpm file.  Let's say you have an unknown
+          .rpm file, and you'd like to know a bit more before installing it:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qpil foo.bar</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Name        : rpm                  Distribution: Red Hat Linux Vanderbilt
+Version     : 2.3                        Vendor: Red Hat Software
+Release     : 1                      Build Date: Tue Dec 24 09:07:59 1996
+Install date: (none)                 Build Host: porky.redhat.com
+Group       : Utilities/System       Source RPM: rpm-2.3-1.src.rpm
+Size        : 631157
+Summary     : Red Hat Package Manager
+Description :
+RPM is a powerful package manager, which can be used to build, install,
+query, verify, update, and uninstall individual software packages. A
+package consists of an archive of files, and package information,
+including name, version, and description.
+/bin/rpm
+/usr/bin/find-provides
+/usr/bin/find-requires
+/usr/bin/gendiff
+/usr/bin/rpm2cpio
+/usr/doc/rpm-2.3-1
+&#8230;
+/usr/src/redhat/SOURCES
+/usr/src/redhat/SPECS
+/usr/src/redhat/SRPMS</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          By displaying the package information, we know that we have a package
+          file containing RPM version 2.3.  We can then peruse the file list,
+          and see exactly what it would install before installing it.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-FINDING-DOCS"
+>Finding Documentation for a Specific Package</A
+></H2
+><P
+>          Picking on <B
+CLASS="COMMAND"
+>bash</B
+> some more, you realize that your
+          knowledge of the software is lacking.  You'd like to see when it was
+          installed on your system, and what documentation is available for it:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qid bash</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Name        :bash                   Distribution: Red Hat Linux (Picasso)
+Version     :1.14.6                       Vendor: Red Hat Software
+Release     :2                        Build Date: Sun Feb 25 13:59:26 1996
+Install date:Mon May 13 12:47:22 1996 Build Host: porky.redhat.com
+Group       :Shells                   Source RPM: bash-1.14.6-2.src.rpm
+Size        :486557
+Description :GNU Bourne Again Shell (bash)
+/usr/doc/bash-1.14.6-2
+/usr/doc/bash-1.14.6-2/NEWS
+/usr/doc/bash-1.14.6-2/README
+/usr/doc/bash-1.14.6-2/RELEASE
+/usr/info/bash.info.gz
+/usr/man/man1/bash.1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+
+          You never realized that there could be so much documentation for a
+          shell!
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-SIMILAR-PACKAGES"
+>Finding Similar Packages</A
+></H2
+><P
+>          Looking at <TT
+CLASS="FILENAME"
+>bash</TT
+>'s information, we see that it
+          belongs to the group "Shells".  You're not sure what other shell
+          packages are installed on your system.  If you can find other packages
+          in the "Shells" group, you'll have found the other installed shells:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qa --queryformat '%10{NAME} %20{GROUP}\n' | grep -i shells</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>       ash               Shells
+      bash               Shells
+       csh               Shells
+        mc               Shells
+      tcsh               Shells</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+
+          Now you can query each of these packages, and learn more about them,
+          too.
+          <A
+NAME="AEN3711"
+HREF="#FTN.AEN3711"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-RECENTLY-INSTALLED-PACKAGES"
+>Finding Recently Installed Packages, Part I</A
+></H2
+><P
+>          You remember installing a new package a few days ago.  All you know
+          for certain is that the package installed a new command in the
+          <TT
+CLASS="FILENAME"
+>/bin</TT
+> directory.  Let's try to find the package:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>find /bin -type f -mtime -14 | rpm -qF</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-2.3-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+
+          Looks like RPM version 2.3 was installed sometime in the last two
+          weeks.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-RECENTLY-INSTALLED-PACKAGES2"
+>Finding Recently Installed Packages, Part II</A
+></H2
+><P
+>          Another way to see which packages were recently installed is to use
+          the <B
+CLASS="COMMAND"
+>--queryformat</B
+> option:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qa --queryformat '%{installtime} %{name}-%{version}-%{release} %{installtime:date}\n' | sort -nr +1 | sed -e 's/^[^ ]* //'</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-devel-2.3-1 Thu Dec 26 23:02:05 1996
+rpm-2.3-1 Thu Dec 26 23:01:51 1996
+pgp-2.6.3usa-2 Tue Oct 22 19:39:09 1996
+&#8230;
+pamconfig-0.50-5 Tue Oct 15 17:23:22 1996
+setup-1.5-1 Tue Oct 15 17:23:21 1996</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+
+            By having RPM include the installation time in numeric form, it was
+            simple to sort the packages and then use <B
+CLASS="COMMAND"
+>sed</B
+> to
+            remove the user-unfriendly numeric time.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-LARGEST-PACKAGES"
+>Finding the Largest Installed Packages</A
+></H2
+><P
+>          Let's say that you're running low on disk space, and you'd like to see
+          what packages you have installed, along with the amount of space each
+          package takes up.  You'd also like to see the largest packages first,
+          so you can get back as much disk space as possible:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qa --queryformat '%{name}-%{version}-%{release} %{size}\n' | sort -nr +1</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>kernel-source-2.0.18-5  20608472
+tetex-0.3.4-3  19757371
+emacs-el-19.34-1  12259914
+&#8230;
+rootfiles-1.3-1  3494
+mkinitrd-1.0-1  1898
+redhat-release-4.0-1  22</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+
+          If you don't build custom kernels, or use TeX, it's easy to see how
+          much space could be reclaimed by removing those packages.
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN3711"
+HREF="s1-rpm-query-handy-queries.html#AEN3711"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              Did you see this example and say to yourself, "Hey, they could've
+              used the -g option to query for that group directly"?  If you did,
+              you've been paying attention.  This is a more general way of
+              searching the RPM database for information: we just happened to
+              search by group in this example.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-query-parts.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-verify.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The Parts of an RPM Query</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-query.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Using RPM to Verify Installed Packages</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

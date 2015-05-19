@@ -1,0 +1,576 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Different Places an rpmrc File Resides</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The rpmrc File"
+HREF="ch-rpmrc-file.html"><LINK
+REL="PREVIOUS"
+TITLE="The rpmrc File"
+HREF="ch-rpmrc-file.html"><LINK
+REL="NEXT"
+TITLE="rpmrc File Syntax"
+HREF="s1-rpmrc-file-rpmrc-file-syntax.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpmrc-file.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix B. The <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpmrc-file-rpmrc-file-syntax.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPMRC-FILE-RPMRC-FILE-LOCATIONS"
+>Different Places an <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File Resides</A
+></H1
+><P
+>      RPM looks for <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files in four places:
+
+      <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>            In <TT
+CLASS="FILENAME"
+>/usr/lib/</TT
+>, for a file called
+            <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>.
+          </P
+></LI
+><LI
+><P
+>            In <TT
+CLASS="FILENAME"
+>/etc/</TT
+>, for a file called
+            <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>.
+          </P
+></LI
+><LI
+><P
+>            In a file called <TT
+CLASS="FILENAME"
+>.rpmrc</TT
+> in the user's login
+            directory.
+          </P
+></LI
+><LI
+><P
+>            In a file specified by the <B
+CLASS="COMMAND"
+>--rcfile</B
+> option, if
+            the option is present on the command line.
+          </P
+></LI
+></OL
+>
+    </P
+><P
+>      The first three files are read in the order listed, such that if a given
+      <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> entry is present in each file, the value of the
+      entry read <I
+CLASS="EMPHASIS"
+>last</I
+> is the one used by RPM.  This means,
+      for example, that an entry in <TT
+CLASS="FILENAME"
+>.rpmrc</TT
+> in the user's
+      login directory will always override the same entry in
+      <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+>.  Likewise, an entry in
+      <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> will always override the same entry in
+      <TT
+CLASS="FILENAME"
+>/usr/lib/rpmrc</TT
+>.
+    </P
+><P
+>      If the <B
+CLASS="COMMAND"
+>--rcfile</B
+> option is used, then only
+      <TT
+CLASS="FILENAME"
+>/usr/lib/rpmrc</TT
+> and the file following the
+      <B
+CLASS="COMMAND"
+>--rcfile</B
+> option are read, in that order.  The
+      <TT
+CLASS="FILENAME"
+>/usr/lib/rpmrc</TT
+> file is <I
+CLASS="EMPHASIS"
+>always</I
+>
+      read first.  This cannot be changed.
+    </P
+><P
+>      Let's look at each of these files, starting with
+      <TT
+CLASS="FILENAME"
+>/usr/lib/rpmrc</TT
+>.
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-USR-LIB-RPMRC"
+><TT
+CLASS="FILENAME"
+>/usr/lib/rpmrc</TT
+></A
+></H2
+><P
+>        The file <TT
+CLASS="FILENAME"
+>/usr/lib/rpmrc</TT
+> is
+        <I
+CLASS="EMPHASIS"
+>always</I
+> read.  It contains information that RPM uses
+        to set some default values.  <I
+CLASS="EMPHASIS"
+>This file should never be
+        modified!</I
+> Doing so may cause RPM to operate incorrectly.
+      </P
+><P
+>        After this stern warning, we should note that it's perfectly all right
+        to look at it.  Here it is, in fact:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#############################################################
+# Default values, often overridden in /etc/rpmrc
+
+dbpath:		/var/lib/rpm
+topdir:		/usr/src/redhat
+tmppath:	/var/tmp
+cpiobin:	cpio
+defaultdocdir:  /usr/doc
+
+#############################################################
+
+# Please send new entries to rpm-list@redhat.com
+
+#############################################################
+# Values for RPM_OPT_FLAGS for various platforms
+
+optflags: i386 -O2 -m486 -fno-strength-reduce
+optflags: alpha -O2
+optflags: sparc -O2
+optflags: m68k -O2 -fomit-frame-pointer
+
+#############################################################
+# Canonical arch names and numbers
+
+arch_canon:	i986:	i986	1
+arch_canon:	i886:	i886	1
+arch_canon:	i786:	i786	1
+arch_canon:	i686:	i686	1
+arch_canon:	i586:	i586	1
+arch_canon:	i486:	i486	1
+arch_canon:	i386:	i386	1
+arch_canon:	alpha:	alpha	2
+arch_canon: 	sparc:	sparc	3
+arch_canon: 	sun4:	sparc	3
+arch_canon: 	sun4m:	sparc	3
+arch_canon: 	sun4c:	sparc	3
+# This is really a place holder for MIPS.
+arch_canon:	mips:	mips	4
+arch_canon:	ppc:	ppc	5
+# This is really a place holder for 68000
+arch_canon:	m68k:	m68k	6
+# This is wrong. We really need globbing in here :-(
+arch_canon:	IP:	sgi	7
+arch_canon:     IP22:   sgi     7
+
+arch_canon:    9000/712:       hppa1.1 9
+
+arch_canon:    sun4u:   usparc  10
+
+#############################################################
+# Canonical OS names and numbers
+
+os_canon:	Linux:	Linux	1
+os_canon:	IRIX:	Irix	2
+# This is wrong
+os_canon:	SunOS5:	solaris	3
+os_canon:	SunOS4:	SunOS	4
+
+os_canon:      AmigaOS: AmigaOS 5
+os_canon:          AIX: AIX     5
+os_canon:        HP-UX: hpux10  6
+os_canon:         OSF1: osf1    7
+os_canon:      FreeBSD: FreeBSD 8
+
+#############################################################
+# For a given uname().machine, the default build arch
+
+buildarchtranslate: osfmach3_i986: i386
+buildarchtranslate: osfmach3_i886: i386
+buildarchtranslate: osfmach3_i786: i386
+buildarchtranslate: osfmach3_i686: i386
+buildarchtranslate: osfmach3_i586: i386
+buildarchtranslate: osfmach3_i486: i386
+buildarchtranslate: osfmach3_i386: i386
+
+buildarchtranslate: i986: i386
+buildarchtranslate: i886: i386
+buildarchtranslate: i786: i386
+buildarchtranslate: i686: i386
+buildarchtranslate: i586: i386
+buildarchtranslate: i486: i386
+buildarchtranslate: i386: i386
+
+buildarchtranslate: osfmach3_ppc: ppc
+
+#############################################################
+# Architecture compatibility
+
+arch_compat: alpha: axp
+
+arch_compat: i986: i886
+arch_compat: i886: i786
+arch_compat: i786: i686
+arch_compat: i686: i586
+arch_compat: i586: i486
+arch_compat: i486: i386
+
+arch_compat: osfmach3_i986: i986 osfmach3_i886
+arch_compat: osfmach3_i886: i886 osfmach3_i786
+arch_compat: osfmach3_i786: i786 osfmach3_i686
+arch_compat: osfmach3_i686: i686 osfmach3_i586
+arch_compat: osfmach3_i586: i586 osfmach3_i486
+arch_compat: osfmach3_i486: i486 osfmach3_i386
+arch_compat: osfmach3_i386: i486
+
+arch_compat: osfmach3_ppc: ppc
+
+arch_compat: usparc: sparc</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Quite a bunch of stuff, isn't it?  With the exception of the first five
+        lines, which indicate where several important directories and programs
+        are located, the remainder of this file contains
+        <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> entries that are related to RPM's
+        architecture and operating system processing.  As you might imagine, any
+        tinkering here will probably not be very productive, so leave any
+        modifications here to the RPM developers.
+      </P
+><P
+>        Next, we have <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-ETC-RPMRC"
+><TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+></A
+></H2
+><P
+>        The file <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+>, unlike
+        <TT
+CLASS="FILENAME"
+>/usr/lib/rpmrc</TT
+>, is fair game for modifications and
+        additions.  In fact, <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> isn't created by
+        default, so its contents are entirely up to you.  It's the perfect place
+        to keep <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> entries of a system-wide or global
+        nature.
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>vendor</B
+> entry is a great example of a good
+        candidate for inclusion in <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+>.  In most
+        cases, a particular system is dedicated to building packages for one
+        vendor.  In these instances, setting the <B
+CLASS="COMMAND"
+>vendor</B
+> entry
+        in <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> is best.
+      </P
+><P
+>        Next in the hierarchy is a file named <TT
+CLASS="FILENAME"
+>.rpmrc</TT
+>,
+        residing in the user's login directory.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-RPMRC-USER-LOGIN"
+><TT
+CLASS="FILENAME"
+>.rpmrc</TT
+> in the user's login directory</A
+></H2
+><P
+>        As you might imagine, a file called <TT
+CLASS="FILENAME"
+>.rpmrc</TT
+> in a
+        user's login directory is only going to be read by that user when he or
+        she runs RPM.  Like <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+>, this file is not
+        created by default, but it can contain the same
+        <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> entries as the other files.  The
+        <B
+CLASS="COMMAND"
+>packager</B
+> entry, which should contain the name and
+        contact information for the person who built the package, is an
+        appropriate candidate for <TT
+CLASS="FILENAME"
+>~/.rpmrc</TT
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPMRC-FILE-RCFILE-OPTION"
+>File indicated by the <B
+CLASS="COMMAND"
+>--rcfile</B
+> option</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>--rcfile</B
+> option is best used only when a totally
+        different RPM configuration is desired for one or two packages.  Since
+        the only other <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file read is
+        <TT
+CLASS="FILENAME"
+>/usr/lib/rpmrc</TT
+> with its low-level default settings,
+        the file specified with the <B
+CLASS="COMMAND"
+>--rcfile</B
+> option will have
+        to be more comprehensive than either <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> or
+        <TT
+CLASS="FILENAME"
+>~/.rmprc</TT
+>.
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpmrc-file.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpmrc-file-rpmrc-file-syntax.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpmrc-file.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File Syntax</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

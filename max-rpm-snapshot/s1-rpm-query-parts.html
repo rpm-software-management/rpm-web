@@ -1,0 +1,4692 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>The Parts of an RPM Query</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Getting Information About Packages"
+HREF="ch-rpm-query.html"><LINK
+REL="PREVIOUS"
+TITLE="Getting Information About Packages"
+HREF="ch-rpm-query.html"><LINK
+REL="NEXT"
+TITLE="A Few Handy Queries"
+HREF="s1-rpm-query-handy-queries.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-query.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 5. Getting Information About Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-query-handy-queries.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-QUERY-PARTS"
+>The Parts of an RPM Query</A
+></H1
+><P
+>        It becomes easy to construct a query command once you understand the
+        individual parts.  First is the <B
+CLASS="COMMAND"
+>-q</B
+> (You can also use
+        <B
+CLASS="COMMAND"
+>--query</B
+>, if you like).  After all, you need to tell
+        RPM what function to perform, right?  The rest of a query command
+        consists of two distinct parts: package selection (or what packages
+        you'd like to query), and information selection (or what information
+        you'd like to see).  Let's take a look at package selection first:
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-PACKAGE-SELECTION"
+>Query Commands, Part One: Package Selection</A
+></H2
+><P
+>          The first thing you'll need to decide when issuing an RPM query is
+          what package (or packages) you'd like to query.  RPM has several ways
+          to specify packages, so you have quite an assortment to choose from.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-PACKAGE-LABEL"
+>The Package Label</A
+></H3
+><P
+>            In earlier chapters, we discussed RPM's package label, a string that
+            uniquely identifies every installed package.  Every label contains
+            three pieces of information:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  The <I
+CLASS="EMPHASIS"
+>name</I
+> of the packaged software.
+                </P
+></LI
+><LI
+><P
+>                  The <I
+CLASS="EMPHASIS"
+>version</I
+> of the packaged software.
+                </P
+></LI
+><LI
+><P
+>                  The package's <I
+CLASS="EMPHASIS"
+>release</I
+> number.
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            When issuing a query command using package labels, you must always
+            include the package name.  You can also include the version and even
+            the release, if you like.  The only restrictions are that each part
+            of the package label specified must be complete, and that if any
+            parts of the package label are missing, all parts to the right must
+            be omitted as well.  This second restriction is just a long way of
+            saying that if you specify the release, you must also specify the
+            version as well.  Let's look at a few examples.
+          </P
+><P
+>            Say, for instance, you've recently installed a new version of the C
+            libraries, but you can't remember the version number:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q libc</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>libc-5.2.18-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            In this type of query, RPM returns the complete package label for
+            all installed packages that match the given information.  In the
+            example above, if version 5.2.17 of the C libraries was also
+            installed, its package label would have been displayed, too.
+          </P
+><P
+>            In this example, we've included the version as well as the package
+            name:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q rpm-2.3</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-2.3-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Note, however, that RPM is a bit picky about specifying package
+            names.  Here are some queries for the C library that
+            <I
+CLASS="EMPHASIS"
+>won't</I
+> work:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q LibC</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>package LibC is not installed</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+# <KBD
+CLASS="USERINPUT"
+>rpm -q lib</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>package lib is not installed</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q "lib*"</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>package lib* is not installed</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q libc-5</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>package libc-5 is not installed</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q libc-5.2.1</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>package libc-5.2.1 is not installed</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            As you can see, RPM is case sensitive about package names and cannot
+            match partial names, version numbers, or release numbers.  Nor can
+            it use the wildcard characters we've come to know and love.  As
+            we've seen, however, RPM can perform the query when more than one
+            field of the package label is present.  In the above case,
+            <B
+CLASS="COMMAND"
+>rpm -q libc-5.2.18</B
+>, or even <B
+CLASS="COMMAND"
+>rpm -q
+            libc-5.2.18-1</B
+> would have found the package,
+            <TT
+CLASS="FILENAME"
+>libc-5.2.18-1</TT
+>.
+          </P
+><P
+>            Querying based on package labels may seem a bit restrictive.  After
+            all, you need to know the exact name of a package in order to
+            perform a query on it.  But there are other ways of specifying
+            packages&#8230;
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-A-OPTION"
+><B
+CLASS="COMMAND"
+>-a</B
+> &#8212; Query All Installed Packages</A
+></H3
+><P
+>            Want lots of information fast?  Using the <B
+CLASS="COMMAND"
+>-a</B
+>
+            option, you can query every package installed on your system.  For
+            example:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qa</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>ElectricFence-2.0.5-2
+ImageMagick-3.7-2
+&#8230;
+tetex-xtexsh-0.3.3-8
+lout-3.06-4</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+
+            (On a system installed using RPM, the number of packages can easily
+            number 200 or more; we've deleted most of the output.)
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>-a</B
+> option can produce mountains of output,
+            which makes it a prime candidate for piping through the many
+            Linux/UNIX commands available.  One of the prime candidates would be
+            a pager such as <B
+CLASS="COMMAND"
+>more</B
+>, so that the list of
+            installed packages could be viewed a screenful at a time.
+          </P
+><P
+>            Another handy command to pipe <B
+CLASS="COMMAND"
+>rpm -qa</B
+>'s output
+            through is <B
+CLASS="COMMAND"
+>grep</B
+>.  In fact, using
+            <B
+CLASS="COMMAND"
+>grep</B
+>, it's possible to get around RPM's lack of
+            built-in wildcard processing:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qa | grep -i sysv</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>SysVinit-2.64-2</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+
+            In this example, we were able to find the
+            <TT
+CLASS="FILENAME"
+>SysVinit</TT
+> package, even though we didn't have
+            the complete package name, or capitalization.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-BY-FILE"
+><B
+CLASS="COMMAND"
+>-f <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>
+            &#8212; Query the Package Owning
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+></A
+></H3
+><P
+>            How many times have you found a program sitting on your system and
+            wondered "what does it do?"  Well, if the program was installed by
+            RPM as part of a package, it's easy to find out.  Simply use the
+            <B
+CLASS="COMMAND"
+>-f</B
+> option.  Example: You find a strange program
+            called <B
+CLASS="COMMAND"
+>ls</B
+> in <TT
+CLASS="FILENAME"
+>/bin</TT
+> (Okay, it
+            <I
+CLASS="EMPHASIS"
+>is</I
+> a contrived example).  Wonder what package
+            installed it?  Simple!
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qf /bin/ls</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>fileutils-3.12-3</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            If you happen to point RPM at a file it didn't install, you'll get a
+            message similar to the following:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qf .cshrc</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>file /home/ed/.cshrc is not owned by any package</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="S4-RPM-QUERY-TRICKY-DETAIL"
+>A Tricky Detail</A
+></H4
+><P
+>              It's possible that you'll get the "not owned by any package"
+              message in error.  Here's an example of how it can happen:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qf /usr/X11/bin/xterm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>file /usr/X11/bin/xterm is not owned by any package</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              As you can see, we're trying to find out what package the
+              <TT
+CLASS="FILENAME"
+>xterm</TT
+> program is part of.  The first example
+              failed, which might lead one to believe that
+              <TT
+CLASS="FILENAME"
+>xterm</TT
+> really <I
+CLASS="EMPHASIS"
+>isn't</I
+> owned
+              by any package.
+            </P
+><P
+>              However, let's look at a directory listing:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -lF /usr</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>&#8230;
+lrwxrwxrwx   1 root     root            5 May 13 12:46 X11 -&#62; X11R6/
+drwxrwxr-x   7 root     root         1024 Mar 21 00:21 X11R6/
+&#8230;</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+
+              (We've truncated the list; normally <TT
+CLASS="FILENAME"
+>/usr</TT
+> is
+              quite a bit more crowded than this.)
+            </P
+><P
+>              The key here is the line ending with "<SAMP
+CLASS="COMPUTEROUTPUT"
+>X11 -&#62;
+              X11R6/</SAMP
+>".  This is known as a "symbolic link".
+              It's a way of referring to a file (here, a directory file) by
+              another name.  In this case, if we used the path
+              <TT
+CLASS="FILENAME"
+>/usr/X11</TT
+>, or <TT
+CLASS="FILENAME"
+>/usr/X11R6</TT
+>,
+              it shouldn't make a difference.  It certainly doesn't make a
+              difference to programs that simply want access to the file.  But
+              it does make a difference to RPM, because RPM doesn't use the
+              filename to access the file.  RPM uses the filename as a key into
+              its database.  It would be very difficult, if not impossible, to
+              keep track of all the symlinks on a system and try every possible
+              path to a file during a query.
+            </P
+><P
+>              What to do?  There are two options:
+
+              <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                    Make sure you always specify a path free of symlinks.  This
+                    can be pretty tough, though.  An alternative approach is to
+                    use <B
+CLASS="COMMAND"
+>namei</B
+> to track down symlinks:
+
+                    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>namei /usr/X11/bin/xterm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>f: /usr/X11/bin/xterm
+ d /
+ d usr
+ l X11 -&#62; X11R6
+   d X11R6
+ d bin
+ - xterm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+                    </PRE
+></TD
+></TR
+></TABLE
+>
+                  </P
+><P
+>                    It's pretty easy to see the <TT
+CLASS="FILENAME"
+>X11</TT
+> to
+                    <TT
+CLASS="FILENAME"
+>X11R6</TT
+> symlink.  Using this approach you
+                    can enter the non-symlinked path and get the desired
+                    results:
+
+                    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qf /usr/X11R6/bin/xterm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>XFree86-3.1.2-5</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+                    </PRE
+></TD
+></TR
+></TABLE
+>
+                  </P
+></LI
+><LI
+><P
+>                    Change your directory to the one holding the file you want
+                    to query.  Even if you use a symlinked path to get there,
+                    querying the file should then work as you'd expect:
+
+                    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/X11/bin</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qf xterm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>XFree86-3.1.2-5</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+                    </PRE
+></TD
+></TR
+></TABLE
+>
+                  </P
+></LI
+></OL
+>
+
+              So if you get a "not owned by any package" error, and you think it
+              may not be true, try one of the approaches above.
+            </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-P-OPTION"
+><B
+CLASS="COMMAND"
+>-p <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>
+            &#8212; Query a Specific RPM Package File</A
+></H3
+><P
+>            Up to now, every means of specifying a package to an RPM query
+            focused on packages that had already been installed.  While it's
+            certainly very useful to be able to dredge up information about
+            packages that are already on your system, what about packages that
+            haven't yet been installed?  The <B
+CLASS="COMMAND"
+>-p</B
+> option can do
+            that for you.
+          </P
+><P
+>            One situation where this capability would help, occurs when the name
+            of a package file has been changed.  Since the name of the file
+            containing a package has <I
+CLASS="EMPHASIS"
+>nothing</I
+> to do with the
+            name of the package (though, by tradition it's nice to name package
+            files consistently), we can use this option to find out exactly what
+            package a file contains:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qp foo.bar</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-2.3-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+
+            With one command RPM gives you the answer.
+            <A
+NAME="AEN2793"
+HREF="#FTN.AEN2793"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+          </P
+><P
+>            The <B
+CLASS="COMMAND"
+>-p</B
+> option can also use <I
+CLASS="FIRSTTERM"
+>Uniform
+            Resource Locators</I
+>
+            
+            to specify package files.  See <A
+HREF="s1-rpm-install-performing-install.html#S2-RPM-INSTALL-URLS"
+>the Section called <I
+>URLs &#8212; Another Way to Specify Package Files</I
+> in Chapter 2</A
+>
+            for more information on using URLs.
+          </P
+><P
+>            There's one last trick up <B
+CLASS="COMMAND"
+>-p</B
+>'s sleeve &#8212; it
+            can also perform a query by reading a package from standard input.
+            Here's an example:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cat bother-3.5-1.i386.rpm | rpm -qp -</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bother-3.5-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+
+            We piped the output of <B
+CLASS="COMMAND"
+>cat</B
+> into RPM.  The dash at
+            the end of the command line directs RPM to read the package from
+            standard input.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-G-OPTION"
+><B
+CLASS="COMMAND"
+>-g <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+>: Query
+            Packages Belonging To Group
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+></A
+></H3
+><P
+>            When a package is built, the package builder must classify the
+            package, grouping it with other packages that perform similar
+            functions.  RPM gives you the ability to query installed packages
+            based on their groups.  For example, there is a group known as
+            <TT
+CLASS="FILENAME"
+>Base</TT
+>.  This group consists of packages that
+            provide low-level structure for a Linux distribution.  Let's see
+            what installed packages make up the <TT
+CLASS="FILENAME"
+>Base</TT
+> group:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qg Base</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>setup-1.5-1
+pamconfig-0.50-5
+filesystem-1.2-1
+crontabs-1.3-1
+dev-2.3-1
+etcskel-1.1-1
+initscripts-2.73-1
+mailcap-1.0-3
+pam-0.50-17
+passwd-0.50-2
+redhat-release-4.0-1
+rootfiles-1.3-1
+termcap-9.12.6-5</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+
+            One thing to keep in mind is that group specifications are
+            case-sensitive.  Issuing the command <B
+CLASS="COMMAND"
+>rpm -qg base</B
+>
+            won't produce any output.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-WHATPROVIDES-OPTION"
+><B
+CLASS="COMMAND"
+>--whatprovides <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;x&#62;</I
+></TT
+></B
+>:
+            Query the Packages That Provide Capability
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;x&#62;</I
+></TT
+></B
+></A
+></H3
+><P
+>            RPM provides extensive support for dependencies between packages.
+            The basic mechanism used is that a package may
+            <I
+CLASS="EMPHASIS"
+>require</I
+> what another package
+            <I
+CLASS="EMPHASIS"
+>provides</I
+>.  The thing that is required and
+            provided can be a shared library's soname.  It can also be a
+            character string chosen by the package builder.  In any case, it's
+            important to be able to display which packages provide a given
+            capability.
+          </P
+><P
+>            This is just what the <B
+CLASS="COMMAND"
+>--whatprovides</B
+> option does.
+            When the option, followed by a capability, is added to a query
+            command, RPM will select those packages that provide the capability.
+            Here's an example:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --whatprovides module-info</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>kernel-2.0.18-5</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+
+              In this case, the only package that provides the
+              <TT
+CLASS="FILENAME"
+>module-info</TT
+> capability is
+              <TT
+CLASS="FILENAME"
+>kernel-2.0.18-5</TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-WHATREQUIRES"
+><B
+CLASS="COMMAND"
+>--whatrequires <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;x&#62;</I
+></TT
+></B
+>:
+            Query the Packages That Require Capability
+            <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;x&#62;</I
+></TT
+></B
+></A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>--whatrequires</B
+> option is the logical
+            complement to the <B
+CLASS="COMMAND"
+>--whatprovides</B
+> option described
+            above.  It is used to display which packages require the specified
+            capability.  Expanding on the example we started with
+            <B
+CLASS="COMMAND"
+>--whatprovides</B
+>, let's see which packages require
+            the <TT
+CLASS="FILENAME"
+>module-info</TT
+> capability:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --whatrequires module-info</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>kernelcfg-0.3-2</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+
+            There's only one package that requires
+            <TT
+CLASS="FILENAME"
+>module-info</TT
+> &#8212;
+            <TT
+CLASS="FILENAME"
+>kernelcfg-0.3-2</TT
+>.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-INFORMATION-SELECTION"
+>Query Commands, Part Two: Information Selection</A
+></H2
+><P
+>          After specifying the package (or packages) you wish to query, you'll
+          need to figure out just <I
+CLASS="EMPHASIS"
+>what</I
+> information you'd
+          like RPM to retrieve.  As we've seen, by default, RPM only returns the
+          complete package label.  But there's much more to a package than that.
+          Here, we'll explore every information selection option available to
+          us.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-I-OPTION"
+><B
+CLASS="COMMAND"
+>-i</B
+> &#8212; Display Package
+          Information</A
+></H3
+><P
+>            Adding <B
+CLASS="COMMAND"
+>-i</B
+> to <B
+CLASS="COMMAND"
+>rpm -q</B
+> tells RPM
+            to give you some information on the package or packages you've
+            selected.  For the sake of clarity, let's take a look at what it
+            gives you and explain what you're looking at:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qi rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Name        : rpm                    Distribution: Red Hat Linux Vanderbilt
+Version     : 2.3                          Vendor: Red Hat Software
+Release     : 1                        Build Date: Tue Dec 24 09:07:59 1996
+Install date: Thu Dec 26 23:01:51 1996 Build Host: porky.redhat.com
+Group       : Utilities/System         Source RPM: rpm-2.3-1.src.rpm
+Size        : 631157
+Summary     : Red Hat Package Manager
+Description :
+RPM is a powerful package manager, which can be used to build, install,
+query, verify, update, and uninstall individual software packages. A
+package consists of an archive of files, and package information, including
+name, version, and description.</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            There's quite a bit of information here, so let's go through it
+            entry by entry:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Name</SAMP
+> &#8212; The name of the
+                  package you queried.  Usually (but not always) it bears some
+                  resemblance to the name of the underlying software.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Version</SAMP
+> &#8212; The version
+                  number of the software, as specified by the software's
+                  original creator.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Release</SAMP
+> &#8212; The number of
+                  times a package consisting of this software has been packaged.
+                  If the version number should change, the release number should
+                  start over again at "<SAMP
+CLASS="COMPUTEROUTPUT"
+>1</SAMP
+>".
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            As you've probably noticed, these three pieces of information
+            comprise the package label we've come to know and love.  Continuing,
+            we have:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Install date</SAMP
+> &#8212; This is
+                  the time when the package was installed on your system.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Group</SAMP
+> &#8212; In our example,
+                  this looks suspiciously like a path.  If you went searching
+                  madly for a directory tree by that name, you'd come up dry
+                  &#8212; it isn't a set of directories at all.
+                </P
+><P
+>                  When a package builder starts to create a new package, they
+                  enter a list of words that describe the software.  The list,
+                  which goes from least specific to most specific, attempts to
+                  categorize the software in a concise manner.  The primary use
+                  for the group is to enable graphically oriented package
+                  managers based on RPM to present packages grouped by function.
+                  Red Hat Linux's <B
+CLASS="COMMAND"
+>glint</B
+> command does this.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Size</SAMP
+> &#8212; This is the size
+                  (in bytes) of every file in this package.  It might make your
+                  decision to erase an unused package easier if you see six or
+                  more digits here.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Summary</SAMP
+> &#8212; This is a
+                  concise description of the packaged software.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Description</SAMP
+> &#8212; This is a
+                  verbose description of the packaged software.  Some
+                  descriptions might be more, well,
+                  <I
+CLASS="EMPHASIS"
+>descriptive</I
+> than others, but hopefully it
+                  will be enough to clue you in as to the software's role in the
+                  greater scheme of things.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Distribution</SAMP
+> &#8212; The word
+                  "distribution" is really not the best name for this
+                  field. "Product" might be a better choice.  In any case, this
+                  is the name of the product this package is a part of.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Vendor</SAMP
+> &#8212; The
+                  organization responsible for building this package.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Build Date</SAMP
+> &#8212; The time
+                  the package was created.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Build Host</SAMP
+> &#8212; The name
+                  of the computer system that built the package.
+                  <A
+NAME="AEN2938"
+HREF="#FTN.AEN2938"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>Source RPM</SAMP
+> &#8212; The
+                  process of building a package results in two files:
+
+                  <P
+></P
+><OL
+TYPE="1"
+><LI
+STYLE="list-style-type: disc"
+><P
+>                        The package file used to install the packaged software.
+                        This is sometimes called the <I
+CLASS="EMPHASIS"
+>binary</I
+>
+                        package.
+                      </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                        The package file containing the source code and other
+                        files used to create the binary package file.  This is
+                        known as the <I
+CLASS="EMPHASIS"
+>source</I
+> RPM package
+                        file.  This is the filename that is displayed in this
+                        field.
+                      </P
+></LI
+></OL
+>
+
+                  Unless you want to make changes to the software, you probably
+                  won't need to worry about source packages.  But if you do,
+                  stick around, because the second part of this book is for
+                  you&#8230;
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-L-OPTION"
+><B
+CLASS="COMMAND"
+>-l</B
+> &#8212; Display the Package's File
+          List</A
+></H3
+><P
+>            Adding <B
+CLASS="COMMAND"
+>-l</B
+> to <B
+CLASS="COMMAND"
+>rpm -q</B
+> tells RPM
+            to display the list of files that are installed by the specified
+            package or packages.  If you've used <B
+CLASS="COMMAND"
+>ls</B
+> before,
+            you won't be surprised by RPM's file list.
+          </P
+><P
+>            Here's a look at one of the smaller packages on Red Hat Linux &#8212;
+            <TT
+CLASS="FILENAME"
+>adduser</TT
+>:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -ql adduser</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/sbin/adduser</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+
+            The <TT
+CLASS="FILENAME"
+>adduser</TT
+> package consists of only one file,
+            so there's only one filename displayed.
+          </P
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="S4-RPM-QUERY-V-OPTION"
+><B
+CLASS="COMMAND"
+>-v</B
+> &#8212; Display Additional Information</A
+></H4
+><P
+>              In some cases, the <B
+CLASS="COMMAND"
+>-v</B
+> option can be added to a
+              query command for additional information.  The
+              <B
+CLASS="COMMAND"
+>-l</B
+> option we've been discussing is an example
+              of just such a case.  Note how the <B
+CLASS="COMMAND"
+>-v</B
+> option
+              adds verbosity:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qlv adduser</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rwxr-xr-x-     root     root       3894 Feb 25 13:45 /usr/sbin/adduser</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+
+              Looks a lot like the output from <B
+CLASS="COMMAND"
+>ls</B
+>, doesn't
+              it?  Looks can be deceiving.  Everything you see here is straight
+              from RPM's database.  However, the format is identical to
+              <B
+CLASS="COMMAND"
+>ls</B
+>, so it's more easily understood.  If this is
+              Greek to you, consult the <B
+CLASS="COMMAND"
+>ls</B
+> man page.
+            </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-C-OPTION"
+><B
+CLASS="COMMAND"
+>-c</B
+> &#8212; Display the Package's List of
+            Configuration Files</A
+></H3
+><P
+>            When <B
+CLASS="COMMAND"
+>-c</B
+> is added to an <B
+CLASS="COMMAND"
+>rpm -q</B
+>
+            command, RPM will display the configuration files that are part of
+            the specified package or packages.  As mentioned earlier in the
+            book, config files are important, because they control the behavior
+            of the packaged software.  Let's take a look at the list of config
+            files for <TT
+CLASS="FILENAME"
+>XFree86</TT
+>:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qc XFree86</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/etc/X11/fs/config
+/etc/X11/twm/system.twmrc
+/etc/X11/xdm/GiveConsole
+/etc/X11/xdm/TakeConsole
+/etc/X11/xdm/Xaccess
+/etc/X11/xdm/Xresources
+/etc/X11/xdm/Xservers
+/etc/X11/xdm/Xsession
+/etc/X11/xdm/Xsetup_0
+/etc/X11/xdm/chooser
+/etc/X11/xdm/xdm-config
+/etc/X11/xinit/xinitrc
+/etc/X11/xsm/system.xsm
+/usr/X11R6/lib/X11/XF86Config</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            These are the files you'd want to look at first if you were looking
+            to customize XFree86 for your particular needs.  Just like
+            <B
+CLASS="COMMAND"
+>-l</B
+>, we can also add <B
+CLASS="COMMAND"
+>v</B
+> for more
+            information:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qcv XFree86</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-r--r--r---  root  root    423 Mar 21 00:17 /etc/X11/fs/config
+&#8230;
+lrwxrwxrwx-  root  root     30 Mar 21 00:29 /usr/X11R6/lib/X11/XF86Config -&#62; ../../../../etc/X11/XF86Config</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+
+            (Note that last file: RPM will display symbolic links, as well.)
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-D-OPTION"
+><B
+CLASS="COMMAND"
+>-d</B
+> &#8212; Display a List of the Package's
+            Documentation</A
+></H3
+><P
+>            When <B
+CLASS="COMMAND"
+>-d</B
+> is added to a query, we get a list of all
+            files containing documentation for the named package or packages.
+            This is a great way to get up to speed when you're having problems
+            with unfamiliar software.  As with <B
+CLASS="COMMAND"
+>-c</B
+> and
+            <B
+CLASS="COMMAND"
+>-l</B
+>, you'll see either a simple list of filenames,
+            or (if you've added <B
+CLASS="COMMAND"
+>-v</B
+>) a more comprehensive
+            list.  Here's an example that might look daunting at first, but
+            really isn't:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qdcf /sbin/dump</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/etc/dumpdates
+/usr/doc/dump-0.3-5
+/usr/doc/dump-0.3-5/CHANGES
+/usr/doc/dump-0.3-5/COPYRIGHT
+/usr/doc/dump-0.3-5/INSTALL
+/usr/doc/dump-0.3-5/KNOWNBUGS
+/usr/doc/dump-0.3-5/THANKS
+/usr/doc/dump-0.3-5/dump-0.3.announce
+/usr/doc/dump-0.3-5/dump.lsm
+/usr/doc/dump-0.3-5/linux-1.2.x.patch
+/usr/man/man8/dump.8
+/usr/man/man8/rdump.8
+/usr/man/man8/restore.8
+/usr/man/man8/rmt.8
+/usr/man/man8/rrestore.8</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Let's take that alphabet soup set of options, one letter at a time:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <B
+CLASS="COMMAND"
+>q</B
+> &#8212; Perform a query.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <B
+CLASS="COMMAND"
+>d</B
+> &#8212; List all documentation files.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <B
+CLASS="COMMAND"
+>c</B
+> &#8212; List all config files.
+                  
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <B
+CLASS="COMMAND"
+>f</B
+> &#8212; Query the package that owns the
+                  specified file (<TT
+CLASS="FILENAME"
+>/sbin/dump</TT
+>, in this
+                  case).
+                </P
+></LI
+></UL
+>
+
+            The list of files represents all the documentation and config files
+            that apply to the package owning <TT
+CLASS="FILENAME"
+>/sbin/dump</TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-S-OPTION"
+><B
+CLASS="COMMAND"
+>-s</B
+> &#8212; Display the State of Each File in the
+            Package</A
+></H3
+><P
+>            Unlike the past three sections, which dealt with a list of files of
+            one type or another, adding <B
+CLASS="COMMAND"
+>-s</B
+> to a query will
+            list the <I
+CLASS="EMPHASIS"
+>state</I
+> of the files that comprise one
+            or more packages.  I can hear you out there; you're saying, "What is
+            the <I
+CLASS="EMPHASIS"
+>state</I
+> of a file?"  For every file that RPM
+            installs, there is an associated state.  There are four possible
+            states:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>normal</SAMP
+> &#8212; A file in the
+                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>normal</SAMP
+> state has not been
+                  modified by installing another package on the system.
+                </P
+></LI
+><LI
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>replaced</SAMP
+> &#8212; Files in the
+                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>replaced</SAMP
+> state have been
+                  modified by installing another package on the system.
+                </P
+></LI
+><LI
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>not installed</SAMP
+> &#8212; A file
+                  is classified as <SAMP
+CLASS="COMPUTEROUTPUT"
+>not
+                  installed</SAMP
+> when it, er, isn't installed!  This
+                  state is normally seen only if the package was partially
+                  installed.  An example of a partially installed package would
+                  be one that was installed with the
+                  <B
+CLASS="COMMAND"
+>--excludedocs</B
+>
+                  
+                  option.  Using this option, no documentation files would be
+                  installed.  The RPM database would still contain entries for
+                  these missing files, but their state would be
+                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>not installed</SAMP
+>.
+                </P
+></LI
+><LI
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>net shared</SAMP
+> &#8212; The
+                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>net shared</SAMP
+> state is used to
+                  support client systems that NFS mount portions of their
+                  filesystems from a server.  Since the server most likely
+                  exports filesystems to more than one client, if a client
+                  erased a package that contained files on a shared filesystem,
+                  other client systems would have incompletely installed
+                  packages.  The <SAMP
+CLASS="COMPUTEROUTPUT"
+>net shared</SAMP
+>
+                  state is used to alert RPM to the fact that a file is on a
+                  shared filesystem and should not be erased.  Files will be in
+                  the <SAMP
+CLASS="COMPUTEROUTPUT"
+>net shared</SAMP
+> state when two
+                  things happen:
+
+                  <P
+></P
+><OL
+TYPE="a"
+><LI
+><P
+>                        The <B
+CLASS="COMMAND"
+>netsharedpath</B
+>
+                        
+                        <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entry has been changed
+                        from its default (null) value.
+                        <A
+NAME="AEN3090"
+HREF="#FTN.AEN3090"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+>
+                      </P
+></LI
+><LI
+><P
+>                        The file is to be installed in a directory within a net
+                        shared path.
+                      </P
+></LI
+></OL
+>
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            Here's an example showing how file states appear:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qs adduser</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>normal        /usr/sbin/adduser</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+
+            (That <SAMP
+CLASS="COMPUTEROUTPUT"
+>normal</SAMP
+> at the start of the
+            line is the state, followed by the file name)
+          </P
+><P
+>            The file state is one of the tools RPM uses to determine the most
+            appropriate action to take when packages are installed or erased.
+          </P
+><P
+>            Now would the average person need to check the states of files?  Not
+            really.  But if there should be problems, this kind of information
+            can help get things back on track.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-PROVIDES-OPTION"
+><B
+CLASS="COMMAND"
+>--provides</B
+>: Display Capabilities Provided by the
+            Package</A
+></H3
+><P
+>            By adding <B
+CLASS="COMMAND"
+>--provides</B
+> to a query command, we can
+            see the capabilities provided by one or more packages.  If the
+            package doesn't provide any capabilities, the
+            <B
+CLASS="COMMAND"
+>--provides</B
+> option produces no output:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --provides rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            However, if a package <I
+CLASS="EMPHASIS"
+>does</I
+> provide
+            capabilities, they will be displayed:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --provides foonly</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>index</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            It's important to remember that capabilities are
+            <I
+CLASS="EMPHASIS"
+>not</I
+> filenames.  In the above example, the
+            <TT
+CLASS="FILENAME"
+>foonly</TT
+> package contains no file called
+            <TT
+CLASS="FILENAME"
+>index</TT
+>; it's just a character string the package
+            builder chose.  This is no different from the following example:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --provides libc</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>libm.so.5
+libc.so.5</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+
+            While there might be symlinks by those names in
+            <TT
+CLASS="FILENAME"
+>/lib</TT
+>, capabilities are a property of the
+            <I
+CLASS="EMPHASIS"
+>package</I
+>, not a file contained in the package!
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-REQUIRES-OPTION"
+><B
+CLASS="COMMAND"
+>--requires</B
+>: Display Capabilities Required by the
+            Package</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>--requires</B
+> option (<B
+CLASS="COMMAND"
+>-R</B
+> is
+            equivalent) is the logical complement to the
+            <B
+CLASS="COMMAND"
+>--provides</B
+> option.  It displays the capabilities
+            required by the specified package(s).  If a package has no
+            requirements, there's no output:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --requires adduser</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            In cases where there <I
+CLASS="EMPHASIS"
+>are</I
+> requirements, they are
+            displayed as follows:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --requires rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>libz.so.1
+libdb.so.2
+libc.so.5</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            It's also possible that you'll come across something like this:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --requires blather</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bother &#62;= 3.1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+
+              Packages may also be built to require another package.  This
+              requirement can also include specific versions.  In the example
+              above, the <TT
+CLASS="FILENAME"
+>bother</TT
+> package is required by
+              <TT
+CLASS="FILENAME"
+>blather</TT
+>; specifically, a version of
+              <TT
+CLASS="FILENAME"
+>bother</TT
+> greater than or equal to 3.1.
+          </P
+><P
+>            Here's something worth understanding.  Let's say we decide to track
+            down the <TT
+CLASS="FILENAME"
+>bother</TT
+> that
+            <TT
+CLASS="FILENAME"
+>blather</TT
+> says it requires.  If we use RPM's
+            query capabilities, we could use the
+            <B
+CLASS="COMMAND"
+>--whatprovides</B
+> package selection option to try to
+            find it:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --whatprovides bother</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>no package provides bother</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            No dice.  This might lead you to believe that the
+            <TT
+CLASS="FILENAME"
+>blather</TT
+> package has a problem.  The moral of
+            this story is that, when trying to find out what package fulfills
+            another package's requirements, it's a good idea to also try a
+            simple query using the requirement as a package name.  Continuing
+            our example above, let's see if there's a package called
+            <TT
+CLASS="FILENAME"
+>bother</TT
+>:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q bother</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>bother-3.5-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            Bingo!  However, if we see what capabilities the
+            <TT
+CLASS="FILENAME"
+>bother</TT
+> package provides, we come up dry:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --provides bother</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            The reason for the lack of output is that all packages, by default,
+            "provide" their package name (and version).
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-DUMP-OPTION"
+><B
+CLASS="COMMAND"
+>--dump</B
+>: Display All Verifiable Information for
+            Each File</A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>--dump</B
+> option is used to display every piece
+            of information RPM has on one or more files listed in its database.
+            The information is listed in a very concise fashion.  Since the
+            <B
+CLASS="COMMAND"
+>--dump</B
+> option displays file-related information,
+            the list of files must be chosen by using the <B
+CLASS="COMMAND"
+>-l</B
+>,
+            <B
+CLASS="COMMAND"
+>-c</B
+>, or <B
+CLASS="COMMAND"
+>-d</B
+> options (or some
+            combination thereof):
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -ql --dump adduser</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/sbin/adduser 4442 841083888 ca5fa53dc74952aa5b5e3a5fa5d8904b 0100755
+root root 0 0 0 X</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            What does all this stuff mean?  Let's go through it, item-by-item:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The <TT
+CLASS="FILENAME"
+>/usr/sbin/adduser</TT
+> is simple: it's the
+                  name of the file being <B
+CLASS="COMMAND"
+>dump</B
+>'ed.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>4442</SAMP
+> is the size of the file,
+                  in bytes.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  How about <SAMP
+CLASS="COMPUTEROUTPUT"
+>841083888</SAMP
+>?  It's
+                  the time the file was last modified, in seconds past the Unix
+                  zero date of January 1, 1970.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The
+                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>ca5fa53dc74952aa5b5e3a5fa5d8904b</SAMP
+>
+                  is the MD5 checksum of the file's contents, all 128 bits of
+                  it.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  If you guessed <SAMP
+CLASS="COMPUTEROUTPUT"
+>0100755</SAMP
+> was
+                  the file's mode, you'd be right.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The first <SAMP
+CLASS="COMPUTEROUTPUT"
+>root</SAMP
+> represents the
+                  file's owner.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The second <SAMP
+CLASS="COMPUTEROUTPUT"
+>root</SAMP
+> is the file's
+                  group.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  We'll take the next part (<SAMP
+CLASS="COMPUTEROUTPUT"
+>0
+                  0</SAMP
+>) in one chunk.  The first zero shows
+                  whether the file is a config file.
+                  
+                  If zero, as in this case, then the file is not a config file.
+                  The next zero shows whether the file is documentation.  Again,
+                  since there is a zero here, this file isn't documentation,
+                  either.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  The final <SAMP
+CLASS="COMPUTEROUTPUT"
+>0</SAMP
+> represents the
+                  file's major and minor numbers.  These are set only for device
+                  special files.  Otherwise, it will be zero.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  If the file were a symlink, the spot taken by the
+                  <SAMP
+CLASS="COMPUTEROUTPUT"
+>X</SAMP
+> would contain a path
+                  pointing to the linked file.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            Normally, the <B
+CLASS="COMMAND"
+>--dump</B
+> option is used by people
+            that want to extract the file-related information from RPM and
+            process it somehow.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-SCRIPTS-OPTION"
+><B
+CLASS="COMMAND"
+>--scripts</B
+> &#8212; Show Scripts Associated With a
+            Package</A
+></H3
+><P
+>            If you add <B
+CLASS="COMMAND"
+>--scripts</B
+> (that's
+            <I
+CLASS="EMPHASIS"
+>two</I
+> dashes) to a query, you get to see a little
+            bit more of RPM's underlying magic:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --scripts XFree86</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>preinstall script:
+(none)
+
+postinstall script:
+/sbin/ldconfig
+/sbin/pamconfig --add --service=xdm --password=none --sesslist=none
+
+preuninstall script:
+(none)
+
+postuninstall script:
+/sbin/ldconfig
+if [ "$1" = 0 ] ; then
+  /sbin/pamconfig --remove --service=xdm --password=none --sesslist=none
+fi
+
+verify script:
+(none)&#13;</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            In this particular case, the <TT
+CLASS="FILENAME"
+>XFree86</TT
+> package
+            has two scripts: one labeled <TT
+CLASS="FILENAME"
+>postinstall</TT
+>, and
+            one labeled <TT
+CLASS="FILENAME"
+>postuninstall</TT
+>.  As you might
+            imagine, the postinstall script is executed just after the package's
+            files have been installed; the postuninstall script is executed just
+            after the package's files have been erased.
+          </P
+><P
+>            Based on the labels in this example, you'd probably imagine that a
+            package can have as many as five different scripts.  You'd be right:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  The preinstall script, which is executed just
+                  <I
+CLASS="EMPHASIS"
+>before</I
+> the package's files are installed.
+                </P
+></LI
+><LI
+><P
+>                  The postinstall script, which is executed just
+                  <I
+CLASS="EMPHASIS"
+>after</I
+> the package's files are installed.
+                </P
+></LI
+><LI
+><P
+>                  The preuninstall script, which is executed just
+                  <I
+CLASS="EMPHASIS"
+>before</I
+> the package's files are removed.
+                </P
+></LI
+><LI
+><P
+>                  The postuninstall script, which is executed just
+                  <I
+CLASS="EMPHASIS"
+>after</I
+> the package's files are removed.
+                </P
+></LI
+><LI
+><P
+>                  And finally, the verify script.  While it's easy to figure out
+                  the other scripts' functions based on their name, what does a
+                  script called <I
+CLASS="EMPHASIS"
+>verify</I
+> do?  Well, we
+                  haven't gotten to it yet, but packages can also be verified
+                  for proper installation.  This script is used during
+                  verification.
+                  <A
+NAME="AEN3279"
+HREF="#FTN.AEN3279"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+>
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            Is this something you'll need very often?  As in the case of
+            displaying file states, not really.  But when you need it, you
+            <I
+CLASS="EMPHASIS"
+>really</I
+> need it!
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-QUERY-QUERYFORMAT-OPTION"
+><B
+CLASS="COMMAND"
+>--queryformat</B
+> &#8212; Construct a Custom Query
+            Response</A
+></H3
+><P
+>            OK, say you're <I
+CLASS="EMPHASIS"
+>still</I
+> not satisfied.  You'd like
+            some additional information, or you think a different format would
+            be easier on the eyes.  Maybe you want to take some information on
+            the packages you've installed and run it through a script for some
+            specialized processing.  You can do it, using the
+            <B
+CLASS="COMMAND"
+>--queryformat</B
+> option.  In fact, if you look back
+            at the output of the <B
+CLASS="COMMAND"
+>-i</B
+> option, RPM was using
+            <B
+CLASS="COMMAND"
+>--queryformat</B
+> internally.  Here's how it works:
+          </P
+><P
+>            On the RPM command line, include <B
+CLASS="COMMAND"
+>--queryformat</B
+>.
+            Right after that, enter a format string, enclosed in single quotes
+            "<KBD
+CLASS="USERINPUT"
+>'</KBD
+>".
+          </P
+><P
+>            The format string can consist of a number of different components:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Literal text, including escape sequences.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Tags, with optional field width, formatting, and iteration
+                  information.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Array Iterators.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            Let's look at each of these components.
+          </P
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="S4-RPM-QUERY-QUERYFORMAT-LITERAL-TEXT"
+>Literal text</A
+></H4
+><P
+>              Any part of a format string that is not associated with tags or
+              array iterators will be treated as literal text.  Literal text is
+              just that: It's text that is printed just as it appears in the
+              format string.  In fact, a format string can consist of nothing
+              but literal text, although the output wouldn't tell us much about
+              the packages being queried.  Let's give the
+              <B
+CLASS="COMMAND"
+>--queryformat</B
+> option a try, using a format
+              string with nothing but literal text:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat 'This is a test!' rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This is a test!</SAMP
+><TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              The RPM command might look a little unusual, but if you take out
+              the <B
+CLASS="COMMAND"
+>--queryformat</B
+> option, along with its format
+              string, you'll see this is just an ordinary query of the
+              <TT
+CLASS="FILENAME"
+>rpm</TT
+> package.  When the
+              <B
+CLASS="COMMAND"
+>--queryformat</B
+> option is present, RPM will use
+              the text immediately following the option as a format string.  In
+              our case, the format string is <B
+CLASS="COMMAND"
+>'This is a
+              test!'</B
+>.  The single quotes are required.  Otherwise,
+              it's likely your shell will complain about some of the characters
+              contained in the average format string.
+            </P
+><P
+>              The output of this command appears on the second line.  As we can
+              see, the literal text from the format string was printed exactly
+              as it was entered.
+            </P
+></DIV
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="S4-RPM-QUERY-QUERYFORMAT-CARRIAGE-CONTROL"
+>Carriage Control Escape Sequences</A
+></H4
+><P
+>              Wait a minute.  What is that <SAMP
+CLASS="COMPUTEROUTPUT"
+>#</SAMP
+>
+              doing at the end of the output?  Well, that's our shell prompt.
+              You see, we didn't direct RPM to move to a new line after
+              producing the output, so the shell prompt ended up being tacked to
+              the end of our output.
+            </P
+><P
+>              Is there a way to fix that?  Yes, there is.  We need to use an
+              escape sequence.  An escape sequence is a sequence of characters
+              that starts with a backslash (<B
+CLASS="COMMAND"
+>\</B
+>).  Escape
+              sequences add carriage control information to a format string.
+              The following escape sequences can be used:
+
+              <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    <B
+CLASS="COMMAND"
+>\a</B
+> &#8212; Produces a bell or similar
+                    alert.
+                  </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    <B
+CLASS="COMMAND"
+>\b</B
+> &#8212; Backspaces one character.
+                  </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    <B
+CLASS="COMMAND"
+>\f</B
+> &#8212; Outputs a form-feed character.
+                  </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    <B
+CLASS="COMMAND"
+>\n</B
+> &#8212; Outputs a newline character
+                    sequence.
+                  </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    <B
+CLASS="COMMAND"
+>\r</B
+> &#8212; Outputs a carriage return
+                    character.
+                  </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    <B
+CLASS="COMMAND"
+>\t</B
+> &#8212; Causes a horizontal tab.
+                  </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    <B
+CLASS="COMMAND"
+>\v</B
+> &#8212; Causes a vertical tab.
+                  </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    <B
+CLASS="COMMAND"
+>\\</B
+> &#8212; Displays a backslash
+                    character.
+                  </P
+></LI
+></UL
+>
+            </P
+><P
+>              Based on this list, it seems that a <B
+CLASS="COMMAND"
+>\n</B
+> escape
+              sequence at the end of the format string will put our shell prompt
+              on the next line:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat 'This is a test!\n' rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>This is a test!</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+
+              Much better&#8230;
+            </P
+></DIV
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="S4-RPM-QUERY-QUERYFORMAT-TAGS"
+>Tags</A
+></H4
+><P
+>              The most important parts of a format string are the tags.  Each
+              tag specifies what information is to be displayed and can
+              optionally include field-width, as well as justification and data
+              formatting instructions.
+              <A
+NAME="AEN3375"
+HREF="#FTN.AEN3375"
+><SPAN
+CLASS="footnote"
+>[5]</SPAN
+></A
+>
+              But for now, let's look at the basic tag.  In fact, let's look at
+              three &#8212; the tags that print the package name, version, and
+              release.
+            </P
+><P
+>              Strangely enough, these tags are called <B
+CLASS="COMMAND"
+>NAME</B
+>,
+              <B
+CLASS="COMMAND"
+>VERSION</B
+>, and <B
+CLASS="COMMAND"
+>RELEASE</B
+>.  In
+              order to be used in a format string, the tag names must be
+              enclosed in curly braces and preceded by a percent sign.  Let's
+              give it a try:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat '%{NAME}%{VERSION}%{RELEASE}\n' rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm2.31</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              Let's add a dash between the tags and see if that makes the output
+              a little easier to read:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat '%{NAME}-%{VERSION}-%{RELEASE}\n' rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-2.3-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+
+              Now our format string outputs standard package labels.
+            </P
+><DIV
+CLASS="SECT5"
+><H5
+CLASS="SECT5"
+><A
+NAME="S5-RPM-QUERY-QUERYFORMAT-WIDTHS"
+>Field Width and Justification</A
+></H5
+><P
+>                Sometimes it's desirable to allocate fields of a particular size
+                for a tag.  This is done by putting the desired field width
+                between the tag's leading percent sign, and the opening curly
+                brace.  Using our package-label-producing format string, let's
+                allocate a 20-character field for the version:
+
+                <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat '%{NAME}-%20{VERSION}-%{RELEASE}\n' rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-                 2.3-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+                </PRE
+></TD
+></TR
+></TABLE
+>
+
+                The result is a field of 20 characters: 17 spaces, followed by
+                the three characters that make up the version.
+              </P
+><P
+>                In this case, the version field is right justified; that is, the
+                data is printed at the far right of the output field.  We can
+                left justify the field by preceding the field width
+                specification with a dash:
+
+                <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat '%{NAME}-%-20{VERSION}-%{RELEASE}\n' rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>rpm-2.3                 -1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+                </PRE
+></TD
+></TR
+></TABLE
+>
+              </P
+><P
+>                Now the version is printed at the far left of the output field.
+                You might be wondering what would happen if the field width
+                specification didn't leave enough room for the data being
+                printed.  The field width specification can be considered the
+                <I
+CLASS="EMPHASIS"
+>minimum</I
+> width the field will take.  If the
+                data being printed is wider, the field will expand to
+                accommodate the data.
+              </P
+></DIV
+><DIV
+CLASS="SECT5"
+><H5
+CLASS="SECT5"
+><A
+NAME="S5-RPM-QUERY-QUERYFORMAT-MODIFIERS"
+>Modifiers &#8212; Making Data More Readable</A
+></H5
+><P
+>                While RPM does its best to appropriately display the data from a
+                <B
+CLASS="COMMAND"
+>--queryformat</B
+>, there are times when you'll
+                need to lend a helping hand.  Here's an example.  Say we want to
+                display the name of each installed package, followed by the time
+                the package was installed.  Looking through the available tags,
+                we see <B
+CLASS="COMMAND"
+>INSTALLTIME</B
+>.  Great!  Looks like this
+                will be simple:
+
+                <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qa --queryformat '%{NAME} was installed on %{INSTALLTIME}\n'</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>setup was installed on 845414601
+pamconfig was installed on 845414602
+filesystem was installed on 845414607
+&#8230;
+rpm was installed on 851659311
+pgp was installed on 846027549</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+                </PRE
+></TD
+></TR
+></TABLE
+>
+              </P
+><P
+>                Well, that's a <I
+CLASS="EMPHASIS"
+>lot</I
+> of output, but not very
+                useful.  What <I
+CLASS="EMPHASIS"
+>are</I
+> those numbers?  RPM
+                didn't lie -- they're the time the packages were installed.  The
+                problem is, the times are being displayed in their numeric form
+                used internally by the operating system, and humans like to see
+                the day, month, year, and so on.
+              </P
+><P
+>                Fortunately, there's a modifier for just this situation.  The
+                name of the modifier is <B
+CLASS="COMMAND"
+>:date</B
+>, and it follows
+                the tag name.  Let's try our example again, this time using
+                <B
+CLASS="COMMAND"
+>:date</B
+>:
+
+                <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qa --queryformat '%{NAME} was installed on %{INSTALLTIME:date}\n'</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>setup was installed on Tue Oct 15 17:23:21 1996
+pamconfig was installed on Tue Oct 15 17:23:22 1996
+filesystem was installed on Tue Oct 15 17:23:27 1996
+&#8230;
+rpm was installed on Thu Dec 26 23:01:51 1996
+pgp was installed on Tue Oct 22 19:39:09 1996</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+                </PRE
+></TD
+></TR
+></TABLE
+>
+
+                That sure is a lot easier to understand, isn't it?
+              </P
+><P
+>                Here's a list of the available modifiers:
+
+                <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      The <B
+CLASS="COMMAND"
+>:date</B
+> modifier displays dates in
+                      human-readable form.  It transforms
+                      <SAMP
+CLASS="COMPUTEROUTPUT"
+>846027549</SAMP
+> into
+                      <SAMP
+CLASS="COMPUTEROUTPUT"
+>Tue Oct 22 19:39:09 1996</SAMP
+>.
+                    </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      The <B
+CLASS="COMMAND"
+>:perms</B
+> modifier displays file
+                      permissions in an easy-to-read format.  It changes
+                      <SAMP
+CLASS="COMPUTEROUTPUT"
+>-32275</SAMP
+> to
+                      <SAMP
+CLASS="COMPUTEROUTPUT"
+>-rwxr-xr-x-</SAMP
+>.
+                    </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      The <B
+CLASS="COMMAND"
+>:depflags</B
+> modifier displays the
+                      version comparison flags used in dependency processing, in
+                      human-readable form.  It turns
+                      <SAMP
+CLASS="COMPUTEROUTPUT"
+>12</SAMP
+> into
+                      <SAMP
+CLASS="COMPUTEROUTPUT"
+>&#62;=</SAMP
+>.
+                    </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      The <B
+CLASS="COMMAND"
+>:fflags</B
+> modifier displays a
+                      <SAMP
+CLASS="COMPUTEROUTPUT"
+>c</SAMP
+> if the file has been
+                      marked as being a configuration file,
+                      
+                      a <SAMP
+CLASS="COMPUTEROUTPUT"
+>d</SAMP
+> if the file has been
+                      marked as being a documentation file, and blank otherwise.
+                      Thus, <SAMP
+CLASS="COMPUTEROUTPUT"
+>2</SAMP
+> becomes
+                      <SAMP
+CLASS="COMPUTEROUTPUT"
+>d</SAMP
+>.
+                    </P
+></LI
+></UL
+>
+              </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="S4-RPM-QUERY-QUERYFORMAT-ITERATORS"
+>Array Iterators</A
+></H4
+><P
+>              Until now, we've been using tags that represent single data items.
+              There is, for example, only one package name or installation date
+              for each package.  However, there are other tags that can
+              represent many different pieces of data.  One such tag is
+              <B
+CLASS="COMMAND"
+>FILENAMES</B
+>, which can be used to display the
+              names of every file contained in a package.
+            </P
+><P
+>              Let's put together a format string that will display the package
+              name, followed by the name of every file that package contains.
+              We'll try it on the <TT
+CLASS="FILENAME"
+>adduser</TT
+> package first,
+              since it contains only one file:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat '%{NAME}: %{FILENAMES}\n' adduser</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>adduser: /usr/sbin/adduser</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              Hey, not bad &#8212; got it on the first try.  Now let's try it on
+              a package with more than one file:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat '%{NAME}: %{FILENAMES}\n' etcskel</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>etcskel: (array)</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              Hmmm.  What went wrong?  It worked before&#8230; Well, it worked
+              before because the <TT
+CLASS="FILENAME"
+>adduser</TT
+> package contained
+              only one file.  The <B
+CLASS="COMMAND"
+>FILENAMES</B
+> tag points to an
+              array of names, so when there is more than one file in a package,
+              there's a problem.
+            </P
+><P
+>              But there is a solution.  It's called an
+              <I
+CLASS="EMPHASIS"
+>iterator</I
+>.  An iterator can step through each
+              entry in an array, producing output as it goes.  Iterators are
+              created when square braces enclose one or more tags and literal
+              text.  Since we want to iterate through the
+              <B
+CLASS="COMMAND"
+>FILENAMES</B
+> array, let's enclose that tag in the
+              iterator:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat '%{NAME}: [%{FILENAMES}]\n' etcskel</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>etcskel: /etc/skel/etc/skel/.Xclients/etc/skel/.Xdefaults/etc/skel/.ba</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              There was more output &#8212; it went right off the screen in one
+              long line.  The problem?  We didn't include a newline escape
+              sequence inside the iterator.  Let's try it again:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat '%{NAME}: [%{FILENAMES}\n]' etcskel</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>etcskel: /etc/skel
+/etc/skel/.Xclients
+/etc/skel/.Xdefaults
+/etc/skel/.bash_logout
+/etc/skel/.bash_profile
+/etc/skel/.bashrc
+/etc/skel/.xsession</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              That's more like it.  If we wanted, we could put another
+              file-related tag inside the iterator.  If we included the
+              <B
+CLASS="COMMAND"
+>FILESIZES</B
+> tag, we'd be able to see the name of
+              each file, as well as how big it was:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat '%{NAME}: [%{FILENAMES} (%{FILESIZES} bytes)\n]' etcskel</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>etcskel: /etc/skel (1024 bytes)
+/etc/skel/.Xclients (551 bytes)
+/etc/skel/.Xdefaults (3785 bytes)
+/etc/skel/.bash_logout (24 bytes)
+/etc/skel/.bash_profile (220 bytes)
+/etc/skel/.bashrc (124 bytes)
+/etc/skel/.xsession (9 bytes)</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              That's pretty nice.  But it would be even nicer if the package
+              name appeared on each line, along with the filename and size.
+              Maybe if we put the <B
+CLASS="COMMAND"
+>NAME</B
+> tag inside the
+              iterator:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat '[%{NAME}: %{FILENAMES} \</KBD
+>
+<TT
+CLASS="PROMPT"
+>?  </TT
+><KBD
+CLASS="USERINPUT"
+>(%{FILESIZES} bytes)\n]' etcskel</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>etcskel: /etc/skel(parallel array size mismatch)</SAMP
+><TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+
+              The error message says it all.  The <B
+CLASS="COMMAND"
+>FILENAMES</B
+>
+              and <B
+CLASS="COMMAND"
+>FILESIZES</B
+> arrays are the same size.  The
+              <B
+CLASS="COMMAND"
+>NAME</B
+> tag isn't even an array.  Of course the
+              sizes don't match!
+            </P
+><DIV
+CLASS="SECT5"
+><H5
+CLASS="SECT5"
+><A
+NAME="S5-RPM-QUERY-INTERATORING-SINGLE-ENTRY-TAGS"
+>Iterating Single-Entry Tags</A
+></H5
+><P
+>                If a tag only has one piece of data, it's possible to put it in
+                an iterator and have its one piece of data displayed with every
+                iteration.  This is done by preceding the tag name with an equal
+                sign.  Let's try it out on our current example:
+
+                <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat '[%{=NAME}: %{FILENAMES} (%{FILESIZES} bytes)\n]' etcskel</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>etcskel: /etc/skel (1024 bytes)
+etcskel: /etc/skel/.Xclients (551 bytes)
+etcskel: /etc/skel/.Xdefaults (3785 bytes)
+etcskel: /etc/skel/.bash_logout (24 bytes)
+etcskel: /etc/skel/.bash_profile (220 bytes)
+etcskel: /etc/skel/.bashrc (124 bytes)
+etcskel: /etc/skel/.xsession (9 bytes)</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+                </PRE
+></TD
+></TR
+></TABLE
+>
+
+                That's about all there is to format strings.  Now, if RPM's
+                standard output doesn't give you what you want, you have no
+                reason to complain.  Just <B
+CLASS="COMMAND"
+>--queryformat</B
+> it!
+              </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT4"
+><H4
+CLASS="SECT4"
+><A
+NAME="S4-RPM-QUERY-QUERYFORMAT-LISTING-TAGS"
+>In Case You Were Wondering&#8230;</A
+></H4
+><P
+>              What's that?  You say you don't know what tags are available?  You
+              can use RPM's <B
+CLASS="COMMAND"
+>--querytags</B
+> option.  When used as
+              the only option (ie, <B
+CLASS="COMMAND"
+>rpm --querytags</B
+>), it
+              produces a list of available tags.  It should be noted that RPM
+              displays the complete tag name.  For instance,
+              <B
+CLASS="COMMAND"
+>RPMTAG_ARCH</B
+> is the complete name, yet you'll
+              only need to use <B
+CLASS="COMMAND"
+>ARCH</B
+> in your format string.
+              Here's a partial example of the <B
+CLASS="COMMAND"
+>--querytags</B
+>
+              option in action:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --querytags</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>RPMTAG_NAME
+RPMTAG_VERSION
+RPMTAG_RELEASE
+&#8230;
+RPMTAG_VERIFYSCRIPT</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              Be forewarned: the full list is quite lengthy.  At the time this
+              book was written, there were over 70 tags!  You'll notice that
+              each tag is printed in uppercase, and is preceded with
+              <B
+CLASS="COMMAND"
+>RPMTAG_</B
+>.  If we were to use that last tag,
+              <B
+CLASS="COMMAND"
+>RPMTAG_VERIFYSCRIPT</B
+>, in a format string, it
+              could be specified in any of the following ways:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><B
+CLASS="COMMAND"
+>%{RPMTAG_VERIFYSCRIPT}
+
+%{RPMTAG_VerifyScript}
+
+%{RPMTAG_VeRiFyScRiPt}
+
+%{VERIFYSCRIPT}
+
+%{VerifyScript}
+
+%{VeRiFyScRiPt}</B
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              The only hard-and-fast rule regarding tags is that if you include
+              the <B
+CLASS="COMMAND"
+>RPMTAG_</B
+> prefix, it
+              <I
+CLASS="EMPHASIS"
+>must</I
+> be all uppercase.  The fourth example
+              above shows the traditional way of specifying a tag &#8212; prefix
+              omitted, all uppercase.  The choice, however, is yours.
+            </P
+><P
+>              One other thing to keep in mind is that not every package will
+              have every type of tagged information available.  In cases where
+              the requested information is not available, RPM will display
+              <SAMP
+CLASS="COMPUTEROUTPUT"
+>(none)</SAMP
+> or
+              <SAMP
+CLASS="COMPUTEROUTPUT"
+>(unknown)</SAMP
+>.  There are also a few
+              tags that, for one reason or another, will not produce useful
+              output when using in a format string.  For a comprehensive list of
+              queryformat tags, please see <A
+HREF="ch-queryformat-tags.html"
+>Appendix D</A
+>.
+            </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-VV-OPTION"
+>Getting a <I
+CLASS="EMPHASIS"
+>lot</I
+> more information with
+          <B
+CLASS="COMMAND"
+>-vv</B
+></A
+></H2
+><P
+>          Sometimes it's necessary to have even <I
+CLASS="EMPHASIS"
+>more</I
+>
+          information than we can get with <B
+CLASS="COMMAND"
+>-v</B
+>.  By adding
+          another <B
+CLASS="COMMAND"
+>v</B
+>, we can start to see more of RPM's inner
+          workings:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qvv rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: opening database in //var/lib/rpm/
+D: querying record number 2341208
+rpm-2.3-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The lines starting with <SAMP
+CLASS="COMPUTEROUTPUT"
+>D:</SAMP
+> have been
+          added by using <B
+CLASS="COMMAND"
+>-vv</B
+>.  We can see where the RPM
+          database is located and what record number contains information on the
+          <TT
+CLASS="FILENAME"
+>rpm-2.3-1</TT
+> package.  Following that is the usual
+          output.
+        </P
+><P
+>          In the vast majority of cases, it will not be necessary to use
+          <B
+CLASS="COMMAND"
+>-vv</B
+>.  It is normally used by software engineers
+          working on RPM itself, and the output can change without notice.
+          However, it's a handy way to gain insights into RPM's inner workings.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-ROOT-OPTION"
+><B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> As An
+          Alternate Root</A
+></H2
+><P
+>          Adding <B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+          to a query command forces RPM to assume that the directory specified
+          by <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> is actually
+          the "root" directory.  In addition, RPM expects its database to reside
+          in the directory specified by the <B
+CLASS="COMMAND"
+>dbpath</B
+>
+          <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entry, relative to
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>.
+          <A
+NAME="AEN3606"
+HREF="#FTN.AEN3606"
+><SPAN
+CLASS="footnote"
+>[6]</SPAN
+></A
+>
+        </P
+><P
+>          Normally this option is only used during an initial system install, or
+          when a system has been booted off a "rescue disk", and some packages
+          need to be re-installed in order to restore normal operation.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-RCFILE-OPTION"
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+> As An
+          Alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--rcfile</B
+> option is used to specify a file
+          containing default settings for RPM.  Normally, this option is not
+          needed.  By default, RPM uses <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> and a
+          file named <TT
+CLASS="FILENAME"
+>.rpmrc</TT
+>, located in your login
+          directory.
+        </P
+><P
+>          This option would be used if there was a need to switch between
+          several sets of RPM options.  Software developer and package builders
+          will be the people using <B
+CLASS="COMMAND"
+>--rcfile</B
+>.  For more
+          information on <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files, see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-QUERY-DBPATH-OPTION"
+><B
+CLASS="COMMAND"
+>--dbpath <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> To Find RPM
+          Database</A
+></H2
+><P
+>          In order for RPM to do its handiwork, it needs access to an RPM
+          database.  Normally, this database exists in the directory specified
+          by the <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entry,
+          <B
+CLASS="COMMAND"
+>dbpath</B
+>.  By default, <B
+CLASS="COMMAND"
+>dbpath</B
+> is
+          set to <TT
+CLASS="FILENAME"
+>/var/lib/rpm</TT
+>.
+        </P
+><P
+>          Although the <B
+CLASS="COMMAND"
+>dbpath</B
+> entry can be modified in the
+          appropriate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file, the
+          <B
+CLASS="COMMAND"
+>--dbpath</B
+> option is probably a better choice when
+          the database path needs to be changed temporarily.  An example of a
+          time the <B
+CLASS="COMMAND"
+>--dbpath</B
+> option would come in handy is
+          when it's necessary to examine an RPM database copied from another
+          system.  Granted, it's not a common occurrence, but it's difficult to
+          handle any other way.
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2793"
+HREF="s1-rpm-query-parts.html#AEN2793"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                On most Linux systems, the <B
+CLASS="COMMAND"
+>file</B
+> command can
+                be used to obtain similar information.  See <A
+HREF="ch-rpm-file-format.html"
+>Appendix A</A
+> for details on how to add this
+                capability to your system's <B
+CLASS="COMMAND"
+>file</B
+> command.
+              </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN2938"
+HREF="s1-rpm-query-parts.html#AEN2938"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                      Note to software packagers: Choose your build machine
+                      names wisely!  A silly or offensive name might be
+                      embarrassing&#8230;
+                    </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN3090"
+HREF="s1-rpm-query-parts.html#AEN3090"
+><SPAN
+CLASS="footnote"
+>[3]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                            For more information on <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>
+                            file entries, please refer to <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+                          </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN3279"
+HREF="s1-rpm-query-parts.html#AEN3279"
+><SPAN
+CLASS="footnote"
+>[4]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                      For more information on package verification, please see
+                      <A
+HREF="ch-rpm-verify.html#S1-RPM-VERIFY-WHAT-IT-DOES"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>rpm -V</B
+> &#8212; What Does it Do?</I
+> in Chapter 6</A
+>.
+                    </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN3375"
+HREF="s1-rpm-query-parts.html#AEN3375"
+><SPAN
+CLASS="footnote"
+>[5]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                  RPM uses <TT
+CLASS="FUNCTION"
+>printf</TT
+> to do
+                  <B
+CLASS="COMMAND"
+>--queryformat</B
+> formatting.  Therefore, you
+                  can use any of the <TT
+CLASS="FUNCTION"
+>printf</TT
+> format
+                  modifiers discussed in the <TT
+CLASS="FUNCTION"
+>printf(3)</TT
+> man
+                  page.
+                </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN3606"
+HREF="s1-rpm-query-parts.html#AEN3606"
+><SPAN
+CLASS="footnote"
+>[6]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              For more information on <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries,
+              see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-query.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-query-handy-queries.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Getting Information About Packages</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-query.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>A Few Handy Queries</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,573 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Using RPM to Erase Packages</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Computer Users &#8212; How to Use RPM to Effectively Manage Your
+      Computer
+    "
+HREF="p108.html"><LINK
+REL="PREVIOUS"
+TITLE="Additional options to rpm -i"
+HREF="s1-rpm-install-additional-options.html"><LINK
+REL="NEXT"
+TITLE="Erasing a Package"
+HREF="s1-rpm-erase-erasing-package.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-install-additional-options.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-erase-erasing-package.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-ERASE"
+></A
+>Chapter 3. Using RPM to Erase Packages</H1
+><DIV
+CLASS="TABLE"
+><A
+NAME="TB-RPM-ERASE-SYNTAX"
+></A
+><P
+><B
+>Table 3-1. <B
+CLASS="COMMAND"
+>rpm -e</B
+> Command Syntax</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+>                <B
+CLASS="COMMAND"
+>rpm -e</B
+> (or <B
+CLASS="COMMAND"
+>--erase</B
+>)
+                <TT
+CLASS="REPLACEABLE"
+><I
+>options</I
+></TT
+> <TT
+CLASS="FILENAME"
+>pkg1</TT
+> &#8230;
+              <TT
+CLASS="FILENAME"
+>pkg<TT
+CLASS="REPLACEABLE"
+><I
+>N</I
+></TT
+></TT
+>
+              </TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+>              Parameters
+            </TD
+></TR
+><TR
+><TD
+>              <TT
+CLASS="FILENAME"
+>pkg1</TT
+> &#8230;
+              <TT
+CLASS="FILENAME"
+>pkg<TT
+CLASS="REPLACEABLE"
+><I
+>N</I
+></TT
+></TT
+>
+            </TD
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              One or more installed packages
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              Erase-specific Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--test</B
+>
+            </TD
+><TD
+>              Perform erase tests only
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-erase-additional-options.html#S2-RPM-ERASE-TEST-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--test</B
+> &#8212; Go Through the Process of Erasing
+          the Package, But Do Not Erase It</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--noscripts</B
+>
+            </TD
+><TD
+>              Do not execute pre- and post-uninstall scripts
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-erase-additional-options.html#S2-RPM-ERASE-NOSCRIPTS-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--noscripts</B
+> &#8212; Do <I
+CLASS="EMPHASIS"
+>Not</I
+>
+          Execute Pre- and Post-uninstall Scripts</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--nodeps</B
+>
+            </TD
+><TD
+>              Do not check dependencies
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-erase-additional-options.html#S2-RPM-ERASE-NODEPS-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--nodeps</B
+>: Do Not Check Dependencies Before Erasing
+          Package</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              General Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-vv</B
+>
+            </TD
+><TD
+>              Display debugging information
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-erase-erasing-package.html#S2-RPM-ERASE-VV-OPTION"
+>the Section called <I
+>Getting More Information With <B
+CLASS="COMMAND"
+>-vv</B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Set alternate root to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-erase-additional-options.html#S2-RPM-ERASE-ROOT-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+          &#8212; Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+          As the Root</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Set alternate rpmrc file to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-erase-additional-options.html#S2-RPM-ERASE-RCFILE-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+          &#8212; Read
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+> For RPM
+          Defaults</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--dbpath <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> to find
+              the RPM database
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-erase-additional-options.html#S2-RPM-ERASE-DBPATH-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--dbpath <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> To Find RPM
+          Database</I
+></A
+>
+            </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-ERASE-WHAT-DOES-IT-DO"
+><B
+CLASS="COMMAND"
+>rpm -e</B
+> &#8212; What Does it Do?</A
+></H1
+><P
+>        The <B
+CLASS="COMMAND"
+>rpm -e</B
+> command (<B
+CLASS="COMMAND"
+>--erase</B
+> is
+        equivalent) removes, or erases, one or more packages from the system.
+        RPM performs a series of steps whenever it erases a package:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              It checks the RPM database to make sure that no other packages
+              depend on the package being erased.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              It executes a pre-uninstall script (if one exists).
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              It checks to see if any of the package's config files have been
+              modified.  If so, it saves copies of them.
+              
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              It reviews the RPM database to find every file listed as being
+              part of the package, and if they do not belong to another package,
+              deletes them.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              It executes a post-uninstall script (if one exists).
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              It removes all traces of the package (and the files belonging to
+              it) from the RPM database.
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        That's quite a bit of activity for a single command.  No wonder RPM can
+        be such a time-saver!
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-install-additional-options.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-erase-erasing-package.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Additional options to <B
+CLASS="COMMAND"
+>rpm -i</B
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p108.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Erasing a Package</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

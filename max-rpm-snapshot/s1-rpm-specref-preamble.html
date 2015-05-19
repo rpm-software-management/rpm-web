@@ -1,0 +1,1825 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>The Preamble</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Concise Spec File Reference"
+HREF="ch-rpm-specref.html"><LINK
+REL="PREVIOUS"
+TITLE="Concise Spec File Reference"
+HREF="ch-rpm-specref.html"><LINK
+REL="NEXT"
+TITLE="Scriptlets"
+HREF="s1-rpm-specref-scripts.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-specref.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix E. Concise Spec File Reference</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-specref-scripts.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-SPECREF-PREAMBLE"
+>The Preamble</A
+></H1
+><P
+>      This section outlines the tags that comprise a spec file's preamble.
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-PACKAGE-NAMING-TAGS"
+>Package Naming Tags</A
+></H2
+><P
+>        This section outlines the tags that are used to name a package.
+      </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-NAME"
+>The <B
+CLASS="COMMAND"
+>Name:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Name:</B
+> tag is used to define the name of the
+          software being packaged.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Name: cdplayer</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-NAME-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>name</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-VERSION"
+>The <B
+CLASS="COMMAND"
+>Version:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Version:</B
+> tag defines the version of the software
+          being packaged.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Version: 1.2</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-VERSION-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>version</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-RELEASE"
+>The <B
+CLASS="COMMAND"
+>Release:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Release:</B
+> tag can be thought of as the
+          <I
+CLASS="EMPHASIS"
+>package's</I
+> version.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Release: 5</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-RELEASE-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>release</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-DESCRIPTIVE-TAGS"
+>Descriptive Tags</A
+></H2
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-DESCRIPTION"
+><B
+CLASS="COMMAND"
+>%description</B
+> Directive -- Describe the packages intended use.</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%description</B
+> tag is used to define an in-depth
+          description of the packaged software.  In the descriptive text, a
+          space in the first column indicates that that line of text should be
+          presented to user as-is, with no formatting done by RPM.  Blank lines
+          in the descriptive text denote paragraphs.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%description
+ It slices!
+ It dices!
+ It's a CD player app that can't be beat.
+
+By using the resonant frequency of the CD itself, it is able to simulate
+20X oversampling.  This leads to sound quality that cannot be equaled with
+more mundane software...</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>%description</B
+> tag can be made specific to a
+          particular subpackage by adding the subpackage name, and optionally,
+          the <CODE
+CLASS="OPTION"
+>-n</CODE
+> option:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%description bar
+
+%description -n bar</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The subpackage name and usage of the <CODE
+CLASS="OPTION"
+>-n</CODE
+> option must
+          match those defined with the <B
+CLASS="COMMAND"
+>%package</B
+> directive.
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-DESCRIPTION-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%description</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-SUMMARY"
+>The <B
+CLASS="COMMAND"
+>Summary:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Summary:</B
+> tag is used to define a one-line
+          description of the packaged software.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Summary: A CD player app that rocks!</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-SUMMARY-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>summary</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-LICENSE"
+>The <B
+CLASS="COMMAND"
+>License:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>License:</B
+> tag is used to define the license
+          terms applicable to the software being packaged. This tag is also
+          known as the <B
+CLASS="COMMAND"
+>Copyright:</B
+> tag.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>License: GPL</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-LICENSE-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>license</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-DISTRIBUTION"
+>The <B
+CLASS="COMMAND"
+>Distribution:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Distribution:</B
+> tag is used to define a group of
+          packages, of which this package is a part.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Distribution: Doors '95</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-DISTRIBUTION-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>distribution</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-ICON"
+>The <B
+CLASS="COMMAND"
+>Icon:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Icon:</B
+> tag is used to name a file containing an
+          icon representing the packaged software.  The file may be in either
+          GIF or XPM format, although XPM is preferred.  In either case, the
+          background of the icon should be transparent.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Icon: foo.xpm</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-ICON-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>icon</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-VENDOR"
+>The <B
+CLASS="COMMAND"
+>Vendor:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Vendor:</B
+> tag is used to define the name of the
+          entity that is responsible for packaging the software.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Vendor: White Socks Software, Inc.</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-VENDOR-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>vendor</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-URL"
+>The <B
+CLASS="COMMAND"
+>URL:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>URL:</B
+> tag is used to define a Uniform Resource
+          Locator that can be used to obtain additional information about the
+          packaged software.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>URL: http://www.gnomovision.com/cdplayer.html</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-URL-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>url</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-GROUP"
+>The <B
+CLASS="COMMAND"
+>Group:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Group:</B
+> tag is used to group packages together by
+          the types of functionality they provide.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Group: Applications/Editors</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-GROUP-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>group</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-PACKAGER"
+>The <B
+CLASS="COMMAND"
+>Packager:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Packager:</B
+> tag is used to hold the name and
+          contact information for the person or persons who built the package.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Packager: Fred Foonly &#60;fred@gnomovision.com&#62;</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-PACKAGER-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>packager</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-DEPENDENCY-TAGS"
+>Dependency Tags</A
+></H2
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-PROVIDES"
+>The <B
+CLASS="COMMAND"
+>Provides:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Provides:</B
+> tag is used to specify a "virtual
+          package" that the packaged software makes available when it is
+          installed.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Provides: module-info</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-PROVIDES-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>provides</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-REQUIRES"
+>The <B
+CLASS="COMMAND"
+>Requires:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Requires:</B
+> tag is used to alert RPM to the fact
+          that the package needs to have certain capabilities available in order
+          to operate properly.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: playmidi</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          A version may be specified, following the package specification.  The
+          following comparison operators may be placed between the package and
+          version:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>&#60;, &#62;, =, &#62;=, or &#60;=</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: playmidi &#62;= 2.3</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          If the <B
+CLASS="COMMAND"
+>Requires:</B
+> tag needs to perform a comparison
+          against an epoch numbered defined with the <B
+CLASS="COMMAND"
+>Epoch:</B
+>
+          tag, then the proper format would be:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Requires: playmidi &#62;= 4:2.3</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-REQUIRES-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>requires</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-EPOCH"
+>The <B
+CLASS="COMMAND"
+>Epoch:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Epoch:</B
+> tag is used to define an epoch number
+          for a package.  It is also known as the <B
+CLASS="COMMAND"
+>Serial:</B
+>
+          tag.  This is only necessary if RPM is unable to determine the
+          ordering of a package's version numbers.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Epoch: 4</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-EPOCH-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>epoch</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-CONFLICTS"
+>The <B
+CLASS="COMMAND"
+>Conflicts:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Conflicts:</B
+> tag is used to alert RPM to the fact
+          that the package is not compatible with other packages.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Conflicts: playmidi</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          A version may be specified, following the package specification.  The
+          following comparison operators may be placed between the package and
+          version:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>&#60;, &#62;, =, &#62;=, or &#60;=</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Conflicts: playmidi &#62;= 2.3</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          If the <B
+CLASS="COMMAND"
+>Conflicts:</B
+> tag needs to perform a comparison
+          against an epoch numbered defined with the <B
+CLASS="COMMAND"
+>Epoch:</B
+>
+          tag, then the proper format would be:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Conflicts: playmidi = 4:</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-CONFLICTS-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>conflicts</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-AUTOREQPROV"
+>The <B
+CLASS="COMMAND"
+>AutoReqProv:</B
+>,
+          <B
+CLASS="COMMAND"
+>AutoReq:</B
+>, and <B
+CLASS="COMMAND"
+>AutoProv:</B
+>
+          Tags</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>AutoReqProv:</B
+> tag is used to control the
+          automatic dependency processing performed when the package is being
+          built.  To disable automatic dependency processing, add the following
+          line:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>AutoReqProv: no</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          (The number <TT
+CLASS="LITERAL"
+>0</TT
+> may be used instead of
+          <TT
+CLASS="LITERAL"
+>no</TT
+>) Although RPM defaults to performing automatic
+          dependency processing, the effect of the
+          <B
+CLASS="COMMAND"
+>AutoReqProv:</B
+> tag can be reversed by changing
+          <TT
+CLASS="LITERAL"
+>no</TT
+> to <TT
+CLASS="LITERAL"
+>yes</TT
+>.  (The number
+          <TT
+CLASS="LITERAL"
+>1</TT
+> may be used instead of <TT
+CLASS="LITERAL"
+>yes</TT
+>)
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>AutoReq:</B
+> and <B
+CLASS="COMMAND"
+>AutoProv:</B
+>
+          tags can be used to disable automatic processing of requirements or
+          "provides" only, respectively.
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-AUTOREQPROV-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>autoreqprov</B
+>,
+            <B
+CLASS="COMMAND"
+>autoreq</B
+>, and <B
+CLASS="COMMAND"
+>autoprov</B
+>
+            Tags</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-ARCH-OS-SPECIFIC-TAG"
+>Architecture- and Operating System-Specific Tags</A
+></H2
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-EXCLUDEARCH"
+>The <B
+CLASS="COMMAND"
+>ExcludeArch:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>ExcludeArch:</B
+> tag is used to direct RPM to ensure
+          that the package does <I
+CLASS="EMPHASIS"
+>not</I
+> attempt to build on the
+          excluded architecture(s).
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>ExcludeArch: sparc alpha</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-EXCLUDEARCH-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>excludearch</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-EXCLUSIVEARCH"
+>The <B
+CLASS="COMMAND"
+>ExclusiveArch:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>ExclusiveArch:</B
+> tag is used to direct RPM to
+          ensure the package is <I
+CLASS="EMPHASIS"
+>only</I
+> built on the specified
+          architecture(s).
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>ExclusiveArch: sparc alpha</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-EXCLUSIVEARCH-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>exclusivearch</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-EXCLUDEOS"
+>The <B
+CLASS="COMMAND"
+>ExcludeOs:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>ExcludeOs:</B
+> tag is used to direct RPM to ensure
+          that the package does <I
+CLASS="EMPHASIS"
+>not</I
+> attempt to build on the
+          excluded operating system(s).
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>ExcludeOS: linux irix</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-EXCLUDEOS"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>excludeos</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-EXCLUSIVEOS"
+>The <B
+CLASS="COMMAND"
+>ExclusiveOs:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>ExclusiveOs:</B
+> tag is used to denote which
+          operating system(s) should <I
+CLASS="EMPHASIS"
+>only</I
+> be be permitted
+          to build the package.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>ExclusiveOS: linux</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-EXCLUSIVEOS-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>exclusiveos</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-DIRECTORY-RELATED-TAGS"
+>Directory-related Tags</A
+></H2
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-PREFIX"
+>The <B
+CLASS="COMMAND"
+>Prefix:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Prefix:</B
+> tag is used to define part of the path
+          RPM will use when installing the package's files.  The prefix can be
+          redefined by the user when the package is installed, thereby changing
+          where the package is installed.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Prefix: /opt</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-PREFIX-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>prefix</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-BUILDROOT"
+>The <B
+CLASS="COMMAND"
+>BuildRoot:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>BuildRoot:</B
+> tag is used to define an alternate
+          build root, where the software will be installed during the build
+          process.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>BuildRoot: /tmp/cdplayer</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-BUILDROOT-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>buildroot</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-SOURCE-PATCH-TAGS"
+>Source and Patch Tags</A
+></H2
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-SOURCE"
+>The <B
+CLASS="COMMAND"
+>Source:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Source:</B
+> tag is used to define the filename of
+          the sources to be packaged.  When there is more than one
+          <B
+CLASS="COMMAND"
+>Source:</B
+> tag in a spec file, each one must be
+          numbered so they are unique, starting with the number
+          <TT
+CLASS="LITERAL"
+>0</TT
+>.  When there is only one tag, it does not need to
+          be numbered.
+        </P
+><P
+>          By convention, the source filename is usually preceded by a URL
+          pointing to the location of the original sources, but RPM does not
+          require this.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Source0: ftp://ftp.gnomovision.com/pub/cdplayer-1.0.tgz
+Source1: foo.tgz</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-SOURCE-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>source</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-NOSOURCE"
+>The <B
+CLASS="COMMAND"
+>NoSource:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>NoSource:</B
+> tag is used to alert RPM to the fact
+          that one or more source files should be excluded from the source
+          package file.  The tag is followed by one or more numbers.  The
+          numbers correspond to the numbers following the
+          <B
+CLASS="COMMAND"
+>Source:</B
+> tags that are to be excluded from packaging.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>NoSource: 0, 3</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-NOSOURCE-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>nosource</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-PATCH"
+>The <B
+CLASS="COMMAND"
+>Patch:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>Patch:</B
+> tag is used to define the name of a patch
+          file to be applied to the package's sources.  When there is more than
+          one <B
+CLASS="COMMAND"
+>Patch:</B
+> tag in a spec file, each one must be
+          numbered so they are unique, starting with the number
+          <TT
+CLASS="LITERAL"
+>0</TT
+>.  When there is only one tag, it does not need to
+          be numbered.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Patch: cdp-0.33-fsstnd.patch</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-PATCH-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>patch</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-NOPATCH"
+>The <B
+CLASS="COMMAND"
+>NoPatch:</B
+> Tag</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>NoPatch:</B
+> tag is used to alert RPM to the fact
+          that one or more patch files should be excluded from the source
+          package file.  The tag is followed by one or more numbers.  The
+          numbers correspond to the numbers following the
+          <B
+CLASS="COMMAND"
+>Patch:</B
+> tags that are to be excluded from packaging.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>NoPatch: 2 3</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-tags.html#S3-RPM-INSIDE-NOPATCH-TAG"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>nopatch</B
+> Tag</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-specref.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-specref-scripts.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Concise Spec File Reference</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-specref.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Scriptlets</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,901 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Making a Package That Can Build Anywhere</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Developers &#8212; How to Distribute Your Software More Easily
+      With RPM
+    "
+HREF="p5206.html"><LINK
+REL="PREVIOUS"
+TITLE="Building a Relocatable Package"
+HREF="s1-rpm-reloc-building-relocatable.html"><LINK
+REL="NEXT"
+TITLE="Having RPM Use a Different Build Area"
+HREF="s1-rpm-anywhere-different-build-area.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-reloc-building-relocatable.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-anywhere-different-build-area.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-ANYWHERE"
+></A
+>Chapter 16. Making a Package That Can Build Anywhere</H1
+><P
+>      While RPM makes building packages as easy as possible, some of the default
+      design decisions might not work well in a particular situation.  Here are
+      two situations where RPM's method of package building may cause problems:
+
+      <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>            You are unable to dedicate a system to RPM package building, or the
+            software you're packaging would disrupt the build system's operation
+            if it were installed.
+          </P
+></LI
+><LI
+><P
+>            You would like to package software, but you don't have root access
+            to an appropriate build system.
+          </P
+></LI
+></OL
+>
+    </P
+><P
+>      Either of these situations can be resolved by directing RPM to build,
+      install, and package the software in a different area on your build
+      system. It requires a bit of additional effort to accomplish this, but
+      taken a step at a time, it is not difficult.  Basically, the process can
+      be summed up by addressing the following steps:
+
+      <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>            Writing the package's spec file to support a build root.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            Directing RPM to build software in a user-specified build area.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            Specifying file attributes that RPM needs to set on installation.
+          </P
+></LI
+></UL
+>
+    </P
+><P
+>      The methods discussed here are not required in every situation.  For
+      example, a system administrator developing a package on a production
+      system may only need to add support for a build root.  On the other hand,
+      a student wishing to build a package on a university system will need to
+      get around the lack of root access by implementing every method described
+      here.
+    </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-ANYWHERE-USING-BUILD-ROOTS"
+>Using Build Roots in a Package</A
+></H1
+><P
+>        Part of the process of packaging software with RPM is to actually build
+        the software and install it on the build system.  The installation of
+        software can only be accomplished by someone with root access, so a
+        non-privileged user will certainly need to handle RPM's installation
+        phase differently.  There are times, however, when even a person with
+        root access will not want RPM to copy new files into the system's
+        directories.  As mentioned above, the reasons might be due to the fact
+        that the software being packaged is already in use on the build system.
+        Another reason might be as mundane as not having enough free space
+        available to perform the install into the default directories.
+      </P
+><P
+>        Whatever the reason, RPM provides the ability to direct a given package
+        to install into an alternate root.  This alternate root is known as a
+        <I
+CLASS="FIRSTTERM"
+>build root</I
+>.  Several requirements must be met in
+        order for a build root to be utilized:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              A default build root must be defined in the package's spec file.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              The installation method used by the software being packaged must
+              be able to support installation in an alternate root.
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        The first part is easy.  It entails adding the following line to the
+        spec file:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>BuildRoot: <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;root&#62;</I
+></TT
+></SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Of course, you would replace <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;root&#62;</I
+></TT
+>
+        with the name of the directory in which you'd like the software to
+        install.
+        <A
+NAME="AEN10138"
+HREF="#FTN.AEN10138"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        If, for example, you specify a build root of
+        <TT
+CLASS="FILENAME"
+>/tmp/foo</TT
+>, and the software you're packaging
+        installs a file <TT
+CLASS="FILENAME"
+>bar</TT
+> in
+        <TT
+CLASS="FILENAME"
+>/usr/bin</TT
+>, you'll find <TT
+CLASS="FILENAME"
+>bar</TT
+>
+        residing in <TT
+CLASS="FILENAME"
+>/tmp/foo/usr/bin</TT
+> after the build.
+      </P
+><P
+>        A note for you non-root package builders: make sure you can actually
+        write to the build root you specify!  Those of you with root access
+        should also make sure you choose your build root carefully.  For an
+        assortment of reasons, it's <I
+CLASS="EMPHASIS"
+>not</I
+> a good idea to
+        declare a build root of "<TT
+CLASS="FILENAME"
+>/</TT
+>"!  We'll get into the
+        reasons why shortly.
+      </P
+><P
+>        The final requirement for adding build root support is to make sure the
+        software's installation method can support installing into an alternate
+        root.  The difficulty in meeting this requirement can range from dead
+        simple to nearly impossible.  There are probably as many different ways
+        of approaching this as there are packages to build.  But in general,
+        some variant of the following approach is used:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              The environment variable <CODE
+CLASS="ENVAR"
+>RPM_BUILD_ROOT</CODE
+> is set by
+              RPM and contains the value of the build root to be used when the
+              software is built and installed.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              The <B
+CLASS="COMMAND"
+>%install</B
+> section of the spec file is
+              modified to use <CODE
+CLASS="ENVAR"
+>RPM_BUILD_ROOT</CODE
+> as part of the
+              installation process.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              If the software is installed using <B
+CLASS="COMMAND"
+>make</B
+>, the
+              makefile is modified to use <CODE
+CLASS="ENVAR"
+>RPM_BUILD_ROOT</CODE
+> and to
+              create any directories that may not exist at installation time.
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        Here's an example of how these components work together to utilize a
+        build root.  First, there's the definition of the build root in the spec
+        file:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>BuildRoot: /tmp/cdplayer</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        This line defines the build root as being
+        <TT
+CLASS="FILENAME"
+>/tmp/cdplayer</TT
+>.  All the files installed by this
+        software will be placed under the <TT
+CLASS="FILENAME"
+>cdplayer</TT
+>
+        directory.  Next is the spec file's <B
+CLASS="COMMAND"
+>%install</B
+> section:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%install
+make ROOT="$RPM_BUILD_ROOT" install</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Since the software we're packaging uses <B
+CLASS="COMMAND"
+>make</B
+> to
+        perform the actual install, we simply define the environment variable
+        <CODE
+CLASS="ENVAR"
+>ROOT</CODE
+> to be the path defined by
+        <CODE
+CLASS="ENVAR"
+>RPM_BUILD_ROOT</CODE
+>.  So far, so good.  Things really start to
+        get interesting in the software's <TT
+CLASS="FILENAME"
+>Makefile</TT
+>, though:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>install: cdp cdp.1.Z
+#       chmod 755 cdp
+#       cp cdp /usr/local/bin
+        install -m 755 -o 0 -g 0 -d $(ROOT)/usr/local/bin/
+        install -m 755 -o 0 -g 0 cdp $(ROOT)/usr/local/bin/cdp
+#       ln -s /usr/local/bin/cdp /usr/local/bin/cdplay
+        ln -s ./cdp $(ROOT)/usr/local/bin/cdplay
+#       cp cdp.1 /usr/local/man/man1
+        install -m 755 -o 0 -g 0 -d $(ROOT)/usr/local/man/man1/
+        install -m 755 -o 0 -g 0 cdp.1 $(ROOT)/usr/local/man/man1/cdp.1</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        In the example above, the commented lines were the original ones.  The
+        uncommented lines perform the same function, but also support
+        installation in the root specified by the environment variable
+        <CODE
+CLASS="ENVAR"
+>ROOT</CODE
+>.
+      </P
+><P
+>        One point worth noting is that the <TT
+CLASS="FILENAME"
+>Makefile</TT
+> now
+        takes extra pains to make sure the proper directory structure exists
+        before installing any files.  This is often necessary, as build roots
+        are deleted, in most cases, after the software has been packaged.  This
+        is why <B
+CLASS="COMMAND"
+>install</B
+> is used with the <B
+CLASS="COMMAND"
+>-d</B
+>
+        option &#8212; to make sure the necessary directories have been created.
+      </P
+><P
+>        Let's see how it works:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba cdplayer-1.0.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
+Executing: %prep
++ cd /usr/src/redhat/BUILD
+&#8230;
++ exit 0
+Executing: %build
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
+&#8230;
++ exit 0
++ umask 022
+Executing: %install
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ make ROOT=/tmp/cdplayer install
+install -m 755 -o 0 -g 0 -d /tmp/cdplayer/usr/local/bin/
+install -m 755 -o 0 -g 0 cdp /tmp/cdplayer/usr/local/bin/cdp
+ln -s ./cdp /tmp/cdplayer/usr/local/bin/cdplay
+install -m 755 -o 0 -g 0 -d /tmp/cdplayer/usr/local/man/man1/
+install -m 755 -o 0 -g 0 cdp.1 /tmp/cdplayer/usr/local/man/man1/cdp.1
++ exit 0
+Executing: special doc
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ DOCDIR=/tmp/cdplayer//usr/doc/cdplayer-1.0-1
++ rm -rf /tmp/cdplayer//usr/doc/cdplayer-1.0-1
++ mkdir -p /tmp/cdplayer//usr/doc/cdplayer-1.0-1
++ cp -ar README /tmp/cdplayer//usr/doc/cdplayer-1.0-1
++ exit 0
+Binary Packaging: cdplayer-1.0-1
+Finding dependencies...
+Requires (2): libc.so.5 libncurses.so.2.0
+usr/doc/cdplayer-1.0-1
+usr/doc/cdplayer-1.0-1/README
+usr/local/bin/cdp
+usr/local/bin/cdplay
+usr/local/man/man1/cdp.1
+93 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/cdplayer-1.0-1.i386.rpm
++ umask 022
++ echo Executing: %clean
+Executing: %clean
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ exit 0
+Source Packaging: cdplayer-1.0-1
+cdplayer-1.0.spec
+cdplayer-1.0.tgz
+82 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/SRPMS/cdplayer-1.0-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Looking over the output from the <B
+CLASS="COMMAND"
+>%install</B
+> section, we
+        first see that the <CODE
+CLASS="ENVAR"
+>RPM_BUILD_ROOT</CODE
+> environment variable in
+        the <B
+CLASS="COMMAND"
+>make install</B
+> command, has been replaced with the
+        path specified earlier in the spec file on the
+        <B
+CLASS="COMMAND"
+>BuildRoot:</B
+> line.  The <CODE
+CLASS="ENVAR"
+>ROOT</CODE
+> environment
+        variable used in the makefile now has the appropriate value, as can be
+        seen in the various <B
+CLASS="COMMAND"
+>install</B
+> commands that follow.
+      </P
+><P
+>        Note, also, that we use <B
+CLASS="COMMAND"
+>install</B
+>'s
+        <B
+CLASS="COMMAND"
+>-d</B
+> option to ensure that every directory in the path
+        exists before we actually install the software.  Unfortunately, we can't
+        do this and install the file in one command.
+      </P
+><P
+>        Looking at the section labeled <SAMP
+CLASS="COMPUTEROUTPUT"
+>Executing: special
+        doc</SAMP
+>, we find that RPM is doing something similar for
+        us.  It starts by making sure there is no pre-existing documentation
+        directory.  Next, RPM creates the documentation directory and copies
+        files into it.
+      </P
+><P
+>        The remainder of this example is identical to that of a package being
+        built without a build root being specified.  However, although the
+        output is identical, there is one crucial difference.  When the binary
+        package is created, instead of simply using each line in the
+        <B
+CLASS="COMMAND"
+>%files</B
+> list verbatim, RPM prepends the build root
+        path first.  If this wasn't done, RPM would attempt to find the files,
+        relative to the system's root directory, and would, of course, fail.
+        Because of the automatic prepending of the build root, it's important to
+        <I
+CLASS="EMPHASIS"
+>not</I
+> include the build root path in any
+        <B
+CLASS="COMMAND"
+>%files</B
+> list entry.  Otherwise, the files would not be
+        found by RPM, and the build would fail.
+      </P
+><P
+>        Although RPM has to go through a bit of extra effort to locate the files
+        to be packaged, the resulting binary package is indistinguishable from
+        the same package created without using a build root.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ANYWHERE-THINGS-TO-CONSIDER"
+>Some Things to Consider</A
+></H2
+><P
+>          Once the necessary modifications have been made to support a build
+          root, it's necessary for the package builder to keep some issues in
+          mind.  The first is that the build root specified in the spec file can
+          be overridden.  RPM will set the build root (and therefore, the value
+          of <CODE
+CLASS="ENVAR"
+>$RPM_BUILD_ROOT</CODE
+>) to one of the following values:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The value of <B
+CLASS="COMMAND"
+>buildroot</B
+> in the spec file.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The value of <B
+CLASS="COMMAND"
+>buildroot</B
+> in an
+                <TT
+CLASS="FILENAME"
+>rpmmacros</TT
+> file.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The value following the <B
+CLASS="COMMAND"
+>--buildroot</B
+> option on
+                the command line.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          Because of this, it's important that the spec file and the makefile be
+          written in such a way that no assumptions about the build root are
+          made.  The main issue is that the build root must not be hard-coded
+          anywhere.  Always use the <CODE
+CLASS="ENVAR"
+>RPM_BUILD_ROOT</CODE
+> environment
+          variable!
+        </P
+><P
+>          Another issue to keep in mind is cleaning up after the build.  Once
+          software builds and is packaged successfully, it's probably no longer
+          necessary to leave the build root in place.  Therefore, it's a good
+          idea to include the necessary commands in the spec file's
+          <B
+CLASS="COMMAND"
+>%clean</B
+> section.  Here's an example:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%clean
+rm -rf $RPM_BUILD_ROOT</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Since RPM executes the <B
+CLASS="COMMAND"
+>%clean</B
+> section after the
+          binary package has been created, it's the perfect place to delete the
+          build root tree.  In the example above, that's exactly what we're
+          doing.  We're also doing the right thing by using the
+          <CODE
+CLASS="ENVAR"
+>RPM_BUILD_ROOT</CODE
+>, instead of a hard-coded path.
+          
+        </P
+><P
+>          The last issue to keep in mind revolves around the
+          <B
+CLASS="COMMAND"
+>%clean</B
+> section we just created.  At the start of
+          the chapter, we mentioned that it's not a good idea to define a build
+          root of "<TT
+CLASS="FILENAME"
+>/</TT
+>".  The <B
+CLASS="COMMAND"
+>%clean</B
+>
+          section is why: If the build root was set to "<TT
+CLASS="FILENAME"
+>/</TT
+>",
+          the <B
+CLASS="COMMAND"
+>%clean</B
+> section would blow away your root
+          filesystem!  Keep in mind that this can bite you, even if the
+          package's spec file doesn't specify "<TT
+CLASS="FILENAME"
+>/</TT
+>" as a
+          build root.  It's possible to use the <B
+CLASS="COMMAND"
+>--buildroot</B
+>
+          option to specify a dangerous build root, too:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba --buildroot / cdplayer-1.0.spec</KBD
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          But for all the possible hazards using build roots can pose for the
+          careless, it's the only way to prevent a build from disrupting the
+          operation of certain packages on the build system.  And for the person
+          wanting to build packages without root access, it's the first of three
+          steps necessary to accomplish the task.  The next step is to direct
+          RPM to build the software in a directory other than RPM's default one.
+        </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN10138"
+HREF="ch-rpm-anywhere.html#AEN10138"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>            Keep in mind that the build root can be overridden at build-time
+            using the <B
+CLASS="COMMAND"
+>--buildroot</B
+> option or the
+            <B
+CLASS="COMMAND"
+>buildroot</B
+> <TT
+CLASS="FILENAME"
+>rpmmacros</TT
+> file
+            entry.  See <A
+HREF="ch-rpm-b-command.html"
+>Chapter 12</A
+> for more details.
+          </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-reloc-building-relocatable.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-anywhere-different-build-area.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Building a Relocatable Package</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p5206.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Having RPM Use a Different Build Area</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

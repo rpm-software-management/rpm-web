@@ -1,0 +1,594 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Getting Ready to Sign</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Adding PGP Signatures to a Package"
+HREF="ch-rpm-pgp.html"><LINK
+REL="PREVIOUS"
+TITLE="Adding PGP Signatures to a Package"
+HREF="ch-rpm-pgp.html"><LINK
+REL="NEXT"
+TITLE="Signing Packages"
+HREF="s1-rpm-pgp-signing-packages.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-pgp.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 17. Adding PGP Signatures to a Package</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-pgp-signing-packages.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-PGP-GETTING-READY"
+>Getting Ready to Sign</A
+></H1
+><P
+>        OK, we've convinced you that signing packages is a good idea.  Now we've
+        got to make sure PGP and RPM are up to the task.  As you might imagine,
+        there are two parts to this process: one for PGP, and one for RPM.
+        Let's get PGP ready first.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-PGP-CREATING-KEY-PAIR"
+>Preparing PGP: Creating a Key Pair</A
+></H2
+><P
+>          There is really very little to be done to PGP, assuming it's been
+          installed properly.  The only thing required is to generate a key
+          pair.  As mentioned in our mini-primer on PGP, the key pair consists
+          of a secret key and a public key.  In terms of signing packages, you
+          will use your secret key to do the actual signing.  Anyone interested
+          in checking your signature will need your public key.
+        </P
+><P
+>          Creating a key pair is quite simple.  All that's required is to issue
+          a <B
+CLASS="COMMAND"
+>pgp -kg</B
+> command, enter some information, and
+          create some random bits.  Here's an example key generating session:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>pgp -kg</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Pretty Good Privacy(tm) 2.6.3a - Public-key encryption for the masses.
+(c) 1990-96 Philip Zimmermann, Phil's Pretty Good Software. 1996-03-04
+Uses the RSAREF(tm) Toolkit, which is copyright RSA Data Security, Inc.
+Distributed by the Massachusetts Institute of Technology.
+Export of this software may be restricted by the U.S. government.
+Current time: 1996/10/31 00:42 GMT
+
+Pick your RSA key size:
+    1)   512 bits- Low commercial grade, fast but less secure
+    2)   768 bits- High commercial grade, medium speed, good security
+    3)  1024 bits- "Military" grade, slow, highest security&#13;</SAMP
+>
+<TT
+CLASS="PROMPT"
+>Choose 1, 2, or 3, or enter desired number of bits: </TT
+><KBD
+CLASS="USERINPUT"
+>3</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Generating an RSA key with a 1024-bit modulus.
+
+You need a user ID for your public key.  The desired form for this
+user ID is your name, followed by your E-mail address enclosed in
+&#60;angle brackets&#62;, if you have an E-mail address.
+For example:  John Q. Smith &#60;12345.6789@compuserve.com&#62;</SAMP
+>
+<TT
+CLASS="PROMPT"
+>Enter a user ID for your public key: </TT
+>
+
+<KBD
+CLASS="USERINPUT"
+>Example Key for RPM Book</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>You need a pass phrase to protect your RSA secret key.
+Your pass phrase can be any sentence or phrase and may have many
+words, spaces, punctuation, or any other printable characters.&#13;</SAMP
+>
+            <TT
+CLASS="PROMPT"
+>Enter pass phrase: </TT
+><KBD
+CLASS="USERINPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;passphrase&#62;</I
+></TT
+></KBD
+> (Not echoed)
+            <TT
+CLASS="PROMPT"
+>Enter same pass phrase again: </TT
+><KBD
+CLASS="USERINPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;passphrase&#62;</I
+></TT
+></KBD
+> (Still not echoed)
+
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Note that key generation is a lengthy process.
+
+We need to generate 952 random bits.  This is done by measuring the
+time intervals between your keystrokes.  Please enter some random text
+on your keyboard until you hear the beep:&#13;</SAMP
+>
+(Many random characters were entered)
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>   0 * -Enough, thank you.
+............................................
+................................**** ...**** 
+Pass phrase is good.  Just a moment....
+Key signature certificate added.
+Key generation completed.</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Let's review each of the times PGP required information.  The first
+          thing PGP needed to know was the key size we wanted.  Depending on
+          your level of paranoia, simply choose an appropriate key size.  In our
+          example, we chose the "They're out to get me" key size of 1024 bits.
+        </P
+><P
+>          Next, we needed to choose a user ID for the key.  The user ID should
+          be descriptive and should also include sufficient information for
+          someone to contact you.  We entered <KBD
+CLASS="USERINPUT"
+>Example Key for RPM
+          Book</KBD
+>, which goes against our suggestion, but is sufficient
+          for the purposes of our example.
+        </P
+><P
+>          After entering a user ID, we needed to add a pass phrase.  The pass
+          phrase is used to protect your secret key, so it should be something
+          difficult for someone else to guess.  It should also be memorable for
+          you, because if you forget your pass phrase, you won't be able to use
+          your secret key!  I entered a couple of words and numbers, put
+          together in such a way that no one could ever guess I typed
+          <KBD
+CLASS="USERINPUT"
+>rpm2kool4words</KBD
+>
+        </P
+><P
+>          Oops&#8230;
+        </P
+><P
+>          The pass phrase is entered twice, to ensure that no typing mistakes
+          were made.  PGP also performs some cursory checks on the pass phrase,
+          ensuring that the phrase is at least somewhat secure.
+        </P
+><P
+>          Finally comes the strangest part of the key-generation process,
+          creating random bits.  This is done by measuring the time between
+          keystrokes.  The secret here is to <I
+CLASS="EMPHASIS"
+>not</I
+> hold down
+          a key so that it auto-repeats and to <I
+CLASS="EMPHASIS"
+>not</I
+> wait
+          several seconds between keystrokes.  Simply start typing anything
+          (even nonsense text) until PGP tells you you've typed enough.
+        </P
+><P
+>          After generating enough random bits, PGP takes a minute or so to
+          create the key pair.  Assuming everything completed successfully,
+          you'll see an ending message similar to the one above.  You'll also
+          find, in a subdirectory of your login directory called
+          <TT
+CLASS="FILENAME"
+>.pgp</TT
+>, the following files:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al ~/.pgp</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 6
+drwxr-xr-x   2 root     root         1024 Oct 30 19:44 .
+drwxr-xr-x   5 root     root         1024 Oct 30 19:44 ..
+-rw-------   1 root     root          176 Oct 30 19:44 pubring.bak
+-rw-------   1 root     root          331 Oct 30 19:44 pubring.pgp
+-rw-------   1 root     root          408 Oct 30 19:44 randseed.bin
+-rw-------   1 root     root          509 Oct 30 19:44 secring.pgp</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          For those interested in learning exactly what each file is, feel free
+          to consult any of the fine books on PGP.  For the purposes of signing
+          packages, all we need to know is where these files are located.
+        </P
+><P
+>          That's it!  Now it's time to configure RPM to use your newly generated
+          key.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-PGP-PREPARING-RPM"
+>Preparing RPM</A
+></H2
+><P
+>          RPM's configuration process is quite straightforward.  It consists of
+          adding a few <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> entries in a file of your
+          choice.  For more information on rpmrc files in general, please see
+          <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+        </P
+><P
+>          The entries that need to be added to an rpmrc file are:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>signature</B
+>
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>pgp_name</B
+>
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>pgp_path</B
+>
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          Let's check out the entries.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-PGP-SIGNATURE-ENTRY"
+><B
+CLASS="COMMAND"
+>signature</B
+></A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>signature</B
+> entry is used to select the type of
+            signature that RPM is to use.  At the time this book was written,
+            the only legal value is <B
+CLASS="COMMAND"
+>pgp</B
+>.  So you would enter:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>signature: pgp</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-PGP-PGP-NAME-ENTRY"
+><B
+CLASS="COMMAND"
+>pgp_name</B
+></A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>pgp_name</B
+> entry gives RPM the user ID of the
+            key it is to sign packages with.  In our key generation example, the
+            user ID of the key we created was <KBD
+CLASS="USERINPUT"
+>Example Key for RPM
+            Book</KBD
+>, so this is what our entry should look like:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>pgp_name: Example Key for RPM Book</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-PGP-PGP-PATH-ENTRY"
+><B
+CLASS="COMMAND"
+>pgp_path</B
+></A
+></H3
+><P
+>            The <B
+CLASS="COMMAND"
+>pgp_path</B
+> entry is used to define the path to
+            the directory where the keys are kept.  This entry is not needed if
+            the environment variable <CODE
+CLASS="ENVAR"
+>PGPPATH</CODE
+> has been defined.
+            In our example, we didn't move them from PGP's default location,
+            which is in the subdirectory <TT
+CLASS="FILENAME"
+>.pgp</TT
+>, off the
+            user's login directory.  Since we generated the key as
+            <TT
+CLASS="FILENAME"
+>root</TT
+>, our path is
+            <TT
+CLASS="FILENAME"
+>/root/.pgp</TT
+>.  Therefore, our entry would look
+            like this:
+
+            <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>pgp_path: /root/.pgp</SAMP
+>
+            </PRE
+></TD
+></TR
+></TABLE
+>
+          </P
+><P
+>            And that's it.  Now it's time to sign some packages.
+          </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-pgp.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-pgp-signing-packages.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Adding PGP Signatures to a Package</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-pgp.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Signing Packages</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

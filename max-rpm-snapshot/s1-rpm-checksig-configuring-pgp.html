@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Configuring PGP for rpm -K</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Verify Package Files"
+HREF="ch-rpm-checksig.html"><LINK
+REL="PREVIOUS"
+TITLE="Using RPM to Verify Package Files"
+HREF="ch-rpm-checksig.html"><LINK
+REL="NEXT"
+TITLE="Using rpm -K"
+HREF="s1-rpm-checksig-using-rpm-k.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-checksig.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 7. Using RPM to Verify Package Files</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-checksig-using-rpm-k.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-CHECKSIG-CONFIGURING-PGP"
+>Configuring PGP for <B
+CLASS="COMMAND"
+>rpm -K</B
+></A
+></H1
+><P
+>        Once PGP is properly built and installed, the actual configuration for
+        RPM is trivial.  Here's what needs to be done:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              PGP must be in your path.  If PGP's usage message doesn't come up
+              when you enter <B
+CLASS="COMMAND"
+>pgp</B
+> at your shell prompt,
+              you'll need to add PGP's directory to your path.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              PGP must be able to find the public keyring file that you want to
+              use when checking package file signatures.  You can use two
+              methods to direct PGP to the public keyring:
+
+              <P
+></P
+><OL
+TYPE="1"
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    Set the <CODE
+CLASS="ENVAR"
+>PGPPATH</CODE
+> environment variable to point
+                    to the directory containing the public keyring file.
+                  </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                    Set the <B
+CLASS="COMMAND"
+>pgp_path</B
+>
+                    <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entry to point to the
+                    directory containing the public keyring file.
+                    <A
+NAME="AEN4609"
+HREF="#FTN.AEN4609"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+                  </P
+></LI
+></OL
+>
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        Now we're ready.
+      </P
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN4609"
+HREF="s1-rpm-checksig-configuring-pgp.html#AEN4609"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                        For more information on <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>
+                        files, <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries, and how
+                        to use them, please see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+                      </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-checksig.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-checksig-using-rpm-k.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using RPM to Verify Package Files</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-checksig.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Using <B
+CLASS="COMMAND"
+>rpm -K</B
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

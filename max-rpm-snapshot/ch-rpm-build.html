@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Building Packages: A Simple Example</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Developers &#8212; How to Distribute Your Software More Easily
+      With RPM
+    "
+HREF="p5206.html"><LINK
+REL="PREVIOUS"
+TITLE="And Now&#8230;"
+HREF="s1-rpm-basics-and-now.html"><LINK
+REL="NEXT"
+TITLE="Getting the Sources"
+HREF="s1-rpm-build-getting-sources.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-basics-and-now.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-build-getting-sources.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-BUILD"
+></A
+>Chapter 11. Building Packages: A Simple Example</H1
+><P
+>      In the previous chapter, we looked at RPM's build process from a
+      conceptual level.  In this chapter, we will be performing an actual build
+      using RPM.  In order to keep things understandable for this first pass,
+      the build will be very simple.  Once we've covered the basics, we'll
+      present more real-world examples in later chapters.
+    </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-BUILD-CREATING-BUILD-DIRECTORIES"
+>Creating the Build Directory Structure</A
+></H1
+><P
+>        RPM requires a set of directories in which to perform the build.  While
+        the directories' locations and names can be changed, unless there's a
+        reason to do so, it's best to use the default layout.  Note that if
+        you've installed RPM, the build directories are most likely in place
+        already.
+      </P
+><P
+>        The normal directory layout consists of a single top-level directory
+        (The default name is <TT
+CLASS="FILENAME"
+>/usr/src/redhat</TT
+>), with five
+        subdirectories.  The five subdirectories and their functions are:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <TT
+CLASS="FILENAME"
+>/usr/src/redhat/SOURCES</TT
+> &#8212; Contains the
+              original sources, patches, and icon files.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <TT
+CLASS="FILENAME"
+>/usr/src/redhat/SPECS</TT
+> &#8212; Contains the
+              spec files used to control the build process.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <TT
+CLASS="FILENAME"
+>/usr/src/redhat/BUILD</TT
+> &#8212; The directory
+              in which the sources are unpacked, and the software is built.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <TT
+CLASS="FILENAME"
+>/usr/src/redhat/RPMS</TT
+> &#8212; Contains the
+              binary package files created by the build process.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <TT
+CLASS="FILENAME"
+>/usr/src/redhat/SRPMS</TT
+> &#8212; Contains the
+              source package files created by the build process.
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        In general, there are no special requirements that need to be met when
+        creating these directories.  In fact, the only important requirement is
+        that the <TT
+CLASS="FILENAME"
+>BUILD</TT
+> directory be part of a filesystem
+        with sufficient free space to build the largest package expected.  Here
+        is a directory listing showing a typical build directory tree:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -lF /usr/src/redhat</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 5
+drwxr-xr-x   3 root     root         1024 Aug  5 13:12 BUILD/
+drwxr-xr-x   3 root     root         1024 Jul 17 17:51 RPMS/
+drwxr-xr-x   4 root     root         1024 Aug  4 22:31 SOURCES/
+drwxr-xr-x   2 root     root         1024 Aug  5 13:12 SPECS/
+drwxr-xr-x   2 root     root         1024 Aug  4 22:28 SRPMS/</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Now that we have the directories ready to go, it's time to prepare for
+        the build.  For the remainder of this chapter, we'll be building a
+        fictional piece of software known as
+        <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>.
+        <A
+NAME="AEN5544"
+HREF="#FTN.AEN5544"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+      </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN5544"
+HREF="ch-rpm-build.html#AEN5544"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>            In reality, this software is a mercilessly hacked version of
+            <TT
+CLASS="APPLICATION"
+>cdp</TT
+>, which was written by Sariel
+            Har-Peled.  The software was hacked to provide a simple example
+            package, and in no way represents the fine work done by Sariel on
+            <TT
+CLASS="APPLICATION"
+>cdp</TT
+>.
+          </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-basics-and-now.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-build-getting-sources.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>And Now&#8230;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p5206.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Getting the Sources</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

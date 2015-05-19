@@ -1,0 +1,662 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Having RPM Use a Different Build Area</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Making a Package That Can Build Anywhere"
+HREF="ch-rpm-anywhere.html"><LINK
+REL="PREVIOUS"
+TITLE="Making a Package That Can Build Anywhere"
+HREF="ch-rpm-anywhere.html"><LINK
+REL="NEXT"
+TITLE="Specifying File Attributes"
+HREF="s1-rpm-anywhere-specifying-file-attributes.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-anywhere.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 16. Making a Package That Can Build Anywhere</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-anywhere-specifying-file-attributes.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-ANYWHERE-DIFFERENT-BUILD-AREA"
+>Having RPM Use a Different Build Area</A
+></H1
+><P
+>        While RPM's build root requires a certain amount of spec file and make
+        file tweaking in order to get it working properly, directing RPM to
+        perform the build in a different directory is a snap.  The hardest part
+        is to create the directories RPM will use during the build process.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ANYWHERE-CREATING-BUILD-AREA"
+>Setting up a Build Area</A
+></H2
+><P
+>          RPM's build area consists of five directories in the top-level:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                The <TT
+CLASS="FILENAME"
+>BUILD</TT
+> directory is where the software
+                is unpacked and built.
+              </P
+></LI
+><LI
+><P
+>                The <TT
+CLASS="FILENAME"
+>RPMS</TT
+> directory is where the newly
+                created binary package files are written.
+              </P
+></LI
+><LI
+><P
+>                The <TT
+CLASS="FILENAME"
+>SOURCES</TT
+> directory contains the original
+                sources, patches, and icon files.
+              </P
+></LI
+><LI
+><P
+>                The <TT
+CLASS="FILENAME"
+>SPECS</TT
+> directory contains the spec files
+                for each package to be built.
+              </P
+></LI
+><LI
+><P
+>                The <TT
+CLASS="FILENAME"
+>SRPMS</TT
+> directory is where the newly
+                created source package files are written.
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          The description of the <TT
+CLASS="FILENAME"
+>RPMS</TT
+> directory above, is
+          missing one key point.  Since the binary package files are specific to
+          an architecture, the directory actually contains one or more
+          subdirectories, one for each architecture.  It is in these
+          subdirectories that RPM will write the binary package files.
+        </P
+><P
+>          Let's start by creating the directories.  We can even do it with one
+          command:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>% </TT
+><KBD
+CLASS="USERINPUT"
+>pwd</KBD
+>
+/home/ed
+% <KBD
+CLASS="USERINPUT"
+>mkdir mybuild\</KBD
+>
+<TT
+CLASS="PROMPT"
+>?  </TT
+><KBD
+CLASS="USERINPUT"
+>mybuild/BUILD\</KBD
+>
+<TT
+CLASS="PROMPT"
+>?  </TT
+><KBD
+CLASS="USERINPUT"
+>mybuild/RPMS\</KBD
+>
+<TT
+CLASS="PROMPT"
+>?  </TT
+><KBD
+CLASS="USERINPUT"
+>mybuild/RPMS/i386\</KBD
+>
+<TT
+CLASS="PROMPT"
+>?  </TT
+><KBD
+CLASS="USERINPUT"
+>mybuild/SOURCES\</KBD
+>
+<TT
+CLASS="PROMPT"
+>?  </TT
+><KBD
+CLASS="USERINPUT"
+>mybuild/SPECS\</KBD
+>
+<TT
+CLASS="PROMPT"
+>?  </TT
+><KBD
+CLASS="USERINPUT"
+>mybuild/SRPMS\</KBD
+>
+<TT
+CLASS="PROMPT"
+>%</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          That's all there is to it.  You may have noticed that we created a
+          subdirectory to <TT
+CLASS="FILENAME"
+>RPMS</TT
+> called
+          <TT
+CLASS="FILENAME"
+>i386</TT
+> &#8212; This is the architecture-specific
+          subdirectory for Intel x86-based systems, which is our example build
+          system.
+        </P
+><P
+>          The next step in getting RPM to use a different build area is telling
+          RPM where the new build area is.  And it's almost as easy as creating
+          the build area itself.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ANYWHERE-USING-NEW-BUILD-AREA"
+>Directing RPM to Use the New Build Area</A
+></H2
+><P
+>          All that's required to get RPM to start using the new build area is to
+          define an alternate value for <B
+CLASS="COMMAND"
+>topdir</B
+> in an
+          <TT
+CLASS="FILENAME"
+>rpmmacros</TT
+> file.  For the non-root user, this
+          means putting the following line in a file called
+          <TT
+CLASS="FILENAME"
+>.rpmmacros</TT
+>, located in your home directory:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%_topdir <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          By replacing <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+> with the path to
+          the new build area's top-level directory, RPM will attempt to use it
+          the next time a build is performed.  Using our newly created build
+          area as an example, we'll set <B
+CLASS="COMMAND"
+>topdir</B
+> to
+          <TT
+CLASS="FILENAME"
+>/home/ed/mybuild</TT
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%_topdir /home/ed/mybuild</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          That's all there is to it.  Now it's time to try a build.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ANYWHERE-PERFORMING-BUILD"
+>Performing a Build in a New Build Area</A
+></H2
+><P
+>          In the following example, a non-root user attempts to build the
+          <TT
+CLASS="FILENAME"
+>cdplayer</TT
+> package in a personal build area.  If
+          the user has modified <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries to
+          change the default build area, the command used to start the build is
+          just like the one used by a root user.  Otherwise, the
+          <B
+CLASS="COMMAND"
+>--buildroot</B
+> option will need to be used:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>% </TT
+><KBD
+CLASS="USERINPUT"
+>cd /home/ed/mybuild/SPECS</KBD
+>
+<TT
+CLASS="PROMPT"
+>% </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba --buildroot /home/ed/mybuildroot cdplayer-1.0.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
++ umask 022
+Executing: %prep
++ cd /home/ed/mybuild/BUILD
++ cd /home/ed/mybuild/BUILD
++ rm -rf cdplayer-1.0
++ gzip -dc /home/ed/mybuild/SOURCES/cdplayer-1.0.tgz
++ tar -xvvf -
+drwxrwxr-x root/users        0 Aug 20 20:58 1996 cdplayer-1.0/
+-rw-r--r-- root/users    17982 Nov 10 01:10 1995 cdplayer-1.0/COPYING
+&#8230;
++ cd /home/ed/mybuild/BUILD/cdplayer-1.0
++ chmod -R a+rX,g-w,o-w .
++ exit 0
+Executing: %build
++ cd /home/ed/mybuild/BUILD
++ cd cdplayer-1.0
++ make
+gcc -Wall -O2  -c -I/usr/include/ncurses  cdp.c 
+&#8230;
+Executing: %install
++ cd /home/ed/mybuild/BUILD
++ make ROOT=/home/ed/mybuildroot/cdplayer install
+install -m 755 -o 0 -g 0 -d /home/ed/mybuildroot/cdplayer/usr/local/bin/
+install: /home/ed/mybuildroot/cdplayer: Operation not permitted
+install: /home/ed/mybuildroot/cdplayer/usr: Operation not permitted
+install: /home/ed/mybuildroot/cdplayer/usr/local: Operation not permitted
+install: /home/ed/mybuildroot/cdplayer/usr/local/bin: Operation not
+permitted
+install: /home/ed/mybuildroot/cdplayer/usr/local/bin/: Operation not
+permitted
+make: *** [install] Error 1
+Bad exit status</SAMP
+>
+<TT
+CLASS="PROMPT"
+>% </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Things started off pretty well &#8212; The <B
+CLASS="COMMAND"
+>%prep</B
+>
+          section of the spec file unpacked the sources into the new build area,
+          as did the <B
+CLASS="COMMAND"
+>%build</B
+> section.  The build was
+          proceeding normally in the user-specified build area, and root access
+          was not required.  In the <B
+CLASS="COMMAND"
+>%install</B
+> section,
+          however, things started to fall apart.  What happened?
+        </P
+><P
+>          Take a look at that <B
+CLASS="COMMAND"
+>install</B
+> command.  The two
+          options, "<B
+CLASS="COMMAND"
+>-o 0</B
+>" and "<B
+CLASS="COMMAND"
+>-g 0</B
+>",
+          dictate that the directories to be created in the build root are to be
+          owned by the root account.  Since the user performing this build did
+          not have root access, the <B
+CLASS="COMMAND"
+>install</B
+> failed, and
+          rightly so.
+        </P
+><P
+>          OK, let's remove the offending options and see where that gets us.
+          Here's the install section of the make file after our modifications:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>install: cdp cdp.1.Z
+	install -m 755 -d $(ROOT)/usr/local/bin/
+	install -m 755 cdp $(ROOT)/usr/local/bin/cdp
+	rm -f $(ROOT)/usr/local/bin/cdplay
+	ln -s ./cdp $(ROOT)/usr/local/bin/cdplay
+	install -m 755 -d $(ROOT)/usr/local/man/man1/
+	install -m 755 cdp.1 $(ROOT)/usr/local/man/man1/cdp.1</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          We'll spare you from having to read through another build, but this
+          time it completed successfully.  Now, let's put our sysadmin hat on
+          and install the newly built package:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -ivh cdplayer-1.0-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>cdplayer       ##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Well, that was easy enough.  Let's take a look at some of the files
+          and make sure everything looks OK.  We know there are some files
+          installed in <TT
+CLASS="FILENAME"
+>/usr/local/bin</TT
+>, so let's check
+          those:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al /usr/local/bin</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rwxr-xr-x   1 ed       ed          40739 Sep 13 20:16 cdp*
+lrwxrwxrwx   1 ed       ed             47 Sep 13 20:34 cdplay -&#62; ./cdp*</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Looks pretty good&#8230; Wait a minute!  What's up with the owner and
+          group?  The answer is simple: User <TT
+CLASS="FILENAME"
+>ed</TT
+> ran the
+          build, which executed the make file, which ran
+          <B
+CLASS="COMMAND"
+>install</B
+>, which created the files.  Since
+          <TT
+CLASS="FILENAME"
+>ed</TT
+> created the files, they are owned by him.
+        </P
+><P
+>          This brings up an interesting point.  Software must be installed with
+          very specific file ownership and permissions.  But a non-root user
+          can't create files that are owned by anyone other than his or herself.
+          What is a non-root user to do?
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-anywhere.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-anywhere-specifying-file-attributes.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Making a Package That Can Build Anywhere</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-anywhere.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Specifying File Attributes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

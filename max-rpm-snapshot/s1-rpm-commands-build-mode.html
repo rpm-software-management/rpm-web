@@ -1,0 +1,426 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Build Mode</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Concise RPM Command Reference"
+HREF="ch-rpm-commands.html"><LINK
+REL="PREVIOUS"
+TITLE="Erase Mode"
+HREF="s1-rpm-commands-erase-mode.html"><LINK
+REL="NEXT"
+TITLE="Rebuild Mode"
+HREF="s1-rpm-commands-rebuild-mode.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-commands-erase-mode.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix C. Concise RPM Command Reference</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-commands-rebuild-mode.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-COMMANDS-BUILD-MODE"
+>Build Mode</A
+></H1
+><P
+>      RPM's build mode is used to build packages:
+    </P
+><P
+>      Format: <B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-b<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;stage&#62;</I
+></TT
+>
+      <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;options&#62;</I
+></TT
+>
+      <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;specfile&#62;</I
+></TT
+></B
+>
+    </P
+><P
+>      (Note that <B
+CLASS="COMMAND"
+>-vv</B
+> is the default for all build mode
+      commands.)
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-COMMANDS-BUILD-MODE-STAGES"
+>Build Mode Stages</A
+></H2
+><P
+>        One of the following stages must follow the <B
+CLASS="COMMAND"
+>-b</B
+>
+        option:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>p</B
+> &#8212; Prep (unpack sources and apply
+              patches).
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>l</B
+> &#8212; List check (do some cursory checks on
+              <B
+CLASS="COMMAND"
+>%files</B
+>).
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>c</B
+> &#8212; Compile (prep and compile).
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>i</B
+> &#8212; Install (prep, compile, install).
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>b</B
+> &#8212; Binary package (prep, compile,
+              install, package).
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>a</B
+> &#8212; Binary/source package (prep, compile,
+              install, package).
+            </P
+></LI
+></UL
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-COMMANDS-BUILD-OPTIONS"
+>Options To Build Mode</A
+></H2
+><P
+>        The following options can be used on any build command:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>--short-circuit</B
+> &#8212; Skip straight to
+              specified stage (only for <B
+CLASS="COMMAND"
+>c</B
+> and
+              <B
+CLASS="COMMAND"
+>i</B
+>).
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>--clean</B
+> &#8212; Remove build tree when done.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>--sign</B
+> &#8212; Generate PGP signature.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>--buildroot
+              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;s&#62;</I
+></TT
+></B
+> &#8212; Use
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;s&#62;</I
+></TT
+></B
+> as the
+              build root.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>--buildarch
+              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;s&#62;</I
+></TT
+></B
+> &#8212; Use
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;s&#62;</I
+></TT
+></B
+> as the
+              build architecture.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>--buildos <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;s&#62;</I
+></TT
+></B
+>
+              &#8212; Use
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;s&#62;</I
+></TT
+></B
+> as the
+              build operating system.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>--test</B
+> &#8212; Do not execute any stages.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <B
+CLASS="COMMAND"
+>--timecheck
+              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;s&#62;</I
+></TT
+></B
+> &#8212; Set the
+              time check to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;s&#62;</I
+></TT
+></B
+> seconds (0
+              disables it).
+            </P
+></LI
+></UL
+>
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-commands-erase-mode.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-commands-rebuild-mode.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Erase Mode</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-commands.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Rebuild Mode</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

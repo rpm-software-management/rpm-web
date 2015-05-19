@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Format of the RPM File</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      Appendixes
+    "
+HREF="p14028.html"><LINK
+REL="PREVIOUS"
+TITLE="      Appendixes
+    "
+HREF="p14028.html"><LINK
+REL="NEXT"
+TITLE="RPM File Format"
+HREF="s1-rpm-file-format-rpm-file-format.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="p14028.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-file-format-rpm-file-format.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="CH-RPM-FILE-FORMAT"
+></A
+>Appendix A. Format of the RPM File</H1
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-FILE-FORMAT-FILE-NAMING-CONVENTION"
+>RPM File Naming Convention</A
+></H1
+><P
+>        While RPM will run just as well if a package file has been renamed, when
+        the packages are created during RPM's build process, they follow a
+        specific naming convention.  The convention is:
+
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>name</I
+></TT
+>-<TT
+CLASS="REPLACEABLE"
+><I
+>version</I
+></TT
+>-<TT
+CLASS="REPLACEABLE"
+><I
+>release</I
+></TT
+>.<TT
+CLASS="REPLACEABLE"
+><I
+>architecture</I
+></TT
+>.rpm</SPAN
+></SAMP
+>
+      </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>      where:
+
+      <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>name</I
+></TT
+></SPAN
+> is a name
+            describing the packaged software.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>version</I
+></TT
+></SPAN
+> is the version
+            of the packaged software.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>release</I
+></TT
+></SPAN
+> is the number of
+            times this version of the software has been packaged.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>architecture</I
+></TT
+></SPAN
+> is a
+            shorthand name describing the type of computer hardware the packaged
+            software is meant to run on.  It may also be the string
+            <TT
+CLASS="LITERAL"
+>src</TT
+>, or <TT
+CLASS="LITERAL"
+>nosrc</TT
+>.  Both of these
+            strings indicate the file is an RPM source package.  The
+            <TT
+CLASS="LITERAL"
+>nosrc</TT
+> string means that the file contains only
+            package building files, while the <TT
+CLASS="LITERAL"
+>src</TT
+> string
+            means the file contains the necessary package building files
+            <I
+CLASS="EMPHASIS"
+>and</I
+> the software's source code.
+          </P
+></LI
+></UL
+>
+    </P
+><P
+>      A few notes are in order.  Normally, the package name is taken verbatim
+      from the packaged software's name.  Occasionally, this approach won't work
+      &#8212; usually this occurs when the software is split into multiple
+      "subpackages," each supporting a different set of functions.  An example
+      of this situation would be the way <TT
+CLASS="FILENAME"
+>ncurses</TT
+> was
+      packaged on Red Hat Linux Linux.  The package incorporating
+      <TT
+CLASS="FILENAME"
+>ncurses</TT
+> basic functionality was called
+      <TT
+CLASS="FILENAME"
+>ncurses</TT
+>, while the package incorporating those parts
+      of <TT
+CLASS="FILENAME"
+>ncurses</TT
+>' program development functionality was
+      named <TT
+CLASS="FILENAME"
+>ncurses-devel</TT
+>.
+    </P
+><P
+>      The version number is normally taken verbatim from the package's version.
+      The only restriction placed on the version is that it cannot contain a
+      dash "<TT
+CLASS="LITERAL"
+>-</TT
+>".
+    </P
+><P
+>      The release can be thought of as the <I
+CLASS="EMPHASIS"
+>package's</I
+>
+      version.  Traditionally it is a number, starting at 1, that shows how many
+      times the packaged software, at a given version, has been built.  This is
+      tradition and not a restriction, however.  Like the version number, the
+      only restriction is that dashes are not allowed.
+    </P
+><P
+>      The architecture specifier is a string that indicates what hardware the
+      package has been built for.  There are a number of architectures defined:
+
+      <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <TT
+CLASS="LITERAL"
+>i386</TT
+> &#8212; The Intel x86 family of
+            microprocessors, starting with the 80386.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <TT
+CLASS="LITERAL"
+>alpha</TT
+> &#8212; The Digital Alpha/AXP series of
+            microprocessors.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <TT
+CLASS="LITERAL"
+>sparc</TT
+> &#8212; Sun Microsystems' SPARC series of
+            chips.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <TT
+CLASS="LITERAL"
+>mips</TT
+> &#8212; MIPS Technologies' processors.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <TT
+CLASS="LITERAL"
+>ppc</TT
+> &#8212; The Power PC microprocessor family.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <TT
+CLASS="LITERAL"
+>m68k</TT
+> &#8212; Motorola's 68000 series of CISC
+            microprocessors.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <TT
+CLASS="LITERAL"
+>SGI</TT
+> &#8212; Equivalent to "MIPS".
+          </P
+></LI
+></UL
+>
+    </P
+><P
+>      This list will almost certainly change.  For the most up-to-date list,
+      please refer to the file <TT
+CLASS="FILENAME"
+>/usr/lib/rpmrc</TT
+>.  It contains
+      information used internally by RPM, including a list of architectures and
+      equivalent code numbers.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="p14028.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-file-format-rpm-file-format.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Appendixes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p14028.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>RPM File Format</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

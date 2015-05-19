@@ -1,0 +1,737 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Using rpm2cpio</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Miscellanea"
+HREF="ch-rpm-miscellania.html"><LINK
+REL="PREVIOUS"
+TITLE="Miscellanea"
+HREF="ch-rpm-miscellania.html"><LINK
+REL="NEXT"
+TITLE="Source Package Files and How To Use Them"
+HREF="s1-rpm-miscellania-srpms.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-miscellania.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 8. Miscellanea</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-miscellania-srpms.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-MISCELLANIA-RPM2CPIO"
+>Using <B
+CLASS="COMMAND"
+>rpm2cpio</B
+></A
+></H1
+><P
+>        From time to time, you might find it necessary to extract one or more
+        files from a package file.  One way to do this would be to:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Install the package
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Make a copy of the file(s) you need
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Erase the package
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        An easier way would be to use <B
+CLASS="COMMAND"
+>rpm2cpio</B
+>.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MISCELLANIA-RPM2CPIO-WHAT-IT-DOES"
+><B
+CLASS="COMMAND"
+>rpm2cpio</B
+> &#8212; What does it do?</A
+></H2
+><P
+>          As the name implies, <B
+CLASS="COMMAND"
+>rpm2cpio</B
+> takes an RPM package
+          file and converts it to a <B
+CLASS="COMMAND"
+>cpio</B
+> archive.  Because
+          it's written to be used primarily as a filter, there's not much to be
+          specified.  <B
+CLASS="COMMAND"
+>rpm2cpio</B
+> takes only only one argument,
+          and even <I
+CLASS="EMPHASIS"
+>that's</I
+> optional!
+        </P
+><P
+>          The optional argument is the name of the package file to be converted.
+          If there is no filename specified on the command line,
+          <B
+CLASS="COMMAND"
+>rpm2cpio</B
+> will simply read from standard input and
+          convert <I
+CLASS="EMPHASIS"
+>that</I
+> to a <B
+CLASS="COMMAND"
+>cpio</B
+>
+          archive.  Let's give it a try:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm2cpio logrotate-1.0-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>0707020001a86a000081a4000000000000000000000001313118bb000002c200000008000
+000030000000000000000000000190000e73eusr/man/man8/logrotate.8." logrotate
+ - log fi
+le rotator
+.TH rpm 8 "28 November 1995" "Red Hat Software" "Red Hat Linux"
+.SH NAME</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+
+          (We've just shown the first few lines of output.)
+        </P
+><P
+>          What on earth is all that stuff?  Remember,
+          <B
+CLASS="COMMAND"
+>rpm2cpio</B
+> is written as a filter.  It writes the
+          <B
+CLASS="COMMAND"
+>cpio</B
+> archive contained in the package file to
+          standard output, which, if you've not redirected it somehow, is your
+          screen.  Here's a more reasonable example:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm2cpio logrotate-1.0-1.i386.rpm &#62; blah.cpio</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>file blah.cpio</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>blah.cpio: ASCII cpio archive (SVR4 with CRC)</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Here we've directed <B
+CLASS="COMMAND"
+>rpm2cpio</B
+> to convert the
+          <TT
+CLASS="FILENAME"
+>logrotate</TT
+> package file.  We've also redirected
+          <B
+CLASS="COMMAND"
+>rpm2cpio</B
+>'s output to a file called
+          <TT
+CLASS="FILENAME"
+>blah.cpio</TT
+>.  Next, using the
+          <B
+CLASS="COMMAND"
+>file</B
+> command, we find that the resulting file is
+          indeed a true-blue <B
+CLASS="COMMAND"
+>cpio</B
+> archive file.  The
+          following command is entirely equivalent to the one above and shows
+          <B
+CLASS="COMMAND"
+>rpm2cpio</B
+>'s ability to read the package file from
+          its standard input:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cat logrotate-1.0-1.i386.rpm | rpm2cpio &#62; blah.cpio</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MISCELLANIA-RPM2CPIO-LISTING-FILES"
+>A more real-world example &#8212; Listing the files in a package file</A
+></H2
+><P
+>          While there's nothing wrong with using <B
+CLASS="COMMAND"
+>rpm2cpio</B
+> to
+          actually create a <B
+CLASS="COMMAND"
+>cpio</B
+> archive file, it's takes a
+          few more steps and uses a bit more disk space than is strictly
+          necessary.  A somewhat cleaner approach would be to pipe
+          <B
+CLASS="COMMAND"
+>rpm2cpio</B
+>'s output directly into
+          <B
+CLASS="COMMAND"
+>cpio</B
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm2cpio logrotate-1.0-1.i386.rpm  | cpio -t</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>usr/man/man8/logrotate.8
+usr/sbin/logrotate
+14 blocks</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In this example, we used the <B
+CLASS="COMMAND"
+>-t</B
+> option to direct
+          <B
+CLASS="COMMAND"
+>cpio</B
+> to produce a "table of contents" of the
+          archive created by <B
+CLASS="COMMAND"
+>rpm2cpio</B
+>.  This can make it much
+          easier to get the right filename and path when you want to extract a
+          file.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MISCELLANIA-RPM2CPIO-EXTRACT"
+>Extracting one or more files from a package file</A
+></H2
+><P
+>          Continuing the example above, let's extract the man page from the
+          <TT
+CLASS="FILENAME"
+>logrotate</TT
+> package.  In the table of contents, we
+          see that the full path is
+          <TT
+CLASS="FILENAME"
+>usr/man/man8/logrotate.8</TT
+>.  All we need to do is
+          to use the filename and path as shown below:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm2cpio logrotate-1.0-1.i386.rpm |cpio -ivd usr/man/man8/logrotate.8</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>usr/man/man8/logrotate.8
+14 blocks</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In this case, the <B
+CLASS="COMMAND"
+>cpio</B
+> options
+          <B
+CLASS="COMMAND"
+>-i</B
+>, <B
+CLASS="COMMAND"
+>-v</B
+>, and
+          <B
+CLASS="COMMAND"
+>-d</B
+> direct <B
+CLASS="COMMAND"
+>cpio</B
+> to:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Extract one or more files from an archive.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Display the names of any files processed, along with the size of
+                the archive file, in 512-byte blocks.
+                <A
+NAME="AEN5057"
+HREF="#FTN.AEN5057"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Create any directories that precede the filename specified in
+                the <B
+CLASS="COMMAND"
+>cpio</B
+> command.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          So where did the file end up?  The last option (<B
+CLASS="COMMAND"
+>-d</B
+>)
+          to <B
+CLASS="COMMAND"
+>cpio</B
+> provides a hint.  Let's take a look:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 5
+-rw-rw-r--   1 root     root         3918 May 30 11:02 logrotate-1.0-1.i386.rpm
+drwx------   3 root     root         1024 Jul 14 12:42 usr</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd usr</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 1
+drwx------   3 root     root         1024 Jul 14 12:42 man</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd man</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 1
+drwx------   2 root     root         1024 Jul 14 12:42 man8</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd man8</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 1
+-rw-r--r--   1 root     root          706 Jul 14 12:42 logrotate.8</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cat logrotate.8</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>.\" logrotate - log file rotator
+.TH rpm 8 "28 November 1995" "Red Hat Software" "Red Hat Linux"
+.SH NAME
+logrotate \- log file rotator
+.SH SYNOPSIS
+\fBlogrotate\fP [configfiles] 
+.SH DESCRIPTION
+\fBlogrotate\fP is a tool to prevent log files from growing without
+&#8230;</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Since the current directory didn't have a
+          <TT
+CLASS="FILENAME"
+>usr/man/man8/</TT
+> path in it, the
+          <B
+CLASS="COMMAND"
+>-d</B
+> option caused <B
+CLASS="COMMAND"
+>cpio</B
+> to create
+          all the directories leading up to the <TT
+CLASS="FILENAME"
+>logrotate.8</TT
+>
+          file in the current directory.  Based on this, it's probably safest to
+          use <B
+CLASS="COMMAND"
+>cpio</B
+> <I
+CLASS="EMPHASIS"
+>outside</I
+> the normal
+          system directories unless you're comfortable with
+          <B
+CLASS="COMMAND"
+>cpio</B
+>, and you know what you're doing!
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN5057"
+HREF="s1-rpm-miscellania-rpm2cpio.html#AEN5057"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                    Note that the size displayed by <B
+CLASS="COMMAND"
+>cpio</B
+> is
+                    the size of the <B
+CLASS="COMMAND"
+>cpio</B
+> archive and not the
+                    package file.
+                  </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-miscellania.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-miscellania-srpms.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Miscellanea</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-miscellania.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Source Package Files and How To Use Them</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

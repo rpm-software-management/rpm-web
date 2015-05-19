@@ -1,0 +1,352 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Erasing a Package</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Erase Packages"
+HREF="ch-rpm-erase.html"><LINK
+REL="PREVIOUS"
+TITLE="Using RPM to Erase Packages"
+HREF="ch-rpm-erase.html"><LINK
+REL="NEXT"
+TITLE="Additional Options"
+HREF="s1-rpm-erase-additional-options.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-erase.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. Using RPM to Erase Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-erase-additional-options.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-ERASE-ERASING-PACKAGE"
+>Erasing a Package</A
+></H1
+><P
+>        The most basic erase command is:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -e eject</B
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        In this case, the <TT
+CLASS="FILENAME"
+>eject</TT
+> package was erased.  There
+        isn't much in the way of feedback, is there?  Could we get more if we
+        add <B
+CLASS="COMMAND"
+>-v</B
+>?
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -ev eject</B
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Still nothing.  However, there's another option that can be counted on
+        to give a wealth of information.  Let's give it a try:
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ERASE-VV-OPTION"
+>Getting More Information With <B
+CLASS="COMMAND"
+>-vv</B
+></A
+></H2
+><P
+>          By adding <B
+CLASS="COMMAND"
+>-vv</B
+> to the command line, we can often get
+          a better feel for what's going on inside RPM.  The
+          <B
+CLASS="COMMAND"
+>-vv</B
+> option was really meant for the RPM developers,
+          and its output may change, but it is a great way to gain insight into
+          RPM's inner workings.  Let's try it with <B
+CLASS="COMMAND"
+>rpm -e</B
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -evv eject</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: uninstalling record number 286040
+D: running preuninstall script (if any)
+D: removing files test = 0
+D: /usr/man/man1/eject.1 - removing
+D: /usr/bin/eject - removing
+D: running postuninstall script (if any)
+D: removing database entry
+D: removing name index
+D: removing group index
+D: removing file index for /usr/bin/eject
+D: removing file index for /usr/man/man1/eject.1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+
+          Although <B
+CLASS="COMMAND"
+>-v</B
+> had no effect on RPM's output,
+          <B
+CLASS="COMMAND"
+>-vv</B
+> gave us a torrent of output.  But what does it
+          tell us?
+        </P
+><P
+>          First, RPM displays the package's record number.  The number is
+          normally of use only to people that work on RPM's database code.
+        </P
+><P
+>          Next, RPM executes a "pre-uninstall" script, if one exists.  This
+          script can execute any commands required to remove the package before
+          any files are actually deleted.
+        </P
+><P
+>          The "<SAMP
+CLASS="COMPUTEROUTPUT"
+>files test = 0</SAMP
+>" line indicates
+          that RPM is to actually erase the package.  If the number had been
+          non-zero, RPM would only be performing a test of the package erasure.
+          This happens when the <B
+CLASS="COMMAND"
+>--test</B
+> option is used.  Refer
+          to <A
+HREF="s1-rpm-erase-additional-options.html#S2-RPM-ERASE-TEST-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--test</B
+> &#8212; Go Through the Process of Erasing
+          the Package, But Do Not Erase It</I
+></A
+> for more information on
+          the use of the <B
+CLASS="COMMAND"
+>--test</B
+> option with <B
+CLASS="COMMAND"
+>rpm
+          -e</B
+>.
+        </P
+><P
+>          The next two lines log the actual removal of the files comprising the
+           package.  Packages with many files can result in a lot of output when
+           using <B
+CLASS="COMMAND"
+>-vv</B
+>!
+        </P
+><P
+>          Next, RPM executes a "post-uninstall" script, if one exists.  Like the
+          pre-uninstall script, this script is used to perform any processing
+          required to cleanly erase the package.  Unlike the pre-uninstall
+          script, however, the post-uninstall script runs
+          <I
+CLASS="EMPHASIS"
+>after</I
+> all the package's files have been removed.
+        </P
+><P
+>          Finally, the last five lines show the process RPM uses to remove every
+          trace of the package from its database.  From the messages, we can see
+          that the database contains some per-package data, followed by
+          information on every file installed by the package.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-erase.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-erase-additional-options.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using RPM to Erase Packages</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-erase.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Additional Options</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

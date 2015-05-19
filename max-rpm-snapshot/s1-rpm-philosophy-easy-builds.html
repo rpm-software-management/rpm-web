@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Easy Builds</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The Philosophy Behind RPM"
+HREF="ch-rpm-philosophy.html"><LINK
+REL="PREVIOUS"
+TITLE="The Philosophy Behind RPM"
+HREF="ch-rpm-philosophy.html"><LINK
+REL="NEXT"
+TITLE="Multi-architecture/operating system Support"
+HREF="s1-rpm-philosophy-multi-architecture.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-philosophy.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 9. The Philosophy Behind RPM</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-philosophy-multi-architecture.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-PHILOSOPHY-EASY-BUILDS"
+>Easy Builds</A
+></H1
+><P
+>        RPM makes it easy to build packages.  Just as with the use of pristine
+        sources, the fact that the build process is simple is an even greater
+        advantage to the third-party package builders responsible for many
+        packages, than it is to a one-package software development house.  But
+        in either case, RPM's ease of building is a welcome relief.  The
+        following sections document some of the ways that RPM makes building
+        packages a straightforward process.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-PHILOSOPHY-REPRODUCIBLE-BUILDS"
+>Reproducible Builds</A
+></H2
+><P
+>          One of the biggest problems facing developers is reproducing a
+          particular build.  This single problem is the main reason so much
+          effort is put into creating and deploying version control systems to
+          manage sources.
+        </P
+><P
+>          While RPM cannot compete with a full-blown revision control system, it
+          does an excellent job of keeping in one place everything required to
+          build a particular version of a package.  Remember the source package
+          we mentioned above?  With one command, RPM can open the package,
+          extract the sources, patch them, perform a build, and create a new
+          binary package, ready for your users.  The best part is that the
+          binary package will be the same <I
+CLASS="EMPHASIS"
+>every</I
+> time you
+          build it because everything needed to create it is kept in one source
+          package.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-PHILOSOPHY-UNATTENDED-BUILDS"
+>Unattended Builds</A
+></H2
+><P
+>          As we mentioned above, completely building a package takes only one
+          RPM command.  This makes it easy to set up automated build procedures
+          that can build one hundred packages as easily as one.  Anything from a
+          single package consisting of one application to the several hundred
+          packages that comprise an entire operating system, can be built
+          automatically using RPM.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-philosophy.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-philosophy-multi-architecture.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The Philosophy Behind RPM</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-philosophy.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Multi-architecture/operating system Support</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

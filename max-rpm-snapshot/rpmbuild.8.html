@@ -1,0 +1,1340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>rpmbuild</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="RPM Man Pages"
+HREF="p18926.html"><LINK
+REL="PREVIOUS"
+TITLE="rpm"
+HREF="rpm.8.html"><LINK
+REL="NEXT"
+TITLE="rpmgraph"
+HREF="rpmgraph.8.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="rpm.8.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="rpmgraph.8.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="RPMBUILD.8"
+></A
+>rpmbuild</H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN20330"
+></A
+><H2
+>Name</H2
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+>&nbsp;--&nbsp;Build RPM Package(s)</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN20334"
+></A
+><H2
+>Synopsis</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20335"
+></A
+><H3
+>Building Packages:</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> {<CODE
+CLASS="OPTION"
+>-ba|-bb|-bp|-bc|-bi|-bl|-bs</CODE
+>} [<I
+><A
+HREF="rpmbuild.8.html#RPMBUILD-OPTIONS"
+>(1)</A
+>	    rpmbuild-options
+	  </I
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>SPECFILE</I
+></TT
+>... </P
+>
+      </TD
+></TR
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> {<CODE
+CLASS="OPTION"
+>-ta|-tb|-tp|-tc|-ti|-tl|-ts</CODE
+>} [<I
+><A
+HREF="rpmbuild.8.html#RPMBUILD-OPTIONS"
+>(1)</A
+>	    rpmbuild-options
+	  </I
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>TARBALL</I
+></TT
+>... </P
+>
+      </TD
+></TR
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> {<CODE
+CLASS="OPTION"
+>--rebuild|--recompile</CODE
+>}  <TT
+CLASS="REPLACEABLE"
+><I
+>SOURCEPKG</I
+></TT
+>... </P
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20364"
+></A
+><H3
+>Miscellaneous:</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> {<CODE
+CLASS="OPTION"
+>--showrc</CODE
+>}</P
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20373"
+></A
+><H3
+>rpmbuild-options</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+></B
+><P
+><A
+NAME="RPMBUILD-OPTIONS"
+>(1)</A
+>&nbsp; <CODE
+CLASS="OPTION"
+>--buildroot</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+> | <CODE
+CLASS="OPTION"
+>--clean</CODE
+> | <CODE
+CLASS="OPTION"
+>--nobuild</CODE
+> | <CODE
+CLASS="OPTION"
+>--rmsource</CODE
+> | <CODE
+CLASS="OPTION"
+>--rmspec</CODE
+><BR> | <CODE
+CLASS="OPTION"
+>--short-circuit</CODE
+> | <CODE
+CLASS="OPTION"
+>--sign</CODE
+> | <CODE
+CLASS="OPTION"
+>--target</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>PLATFORM</I
+></TT
+> </P
+></P
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20401"
+></A
+><H2
+>Description</H2
+><P
+>	<B
+CLASS="COMMAND"
+>rpmbuild</B
+> is used to build both binary and source software packages.
+	A <I
+CLASS="EMPHASIS"
+>package</I
+> consists of an archive of files and
+	meta-data used to install and erase the archive files. The meta-data
+	includes helper scripts, file attributes, and descriptive information
+	about the package.
+	<I
+CLASS="EMPHASIS"
+>Packages</I
+> come in two varieties: binary packages,
+	used to encapsulate software to be installed, and source packages,
+	containing the source code and recipe necessary to produce binary
+	packages.
+  </P
+><P
+>    One of the following basic modes must be selected:
+	<I
+CLASS="EMPHASIS"
+>Build Package</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Build Package from Tarball</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Recompile Package</I
+>,
+	<I
+CLASS="EMPHASIS"
+>Show Configuration</I
+>.
+  </P
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20412"
+></A
+><H3
+>General Options</H3
+><P
+>  These options can be used in all the different modes.
+  </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="OPTION"
+>-?, --help</CODE
+></DT
+><DD
+><P
+>	Print a longer usage message then normal.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--version</CODE
+></DT
+><DD
+><P
+>	Print a single line containing the version number of <B
+CLASS="COMMAND"
+>rpm</B
+>
+	being used. </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--quiet</CODE
+></DT
+><DD
+><P
+>	Print as little as possible - normally only error messages will
+	be displayed.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-v</CODE
+></DT
+><DD
+><P
+>	Print verbose information - normally routine progress messages will be
+	displayed.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-vv</CODE
+></DT
+><DD
+><P
+>	Print lots of ugly debugging information.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--rcfile</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>FILELIST</I
+></TT
+></DT
+><DD
+><P
+>	Each of the files in the colon separated
+	<TT
+CLASS="REPLACEABLE"
+><I
+>FILELIST</I
+></TT
+>
+	is read sequentially by <B
+CLASS="COMMAND"
+>rpm</B
+> for configuration
+	information.
+	Only the first file in the list must exist, and tildes will be
+	expanded to the value of <CODE
+CLASS="ENVAR"
+>$HOME</CODE
+>.
+	The default <TT
+CLASS="REPLACEABLE"
+><I
+>FILELIST</I
+></TT
+> is
+		<TT
+CLASS="FILENAME"
+>/usr/lib/rpm/rpmrc</TT
+>:<TT
+CLASS="FILENAME"
+>/usr/lib/rpm/redhat/rpmrc</TT
+>:<TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+>:<TT
+CLASS="FILENAME"
+>~/.rpmrc</TT
+>.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--pipe</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>CMD</I
+></TT
+></DT
+><DD
+><P
+>	Pipes the output of <B
+CLASS="COMMAND"
+>rpm</B
+> to the command <TT
+CLASS="REPLACEABLE"
+><I
+>CMD</I
+></TT
+>.
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--dbpath</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+></DT
+><DD
+><P
+>	Use the database in <TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+> rather
+	than the default path <TT
+CLASS="FILENAME"
+>/var/lib/rpm</TT
+>
+      </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--root</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+></DT
+><DD
+><P
+>	Use the file system tree rooted at <TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+> for all operations.
+	Note that this means the database within
+		<TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+>
+	will be used for dependency checks and any scriptlet(s) (e.g.
+		<B
+CLASS="COMMAND"
+>%post</B
+> if installing, or
+		<B
+CLASS="COMMAND"
+>%prep</B
+> if building, a package)
+	will be run after a chroot(2) to
+		<TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+>.
+      </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20483"
+></A
+><H3
+>Build Options</H3
+><P
+>	The general form of an rpm build command is 
+    </P
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> {<CODE
+CLASS="OPTION"
+>-b<TT
+CLASS="REPLACEABLE"
+><I
+>STAGE</I
+></TT
+>|-t<TT
+CLASS="REPLACEABLE"
+><I
+>STAGE</I
+></TT
+></CODE
+>} [<I
+><A
+HREF="rpmbuild.8.html#RPMBUILD-OPTIONS"
+>(1)</A
+>	    rpmbuild-options
+	  </I
+>]  <TT
+CLASS="REPLACEABLE"
+><I
+>FILE</I
+></TT
+>... </P
+>
+    </P
+><P
+>	The argument used is <CODE
+CLASS="OPTION"
+>-b</CODE
+> if a spec file is being
+	used to build the package and <CODE
+CLASS="OPTION"
+>-t</CODE
+> if <B
+CLASS="COMMAND"
+>rpmbuild</B
+>
+	should look inside of a (possibly compressed) tar file for
+	the spec file to use. After the first argument, the next
+	character (<TT
+CLASS="REPLACEABLE"
+><I
+>STAGE</I
+></TT
+>) specifies the stages
+	of building and packaging to be done and is one of:
+    <P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="OPTION"
+>-ba</CODE
+></DT
+><DD
+><P
+>	Build binary and source packages (after doing the %prep, %build, and
+	%install stages).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-bb</CODE
+></DT
+><DD
+><P
+>	Build a binary package (after doing the %prep, %build, and %install
+	stages).
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-bp</CODE
+></DT
+><DD
+><P
+>	Executes the "%prep" stage from the spec file. Normally this
+	involves unpacking the sources and applying any patches.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-bc</CODE
+></DT
+><DD
+><P
+>	Do the "%build" stage from the spec file (after doing the %prep stage).
+	This generally involves the equivalent of a "make".
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-bi</CODE
+></DT
+><DD
+><P
+>	Do the "%install" stage from the spec file (after doing the %prep and
+	%build stages).  This generally involves the equivalent of a
+	"make install".
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-bl</CODE
+></DT
+><DD
+><P
+>	Do a "list check".  The "%files" section from the spec file is
+	macro expanded, and checks are made to verify that each file
+	exists.
+	</P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>-bs</CODE
+></DT
+><DD
+><P
+>	Build just the source package.
+    </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>	The following options may also be used:
+    </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><CODE
+CLASS="OPTION"
+>--buildroot</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+></DT
+><DD
+><P
+>	When building a package, override the BuildRoot tag with directory
+	<TT
+CLASS="REPLACEABLE"
+><I
+>DIRECTORY</I
+></TT
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--clean</CODE
+></DT
+><DD
+><P
+>	Remove the build tree after the packages are made.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--nobuild</CODE
+></DT
+><DD
+><P
+>	Do not execute any build stages. Useful for testing out spec files.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--rmsource</CODE
+></DT
+><DD
+><P
+>	Remove the sources after the build (may also be
+	used standalone, e.g. "<B
+CLASS="COMMAND"
+>rpmbuild</B
+> <CODE
+CLASS="OPTION"
+>--rmsource foo.spec</CODE
+>").
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--rmspec</CODE
+></DT
+><DD
+><P
+>	Remove the spec file after the build (may also be
+	used standalone, eg. "<B
+CLASS="COMMAND"
+>rpmbuild</B
+> <CODE
+CLASS="OPTION"
+>--rmspec foo.spec</CODE
+>").
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--short-circuit</CODE
+></DT
+><DD
+><P
+>	Skip straight to specified stage (i.e., skip all stages leading
+	up to the specified stage).  Only valid with <CODE
+CLASS="OPTION"
+>-bc</CODE
+>
+	and <CODE
+CLASS="OPTION"
+>-bi</CODE
+>.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--sign</CODE
+></DT
+><DD
+><P
+>	Embed a GPG signature in the package. This signature can be used
+	to verify the integrity and the origin of the package.  See the
+	section on GPG SIGNATURES in
+		<B
+CLASS="COMMAND"
+>rpm</B
+>(8)
+	for configuration details.
+    </P
+></DD
+><DT
+><CODE
+CLASS="OPTION"
+>--target</CODE
+> <TT
+CLASS="REPLACEABLE"
+><I
+>PLATFORM</I
+></TT
+></DT
+><DD
+><P
+>	When building the package, interpret <TT
+CLASS="REPLACEABLE"
+><I
+>PLATFORM</I
+></TT
+>
+	as <CODE
+CLASS="OPTION"
+>arch-vendor-os</CODE
+> and set the macros
+		<B
+CLASS="COMMAND"
+>%_target</B
+>,
+		<B
+CLASS="COMMAND"
+>%_target_cpu</B
+>, and
+		<B
+CLASS="COMMAND"
+>%_target_os</B
+>
+	accordingly.
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20595"
+></A
+><H3
+>Rebuild and Recompile Options</H3
+><P
+>	There are two other ways to invoke building with rpm:
+    </P
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> {<CODE
+CLASS="OPTION"
+>--rebuild|--recompile</CODE
+>}  <TT
+CLASS="REPLACEABLE"
+><I
+>SOURCEPKG</I
+></TT
+>... </P
+>
+    </P
+><P
+>	When invoked this way, <B
+CLASS="COMMAND"
+>rpmbuild</B
+> installs the named source
+	package, and does a prep, compile and install.  In addition,
+	<CODE
+CLASS="OPTION"
+>--rebuild</CODE
+> builds a new binary package. When the build
+	has completed, the build directory is removed (as in
+	<CODE
+CLASS="OPTION"
+>--clean</CODE
+>) and the the sources and spec file for
+	the package are removed.
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20609"
+></A
+><H3
+>Showrc</H3
+><P
+>	The command
+    </P
+><P
+>      <P
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+>  <CODE
+CLASS="OPTION"
+>--showrc</CODE
+> </P
+>
+    </P
+><P
+>	shows the values <B
+CLASS="COMMAND"
+>rpmbuild</B
+> will use for all of the
+	options are currently set in
+		<TT
+CLASS="FILENAME"
+>rpmrc</TT
+> and
+		<TT
+CLASS="FILENAME"
+>macros</TT
+>
+	configuration file(s).
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20621"
+></A
+><H2
+>Files</H2
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20623"
+></A
+><H3
+>rpmrc Configuration</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/usr/lib/rpm/rpmrc</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/usr/lib/rpm/redhat/rpmrc</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>~/.rpmrc</TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20635"
+></A
+><H3
+>Macro Configuration</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/usr/lib/rpm/macros</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/usr/lib/rpm/redhat/macros</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/etc/rpm/macros</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>~/.rpmmacros</TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20647"
+></A
+><H3
+>Database</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Basenames</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Conflictname</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Dirnames</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Filemd5s</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Group</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Installtid</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Name</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Packages</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Providename</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Provideversion</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Requirename</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Requireversion</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Sha1header</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Sigmd5</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/lib/rpm/Triggername</TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+><DIV
+CLASS="REFSECT2"
+><A
+NAME="AEN20681"
+></A
+><H3
+>Temporary</H3
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="FILENAME"
+>/var/tmp/rpm*</TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20687"
+></A
+><H2
+>See Also</H2
+><P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="COMMAND"
+>popt</B
+>(3),</TD
+></TR
+><TR
+><TD
+><B
+CLASS="COMMAND"
+>rpm2cpio</B
+>(8),</TD
+></TR
+><TR
+><TD
+><B
+CLASS="COMMAND"
+>gendiff</B
+>(1),</TD
+></TR
+><TR
+><TD
+><B
+CLASS="COMMAND"
+>rpm</B
+>(8),</TD
+></TR
+><TR
+><TD
+>	<B
+CLASS="COMMAND"
+>	<A
+HREF="http://www.rpm.org/"
+TARGET="_top"
+>http://www.rpm.org/</A
+>
+	</B
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20701"
+></A
+><H2
+>Authors</H2
+><P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>Marc Ewing &#60;marc@redhat.com&#62;</TD
+></TR
+><TR
+><TD
+>Jeff Johnson &#60;jbj@redhat.com&#62;</TD
+></TR
+><TR
+><TD
+>Erik Troan &#60;ewt@redhat.com&#62;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="rpm.8.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="rpmgraph.8.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>rpm</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p18926.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>rpmgraph</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

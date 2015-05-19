@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Easier For Your Users</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="The Philosophy Behind RPM"
+HREF="ch-rpm-philosophy.html"><LINK
+REL="PREVIOUS"
+TITLE="Multi-architecture/operating system Support"
+HREF="s1-rpm-philosophy-multi-architecture.html"><LINK
+REL="NEXT"
+TITLE="To Summarize&#8230;"
+HREF="s1-rpm-philosophy-summary.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-philosophy-multi-architecture.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 9. The Philosophy Behind RPM</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-philosophy-summary.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-PHILOSOPHY-EASIER-FOR-USERS"
+>Easier For Your Users</A
+></H1
+><P
+>        While we are primarily concerned with RPM's advantages from the
+        developer's point of view, it's worth looking at RPM from the user's
+        standpoint for a moment.  After all, if RPM makes life easier for your
+        users, that can translate into lower support costs.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-PHILOSOPHY-EASY-UPGRADES"
+>Easy Upgrades</A
+></H2
+><P
+>          Probably the biggest headache for user and developer alike is the
+          upgrade of an application, or worse yet, an entire operating system!
+          RPM can make upgrading a one-step process.  With one command, a new
+          package can be installed, and the remnants of the old package removed.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-PHILOSOPHY-CONFIG-FILE-HANDLING"
+>Intelligent Configuration File Handling</A
+></H2
+><P
+>          Configuration files &#8212; nearly every application has them.  They
+          may go by different names, but they all control the behavior of their
+          application.  Users normally customize config files to their liking
+          and would be upset if their customizations were lost during the
+          installation, upgrade, or removal of a package.
+        </P
+><P
+>          RPM takes special care with a user's config files.  By using MD5
+          checksums, RPM can determine what action is most appropriate with a
+          config file.  If a config file has been modified by the user and has
+          to be replaced, it is saved.  That way a user's modifications are
+          never lost.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-PHILOSOPHY-POWERFUL-QUERIES"
+>Powerful Query Capabilities</A
+></H2
+><P
+>          RPM uses a database to keep track of all files it installs.  RPM's
+          database provides other benefits, such as the wide variety of
+          information that can be easily retrieved from it.  RPM's query command
+          makes it easy for users to quickly answer a number of questions, such
+          as:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Where did this file come from?  Is it part of a package?
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                What does this package do?
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                What packages are installed on my system?
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          These are just a few examples of the many ways RPM can provide
+          information about one or more packages on a user's system.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-PHILOSOPHY-EASY-VERIFICATION"
+>Easy Package Verification</A
+></H2
+><P
+>          Another way that RPM leverages the information stored in its database,
+          is by providing an easy way to verify that a package is properly
+          installed.  With this capability, RPM makes it easy to determine, for
+          example, what packages were damaged by a wildcard delete in
+          <TT
+CLASS="FILENAME"
+>/usr/bin</TT
+>.  In addition, RPM's verification
+          command can detect changes to file attributes, such as a file's
+          permissions, ownership, and size.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-philosophy-multi-architecture.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-philosophy-summary.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Multi-architecture/operating system Support</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-philosophy.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>To Summarize&#8230;</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

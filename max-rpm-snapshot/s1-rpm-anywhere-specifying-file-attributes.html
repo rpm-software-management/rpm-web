@@ -1,0 +1,544 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Specifying File Attributes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Making a Package That Can Build Anywhere"
+HREF="ch-rpm-anywhere.html"><LINK
+REL="PREVIOUS"
+TITLE="Having RPM Use a Different Build Area"
+HREF="s1-rpm-anywhere-different-build-area.html"><LINK
+REL="NEXT"
+TITLE="Adding PGP Signatures to a Package"
+HREF="ch-rpm-pgp.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-anywhere-different-build-area.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 16. Making a Package That Can Build Anywhere</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-pgp.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-ANYWHERE-SPECIFYING-FILE-ATTRIBUTES"
+>Specifying File Attributes</A
+></H1
+><P
+>        In cases where the package builder cannot create the files to be
+        packaged with the proper ownership and permissions, the
+        <B
+CLASS="COMMAND"
+>%attr</B
+> macro can be used to make things right.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ANYWHERE-ATTR-MACRO"
+><B
+CLASS="COMMAND"
+>%attr</B
+> &#8212; How Does It Work?</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>%attr</B
+> macro has the following format:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%attr(<TT
+CLASS="REPLACEABLE"
+><I
+>&#60;mode&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;user&#62;</I
+></TT
+>, <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+>) <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;mode&#62;</I
+></TT
+> is represented in
+                traditional numeric fashion.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;user&#62;</I
+></TT
+> is specified by the
+                login name of the user.  Numeric UIDs are
+                <I
+CLASS="EMPHASIS"
+>not</I
+> used, for reasons we'll explore in a
+                moment.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+> is specified by the
+                group's name, as entered in <TT
+CLASS="FILENAME"
+>/etc/group</TT
+>.
+                Numeric GIDs are <I
+CLASS="EMPHASIS"
+>not</I
+> used, either.  Yes,
+                we'll be discussing that, too!
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+> represents the file.
+                Shell-style globbing is supported.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          There are a couple other wrinkles to using the
+          <B
+CLASS="COMMAND"
+>%attr</B
+> macro.  If a particular file attribute
+          doesn't need to be specified, that attribute can be replaced with a
+          dash "<B
+CLASS="COMMAND"
+>-</B
+>" and <B
+CLASS="COMMAND"
+>%attr</B
+> will not
+          change it.  Say, for instance, that a package's files are installed
+          with the permissions correctly set, as they almost always are.
+          Instead of having to go to the trouble of entering the permissions for
+          each and every file, each file can have the same
+          <B
+CLASS="COMMAND"
+>%attr</B
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%attr(-, root, root)</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          This works for user and group specifications, as well.
+        </P
+><P
+>          The other wrinkle is that, although we've been showing the three file
+          attributes separated by commas, in reality they could be separated by
+          spaces as well.  Whichever delimiter you choose, it pays to be
+          consistent throughout a spec file.
+        </P
+><P
+>          Let's fix up <TT
+CLASS="FILENAME"
+>cdplayer</TT
+> with a liberal sprinkling
+          of <B
+CLASS="COMMAND"
+>%attr</B
+>s.  Here's what the
+          <B
+CLASS="COMMAND"
+>%files</B
+> list looks like after we've had our way with
+          it:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files
+%attr(-, root, root) %doc README
+%attr(4755, root, root) /usr/local/bin/cdp
+%attr(-, root, root) /usr/local/bin/cdplay
+%attr(-, root, rot) /usr/local/man/man1/cdp.1</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          A couple points are worth noting here.  The line for
+          <TT
+CLASS="FILENAME"
+>README</TT
+> shows that multiple macros can be used on
+          a line &#8212; in this case, one to set file attributes, and one to
+          mark the file as being documentation.  The <B
+CLASS="COMMAND"
+>%attr</B
+>
+          for <TT
+CLASS="FILENAME"
+>/usr/local/bin/cdp</TT
+> declares the file to be
+          setuid root.  If it sends a shiver down your spine to know that
+          anybody can create a package that will run setuid root when installed
+          on your system &#8212; Good!  Just because RPM makes it easy to
+          install software doesn't mean that you should blindly install every
+          package you find.
+        </P
+><P
+>          A single RPM command can quickly point out areas of potential problems
+          and should be issued on any package file whose creators you don't
+          trust:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+>% </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qlvp ../RPMS/i386/cdplayer-1.0-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>drwxr-xr-x-  root  root   1024 Sep 13 20:16 /usr/doc/cdplayer-1.0-1
+-rw-r--r---  root  root   1085 Nov 10 01:10 /usr/doc/cdplayer-1.0-1/README
+-rwsr-xr-x-  root  root  40739 Sep 13 21:32 /usr/local/bin/cdp
+lrwxrwxrwx-  root  root     47 Sep 13 21:32 /usr/local/bin/cdplay -&#62; ./cdp
+-rwxr-xr-x-  root   rot   4550 Sep 13 21:32 /usr/local/man/man1/cdp.1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>% </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Sure enough &#8212; there's that setuid root file.  In this case we
+          trust the package builder, so let's install it:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -ivh cdplayer-1.0-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>cdplayer       ##################################################
+group rot does not exist - using root</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          What's this about group "rot"?  Looking back at the <B
+CLASS="COMMAND"
+>rpm
+          -qlvp</B
+> output, it looks like
+          <TT
+CLASS="FILENAME"
+>/usr/local/man/man1/cdp.1</TT
+> has a bogus group.
+          Looking back even further, it's there in the <B
+CLASS="COMMAND"
+>%attr</B
+>
+          for that file.  Must have been a typo.  We could pretend that RPM used
+          advanced artificial intelligence technology to come to the same
+          conclusion as we did and made the appropriate change, but in reality,
+          RPM simply used the only group identifier it could count on &#8212;
+          root.  RPM will do the same thing if it can't resolve a user
+          specification.
+        </P
+><P
+>          Let's look at some of the files the package installed, including that
+          worrisome setuid root file:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls /usr/local/bin</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 558
+-rwsr-xr-x   1 root     root        40739 Sep 13 21:32 cdp*
+lrwxrwxrwx   1 root     root           47 Sep 13 21:36 cdplay -&#62; ./cdp*</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          RPM did just what it was supposed to &#8212; It gave the files the
+          attributes specified by the <B
+CLASS="COMMAND"
+>%attr</B
+> macros.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ANYWHERE-BETCHA"
+>Betcha Thought We Forgot&#8230;</A
+></H2
+><P
+>          At the start of this section, we mentioned that the
+          <B
+CLASS="COMMAND"
+>%attr</B
+> macro wouldn't accept numeric uids or gids,
+          and we promised to explain why.  The reason is simply that, even if a
+          package requires a certain user or group to own the package's files,
+          the user may not have the same uid/gid from system to system.  There
+          &#8212; wasn't that simple?
+        </P
+><P
+>          In the next chapter, we'll discuss how to make your packaged software
+          safe against modification by unscrupulous people.  The name of the
+          game is Pretty Good Privacy, and you'll see how signing packages with
+          PGP is easier than you think!
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-anywhere-different-build-area.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-pgp.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Having RPM Use a Different Build Area</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-anywhere.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Adding PGP Signatures to a Package</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

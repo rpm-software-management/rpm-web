@@ -1,0 +1,520 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Query Mode</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Concise RPM Command Reference"
+HREF="ch-rpm-commands.html"><LINK
+REL="PREVIOUS"
+TITLE="Informational Options"
+HREF="s1-rpm-commands-information-options.html"><LINK
+REL="NEXT"
+TITLE="Verify Mode"
+HREF="s1-rpm-commands-verify-mode.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-commands-information-options.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix C. Concise RPM Command Reference</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-commands-verify-mode.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-COMMANDS-QUERY-MODE"
+>Query Mode</A
+></H1
+><P
+>        RPM's query mode is used to display information about packages:
+      </P
+><P
+>        Format: <B
+CLASS="COMMAND"
+>rpm --query
+        <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;options&#62;</I
+></TT
+></B
+>
+      </P
+><P
+>        or
+      </P
+><P
+>        Format: <B
+CLASS="COMMAND"
+>rpm -q
+        <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;options&#62;</I
+></TT
+></B
+>
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-COMMANDS-PACKAGE-SPECIFICATION"
+>Package Specification Options To Query Mode</A
+></H2
+><P
+>          No more than one of the following options may be present in every
+          query command.  They are used to select the source of the information
+          to be displayed.
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;packagename&#62;</I
+></TT
+></B
+>
+                &#8212; Query the named package.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>-a</B
+> &#8212; Query all packages.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>-f <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+>+</B
+>
+                &#8212; Query package owning
+                <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>-g <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+>+</B
+>
+                &#8212; Query packages with group
+                <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+>.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>-p
+                <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;packagefile&#62;</I
+></TT
+>+</B
+>
+                &#8212; Query (uninstalled) package
+                <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;packagefile&#62;</I
+></TT
+></B
+>.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>--whatprovides
+                <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;i&#62;</I
+></TT
+></B
+> &#8212; Query
+                packages that provide
+                <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;i&#62;</I
+></TT
+></B
+>
+                capability.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>--whatrequires
+                <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;i&#62;</I
+></TT
+></B
+> &#8212; Query
+                packages that require
+                <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;i&#62;</I
+></TT
+></B
+>
+                capability.
+              </P
+></LI
+></UL
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-COMMANDS-INFORMATION-SELECTION"
+>Information Selection Options To Query Mode</A
+></H2
+><P
+>          One or more of the following options may be added to any query
+          command.  They are used to select what information RPM will display.
+          If no information selection option is present on the command line, RPM
+          will simply display the applicable package label(s):
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>-i</B
+> &#8212; Display package information.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>-l</B
+> &#8212; Display package file list.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>-s</B
+> &#8212; Show file states (implies
+                <B
+CLASS="COMMAND"
+>-l</B
+>).
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>-d</B
+> &#8212; List only documentation files
+                (implies <B
+CLASS="COMMAND"
+>-l</B
+>).
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>-c</B
+> &#8212; List only configuration files
+                (implies <B
+CLASS="COMMAND"
+>-l</B
+>).
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>--dump</B
+> &#8212; Show all available information
+                for each file (must be used with <B
+CLASS="COMMAND"
+>-l</B
+>,
+                <B
+CLASS="COMMAND"
+>-c</B
+>, or <B
+CLASS="COMMAND"
+>-d</B
+>).
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>--provides</B
+> &#8212; List capabilities that the
+                package provides.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>--requires</B
+>, <B
+CLASS="COMMAND"
+>-R</B
+> &#8212;
+                List capabilities that the package requires.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>--scripts</B
+> &#8212; Print the various
+                [un]install, verification scripts.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>--queryformat
+                <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;s&#62;</I
+></TT
+></B
+> &#8212; Use
+                <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;s&#62;</I
+></TT
+></B
+> as the
+                header format (implies <B
+CLASS="COMMAND"
+>-i</B
+>).
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <B
+CLASS="COMMAND"
+>--qf <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;s&#62;</I
+></TT
+></B
+>
+                &#8212; Shorthand for <B
+CLASS="COMMAND"
+>--queryformat</B
+>.
+              </P
+></LI
+></UL
+>
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-commands-information-options.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-commands-verify-mode.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Informational Options</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-commands.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Verify Mode</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,754 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Miscellanea</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Computer Users &#8212; How to Use RPM to Effectively Manage Your
+      Computer
+    "
+HREF="p108.html"><LINK
+REL="PREVIOUS"
+TITLE="Using rpm -K"
+HREF="s1-rpm-checksig-using-rpm-k.html"><LINK
+REL="NEXT"
+TITLE="Using rpm2cpio"
+HREF="s1-rpm-miscellania-rpm2cpio.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-checksig-using-rpm-k.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-miscellania-rpm2cpio.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-MISCELLANIA"
+></A
+>Chapter 8. Miscellanea</H1
+><P
+>      As with any other large, complex subject, there are always some leftovers
+      &#8212; things that just don't seem to fit in any one category.  RPM is no
+      exception.  This chapter covers those aspects of RPM that can only be
+      called "miscellanea"&#8230;
+    </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-MISCELLANIA-OTHER-OPTIONS"
+>Other RPM Options</A
+></H1
+><P
+>        The following options are not normally used on a day to day basis.
+        However, some of them can be quite important when the need arises.  One
+        such option is <B
+CLASS="COMMAND"
+>--rebuilddb</B
+>.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MISCELLANIA-REBUILDDB"
+><B
+CLASS="COMMAND"
+>--rebuilddb</B
+> &#8212; Rebuild RPM
+        database</A
+></H2
+><P
+>          We all hope the day never comes, and for many of us, it never does.
+          But still, there is a chance that one day, while you're busy using RPM
+          to install or upgrade a package, you'll see this message:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>free list corrupt (42)- contact rpm-list@redhat.com</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Once this happens, you'll find there's very little that you can do,
+          RPM-wise.  However, before you fire off an e-mail to the RPM mailing
+          list, you might try the <B
+CLASS="COMMAND"
+>--rebuilddb</B
+> option.  The
+          format of the command is simple:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><B
+CLASS="COMMAND"
+>rpm --rebuilddb</B
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The command produces no output, either.  After a few minutes, it
+          completes with nary a peep.  Here's an example of
+          <B
+CLASS="COMMAND"
+>--rebuilddb</B
+> being used on an RPM database that
+          wasn't corrupt.  First, let's look at the files that comprise the
+          database:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /var/lib/rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 3534
+-rw-r--r--   1 root     root      1351680 Oct 17 10:35 fileindex.rpm
+-rw-r--r--   1 root     root        16384 Oct 17 10:35 groupindex.rpm
+-rw-r--r--   1 root     root        16384 Oct 17 10:35 nameindex.rpm
+-rw-r--r--   1 root     root      2342536 Oct 17 10:35 packages.rpm
+-rw-r--r--   1 root     root        16384 Oct 17 10:35 providesindex.rpm
+-rw-r--r--   1 root     root        16384 Oct 17 10:35 requiredby.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Then, we issue the command:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --rebuilddb</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          After a few minutes, the command completes, and we take a look at the
+          files again:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 3531
+-rw-r--r--   1 root     root      1351680 Oct 17 20:50 fileindex.rpm
+-rw-r--r--   1 root     root        16384 Oct 17 20:50 groupindex.rpm
+-rw-r--r--   1 root     root        16384 Oct 17 20:50 nameindex.rpm
+-rw-r--r--   1 root     root      2339080 Oct 17 20:50 packages.rpm
+-rw-r--r--   1 root     root        16384 Oct 17 20:50 providesindex.rpm
+-rw-r--r--   1 root     root        16384 Oct 17 20:50 requiredby.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          You'll note that <TT
+CLASS="FILENAME"
+>packages.rpm</TT
+> decreased in size.
+          This is due to a side-effect of the <B
+CLASS="COMMAND"
+>--rebuilddb</B
+>
+          option &#8212; While it is going through the database, it is getting
+          rid of unused portions of the database.  Our example was performed on
+          a newly installed system where only one or two packages had been
+          upgraded, so the reduction in size was small.  For a system that has
+          been through a complete upgrade, the difference would be more
+          dramatic.
+        </P
+><P
+>          Does this mean that you should rebuild the database every once in a
+          while?  Not really.  Since RPM eventually will make use of the holes,
+          there's no major advantage to regular rebuilds.  However, when an
+          RPM-based system has undergone a major upgrade, it certainly wouldn't
+          hurt to spend a few minutes using <B
+CLASS="COMMAND"
+>--rebuilddb</B
+> to
+          clean things up.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MISCELLANIA-INITDB-OPTION"
+><B
+CLASS="COMMAND"
+>--initdb</B
+> &#8212; Create a New RPM Database</A
+></H2
+><P
+>          If you are already using RPM, the <B
+CLASS="COMMAND"
+>--initdb</B
+> option
+          is one you'll probably never have to use.  The
+          <B
+CLASS="COMMAND"
+>--initdb</B
+> option is used to create a new RPM
+          database.  That's why you'll probably not need it if you're already
+          using RPM &#8212; you already have an RPM database.
+        </P
+><P
+>          It might seem that the <B
+CLASS="COMMAND"
+>--initdb</B
+> option would be
+          dangerous.  After all, won't it trash your current database if you
+          mistakenly use it?  Fortunately, the answer is no.  If there is an RPM
+          database in place already, it's still perfectly safe to use the
+          option, even though it won't accomplish much.  As an example, here's a
+          listing of the files that make up the RPM database on a Red Hat Linux
+          system:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls /var/lib/rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 3559
+-rw-r--r--   1 root     root        16384 Jan  8 22:10 conflictsindex.rpm
+-rw-r--r--   1 root     root      1351680 Jan  8 22:10 fileindex.rpm
+-rw-r--r--   1 root     root        16384 Jan  8 22:10 groupindex.rpm
+-rw-r--r--   1 root     root        16384 Jan  8 22:10 nameindex.rpm
+-rw-r--r--   1 root     root      2349640 Jan  8 22:10 packages.rpm
+-rw-r--r--   1 root     root        16384 Jan  8 22:10 providesindex.rpm
+-rw-r--r--   1 root     root        16384 Jan  8 22:10 requiredby.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Next, let's use the <B
+CLASS="COMMAND"
+>--initdb</B
+> option, just to see
+          what it does to this database:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --initdb</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls /var/lib/rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 3559
+-rw-r--r--   1 root     root        16384 Jan  8 22:10 conflictsindex.rpm
+-rw-r--r--   1 root     root      1351680 Jan  8 22:10 fileindex.rpm
+-rw-r--r--   1 root     root        16384 Jan  8 22:10 groupindex.rpm
+-rw-r--r--   1 root     root        16384 Jan  8 22:10 nameindex.rpm
+-rw-r--r--   1 root     root      2349640 Jan  8 22:10 packages.rpm
+-rw-r--r--   1 root     root        16384 Jan  8 22:10 providesindex.rpm
+-rw-r--r--   1 root     root        16384 Jan  8 22:10 requiredby.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Since an RPM database existed already, the <B
+CLASS="COMMAND"
+>--initdb</B
+>
+          option did no harm to it &#8212; there was no change to the database
+          files.
+        </P
+><P
+>          The only other option that can be used with
+          <B
+CLASS="COMMAND"
+>--initdb</B
+> is <B
+CLASS="COMMAND"
+>--dbpath</B
+>.  This
+          permits the easy creation of a new RPM database in the directory
+          specified with the <B
+CLASS="COMMAND"
+>--dbpath</B
+> option.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MISCELLANIA-QUIET-OPTION"
+><B
+CLASS="COMMAND"
+>--quiet</B
+> &#8212; Produce as little output as
+          possible</A
+></H2
+><P
+>          Adding the <B
+CLASS="COMMAND"
+>--quiet</B
+> option to any RPM command
+          directs RPM to produce as little output as possible.  For example,
+          RPM's build command (the subject of the second half of this book)
+          normally produces reams of output; by adding the
+          <B
+CLASS="COMMAND"
+>--quiet</B
+> option, this is all you'll see:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba --quiet bother-3.5.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: bother
+1 block
+3 blocks</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>--quiet</B
+> option can silence even the mighty
+          <B
+CLASS="COMMAND"
+>-vv</B
+> option:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Uvv --quiet eject-1.2-2.i386.rpm</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MISCELLANIA-HELP-OPTION"
+><B
+CLASS="COMMAND"
+>--help</B
+> &#8212; Display a help message</A
+></H2
+><P
+>          RPM includes a concise built-in help message for those times when you
+          need a reminder about a particular command.  Normally you'll want to
+          use the <B
+CLASS="COMMAND"
+>--help</B
+> option by itself, though you might
+          want to pipe the output through a pager such as
+          <B
+CLASS="COMMAND"
+>less</B
+>, since the output is more than one screen
+          long:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --help|less</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>RPM version 2.3
+Copyright (C) 1995 - Red Hat Software
+This may be freely redistributed under the terms of the GNU Public License
+
+usage:
+   --help               - print this message
+   --version    - print the version of rpm being used
+   all modes support the following arguments:
+      --rcfile &#60;file&#62;   - use &#60;file&#62; instead of /etc/rpmrc and $HOME/.rpmrc
+       -v                     - be a little more verbose
+       -vv                    - be incredibly verbose (for debugging)
+   -q                   - query mode
+      --root &#60;dir&#62;        - use &#60;dir&#62; as the top level directory
+      --dbpath &#60;dir&#62;      - use &#60;dir&#62; as the directory for the database
+      --queryformat &#60;s&#62;   - use s as the header format (implies -i)
+   install, upgrade and query (with -p) allow ftp URL's to be used in place
+   of file names as well as the following options:
+
+      --ftpproxy &#60;host&#62;   - hostname or IP of ftp proxy
+
+      --ftpport &#60;port&#62;    - port number of ftp server (or proxy)</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          This is just the first screen of RPM's help command.  To see the rest,
+          give the command a try.  Practically everything there is to know about
+          RPM is present in the <B
+CLASS="COMMAND"
+>--help</B
+> output.  It's a bit
+          too concise to learn RPM from, but it's enough to refresh your memory
+          when the syntax of a particular option escapes you.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MISCELLANIA-VERSION-OPTION"
+><B
+CLASS="COMMAND"
+>--version</B
+> &#8212; Display the current RPM version</A
+></H2
+><P
+>          If you're not sure what version of RPM is presently installed on your
+          system, the easiest way to find out is to ask RPM itself using the
+          <B
+CLASS="COMMAND"
+>--version</B
+> option:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm --version</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>RPM version 2.3</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-checksig-using-rpm-k.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-miscellania-rpm2cpio.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using <B
+CLASS="COMMAND"
+>rpm -K</B
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p108.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Using <B
+CLASS="COMMAND"
+>rpm2cpio</B
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

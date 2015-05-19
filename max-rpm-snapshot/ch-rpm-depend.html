@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Adding Dependency Information to a Package</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Developers &#8212; How to Distribute Your Software More Easily
+      With RPM
+    "
+HREF="p5206.html"><LINK
+REL="PREVIOUS"
+TITLE="Conditionals"
+HREF="s1-rpm-inside-conditionals.html"><LINK
+REL="NEXT"
+TITLE="Automatic Dependencies"
+HREF="s1-rpm-depend-auto-depend.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-inside-conditionals.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-depend-auto-depend.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-DEPEND"
+></A
+>Chapter 14. Adding Dependency Information to a Package</H1
+><P
+>      Since the very first version of RPM hit the streets, one of the side
+      effects of RPM's ease of use was that it made it easier for people to
+      break things.  Since RPM made it so simple to erase packages, it became
+      common for people to joyfully erase packages until something broke.
+    </P
+><P
+>      Usually this only bit people once, but even once was too much of a hassle
+      if it could be prevented.  With this in mind, the RPM developers gave RPM
+      the ability to:
+
+      <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>            Build packages that contain information on the capabilities they
+            require.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            Build packages that contain information on the capabilities they
+            provide.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            Store this "provides" and "requires" information in the RPM
+            database.
+          </P
+></LI
+></UL
+>
+    </P
+><P
+>      In addition, they made sure RPM was able to display dependency
+      information, as well as to warn users if they were attempting to do
+      something that would break a package's dependency requirements.
+    </P
+><P
+>      With these features in place, it became more difficult for someone to
+      unknowingly erase a package and wreak havoc on their system.
+    </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-DEPEND-OVERVIEW"
+>An Overview of Dependencies</A
+></H1
+><P
+>        We've already alluded to the underlying concept for RPM's dependency
+        processing.  It is based on two key factors:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Packages advertise what capabilities they provide.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Packages advertise what capabilities they require.
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        By simply checking these two types of information, many possible
+        problems can be avoided.  For example, if a package requires a
+        capability that is not provided by any already-installed package, that
+        package cannot be installed and expected to work properly.
+      </P
+><P
+>        On the other hand, if a package is to be erased, but its capabilities
+        are required by other installed packages, then it cannot be erased
+        without causing other packages to fail.
+      </P
+><P
+>        As you might imagine, it's not quite <I
+CLASS="EMPHASIS"
+>that</I
+> simple.
+        But adding dependency information can be easy.  In fact, in most cases,
+        it's automatic!
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-inside-conditionals.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-depend-auto-depend.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Conditionals</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p5206.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Automatic Dependencies</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,2170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Available Tags For --queryformat</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      Appendixes
+    "
+HREF="p14028.html"><LINK
+REL="PREVIOUS"
+TITLE="Rebuild Database Mode"
+HREF="s1-rpm-commands-rebuild-database-mode.html"><LINK
+REL="NEXT"
+TITLE="Concise Spec File Reference"
+HREF="ch-rpm-specref.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-commands-rebuild-database-mode.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-specref.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="CH-QUERYFORMAT-TAGS"
+></A
+>Appendix D. Available Tags For <B
+CLASS="COMMAND"
+>--queryformat</B
+></H1
+><P
+>    The following tags were defined at the time this book was written.  For the
+    latest list of available queryformat tags, please issue the following
+    command:
+
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><B
+CLASS="COMMAND"
+>rpm --querytags</B
+>
+    </PRE
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>    Keep in mind that the list of tags produced by the
+    <B
+CLASS="COMMAND"
+>--querytags</B
+> option is the complete list of all tags used
+    by RPM internally; for instance, during package builds.  Because of this,
+    some tags do not produce meaningful output when used in a
+    <B
+CLASS="COMMAND"
+>--queryformat</B
+> format string.
+  </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-QUERYFORMAT-TAGS-QUERYFORMAT-TAGS"
+>List of <B
+CLASS="COMMAND"
+>--queryformat</B
+> Tags</A
+></H1
+><P
+>      For every tag in this section, there can be as many as three different
+      pieces of information:
+
+      <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>            A short description of the tag.
+          </P
+></LI
+><LI
+><P
+>            Whether the data specified by the tag is an array, and if so, how
+            many members are present in the array.
+          </P
+></LI
+><LI
+><P
+>            What modifiers can be used with the tag.
+          </P
+></LI
+></OL
+>
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-NAME"
+>The <B
+CLASS="COMMAND"
+>NAME</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>NAME</B
+> tag is used to display the name of the
+        package.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-VERSION"
+>The <B
+CLASS="COMMAND"
+>VERSION</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>VERSION</B
+> tag is used to display the version of the
+        packaged software.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-RELEASE"
+>The <B
+CLASS="COMMAND"
+>RELEASE</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>RELEASE</B
+> tag is used to display the release number
+        of the package.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-EPOCH"
+>The <B
+CLASS="COMMAND"
+>EPOCH</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>EPOCH</B
+> tag is used to display the epoch number
+        of the package.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-SUMMARY"
+>The <B
+CLASS="COMMAND"
+>SUMMARY</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>SUMMARY</B
+> tag is used to display a one-line
+        summation of the packaged software.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-DESCRIPTION"
+>The <B
+CLASS="COMMAND"
+>DESCRIPTION</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>DESCRIPTION</B
+> tag is used to display a detailed
+        summation of the packaged software.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-BUILDTIME"
+>The <B
+CLASS="COMMAND"
+>BUILDTIME</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>BUILDTIME</B
+> tag is used to display the time and
+        date the package was created.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: <B
+CLASS="COMMAND"
+>:date</B
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-BUILDHOST"
+>The <B
+CLASS="COMMAND"
+>BUILDHOST</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>BUILDHOST</B
+> tag is used to display the hostname of
+        the system that built the package.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-INSTALLTIME"
+>The <B
+CLASS="COMMAND"
+>INSTALLTIME</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>INSTALLTIME</B
+> tag is used to display the time and
+        date the package was installed.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: <B
+CLASS="COMMAND"
+>:date</B
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-SIZE"
+>The <B
+CLASS="COMMAND"
+>SIZE</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>SIZE</B
+> tag is used to display the total size, in
+        bytes, of every file installed by this package.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-DISTRIBUTION"
+>The <B
+CLASS="COMMAND"
+>DISTRIBUTION</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>DISTRIBUTION</B
+> tag is used to display the
+        distribution this package is a part of.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-VENDOR"
+>The <B
+CLASS="COMMAND"
+>VENDOR</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>VENDOR</B
+> tag is used to display the organization
+        responsible for marketing the package.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-GIF"
+>The <B
+CLASS="COMMAND"
+>GIF</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>GIF</B
+> tag is not available for use with
+        <B
+CLASS="COMMAND"
+>--queryformat</B
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-XPM"
+>The <B
+CLASS="COMMAND"
+>XPM</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>XPM</B
+> tag is not available for use with
+        <B
+CLASS="COMMAND"
+>--queryformat</B
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-LICENSE"
+>The <B
+CLASS="COMMAND"
+>LICENSE</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>LICENSE</B
+> tag is used to display the distribution
+        license of the package.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-PACKAGER"
+>The <B
+CLASS="COMMAND"
+>PACKAGER</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>PACKAGER</B
+> tag is used to display the person or
+        persons responsible for creating the package.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-GROUP"
+>The <B
+CLASS="COMMAND"
+>GROUP</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>GROUP</B
+> tag is used to display the group to which
+        the package belongs.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-CHANGELOG"
+>The <B
+CLASS="COMMAND"
+>CHANGELOG</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>CHANGELOG</B
+> tag is reserved for a future version of
+        RPM.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-SOURCE"
+>The <B
+CLASS="COMMAND"
+>SOURCE</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>SOURCE</B
+> tag is used to display the source archives
+        contained in the source package file.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>source</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-PATCH"
+>The <B
+CLASS="COMMAND"
+>PATCH</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>PATCH</B
+> tag is used to display the patch files
+        contained in the source package file.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>patch</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-URL"
+>The <B
+CLASS="COMMAND"
+>URL</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>URL</B
+> tag is used to display the Uniform Resource
+        Locator that points to additional information on the packaged software.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-OS"
+>The <B
+CLASS="COMMAND"
+>OS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>OS</B
+> tag is used to display the operating system
+        for which the package was built.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-ARCH"
+>The <B
+CLASS="COMMAND"
+>ARCH</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>ARCH</B
+> tag is used to display the architecture for
+        which the package was built.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-PREIN"
+>The <B
+CLASS="COMMAND"
+>PREIN</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>PREIN</B
+> tag is used to display the package's
+        pre-install script.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-POSTIN"
+>The <B
+CLASS="COMMAND"
+>POSTIN</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>POSTIN</B
+> tag is used to display the package's
+        post-install script.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-PREUN"
+>The <B
+CLASS="COMMAND"
+>PREUN</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>PREUN</B
+> tag is used to display the package's
+        pre-uninstall script.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-POSTUN"
+>The <B
+CLASS="COMMAND"
+>POSTUN</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>POSTUN</B
+> tag is used to display the package's
+        post-uninstall script.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILENAME"
+>The <B
+CLASS="COMMAND"
+>FILENAMES</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILENAMES</B
+> tag is used to display the names of the
+        files that comprise the package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>filenames</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILESIZES"
+>The <B
+CLASS="COMMAND"
+>FILESIZES</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILESIZES</B
+> tag is used to display the size, in
+        bytes, of each of the files that comprise the package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>filesizes</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILESTATES"
+>The <B
+CLASS="COMMAND"
+>FILESTATES</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILESTATES</B
+> tag is used to display the state of
+        each of the files that comprise the package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>filestates</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+        <A
+NAME="AEN16282"
+HREF="#FTN.AEN16282"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILEMODES"
+>The <B
+CLASS="COMMAND"
+>FILEMODES</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILEMODES</B
+> tag is used to display the permissions
+        of each of the files that comprise the package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>filemodes</B
+>)
+      </P
+><P
+>        Used with modifiers: <B
+CLASS="COMMAND"
+>:perms</B
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILEUIDS"
+>The <B
+CLASS="COMMAND"
+>FILEUIDS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILEUIDS</B
+> tag is used to display the user ID, in
+        numeric form, of each of the files that comprise the package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>fileuids</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILEGIDS"
+>The <B
+CLASS="COMMAND"
+>FILEGIDS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILEGIDS</B
+> tag is used to display the group ID, in
+        numeric form, of each of the files that comprise the package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>filegids</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILERDEVS"
+>The <B
+CLASS="COMMAND"
+>FILERDEVS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILERDEVS</B
+> tag is used to display the major and
+        minor numbers for each of the files that comprise the package.  It will
+        only be non-zero for device special files.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>filerdevs</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILEMTIMES"
+>The <B
+CLASS="COMMAND"
+>FILEMTIMES</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILEMTIMES</B
+> tag is used to display the
+        modification time and date for each of the files that comprise the
+        package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>filemtimes</B
+>)
+      </P
+><P
+>        Used with modifiers: <B
+CLASS="COMMAND"
+>:date</B
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILEMD5"
+>The <B
+CLASS="COMMAND"
+>FILEMD5S</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILEMD5S</B
+> tag is used to display the MD5 checksum
+        for each of the files that comprise the package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>filemd5s</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILELINKTOS"
+>The <B
+CLASS="COMMAND"
+>FILELINKTOS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILELINKTOS</B
+> tag is used to display the link
+        string for symlinks.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>filelinktos</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILEFLAGS"
+>The <B
+CLASS="COMMAND"
+>FILEFLAGS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILEFLAGS</B
+> tag is used to indicate whether the
+        files that comprise the package have been flagged as being documentation
+        or configuration.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>fileflags</B
+>)
+      </P
+><P
+>        Used with modifiers: <B
+CLASS="COMMAND"
+>:fflags</B
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-ROOT"
+>The <B
+CLASS="COMMAND"
+>ROOT</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>ROOT</B
+> tag is not available for use with
+        <B
+CLASS="COMMAND"
+>--queryformat</B
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILEUSERNAME"
+>The <B
+CLASS="COMMAND"
+>FILEUSERNAME</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILEUSERNAME</B
+> tag is used to display the owner, in
+        alphanumeric form, of each of the files that comprise the package.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILEGROUPNAME"
+>The <B
+CLASS="COMMAND"
+>FILEGROUPNAME</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILEGROUPNAME</B
+> tag is used to display the group,
+        in alphanumeric form, of each of the files that comprise the package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>filegroupname</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-EXCLUDE"
+>The <B
+CLASS="COMMAND"
+>EXCLUDE</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>EXCLUDE</B
+> tag is deprecated and should no longer be
+        used.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-EXCLUSIVE"
+>The <B
+CLASS="COMMAND"
+>EXCLUSIVE</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>EXCLUSIVE</B
+> tag is deprecated and should no longer
+        be used.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-ICON"
+>The <B
+CLASS="COMMAND"
+>ICON</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>ICON</B
+> tag is not available for use with
+        <B
+CLASS="COMMAND"
+>--queryformat</B
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-SOURCERPM"
+>The <B
+CLASS="COMMAND"
+>SOURCERPM</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>SOURCERPM</B
+> tag is used to display the name of the
+        source package from which this binary package was built.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-FILEVERIFYFLAGS"
+>The <B
+CLASS="COMMAND"
+>FILEVERIFYFLAGS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>FILEVERIFYFLAGS</B
+> tag is used to display the
+        numeric value of the file verification flags for each of the files that
+        comprise the package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>fileverifyflags</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+        <A
+NAME="AEN16504"
+HREF="#FTN.AEN16504"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-ARHIVESIZE"
+>The <B
+CLASS="COMMAND"
+>ARCHIVESIZE</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>ARCHIVESIZE</B
+> tag is used to display the size, in
+        bytes, of the archive portion of the original package file.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-PROVIDES"
+>The <B
+CLASS="COMMAND"
+>PROVIDES</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>PROVIDES</B
+> tag is used to display the capabilities
+        the package provides.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>provides</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-REQUIREFLAGS"
+>The <B
+CLASS="COMMAND"
+>REQUIREFLAGS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>REQUIREFLAGS</B
+> tag is used to display the
+        requirement flags for each capability the package requires.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>requireflags</B
+>)
+      </P
+><P
+>        Used with modifiers: <B
+CLASS="COMMAND"
+>:depflags</B
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-REQUIRENAME"
+>The <B
+CLASS="COMMAND"
+>REQUIRENAME</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>REQUIRENAME</B
+> tag is used to display the
+        capabilities the package requires.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>requirename</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-REQUIREVERSION"
+>The <B
+CLASS="COMMAND"
+>REQUIREVERSION</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>REQUIREVERSION</B
+> tag is used to display the
+        version-related aspect of each capability the package requires.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>requireversion</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-NOSOURCE"
+>The <B
+CLASS="COMMAND"
+>NOSOURCE</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>NOSOURCE</B
+> tag is used to display the source
+        archives that are not contained in the source package file.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>nosource</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-NOPATCH"
+>The <B
+CLASS="COMMAND"
+>NOPATCH</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>NOPATCH</B
+> tag is used to display the patch files
+        that are not contained in the source package file.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>nopatch</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-CONFLICTFLAGS"
+>The <B
+CLASS="COMMAND"
+>CONFLICTFLAGS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>CONFLICTFLAGS</B
+> tag is used to display the conflict
+        flags for each capability the package conflicts with.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>conflictflags</B
+>)
+      </P
+><P
+>        Used with modifiers: <B
+CLASS="COMMAND"
+>:depflags</B
+>
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-CONFLICTNAME"
+>The <B
+CLASS="COMMAND"
+>CONFLICTNAME</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>CONFLICTNAME</B
+> tag is used to display the
+        capabilities that the package conflicts with.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>conflictname</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-CONFLICTVERSION"
+>The <B
+CLASS="COMMAND"
+>CONFLICTVERSION</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>CONFLICTVERSION</B
+> tag is used to display the
+        version-related aspect of each capability the package conflicts with.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>conflictversion</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-DEFAULTPREFIX"
+>The <B
+CLASS="COMMAND"
+>DEFAULTPREFIX</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>DEFAULTPREFIX</B
+> tag is used to display the path
+        that will, by default, be used to install a relocatable package.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-BUILDROOT"
+>The <B
+CLASS="COMMAND"
+>BUILDROOT</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>BUILDROOT</B
+> tag is not available for use with
+        <B
+CLASS="COMMAND"
+>--queryformat</B
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-INSTALLPREFIX"
+>The <B
+CLASS="COMMAND"
+>INSTALLPREFIX</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>INSTALLPREFIX</B
+> tag is used to display the actual
+        path used when a relocatable package was installed.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-EXCLUDEARCH"
+>The <B
+CLASS="COMMAND"
+>EXCLUDEARCH</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>EXCLUDEARCH</B
+> tag is used to display the
+        architectures that should not install this package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>excludearch</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-EXCLUDEOS"
+>The <B
+CLASS="COMMAND"
+>EXCLUDEOS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>EXCLUDEOS</B
+> tag is used to display the operating
+        systems that should not install this package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>excludeos</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-EXCLUSIVEARCH"
+>The <B
+CLASS="COMMAND"
+>EXCLUSIVEARCH</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>EXCLUSIVEARCH</B
+> tag is used to display the
+        architectures that are the only ones that should install this package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>exclusivearch</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-EXCLUSIVEOS"
+>The <B
+CLASS="COMMAND"
+>EXCLUSIVEOS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>EXCLUSIVEOS</B
+> tag is used to display the operating
+        systems that are the only one that should install this package.
+      </P
+><P
+>        Array: Yes (Size: One entry per <B
+CLASS="COMMAND"
+>exclusiveos</B
+>)
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-AUTOREQPROV"
+>The <B
+CLASS="COMMAND"
+>AUTOREQPROV</B
+>, <B
+CLASS="COMMAND"
+>AUTOREQ</B
+>,
+        and <B
+CLASS="COMMAND"
+>AUTOPROV</B
+> Tags</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>AUTOREQPROV</B
+>, <B
+CLASS="COMMAND"
+>AUTOREQ</B
+>, and
+        <B
+CLASS="COMMAND"
+>AUTOPROV</B
+> tags are not available for use with
+        <B
+CLASS="COMMAND"
+>--queryformat</B
+>.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-RPMVERSION"
+>The <B
+CLASS="COMMAND"
+>RPMVERSION</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>RPMVERSION</B
+> tag is used to display the version of
+        RPM that was used to build the package.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-TRIGGERSCRIPTS"
+>The <B
+CLASS="COMMAND"
+>TRIGGERSCRIPTS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>TRIGGERSCRIPTS</B
+> tag is reserved for a future
+        version of RPM.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-TRIGGERNAME"
+>The <B
+CLASS="COMMAND"
+>TRIGGERNAME</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>TRIGGERNAME</B
+> tag is reserved for a future version
+        of RPM.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-TRIGGERVERSION"
+>The <B
+CLASS="COMMAND"
+>TRIGGERVERSION</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>TRIGGERVERSION</B
+> tag is reserved for a future
+        version of RPM.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-TRIGGERFLAGS"
+>The <B
+CLASS="COMMAND"
+>TRIGGERFLAGS</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>TRIGGERFLAGS</B
+> tag is reserved for a future version
+        of RPM.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-TRIGGERINDEX"
+>The <B
+CLASS="COMMAND"
+>TRIGGERINDEX</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>TRIGGERINDEX</B
+> tag is reserved for a future version
+        of RPM.
+      </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-QUERYFORMAT-TAGS-VERIFYSCRIPT"
+>The <B
+CLASS="COMMAND"
+>VERIFYSCRIPT</B
+> Tag</A
+></H2
+><P
+>        The <B
+CLASS="COMMAND"
+>VERIFYSCRIPT</B
+> tag is used to display the script to
+        be used for package verification.
+      </P
+><P
+>        Array: No
+      </P
+><P
+>        Used with modifiers: N/A
+      </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN16282"
+HREF="ch-queryformat-tags.html#AEN16282"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>            Since there is no modifier to display the file states in
+            human-readable form, it will be necessary to manually interpret the
+            flag values, based on the
+            <B
+CLASS="COMMAND"
+>RPMFILE_STATE_<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+>
+            <B
+CLASS="COMMAND"
+>#define</B
+>s contained in
+            <TT
+CLASS="FILENAME"
+>rpmlib.h</TT
+>.  This file is part of the
+            <B
+CLASS="COMMAND"
+>rpm-devel</B
+> package and is also present in the RPM
+            source package.
+          </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN16504"
+HREF="ch-queryformat-tags.html#AEN16504"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>            Since there is no modifier to display the verification flags in
+            human-readable form, it will be necessary to manually interpret the
+            flag values, based on the
+            <B
+CLASS="COMMAND"
+>RPMVERIFY_<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></B
+>
+            <B
+CLASS="COMMAND"
+>#define</B
+>s contained in
+            <TT
+CLASS="FILENAME"
+>rpmlib.h</TT
+>.  This file is part of the
+            <B
+CLASS="COMMAND"
+>rpm-devel</B
+> package and is also present in the RPM
+            source package.
+          </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-commands-rebuild-database-mode.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-specref.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Rebuild Database Mode</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p14028.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Concise Spec File Reference</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

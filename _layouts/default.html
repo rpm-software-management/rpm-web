@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Name       : Vertebrata  
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20100423
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>{{ page.title }}</title>
+<link href="{{ site.baseurl }}/stylesheets/style.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body>
+<div id="wrapper">
+	<div id="header">
+        <a href="{{ site.baseurl }}/index.html">
+		<div id="logo">
+		</div>
+        </a>
+	</div>
+	<!-- end #header -->
+	<div id="menu">
+		<ul>
+            <li><a href="{{ site.baseurl }}/index.html">Home</a></li>
+            <li><a href="{{ site.baseurl }}/documentation.html">Documentation</a></li>
+            <li><a href="{{ site.baseurl }}/source.html">Download</a></li>
+            <li><a href="{{ site.baseurl }}/help.html">Getting help</a></li>
+            <li><a href="{{ site.baseurl }}/contribute.html">Contribute</a></li>
+            <li><a href="{{ site.baseurl }}/software.html">Related Software</a></li>
+		</ul>
+	</div>
+	<!-- end #menu -->
+	<div id="page">
+	<div id="page-bgtop">
+	<div id="page-bgbtm">
+		<div id="content">
+        {{ content }}
+		<div style="clear: both;">&nbsp;</div>
+		</div>
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+	</div>
+	</div>
+	<!-- end #page -->
+</div>
+	<div id="footer">
+		<p>rpm.org</p>
+	</div>
+	<!-- end #footer -->
+</body>
+</html>

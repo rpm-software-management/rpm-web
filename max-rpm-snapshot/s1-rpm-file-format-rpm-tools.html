@@ -1,0 +1,383 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Tools For Studying RPM Files</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Format of the RPM File"
+HREF="ch-rpm-file-format.html"><LINK
+REL="PREVIOUS"
+TITLE="RPM File Format"
+HREF="s1-rpm-file-format-rpm-file-format.html"><LINK
+REL="NEXT"
+TITLE="      Identifying RPM files with the file(1) command
+    "
+HREF="s1-rpm-file-format-file-command.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-file-format-rpm-file-format.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix A. Format of the RPM File</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-file-format-file-command.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-FILE-FORMAT-RPM-TOOLS"
+>Tools For Studying RPM Files</A
+></H1
+><P
+>      In the <TT
+CLASS="FILENAME"
+>tools</TT
+> directory packaged with the RPM sources,
+      are a number of small programs that use the RPM library to extract the
+      various sections of a package file.  Normally used by the RPM developers
+      for debugging purposes, these tools can also be used to make it easier to
+      understand the RPM package file format.  Here is a list of the programs,
+      and what they do:
+
+      <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <B
+CLASS="COMMAND"
+>rpmlead</B
+> &#8212; Extracts the lead section from a
+            package file.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <B
+CLASS="COMMAND"
+>rpmsignature</B
+> &#8212; Extracts the signature
+            section from a package file.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <B
+CLASS="COMMAND"
+>rpmheader</B
+> &#8212; Extracts the header from a
+            package file.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <B
+CLASS="COMMAND"
+>rpmarchive</B
+> &#8212; Extracts the archive from a
+            package file.
+          </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>            <B
+CLASS="COMMAND"
+>dump</B
+> &#8212; Displays a header structure in an
+            easily readable format.
+          </P
+></LI
+></UL
+>
+    </P
+><P
+>      The first four programs take an RPM package file as their input.  The
+      package file can be read either from standard input, or by including the
+      file name on the command line.  In either case, the programs write to
+      standard output.  Here is how <B
+CLASS="COMMAND"
+>rpmlead</B
+> can be used to
+      display the lead from a package file:
+
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmlead foo.rpm | od -x</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>0000000 abed dbee 0003 0000 0100 7072 2d6d 2e32
+0000020 2e32 2d31 0031 0000 0000 0000 0000 0000
+0000040 0000 0000 0000 0000 0000 0000 0000 0000
+&#8230;
+0000100 0000 0000 0000 0000 0000 0000 0100 0500
+0000120 0004 0000 e124 bfff b36b 0800 e600 bfff
+0000140</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+      </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>      Since each of these programs can also act as filters, the following
+      command is equivalent to the one above:
+
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>cat foo.rpm | rpmlead | od -x</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>0000000 abed dbee 0003 0000 0100 7072 2d6d 2e32
+0000020 2e32 2d31 0031 0000 0000 0000 0000 0000
+0000040 0000 0000 0000 0000 0000 0000 0000 0000
+&#8230;
+0000100 0000 0000 0000 0000 0000 0000 0100 0500
+0000120 0004 0000 e124 bfff b36b 0800 e600 bfff
+0000140</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+      </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>      The <B
+CLASS="COMMAND"
+>dump</B
+> program is used in conjunction with
+      <B
+CLASS="COMMAND"
+>rpmsignature</B
+> or <B
+CLASS="COMMAND"
+>rpmheader</B
+>.  It makes
+      decoding header structures a snap:
+
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmsignature foo.rpm | dump</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Entry count: 3
+Data count : 172
+
+             CT  TAG                  TYPE             OFSET      COUNT
+Entry      : 000 (1000)NAME           INT32_TYPE       0x00000000 00000001
+       Data: 000 0x00044c4f (281679)
+Entry      : 001 (1001)VERSION        BIN_TYPE         0x00000004 00000016
+       Data: 000 b0 25 b0 97 15 97 01 32 
+       Data: 008 df 35 d1 69 32 9c 53 75 
+Entry      : 002 (1002)RELEASE        BIN_TYPE         0x00000014 00000152
+       Data: 000 89 00 95 03 05 00 31 ed 
+       Data: 008 63 90 a5 20 e8 f1 cb a2 
+       Data: 016 9b f9 01 01 43 7b 04 00 
+       Data: 024 9c 8e 0a d4 37 90 36 4e 
+       Data: 032 df b0 9a 8a 22 b5 b0 b3 
+       Data: 040 dc 30 4c 6f 91 b8 c1 50 
+       Data: 048 70 4e 2c 64 d8 8a 8f ca 
+       Data: 056 18 ab 5b 6f f0 41 eb c8 
+       Data: 064 d1 8a 01 c9 36 01 66 f0 
+       Data: 072 9d dd e9 56 31 42 61 b3 
+       Data: 080 b1 da 84 94 6b ef 9c 19 
+       Data: 088 45 74 c4 9f ee 17 35 e1 
+       Data: 096 d1 05 fb 68 0c e6 71 5a 
+       Data: 104 60 f1 c6 60 27 9f 03 06 
+       Data: 112 28 ed 0b a0 08 55 9e 82 
+       Data: 120 2b 1c 2e de e8 e3 50 90 
+       Data: 128 62 60 0b 3c ba 04 69 a9 
+       Data: 136 25 73 1b bb 5b 65 4d e1 
+       Data: 144 b1 d2 c0 7f 8a fa 4a 9b </SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+      </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>      One aspect of <B
+CLASS="COMMAND"
+>dump</B
+> worth noting, is that it is
+      optimized for decoding the header section of a package file.  When used
+      with <B
+CLASS="COMMAND"
+>rpmsignature</B
+>, it displays the tag names used in
+      the header, instead of the signature tag names.  The data is displayed
+      properly in either case, however.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-file-format-rpm-file-format.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-file-format-file-command.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>RPM File Format</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-file-format.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Identifying RPM files with the <B
+CLASS="COMMAND"
+>file(1)</B
+> command</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

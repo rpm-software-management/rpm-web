@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>rpmgraph</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="RPM Man Pages"
+HREF="p18926.html"><LINK
+REL="PREVIOUS"
+TITLE="rpmbuild"
+HREF="rpmbuild.8.html"><LINK
+REL="NEXT"
+TITLE="Index"
+HREF="i20751.html"></HEAD
+><BODY
+CLASS="REFENTRY"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="rpmbuild.8.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="i20751.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="RPMGRAPH.8"
+></A
+>rpmgraph</H1
+><DIV
+CLASS="REFNAMEDIV"
+><A
+NAME="AEN20712"
+></A
+><H2
+>Name</H2
+>rpmgraph&nbsp;--&nbsp;Display RPM Package Dependency Graph</DIV
+><DIV
+CLASS="REFSYNOPSISDIV"
+><A
+NAME="AEN20715"
+></A
+><H2
+>Synopsis</H2
+><P
+>    <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>	<P
+><B
+CLASS="COMMAND"
+>rpmgraph</B
+>  <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+>... </P
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20723"
+></A
+><H2
+>Description</H2
+><P
+> <B
+CLASS="COMMAND"
+>rpmgraph</B
+> uses <TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+> arguments
+	to generate a package dependency graph. Each
+	<TT
+CLASS="REPLACEABLE"
+><I
+>PACKAGE_FILE</I
+></TT
+> argument is read and
+	added to an rpm transaction set. The elements of the transaction
+	set are partially ordered using a topological sort. The partially
+	ordered elements are then printed to standard output.
+  </P
+><P
+>	Nodes in the dependency graph are package names, and edges in the
+	directed graph point to the parent of each node. The parent node
+	is defined as the last predecessor of a package when partially ordered
+	using the package dependencies as a relation. That means that the
+	parent of a given package is the package's last prerequisite.
+  </P
+><P
+>	The output is in <B
+CLASS="COMMAND"
+>dot</B
+>(1) directed graph format,
+	and can be displayed or printed using the <B
+CLASS="COMMAND"
+>dotty</B
+>
+	graph editor from the <B
+CLASS="COMMAND"
+>graphviz</B
+> package.
+	There are no <B
+CLASS="COMMAND"
+>rpmgraph</B
+> specific options, only common <B
+CLASS="COMMAND"
+>rpm</B
+> options.
+	See the <B
+CLASS="COMMAND"
+>rpmgraph</B
+> usage message for what is currently implemented.
+  </P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20737"
+></A
+><H2
+>See Also</H2
+><P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="COMMAND"
+>dot</B
+>(1),</TD
+></TR
+><TR
+><TD
+><B
+CLASS="COMMAND"
+>dotty</B
+>(1),</TD
+></TR
+><TR
+><TD
+>	<B
+CLASS="COMMAND"
+>	<A
+HREF="http://www.graphviz.org/"
+TARGET="_top"
+>http://www.graphviz.org/</A
+>
+	</B
+>
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="REFSECT1"
+><A
+NAME="AEN20747"
+></A
+><H2
+>Authors</H2
+><P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>Jeff Johnson &#60;jbj@redhat.com&#62;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="rpmbuild.8.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="i20751.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>rpmbuild</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p18926.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Index</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

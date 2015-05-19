@@ -1,0 +1,851 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Initial Building Without RPM</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Real-World Package Building"
+HREF="ch-rpm-rw-build.html"><LINK
+REL="PREVIOUS"
+TITLE="Real-World Package Building"
+HREF="ch-rpm-rw-build.html"><LINK
+REL="NEXT"
+TITLE="Initial Building With RPM"
+HREF="s1-rpm-rw-build-initial-build-with-rpm.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-rw-build.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 20. Real-World Package Building</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-rw-build-initial-build-with-rpm.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-RW-BUILD-BUILD-WITHOUT-RPM"
+>Initial Building Without RPM</A
+></H1
+><P
+>        Since amanda can be built on numerous platforms, there needs to be some
+        initial customization when first building the software.  Since
+        customization implies that mistakes will be made, we'll start off by
+        building amanda without any involvement on the part of RPM.
+      </P
+><P
+>        But before we can build amanda, we have to get it and unpack it, first.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-TEST-BUILD-AREA"
+>Setting Up A Test Build Area</A
+></H2
+><P
+>          As we mentioned above, the home FTP site for amanda is
+          <TT
+CLASS="FILENAME"
+>ftp.cs.umd.edu</TT
+>.  The sources are in
+          <TT
+CLASS="FILENAME"
+>/pub/amanda</TT
+>.
+        </P
+><P
+>          After getting the sources, it's necessary to unpack them.  We'll
+          unpack them into RPM's <TT
+CLASS="FILENAME"
+>SOURCES</TT
+> directory, so that
+          we can keep all our work in one place:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>tar zxvf amanda-2.3.0.tar.gz</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>amanda-2.3.0/
+amanda-2.3.0/COPYRIGHT
+amanda-2.3.0/Makefile
+amanda-2.3.0/README
+&#8230;
+amanda-2.3.0/man/amtape.8
+amanda-2.3.0/tools/
+amanda-2.3.0/tools/munge
+&#8230;</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As we saw, the sources unpacked into a directory called
+          <TT
+CLASS="FILENAME"
+>amanda-2.3.0</TT
+>.  Let's rename that directory to
+          <TT
+CLASS="FILENAME"
+>amanda-2.3.0-orig</TT
+>, and unpack the sources again:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 177
+drwxr-xr-x  11 adm      games        1024 May 19  1996 amanda-2.3.0/
+-rw-r--r--   1 root     root       178646 Nov 20 10:42 amanda-2.3.0.tar.gz</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>mv amanda-2.3.0 amanda-2.3.0-orig</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>tar zxvf amanda-2.3.0.tar.gz</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>amanda-2.3.0/
+amanda-2.3.0/COPYRIGHT
+amanda-2.3.0/Makefile
+amanda-2.3.0/README
+&#8230;
+amanda-2.3.0/man/amtape.8
+amanda-2.3.0/tools/
+amanda-2.3.0/tools/munge</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 178
+drwxr-xr-x  11 adm      games        1024 May 19  1996 amanda-2.3.0/
+drwxr-xr-x  11 adm      games        1024 May 19  1996 amanda-2.3.0-orig/
+-rw-r--r--   1 root     root       178646 Nov 20 10:42 amanda-2.3.0.tar.gz</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Now why did we do that?  The reason lies in the fact that we will
+          undoubtedly need to make changes to the original sources in order to
+          get amanda to build on Linux.  We'll do all our hacking in the
+          <TT
+CLASS="FILENAME"
+>amanda-2.3.0</TT
+> directory, and leave the
+          <TT
+CLASS="FILENAME"
+>amanda-2.3.0-orig</TT
+> untouched.
+        </P
+><P
+>          Since one of RPM's design features is to build packages from the
+          original, unmodified sources, that means the changes we'll make will
+          need to be kept as a set of patches.  The
+          <TT
+CLASS="FILENAME"
+>amanda-2.3.0-orig</TT
+> directory will let us issue a
+          simple recursive <B
+CLASS="COMMAND"
+>diff</B
+> command to create our patches
+          when the time comes.
+        </P
+><P
+>          Now that our sources are unpacked, it's time to work on building the
+          software.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-GETTING-TO-BUILD"
+>Getting Software to build</A
+></H2
+><P
+>          Looking at the <TT
+CLASS="FILENAME"
+>docs/INSTALL</TT
+> file, we find that
+          the steps required to get amanda configured and ready to build are
+          actually fairly simple.  The first step is to modify
+          <TT
+CLASS="FILENAME"
+>tools/munge</TT
+> to point to <B
+CLASS="COMMAND"
+>cpp</B
+>,
+          the C preprocessor.
+        </P
+><P
+>          Amanda uses CPP to create makefiles containing the appropriate
+          configuration information.  This approach is a bit unusual, but not
+          unheard of.  In <TT
+CLASS="FILENAME"
+>munge</TT
+>, we find the following
+          section:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+># Customize CPP to point to your system's C preprocessor.
+
+# if cpp is on your path:
+CPP=cpp
+
+# if cpp is not on your path, try one of these:
+# CPP=/lib/cpp                  # traditional
+# CPP=/usr/lib/cpp              # also traditional
+# CPP=/usr/ccs/lib/cpp          # Solaris 2.x</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Since <B
+CLASS="COMMAND"
+>cpp</B
+> exists in <TT
+CLASS="FILENAME"
+>/lib</TT
+> on
+          Red Hat Linux, we need to change this part of <TT
+CLASS="FILENAME"
+>munge</TT
+> to:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+># Customize CPP to point to your system's C preprocessor.
+
+# if cpp is on your path:
+#CPP=cpp
+
+# if cpp is not on your path, try one of these:
+CPP=/lib/cpp                    # traditional
+# CPP=/usr/lib/cpp              # also traditional
+# CPP=/usr/ccs/lib/cpp          # Solaris 2.x</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Next, we need to take a look in <TT
+CLASS="FILENAME"
+>config/</TT
+> and
+          create two files:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                <TT
+CLASS="FILENAME"
+>config.h</TT
+> &#8212; contains platform-specific
+                configuration information
+              </P
+></LI
+><LI
+><P
+>                <TT
+CLASS="FILENAME"
+>options.h</TT
+> &#8212; contains site-specific
+                configuration information
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          There are a number of example <TT
+CLASS="FILENAME"
+>config.h</TT
+> files for
+          a number of different platforms.  There is a Linux-specific version,
+          so we copy that file to <TT
+CLASS="FILENAME"
+>config.h</TT
+> and review it.
+          After a few changes to reflect our Red Hat Linux Linux environment, it's
+          ready.  Now let's turn our attention to
+          <TT
+CLASS="FILENAME"
+>options.h</TT
+>.
+        </P
+><P
+>          In the case of <TT
+CLASS="FILENAME"
+>options.h</TT
+>, there's only one
+          example file called <TT
+CLASS="FILENAME"
+>options.h-vanilla</TT
+>.  As the
+          name implies, this is a basic file that contains a series of
+          <B
+CLASS="COMMAND"
+>#define</B
+>s that configure amanda for a typical
+          environment.  We'll need to make a few changes:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Define the paths to common utility programs.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Keep the programs from being named with the suffix
+                <TT
+CLASS="FILENAME"
+>-2.3.0</TT
+>.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Define the directories where the programs should be installed.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          While the first change is pretty much standard fare for anyone used to
+          building software, the last two changes are really due to RPM.  With
+          RPM, there's no need to name the programs with a version-specific
+          name, as RPM can easily upgrade to a new version and even downgrade
+          back, if the new version doesn't work as well.  The default paths
+          amanda uses segregate the files so that they can be easily maintained.
+          With RPM, there's no need to do this, since every file installed by
+          RPM gets written into the database.  In addition, Red Hat Linux systems adhere
+          to the File System Standard, so any package destined for Red Hat systems
+          should really be FSSTND-compliant, too.  Fortunately for us, amanda
+          was written to make these types of changes easy.  But even if we had
+          to hack an installation script, RPM would pick up the changes as part
+          of its patch handling.
+        </P
+><P
+>          We'll spare you the usual discovery of typos, incompatibilities, and
+          the resulting rebuilds.  After an undisclosed number of iterations,
+          our <TT
+CLASS="FILENAME"
+>config.h</TT
+> and <TT
+CLASS="FILENAME"
+>options.h</TT
+>
+          files are perfect.  Amanda builds:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>make</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Making all in common-src
+make[1]: Entering directory `/usr/src/redhat/SOURCES/amanda-2.3.0/common-src'
+&#8230;
+make[1]: Leaving directory `/usr/src/redhat/SOURCES/amanda-2.3.0/man'</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As we noted, amanda is constructed so that most of the time changes
+          will only be necessary in <TT
+CLASS="FILENAME"
+>tools/munge</TT
+>, and the
+          two files in <TT
+CLASS="FILENAME"
+>config</TT
+>.  Our situation was no
+          different &#8212; after all was said and done, that was all we needed
+          to hack.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RW-BUILD-INSTALLING-TESTING"
+>Installing and testing</A
+></H2
+><P
+>          As we all know, just because software builds doesn't mean that it's
+          ready for prime-time.  It's necessary to test it first.  In order to
+          test amanda, we need to install it.  Amanda's makefile has an install
+          target, so let's use that to get started.  We'll also get a copy of
+          the output, because we'll need that later:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>make install</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Making install in common-src
+&#8230;
+make[1]: Entering directory `/usr/src/redhat/SOURCES/amanda-2.3.0/client-src'
+Installing Amanda client-side programs:
+  install -c -o bin amandad /usr/lib/amanda
+  install -c -o bin sendsize /usr/lib/amanda
+  install -c -o bin calcsize /usr/lib/amanda
+  install -c -o bin sendbackup-dump /usr/lib/amanda
+  install -c -o bin sendbackup-gnutar /usr/lib/amanda
+  install -c -o bin runtar /usr/lib/amanda
+  install -c -o bin selfcheck /usr/lib/amanda
+Setting permissions for setuid-root client programs:
+  (cd /usr/lib/amanda ; chown root calcsize; chmod u+s calcsize)
+  (cd /usr/lib/amanda ; chown root runtar; chmod u+s runtar)
+&#8230;
+Making install in server-src
+Installing Amanda libexec programs:
+  install -c -o bin taper /usr/lib/amanda
+  install -c -o bin dumper /usr/lib/amanda
+  install -c -o bin driver /usr/lib/amanda
+  install -c -o bin planner /usr/lib/amanda
+  install -c -o bin reporter /usr/lib/amanda
+  install -c -o bin getconf /usr/lib/amanda
+Setting permissions for setuid-root libexec programs:
+  (cd /usr/lib/amanda ; chown root dumper; chmod u+s dumper)
+  (cd /usr/lib/amanda ; chown root planner; chmod u+s planner)
+Installing Amanda user programs:
+  install -c -o bin amrestore /usr/sbin
+  install -c -o bin amadmin /usr/sbin
+  install -c -o bin amflush /usr/sbin
+  install -c -o bin amlabel /usr/sbin
+  install -c -o bin amcheck /usr/sbin
+  install -c -o bin amdump /usr/sbin
+  install -c -o bin amcleanup /usr/sbin
+  install -c -o bin amtape /usr/sbin
+Setting permissions for setuid-root user programs:
+  (cd /usr/sbin ; chown root amcheck; chmod u+s amcheck)
+&#8230;
+Installing Amanda changer libexec programs:
+  install -c -o bin chg-generic /usr/lib/amanda
+&#8230;
+Installing Amanda man pages:
+  install -c -o bin amanda.8 /usr/man/man8
+  install -c -o bin amadmin.8 /usr/man/man8
+  install -c -o bin amcheck.8 /usr/man/man8
+  install -c -o bin amcleanup.8 /usr/man/man8
+  install -c -o bin amdump.8 /usr/man/man8
+  install -c -o bin amflush.8 /usr/man/man8
+  install -c -o bin amlabel.8 /usr/man/man8
+  install -c -o bin amrestore.8 /usr/man/man8
+  install -c -o bin amtape.8 /usr/man/man8
+&#8230;</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          OK, no major problems there.  Amanda does require a bit of additional
+          effort to get everything running, though.  Looking at
+          <TT
+CLASS="FILENAME"
+>docs/INSTALL</TT
+>, we follow the steps to get amanda
+          running on our test system, as both a client and a server.  As we
+          perform each step, we note it for future reference:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                For the client:
+                <P
+></P
+><OL
+TYPE="1"
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      Set up a <TT
+CLASS="FILENAME"
+>~/.rhosts</TT
+> file allowing the
+                      server to connect.
+                    </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      Make the disk device files readable by the client.
+                    </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      Make <TT
+CLASS="FILENAME"
+>/etc/dumpdates</TT
+> readable and
+                      writable by the client.
+                    </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      Put an amanda entry in <TT
+CLASS="FILENAME"
+>/etc/services</TT
+>.
+                    </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      Put an amanda entry in
+                      <TT
+CLASS="FILENAME"
+>/etc/inetd.conf</TT
+>.
+                    </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      Issue a <B
+CLASS="COMMAND"
+>kill -HUP</B
+> on inetd.
+                    </P
+></LI
+></OL
+>
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                For the server:
+                <P
+></P
+><OL
+TYPE="1"
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      Create a directory to hold the server configuration files.
+                    </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      Modify the provided example configuration files to suit
+                      our site.
+                    </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      Add crontab entries to run amanda nightly.
+                    </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                      Put an amanda entry in <TT
+CLASS="FILENAME"
+>/etc/services</TT
+>.
+                    </P
+></LI
+></OL
+>
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          Once everything is ready, we run a few tests.  Everything performs
+          flawlessly.
+          <A
+NAME="AEN11972"
+HREF="#FTN.AEN11972"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+          Looks like we've got a good build.  Let's start getting RPM involved.
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN11972"
+HREF="s1-rpm-rw-build-build-without-rpm.html#AEN11972"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              Well, eventually it did!
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-rw-build.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-rw-build-initial-build-with-rpm.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Real-World Package Building</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-rw-build.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Initial Building With RPM</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

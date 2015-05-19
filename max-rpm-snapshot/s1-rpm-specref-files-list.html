@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>The %files List</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Concise Spec File Reference"
+HREF="ch-rpm-specref.html"><LINK
+REL="PREVIOUS"
+TITLE="Macros"
+HREF="s1-rpm-specref-macros.html"><LINK
+REL="NEXT"
+TITLE="Directives For the %files list"
+HREF="s1-rpm-specref-files-list-directives.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-specref-macros.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix E. Concise Spec File Reference</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-specref-files-list-directives.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-SPECREF-FILES-LIST"
+>The <B
+CLASS="COMMAND"
+>%files</B
+> List</A
+></H1
+><P
+>      The <B
+CLASS="COMMAND"
+>%files</B
+> list indicates which files on the build
+      system are to be packaged.  The list consists of one file per line.  If a
+      directory is specified, by default all files and subdirectories will be
+      packaged.
+
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files
+/etc/foo.conf
+/sbin/foo
+/usr/bin/foocmd</SAMP
+>
+      </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>      The <B
+CLASS="COMMAND"
+>%files</B
+> list can be made specific to a particular
+      subpackage by adding the subpackage name, and optionally, the
+      <CODE
+CLASS="OPTION"
+>-n</CODE
+> option:
+
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files bar
+
+%files -n bar</SAMP
+>
+      </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>      The subpackage name and usage of the <CODE
+CLASS="OPTION"
+>-n</CODE
+> option must
+      match those defined with the <B
+CLASS="COMMAND"
+>%package</B
+> directive.
+    </P
+><P
+>      The <B
+CLASS="COMMAND"
+>%files</B
+> list can also use the contents of a file as
+      the list of files to be packaged.  This is done by using the
+      <CODE
+CLASS="OPTION"
+>-f</CODE
+> option, which is then followed by a filename:
+
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%files -f files.list</SAMP
+>
+      </PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>      See also: <A
+HREF="s1-rpm-inside-files-list.html"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%files</B
+> List</I
+> in Chapter 13</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-specref-macros.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-specref-files-list-directives.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Macros</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-specref.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Directives For the <B
+CLASS="COMMAND"
+>%files</B
+> list</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

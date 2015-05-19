@@ -1,0 +1,835 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Additional Options</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Erase Packages"
+HREF="ch-rpm-erase.html"><LINK
+REL="PREVIOUS"
+TITLE="Erasing a Package"
+HREF="s1-rpm-erase-erasing-package.html"><LINK
+REL="NEXT"
+TITLE="rpm -e and Config files"
+HREF="s1-rpm-erase-and-config-files.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-erase-erasing-package.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. Using RPM to Erase Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-erase-and-config-files.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-ERASE-ADDITIONAL-OPTIONS"
+>Additional Options</A
+></H1
+><P
+>        If you're interested in a complex command with lots of options,
+        <B
+CLASS="COMMAND"
+>rpm -e</B
+> is <I
+CLASS="EMPHASIS"
+>not</I
+> the place to look.
+        There just aren't that many different ways to erase a package!  But
+        there are a few options you should know about.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ERASE-TEST-OPTION"
+><B
+CLASS="COMMAND"
+>--test</B
+> &#8212; Go Through the Process of Erasing
+          the Package, But Do Not Erase It</A
+></H2
+><P
+>          If you're a bit gun-shy about erasing a package, you can use the
+          <B
+CLASS="COMMAND"
+>--test</B
+> option first to see what <B
+CLASS="COMMAND"
+>rpm
+          -e</B
+> would do:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -e --test bother</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>removing these packages would break dependencies:
+        bother &#62;= 3.1 is needed by blather-7.9-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          It's pretty easy to see that the <TT
+CLASS="FILENAME"
+>blather</TT
+> package
+          wouldn't work very well if <TT
+CLASS="FILENAME"
+>bother</TT
+> were erased.
+          To be fair, however, RPM wouldn't have erased the package in this
+          example unless we used the <B
+CLASS="COMMAND"
+>--nodeps</B
+> option, which
+          we'll discuss shortly.
+        </P
+><P
+>          However, if there are no problems erasing the package, you won't see
+          very much:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -e --test eject</B
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          We know, based on previous experience, that <B
+CLASS="COMMAND"
+>-v</B
+>
+          doesn't give us any additional output with <B
+CLASS="COMMAND"
+>rpm -e</B
+>.
+          However, we <I
+CLASS="EMPHASIS"
+>do</I
+> know that <B
+CLASS="COMMAND"
+>-vv</B
+>
+          works wonders.  Let's see what <I
+CLASS="EMPHASIS"
+>it</I
+> has to say:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -evv --test eject</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>D: uninstalling record number 286040
+D: running preuninstall script (if any)
+D: would remove files test = 1
+D: /usr/man/man1/eject.1 - would remove
+D: /usr/bin/eject - would remove
+D: running postuninstall script (if any)
+D: would remove database entry</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As you can see, the output is similar to that of a regular erase
+          command using the <B
+CLASS="COMMAND"
+>-vv</B
+> option, with the following
+          exceptions:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                The "<SAMP
+CLASS="COMPUTEROUTPUT"
+>would remove files test =
+                1</SAMP
+>" line ends with a non-zero number.  This is
+                because <B
+CLASS="COMMAND"
+>--test</B
+> has been added.  If the
+                command hadn't included <B
+CLASS="COMMAND"
+>--test</B
+>, the number
+                would have been 0, and the package would have been erased.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                There is a line for each file that RPM would have removed, each
+                one ending with "<SAMP
+CLASS="COMPUTEROUTPUT"
+>would remove</SAMP
+>"
+                instead of "<SAMP
+CLASS="COMPUTEROUTPUT"
+>removing</SAMP
+>".
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                There is only one line at the end, stating:
+                "<SAMP
+CLASS="COMPUTEROUTPUT"
+>would remove database entry</SAMP
+>",
+                versus the multi-line output showing the cleanup of the RPM
+                database during an actual erase.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          By using <B
+CLASS="COMMAND"
+>--test</B
+> in conjunction with
+          <B
+CLASS="COMMAND"
+>-vv</B
+>, it's easy to see exactly what RPM would do
+          during an actual erase.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ERASE-NODEPS-OPTION"
+><B
+CLASS="COMMAND"
+>--nodeps</B
+>: Do Not Check Dependencies Before Erasing
+          Package</A
+></H2
+><P
+>          It's likely that one day while erasing a package, you'll see something
+          like this:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -e bother</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>removing these packages would break dependencies:
+        bother &#62;= 3.1 is needed by blather-7.9-1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          What happened?  The problem is that one or more of the packages
+          installed on your system require the package you're trying to erase.
+          Without it, they won't work properly.  In our example, the
+          <TT
+CLASS="FILENAME"
+>blather</TT
+> package won't work properly unless the
+          <TT
+CLASS="FILENAME"
+>bother</TT
+> package (and more specifically,
+          <TT
+CLASS="FILENAME"
+>bother</TT
+> version 3.1 or later) is installed.  Since
+          we're trying to erase <TT
+CLASS="FILENAME"
+>bother</TT
+>, RPM aborted the
+          erasure.
+        </P
+><P
+>          Now, 99 times out of 100, this is exactly the right thing for RPM to
+          do.  After all, if the package is needed by other packages, why try to
+          erase it?  As with everything else in life, there are exceptions to
+          the rule.  And that is why there is a <B
+CLASS="COMMAND"
+>--nodeps</B
+>
+          option.
+        </P
+><P
+>          Adding the <B
+CLASS="COMMAND"
+>--nodeps</B
+> options to an erase command
+          directs RPM to ignore any dependency-related problems, and to erase
+          the package.  Going back to our example above, let's add the
+          <B
+CLASS="COMMAND"
+>--nodeps</B
+> option to the command line and see what
+          happens:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpm -e --nodeps bother</B
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The package was erased without a peep.  Whether the
+          <TT
+CLASS="FILENAME"
+>blather</TT
+> package will work properly is another
+          matter.  In general, it's not a good idea to use
+          <B
+CLASS="COMMAND"
+>--nodeps</B
+> to get around dependency problems.  The
+          package builders included the dependency requirements for a reason,
+          and it's best not to second-guess them.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ERASE-NOSCRIPTS-OPTION"
+><B
+CLASS="COMMAND"
+>--noscripts</B
+> &#8212; Do <I
+CLASS="EMPHASIS"
+>Not</I
+>
+          Execute Pre- and Post-uninstall Scripts</A
+></H2
+><P
+>          In <A
+HREF="s1-rpm-erase-erasing-package.html#S2-RPM-ERASE-VV-OPTION"
+>the Section called <I
+>Getting More Information With <B
+CLASS="COMMAND"
+>-vv</B
+></I
+></A
+>, we used the
+          <B
+CLASS="COMMAND"
+>-vv</B
+> option to see what RPM was actually doing when
+          it erased a package.  We noted that there were two scripts, a
+          pre-uninstall and a post-uninstall, that were used to execute commands
+          required during the process of erasing a package.
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>--noscripts</B
+> option prevents these scripts from
+          being executed during an erase.  <I
+CLASS="EMPHASIS"
+>This is a very dangerous
+          thing to do!</I
+> The <B
+CLASS="COMMAND"
+>--noscripts</B
+> option is
+          really meant for package builders to use during the development of
+          their packages.  By preventing the pre- and post-uninstall scripts
+          from running, a package builder can keep a buggy package from bringing
+          down their development system.  Once the bugs are found and
+          eliminated, there's very little need to prevent these scripts from
+          running; in fact, doing so can <I
+CLASS="EMPHASIS"
+>cause</I
+> problems!
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ERASE-RCFILE-OPTION"
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+          &#8212; Read
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+> For RPM
+          Defaults</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--rcfile</B
+> option is used to specify a file
+          containing default settings for RPM.  Normally, this option is not
+          needed.  By default, RPM uses <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> and a
+          file named <TT
+CLASS="FILENAME"
+>.rpmrc</TT
+> located in your login
+          directory.
+        </P
+><P
+>          This option would be used if there was a need to switch between
+          several sets of RPM defaults.  Software developers and package
+          builders will normally be the only people using the
+          <B
+CLASS="COMMAND"
+>--rcfile</B
+> option.  For more information on
+          <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files, see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ERASE-ROOT-OPTION"
+><B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+          &#8212; Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+          As the Root</A
+></H2
+><P
+>          Adding <B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+          to an install command forces RPM to assume that the directory
+          specified by <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> is
+          actually the "root" directory.  The <B
+CLASS="COMMAND"
+>--root</B
+> option
+          affects every aspect of the install process, so pre- and post-install
+          scripts are run with
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> as their root
+          directory (using <TT
+CLASS="FUNCTION"
+>chroot(2)</TT
+>, if you must know).
+          In addition, RPM expects its database to reside in the directory
+          specified by the <B
+CLASS="COMMAND"
+>dbpath</B
+> <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>
+          file entry, relative to
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>.
+          <A
+NAME="AEN1831"
+HREF="#FTN.AEN1831"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        </P
+><P
+>          Normally this option is only used during an initial system install, or
+          when a system has been booted off a "rescue disk" and some packages
+          need to be re-installed.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-ERASE-DBPATH-OPTION"
+><B
+CLASS="COMMAND"
+>--dbpath <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> To Find RPM
+          Database</A
+></H2
+><P
+>          In order for RPM to do its handiwork, it needs access to an RPM
+          database.  Normally, this database exists in the directory specified
+          by the <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entry,
+          <B
+CLASS="COMMAND"
+>dbpath</B
+>.  By default, <B
+CLASS="COMMAND"
+>dbpath</B
+> is
+          set to <TT
+CLASS="FILENAME"
+>/var/lib/rpm</TT
+>.
+        </P
+><P
+>          Although the <B
+CLASS="COMMAND"
+>dbpath</B
+> entry can be modified in the
+          appropriate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file, the
+          <B
+CLASS="COMMAND"
+>--dbpath</B
+> option is probably a better choice when
+          the database path needs to be changed temporarily.  An example of a
+          time the <B
+CLASS="COMMAND"
+>--dbpath</B
+> option would come in handy is
+          when it's necessary to examine an RPM database copied from another
+          system.  Granted, it's not a common occurrence, but it's difficult to
+          handle any other way.
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN1831"
+HREF="s1-rpm-erase-additional-options.html#AEN1831"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              For more information on <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entries,
+              see <A
+HREF="ch-rpmrc-file.html"
+>Appendix B</A
+>.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-erase-erasing-package.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-erase-and-config-files.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Erasing a Package</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-erase.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><B
+CLASS="COMMAND"
+>rpm -e</B
+> and Config files</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

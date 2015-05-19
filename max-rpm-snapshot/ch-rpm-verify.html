@@ -1,0 +1,1121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Using RPM to Verify Installed Packages</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Computer Users &#8212; How to Use RPM to Effectively Manage Your
+      Computer
+    "
+HREF="p108.html"><LINK
+REL="PREVIOUS"
+TITLE="A Few Handy Queries"
+HREF="s1-rpm-query-handy-queries.html"><LINK
+REL="NEXT"
+TITLE="When Verification Fails &#8212; rpm -V
+      Output"
+HREF="s1-rpm-verify-output.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-query-handy-queries.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-verify-output.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-VERIFY"
+></A
+>Chapter 6. Using RPM to Verify Installed Packages</H1
+><DIV
+CLASS="TABLE"
+><A
+NAME="TB-RPM-VERIFY-RPM-V-SYNTAX"
+></A
+><P
+><B
+>Table 6-1. <B
+CLASS="COMMAND"
+>rpm -V</B
+> Command Syntax</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+>              <B
+CLASS="COMMAND"
+>rpm -V</B
+> or (<B
+CLASS="COMMAND"
+>--verify</B
+>, or
+              <B
+CLASS="COMMAND"
+>-y</B
+>) <I
+CLASS="EMPHASIS"
+>options</I
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              Package Selection Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <TT
+CLASS="FILENAME"
+>pkg1</TT
+> &#8230; <TT
+CLASS="FILENAME"
+>pkgN</TT
+>
+            </TD
+><TD
+>              Verify named package(s)
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-PACKAGE-LABEL"
+>the Section called <I
+>The Package Label &#8212; Verify an Installed Package Against the RPM
+          Database</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-p <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Verify against package file
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-P-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-p <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+> &#8212;
+          Verify Against a Specific Package File</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-f <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Verify package owning
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-F-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-f <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+> &#8212;
+          Verify the Package Owning
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></B
+> Against the
+          RPM Database</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-a</B
+>
+            </TD
+><TD
+>              Verify all installed packages
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-A-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-a</B
+> &#8212; Verify All Installed Packages Against
+          the RPM Database</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-g <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Verify packages belonging to group
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-G-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-g <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+> &#8212;
+          Verify Packages Belonging To
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;group&#62;</I
+></TT
+></B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              Verify-specific Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--noscripts</B
+>
+            </TD
+><TD
+>              Do not execute verification script
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-NOSCRIPTS-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--noscripts</B
+>: Do Not Execute Verification Script</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--nodeps</B
+>
+            </TD
+><TD
+>              Do not verify dependencies
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-NODEPS-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--nodeps</B
+>: Do Not Check Dependencies During
+          Verification</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--nofiles</B
+>
+            </TD
+><TD
+>              Do not verify file attributes
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-NOFILES-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--nofiles</B
+>: Do Not Verify File
+          Attributes</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              General Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-v</B
+>
+            </TD
+><TD
+>              Display additional information
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-V-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-v</B
+> &#8212; Display Additional
+        Information</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-vv</B
+>
+            </TD
+><TD
+>              Display debugging information
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-VV-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-vv</B
+> &#8212; Display Debugging
+        Information</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Set alternate root to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-ROOT-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Set
+          Alternate Root to
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Set alternate rpmrc file to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-RCFILE-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>:
+          Set Alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file to
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--dbpath <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> to find
+              the RPM database
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-verify-what-to-verify.html#S2-RPM-VERIFY-DBPATH-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--dbpath <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>:
+          Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> To Find
+          RPM Database</I
+></A
+>
+            </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-VERIFY-WHAT-IT-DOES"
+><B
+CLASS="COMMAND"
+>rpm -V</B
+> &#8212; What Does it Do?</A
+></H1
+><P
+>        From time to time, it's necessary to make sure that everything on your
+        system is "OK".  Are you sure the packages you've installed are still
+        configured properly?  Have there been any changes made that you don't
+        know about?  Did you mistakenly start a recursive delete in
+        <TT
+CLASS="FILENAME"
+>/usr</TT
+> and now have to assess the damage?
+      </P
+><P
+>        RPM can help.  It can alert you to changes made to any of the files
+        installed by RPM.  Also, if a package requires capabilities provided by
+        another package, it can make sure the other package is installed, too.
+      </P
+><P
+>        The command <B
+CLASS="COMMAND"
+>rpm -V</B
+> (The options <B
+CLASS="COMMAND"
+>-y</B
+>
+        and <B
+CLASS="COMMAND"
+>--verify</B
+> are equivalent) verifies an installed
+        package.  Before we see how this is done, let's take a step back and
+        look at the big picture.
+      </P
+><P
+>        Every time a package is installed, upgraded, or erased, the changes are
+        logged in RPM's database.  It's necessary for RPM to keep track of this
+        information; otherwise it wouldn't be able to perform these operations
+        correctly.  You can think of the RPM database (and the disk space it
+        consumes) as being the "price of admission" for the easy package
+        management that RPM provides.
+        <A
+NAME="AEN3891"
+HREF="#FTN.AEN3891"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+      </P
+><P
+>        The RPM database reflects the configuration of the system on which it
+        resides.  When RPM accesses the database to see how files should be
+        manipulated during an install, upgrade, or erase, it is using the
+        database as a mirror of the system's configuration.
+      </P
+><P
+>        However, we can also use the system configuration as a mirror of the RPM
+        database.  What does this "backward" view give us?  What purpose would
+        be served?
+      </P
+><P
+>        The purpose would be to see if the system configuration accurately
+        reflects the contents of the RPM database.  If the system configuration
+        <I
+CLASS="EMPHASIS"
+>doesn't</I
+> match the database, then we can reach one
+        of two conclusions:
+
+        <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>              The RPM database has become corrupt.  The system configuration is
+              unchanged.
+            </P
+></LI
+><LI
+><P
+>              The RPM database is intact.  The system configuration has changed.
+            </P
+></LI
+></OL
+>
+      </P
+><P
+>        While it would be foolish to state that an RPM database has
+        <I
+CLASS="EMPHASIS"
+>never</I
+> become corrupt, it is a sufficiently rare
+        occurrence that the second conclusion is much more likely.  So RPM gives
+        us a powerful verification tool, essentially for free.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-WHAT-DOES-IT-VERIFY"
+>What Does it Verify?</A
+></H2
+><P
+>          It would be handy if RPM did nothing more than verify that every file
+          installed by a package actually exists on your system.  In reality,
+          RPM does much more.  It makes sure that if a package depends on other
+          packages to provide certain capabilities, the necessary packages are,
+          in fact, installed.  If the package builder created one, RPM will also
+          run a special verification script that can verify aspects of the
+          package's installation that RPM cannot.
+        </P
+><P
+>          Finally, every file installed by RPM is examined.  No less than
+          <I
+CLASS="EMPHASIS"
+>nine</I
+> different attributes of each file can be
+          checked.  Here is the list of attributes:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Owner
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Group
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Mode
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                MD5 Checksum
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Size
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Major Number
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Minor Number
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Symbolic Link String
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Modification Time
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          Let's take a look at each of these attributes and why they are good
+          things to check:
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-VERIFY-FILE-OWNERSHIP"
+>File Ownership</A
+></H3
+><P
+>            Most operating systems today keep track of each file's creator.
+            This is done primarily for resource accounting.  Linux and UNIX also
+            use file ownership to help determine access rights to the file.  In
+            addition, some files, when executed by a user, can temporarily
+            change the user's ID, normally to a more privileged ID. Therefore,
+            any change of file ownership may have far reaching effects on data
+            security and system availability.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-VERIFY-FILE-GROUP"
+>File Group</A
+></H3
+><P
+>            In a similar manner to file ownership, a "group" specification is
+            attached to each file.  Primarily used for determining access
+            rights, a file's group specification can also become a user's group
+            ID, should that user execute the file's contents.  Therefore, any
+            changes in a file's group specification are important, and should be
+            monitored.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-VERIFY-FILE-MODE"
+>File Mode</A
+></H3
+><P
+>            Encompassing the file's "permissions", the mode is a set of bits
+            that specifies permitted access for the file's owner, group members,
+            and everyone else.  Even more important are two additional bits that
+            determine whether a user's group or user ID should be changed if
+            they execute the program contained in the file.  Since these little
+            bombshells can let any user become <TT
+CLASS="FILENAME"
+>root</TT
+> for the
+            duration of the program, it pays to be extra careful with a file's
+            permissions.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-VERIFY-MD5-CHECKSUM"
+>MD5 Checksum</A
+></H3
+><P
+>            The MD5 checksum of a file is simply a 128-bit number that is
+            mathematically derived from the contents of the file.  The MD5
+            algorithm was designed by Ron Rivest, the "R" in the popular RSA
+            public-key encryption algorithm.  The "MD" in "MD5" stands for
+            <I
+CLASS="EMPHASIS"
+>Message Digest</I
+>, which is a pretty accurate
+            description of what it does.
+          </P
+><P
+>            Unlike literary digests, an MD5 checksum conveys no information
+            about the contents of the original file.  However, it possesses one
+            unique trait:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <I
+CLASS="EMPHASIS"
+>Any</I
+> change to the file, no matter how
+                  small, results in a change to the MD5 checksum.
+                  <A
+NAME="AEN3976"
+HREF="#FTN.AEN3976"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            RPM creates MD5 checksums of all files it manipulates, and stores
+            them in its database.  For all intents and purposes, if one of these
+            files is changed, the MD5 checksum will change, and RPM will detect
+            it.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-VERIFY-FILE-SIZE"
+>File Size</A
+></H3
+><P
+>            As if the use of MD5 isn't enough, RPM also keeps track of file
+            sizes.  A difference of even one byte more or less will not go
+            unnoticed.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-VERIFY-MAJOR-NUMBER"
+>Major Number</A
+></H3
+><P
+>            Device character and block files possess a major number.  The major
+            number is used to communicate information to the device driver
+            associated with the special file.  For instance, under Linux the
+            special files for SCSI disk drives should have a major number of 8,
+            while the major number for an IDE disk drive's special file would be
+            3.  As you can imagine, any change to a file's major number can have
+            disastrous effects, and is tracked by RPM.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-VERIFY-MINOR-NUMBER"
+>Minor Number</A
+></H3
+><P
+>            A file's minor number is similar in concept to the major number, but
+            conveys different information to the device driver.  In the case of
+            disk drives, this information can consist of a unit identifier.
+            Should the minor number change, RPM will detect it.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-VERIFY-SYMBOLIC-LINK"
+>Symbolic Link</A
+></H3
+><P
+>            If the file in question is really a symbolic link, the text string
+            containing the name of the linked-to file is checked.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-VERIFY-MODIFICATION-TIME"
+>Modification Time</A
+></H3
+><P
+>            Most operating systems keep track of the date and time that a file
+            was last modified.  RPM uses this to its advantage by keeping
+            modification times in its database.
+          </P
+></DIV
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN3891"
+HREF="ch-rpm-verify.html#AEN3891"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>            Actually, the price is fairly low.  For a completely RPM-based Linux
+            distribution, it would be unusual to have a database over 5MB in
+            size.
+          </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN3976"
+HREF="ch-rpm-verify.html#AEN3976"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                      From a strictly theoretical standpoint, this is not
+                      entirely true.  Using the lingo of cryptologists, it is
+                      believed to be "computationally infeasible" to find two
+                      messages that produce the same MD5 checksum.
+                    </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-query-handy-queries.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-verify-output.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>A Few Handy Queries</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p108.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>When Verification Fails &#8212; <B
+CLASS="COMMAND"
+>rpm -V</B
+>
+      Output</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

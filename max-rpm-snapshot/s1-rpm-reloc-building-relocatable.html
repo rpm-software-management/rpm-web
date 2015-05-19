@@ -1,0 +1,1259 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Building a Relocatable Package</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Making a Relocatable Package"
+HREF="ch-rpm-reloc.html"><LINK
+REL="PREVIOUS"
+TITLE="Relocatable Wrinkles: Things to Consider"
+HREF="s1-rpm-reloc-wrinkles.html"><LINK
+REL="NEXT"
+TITLE="Making a Package That Can Build Anywhere"
+HREF="ch-rpm-anywhere.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-reloc-wrinkles.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 15. Making a Relocatable Package</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-anywhere.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-RELOC-BUILDING-RELOCATABLE"
+>Building a Relocatable Package</A
+></H1
+><P
+>        For this example, we'll use our tried-and-true
+        <TT
+CLASS="FILENAME"
+>cdplayer</TT
+> application.  Let's start by reviewing the
+        spec file for possible problems:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#
+# Example spec file for cdplayer app...
+#
+Summary:A CD player app that rocks!
+Name: cdplayer
+&#8230;
+%files
+%doc README
+/usr/local/bin/cdp
+/usr/local/bin/cdplay
+%doc /usr/local/man/man1/cdp.1
+%config /etc/cdp-config</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Everything looks all right, except for the <B
+CLASS="COMMAND"
+>%files</B
+>
+        list.  There are files in <TT
+CLASS="FILENAME"
+>/usr/local/bin</TT
+>, a
+        <B
+CLASS="COMMAND"
+>man</B
+> page in <TT
+CLASS="FILENAME"
+>/usr/local/man/man1</TT
+>,
+        and a config file in <TT
+CLASS="FILENAME"
+>/etc</TT
+>.  A prefix of
+        <TT
+CLASS="FILENAME"
+>/usr/local</TT
+> would work pretty well, except for that
+        <TT
+CLASS="FILENAME"
+>cdp-config</TT
+> file.
+      </P
+><P
+>        For the sake of this first build, we'll declare the config file
+        unnecessary and remove it from the <B
+CLASS="COMMAND"
+>%files</B
+> list.
+        We'll then add a <B
+CLASS="COMMAND"
+>prefix</B
+> tag line, setting the prefix
+        to <TT
+CLASS="FILENAME"
+>/usr/local</TT
+>.  After these changes are made, let's
+        try a build:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba cdplayer-1.0.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
++ umask 022
++ echo Executing: %prep
+Executing: %prep
++ cd /usr/src/redhat/BUILD
++ cd /usr/src/redhat/BUILD
++ rm -rf cdplayer-1.0
++ gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz
+&#8230;
+Binary Packaging: cdplayer-1.0-1
+Package Prefix = usr/local
+File doesn't match prefix (usr/local): /usr/doc/cdplayer-1.0-1
+File not found: /usr/doc/cdplayer-1.0-1
+Build failed.</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The build proceeded normally up to the point of actually creating the
+        binary package.  The <SAMP
+CLASS="COMPUTEROUTPUT"
+>Package Prefix =
+        usr/local</SAMP
+> line confirms that RPM picked up our
+        <B
+CLASS="COMMAND"
+>prefix</B
+> tag line.  But the build stopped &#8212; and
+        on a file called <TT
+CLASS="FILENAME"
+>/usr/doc/cdplayer-1.0-1</TT
+>.  But that
+        file isn't even in the <B
+CLASS="COMMAND"
+>%files</B
+> list.  What's going on?
+      </P
+><P
+>        Take a closer look at the <B
+CLASS="COMMAND"
+>%files</B
+> list.  See the line
+        that reads <B
+CLASS="COMMAND"
+>%doc README</B
+>?  In <A
+HREF="s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-FLIST-DOC-DIRECTIVE"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%doc</B
+> Directive</I
+> in Chapter 13</A
+>, we discussed how the
+        <B
+CLASS="COMMAND"
+>%doc</B
+> directive creates a directory under
+        <TT
+CLASS="FILENAME"
+>/usr/doc</TT
+>.  That's the file that killed the build
+        &#8212; the directory created by the <B
+CLASS="COMMAND"
+>%doc</B
+> directive.
+      </P
+><P
+>        Let's temporarily remove that line from the <B
+CLASS="COMMAND"
+>%files</B
+>
+        list and try again:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba cdplayer-1.0.spec</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
++ umask 022
++ echo Executing: %prep
+Executing: %prep
++ cd /usr/src/redhat/BUILD
++ cd /usr/src/redhat/BUILD
++ rm -rf cdplayer-1.0
++ gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz
+&#8230;
+Binary Packaging: cdplayer-1.0-1
+Package Prefix = usr/local
+Finding dependencies...
+Requires (2): libc.so.5 libncurses.so.2.0
+bin/cdp
+bin/cdplay
+man/man1/cdp.1
+90 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/cdplayer-1.0-1.i386.rpm
++ umask 022
++ echo Executing: %clean
+Executing: %clean
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ exit 0
+Source Packaging: cdplayer-1.0-1
+cdplayer-1.0.spec
+cdplayer-1.0.tgz
+82 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/SRPMS/cdplayer-1.0-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The build completed normally.  Note how the files to be placed in the
+        binary package file are listed, minus the prefix of
+        <TT
+CLASS="FILENAME"
+>/usr/local</TT
+>.  Some of you might be wondering why the
+        <TT
+CLASS="FILENAME"
+>cdp.1</TT
+> file didn't cause problems.  After all, it
+        had a <B
+CLASS="COMMAND"
+>%doc</B
+> directive, too.  The answer lies in the
+        way the file was specified.  Since the file was specified using an
+        absolute path, and that path started with the prefix
+        <TT
+CLASS="FILENAME"
+>/usr/local</TT
+>, there was no problem.  A more complete
+        discussion of the <B
+CLASS="COMMAND"
+>%doc</B
+> directive can be found in
+        <A
+HREF="s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-FLIST-DOC-DIRECTIVE"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%doc</B
+> Directive</I
+> in Chapter 13</A
+>.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RELOC-TYING-LOOSE-ENDS"
+>Tying Up the Loose Ends</A
+></H2
+><P
+>          In the course of building this package, we ran into two hitches:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                The config file <TT
+CLASS="FILENAME"
+>cdp-config</TT
+> couldn't be
+                installed in <TT
+CLASS="FILENAME"
+>/etc</TT
+>.
+                
+              </P
+></LI
+><LI
+><P
+>                The <TT
+CLASS="FILENAME"
+>README</TT
+> file could not be packaged using
+                the <B
+CLASS="COMMAND"
+>%doc</B
+> directive.
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          Both of these issues are due to the fact that the files' paths do not
+          start with the default prefix path <TT
+CLASS="FILENAME"
+>/usr/local</TT
+>.
+          Does this mean this package cannot be relocated?  Possibly, but there
+          are two options to consider.  The first option is to review the
+          prefix.  In the case of our example, if we chose a prefix of
+          <TT
+CLASS="FILENAME"
+>/usr</TT
+> instead of <TT
+CLASS="FILENAME"
+>/usr/local</TT
+>,
+          the <TT
+CLASS="FILENAME"
+>README</TT
+> file could be packaged using the
+          <B
+CLASS="COMMAND"
+>%doc</B
+> directive, since the default documentation
+          directory is <TT
+CLASS="FILENAME"
+>/usr/doc</TT
+>.  Another approach would be
+          to use the <B
+CLASS="COMMAND"
+>%docdir</B
+> directive to define another
+          documentation-holding directory somewhere along the prefix path.
+          <A
+NAME="AEN9954"
+HREF="#FTN.AEN9954"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        </P
+><P
+>          This approach wouldn't work for <TT
+CLASS="FILENAME"
+>/etc/cdp-config</TT
+>,
+          though.  To package that file, we'd need to resort to more extreme
+          measures.  Basically, this approach would entail packaging the file in
+          an acceptable directory (something under
+          <TT
+CLASS="FILENAME"
+>/usr/local</TT
+>) and using the
+          <B
+CLASS="COMMAND"
+>%post</B
+> post-install script to move the file to
+          <TT
+CLASS="FILENAME"
+>/etc</TT
+>.  Pointing a symlink at the config file is
+          another possibility.
+          
+        </P
+><P
+>          Of course, this approach has some problems.  First, you'll need to
+          write a <B
+CLASS="COMMAND"
+>%postun</B
+> script to undo what the
+          <B
+CLASS="COMMAND"
+>%post</B
+> script does.
+          <A
+NAME="AEN9968"
+HREF="#FTN.AEN9968"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+          A <B
+CLASS="COMMAND"
+>%verifyscript</B
+> that made sure the files were in
+          place would be nice, too.  Second, because the file or symlink wasn't
+          installed by RPM, there's no entry for it in the RPM database.  This
+          reduces the utility of RPM's <B
+CLASS="COMMAND"
+>-c</B
+> and
+          <B
+CLASS="COMMAND"
+>-d</B
+> options when issuing queries.  Finally, if you
+          actually move files around using the <B
+CLASS="COMMAND"
+>%post</B
+> script,
+          the files you move will not verify properly, and when the package is
+          erased, your users will get some disconcerting messages when RPM can't
+          find the moved files to erase them.  If you have to resort to these
+          kinds of tricks, it's probably best to forget trying to make the
+          package relocatable.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RELOC-TEST-DRIVE"
+>Test-Driving a Relocatable Package</A
+></H2
+><P
+>          Looks like <TT
+CLASS="FILENAME"
+>cdplayer</TT
+> is a poor candidate for being
+          made relocatable.  However, since we did get a hamstrung version to
+          build successfully, we can use it to show how to test a relocatable
+          package.
+        </P
+><P
+>          First, let's see if the binary package file's prefix has been recorded
+          properly.  We can do this by using the
+          <B
+CLASS="COMMAND"
+>--queryformat</B
+> option to RPM's query mode:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -qp --queryformat '%{DEFAULTPREFIX}\n' cdplayer-1.0-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/local</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>DEFAULTPREFIX</B
+> tag directs RPM to display the
+          prefix used during the build.  As we can see, it's
+          <TT
+CLASS="FILENAME"
+>/usr/local</TT
+>, just as we intended.  The
+          <B
+CLASS="COMMAND"
+>--queryformat</B
+> option is discussed in <A
+HREF="s1-rpm-query-parts.html#S3-RPM-QUERY-QUERYFORMAT-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--queryformat</B
+> &#8212; Construct a Custom Query
+            Response</I
+> in Chapter 5</A
+>.
+        </P
+><P
+>          So it looks like we have a relocatable package.  Let's try a couple of
+          installs and see if we really <I
+CLASS="EMPHASIS"
+>can</I
+> install it in
+          different locations.  First, let's try a regular install with no
+          prefix specified:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Uvh cdplayer-1.0-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>cdplayer    ##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          That seemed to work well enough.  Let's see if the files went where we
+          intended:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al /usr/local/bin</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 558
+-rwxr-xr-x   1 root     root        40739 Oct  7 13:23 cdp*
+lrwxrwxrwx   1 root     root           18 Oct  7 13:40 cdplay -&#62; /usr/local/bin/cdp*
+&#8230;
+# <KBD
+CLASS="USERINPUT"
+>ls -al /usr/local/man/man1</KBD
+>
+total 9
+-rwxr-xr-x   1 root     root         4550 Oct  7 13:23 cdp.1*
+&#8230;</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Looks good.  Let's erase the package and reinstall it with a different
+          prefix:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -e cdplayer</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Uvh --prefix /usr/foonly/blather cdplayer-1.0-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>cdplayer    ##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          (We should mention that directories <TT
+CLASS="FILENAME"
+>foonly</TT
+> and
+          <TT
+CLASS="FILENAME"
+>blather</TT
+> didn't exist prior to installing
+          <TT
+CLASS="FILENAME"
+>cdplayer</TT
+>.)
+        </P
+><P
+>          RPM has another tag that can be used with the
+          <B
+CLASS="COMMAND"
+>--queryformat</B
+> option.  It's called
+          <B
+CLASS="COMMAND"
+>INSTALLPREFIX</B
+> and using it displays the prefix
+          under which a package was installed.  Let's give it a try:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -q --queryformat '%{INSTALLPREFIX}\n' cdplayer</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>/usr/foonly/blather</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As we can see, it displays the prefix we entered on the command line.
+          Let's see if the files were installed as we directed:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/foonly/blather/</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 2
+drwxr-xr-x   2 root     root         1024 Oct  7 13:45 bin/
+drwxr-xr-x   3 root     root         1024 Oct  7 13:45 man/</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          So far, so good &#8212; the proper directories are there.  Let's look
+          at the <B
+CLASS="COMMAND"
+>man</B
+> page first:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/foonly/blather/man/man1/</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 5
+-rwxr-xr-x   1 root     root         4550 Oct  7 13:23 cdp.1*</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          That looks ok.  Now on to the files in <TT
+CLASS="FILENAME"
+>bin</TT
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/foonly/blather/bin</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>total 41
+-rwxr-xr-x   1 root     root        40739 Oct  7 13:23 cdp*
+lrwxrwxrwx   1 root     root           18 Oct  7 13:45 cdplay -&#62; /usr/local/bin/cdp</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Uh-oh.  That <TT
+CLASS="FILENAME"
+>cdplay</TT
+> symlink isn't right.  What
+          happened?  If we look at <TT
+CLASS="FILENAME"
+>cdplayer</TT
+>'s makefile, we
+          see the answer:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>install: cdp cdp.1.Z
+&#8230;
+ln -s /usr/local/bin/cdp /usr/local/bin/cdplay</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Ah, when the software is installed during RPM's build process, the
+          make file sets up the symbolic link.  Looking back at the
+          <B
+CLASS="COMMAND"
+>%files</B
+> list, we see <TT
+CLASS="FILENAME"
+>cdplay</TT
+>
+          listed.  RPM blindly packaged the symlink, complete with its
+          non-relocatable string.  This is why we mentioned absolute symlinks as
+          a prime example of non-relocatable software.
+        </P
+><P
+>          Fortunately, this problem isn't that difficult to fix.  All we need to
+          do is change the line in the makefile that creates the symlink from:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>ln -s /usr/local/bin/cdp /usr/local/bin/cdplay</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          To:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>ln -s ./cdp /usr/local/bin/cdplay</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Now <TT
+CLASS="FILENAME"
+>cdplay</TT
+> will always point to
+          <TT
+CLASS="FILENAME"
+>cdp</TT
+>, no matter where it's installed.  When
+          building relocatable packages, relative symlinks are your friend!
+        </P
+><P
+>          After rebuilding the package, let's see if our modifications have the
+          desired effect.  First, a normal install with the default prefix:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Uvh cdplayer-1.0-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>cdplayer    ##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/local/bin/</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al cdplay</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>lrwxrwxrwx   1 root     root           18 Oct  8 22:32 cdplay -&#62; ./cdp*</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Next, we'll try a second install using the <B
+CLASS="COMMAND"
+>--prefix</B
+>
+          option (after we first delete the original package):
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -e cdplayer</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -Uvh --prefix /a/dumb/prefix cdplayer-1.0-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>cdplayer    ##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /a/dumb/prefix/bin/</KBD
+>
+<TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -al cdplay</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>lrwxrwxrwx   1 root     root           30 Oct  8 22:34 cdplay -&#62; ./cdp*</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          As you can see, the trickiest part about building relocatable packages
+          is making sure the software you're packaging is up to the task.  Once
+          that part of the job is done, the actual modifications are
+          straightforward.
+        </P
+><P
+>          In the next chapter, we'll cover how packages can be built in
+          non-standard directories, as well as how non-root users can build
+          packages.
+        </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN9954"
+HREF="s1-rpm-reloc-building-relocatable.html#AEN9954"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              For more information on the <B
+CLASS="COMMAND"
+>%docdir</B
+> directive,
+              please see <A
+HREF="s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-DOCDIR-DIRECTIVE"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%docdir</B
+> Directive</I
+> in Chapter 13</A
+>.
+            </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN9968"
+HREF="s1-rpm-reloc-building-relocatable.html#AEN9968"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              Install and erase-time scripts have an environment variable,
+              <CODE
+CLASS="ENVAR"
+>RPM_INSTALL_PREFIX</CODE
+>, that can be used to write
+              scripts that are able to act appropriately if the package is
+              relocated.  See <A
+HREF="s1-rpm-inside-scripts.html#S2-RPM-INSIDE-ERASE-TIME-SCRIPTS"
+>the Section called <I
+>Install/Erase-time Scripts</I
+> in Chapter 13</A
+>
+              for more information.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-reloc-wrinkles.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-anywhere.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Relocatable Wrinkles: Things to Consider</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-reloc.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Making a Package That Can Build Anywhere</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

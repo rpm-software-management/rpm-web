@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>      Building Packages for Multiple Architectures and Operating Systems
+    </TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Developers &#8212; How to Distribute Your Software More Easily
+      With RPM
+    "
+HREF="p5206.html"><LINK
+REL="PREVIOUS"
+TITLE="Building Subpackages"
+HREF="s1-rpm-subpack-building-subpackages.html"><LINK
+REL="NEXT"
+TITLE="What Does RPM Do To Make Multi-Platform Packaging Easier?"
+HREF="s1-rpm-multi-multi-platform-easier.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-subpack-building-subpackages.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-multi-multi-platform-easier.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-MULTI"
+></A
+>Chapter 19.       Building Packages for Multiple Architectures and Operating Systems
+    </H1
+><P
+>      While RPM certainly makes packaging software as easy as possible, it
+      doesn't end there.  RPM gives you the tools you need to build a package on
+      different types of computers.  More importantly, RPM makes it possible to
+      build packages on different types of computers <I
+CLASS="EMPHASIS"
+>using a single
+      spec file</I
+>.  Those of you that have developed software for
+      different computers know the importance of maintaining a single set of
+      sources.  RPM lets you continue that practice through the package building
+      phase.
+    </P
+><P
+>      Before we get into RPM's capabilities, let's do a quick review of what is
+      involved in developing software for different types of computer systems.
+    </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-MULTI-PRIMER"
+>Architectures and Operating Systems: A Primer</A
+></H1
+><P
+>        From a software engineering standpoint, there are only two major
+        differences between any two computer systems:
+
+        <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>              The architecture implemented by the computer's hardware.
+            </P
+></LI
+><LI
+><P
+>              The system software running on the computer.
+            </P
+></LI
+></OL
+>
+      </P
+><P
+>        The first difference is built into the computer.  The architecture is
+        the manner in which the computer system was designed.  It includes the
+        number and type of registers present in the processor, the number of
+        machine instructions, what operations they perform, and so on.  For
+        example, every "PC" today, no matter who built it, is based on the Intel
+        x86 architecture.
+      </P
+><P
+>        The second difference is more under our control.  The operating system
+        is software that controls how the system operates.  Different operating
+        systems have different methods of storing information on disk, different
+        ways of implementing functions used by programs, and different hardware
+        requirements.
+      </P
+><P
+>        As far as package building is concerned, two systems with the same
+        architecture running two different operating systems, are as different
+        as two systems with different architectures running the same operating
+        system.  In the first case, the software being packaged for different
+        operating systems will differ due to the differences between the
+        operating systems.  In the second case, the software being packaged for
+        different architectures will differ due to the underlying differences in
+        hardware.
+        <A
+NAME="AEN11266"
+HREF="#FTN.AEN11266"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+      </P
+><P
+>        RPM supports differences in architecture and operating system equally.
+        If there is a tag, <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entry, or conditional
+        that is used to support architectural differences, there is a
+        corresponding tag, entry, or conditional that supports operating system
+        differences.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-MULTI-PLATFORMS"
+>Let's Just Call Them Platforms</A
+></H2
+><P
+>          In order to keep the duplication in this chapter to a minimum, we'll
+          refer to a computer of a given architecture running a given operating
+          system as a <I
+CLASS="FIRSTTERM"
+>platform</I
+>.  If another system
+          differs in either aspect, it is considered a different platform.
+        </P
+><P
+>          OK, now that we've gotten through the preliminaries, let's look at
+          RPM's multi-platform capabilities.
+        </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN11266"
+HREF="ch-rpm-multi.html#AEN11266"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>            This is a somewhat simplistic view of the matter, as it's common for
+            incompatibilities to crop up between two different implementations
+            of the same operating system on different architectures.
+          </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-subpack-building-subpackages.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-multi-multi-platform-easier.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Building Subpackages</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p5206.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>What Does RPM Do To Make Multi-Platform Packaging Easier?</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

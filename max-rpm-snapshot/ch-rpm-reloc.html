@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Making a Relocatable Package</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Developers &#8212; How to Distribute Your Software More Easily
+      With RPM
+    "
+HREF="p5206.html"><LINK
+REL="PREVIOUS"
+TITLE="To Summarize&#8230;"
+HREF="s1-rpm-depend-summary.html"><LINK
+REL="NEXT"
+TITLE="The prefix tag: Relocation Central"
+HREF="s1-rpm-reloc-prefix-tag.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-depend-summary.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-reloc-prefix-tag.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-RELOC"
+></A
+>Chapter 15. Making a Relocatable Package</H1
+><P
+>      RPM has the ability to give users some latitude in deciding where packages
+      are to be installed on their systems.  However, package builders must
+      first design their packages to give users this freedom.
+    </P
+><P
+>      That's all well and good, but why would the ability to "relocate" a
+      package be all that important?
+    </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-RELOC-WHY"
+>Why relocatable packages?</A
+></H1
+><P
+>        One of the many problems that plague a system administrator's life is
+        disk space.  Usually, there's not enough of it, and if there
+        <I
+CLASS="EMPHASIS"
+>is</I
+> enough, chances are it's in the wrong place.
+        Here's a hypothetical example:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Some new software comes out and is desired greatly by the user
+              community.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              The system administrator carefully reviews the software's
+              installation documentation prior to doing to the installation.
+              <A
+NAME="AEN9725"
+HREF="#FTN.AEN9725"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+              She notes that the software, all 150MB of it, installs into
+              <TT
+CLASS="FILENAME"
+>/opt</TT
+>.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Frowning, the sysadmin fires off a quick <B
+CLASS="COMMAND"
+>df</B
+>
+              command:
+
+              <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>df</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Filesystem         1024-blocks  Used Available Capacity Mounted on
+/dev/sda0             100118   28434    66514     30%   /
+/dev/sda6             991995  365527   575218     39%   /usr</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+              </PRE
+></TD
+></TR
+></TABLE
+>
+            </P
+><P
+>              Bottom line: There's no way 150MB of new software is going to fit
+              on the root filesystem.
+              <A
+NAME="AEN9737"
+HREF="#FTN.AEN9737"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Sighing heavily, the sysadmin ponders what to do next.  If only
+              there were some way to install the software somewhere on the
+              <TT
+CLASS="FILENAME"
+>/usr</TT
+> filesystem&#8230;
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        It doesn't have to be this way.  RPM has the ability to make packages
+        that can be installed with a user-specified prefix that dictates where
+        the software will actually be placed.  By making packages relocatable,
+        the package builder can make life easier for sysadmins everywhere.  But
+        what exactly <I
+CLASS="EMPHASIS"
+>is</I
+> a relocatable package?
+      </P
+><P
+>        A relocatable package is a package that is standard in every way, save
+        one.  The difference lies in the <B
+CLASS="COMMAND"
+>prefix</B
+> tag.  When this tag
+        is added to a spec file, RPM will attempt to build a relocatable
+        package.
+      </P
+><P
+>        Note the word "attempt".  There are a few conditions that must be met
+        before a relocatable package can be built successfully, and this chapter
+        will cover them all.  But first, let's look at exactly how RPM can
+        relocate a package.  And the one component at the heart of package
+        relocation is the <B
+CLASS="COMMAND"
+>prefix</B
+> tag.
+      </P
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN9725"
+HREF="ch-rpm-reloc.html#AEN9725"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                  Hey, we said it was hypothetical!
+                </P
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN9737"
+HREF="ch-rpm-reloc.html#AEN9737"
+><SPAN
+CLASS="footnote"
+>[2]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>                  Of course, it would be possible to get around this lack of
+                  space by symlinking <TT
+CLASS="FILENAME"
+>/opt</TT
+> to, for
+                  instance, <TT
+CLASS="FILENAME"
+>/usr/opt</TT
+>.  However, since the
+                  point of this chapter is to explore RPM's relocatability
+                  features, we won't explore this approach here.
+                </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-depend-summary.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-reloc-prefix-tag.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>To Summarize&#8230;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p5206.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>The <B
+CLASS="COMMAND"
+>prefix</B
+> tag: Relocation Central</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

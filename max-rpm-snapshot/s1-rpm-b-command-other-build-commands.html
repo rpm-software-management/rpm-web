@@ -1,0 +1,581 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Other Build-related Commands</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="rpmbuild Command Reference"
+HREF="ch-rpm-b-command.html"><LINK
+REL="PREVIOUS"
+TITLE="rpmbuild Command Reference"
+HREF="ch-rpm-b-command.html"><LINK
+REL="NEXT"
+TITLE="Inside the Spec File"
+HREF="ch-rpm-inside.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-b-command.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 12. <B
+CLASS="COMMAND"
+>rpmbuild</B
+> Command Reference</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-inside.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-B-COMMAND-OTHER-BUILD-COMMANDS"
+>Other Build-related Commands</A
+></H1
+><P
+>        There are two other commands that also perform build-related functions.
+        However, they do not use the <B
+CLASS="COMMAND"
+>rpmbuild</B
+> command syntax
+        that we've been studying so far.  Instead of specifying the name of the
+        spec file, as with <B
+CLASS="COMMAND"
+>rpmbuild</B
+>, it's necessary to specify
+        the name of the source package file.
+      </P
+><P
+>        Why the difference in syntax?  The reason has to do with the differing
+        functions of these commands.  Unlike <B
+CLASS="COMMAND"
+>rpmbuild</B
+>, where
+        the name of the game is to get software packaged into binary and source
+        package files, these commands use an already-existing source package
+        file as input.  Let's take a look at them:
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-RECOMPILE-OPTION"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>--recompile</B
+> &#8212; What Does it
+        Do?</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>--recompile</B
+> option directs RPM to perform the
+          following steps:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Install the specified source package file.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Unpack the original sources.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Build the software.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Install the software.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Run the tests.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          While you might think this sounds a great deal like an install of the
+          source package file, followed by an <B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-bi</B
+>, this
+          is not entirely the case.  Using <B
+CLASS="COMMAND"
+>--recompile</B
+>, the
+          only file required is the source package file.  After the software is
+          built and installed, the only thing left, other than the newly
+          installed software, is the original source package file.
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>--recompile</B
+> option is normally used when a
+          previously installed package needs to be recompiled.
+          <B
+CLASS="COMMAND"
+>--recompile</B
+> comes in handy when software needs to
+          be compiled against a new version of the kernel.
+        </P
+><P
+>          Here's what RPM displays during a <B
+CLASS="COMMAND"
+>--recompile</B
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>--recompile cdplayer-1.0-1.src.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdplayer-1.0-1.src.rpm
+* Package: cdplayer
+Executing(%prep):
+&#8230;
++ exit 0
+Executing(%build):
+&#8230;
++ exit 0
+Executing(%install):
+&#8230;
++ exit 0
+Executing(%check):
+&#8230;
++ exit 0
+Executing(%doc):
+&#8230;
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The very first line shows RPM installing the source package.  After
+          that are ordinary executions of the <B
+CLASS="COMMAND"
+>%prep</B
+>,
+          <B
+CLASS="COMMAND"
+>%build</B
+>, and <B
+CLASS="COMMAND"
+>%install</B
+> sections of
+          the spec file.
+        </P
+><P
+>          Since <B
+CLASS="COMMAND"
+>rpm</B
+> <B
+CLASS="COMMAND"
+>-i</B
+> or <B
+CLASS="COMMAND"
+>rpm</B
+> <B
+CLASS="COMMAND"
+>-U</B
+> are not
+          being used to install the software, the RPM database is not updated
+          during a <B
+CLASS="COMMAND"
+>--recompile</B
+>.  This means that doing a
+          <B
+CLASS="COMMAND"
+>--recompile</B
+> on an already-installed package may
+          result in problems down the road, when RPM is used to upgrade or
+          verify the package.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-B-COMMAND-REBUILD-OPTION"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>--rebuild</B
+> &#8212; What Does it Do?</A
+></H2
+><P
+>          Package builders, particularly those that create packages for multiple
+          architectures, often need to build their packages starting from the
+          original sources.  The <B
+CLASS="COMMAND"
+>--rebuild</B
+> option does this,
+          starting from a source package file.  Here is the list of steps it
+          performs:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Install the specified source package file.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Unpack the original sources.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Build the software.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Install the software.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Run the tests.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Create a binary package file.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                Remove the software's build directory tree and run the
+                <B
+CLASS="COMMAND"
+>%clean</B
+> script.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          Unlike the <B
+CLASS="COMMAND"
+>--recompile</B
+> option,
+          <B
+CLASS="COMMAND"
+>--rebuild</B
+> cleans up after itself.  The other
+          difference between the two commands is the fact that
+          <B
+CLASS="COMMAND"
+>--rebuild</B
+> also creates a binary package file.  The
+          only remnants of a <B
+CLASS="COMMAND"
+>--rebuild</B
+> are the original
+          source package, the newly installed software, and a new binary package
+          file.
+        </P
+><P
+>          Package builders find this command especially handy, as it allows them
+          to create new binary packages using one command, with no additional
+          cleanups required.  There are several times when
+          <B
+CLASS="COMMAND"
+>--rebuild</B
+> is normally used:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                When the build environment (eg. compilers, libraries, etc.) has
+                changed.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                When binary packages for a different architecture are to be
+                built.
+              </P
+></LI
+></UL
+>
+        </P
+><P
+>          Here's an example of the <B
+CLASS="COMMAND"
+>--rebuild</B
+> option in
+          action:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>--rebuild cdplayer-1.0-1.src.rpm</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing cdplayer-1.0-1.src.rpm
+* Package: cdplayer
+Executing(%prep):
+&#8230;
++ exit 0
+Executing(%build):
+&#8230;
++ exit 0
+Executing(%install):
+&#8230;
++ exit 0
+Executing(%check):
+&#8230;
++ exit 0
+Executing(%doc):
+&#8230;
++ exit 0
+Binary Packaging: cdplayer-1.0-1
+&#8230;
+Executing(%clean):
+&#8230;
++ exit 0
+Executing(--clean):
+&#8230;
++ exit 0</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The very first line shows RPM installing the source package.  The
+          lines after that are ordinary executions of the
+          <B
+CLASS="COMMAND"
+>%prep</B
+>, <B
+CLASS="COMMAND"
+>%build</B
+>,
+          <B
+CLASS="COMMAND"
+>%install</B
+> and <B
+CLASS="COMMAND"
+>%check</B
+>
+          (if any) sections of the spec file.  Next, a binary
+          package file is created.  Finally, the spec file's
+          <B
+CLASS="COMMAND"
+>%clean</B
+> section (if one exists) is executed.  The
+          cleanup of the software's build directory takes place, just as if the
+          <B
+CLASS="COMMAND"
+>--clean</B
+> option had been specified.
+        </P
+><P
+>          That completes our overview of the commands used to build packages
+          with RPM.  In the next chapter, we'll look at the various macros that
+          are available and how they can make life easier for the package
+          builder.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-b-command.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-inside.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> Command Reference</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-b-command.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Inside the Spec File</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

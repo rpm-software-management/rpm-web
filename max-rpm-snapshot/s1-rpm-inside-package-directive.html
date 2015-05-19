@@ -1,0 +1,386 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>The Lone Directive: %package</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Inside the Spec File"
+HREF="ch-rpm-inside.html"><LINK
+REL="PREVIOUS"
+TITLE="Directives For the %files list"
+HREF="s1-rpm-inside-files-list-directives.html"><LINK
+REL="NEXT"
+TITLE="Conditionals"
+HREF="s1-rpm-inside-conditionals.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-inside-files-list-directives.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 13. Inside the Spec File</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-inside-conditionals.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-INSIDE-PACKAGE-DIRECTIVE"
+>The Lone Directive: <B
+CLASS="COMMAND"
+>%package</B
+></A
+></H1
+><P
+>        While every directive we've seen so far is used in the
+        <B
+CLASS="COMMAND"
+>%files</B
+> list, the <B
+CLASS="COMMAND"
+>%package</B
+>
+        directive is different.  It is used to permit the creation of more than
+        one package per spec file and can appear at any point in the spec file.
+        These additional packages are known as subpackages.  Subpackages are
+        named according to the contents of the line containing the
+        <B
+CLASS="COMMAND"
+>%package</B
+> directive.  The format of the package
+        directive is:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%package: &#60;string&#62;</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>&#60;string&#62;</B
+> should be a name that describes
+        the subpackage.  This string is appended to the base package name to
+        produce the subpackage's name.  For example, if a spec file contains a
+        <B
+CLASS="COMMAND"
+>name</B
+> tag value of "<B
+CLASS="COMMAND"
+>foonly</B
+>", and a
+        "<B
+CLASS="COMMAND"
+>%package doc</B
+>" line, then the subpackage name will be
+        <TT
+CLASS="APPLICATION"
+>foonly-doc</TT
+>.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-PACKAGE-N-OPTION"
+><B
+CLASS="COMMAND"
+>-n <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+></B
+>
+          &#8212; Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;string&#62;</I
+></TT
+></B
+> As the
+          Entire Subpackage Name</A
+></H2
+><P
+>          As we mentioned above, the name of a subpackage normally includes the
+          main package name.  When the <B
+CLASS="COMMAND"
+>-n</B
+> option is added to
+          the <B
+CLASS="COMMAND"
+>%package</B
+> directive, it directs RPM to use the
+          name specified on the <B
+CLASS="COMMAND"
+>%package</B
+> line as the entire
+          package name.  In the example above, the following
+          <B
+CLASS="COMMAND"
+>%package</B
+> line would create a subpackage named
+          <TT
+CLASS="APPLICATION"
+>foonly-doc</TT
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%package doc</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The following <B
+CLASS="COMMAND"
+>%package</B
+> line would create a
+          subpackage named <TT
+CLASS="APPLICATION"
+>doc</TT
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%package -n doc</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The <B
+CLASS="COMMAND"
+>%package</B
+> directive plays another role in
+          subpackage building.  That role is to act as a place to collect tags
+          that are specific to a given subpackage.  Any tag placed after a
+          <B
+CLASS="COMMAND"
+>%package</B
+> directive will only apply to that
+          subpackage.
+        </P
+><P
+>          Finally, the name string specified by the <B
+CLASS="COMMAND"
+>%package</B
+>
+          directive is also used to denote which parts of the spec file are a
+          part of that subpackage. This is done by including the string (along
+          with the <B
+CLASS="COMMAND"
+>-n</B
+> option, if present on the
+          <B
+CLASS="COMMAND"
+>%package</B
+> line) on the starting line of the section
+          that is to be subpackage-specific.  Here's an example:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>&#8230;
+%package -n bar
+&#8230;
+%post -n bar
+&#8230;</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In this heavily edited spec file segment, a subpackage called
+          <TT
+CLASS="APPLICATION"
+>bar</TT
+> has been defined.  Later in the file is a
+          post-install script.  Because it has subpackage
+          <TT
+CLASS="APPLICATION"
+>bar</TT
+>'s name on the <B
+CLASS="COMMAND"
+>%post</B
+> line,
+          the post-install script will be part of the <TT
+CLASS="APPLICATION"
+>bar</TT
+>
+          subpackage only.
+        </P
+><P
+>          For more information on building subpackages, please see <A
+HREF="ch-rpm-subpack.html"
+>Chapter 18</A
+>.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-inside-files-list-directives.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-inside-conditionals.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Directives For the <B
+CLASS="COMMAND"
+>%files</B
+> list</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-inside.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Conditionals</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

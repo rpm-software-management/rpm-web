@@ -1,0 +1,721 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Starting the Build</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Building Packages: A Simple Example"
+HREF="ch-rpm-build.html"><LINK
+REL="PREVIOUS"
+TITLE="Creating the Spec File"
+HREF="s1-rpm-build-creating-spec-file.html"><LINK
+REL="NEXT"
+TITLE="When Things Go Wrong"
+HREF="s1-rpm-build-when-things-go-wrong.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-build-creating-spec-file.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 11. Building Packages: A Simple Example</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-build-when-things-go-wrong.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-BUILD-STARTING-BUILD"
+>Starting the Build</A
+></H1
+><P
+>        Now it's time to begin the build.  First, we change directory into the
+        directory holding <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>'s spec file:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>cd /usr/src/redhat/SPECS</KBD
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Next, we start the build with an <B
+CLASS="COMMAND"
+>rpmbuild</B
+> command:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <KBD
+CLASS="USERINPUT"
+>-ba cdplayer-1.0.spec</KBD
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>a</B
+> following the <B
+CLASS="COMMAND"
+>-b</B
+> option
+        directs RPM to perform all phases of the build process.  Sometimes it is
+        necessary to stop at various phases during the initial build to resolve
+        problems that crop up while writing the spec file.  In these cases,
+        other letters can be used after the <B
+CLASS="COMMAND"
+>-b</B
+> in order to
+        stop the build at the desired phase.  For this example however, we will
+        continue through the entire build process.
+      </P
+><P
+>        In this example, the only other argument to the build command is the
+        name of the package's spec file.  This can be wild-carded to build more
+        than one package, but in our example, we'll stick with one.
+      </P
+><P
+>        Let's look at RPM's output during the build:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>* Package: cdplayer
++ umask 022
++ echo Executing: %prep
+Excuting: %prep
++ cd /usr/src/redhat/BUILD
++ cd /usr/src/redhat/BUILD
++ rm -rf cdplayer-1.0
++ gzip -dc /usr/src/redhat/SOURCES/cdplayer-1.0.tgz
++ tar -xvvf -
+drwxrwxr-x root/users        0 Aug  4 22:30 1996 cdplayer-1.0/
+-rw-r--r-- root/users    17982 Nov 10 01:10 1995 cdplayer-1.0/COPYING
+-rw-r--r-- root/users      627 Nov 10 01:10 1995 cdplayer-1.0/ChangeLog
+-rw-r--r-- root/users      482 Nov 10 01:11 1995 cdplayer-1.0/INSTALL
+&#8230;
+-rw-r--r-- root/users     2720 Nov 10 01:10 1995 cdplayer-1.0/struct.h
+-rw-r--r-- root/users      730 Nov 10 01:10 1995 cdplayer-1.0/vol.c
+-rw-r--r-- root/users     2806 Nov 10 01:10 1995 cdplayer-1.0/volume.c
+-rw-r--r-- root/users     1515 Nov 10 01:10 1995 cdplayer-1.0/volume.h
++ [ 0 -ne 0 ]
++ cd cdplayer-1.0
++ cd /usr/src/redhat/BUILD/cdplayer-1.0
++ chown -R root.root .
++ chmod -R a+rX,g-w,o-w .
++ exit 0</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The output continues, but let's stop here for a moment, and discuss what
+        has happened so far.
+      </P
+><P
+>        At the start of the output, RPM displays the package name
+        (<TT
+CLASS="FILENAME"
+>cdplayer</TT
+>), sets the umask, and starts executing
+        the <B
+CLASS="COMMAND"
+>%prep</B
+> section.  Thanks to the
+        <B
+CLASS="COMMAND"
+>%setup</B
+> macro, RPM then changes directory into the
+        build area, removes any existing old sources, and extracts the sources
+        from the original compressed tar file.  Although each file is listed as
+        it is extracted, we've omitted most of the files listed, to save space.
+      </P
+><P
+>        The <B
+CLASS="COMMAND"
+>%setup</B
+> macro continues by changing directory into
+        <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>'s top-level source directory and setting
+        the file ownership and permissions properly.  As you can see, it does
+        quite a bit of work for you.
+      </P
+><P
+>        Let's take a look at the output from the <B
+CLASS="COMMAND"
+>%build</B
+>
+        section next:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>+ umask 022
++ echo Excuting: %build
+Excuting: %build
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ make
+gcc -Wall -O2  -c -I/usr/include/ncurses  cdp.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  color.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  display.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  misc.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  volume.c 
+volume.c: In function `mix_set_volume':
+volume.c:67: warning: implicit declaration of function `ioctl'
+gcc -Wall -O2  -c -I/usr/include/ncurses  hardware.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  database.c 
+gcc -Wall -O2  -c -I/usr/include/ncurses  getline.c 
+gcc -o cdp cdp.o color.o display.o misc.o volume.o hardware.o database.o
+getline.o  -I/usr/include/ncurses  -L/usr/lib -lncurses
+groff -Tascii -man cdp.1 | compress &#62;cdp.1.Z
++ exit 0</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        There are no surprises here.  After setting the umask and changing
+        directory into <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>'s top-level directory, RPM
+        issues the <B
+CLASS="COMMAND"
+>make</B
+> command we put into the spec file.
+        The rest of the output comes from <B
+CLASS="COMMAND"
+>make</B
+> as it actually
+        builds the software.  Next comes the <B
+CLASS="COMMAND"
+>%install</B
+>
+        section:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>+ umask 022
++ echo Excuting: %install
+Excuting: %install
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ make install
+chmod 755 cdp
+chmod 644 cdp.1.Z
+cp cdp /usr/local/bin
+ln -s /usr/local/bin/cdp /usr/local/bin/cdplay
+cp cdp.1 /usr/local/man/man1
++ exit 0</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Just like the previous sections, RPM again sets the umask and changes
+        directory into the proper directory.  It then executes
+        <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>'s install target, installing the newly
+        built software on the build system.  Those of you that carefully studied
+        the spec file might have noticed that the <TT
+CLASS="FILENAME"
+>README</TT
+>
+        file is not part of the install section.  It's not a problem, as we see
+        here:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>+ umask 022
++ echo Excuting: special doc
+Excuting: special doc
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ DOCDIR=//usr/doc/cdplayer-1.0-1
++ rm -rf //usr/doc/cdplayer-1.0-1
++ mkdir -p //usr/doc/cdplayer-1.0-1
++ cp -ar README //usr/doc/cdplayer-1.0-1
++ exit 0</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        After the customary <B
+CLASS="COMMAND"
+>umask</B
+> and <B
+CLASS="COMMAND"
+>cd</B
+>
+        commands, RPM constructs the path that will be used for
+        <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>'s documentation directory.  It then cleans
+        out any preexisting directory and copies the <TT
+CLASS="FILENAME"
+>README</TT
+>
+        file into it.  The <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+> app is now installed on
+        the build system.  The only thing left to do is to create the actual
+        package files, and perform some housekeeping.  The binary package file
+        is created first:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Binary Packaging: cdplayer-1.0-1
+Finding dependencies...
+Requires (2): libc.so.5 libncurses.so.2.0
+usr/doc/cdplayer-1.0-1
+usr/doc/cdplayer-1.0-1/README
+usr/local/bin/cdp
+usr/local/bin/cdplay
+usr/local/man/man1/cdp.1
+93 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/RPMS/i386/cdplayer-1.0-1.i386.rpm</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The first line says it all: RPM is creating the binary package for
+        <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+> version 1.0, release 1.  Next, RPM
+        determines what packages are required by
+        <TT
+CLASS="FILENAME"
+>cdplayer-1.0-1</TT
+>.  Part of this process entails
+        running <B
+CLASS="COMMAND"
+>ldd</B
+> on each executable program in the
+        package.  In this example, the package requires the libraries
+        <TT
+CLASS="FILENAME"
+>libc.so.5</TT
+>, and
+        <TT
+CLASS="FILENAME"
+>libncurses.so.2.0</TT
+>.  Other dependency information
+        can be included in the spec file, but for our example we'll keep it
+        simple.
+      </P
+><P
+>        Following the dependency information, there is a list of every directory
+        and file included in the package.  The list displayed is actually the
+        output of <B
+CLASS="COMMAND"
+>cpio</B
+>, which is the archiving software used
+        by RPM to bundle the package's files.  The "<SAMP
+CLASS="COMPUTEROUTPUT"
+>93
+        blocks</SAMP
+>" is also printed by <B
+CLASS="COMMAND"
+>cpio</B
+>.
+      </P
+><P
+>        The line "<SAMP
+CLASS="COMPUTEROUTPUT"
+>Generating signature: 0</SAMP
+>"
+        means that RPM has not been directed to add a PGP signature to the
+        package file.  During this time, however, RPM still adds two signatures
+        that can be used to verify the size and the MD5 checksum of the package
+        file.  Finally, we see confirmation that RPM has created the binary
+        package file.
+      </P
+><P
+>        At this point, the application has been built, and the application's
+        files have been packaged.  There is no longer any need for any files
+        created during the build, so they may be removed.  In the case of the
+        sources extracted into RPM's build directory, we can see that, at worst,
+        they will be removed the next time the package is built.  But what if
+        there <I
+CLASS="EMPHASIS"
+>were</I
+> files that we needed to remove?  Well,
+        they could be deleted here, in the <B
+CLASS="COMMAND"
+>%clean</B
+> section:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>+ umask 022
++ echo Excuting: %clean
+Excuting: %clean
++ cd /usr/src/redhat/BUILD
++ cd cdplayer-1.0
++ exit 0</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        In our example, there are no other files outside of the build directory
+        that are created during <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+>'s build, so we
+        don't need to expend any additional effort to clean things up.
+      </P
+><P
+>        The very last step performed by RPM is to create the source package
+        file:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Source Packaging: cdplayer-1.0-1
+cdplayer-1.0.spec
+cdplayer-1.0.tgz
+80 blocks
+Generating signature: 0
+Wrote: /usr/src/redhat/SRPMS/cdplayer-1.0-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+># </TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        This file includes everything needed to recreate a binary package file,
+        as well as a copy of itself.  In this example, the only files needed to
+        do that are the original sources and the spec file.  In cases where the
+        original sources needed to be modified, the source package includes one
+        or more patch files.  As when the binary package was created, we see
+        <B
+CLASS="COMMAND"
+>cpio</B
+>'s output listing each file archived, along with
+        the archive's block size.
+      </P
+><P
+>        Just like a binary package, a source package file can have a PGP
+        signature attached to it.  In our case, we see that a PGP signature was
+        not attached.  The last message from RPM is to confirm the creation of
+        the source package.  Let's take a look at the end products.  First, the
+        binary package:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -lF /usr/src/redhat/RPMS/i386/cdplayer-1.0-1.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r--   1 root     root        24698 Aug  6 22:22 RPMS/i386/cdplayer-1.0-1.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Note that we built <TT
+CLASS="APPLICATION"
+>cdplayer</TT
+> on an Intel-based
+        system, so RPM placed the binary package files in the
+        <TT
+CLASS="FILENAME"
+>i386</TT
+> subdirectory.
+      </P
+><P
+>        Next, the source package file:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>ls -lF /usr/src/redhat/SRPMS/cdplayer-1.0-1.src.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>-rw-r--r--   1 root     root        41380 Aug  6 22:22 SRPMS/cdplayer-1.0-1.src.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Everything went perfectly &#8212; we now have binary and source package
+        files ready to use.  But sometimes things don't go so well.
+      </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-build-creating-spec-file.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-build-when-things-go-wrong.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Creating the Spec File</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-build.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>When Things Go Wrong</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

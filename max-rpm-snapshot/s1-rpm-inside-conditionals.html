@@ -1,0 +1,591 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Conditionals</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Inside the Spec File"
+HREF="ch-rpm-inside.html"><LINK
+REL="PREVIOUS"
+TITLE="The Lone Directive: %package"
+HREF="s1-rpm-inside-package-directive.html"><LINK
+REL="NEXT"
+TITLE="Adding Dependency Information to a Package"
+HREF="ch-rpm-depend.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-inside-package-directive.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 13. Inside the Spec File</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-depend.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-INSIDE-CONDITIONALS"
+>Conditionals</A
+></H1
+><P
+>        While the "exclude" and "exclusive" tags
+        (<B
+CLASS="COMMAND"
+>excludearch</B
+>, <B
+CLASS="COMMAND"
+>exclusivearch</B
+>,
+        <B
+CLASS="COMMAND"
+>excludeos</B
+>, and <B
+CLASS="COMMAND"
+>exclusiveos</B
+>)
+        provide some control over whether a package will be built on a given
+        architecture and/or operating system, that control is still rather
+        coarse.
+      </P
+><P
+>        For example, what should be done if a package will build under multiple
+        architectures, but requires slightly different <B
+CLASS="COMMAND"
+>%build</B
+>
+        scripts?  Or what if a package requires a certain set of files under one
+        operating system, and an entirely different set under another operating
+        system?  The architecture and operating system-specific tags we've
+        discussed earlier in the chapter do nothing to help in such situations.
+        What can be done?
+      </P
+><P
+>        One approach would be to simply create different spec files for each
+        architecture or operating system.  While it would certainly work, this
+        approach has some problems:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              More work.  The existence of multiple spec files for a given
+              package means that the effort required to make any changes to the
+              package is multiplied by however many different spec files there
+              are.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              More chance for mistakes.  If any work needs to be done to the
+              spec files, the fact they are separate means it is that much
+              easier to forget to make the necessary changes to each one.  There
+              is also the chance of introducing mistakes each time changes are
+              made.
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        The other approach is to somehow permit the conditional inclusion of
+        architecture- or operating system-specific sections of the spec file.
+        Fortunately, the RPM designers chose this approach, and it makes
+        multi-platform package building easier and less prone to mistakes.
+      </P
+><P
+>        We discuss multi-platform package building in depth in <A
+HREF="ch-rpm-multi.html"
+>Chapter 19</A
+>.  For now, let's take a quick look at RPM's
+        conditionals.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-IFARCH-CONDITIONAL"
+>The <B
+CLASS="COMMAND"
+>%ifarch</B
+> Conditional</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>%ifarch</B
+> conditional is used to begin a section
+          of the spec file that is architecture-specific.  It is followed by one
+          or more architecture specifiers, each separated by commas or
+          whitespace.  Here is an example:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifarch i386 sparc</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The contents of the spec file following this line would be processed
+          only by Intel x86 or Sun SPARC-based systems.  However, if only this
+          line were placed in a spec file, this is what would happen if a build
+          was attempted:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><B
+CLASS="COMMAND"
+>rpmbuild</B
+> <B
+CLASS="COMMAND"
+>-ba cdplayer-1.0.spec</B
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Unclosed %if
+Build failed.</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The problem that surfaced here is that any conditional must be
+          "closed" by using either <B
+CLASS="COMMAND"
+>%else</B
+> or
+          <B
+CLASS="COMMAND"
+>%endif</B
+>.  We'll be covering them a bit later in the
+          chapter.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-IFNARCH-CONDITIONAL"
+>The <B
+CLASS="COMMAND"
+>%ifnarch</B
+> Conditional</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>%ifnarch</B
+> conditional is used in a similar
+          fashion to <B
+CLASS="COMMAND"
+>%ifarch</B
+>, except that the logic is
+          reversed.  If a spec file contains a conditional block starting with
+          <B
+CLASS="COMMAND"
+>%ifarch alpha</B
+>, that block would be processed only
+          if the build was being done on a Digital Alpha/AXP-based system.
+          However, if the conditional block started with <B
+CLASS="COMMAND"
+>%ifnarch
+          alpha</B
+>, then that block would be processed only if the build
+          were <I
+CLASS="EMPHASIS"
+>not</I
+> being done on an Alpha.
+        </P
+><P
+>          Like <B
+CLASS="COMMAND"
+>%ifarch</B
+>, <B
+CLASS="COMMAND"
+>%ifnarch</B
+> can be
+          followed by one or more architectures and must be closed by a
+          <B
+CLASS="COMMAND"
+>%else</B
+> or <B
+CLASS="COMMAND"
+>%endif</B
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-IFOS-CONDITIONAL"
+>The <B
+CLASS="COMMAND"
+>%ifos</B
+> Conditional</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>%ifos</B
+> conditional is used to control RPM's spec
+          file processing based on the build system's operating system.  It is
+          followed by one or more operating system names.  A conditional block
+          started with <B
+CLASS="COMMAND"
+>%ifos</B
+> must be closed by a
+          <B
+CLASS="COMMAND"
+>%else</B
+> or <B
+CLASS="COMMAND"
+>%endif</B
+>.  Here's an
+          example:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifos linux</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The contents of the spec file following this line would be processed
+          only if the build was done on a linux system.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-IFNOS-CONDITIONAL"
+>The <B
+CLASS="COMMAND"
+>%ifnos</B
+> Conditional</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>%ifnos</B
+> conditional is the logical complement to
+          <B
+CLASS="COMMAND"
+>%ifos</B
+>: that is, if a conditional starting with the
+          line <B
+CLASS="COMMAND"
+>%ifnos irix</B
+> is present in a spec file, then
+          the file contents after the <B
+CLASS="COMMAND"
+>%ifnos</B
+> will not be
+          processed if the build system is running Irix.  As always, a
+          conditional block starting with <B
+CLASS="COMMAND"
+>%ifnos</B
+> must be
+          closed by a <B
+CLASS="COMMAND"
+>%else</B
+> or <B
+CLASS="COMMAND"
+>%endif</B
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-ELSE-CONDITIONAL"
+>The <B
+CLASS="COMMAND"
+>%else</B
+> Conditional</A
+></H2
+><P
+>          The <B
+CLASS="COMMAND"
+>%else</B
+> conditional is placed between a
+          <B
+CLASS="COMMAND"
+>%if</B
+> conditional of some persuasion, and a
+          <B
+CLASS="COMMAND"
+>%endif</B
+>.  It is used to create two blocks of spec
+          file statements, only one of which will be used in any given
+          case. Here's an example:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifarch alpha
+make RPM_OPT_FLAGS="$RPM_OPT_FLAGS -I ."
+%else
+make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+%endif</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          When a build is performed on a Digital Alpha/AXP, some additional
+          flags are added to the <B
+CLASS="COMMAND"
+>make</B
+> command.  On all other
+          systems, these flags are not added.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSIDE-ENDIF-CONDITIONAL"
+>The <B
+CLASS="COMMAND"
+>%endif</B
+> Conditional</A
+></H2
+><P
+>          A <B
+CLASS="COMMAND"
+>%endif</B
+> is used to end a conditional block of spec
+          file statements.  It can follow one of the <B
+CLASS="COMMAND"
+>%if</B
+>
+          conditionals, or the <B
+CLASS="COMMAND"
+>%else</B
+>.  The
+          <B
+CLASS="COMMAND"
+>%endif</B
+> is always needed after a conditional,
+          otherwise the build will fail.  Here's short conditional block, ending
+          with a <B
+CLASS="COMMAND"
+>%endif</B
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%ifarch i386
+make INTELFLAG=-DINTEL
+%endif</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In this example, we see the conditional block started with a
+          <B
+CLASS="COMMAND"
+>%ifarch</B
+> and ended with a
+          <B
+CLASS="COMMAND"
+>%endif</B
+>.
+        </P
+><P
+>          Now that we have some more in-depth knowledge of the spec file, let's
+          take a look at some of RPM's additional features.  In the next
+          chapter, we'll explore how to add dependency information to a package.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-inside-package-directive.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ch-rpm-depend.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The Lone Directive: <B
+CLASS="COMMAND"
+>%package</B
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-inside.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Adding Dependency Information to a Package</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

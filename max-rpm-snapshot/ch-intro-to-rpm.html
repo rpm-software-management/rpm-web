@@ -1,0 +1,541 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>An Introduction to Package Management</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Computer Users &#8212; How to Use RPM to Effectively Manage Your
+      Computer
+    "
+HREF="p108.html"><LINK
+REL="PREVIOUS"
+TITLE="      RPM and Computer Users &#8212; How to Use RPM to Effectively Manage Your
+      Computer
+    "
+HREF="p108.html"><LINK
+REL="NEXT"
+TITLE="Package Management: How to Do It?"
+HREF="s1-intro-to-rpm-package-management-how.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="p108.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-intro-to-rpm-package-management-how.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-INTRO-TO-RPM"
+></A
+>Chapter 1. An Introduction to Package Management</H1
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-INTRO-TO-RPM-WHAT-ARE-PACKAGES"
+>What are Packages, and Why Manage Them?</A
+></H1
+><P
+>        To answer that question, let's go back to the basics for a moment.
+        Computers process information.  In order for this to happen, there are
+        some prerequisites:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              A computer (<I
+CLASS="EMPHASIS"
+>Obviously!</I
+>).
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Some information to process (Also obvious!).
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              A program to do the processing (Still pretty obvious!).
+            </P
+></LI
+></UL
+>
+
+        Unless these three things come together very little is going to happen,
+        information processing-wise.  But each of these items have their own
+        requirements that need to be satisfied before things can get exciting.
+      </P
+><P
+>        Take the computer, for example.  While it needs things like electricity
+        and a cool, dry place to operate, it also needs access to the other two
+        items &#8212; information and programs &#8212; in order to do its thing.
+        The way to get information and programs into a computer is to place them
+        in the computer's mass storage.  These days, mass storage invariably
+        means a disk drive.  Putting information and programs on the disk drive
+        means that they are stored as files.  So much for the computer's part in
+        this.
+      </P
+><P
+>        OK, let's look at the information.  Does information have any particular
+        needs?  Well, it needs sufficient space on the disk drive, but more
+        importantly, it needs to be in the proper format for the program that
+        will be processing it.  That's it for information.
+      </P
+><P
+>        Finally, we have the program.  What does it need?  Like the information,
+        it needs sufficient disk space on the disk drive.  But there are many
+        other things that it may need:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              It may need information to process, in the correct format, named
+              properly, and in the appropriate area on a disk drive somewhere.
+
+              
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              It may need one or more configuration files.  These are files that
+              control the program's behavior and permit some level of
+              customization.  Like the information, these files must be in the
+              proper format, named properly, and in the appropriate area on a
+              disk.  We'll be referring to them by their other name &#8212;
+              <I
+CLASS="FIRSTTERM"
+>config</I
+> files &#8212; throughout the book.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              It may need work areas on a disk, named properly, and located in
+              the appropriate area.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              It may even need other programs, each with their
+              <I
+CLASS="EMPHASIS"
+>own</I
+> requirements.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Although not strictly required by the program itself, the program
+              may come with one or more files containing documentation.  These
+              files can be very handy for the humans trying to get the program
+              to do their bidding!
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        As you can imagine, this can get pretty complicated.  It's not so bad
+        once everything is set up properly, but how do things get set up
+        properly in the first place?  There are two possibilities:
+
+       <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>              After reading the documentation that comes with the program you'd
+              like to use, you copy the various programs, configuration files,
+              and information onto your computer, making sure they are all named
+              correctly, are located in the proper place, and that there is
+              sufficient disk space to hold them all.  You make the appropriate
+              changes to the configuration file(s).  Finally, you run any setup
+              programs that are necessary, giving them whatever information they
+              require to do their job.
+            </P
+></LI
+><LI
+><P
+>              You let the computer do it.
+            </P
+></LI
+></OL
+>
+
+        If it seems like the first choice isn't so bad, consider how many files
+        you'll need to keep track of.  On a typical Linux system, it's not
+        unusual to have over 20,000 different files.  That's a
+        <I
+CLASS="EMPHASIS"
+>lot</I
+> of documentation reading, file copying, and
+        configuring!  And what happens when you want a newer version of a
+        program?  More of the same!
+      </P
+><P
+>        Some people think the second alternative is easier.  RPM was made for
+        them.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-INTRO-TO-RPM-ENTER-THE-PACKAGE"
+>Enter the Package</A
+></H2
+><P
+>          When you consider that computers are very good at keeping track of
+          large amounts of data, the idea of giving your computer the job of
+          riding herd over 20,000 files seems like a good one.  And that's
+          exactly what package management software does.  But what
+          <I
+CLASS="EMPHASIS"
+>is</I
+> a "package"?
+        </P
+><P
+>          A package in the computer sense is very similar to a package in the
+          physical sense.  Both are methods of keeping related objects together
+          in the same place.  Both need to be opened before the contents can be
+          used.  Both can have a "packing slip" taped to the side, identifying
+          the contents.
+        </P
+><P
+>          Normally, package management systems take all the various files
+          containing programs, data, documentation, and configuration
+          information, and place them in one specially formatted file &#8212; a
+          package file.  In the case of RPM, the package file is sometimes
+          called a "package", a ".rpm file", or even an "RPM".  All mean the
+          same thing &#8212; a package containing software meant to be installed
+          using RPM.
+        </P
+><P
+>          What types of software are normally found in a package?  There are no
+          hard and fast rules, but normally a package's contents consist of one
+          of the following types of software:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                A collection of one or more programs that perform a single
+                well-defined task.  This is normally what people think of as an
+                "application".  Word processors and programming languages would
+                fit into this category.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                A specific part of an operating system.  Examples might be
+                system initialization scripts, a particular command shell, or
+                the software required to support a web server, for example.
+              </P
+></LI
+></UL
+>
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-INTRO-TO-RPM-ADVANTAGES-OF-PACKAGE"
+>Advantages of a Package</A
+></H3
+><P
+>            One of the most obvious benefits to having a package is that the
+            package is one easily manageable chunk.  If you move it from one
+            place to another, there's no risk of any part getting left behind.
+            But although this is the most obvious advantage, it's not the
+            biggest one.
+          </P
+><P
+>            The biggest advantage is that the package can contain the
+            <I
+CLASS="EMPHASIS"
+>knowledge</I
+> about what it takes to install itself
+            on your computer.  And if the package contains the steps required to
+            install itself, the package can also contain the steps required to
+            uninstall itself.  What used to be a painful manual process is now a
+            straightforward procedure.  What used to be a mass of 20,000 files
+            becomes a couple hundred packages.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-INTRO-TO-RPM-MANAGE-YOUR-PACKAGES"
+>Manage Your Packages, or They Will Manage You</A
+></H2
+><P
+>          A couple <I
+CLASS="EMPHASIS"
+>hundred</I
+>?  Even though the use of
+          packages has decreased the complexity of managing a system by an order
+          of magnitude, it hasn't yet gotten to the level of being a
+          "no-brainer".  It's still necessary to keep track of what packages are
+          installed on your system.  And if there are some packages that require
+          other packages in order to install or operate correctly, these should
+          be tracked as well.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-INTRO-TO-RPM-PACKAGES-LEAD-ACTIVE-LIVES"
+>Packages Lead Active Lives</A
+></H3
+><P
+>            If you start looking at a computer system as a collection of
+            packages, you'll find that a distinct set of operations will take
+            place on those packages time and time again:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  New packages are installed.  Maybe it's a spreadsheet you'll
+                  use to keep track of expenses, or the latest shoot-em-up game,
+                  but in either case it's new and you want it.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Old packages are replaced with newer versions.  Whoever wrote
+                  the word processor you use daily, comes out with a new
+                  version.  You'll probably want to install the new version and
+                  remove the old one.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Packages are removed entirely.  Perhaps that over-hyped
+                  strategy game just didn't cut it.  You have better things to
+                  do with that disk space, so get rid of it!
+                </P
+></LI
+></UL
+>
+
+            With this much activity going on, it's easy to lose track of things.
+            What types of package information should be available to keep you
+            informed?
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-INTRO-TO-RPM-KEEPING-TRACK-OF-PACKAGES"
+>Keeping Track of Packages</A
+></H3
+><P
+>            Just as there are certain operations that are performed on packages,
+            there are also certain types of information that will make it easier
+            to make sense of the packages installed on your system:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Certainly you'd like to be able to see what packages are
+                  installed.  It's easy to forget if that fax program you tried
+                  a few months ago is still installed or not.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  It would be nice to be able to get more detailed information
+                  on a specific package.  This might consist of anything from
+                  the date the package was installed, to a list of files it
+                  installed on your system.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Being able to access this information in a variety of ways can
+                  be helpful, too.  Instead of simply finding out what files a
+                  package installed, it might be handy to be able to name a
+                  particular file and find out which package installed it.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  If this amount of detail is possible, then it should be
+                  possible to see if the way a package is presently installed
+                  varies from the way it was originally installed.  It's not at
+                  all unusual to make a mistake and delete one file &#8212; or a
+                  hundred.  Being able to tell if one or more packages are
+                  missing files could greatly simplify the process of getting an
+                  ailing system back on its feet again.
+                  
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Files containing configuration information can be a real
+                  headache.  If it were possible to pay extra attention to these
+                  files and make sure any changes made to them weren't lost,
+                  life would certainly be a lot easier.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="p108.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-intro-to-rpm-package-management-how.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>RPM and Computer Users &#8212; How to Use RPM to Effectively Manage Your
+      Computer</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p108.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Package Management: How to Do It?</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,1108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Using RPM to Install Packages</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Computer Users &#8212; How to Use RPM to Effectively Manage Your
+      Computer
+    "
+HREF="p108.html"><LINK
+REL="PREVIOUS"
+TITLE="Let's Get Started"
+HREF="s1-intro-to-rpm-lets-get-started.html"><LINK
+REL="NEXT"
+TITLE="Performing an Install"
+HREF="s1-rpm-install-performing-install.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-intro-to-rpm-lets-get-started.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-install-performing-install.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-INSTALL"
+></A
+>Chapter 2. Using RPM to Install Packages</H1
+><DIV
+CLASS="TABLE"
+><A
+NAME="TB-RPM-INSTALL-SYNTAX"
+></A
+><P
+><B
+>Table 2-1. <B
+CLASS="COMMAND"
+>rpm -i</B
+> Command Syntax</B
+></P
+><TABLE
+BORDER="1"
+BGCOLOR="#E0E0E0"
+CELLSPACING="0"
+CELLPADDING="4"
+CLASS="CALSTABLE"
+><TBODY
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+>              <B
+CLASS="COMMAND"
+>rpm -i</B
+> (or <B
+CLASS="COMMAND"
+>--install</B
+>)
+              <TT
+CLASS="REPLACEABLE"
+><I
+>options</I
+></TT
+> <TT
+CLASS="FILENAME"
+>file1.rpm</TT
+>
+                &#8230; <TT
+CLASS="FILENAME"
+>fileN.rpm</TT
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="3"
+ALIGN="CENTER"
+>              Parameters
+            </TD
+></TR
+><TR
+><TD
+>              <TT
+CLASS="FILENAME"
+>file1.rpm</TT
+> &#8230;
+              <TT
+CLASS="FILENAME"
+>fileN.rpm</TT
+>
+            </TD
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              One or more RPM package files (URLs OK)
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              Install-specific Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-h</B
+> (or <B
+CLASS="COMMAND"
+>--hash</B
+>)
+            </TD
+><TD
+>              Print hash marks ("<SAMP
+CLASS="COMPUTEROUTPUT"
+>#</SAMP
+>") during
+              install
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-handy-options.html#S2-RPM-INSTALL-INSTALL-H"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>-h</B
+>: Perfect for the Impatient</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--test</B
+>
+            </TD
+><TD
+>              Perform installation tests only
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-TEST-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--test</B
+>: Perform Installation Tests Only</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--percent</B
+>
+            </TD
+><TD
+>              Print percentages during install
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-PERCENT"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--percent</B
+>: Not Meant for Human Consumption</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--excludedocs</B
+>
+            </TD
+><TD
+>              Do not install documentation
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-EXCLUDEDOCS-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--excludedocs</B
+>: Do Not Install Documentation For
+          This Package</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--includedocs</B
+>
+            </TD
+><TD
+>              Install documentation
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-INCLUDEDOCS"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--includedocs</B
+>: Install Documentation For This Package</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--replacepkgs</B
+>
+            </TD
+><TD
+>              Replace a package with a new copy of itself
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-REPLACEPKGS"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--replacepkgs</B
+>: Install the Package Even If Already Installed</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--replacefiles</B
+>
+            </TD
+><TD
+>              Replace files owned by another package
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-REPLACEFILES-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--replacefiles</B
+>: Install the Package Even If It Replaces Another Package's Files</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--force</B
+>
+            </TD
+><TD
+>              Ignore package and file conflicts
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-FORCE-OPTION"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--force</B
+>: The Big Hammer</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--noscripts</B
+>
+            </TD
+><TD
+>              Do not execute pre- and post-install scripts
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-NOSCRIPTS"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--noscripts</B
+>: Do Not Execute Pre- and Post-install Scripts</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--prefix <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Relocate package to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> if possible
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-PREFIX"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--prefix <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>:
+          Relocate the package to
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>, if possible</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--ignorearch</B
+>
+            </TD
+><TD
+>              Do not verify package architecture
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-IGNOREARCH"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--ignorearch</B
+>: Do Not Verify Package Architecture</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--ignoreos</B
+>
+            </TD
+><TD
+>              Do not verify package operating system
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-IGNOREOS"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--ignoreos</B
+>: Do Not Verify Package Operating System</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--nodeps</B
+>
+            </TD
+><TD
+>              Do not check dependencies
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-NODEPS"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--nodeps</B
+>: Do Not Check Dependencies Before
+          Installing Package</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--ftpproxy
+              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;host&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;host&#62;</I
+></TT
+></B
+> as
+              the FTP proxy
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-FTPPROXY"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--ftpproxy <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;host&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;host&#62;</I
+></TT
+></B
+> As Proxy In
+          FTP-based Installs</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--ftpport
+              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+> as
+              the FTP port
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-FTPPORT"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--ftpport <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;port&#62;</I
+></TT
+></B
+> In FTP-based
+          Installs</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+COLSPAN="2"
+ALIGN="CENTER"
+>              General Options
+            </TD
+><TD
+>              Page
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-v</B
+>
+            </TD
+><TD
+>              Display additional information
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-handy-options.html#S2-RPM-INSTALL-MORE-FEEDBACK"
+>the Section called <I
+>Getting a bit more feedback with <B
+CLASS="COMMAND"
+>-v</B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>-vv</B
+>
+            </TD
+><TD
+>              Display debugging information
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-VV-OPTION"
+>the Section called <I
+>Getting a <I
+CLASS="EMPHASIS"
+>lot</I
+> more information with <B
+CLASS="COMMAND"
+>-vv</B
+></I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Set alternate root to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-ROOT"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--root <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> As An Alternate
+          Root</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--rcfile
+              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Set alternate rpmrc file to
+              <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-RCFILE"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--rcfile <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;rcfile&#62;</I
+></TT
+></B
+> As An
+          Alternate <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> File</I
+></A
+>
+            </TD
+></TR
+><TR
+><TD
+>              <B
+CLASS="COMMAND"
+>--dbpath
+              <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>
+            </TD
+><TD
+>              Use <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> to
+              find the RPM database
+            </TD
+><TD
+>              <A
+HREF="s1-rpm-install-additional-options.html#S2-RPM-INSTALL-DBPATH"
+>the Section called <I
+><B
+CLASS="COMMAND"
+>--dbpath <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+>: Use
+          <B
+CLASS="COMMAND"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;path&#62;</I
+></TT
+></B
+> To Find RPM
+          Database</I
+></A
+>
+            </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-INSTALL-RPM-I-WHAT-DOES-IT-DO"
+><B
+CLASS="COMMAND"
+>rpm -i</B
+> &#8212; What does it do?</A
+></H1
+><P
+>        Of the many things RPM can do, probably the one that people think of
+        first is the installation of software.  As mentioned earlier, installing
+        new software is a complex, error-prone job.  RPM turns that process into
+        a single command.
+      </P
+><P
+>        <B
+CLASS="COMMAND"
+>rpm -i</B
+> (<B
+CLASS="COMMAND"
+>--install</B
+> is equivalent)
+        installs software that's been packaged into an RPM package file.  It
+        does this by:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Performing dependency checks.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Checking for conflicts.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Performing any tasks required before the install.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Deciding what to do with config files.
+              
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Unpacking files from the package and putting them in the proper
+              place.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Performing any tasks required after the install.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              Keeping track of what it did.
+            </P
+></LI
+></UL
+>
+        Let's go through each of these steps in a bit more detail.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-DEPENDENCY-CHECKS"
+>Performing dependency checks:</A
+></H2
+><P
+>          Some packages will not operate properly unless some other package is
+          installed, too.  RPM makes sure that the package being installed will
+          have its dependency requirements met.  It will also insure that the
+          package's installation will not cause dependency problems for other
+          already-installed packages.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-CHECKING-FOR-CONFLICTS"
+>Checking for conflicts:</A
+></H2
+><P
+>          RPM performs a number of checks during this phase.  These checks look
+          for things like attempts to install an already installed package,
+          attempts to install an older package over a newer version, or the
+          possibility that a file may be overwritten.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-TASKS-BEFORE-INSTALL"
+>Performing any tasks required before the install:</A
+></H2
+><P
+>          There are cases where one or more commands must be given prior to the
+          actual installation of a package.  RPM performs these commands exactly
+          as directed by the package builder, thus eliminating a common source
+          of problems during installations.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-WHAT-TO-DO-WITH-CONFIG-FILES"
+>Deciding what to do with config files:</A
+></H2
+><P
+>          One of the features that really sets RPM apart from other package
+          managers, is the way it handles configuration files.  Since these
+          files are normally changed to customize the behavior of installed
+          software, simply overwriting a config file would tend to make people
+          angry &#8212; all their customizations would be gone!  Instead, RPM
+          analyzes the situation and attempts to do "the right thing" with
+          config files, even if they weren't originally installed by RPM!
+          <A
+NAME="AEN691"
+HREF="#FTN.AEN691"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+>
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-UNPACKING-FILES"
+>Unpacking files from the package and putting them in the proper
+          place:</A
+></H2
+><P
+>          This is the step most people think of when they think about installing
+          software.  Each package file contains a list of files that are to be
+          installed, as well as their destination on your system.  In addition,
+          many other file attributes, such as permissions and ownerships, are
+          set correctly by RPM.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-TASKS-AFTER-INSTALL"
+>Performing any tasks required after the install:</A
+></H2
+><P
+>          Very often a new package requires that one or more commands be
+          executed after the new files are in place.  An example of this would
+          be running <B
+CLASS="COMMAND"
+>ldconfig</B
+> to make new shared libraries
+          accessible.
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-KEEPING-TRACK"
+>Keeping track of what it did:</A
+></H2
+><P
+>          Every time RPM installs a package on your system, it keeps track of
+          the files it installed, in its database.  The database contains a
+          wealth of information necessary for RPM to do its job.  For example,
+          RPM uses the database when it checks for possible conflicts during an
+          install.
+        </P
+></DIV
+></DIV
+></DIV
+><H3
+CLASS="FOOTNOTES"
+>Notes</H3
+><TABLE
+BORDER="0"
+CLASS="FOOTNOTES"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="5%"
+><A
+NAME="FTN.AEN691"
+HREF="ch-rpm-install.html#AEN691"
+><SPAN
+CLASS="footnote"
+>[1]</SPAN
+></A
+></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+WIDTH="95%"
+><P
+>              Are you interested in what exactly "the right thing" means?  <A
+HREF="ch-rpm-upgrade.html#S2-RPM-UPGRADE-CONFIG-FILE-MAGIC"
+>the Section called <I
+>Config file magic</I
+> in Chapter 4</A
+> has all the details.
+            </P
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-intro-to-rpm-lets-get-started.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-install-performing-install.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Let's Get Started</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p108.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Performing an Install</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

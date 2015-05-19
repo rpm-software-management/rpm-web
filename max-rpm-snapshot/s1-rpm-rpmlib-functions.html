@@ -1,0 +1,5261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>rpmlib Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="A Guide to the RPM Library API"
+HREF="ch-rpm-rpmlib.html"><LINK
+REL="PREVIOUS"
+TITLE="A Guide to the RPM Library API"
+HREF="ch-rpm-rpmlib.html"><LINK
+REL="NEXT"
+TITLE="Example Code"
+HREF="s1-rpm-rpmlib-example-code.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-rpmlib.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 21. A Guide to the RPM Library API</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-rpmlib-example-code.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-RPMLIB-FUNCTIONS"
+>rpmlib Functions</A
+></H1
+><P
+>        There are more than sixty different functions in rpmlib.  The tasks they
+        perform range from low-level database record traversal, to high-level
+        package manipulation.  We've grouped the functions into different
+        categories for easy reference.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-ERROR-HANDLING"
+>Error Handling</A
+></H2
+><P
+>          The functions in this section perform rpmlib's basic error handling.
+          All error handling centers on the use of specific status codes.  The
+          status codes are defined in <TT
+CLASS="FILENAME"
+>rpmlib.h</TT
+> and are of
+          the form <SPAN
+CLASS="SYMBOL"
+>RPMERR_<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+>, where
+          <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+> is the name of the error.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMERRORCODE"
+>Return Error Code &#8212; <TT
+CLASS="FUNCTION"
+>rpmErrorCode()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmErrorCode(void);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns the error code set by the last rpmlib function
+            that failed.  Should only be used in an error callback function
+            defined by <TT
+CLASS="FUNCTION"
+>rpmErrorSetCallBack()</TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMERRORSTRING"
+>Return Error String &#8212; <TT
+CLASS="FUNCTION"
+>rpmErrorString()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+char *rpmErrorString(void);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns the error string set by the last rpmlib
+            function that failed.  Should only be used in an error callback
+            function defined by <TT
+CLASS="FUNCTION"
+>rpmErrorSetCallBack()</TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMERRORSETCALLBACK"
+>Set Error CallBack Function &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmErrorSetCallback()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+rpmErrorCallBackType rpmErrorSetCallback(rpmErrorCallBackType);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function sets the current error callback function to the error
+            callback function passed to it.  The previous error callback
+            function is returned.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-GETTING-PACKAGE-INFORMATION"
+>Getting Package Information</A
+></H2
+><P
+>          The following functions are used to obtain information about a package
+          file.
+        </P
+><P
+>          It should be noted that most information is returned in the form of a
+          <CODE
+CLASS="STRUCTNAME"
+>Header</CODE
+> structure.  This data structure is
+          widely used throughout rpmlib.  We will discuss more header-related
+          functions in <A
+HREF="s1-rpm-rpmlib-functions.html#S2-RPM-RPMLIB-HEADER-MANIPULATION"
+>the Section called <I
+>Header Manipulation</I
+></A
+> and
+          <A
+HREF="s1-rpm-rpmlib-functions.html#S2-RPM-RPMLIB-HEADER-ENTRY-MANIPULATION"
+>the Section called <I
+>Header Entry Manipulation</I
+></A
+>.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMREADPACKAGEINFO"
+>Read Package Information &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmReadPackageInfo()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+int rpmReadPackageInfo(int fd,
+                       Header * signatures,
+                       Header * hdr);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            Given an open package on <TT
+CLASS="PARAMETER"
+><I
+>fd</I
+></TT
+>, read in the
+            header and signature.  This function operates as expected with both
+            socket and pipe file descriptors passed as
+            <TT
+CLASS="PARAMETER"
+><I
+>fd</I
+></TT
+>.  Safe on nonseekable
+            <TT
+CLASS="PARAMETER"
+><I
+>fd</I
+></TT
+>s.  When the function returns,
+            <TT
+CLASS="PARAMETER"
+><I
+>fd</I
+></TT
+> is left positioned at the start of the
+            package's archive section.
+          </P
+><P
+>            If either <TT
+CLASS="PARAMETER"
+><I
+>signatures</I
+></TT
+> or
+            <TT
+CLASS="PARAMETER"
+><I
+>hdr</I
+></TT
+> are <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+>, information
+            for the <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+> parameter will not be passed back to
+            the caller.  Otherwise, they will return the package's signatures
+            and header, respectively.
+          </P
+><P
+>            This function returns the following status values:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> &#8212; Success.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> &#8212; Bad magic numbers found
+                  in package.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>2</SPAN
+> &#8212; Other error.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMREADPACKAGEHEADER"
+>Read Package Header &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmReadPackageHeader()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+int rpmReadPackageHeader(int fd,
+                         Header * hdr,
+                         int * isSource,
+                         int * major,
+                         int * minor);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            Given an open package on <TT
+CLASS="PARAMETER"
+><I
+>fd</I
+></TT
+>, read in the
+            header.  This function operates as expected with both socket and
+            pipe file descriptors passed as <TT
+CLASS="PARAMETER"
+><I
+>fd</I
+></TT
+>.  Safe on
+            nonseekable <TT
+CLASS="PARAMETER"
+><I
+>fd</I
+></TT
+>s.  When the function returns,
+            <TT
+CLASS="PARAMETER"
+><I
+>fd</I
+></TT
+> is left positioned at the start of the
+            package's archive section.
+          </P
+><P
+>            If <TT
+CLASS="PARAMETER"
+><I
+>hdr</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>isSource</I
+></TT
+>,
+            <TT
+CLASS="PARAMETER"
+><I
+>major</I
+></TT
+>, or <TT
+CLASS="PARAMETER"
+><I
+>minor</I
+></TT
+> are
+            <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+>, information for the <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+>
+            parameter(s) will not be passed back to the caller.  Otherwise, they
+            will return the package's header (<TT
+CLASS="PARAMETER"
+><I
+>hdr</I
+></TT
+>),
+            information on whether the package is a source package file or not
+            (<TT
+CLASS="PARAMETER"
+><I
+>isSource</I
+></TT
+>), and the package format's major
+            and minor revision number (<TT
+CLASS="PARAMETER"
+><I
+>major</I
+></TT
+> and
+            <TT
+CLASS="PARAMETER"
+><I
+>minor</I
+></TT
+>, respectively).
+          </P
+><P
+>            This function returns the following status values:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> &#8212; Success.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> &#8212; Bad magic numbers found
+                  in package.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>2</SPAN
+> &#8212; Other error.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-VARIABLE-MANIPULATION"
+>Variable Manipulation</A
+></H2
+><P
+>          The following functions are used to get, set, and interpret RPM's
+          internal variables.  Variables are set according to various pieces of
+          system information, as well as from <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files.
+          They control various aspects of RPM's operation.
+        </P
+><P
+>          The variables have symbolic names in the form
+          <SPAN
+CLASS="SYMBOL"
+>RPMVAR_<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+>, where
+          <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+> is the name of the
+          variable.  All variable names are defined in
+          <TT
+CLASS="FILENAME"
+>rpmlib.h</TT
+>.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMGETVAR"
+>Return Value of RPM Variable &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmGetVar()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+char *rpmGetVar(int var);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns the value of the variable specified in
+            <TT
+CLASS="PARAMETER"
+><I
+>var</I
+></TT
+>.
+          </P
+><P
+>           
+            On error, the function returns <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMGETBOOLEANVAR"
+>Return Boolean Value Of RPM Variable &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmGetBooleanVar()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmGetBooleanVar(int var);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function looks up the variable specified in
+            <TT
+CLASS="PARAMETER"
+><I
+>var</I
+></TT
+> and returns a
+            <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> or <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+>
+            depending on the variable's value.
+          </P
+><P
+>            On error, the function returns <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMSETVAR"
+>Set Value Of RPM Variable &#8212; <TT
+CLASS="FUNCTION"
+>rpmSetVar()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+void rpmSetVar(int var,
+               char *val);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function sets the variable specified in
+            <TT
+CLASS="PARAMETER"
+><I
+>var</I
+></TT
+> to the value passed in
+            <TT
+CLASS="PARAMETER"
+><I
+>val</I
+></TT
+>.  It is also possible for
+            <TT
+CLASS="PARAMETER"
+><I
+>val</I
+></TT
+> to be <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+>.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-RPMRC-RELATED-INFO"
+><TT
+CLASS="FILENAME"
+>rpmrc</TT
+>-Related Information</A
+></H2
+><P
+>          The functions in this section are all related to
+          <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> information &#8212; the
+          <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files as well as the variables set from
+          those files.  This information also includes the architecture and
+          operating system information based on <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file
+          entries.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMREADCONFIGFILES"
+>Read <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> Files &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmReadConfigFiles()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmReadConfigFiles(char * file,
+                       char * arch,
+                       char * os,
+                       int building);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function reads <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> files according to
+            the following rules:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  Always read <TT
+CLASS="FILENAME"
+>/usr/lib/rpmrc</TT
+>.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  If <TT
+CLASS="PARAMETER"
+><I
+>file</I
+></TT
+> is specified, read it.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  If <TT
+CLASS="PARAMETER"
+><I
+>file</I
+></TT
+> is not specified, read
+                  <TT
+CLASS="FILENAME"
+>/etc/rpmrc</TT
+> and
+                  <TT
+CLASS="FILENAME"
+>~/.rpmrc</TT
+>.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            Every <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file entry is used with
+            <TT
+CLASS="FUNCTION"
+>rpmSetVar()</TT
+> to set the appropriate RPM
+            variable.  Part of the normal <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file
+            processing also includes setting the architecture and operating
+            system variables for the system executing this function.  These
+            default settings can be overridden by entering architecture and/or
+            operating system information in <TT
+CLASS="PARAMETER"
+><I
+>arch</I
+></TT
+> and
+            <TT
+CLASS="PARAMETER"
+><I
+>os</I
+></TT
+>, respectively.  This information will
+            still go through the normal <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> translation
+            process.
+          </P
+><P
+>            The <TT
+CLASS="PARAMETER"
+><I
+>building</I
+></TT
+> argument should be set to 1 only
+            if a package is being built when this function is called.  Since
+            most rpmlib-based applications will probably not duplicate RPM's
+            package building capabilities, <TT
+CLASS="PARAMETER"
+><I
+>building</I
+></TT
+>
+            should normally be set to 0.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMGETOSNAME"
+>Return Operating System Name &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmGetOsName()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+char *rpmGetOsName(void);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns the name of the operating system, as
+            determined by rpmlib's normal <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file
+            processing.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMGETARCHNAME"
+>Return Architecture Name &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmGetArchName()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+char *rpmGetArchName(void);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns the name of the architecture, as determined by
+            rpmlib's normal <TT
+CLASS="FILENAME"
+>rpmrc</TT
+> file processing.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMSHOWRC"
+>Print all <TT
+CLASS="FILENAME"
+>rpmrc</TT
+>-Derived Variables &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmShowRC()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmShowRC(FILE *f);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function writes all variable names and their values to the file
+            <TT
+CLASS="PARAMETER"
+><I
+>f</I
+></TT
+>.  Always returns
+            <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMARCHSCORE"
+>Return Architecture Compatibility Score &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmArchScore()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmArchScore(char * arch);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns the "distance" between the architecture whose
+            name is specified in <TT
+CLASS="PARAMETER"
+><I
+>arch</I
+></TT
+>, and the current
+            architecture.  Returns <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> if the two
+            architectures are incompatible.  The smaller the number returned,
+            the more compatible the two architectures are.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMOSSCORE"
+>Return Operating System Compatibility Score &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmOsScore()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmOsScore(char * os);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns the "distance" between the operating system
+            whose name is specified in <TT
+CLASS="PARAMETER"
+><I
+>os</I
+></TT
+>, and the
+            current operating system.  Returns <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> if
+            the two operating systems are incompatible.  The smaller the number
+            returned, the more compatible the two operating systems are.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-RPM-DATABASE-MANIPULATION"
+>RPM Database Manipulation</A
+></H2
+><P
+>          The functions in this section perform the basic operations on the RPM
+          database.  This includes opening and closing the database, as well as
+          creating the database.  A function also exists to rebuild a database
+          that has been corrupted.
+        </P
+><P
+>          Every function that accesses the RPM database in some fashion makes
+          use of the <CODE
+CLASS="STRUCTNAME"
+>rpmdb</CODE
+> structure.  This structure
+          is used as a handle to refer to a particular RPM database.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBOPEN"
+>Open RPM Database &#8212; <TT
+CLASS="FUNCTION"
+>rpmdbOpen()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmdbOpen(char * root,
+               rpmdb * dbp,
+               int mode,
+               int perms);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function opens the RPM database located in
+            <SPAN
+CLASS="SYMBOL"
+>RPMVAR_DBPATH</SPAN
+>, returning the
+            <CODE
+CLASS="STRUCTNAME"
+>rpmdb</CODE
+> structure <TT
+CLASS="PARAMETER"
+><I
+>dbp</I
+></TT
+>.
+            If <TT
+CLASS="PARAMETER"
+><I
+>root</I
+></TT
+> is specified, it is prepended to
+            <SPAN
+CLASS="SYMBOL"
+>RPMVAR_DBPATH</SPAN
+> prior to opening.  The
+            <TT
+CLASS="PARAMETER"
+><I
+>mode</I
+></TT
+> and <TT
+CLASS="PARAMETER"
+><I
+>perms</I
+></TT
+>
+            parameters are identical to <TT
+CLASS="FUNCTION"
+>open(2)</TT
+>'s
+            <TT
+CLASS="PARAMETER"
+><I
+>flags</I
+></TT
+> and <TT
+CLASS="PARAMETER"
+><I
+>mode</I
+></TT
+>
+            parameters, respectively.
+          </P
+><P
+>            The function returns <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> on error,
+            <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> on success.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBCLOSE"
+>Close RPM Database &#8212; <TT
+CLASS="FUNCTION"
+>rpmdbClose()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+void rpmdbClose(rpmdb db);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function closes the RPM database specified by the
+            <CODE
+CLASS="STRUCTNAME"
+>rpmdb</CODE
+> structure <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+>.
+            The <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+> structure is also freed.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBINIT"
+>Create RPM Database &#8212; <TT
+CLASS="FUNCTION"
+>rpmdbInit()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmdbInit(char * root,
+              int perms);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function creates a new RPM database to be located in
+            <SPAN
+CLASS="SYMBOL"
+>RPMVAR_DBPATH</SPAN
+>.  If the database already exists, it
+            is left unchanged.  If <TT
+CLASS="PARAMETER"
+><I
+>root</I
+></TT
+> is specified, it
+            is prepended to <SPAN
+CLASS="SYMBOL"
+>RPMVAR_DBPATH</SPAN
+> prior to creation.
+            The <TT
+CLASS="PARAMETER"
+><I
+>perms</I
+></TT
+> parameter is identical to
+            <TT
+CLASS="FUNCTION"
+>open(2)</TT
+>'s <TT
+CLASS="PARAMETER"
+><I
+>mode</I
+></TT
+>
+            parameter.
+          </P
+><P
+>            The function returns <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> on error,
+            <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> on success.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBREBUILD"
+>Rebuild RPM Database &#8212; <TT
+CLASS="FUNCTION"
+>rpmdbRebuild()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmdbRebuild(char * root);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function rebuilds the RPM database located in
+            <SPAN
+CLASS="SYMBOL"
+>RPMVAR_DBPATH</SPAN
+>.  If <TT
+CLASS="PARAMETER"
+><I
+>root</I
+></TT
+> is
+            specified, it is prepended to <SPAN
+CLASS="SYMBOL"
+>RPMVAR_DBPATH</SPAN
+> prior
+            to rebuilding.
+          </P
+><P
+>            The function returns <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> on error,
+            <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> on success.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-RPM-DATABASE-TRAVERSAL"
+>RPM Database Traversal</A
+></H2
+><P
+>          The following functions are used to traverse the RPM database.  Also
+          described in this section is a function to retrieve a database record
+          by its record number.
+        </P
+><P
+>          It should be noted that database records are returned in the form of a
+          <CODE
+CLASS="STRUCTNAME"
+>Header</CODE
+> structure.  This data structure is
+          widely used throughout rpmlib.  We will discuss more header-related
+          functions in <A
+HREF="s1-rpm-rpmlib-functions.html#S2-RPM-RPMLIB-HEADER-MANIPULATION"
+>the Section called <I
+>Header Manipulation</I
+></A
+> and
+          <A
+HREF="s1-rpm-rpmlib-functions.html#S2-RPM-RPMLIB-HEADER-ENTRY-MANIPULATION"
+>the Section called <I
+>Header Entry Manipulation</I
+></A
+>.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBFIRSTRECNUM"
+>Begin RPM Database Traversal &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdbFirstRecNum()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+unsigned int rpmdbFirstRecNum(rpmdb db);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns the record number of the first record in the
+            database specified by <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+>.
+          </P
+><P
+>            On error, it returns <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBNEXTRECNUM"
+>Traverse To Next RPM Database Record &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdbNextRecNum()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+unsigned int rpmdbNextRecNum(rpmdb db,
+                             unsigned int lastOffset);  </SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns the record number of the record following the
+            record number passed in <TT
+CLASS="PARAMETER"
+><I
+>lastOffset</I
+></TT
+>, in the
+            database specified by <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+>.
+          </P
+><P
+>            On error, this function returns <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBGETRECORD"
+>Return Record From RPM Database &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdbGetRecord()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+Header rpmdbGetRecord(rpmdb db,
+                      unsigned int offset);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns the record at the record number specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>offset</I
+></TT
+> from the database specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+>.
+          </P
+><P
+>            This function returns <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+> on error.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-RPM-DATABASE-SEARCH"
+>RPM Database Search</A
+></H2
+><P
+>          The functions in this section search the various parts of the RPM
+          database.  They all return a structure of type
+          <CODE
+CLASS="STRUCTNAME"
+>dbiIndexSet</CODE
+>, which contains the records that
+          match the search term.  Here is the definition of the structure, as
+          found in <TT
+CLASS="FILENAME"
+>&#60;rpm/dbindex.h&#62;</TT
+>:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>typedef struct {
+    dbiIndexRecord * recs;
+    int count;
+} dbiIndexSet;</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Each <CODE
+CLASS="STRUCTNAME"
+>dbiIndexRecord</CODE
+> is also defined in
+          <TT
+CLASS="FILENAME"
+>&#60;rpm/dbindex.h&#62;</TT
+> as follows:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>typedef struct {
+    unsigned int recOffset;
+    unsigned int fileNumber;
+} dbiIndexRecord;</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          The <CODE
+CLASS="STRUCTFIELD"
+>recOffset</CODE
+> element is the offset of the
+          record from the start of the database file.  The
+          <CODE
+CLASS="STRUCTFIELD"
+>fileNumber</CODE
+> element is only used by
+          <TT
+CLASS="FUNCTION"
+>rpmdbFindByFile()</TT
+>.
+        </P
+><P
+>          Keep in mind that the
+          <TT
+CLASS="FUNCTION"
+>rpmdbFind<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></TT
+> search
+          functions each return <CODE
+CLASS="STRUCTNAME"
+>dbiIndexSet</CODE
+> structures,
+          which must be freed with <TT
+CLASS="FUNCTION"
+>dbiFreeIndexRecord()</TT
+>
+          when no longer needed.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-DBIFREEINDEXRECORD"
+>Free Database Index &#8212;
+            <TT
+CLASS="FUNCTION"
+>dbiFreeIndexRecord()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/dbindex.h&#62;
+
+void dbiFreeIndexRecord(dbiIndexSet set);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function frees the database index set specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>set</I
+></TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBFINDBYFILE"
+>Search RPM Database By File &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdbFindByFile()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/dbindex.h&#62;
+
+int rpmdbFindByFile(rpmdb db,
+                    char * filespec,
+                    dbiIndexSet * matches);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function searches the RPM database specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+> for the package which owns the file
+            specified by <TT
+CLASS="PARAMETER"
+><I
+>filespec</I
+></TT
+>.  It returns matching
+            records in <TT
+CLASS="PARAMETER"
+><I
+>matches</I
+></TT
+>.
+          </P
+><P
+>            This function returns the following status values:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>-1</SPAN
+> &#8212; An error occurred
+                  reading a database record.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> &#8212; The search completed
+                  normally.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> &#8212; The search term was not
+                  found.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBYFINDBYGROUP"
+>Search RPM Database By Group &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdbFindByGroup()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/dbindex.h&#62;
+
+int rpmdbFindByGroup(rpmdb db,
+                     char * group,
+                     dbiIndexSet * matches);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function searches the RPM database specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+> for the packages which are members of the
+            group specified by <TT
+CLASS="PARAMETER"
+><I
+>group</I
+></TT
+>.  It returns
+            matching records in <TT
+CLASS="PARAMETER"
+><I
+>matches</I
+></TT
+>.
+          </P
+><P
+>            This function returns the following status values:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>-1</SPAN
+> &#8212; An error occurred
+                  reading a database record.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> &#8212; The search completed
+                  normally.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> &#8212; The search term was not
+                  found.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBFINDPACKAGE"
+>Search RPM Database By Package &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdbFindPackage()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/dbindex.h&#62;
+
+int rpmdbFindPackage(rpmdb db,
+                     char * name,
+                     dbiIndexSet * matches);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function searches the RPM database specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+> for the packages with the package name
+            (not label) specified by <TT
+CLASS="PARAMETER"
+><I
+>name</I
+></TT
+>.  It returns
+            matching records in <TT
+CLASS="PARAMETER"
+><I
+>matches</I
+></TT
+>.
+          </P
+><P
+>            This function returns the following status values:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>-1</SPAN
+> &#8212; An error occurred
+                  reading a database record.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> &#8212; The search completed
+                  normally.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> &#8212; The search term was not
+                  found.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBFINDBYPROVIDES"
+>Search RPM Database By Provides &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdbFindByProvides()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/dbindex.h&#62;
+
+int rpmdbFindByProvides(rpmdb db,
+                        char * provides,
+                        dbiIndexSet * matches);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function searches the RPM database specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+> for the packages which provide the
+            provides information specified by <TT
+CLASS="PARAMETER"
+><I
+>provides</I
+></TT
+>.
+            It returns matching records in <TT
+CLASS="PARAMETER"
+><I
+>matches</I
+></TT
+>.
+          </P
+><P
+>            This function returns the following status values:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>-1</SPAN
+> &#8212; An error occurred
+                  reading a database record.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> &#8212; The search completed
+                  normally.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> &#8212; The search term was not
+                  found.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBFINDBYREQUIREDBY"
+>Search RPM Database By Requires &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdbFindByRequiredBy()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/dbindex.h&#62;
+
+int rpmdbFindByRequiredBy(rpmdb db,
+                          char * requires,
+                          dbiIndexSet * matches);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function searches the RPM database specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+> for the packages which require the
+            requires information specified by <TT
+CLASS="PARAMETER"
+><I
+>requires</I
+></TT
+>.
+            It returns matching records in <TT
+CLASS="PARAMETER"
+><I
+>matches</I
+></TT
+>.
+          </P
+><P
+>            This function returns the following status values:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>-1</SPAN
+> &#8212; An error occurred
+                  reading a database record.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> &#8212; The search completed
+                  normally.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> &#8212; The search term was not
+                  found.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDBFINDBYCONFLICTS"
+>Search RPM Database By Conflicts &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdbFindByConflicts()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/dbindex.h&#62;
+
+int rpmdbFindByConflicts(rpmdb db,
+                         char * conflicts,
+                         dbiIndexSet * matches);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function searches the RPM database specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+> for the packages which conflict with the
+            conflicts information specified by <TT
+CLASS="PARAMETER"
+><I
+>conflicts</I
+></TT
+>.
+            It returns matching records in <TT
+CLASS="PARAMETER"
+><I
+>matches</I
+></TT
+>.
+          </P
+><P
+>            This function returns the following status values:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>-1</SPAN
+> &#8212; An error occurred
+                  reading a database record.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> &#8212; The search completed
+                  normally.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> &#8212; The search term was not
+                  found.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-PACKAGE-MANIPULATION"
+>Package Manipulation</A
+></H2
+><P
+>          These functions perform the operations most RPM users are familiar
+          with.  Functions that install and erase packages are here, along with
+          a few related lower-level support functions.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMINSTALLSOURCEPACKAGE"
+>Install Source Package File &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmInstallSourcePackage()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmInstallSourcePackage(char * root,
+                            int fd,
+                            char ** specFile,
+                            rpmNotifyFunction notify,
+                            char * labelFormat);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function installs the source package file specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>fd</I
+></TT
+>.  If <TT
+CLASS="PARAMETER"
+><I
+>root</I
+></TT
+> is not
+            <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+>, it is prepended to the variables
+            <SPAN
+CLASS="SYMBOL"
+>RPMVAR_SOURCEDIR</SPAN
+> and
+            <SPAN
+CLASS="SYMBOL"
+>RPMVAR_SPECDIR</SPAN
+> prior to the actual installation.
+            If <TT
+CLASS="PARAMETER"
+><I
+>specFile</I
+></TT
+> is not <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+>, the
+            complete path and filename of the just-installed spec file is
+            returned.
+          </P
+><P
+>            The <TT
+CLASS="PARAMETER"
+><I
+>notify</I
+></TT
+> parameter is used to specify a
+            progress-tracking function that will be called during the
+            installation.  Please refer to <A
+HREF="s1-rpm-rpmlib-functions.html#S3-RPM-RPMLIB-RPMNOTIFYFUNCTION"
+>the Section called <I
+>Track Package Installation Progress &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmNotifyFunction()</TT
+></I
+></A
+> for more information on
+            this parameter.
+          </P
+><P
+>            The <TT
+CLASS="PARAMETER"
+><I
+>labelFormat</I
+></TT
+> parameter can be used to
+            specify how the package label should be formatted.  It is used when
+            printing the package label once the package install is ready to
+            proceed.  If <TT
+CLASS="PARAMETER"
+><I
+>labelformat</I
+></TT
+> is
+            <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+>, the package label is not printed.
+          </P
+><P
+>            This function returns the following status values:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> &#8212; The source package was
+                  installed successfully.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> &#8212; The source package file
+                  contained incorrect magic numbers.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>2</SPAN
+> &#8212; Another type of error
+                  occurred.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMINSTALLPACKAGE"
+>Install Binary Package File &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmInstallPackage()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmInstallPackage(char * rootdir,
+                      rpmdb db,
+                      int fd,
+                      char * prefix, 
+                      int flags,
+                      rpmNotifyFunction notify,
+                      char * labelFormat,
+                      char * netsharedPath);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function installs the binary package specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>fd</I
+></TT
+>.  If a path is specified in
+            <TT
+CLASS="PARAMETER"
+><I
+>rootdir</I
+></TT
+>, the package will be installed with
+            that path acting as the root directory.  If a path is specified in
+            <TT
+CLASS="PARAMETER"
+><I
+>prefix</I
+></TT
+>, it will be used as the prefix for
+            relocatable packages.  The RPM database specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+> is updated to reflect the newly installed
+            package.
+          </P
+><P
+>            The <TT
+CLASS="PARAMETER"
+><I
+>flags</I
+></TT
+> parameter is used to control the
+            installation behavior.  The flags are defined in
+            <TT
+CLASS="FILENAME"
+>rpmlib.h</TT
+> and take the form
+            <SPAN
+CLASS="SYMBOL"
+>RPMINSTALL_<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+>, where
+            <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+> is the name of the
+            flag.
+          </P
+><P
+>            The following flags are currently defined:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMINSTALL_REPLACEPKG</SPAN
+> &#8212; Install the
+                  package even if it is already installed.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMINSTALL_REPLACEFILES</SPAN
+> &#8212; Install the
+                  package even if it will replace files owned by another
+                  package.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMINSTALL_TEST</SPAN
+> &#8212; Perform all
+                  install-time checks, but do not actually install the package.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMINSTALL_UPGRADE</SPAN
+> &#8212; Install the
+                  package, and remove all older versions of the package.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMINSTALL_UPGRADETOOLD</SPAN
+> &#8212; Install the
+                  package, even if the package is an older version of an
+                  already-installed package.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMINSTALL_NODOCS</SPAN
+> &#8212; Do not install the
+                  package's documentation files.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMINSTALL_NOSCRIPTS</SPAN
+> &#8212; Do not execute
+                  the package's install- and erase-time (in the case of an
+                  upgrade) scripts.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMINSTALL_NOARCH</SPAN
+> &#8212; Do not perform
+                  architecture compatibility tests.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMINSTALL_NOOS</SPAN
+> &#8212; Do not perform
+                  operating system compatibility tests.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            The <TT
+CLASS="PARAMETER"
+><I
+>notify</I
+></TT
+> parameter is used to specify a
+            progress tracking function that will be called during the
+            installation.  Please refer to <A
+HREF="s1-rpm-rpmlib-functions.html#S3-RPM-RPMLIB-RPMNOTIFYFUNCTION"
+>the Section called <I
+>Track Package Installation Progress &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmNotifyFunction()</TT
+></I
+></A
+> for more information on
+            this parameter.
+          </P
+><P
+>            The <TT
+CLASS="PARAMETER"
+><I
+>labelFormat</I
+></TT
+> parameter can be used to
+            specify how the package label should be formatted.  This information
+            is used when printing the package label once the package install is
+            ready to proceed.  It is used when printing the package label once
+            the package install is ready to proceed.  If
+            <TT
+CLASS="PARAMETER"
+><I
+>labelformat</I
+></TT
+> is <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+>, the
+            package label is not printed.
+          </P
+><P
+>            The <TT
+CLASS="PARAMETER"
+><I
+>netsharedPath</I
+></TT
+> parameter is used to
+            specify that part of the local filesystem that is shared with other
+            systems.  If there is more than one path that is shared, the paths
+            should be separated with a colon.
+          </P
+><P
+>            This function returns the following status values:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> &#8212; The binary package was
+                  installed successfully.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> &#8212; The binary package file
+                  contained incorrect magic numbers.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>2</SPAN
+> &#8212; Another type of error
+                  occurred.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMNOTIFYFUNCTION"
+>Track Package Installation Progress &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmNotifyFunction()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+typedef void (*rpmNotifyFunction)(const unsigned long amount,
+                                  const unsigned long total);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            A function can be passed to
+            <TT
+CLASS="FUNCTION"
+>rpmInstallSourcePackage</TT
+> or
+            <TT
+CLASS="FUNCTION"
+>rpmInstallPackage</TT
+> via the
+            <TT
+CLASS="PARAMETER"
+><I
+>notify</I
+></TT
+> parameter.  The function will be
+            called at regular intervals during the installation, and will have
+            two parameters passed to it:
+
+            <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                  <TT
+CLASS="PARAMETER"
+><I
+>amount</I
+></TT
+> &#8212; The number of bytes of
+                  the install that have been completed so far.
+                </P
+></LI
+><LI
+><P
+>                  <TT
+CLASS="PARAMETER"
+><I
+>total</I
+></TT
+> &#8212; The total number of bytes
+                  that will be installed.
+                </P
+></LI
+></OL
+>
+          </P
+><P
+>            This function permits the creation of a dynamically updating
+            progress meter during package installation.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMREMOVEPACKAGE"
+>Remove Installed Package &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmRemovePackage()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmRemovePackage(char * root,
+                     rpmdb db,
+                     unsigned int offset,
+                     int flags);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function removes the package at record number
+            <TT
+CLASS="PARAMETER"
+><I
+>offset</I
+></TT
+> in the RPM database specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+>.  If <TT
+CLASS="PARAMETER"
+><I
+>root</I
+></TT
+> is
+            specified, it is used as the path to a directory that will serve as
+            the root directory while the package is being removed.
+          </P
+><P
+>            The <TT
+CLASS="PARAMETER"
+><I
+>flags</I
+></TT
+> parameter is used to control the
+            package removal behavior.  The flags that may be passed are defined
+            in <TT
+CLASS="FILENAME"
+>rpmlib.h</TT
+>, and are of the form
+            <SPAN
+CLASS="SYMBOL"
+>RPMUNINSTALL_<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+>, where
+            <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+> is the name of the
+            flag.
+          </P
+><P
+>            The following flags are currently defined:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMUNINSTALL_TEST</SPAN
+> &#8212; Perform all
+                  erase-time checks, but do not actually remove the package.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMUNINSTALL_NOSCRIPTS</SPAN
+> &#8212; Do not execute
+                  the package's erase-time scripts.
+                </P
+></LI
+></UL
+>
+          </P
+><P
+>            This function returns the following status values:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> &#8212; The package was removed
+                  successfully.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> &#8212; The package removal
+                  failed.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-PACKAGE-FILE-VERIFICATION"
+>Package And File Verification</A
+></H2
+><P
+>          The functions in this section perform the verification operations
+          necessary to ensure that the files comprising a package have not been
+          modified since they were installed.
+        </P
+><P
+>          Verification takes place on three distinct levels:
+
+          <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>                On the file-by-file level.
+              </P
+></LI
+><LI
+><P
+>                On a package-wide level, through the use of the
+                <B
+CLASS="COMMAND"
+>%verifyscript</B
+> verification script.
+              </P
+></LI
+><LI
+><P
+>                On an inter-package level, through RPM's normal dependency
+                processing.
+              </P
+></LI
+></OL
+>
+        </P
+><P
+>          Because of this, there are two functions to perform each specific
+          verification operation.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMVERIFYFILE"
+>Verify File &#8212; <TT
+CLASS="FUNCTION"
+>rpmVerifyFile()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+int rpmVerifyFile(char * root,
+                  Header h,
+                  int filenum,
+                  int * result);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function verifies the <TT
+CLASS="PARAMETER"
+><I
+>filenum</I
+></TT
+>'th file
+            from the package whose header is <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>.  If
+            <TT
+CLASS="PARAMETER"
+><I
+>root</I
+></TT
+> is specified, it is used as the path to
+            a directory that will serve as the root directory while the file is
+            being verified.  The results of the file verification are returned
+            in <TT
+CLASS="PARAMETER"
+><I
+>result</I
+></TT
+>, and consist of a number of flags.
+            Each flag that is set indicates a verification failure.
+          </P
+><P
+>            The flags are defined in <TT
+CLASS="FILENAME"
+>rpmlib.h</TT
+>, and are of
+            the form <SPAN
+CLASS="SYMBOL"
+>RPMVERIFY_<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+>,
+            where <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+> is the name of
+            the data that failed verification.
+          </P
+><P
+>            This function returns <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> on success, and
+            <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> on failure.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMVERIFYSCRIPT"
+>Execute Package's <B
+CLASS="COMMAND"
+>%verifyscript</B
+> Verification
+            Script &#8212; <TT
+CLASS="FUNCTION"
+>rpmVerifyScript()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+int rpmVerifyScript(char * root,
+                    Header h,
+                    int err);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function executes the <B
+CLASS="COMMAND"
+>%verifyscript</B
+>
+            verification script for the package whose header is
+            <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>.  <TT
+CLASS="PARAMETER"
+><I
+>err</I
+></TT
+> must contain a
+            valid file descriptor.  If <TT
+CLASS="FUNCTION"
+>rpmIsVerbose()</TT
+>
+            returns <SPAN
+CLASS="RETURNVALUE"
+>true</SPAN
+>, the
+            <B
+CLASS="COMMAND"
+>%verifyscript</B
+> verification script will direct all
+            status messages to <TT
+CLASS="PARAMETER"
+><I
+>err</I
+></TT
+>.
+          </P
+><P
+>            This function returns <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> on success,
+            <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> on failure.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-DEPENDENCY-RELATED-OPS"
+>Dependency-Related Operations</A
+></H2
+><P
+>          The functions in this section are used to perform the various
+          dependency-related operations supported by rpmlib.
+        </P
+><P
+>          Dependency processing is entirely separate from normal package-based
+          operations.  The package installation and removal functions do not
+          perform any dependency processing themselves.  Therefore, dependency
+          processing is somewhat different from other aspects of rpmlib's
+          operation.
+        </P
+><P
+>          Dependency processing centers around the
+          <CODE
+CLASS="STRUCTNAME"
+>rpmDependencies</CODE
+> data structure.  The
+          operations that are to be performed against the RPM database (adding,
+          removing, and upgrading packages) are performed against this data
+          structure, using functions that are described below.  These functions
+          simply populate the data structure according to the operation being
+          performed.  They do <I
+CLASS="EMPHASIS"
+>not</I
+> perform the actual
+          operation on the package.  This is an important point to keep in mind.
+        </P
+><P
+>          Once the data structure has been completely populated, a dependency
+          check function is called to determine if there are any
+          dependency-related problems.  The result is a structure of dependency
+          conflicts.  This structure,
+          <CODE
+CLASS="STRUCTNAME"
+>rpmDependencyConflict</CODE
+>, is defined in
+          <TT
+CLASS="FILENAME"
+>rpmlib.h</TT
+>.
+        </P
+><P
+>          Note that it is necessary to free both the conflicts structure
+          <I
+CLASS="EMPHASIS"
+>and</I
+> the <CODE
+CLASS="STRUCTNAME"
+>rpmDependencies</CODE
+>
+          structure when they are no longer needed.  However,
+          <TT
+CLASS="FUNCTION"
+>free()</TT
+> should <I
+CLASS="EMPHASIS"
+>not</I
+> be used
+          &#8212; special functions for this are provided, and will be discussed
+          in this section.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDEPDEPENDENCIES"
+>Create a New Dependency Data Structure &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdepDependencies()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+rpmDependencies rpmdepDependencies(rpmdb db);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns an initialized
+            <CODE
+CLASS="STRUCTNAME"
+>rpmDependencies</CODE
+> structure.  The dependency
+            checking to be done will be based on the RPM database specified in
+            the <TT
+CLASS="PARAMETER"
+><I
+>db</I
+></TT
+> parameter.  If this parameter is
+            <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+>, the dependency checking will be done as if an
+            empty RPM database was being used.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDEPADDPACKAGE"
+>Add a Package Install To the Dependency Data Structure &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdepAddPackage()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+void rpmdepAddPackage(rpmDependencies rpmdep,
+                      Header h);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function adds the installation of the package whose header is
+            <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>, to the
+            <CODE
+CLASS="STRUCTNAME"
+>rpmDependencies</CODE
+> data structure,
+            <TT
+CLASS="PARAMETER"
+><I
+>rpmdep</I
+></TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDEPUPGRADEPACKAGE"
+>Add a Package Upgrade To the Dependency Data Structure &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdepUpgradePackage()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+void rpmdepUpgradePackage(rpmDependencies rpmdep,
+                          Header h);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function adds the upgrading of the package whose header is
+            <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>, to the
+            <CODE
+CLASS="STRUCTNAME"
+>rpmDependencies</CODE
+> data structure,
+            <TT
+CLASS="PARAMETER"
+><I
+>rpmdep</I
+></TT
+>.  It is similar to
+            <TT
+CLASS="FUNCTION"
+>rpmdepAddPackage()</TT
+>, but older versions of the
+            package are removed.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDEPREMOVEPACKAGE"
+>Add a Package Removal To the Dependency Data Structure &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdepRemovePackage()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+void rpmdepRemovePackage(rpmDependencies rpmdep,
+                         int dboffset);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function adds the removal of the package whose RPM database
+            offset is <TT
+CLASS="PARAMETER"
+><I
+>dboffset</I
+></TT
+>, to the
+            <CODE
+CLASS="STRUCTNAME"
+>rpmDependencies</CODE
+> data structure,
+            <TT
+CLASS="PARAMETER"
+><I
+>rpmdep</I
+></TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDEPAVAILABLEPACKAGE"
+>Add an Available Package To the Dependency Data Structure &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdepAvailablePackage()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+void rpmdepAvailablePackage(rpmDependencies rpmdep,
+                            Header h,
+                            void * key);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function adds the package whose header is
+            <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>, to the
+            <CODE
+CLASS="STRUCTNAME"
+>rpmDependencies</CODE
+> structure,
+            <TT
+CLASS="PARAMETER"
+><I
+>rpmdep</I
+></TT
+>.
+          </P
+><P
+>            The <TT
+CLASS="PARAMETER"
+><I
+>key</I
+></TT
+> parameter can be anything that
+            uniquely identifies the package being added.  It will be returned as
+            part of the <CODE
+CLASS="STRUCTNAME"
+>rpmDependencyConflict</CODE
+> structure
+            returned by <TT
+CLASS="FUNCTION"
+>rpmdepCheck()</TT
+>, specifically in that
+            structure's <CODE
+CLASS="STRUCTFIELD"
+>suggestedPackage</CODE
+> element.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDEPCHECK"
+>Perform a Dependency Check &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdepCheck()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmdepCheck(rpmDependencies rpmdep,
+                struct rpmDependencyConflict ** conflicts,
+                int * numConflicts);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function performs a dependency check on the
+            <CODE
+CLASS="STRUCTNAME"
+>rpmDependencies</CODE
+> structure
+            <TT
+CLASS="PARAMETER"
+><I
+>rpmdep</I
+></TT
+>.  It returns an array of size
+            <TT
+CLASS="PARAMETER"
+><I
+>numConflicts</I
+></TT
+>, pointed to by
+            <TT
+CLASS="PARAMETER"
+><I
+>conflicts</I
+></TT
+>.
+          </P
+><P
+>            This function returns <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> on success, and
+            <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> on error.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDEPFREECONFLICTS"
+>Free Results of <TT
+CLASS="FUNCTION"
+>rpmdepCheck()</TT
+> &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdepFreeConflicts()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+void rpmdepFreeConflicts(struct rpmDependencyConflict * conflicts,
+                         int numConflicts);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function frees the dependency conflict information of size
+            <TT
+CLASS="PARAMETER"
+><I
+>numConflicts</I
+></TT
+> pointed to by
+            <TT
+CLASS="PARAMETER"
+><I
+>conflicts</I
+></TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMDEPDONE"
+>Free a Dependency Data Structure &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmdepDone()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+void rpmdepDone(rpmDependencies rpmdep);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function frees the <CODE
+CLASS="STRUCTNAME"
+>rpmDependencies</CODE
+>
+            structure pointed to by <TT
+CLASS="PARAMETER"
+><I
+>rpmdep</I
+></TT
+>.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-DIAGNOSTIC-OUTPUT-CONTROL"
+>Diagnostic Output Control</A
+></H2
+><P
+>          The functions in this section are used to control the amount of
+          diagnostic output produced by other rpmlib functions.  The rpmlib
+          library can produce a wealth of diagnostic output, making it easy to
+          see what is going on at any given time.
+        </P
+><P
+>          There are several different verbosity levels defined in
+          <TT
+CLASS="FILENAME"
+>rpmlib.h</TT
+>.  Their symbolic names are of the form
+          <SPAN
+CLASS="SYMBOL"
+>RPMMESS_<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+>, where
+          <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+> is the name of the
+          verbosity level.  It should be noted that the numeric values of the
+          verbosity levels <I
+CLASS="EMPHASIS"
+>increase</I
+> with a
+          <I
+CLASS="EMPHASIS"
+>decrease</I
+> in verbosity.
+        </P
+><P
+>          Unless otherwise set, the default verbosity level is
+          <SPAN
+CLASS="SYMBOL"
+>RPMMESS_NORMAL</SPAN
+>.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMINCREASEVERBOSITY"
+>Increase Verbosity Level &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmIncreaseVerbosity()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+void rpmIncreaseVerbosity(void);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function is used to increase the current verbosity level by
+            one.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMSETVERBOSITY"
+>Set Verbosity Level &#8212; <TT
+CLASS="FUNCTION"
+>rpmSetVerbosity()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+void rpmSetVerbosity(int level);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function is used to set the current verbosity level to
+            <TT
+CLASS="PARAMETER"
+><I
+>level</I
+></TT
+>.  Note that no range checking is done
+            to <TT
+CLASS="PARAMETER"
+><I
+>level</I
+></TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMGETVERBOSITY"
+>Return Verbosity Level &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmGetVerbosity()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmGetVerbosity(void);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns the current verbosity level.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMISVERBOSE"
+>Check Verbosity Level &#8212; <TT
+CLASS="FUNCTION"
+>rpmIsVerbose()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmIsVerbose(void);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function checks the current verbosity level and returns
+            <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> if the current level is set to
+            <SPAN
+CLASS="SYMBOL"
+>RPMMESS_VERBOSE</SPAN
+> or a level of higher verbosity.
+            Otherwise, it returns <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMISDEBUG"
+>Check Debug Level &#8212; <TT
+CLASS="FUNCTION"
+>rpmIsDebug()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmIsDebug(void);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function checks the current verbosity level and returns
+            <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> if the current level is set to
+            <SPAN
+CLASS="SYMBOL"
+>RPMMESS_DEBUG</SPAN
+>, or a level of higher verbosity.
+            Otherwise, it returns <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-SIGNATURE-VERIFICATION"
+>Signature Verification</A
+></H2
+><P
+>          The functions in this section deal with the verification of package
+          signatures.  A package file may contain more than one type of
+          signature.  For example, a package may contain a signature that
+          contains the package's size, as well as a signature that contains
+          cryptographically-derived data that can be used to prove the package's
+          origin.
+        </P
+><P
+>          Each type of signature has its own tag value.  These tag values are
+          defined in <TT
+CLASS="FILENAME"
+>rpmlib.h</TT
+> and are of the form
+          <SPAN
+CLASS="SYMBOL"
+>RPMSIGTAG_<TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+>, where
+          <SPAN
+CLASS="SYMBOL"
+><TT
+CLASS="REPLACEABLE"
+><I
+>xxx</I
+></TT
+></SPAN
+> is the type of
+          signature.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMVERIFYSIGNATURE"
+>Verify A Package File's Signature &#8212;
+            <TT
+CLASS="FUNCTION"
+>rpmVerifySignature()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+
+int rpmVerifySignature(char *file,
+                       int_32 sigTag,
+                       void *sig,
+                       int count,
+                       char *result);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function verifies the signature of the package pointed to by
+            <TT
+CLASS="PARAMETER"
+><I
+>file</I
+></TT
+>.  The result of the verification is
+            stored in <TT
+CLASS="PARAMETER"
+><I
+>result</I
+></TT
+>, in a format suitable for
+            printing.
+          </P
+><P
+>            The <TT
+CLASS="PARAMETER"
+><I
+>sigTag</I
+></TT
+> parameter specifies the type of
+            signature to be checked.  The <TT
+CLASS="PARAMETER"
+><I
+>sig</I
+></TT
+> parameter
+            specifies the signature against which the package is to be verified.
+            The <TT
+CLASS="PARAMETER"
+><I
+>count</I
+></TT
+> parameter specifies the size of the
+            signature; at present, this parameter is only used for PGP-based
+            signatures.
+          </P
+><P
+>            This function returns the following values:
+
+            <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMSIG_OK</SPAN
+> &#8212; The signature verified
+                  correctly.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMSIG_UNKNOWN</SPAN
+> &#8212; The signature type is
+                  unknown.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMSIG_BAD</SPAN
+> &#8212; The signature did not
+                  verify correctly.
+                </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                  <SPAN
+CLASS="SYMBOL"
+>RPMSIG_NOKEY</SPAN
+> &#8212; The key required to
+                  check this signature is not available.
+                </P
+></LI
+></UL
+>
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-RPMFREESIGNATURE"
+>Free Signature Read By <TT
+CLASS="FUNCTION"
+>rpmReadPackageInfo()</TT
+>
+            &#8212; <TT
+CLASS="FUNCTION"
+>rpmFreeSignature()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+void rpmFreeSignature(Header h);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function frees the signature <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-HEADER-MANIPULATION"
+>Header Manipulation</A
+></H2
+><P
+>          The header is one of the key data structures in rpmlib.  The functions
+          in this section perform basic manipulations of the header.
+        </P
+><P
+>          The header is actually a data structure.  It is not necessary to fully
+          understand the actual data structure.  However, it
+          <I
+CLASS="EMPHASIS"
+>is</I
+> necessary to understand the basic concepts on
+          which the header is based.
+        </P
+><P
+>          The header serves as a kind of miniature database.  The header can be
+          searched for specific information, which can be retrieved easily.
+          Like a database, the information contained in the header can be of
+          varying sizes.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERREAD"
+>Read A Header &#8212; <TT
+CLASS="FUNCTION"
+>headerRead()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+Header headerRead(int fd,
+                  int magicp);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function reads a header from file <TT
+CLASS="PARAMETER"
+><I
+>fd</I
+></TT
+>,
+            converting it from network byte order to the host system's byte
+            order.  If <TT
+CLASS="PARAMETER"
+><I
+>magicp</I
+></TT
+> is defined to be
+            <SPAN
+CLASS="SYMBOL"
+>HEADER_MAGIC_YES</SPAN
+>, <TT
+CLASS="FUNCTION"
+>headerRead()</TT
+>
+            will expect header magic numbers, and will return an error if they
+            are not present.  Likewise, if <TT
+CLASS="PARAMETER"
+><I
+>magicp</I
+></TT
+> is
+            defined to be <SPAN
+CLASS="SYMBOL"
+>HEADER_MAGIC_NO</SPAN
+>,
+            <TT
+CLASS="FUNCTION"
+>headerRead()</TT
+> will not check the header's magic
+            numbers, and will return an error if they are present.
+          </P
+><P
+>            On error, this function returns <SPAN
+CLASS="SYMBOL"
+>NULL</SPAN
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERWRITE"
+>Write A Header &#8212; <TT
+CLASS="FUNCTION"
+>headerWrite()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+void headerWrite(int fd,
+                 Header h,
+                 int magicp);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function writes the header <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>, to file
+            <TT
+CLASS="PARAMETER"
+><I
+>fd</I
+></TT
+>, converting it from host byte order to
+            network byte order.  If <TT
+CLASS="PARAMETER"
+><I
+>magicp</I
+></TT
+> is defined to
+            be <SPAN
+CLASS="SYMBOL"
+>HEADER_MAGIC_YES</SPAN
+>,
+            <TT
+CLASS="FUNCTION"
+>headerWrite()</TT
+> will add the appropriate magic
+            numbers to the header being written.  If
+            <TT
+CLASS="PARAMETER"
+><I
+>magicp</I
+></TT
+> is defined to be
+            <SPAN
+CLASS="SYMBOL"
+>HEADER_MAGIC_NO</SPAN
+>, <TT
+CLASS="FUNCTION"
+>headerWrite()</TT
+>
+            will not include magic numbers.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERCOPY"
+>Copy A Header &#8212; <TT
+CLASS="FUNCTION"
+>headerCopy()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+Header headerCopy(Header h);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns a copy of header <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERSIZEOF"
+>Calculate A Header's Size &#8212;
+            <TT
+CLASS="FUNCTION"
+>headerSizeof()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+unsigned int headerSizeof(Header h,
+                          int magicp);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns the number of bytes the header
+            <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+> takes up on disk.  Note that in versions of
+            RPM prior to 2.3.3, this function also changes the location of the
+            data in the header.  The result is that pointers from
+            <TT
+CLASS="FUNCTION"
+>headerGetEntry()</TT
+> will no longer be valid.
+            Therefore, any pointers acquired before calling
+            <TT
+CLASS="FUNCTION"
+>headerSizeof()</TT
+> should be discarded.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERNEW"
+>Create A New Header &#8212; <TT
+CLASS="FUNCTION"
+>headerNew()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+Header headerNew(void);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns a new header.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERFREE"
+>Deallocate A Header &#8212; <TT
+CLASS="FUNCTION"
+>headerFree()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+void headerFree(Header h);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function deallocates the header specified by
+            <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERDUMP"
+>Print Header Structure In Human-Readable Form &#8212;
+            <TT
+CLASS="FUNCTION"
+>headerDump()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+void headerDump(Header h,
+                FILE *f,
+                int flags);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function prints the structure of the header
+            <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>, to the file <TT
+CLASS="PARAMETER"
+><I
+>f</I
+></TT
+>.  If
+            the <TT
+CLASS="PARAMETER"
+><I
+>flags</I
+></TT
+> parameter is defined to be
+            <SPAN
+CLASS="SYMBOL"
+>HEADER_DUMP_INLINE</SPAN
+>, the header's data is also
+            printed.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-HEADER-ENTRY-MANIPULATION"
+>Header Entry Manipulation</A
+></H2
+><P
+>          The functions in this section provide the basic operations necessary
+          to manipulate header entries.  The following header entry types are
+          currently defined:
+
+          <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <SPAN
+CLASS="SYMBOL"
+>RPM_NULL_TYPE</SPAN
+> &#8212; This type is not used.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <SPAN
+CLASS="SYMBOL"
+>RPM_CHAR_TYPE</SPAN
+> &#8212; The entry contains a
+                single character.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <SPAN
+CLASS="SYMBOL"
+>RPM_INT8_TYPE</SPAN
+> &#8212; The entry contains an
+                eight-bit integer.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <SPAN
+CLASS="SYMBOL"
+>RPM_INT16_TYPE</SPAN
+> &#8212; The entry contains a
+                sixteen-bit integer.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <SPAN
+CLASS="SYMBOL"
+>RPM_INT32_TYPE</SPAN
+> &#8212; The entry contains a
+                thirty-two-bit integer.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <SPAN
+CLASS="SYMBOL"
+>RPM_INT64_TYPE</SPAN
+> &#8212; The entry contains a
+                sixty-four-bit integer.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <SPAN
+CLASS="SYMBOL"
+>RPM_STRING_TYPE</SPAN
+> &#8212; The entry contains a
+                null-terminated character string.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <SPAN
+CLASS="SYMBOL"
+>RPM_BIN_TYPE</SPAN
+> &#8212; The entry contains binary
+                data that will not be interpreted by rpmlib.
+              </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>                <SPAN
+CLASS="SYMBOL"
+>RPM_STRING_ARRAY_TYPE</SPAN
+> &#8212; The entry
+                contains an array of null-terminated strings.
+              </P
+></LI
+></UL
+>
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERGETENTRY"
+>Get Entry From Header &#8212; <TT
+CLASS="FUNCTION"
+>headerGetEntry()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+int headerGetEntry(Header h,
+                   int_32 tag,
+                   int_32 *type,
+                   void **p,
+                   int_32 *c);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function retrieves the entry matching
+            <TT
+CLASS="PARAMETER"
+><I
+>tag</I
+></TT
+> from header <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>.
+            The type of the entry is returned in <TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+>, a
+            pointer to the data is returned in <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>, and the
+            size of the data is returned in <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>.  Both
+            <TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+> and <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+> may be
+            null, in which case that data will not be returned.  Note that if
+            the entry type is <SPAN
+CLASS="SYMBOL"
+>RPM_STRING_ARRAY_TYPE</SPAN
+>, you must
+            issue a <TT
+CLASS="FUNCTION"
+>free()</TT
+> on <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+> when
+            done with the data.
+          </P
+><P
+>            This function returns <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> on success, and
+            <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> on failure.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERADDENTRY"
+>Add Entry To Header &#8212; <TT
+CLASS="FUNCTION"
+>headerAddEntry()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+int headerAddEntry(Header h,
+                   int_32 tag,
+                   int_32 type,
+                   void *p,
+                   int_32 c);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function adds a new entry to the header
+            <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>.  The entry's tag is specified by the
+            <TT
+CLASS="PARAMETER"
+><I
+>tag</I
+></TT
+> parameter, and the entry's type is
+            specified by the <TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+> parameter.
+          </P
+><P
+>            The entry's data is pointed to by <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>, and the
+            size of the data is specified by <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>.
+          </P
+><P
+>            This function always returns <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+>.
+          </P
+><P
+>            Note: In versions of RPM prior to 2.3.3,
+            <TT
+CLASS="FUNCTION"
+>headerAddEntry()</TT
+> will only work successfully
+            with headers produced by <TT
+CLASS="FUNCTION"
+>headerCopy()</TT
+> and
+            <TT
+CLASS="FUNCTION"
+>headerNew()</TT
+>.  In particular,
+            <TT
+CLASS="FUNCTION"
+>headerAddEntry()</TT
+> is not supported when used to
+            add entries to a header produced by
+            <TT
+CLASS="FUNCTION"
+>headerRead()</TT
+>.  Later versions of RPM lift this
+            restriction.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERISENTRY"
+>Determine If Entry Is In Header &#8212;
+            <TT
+CLASS="FUNCTION"
+>headerIsEntry()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+int headerIsEntry(Header h,
+                  int_32 tag);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> if an entry with
+            tag <TT
+CLASS="PARAMETER"
+><I
+>tag</I
+></TT
+> is present in header
+            <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>.  If the tag is not present, this function
+            returns <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+>.
+          </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-RPMLIB-HEADER-ITERATOR-SUPPORT"
+>Header Iterator Support</A
+></H2
+><P
+>          Iterators are used as a means to step from entry to entry, through an
+          entire header.  The functions in this section are used to create, use,
+          and free iterators.
+        </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERINITITERATOR"
+>Create an Iterator &#8212; <TT
+CLASS="FUNCTION"
+>headerInitIterator()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+HeaderIterator headerInitIterator(Header h);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function returns a newly-created iterator for the header
+            <TT
+CLASS="PARAMETER"
+><I
+>h</I
+></TT
+>.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERNEXTITERATOR"
+>Step To the Next Entry &#8212;
+            <TT
+CLASS="FUNCTION"
+>headerNextIterator()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+int headerNextIterator(HeaderIterator iter,
+                       int_32 *tag,
+                       int_32 *type,
+                       void **p,
+                       int_32 *c);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function steps to the next entry in the header specified when
+            the iterator <TT
+CLASS="PARAMETER"
+><I
+>iter</I
+></TT
+> was created with
+            <TT
+CLASS="FUNCTION"
+>headerInitIterator()</TT
+>.  The next entry's tag,
+            type, data, and size are returned in <TT
+CLASS="PARAMETER"
+><I
+>tag</I
+></TT
+>,
+            <TT
+CLASS="PARAMETER"
+><I
+>type</I
+></TT
+>, <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+>, and
+            <TT
+CLASS="PARAMETER"
+><I
+>c</I
+></TT
+>, respectively.  Note that if the entry type
+            is <SPAN
+CLASS="SYMBOL"
+>RPM_STRING_ARRAY_TYPE</SPAN
+>, you must issue a
+            <TT
+CLASS="FUNCTION"
+>free()</TT
+> on <TT
+CLASS="PARAMETER"
+><I
+>p</I
+></TT
+> when done
+            with the data.
+          </P
+><P
+>            This function returns <SPAN
+CLASS="RETURNVALUE"
+>1</SPAN
+> if successful,
+            and <SPAN
+CLASS="RETURNVALUE"
+>0</SPAN
+> if there are no more entries in the
+            header.
+          </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-RPMLIB-HEADERFREEITERATOR"
+>Free An Iterator &#8212; <TT
+CLASS="FUNCTION"
+>headerFreeIterator()</TT
+></A
+></H3
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>#include &#60;rpm/rpmlib.h&#62;
+#include &#60;rpm/header.h&#62;
+
+void headerFreeIterator(HeaderIterator iter);</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+><P
+>            This function frees the resources used by the iterator
+            <TT
+CLASS="PARAMETER"
+><I
+>iter</I
+></TT
+>.
+          </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-rpmlib.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-rpmlib-example-code.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>A Guide to the RPM Library API</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-rpmlib.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Example Code</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

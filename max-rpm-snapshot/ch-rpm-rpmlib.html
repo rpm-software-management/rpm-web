@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>A Guide to the RPM Library API</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="      RPM and Developers &#8212; How to Distribute Your Software More Easily
+      With RPM
+    "
+HREF="p5206.html"><LINK
+REL="PREVIOUS"
+TITLE="Package Building"
+HREF="s1-rpm-rw-build-package-building.html"><LINK
+REL="NEXT"
+TITLE="rpmlib Functions"
+HREF="s1-rpm-rpmlib-functions.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-rw-build-package-building.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-rpmlib-functions.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="CH-RPM-RPMLIB"
+></A
+>Chapter 21. A Guide to the RPM Library API</H1
+><P
+>      In this chapter, we'll explore the functions used internally by RPM.
+      These functions are available for anyone to use, making it possible to add
+      RPM functionality to new and existing programs.  Rather than continually
+      refer to "the RPM library" throughout this chapter, we'll use the name of
+      the library's main include file &#8212; rpmlib.
+    </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-RPMLIB-OVERVIEW"
+>An Overview of rpmlib</A
+></H1
+><P
+>        There are a number of files that make up rpmlib.  First and foremost, of
+        course, is the rpmlib library, <TT
+CLASS="FILENAME"
+>librpm.a</TT
+>.  This
+        library contains all the functions required to implement all the basic
+        functions contained in RPM.
+      </P
+><P
+>        The remaining files define the various data structures, parameters, and
+        symbols used by rpmlib:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <TT
+CLASS="FILENAME"
+>rpmlib.h</TT
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <TT
+CLASS="FILENAME"
+>dbindex.h</TT
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <TT
+CLASS="FILENAME"
+>header.h</TT
+>
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        In general, <TT
+CLASS="FILENAME"
+>rpmlib.h</TT
+> will always be required.  When
+        using rpmlib's header-related functions, <TT
+CLASS="FILENAME"
+>header.h</TT
+>
+        will be required, while the database-related function will require
+        <TT
+CLASS="FILENAME"
+>dbindex.h</TT
+>.  As each function is described in this
+        chapter, we'll provide the function's prototype as well as the
+        <B
+CLASS="COMMAND"
+>#include</B
+> statements the function requires.
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-rw-build-package-building.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-rpmlib-functions.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Package Building</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="p5206.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>rpmlib Functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

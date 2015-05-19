@@ -1,0 +1,881 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Scriptlets</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Concise Spec File Reference"
+HREF="ch-rpm-specref.html"><LINK
+REL="PREVIOUS"
+TITLE="The Preamble"
+HREF="s1-rpm-specref-preamble.html"><LINK
+REL="NEXT"
+TITLE="Macros"
+HREF="s1-rpm-specref-macros.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-specref-preamble.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendix E. Concise Spec File Reference</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-specref-macros.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-SPECREF-SCRIPTS"
+>Scriptlets</A
+></H1
+><P
+>      This section lists the various scriptlets found in a spec file.
+    </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-BUILD-TIME-SCRIPTS"
+>Build Scriptlets</A
+></H2
+><P
+>        Every build scriptlet has the following environment variables defined:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <CODE
+CLASS="ENVAR"
+>RPM_SOURCE_DIR</CODE
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <CODE
+CLASS="ENVAR"
+>RPM_BUILD_DIR</CODE
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <CODE
+CLASS="ENVAR"
+>RPM_DOC_DIR</CODE
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <CODE
+CLASS="ENVAR"
+>RPM_OPT_FLAGS</CODE
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <CODE
+CLASS="ENVAR"
+>RPM_ARCH</CODE
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <CODE
+CLASS="ENVAR"
+>RPM_OS</CODE
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <CODE
+CLASS="ENVAR"
+>RPM_ROOT_DIR</CODE
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <CODE
+CLASS="ENVAR"
+>RPM_BUILD_ROOT</CODE
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <CODE
+CLASS="ENVAR"
+>RPM_PACKAGE_NAME</CODE
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <CODE
+CLASS="ENVAR"
+>RPM_PACKAGE_VERSION</CODE
+>
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <CODE
+CLASS="ENVAR"
+>RPM_PACKAGE_RELEASE</CODE
+>
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        For more information on these environment variables, and build
+        scriptlets in general, please see <A
+HREF="s1-rpm-inside-scripts.html#S2-RPM-INSIDE-BUILD-TIME-SCRIPTS"
+>the Section called <I
+>Build-time Scripts</I
+> in Chapter 13</A
+>.
+      </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-PREP"
+><B
+CLASS="COMMAND"
+>%prep</B
+> Directive -- Unpack archives and apply patches.</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%prep</B
+> scriptlet is executed first
+          during a build,
+	  The scriptlet normally prepares the contents of a source package
+	  for building, usually by unpacking archives and applying patches.
+The scriptlet can contain any valid <B
+CLASS="COMMAND"
+>sh</B
+> commands.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%prep</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-scripts.html#S3-RPM-INSIDE-PREP-SCRIPT"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%prep</B
+> Script</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-BUILD"
+><B
+CLASS="COMMAND"
+>%build</B
+> Directive -- Configure and compile components
+	to be packaged.</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%build</B
+> scriptlet is the second scriptlet
+	  executed during a build, immediately after <B
+CLASS="COMMAND"
+>%prep</B
+>.
+	  The scriptlet normally builds the components to be included in
+	  a binary package, usually by configuring and compiling source code
+	  from the previously unpacked and patched archives.
+The scriptlet can contain any valid <B
+CLASS="COMMAND"
+>sh</B
+> commands.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%build</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-scripts.html#S3-RPM-INSIDE-BUILD-SCRIPT"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%build</B
+> Script</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-INSTALL"
+><B
+CLASS="COMMAND"
+>%install</B
+> Directive -- Install components to be packaged.</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%install</B
+> scriptlet is the third scriptlet
+          executed during a build, immediately after <B
+CLASS="COMMAND"
+>%build</B
+>.
+	  The scriptlet normally installs components to be included in
+	  a binary package, usually by copying files from the build directory
+	  tree to an install directory tree.
+The scriptlet can contain any valid <B
+CLASS="COMMAND"
+>sh</B
+> commands.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%install</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-scripts.html#S3-RPM-INSIDE-INSTALL-SCRIPT"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%install</B
+> Script</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-CHECK"
+><B
+CLASS="COMMAND"
+>%check</B
+> Directive -- Run included tests.</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%check</B
+> scriptlet is the fourth scriptlet
+          executed during a build, immediately after
+          <B
+CLASS="COMMAND"
+>%install</B
+>.  The scriptlet normally runs the test
+          suite for the built components if one is available.
+          The scriptlet can contain any valid <B
+CLASS="COMMAND"
+>sh</B
+> commands.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%check</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-scripts.html#S3-RPM-INSIDE-CHECK-SCRIPT"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%check</B
+> Script</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-CLEAN"
+><B
+CLASS="COMMAND"
+>%clean</B
+> Directive -- Remove build components.</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%clean</B
+> scriptlet is executed at the end of
+	  a build.
+	  The scriptlet cleans up files produced during a build, usually by
+	  removing the install directory tree.
+The scriptlet can contain any valid <B
+CLASS="COMMAND"
+>sh</B
+> commands.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%clean</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-scripts.html#S3-RPM-INSIDE-CLEAN-SCRIPT"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%clean</B
+> Script</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-INSTALL-ERASE-SCRIPTS"
+>Install/Erase Scriptlets</A
+></H2
+><P
+>        These scriptlets are executed whenever the package is installed or
+	erased.
+Each scriptlet can contain any valid <B
+CLASS="COMMAND"
+>sh</B
+> commands.
+      </P
+><P
+>        Note: Each of the following scriptlet can be made specific to a
+	particular subpackage by adding the subpackage name, and optionally,
+	the <CODE
+CLASS="OPTION"
+>-n</CODE
+> option:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%post bar
+
+%preun -n bar</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        The subpackage name and usage of the <CODE
+CLASS="OPTION"
+>-n</CODE
+> option must
+        match those defined with the <B
+CLASS="COMMAND"
+>%package</B
+> directive.
+      </P
+><P
+>        Each scriptlet has the following environment variable defined:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <CODE
+CLASS="ENVAR"
+>RPM_INSTALL_PREFIX</CODE
+>
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        For more information on this environment variable please see <A
+HREF="s1-rpm-inside-scripts.html#S2-RPM-INSIDE-ERASE-TIME-SCRIPTS"
+>the Section called <I
+>Install/Erase-time Scripts</I
+> in Chapter 13</A
+>.
+      </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-PRE"
+>The <B
+CLASS="COMMAND"
+>%pre</B
+> Script</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%pre</B
+> scriptlet executes just before the package is
+          to be installed.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%pre</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-scripts.html#S3-RPM-INSIDE-PRE-SCRIPT"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%pre</B
+> Script</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-POST"
+>The <B
+CLASS="COMMAND"
+>%post</B
+> Script</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%post</B
+> scriptlet executes just after the package is
+          to be installed.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%post</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-scripts.html#S4-RPM-INSIDE-POST-SCRIPT"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%post</B
+> Script</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-PREUN"
+>The <B
+CLASS="COMMAND"
+>%preun</B
+> Script</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%preun</B
+> scriptlet executes just before the package
+          is to be erased.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%preun</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-scripts.html#S3-RPM-INSIDE-PREUN-SCRIPT"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%preun</B
+> Script</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-POSTUN"
+><B
+CLASS="COMMAND"
+>%postun</B
+> Directive</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%postun</B
+> scriptlet executes just after the package
+          is to be erased.
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>%postun</SAMP
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-scripts.html#S3-RPM-INSIDE-POSTUN-SCRIPT"
+>the Section called <I
+>The <B
+CLASS="COMMAND"
+>%postun</B
+> Script</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-SPECREF-VERIFICATION-SCRIPT"
+><B
+CLASS="COMMAND"
+>%verifyscript</B
+> Directive</A
+></H2
+><P
+>        This section describes the verification script.
+      </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="S3-RPM-SPECREF-VERIFYSCRIPT"
+>The <B
+CLASS="COMMAND"
+>%verifyscript</B
+> Script</A
+></H3
+><P
+>          The <B
+CLASS="COMMAND"
+>%verifyscript</B
+> scriptlet executes whenever the
+          package is verified using RPM's <CODE
+CLASS="OPTION"
+>-V</CODE
+> option.
+The scriptlet can contain any valid <B
+CLASS="COMMAND"
+>sh</B
+> commands.
+        </P
+><P
+>          See also: <A
+HREF="s1-rpm-inside-scripts.html#S2-RPM-INSIDE-VERIFYSCRIPT-SCRIPT"
+>the Section called <I
+>Verification-Time Script &#8212; The <B
+CLASS="COMMAND"
+>%verifyscript</B
+>
+          Script</I
+> in Chapter 13</A
+>.
+        </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-specref-preamble.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-specref-macros.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>The Preamble</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-specref.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Macros</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

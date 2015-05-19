@@ -1,0 +1,353 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Two handy options</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Install Packages"
+HREF="ch-rpm-install.html"><LINK
+REL="PREVIOUS"
+TITLE="Performing an Install"
+HREF="s1-rpm-install-performing-install.html"><LINK
+REL="NEXT"
+TITLE="Additional options to rpm -i"
+HREF="s1-rpm-install-additional-options.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-install-performing-install.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Using RPM to Install Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-install-additional-options.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-INSTALL-HANDY-OPTIONS"
+>Two handy options</A
+></H1
+><P
+>        There are two options to <B
+CLASS="COMMAND"
+>rpm -i</B
+> that work so well,
+        and are so useful, you might think they should be RPM's default
+        behavior.  They aren't, but using them only requires that you type an
+        extra two characters:
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-MORE-FEEDBACK"
+>Getting a bit more feedback with <B
+CLASS="COMMAND"
+>-v</B
+></A
+></H2
+><P
+>          Even though <B
+CLASS="COMMAND"
+>rpm -i</B
+> is doing many things, it's not
+          very exciting, is it?  When performing installs, RPM is pretty quiet,
+          unless something goes wrong.  However, we can ask for a bit more
+          output by adding <B
+CLASS="COMMAND"
+>-v</B
+> to the command:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv eject-1.2-2.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing eject-1.2-2.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          By adding <B
+CLASS="COMMAND"
+>-v</B
+>, RPM displayed a simple status line.
+          Using <B
+CLASS="COMMAND"
+>-v</B
+> is a good idea, particularly if you're
+          going to use a single command to install more than one package:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -iv *.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Installing eject-1.2-2.i386.rpm
+Installing iBCS-1.2-3.i386.rpm
+Installing logrotate-1.0-1.i386.rpm</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          In this case, there were three .rpm files in the directory.  By using
+          a simple wildcard, it's as easy to install one package as it is to
+          install one hundred!
+        </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-INSTALL-INSTALL-H"
+><B
+CLASS="COMMAND"
+>-h</B
+>: Perfect for the Impatient</A
+></H2
+><P
+>          Sometimes a package can be quite large.  Other than watching the disk
+          activity light flash, there's no assurance that RPM is working, and if
+          it is, how far along it is.  If you add <B
+CLASS="COMMAND"
+>-h</B
+>, RPM
+          will print fifty hash marks ("<SAMP
+CLASS="COMPUTEROUTPUT"
+>#</SAMP
+>") as
+          the install proceeds:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -ih eject-1.2-2.i386.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          Once all fifty hash marks are printed, the package is completely
+          installed.  Using <B
+CLASS="COMMAND"
+>-v</B
+> with <B
+CLASS="COMMAND"
+>-h</B
+>
+          results in a very nice display, particularly when installing more than
+          one package:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -ivh *.rpm</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>eject          ##################################################
+iBCS           ##################################################
+logrotate      ##################################################</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="s1-rpm-install-performing-install.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-install-additional-options.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Performing an Install</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-install.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Additional options to <B
+CLASS="COMMAND"
+>rpm -i</B
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

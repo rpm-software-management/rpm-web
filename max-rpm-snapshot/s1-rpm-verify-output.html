@@ -1,0 +1,447 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>When Verification Fails &#8212; rpm -V
+      Output</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REL="HOME"
+TITLE="Maximum RPM"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Using RPM to Verify Installed Packages"
+HREF="ch-rpm-verify.html"><LINK
+REL="PREVIOUS"
+TITLE="Using RPM to Verify Installed Packages"
+HREF="ch-rpm-verify.html"><LINK
+REL="NEXT"
+TITLE="Selecting What to Verify, and How"
+HREF="s1-rpm-verify-what-to-verify.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Maximum RPM: Taking the RPM Package Manager to the Limit</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ch-rpm-verify.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 6. Using RPM to Verify Installed Packages</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="s1-rpm-verify-what-to-verify.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="S1-RPM-VERIFY-OUTPUT"
+>When Verification Fails &#8212; <B
+CLASS="COMMAND"
+>rpm -V</B
+>
+      Output</A
+></H1
+><P
+>        When verifying a package, RPM produces output <I
+CLASS="EMPHASIS"
+>only</I
+>
+        if there is a verification failure.  When a file fails verification, the
+        format of the output is a bit cryptic, but it packs all the information
+        you need into one line per file.  Here is the format:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>SM5DLUGT c <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Where:
+
+        <P
+></P
+><UL
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <SAMP
+CLASS="COMPUTEROUTPUT"
+>S</SAMP
+> is the file size.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <SAMP
+CLASS="COMPUTEROUTPUT"
+>M</SAMP
+> is the file's mode.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <SAMP
+CLASS="COMPUTEROUTPUT"
+>5</SAMP
+> is the MD5 checksum of the
+              file.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <SAMP
+CLASS="COMPUTEROUTPUT"
+>D</SAMP
+> is the file's major and minor
+              numbers.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <SAMP
+CLASS="COMPUTEROUTPUT"
+>L</SAMP
+> is the file's symbolic link
+              contents.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <SAMP
+CLASS="COMPUTEROUTPUT"
+>U</SAMP
+> is owner of the file.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <SAMP
+CLASS="COMPUTEROUTPUT"
+>G</SAMP
+> is the file's group.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <SAMP
+CLASS="COMPUTEROUTPUT"
+>T</SAMP
+> is the modification time of the
+              file.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <SAMP
+CLASS="COMPUTEROUTPUT"
+>c</SAMP
+> appears only if the file is a
+              configuration file.
+              
+              This is handy for quickly identifying config files, as they are
+              very likely to change, and therefore, very
+              <I
+CLASS="EMPHASIS"
+>unlikely</I
+> to verify successfully.
+            </P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>              <SAMP
+CLASS="COMPUTEROUTPUT"
+><TT
+CLASS="REPLACEABLE"
+><I
+>&#60;file&#62;</I
+></TT
+></SAMP
+>
+              is the file that failed verification.  The complete path is listed
+              to make it easy to find.
+            </P
+></LI
+></UL
+>
+      </P
+><P
+>        It's unlikely that <I
+CLASS="EMPHASIS"
+>every</I
+> file attribute will fail
+        to verify, so each of the eight attribute flags will only appear if
+        there is a problem.  Otherwise, a "<SAMP
+CLASS="COMPUTEROUTPUT"
+>.</SAMP
+>"
+        will be printed in that flag's place.  Let's look at an example or two:
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>.M5....T   /usr/X11R6/lib/X11/fonts/misc/fonts.dir</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        In this case, the mode, MD5 checksum, and modification time for the
+        specified file have failed to verify.  The file is not a config file
+        (Note the absence of a "<SAMP
+CLASS="COMPUTEROUTPUT"
+>c</SAMP
+>" between the
+        attribute list and the filename).
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>S.5....T c /etc/passwd</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        Here, the size, checksum, and modification time of the system password
+        file have all changed.  The "<SAMP
+CLASS="COMPUTEROUTPUT"
+>c</SAMP
+>"
+        indicates that this is a config file.
+
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>missing    /var/spool/at/spool</SAMP
+>
+        </PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+><P
+>        This last example illustrates what RPM does when a file, that should be
+        there, is missing entirely.
+      </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="S2-RPM-VERIFY-VERIFICATION-FAILURE-MESSAGES"
+>Other Verification Failure Messages</A
+></H2
+><P
+>          When <B
+CLASS="COMMAND"
+>rpm -V</B
+> finds other problems, the output is a
+          bit easier to understand:
+
+          <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="PROMPT"
+># </TT
+><KBD
+CLASS="USERINPUT"
+>rpm -V blather</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Unsatisfied dependencies for blather-7.9-1: bother &#62;= 3.1</SAMP
+>
+<TT
+CLASS="PROMPT"
+>#</TT
+>
+          </PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+><P
+>          It's pretty easy to see that the <TT
+CLASS="FILENAME"
+>blather</TT
+> package
+          requires at least version 3.1 of the <TT
+CLASS="FILENAME"
+>bother</TT
+>
+          package.
+        </P
+><P
+>          The output from a package's verification script is a bit harder to
+          categorize, as the script's contents, as well as its messages, are
+          entirely up to the package builder.
+        </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ch-rpm-verify.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="s1-rpm-verify-what-to-verify.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using RPM to Verify Installed Packages</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ch-rpm-verify.html"
+ACCESSKEY="U"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Selecting What to Verify, and How</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
