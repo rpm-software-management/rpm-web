@@ -18,6 +18,7 @@ Write access can be granted for established contributors upon request.
 
 Fixing existing bugs and known issues is always a good way to get started.
 Some pointers below:
+
 * Upstream [issue tracker](https://github.com/rpm-software-management/rpm/issues)
 * Lots of [open bugs](https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&bug_status=ASSIGNED&component=rpm&query_format=advanced) can also be found in the [Red Hat bugzilla](https://bugzilla.redhat.com/)
 * Addressing known limitations and problems of RPM:
