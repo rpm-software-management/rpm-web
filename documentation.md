@@ -14,7 +14,6 @@ This page attempts to track the various relevant documentation that exists for R
   * [RPM Query Formats](user_doc/query_format.html) 
 
 ## Packager Documentation
-* [Creating RPMS](http://www.gurulabs.com/GURULABS-RPM-LAB/GURULABS-RPM-GUIDE-v1.0.PDF) slides from [Guru Labs](http://www.gurulabs.com/)
 * [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html)
 * In wiki:
   * [Conditional Builds (rpmbuild &#8211;&#8211;with/&#8211;&#8211;without)](packager_doc/conditional_builds.html)
