@@ -5,7 +5,7 @@ title: Getting help
 Have a question that's not answered in any of the documentation? We have several channels for community support. This page serves as a way to list and explain each avenue of communication channel.
 
 ## Mailing Lists
-rpm.org makes use of the following email lists:
+rpm.org makes use of the following [email lists](http://lists.rpm.org/mailman/listinfo):
 
 [rpm-ecosystem@lists.rpm.org](http://lists.rpm.org/mailman/listinfo/rpm-ecosystem)
 : This list is used for discussion and questions regarding RPM ecosystem, i. e. RPM and all related software, tools and other stuff.
@@ -19,6 +19,9 @@ rpm.org makes use of the following email lists:
 [rpm-maint@lists.rpm.org](http://lists.rpm.org/mailman/listinfo/rpm-maint)
 : This list is used by RPM maintainers to discuss development and maintenance issues regarding the RPM software.
 
+Visit the list-info pages linked above for information on subscribing to the lists or for viewing the archives.
+
+You need to be subscribed to the mailing lists to be able to post there.
 
 ## IRC Channels
 rpm.org makes use of the following [Freenode](http://freenode.net/)
