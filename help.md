@@ -29,8 +29,6 @@ rpm.org makes use of the following IRC channels:
 \#rpm-ecosystem on Freenode
 : General discussion regarding the entire RPM ecosystem
 
-#
-
 ## Reporting bugs
 <dl>
 <dt>rpm.org</dt>
