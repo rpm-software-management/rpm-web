@@ -30,9 +30,10 @@ rpm.org makes use of the following IRC channels:
 : General discussion regarding the entire RPM ecosystem
 
 ## Reporting bugs
-<dl>
-<dt>rpm.org</dt>
-<dd>Bugs and enhancement requests for the "upstream" RPM can be filed in the <a href="http://rpm.org/newticket">rpm.org Trac</a>. Please search existing bug reports and RFE's to avoid filing duplicate entries. Note that you need to <a href="http://rpm.org/register">register</a> an account and ask for permissions being set for it on the mailing list or IRC channel in order to create tickets. Anonymous ticket creation is disabled as we'll want to be able to follow up on tickets with the reporter, and also to limit abuse.</dd>
-<dt>Vendor bugs</dt>
-<dd>RPM software is used in a variety of Linux distributions, varying greatly in the number of vendor-specific patches and configuration. Bugs experienced in these distributions are through the distribution vendor bug tracking system.</dd>
-</dl>
+
+rpm.org
+: Bugs and enhancement requests for RPM can be filed in upstream
+[issue tracker](https://github.com/rpm-software-management/rpm/issues)
+
+Vendor bugs
+: RPM is used in a variety of Linux distributions, varying greatly in the number of vendor-specific patches and configuration. Bugs experienced in these distributions are through the distribution vendor bug tracking system.
