@@ -3,13 +3,6 @@ layout: default
 title: Download source
 ---
 
-## Git repository
-Clone source code from git repository:
-
-`git clone https://github.com/rpm-software-management/rpm.git`
-
-If you want write access, please create an github account (if you do not already have one) and ask for being added to the project.
-
 ## Current supported stable releases
 
 ### RPM 4.12.x
