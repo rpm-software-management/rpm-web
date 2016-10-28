@@ -22,10 +22,14 @@ rpm-maint@lists.rpm.org
 
 ## IRC Channels
 rpm.org makes use of the following IRC channels:
-<dl>
-<dt>#rpm.org on Freenode</dt> 
-<dd>General discussion regarding RPM</dd>
-</dl>
+
+\#rpm.org on Freenode
+: General discussion regarding RPM
+
+\#rpm-ecosystem on Freenode
+: General discussion regarding the entire RPM ecosystem
+
+#
 
 ## Reporting bugs
 <dl>
