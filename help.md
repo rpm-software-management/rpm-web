@@ -27,10 +27,10 @@ You need to be subscribed to the mailing lists to be able to post there.
 rpm.org makes use of the following [Freenode](http://freenode.net/)
 [IRC](http://www.irchelp.org/) channels:
 
-\#rpm.org
+\#rpm.org ([web chat](http://webchat.freenode.net?channels=%23rpm.org))
 : General discussion regarding RPM
 
-\#rpm-ecosystem
+\#rpm-ecosystem ([web chat](http://webchat.freenode.net?channels=%23rpm-ecosystem))
 : General discussion regarding the entire RPM ecosystem
 
 ## Reporting bugs
