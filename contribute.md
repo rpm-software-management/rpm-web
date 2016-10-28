@@ -6,13 +6,13 @@ title: Contribute
 
 ### Git repository
 
-Our source code is maintained in a git repository. Clones of the repository can be made anonymously. If you have patches, or comments on the code, please discuss them on the rpm mailing lists with the rpm.org development team. If you want to hack on rpm but don't know where to start, here are some possible sources of inspiration:
+Our source code is maintained in a [git repository](https://github.com/rpm-software-management/rpm) at [GitHub](https://github.com/). Clones of the repository can be made anonymously. If you have patches, or comments on the code, please discuss them on the rpm mailing lists with the rpm.org development team.
 
 Clone source code from git repository:
 
 `git clone https://github.com/rpm-software-management/rpm.git`
 
-Write access can be granted for established contributors upon request.
+Write access can be granted for established contributors upon request. But for most things sending patches or a pull request to the mailing list or creating a pull request on Git Hub should be sufficient.
 
 ### Where to start
 
