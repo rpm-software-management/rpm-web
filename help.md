@@ -21,12 +21,13 @@ rpm.org makes use of the following email lists:
 
 
 ## IRC Channels
-rpm.org makes use of the following IRC channels:
+rpm.org makes use of the following [Freenode](http://freenode.net/)
+[IRC](http://www.irchelp.org/) channels:
 
-\#rpm.org on Freenode
+\#rpm.org
 : General discussion regarding RPM
 
-\#rpm-ecosystem on Freenode
+\#rpm-ecosystem
 : General discussion regarding the entire RPM ecosystem
 
 ## Reporting bugs
