@@ -7,17 +7,17 @@ Have a question that's not answered in any of the documentation? We have several
 ## Mailing Lists
 rpm.org makes use of the following email lists:
 
-rpm-ecosystem@lists.rpm.org
-: This list is used for discussion and questions regarding RPM ecosystem, i. e. RPM and all related software, tools and other stuff. Visit the list-info page for information on subscribing to this list or for viewing the archives.
+[rpm-ecosystem@lists.rpm.org](http://lists.rpm.org/mailman/listinfo/rpm-ecosystem)
+: This list is used for discussion and questions regarding RPM ecosystem, i. e. RPM and all related software, tools and other stuff.
 
-rpm-announce@lists.rpm.org
-: This is a low-traffic list, used only for announcements regarding the RPM software. Visit the list-info page for information on subscribing to this list or for viewing the archives.
+[rpm-announce@lists.rpm.org](http://lists.rpm.org/mailman/listinfo/rpm-announce)
+: This is a low-traffic list, used only for announcements regarding the RPM software.
 
-rpm-list@lists.rpm.org
-: This list is used for discussion and questions regarding the use of RPM software. Visit the list-info page for information on subscribing to this list or for viewing the archives.
+[rpm-list@lists.rpm.org](http://lists.rpm.org/mailman/listinfo/rpm-list)
+: This list is used for discussion and questions regarding the use of RPM software.
 
-rpm-maint@lists.rpm.org
-: This list is used by RPM maintainers to discuss development and maintenance issues regarding the RPM software. Visit the list-info page for information on subscribing to this list or for viewing the archives.
+[rpm-maint@lists.rpm.org](http://lists.rpm.org/mailman/listinfo/rpm-maint)
+: This list is used by RPM maintainers to discuss development and maintenance issues regarding the RPM software.
 
 
 ## IRC Channels
