@@ -226,6 +226,7 @@ form {
     width: 200px;
 	margin: 10px 0px;
 	background: url(../images/RPM_Logo.svg) no-repeat left top;
+	background-size: contain;
 	padding-top: 30px;
 	color: #000000;
 }
