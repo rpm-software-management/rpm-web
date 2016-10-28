@@ -4,7 +4,7 @@ title: Contribute
 ---
 ## How to contribute to rpm.org
 
-### Git repositoryy
+### Git repository
 
 Our source code is maintained in a git repository. Clones of the repository can be made anonymously. If you have patches, or comments on the code, please discuss them on the rpm mailing lists with the rpm.org development team. If you want to hack on rpm but don't know where to start, here are some possible sources of inspiration:
 
@@ -14,7 +14,11 @@ Clone source code from git repository:
 
 Write access can be granted for established contributors upon request.
 
-* Fixing [known bugs](http://rpm.org/report/1) is always a good way to get started.
+### Where to start
+
+Fixing existing bugs and known issues is always a good way to get started.
+Some pointers below:
+* Upstream [issue tracker](https://github.com/rpm-software-management/rpm/issues)
 * Lots of [open bugs](https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&bug_status=ASSIGNED&component=rpm&query_format=advanced) can also be found in the [Red Hat bugzilla](https://bugzilla.redhat.com/)
 * Addressing known limitations and problems of RPM:
   * [RPM Summit at openSUSE Conference 2009](problems/summit2009.html)
