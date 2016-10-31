@@ -7,7 +7,7 @@ title: Download source
 
 ### RPM 4.12.x
 
-* [RPM 4.12.1](http://rpm.org/releases/rpm-4.12.x/rpm-4.12.0.1.tar.bz2) ([Release notes](Releases/4.12.0.1.html))
+* [RPM 4.12.0.1](http://rpm.org/releases/rpm-4.12.x/rpm-4.12.0.1.tar.bz2) ([Release notes](Releases/4.12.0.1.html))
 * [RPM 4.12.0](http://rpm.org/releases/rpm-4.12.x/rpm-4.12.0.tar.bz2) ([Release notes](Releases/4.12.0.html))
 
 ### RPM 4.11.x
