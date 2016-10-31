@@ -3,7 +3,7 @@ layout: default
 title: Download source
 ---
 
-## Current supported stable releases
+## Current stable releases
 
 ### RPM 4.12.x
 
