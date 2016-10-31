@@ -10,6 +10,12 @@ title: Download source
 * [RPM 4.12.0.1](http://rpm.org/releases/rpm-4.12.x/rpm-4.12.0.1.tar.bz2) ([Release notes](wiki/Releases/4.12.0.1.html))
 * [RPM 4.12.0](http://rpm.org/releases/rpm-4.12.x/rpm-4.12.0.tar.bz2) ([Release notes](wiki/Releases/4.12.0.html))
 
+## Test releases
+
+* [RPM 4.13.0-rc2](http://rpm.org/releases/testing/rpm-4.13.0-rc2.tar.bz2) ([Release notes](wiki/Releases/4.13.0.html))
+
+## Old stable releases
+
 ### RPM 4.11.x
 
 * [RPM 4.11.3](http://rpm.org/releases/rpm-4.11.x/rpm-4.11.3.tar.bz2) ([Release notes](wiki/Releases/4.11.3.html))
@@ -17,12 +23,6 @@ title: Download source
 * [RPM 4.11.1](http://rpm.org/releases/rpm-4.11.x/rpm-4.11.1.tar.bz2) ([Release notes](wiki/Releases/4.11.1.html))
 * [RPM 4.11.0.1](http://rpm.org/releases/rpm-4.11.x/rpm-4.11.0.1.tar.bz2) ([Release notes](wiki/Releases/4.11.0.1.html))
 * [RPM 4.11.0](http://rpm.org/releases/rpm-4.11.x/rpm-4.11.0.tar.bz2) ([Release notes](wiki/Releases/4.11.0.html))
-
-## Test releases
-
-* [RPM 4.13.0-rc2](http://rpm.org/releases/testing/rpm-4.13.0-rc2.tar.bz2) ([Release notes](wiki/Releases/4.13.0.html))
-
-## Old stable releases
 
 
 ### RPM 4.10.x
