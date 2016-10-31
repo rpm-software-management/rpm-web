@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Contribute
+title: rpm.org - Contribute
 ---
 ## How to contribute to rpm.org
 

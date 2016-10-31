@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Documentation
+title: rpm.org - Documentation
 ---
 # Documentation
 This page attempts to track the various relevant documentation that exists for RPM.

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: rpm.org
+title: rpm.org - About
 ---
 The RPM Package Manager (RPM) is a powerful command line driven package management system capable of installing, uninstalling, verifying, querying, and updating computer software packages. Each software package consists of an archive of files along with information about the package like its version, a description, and the like. There is also a library API, permitting advanced developers to manage such transactions from programming languages such as C or Python.
 

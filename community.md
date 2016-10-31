@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Getting help
+title: rpm.org - Community
 ---
 Have a question that's not answered in any of the documentation? We have several channels for community support. This page serves as a way to list and explain each avenue of communication channel.
 

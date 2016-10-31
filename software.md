@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Related Sofware
+title: rpm.org - Related Sofware
 ---
 ## Software related to RPM
 

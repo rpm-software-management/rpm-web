@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Download source
+title: rpm.org - Download
 ---
 
 ## Current stable releases
