@@ -8,14 +8,14 @@ This page attempts to track the various relevant documentation that exists for R
 ## General Use
 * [RPM Tutorial](http://fedoranews.org/alex/tutorial/rpm/)
 * [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html)
-* In wiki:
+* On rpm.org:
   * [RPM Frequently asked questions (FAQ)](user_doc/faq.html)
   * [RPM Database Recovery](user_doc/db_recovery.html)
   * [RPM Query Formats](user_doc/query_format.html) 
 
 ## Packager Documentation
 * [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html)
-* In wiki:
+* On rpm.org:
   * [Conditional Builds (rpmbuild &#8211;&#8211;with/&#8211;&#8211;without)](user_doc/conditional_builds.html)
   * [Dependencies](user_doc/dependencies.html)
   * [More on Dependencies](user_doc/more_dependencies.html)
