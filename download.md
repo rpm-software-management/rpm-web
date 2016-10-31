@@ -18,6 +18,10 @@ title: Download source
 * [RPM 4.11.0.1](http://rpm.org/releases/rpm-4.11.x/rpm-4.11.0.1.tar.bz2) ([Release notes](wiki/Releases/4.11.0.1.html))
 * [RPM 4.11.0](http://rpm.org/releases/rpm-4.11.x/rpm-4.11.0.tar.bz2) ([Release notes](wiki/Releases/4.11.0.html))
 
+## Test releases
+
+* [RPM 4.13.0-rc2](http://rpm.org/releases/testing/rpm-4.13.0-rc2.tar.bz2) ([Release notes](wiki/Releases/4.13.0.html))
+
 ## Old stable releases
 
 
