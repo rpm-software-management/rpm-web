@@ -5,9 +5,7 @@ title: Documentation
 # Documentation
 This page attempts to track the various relevant documentation that exists for RPM.
 
-## User Documentation
-
-### General Use
+## General Use
 * [RPM Tutorial](http://fedoranews.org/alex/tutorial/rpm/)
 * [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html)
 * In wiki:
@@ -15,7 +13,7 @@ This page attempts to track the various relevant documentation that exists for R
   * [RPM Database Recovery](user_doc/db_recovery.html)
   * [RPM Query Formats](user_doc/query_format.html) 
 
-### Packager Documentation
+## Packager Documentation
 * [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html)
 * In wiki:
   * [Conditional Builds (rpmbuild &#8211;&#8211;with/&#8211;&#8211;without)](user_doc/conditional_builds.html)
@@ -28,20 +26,18 @@ This page attempts to track the various relevant documentation that exists for R
   * [Runtime scriptlet expansion (new in 4.9)](user_doc/scriptlet_expansion.html)
   * [Building Packages so that multiple versions of the same package can co-install](user_doc/multiple_versions.html)
 
-## Developer Documentation
-
-### RPM API
+## RPM API
 * [Plugin Interface (RPM >= 4.12)](devel_doc/plugins.html)
 * [Programming RPM with C](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-programming-c.html) from Fedora RPM Guide
 * [How to ensure Large File Support for tools using the rpm API](devel_doc/large_files.html)
 
-### RPM Language Bindings
+## RPM Language Bindings
 * [RPM Python](http://www.ukuug.org/events/linux2004/programme/paper-PNasrat-1/rpm-python-slides/frames.html) slideset / tutorial
 * [Programming RPM with Python](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-rpm-programming-python.html) from Fedora RPM Guide
 * [Programming RPM with Perl](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-programming-perl.html) from Fedora RPM Guide 
 
 
-### Miscellaneous docs:
+## Miscellaneous Developer Docs:
   * [Release maintaince](devel_doc/release_maintaince.html)
   * [Description of RPM internal state machines](devel_doc/state_machines.html)
   * [Description of RPM file format](devel_doc/file_format.html)
