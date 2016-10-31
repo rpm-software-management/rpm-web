@@ -1,0 +1,48 @@
+# RPM 4.11.3 Release Notes
+
+
+
+## Download information
+
+ * [rpm-4.11.3.tar.bz2](http://rpm.org/releases/rpm-4.11.x/rpm-4.11.3.tar.bz2) source
+ * SHA1SUM: `ae9ff06718e877d897ed47e3795b0e56727d752c`
+
+## Summary of changes from RPM 4.11.2
+
+### General bugfixes and enhancements
+
+ * Fix double-free on malformed signature header ([RhBug:1133885](https://bugzilla.redhat.com/show_bug.cgi?id=1133885))
+ * Fix verification wrt duplicate user/groupnames (ticket [#872](http://rpm.org/ticket/872))
+ * Fix mixed binary + source rpm installation progress ([RhBug:984724](https://bugzilla.redhat.com/show_bug.cgi?id=984724))
+ * Fix curl globbing being enabled on remote retrieval ([RhBug:1076277](https://bugzilla.redhat.com/show_bug.cgi?id=1076277))
+ * Fix verification of SHA224 signatures ([RhBug:1066494](https://bugzilla.redhat.com/show_bug.cgi?id=1066494))
+ * Fix buffer overflows on malformed macro define/undefine ([RhBug:1087000](https://bugzilla.redhat.com/show_bug.cgi?id=1087000))
+ * Fix buffer overflow on unterminated macro options
+ * Fix file actions sometimes carrying state across multiple rpmtsRun() calls ([RhBug:1076552](https://bugzilla.redhat.com/show_bug.cgi?id=1076552), [RhBug:1128359](https://bugzilla.redhat.com/show_bug.cgi?id=1128359)) 
+ * Add support for m68k architecture (again)
+
+### Package building
+
+ * Fix %autopatch options getting expanded twice
+ * Fix segfault on missing argument to %package ([RhBug:1123722](https://bugzilla.redhat.com/show_bug.cgi?id=1123722))
+ * Fix libtool dependency generation with libtool >= 2.4.2 ([RhBug:1061619](https://bugzilla.redhat.com/show_bug.cgi?id=1061619))
+ * Fix empty debuginfo due to non-canonical macro paths ([RhBug:1077148](https://bugzilla.redhat.com/show_bug.cgi?id=1077148))
+ * Fix invalid perl requires from use/require in multiline prints
+ * New %_rundir macro for referring to /run (formerly /var/run) directory
+ * Add support for %autosetup -S git_am ([RhBug:1082038](https://bugzilla.redhat.com/show_bug.cgi?id=1082038))
+
+### Python bindings
+
+ * Python 3 compatibility fixes ([RhBug:1064758](https://bugzilla.redhat.com/show_bug.cgi?id=1064758), ...)
+
+### Internal improvements and cleanups
+
+ * Fix unnecessary large stack alloction ([RhBug:1106594](https://bugzilla.redhat.com/show_bug.cgi?id=1106594))
+ * Fix minor memleak on package signing
+
+### Build process
+
+ * Fix over-eager sed munging of mail macros file
+ * Fix appdata.prov script not getting installed
+ * Fix in-tree Python binding build with setup.py
+

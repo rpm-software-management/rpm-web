@@ -1,0 +1,63 @@
+# RPM 4.8.1 Release Notes
+
+
+
+## Download information
+ * [rpm-4.8.1.tar.bz2](http://rpm.org/releases/rpm-4.8.x/rpm-4.8.1.tar.bz2) source
+ * SHA1SUM: 5811168721f6caa3fb883ebd491c8c5416d9bf57
+
+## Summary of changes from RPM 4.8.0
+
+### Security
+ * Remove SUID/SGID bits from hardlinked executables on upgrade too (CVE:2010-2059, [RhBug:598775](https://bugzilla.redhat.com/show_bug.cgi?id=598775))
+ * Remove POSIX capabilities from hardlinked executables on upgrade and erase (CVE:FIXME, [RhBug:598775](https://bugzilla.redhat.com/show_bug.cgi?id=598775))
+
+### General bugfixes and enhancements
+ * Fix "empty reply from server" curl-syndrome with URL retrieval, regression introduced in 4.6.0 ([RhBug:598988](https://bugzilla.redhat.com/show_bug.cgi?id=598988))
+ * Fix transaction hanging on unrelated filesystems ([RhBug:547548](https://bugzilla.redhat.com/show_bug.cgi?id=547548))
+ * Fix crash on URL retrieve to read-only location on install ([RhBug:557118](https://bugzilla.redhat.com/show_bug.cgi?id=557118))
+ * Fix verification error code not to depend on verbosity level ([RhBug:557101](https://bugzilla.redhat.com/show_bug.cgi?id=557101))
+ * Fix return from chroot() on verify ([RhBug:590588](https://bugzilla.redhat.com/show_bug.cgi?id=590588))
+ * Permit DOS-style line-endings in PGP ASCII armors ([RhBug:532992](https://bugzilla.redhat.com/show_bug.cgi?id=532992))
+ * Fix :pgpsig header format extension sometimes showing numbers for known hash types ([RhBug:587755](https://bugzilla.redhat.com/show_bug.cgi?id=587755))
+ * Fix :deptype header format extension failing to show some flag combinations
+ * Fix error message on package conflicts against installed packages
+ * Fix erased packages causing misleading disk-space checking messages ([RhBug:561160](https://bugzilla.redhat.com/show_bug.cgi?id=561160))
+ * Document --conflicts option in manpage (ticket [#126](http://rpm.org/ticket/126))
+
+### Package building
+ * Fix %defattr(-) syntax, regression introduced in  (SuseBug:594310)
+ * Fix spec parser eating empty lines in %prep section, regression introduced in 4.6.0 ([RhBug:573339](https://bugzilla.redhat.com/show_bug.cgi?id=573339))
+ * Fix NOSOURCE/NOPATCH tag generation of nosrc packages, regression introduced in 4.6.0
+ * Fix crash in the spec parser ([RhBug:597835](https://bugzilla.redhat.com/show_bug.cgi?id=597835), SuseBug:582599)
+ * Fix copying of translated tags into source rpms ([RhBug:578299](https://bugzilla.redhat.com/show_bug.cgi?id=578299))
+ * Only extract dependencies from .desktop files with Type=Application and Exec= entries (ticket [#150](http://rpm.org/ticket/150))
+ * Work around GNU tar debug output breaking rpmbuild -t (SuseBug:558475)
+
+### API changes
+ * New librpmio function pgpValueString() for retrieving various PGP string constants
+ * New librpmio function argvSplitString() for better control of the ARGV splitting
+ * RPMTAG_NOSOURCE and RPMTAG_NOPATCH tags made non-internal
+ * rpmReadPackageFile() no longer loads transaction set keyring if signature checking disabled (SuseBug:554552)
+ * headerFormat() now returns non-translated strings for header iteration queries
+ * headerCopyTags() now copies raw (non-translated) strings
+
+### Internal improvements and cleanups
+ * Fix minor memory leak in librpmbuild
+ * Fix minor memory leak in package (re-)signing 
+
+### Python bindings
+ * Handle non-existent dependency sets from headers correctly, regression introduced in 4.8.0 ([RhBug:593553](https://bugzilla.redhat.com/show_bug.cgi?id=593553))
+ * Fix match iterator boolean presentation, regression introduced in 4.8.0 (ticket [#153](http://rpm.org/ticket/153))
+ * Add !__version!__ and !__version_info!__ constants for rpm version information
+ * Add RPMBUILD_ISSOURCE/PATCH/ICON/NO constants (ticket [#123](http://rpm.org/ticket/123))
+ * Add RPMTRANS_FLAG_NOCONTEXTS constant ([RhBug:573111](https://bugzilla.redhat.com/show_bug.cgi?id=573111))
+ * Document deprecation of mi.count() and ds.Count() (ticket [#152](http://rpm.org/ticket/152))
+
+### Build process
+ * Fix missing !__fxstat64() symbol on Mac OS X
+ * Fix dependency on non-standard strndup() function
+ * Fix build with Berkeley DB >= 4.7 when internal BDB copy is used
+ * Fix complaint about undefined behavior from newer gcc
+ * Fix internal lua extension include path
+ * Add reinstall and dependency checking to internal test-suite

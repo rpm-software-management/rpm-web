@@ -1,0 +1,168 @@
+# RPM 4.11.0 Release Notes
+
+
+
+## Download information
+ * '''The original 4.11.0 release contained such a dangerous regression that it
+   has been pulled out of distribution permanently. Use [RPM 4.11.0.1](/wiki:Releases/4.11.0.1/)
+   instead.'''
+
+## Summary of changes from RPM 4.10.x
+
+### General bugfixes and enhancements
+
+ * Fix missing error on --import attempt on a non-key file ([RhBug:869667](https://bugzilla.redhat.com/show_bug.cgi?id=869667))
+ * Fix missing error code on unparseable signature in packages, regression introduced in rpm 4.10.0
+ * Fix --setperms regression introduced in rpm 4.10.0 ([RhBug:881835](https://bugzilla.redhat.com/show_bug.cgi?id=881835)) 
+ * Fix several cases of redundant backups on %config files/symlinks
+   ([RhBug:597689](https://bugzilla.redhat.com/show_bug.cgi?id=597689), [RhBug:662706](https://bugzilla.redhat.com/show_bug.cgi?id=662706), ...)
+ * Fix several cases of missing backup when %config file/symlink is replaced
+   by a file of different type or a directory ([RhBug:445202](https://bugzilla.redhat.com/show_bug.cgi?id=445202))
+ * Fix redundant %config backups when on-disk file/symlink content is
+   the same as in replacing (ie new) package, even when digest algorithm
+   changes ([RhBug:597689](https://bugzilla.redhat.com/show_bug.cgi?id=597689) and others)
+ * Fix several cases of missing backups on %config symlinks
+ * Fix backup of shared %config files causing overwriting the backed up
+   content with new package contents (ie destroying the backed up data)
+ * Fix locale dependent behavior in rpm2cpio.sh ([RhBug:878363](https://bugzilla.redhat.com/show_bug.cgi?id=878363))
+ * Fix disk-space accounting wrt intermediate space requirement during transaction (ticket [#175](http://rpm.org/ticket/175), [RhBug:872314](https://bugzilla.redhat.com/show_bug.cgi?id=872314))
+ * Fix disk-space accounting wrt inodes
+
+ * New --undefine cli switch for undefining macros (related to [RhBug:876308](https://bugzilla.redhat.com/show_bug.cgi?id=876308))
+ * New --licensefiles cli switch for querying license files
+ * Add $RPM_CONFIGDIR/macros.d/ directory to default macro path ([RhBug:846679](https://bugzilla.redhat.com/show_bug.cgi?id=846679))
+
+ * Only create the first instance of a file shared between multiple packages:
+   faster installs, improved timestamp verification behavior, and avoids
+   pathologies when disk-space is low
+ * Detect and report attempts to replace directories with a non-directory
+   as file conflicts (related: [RhBug:447156](https://bugzilla.redhat.com/show_bug.cgi?id=447156))
+ * Detect and report attempts to replace directory symlink with a directory
+   as file conflicts
+ * Detect and report some cases of conflicting files accessed through
+   different symlinks
+
+ * Updated translations and documentation ([RhBug:839126](https://bugzilla.redhat.com/show_bug.cgi?id=839126), [RhBug:742362](https://bugzilla.redhat.com/show_bug.cgi?id=742362)...)
+
+### Package building
+
+ * New --noclean and --nocheck cli-switches to skip %clean and %check
+   stages of build
+ * New [%autosetup](/wiki:PackagerDocs/Autosetup/) (and %autopatch) macros for fully automating
+   unpackaging of sources and application of patches, either with plain
+   'patch' or a number of DVCS systems (git, hg, bzr, quilt...) (ticket [#54](http://rpm.org/ticket/54))
+ * New built-in %dirname macro
+
+ * Fix rpmspec --parse to not require sources and patches to be present
+ * Dont silence patch by default ([RhBug:678000](https://bugzilla.redhat.com/show_bug.cgi?id=678000), [RhBug:773503](https://bugzilla.redhat.com/show_bug.cgi?id=773503))
+ * Permit non-existent %ghost directories to be packaged ([RhBug:839656](https://bugzilla.redhat.com/show_bug.cgi?id=839656))
+ * Report the actual reason on archive creation failure again
+ * Avoid unnecessary error on rpmbuild --addsign when no packages were created
+ * Track payload file size limit for src.rpm's too ([RhBug:833427](https://bugzilla.redhat.com/show_bug.cgi?id=833427))
+ * Warn on apparent content-type mismatches in packages (eg 32bit binaries
+   included in a package for 64bit architecture)
+ * Debug information sub-packages renamed to -debuginfo to match common
+   distro practises
+
+ * Fix bogus "unclosed %if" error when %include is used in spec conditionals
+ * Fix %license as a %files list virtual attribute
+ * New "special" %license with non-absolute path (similar to %doc) to
+   allow easily separating licenses from normal documentation (ticket [#116](http://rpm.org/ticket/116))
+ * Make double-quoting work for special %doc and %license for consistency
+   with rest of %files section (ticket [#858](http://rpm.org/ticket/858))
+ * Accept "owner" as an alias to "user" %verify attribute ([RhBug:838657](https://bugzilla.redhat.com/show_bug.cgi?id=838657))
+ * Warn about invalid %changelog dates (eg wrong day name) ([RhBug:843525](https://bugzilla.redhat.com/show_bug.cgi?id=843525))
+ * PrePreq tag no longer accepts extra qualifiers (such as "post")
+ * Requires tag no longer accepts "prereq" as an extra qualifier
+ * Detect missing argument to %include
+ * Report file name and spec line number on %include errors
+ * Report starting line for unclosed %if constructs
+ * Report the actual unknown option instead of ? in parametrized macros
+ * Line continuations can now be arbitrarily long
+ * New ELF dependency generator option --no-fake-soname to prevent
+   emitting soname provide when DSO does not set one
+
+### API changes
+#### New interfaces
+ * New rpmstrPool object + associated functions for efficient string storage &
+   lookup:
+   * Pool lifetime: rpmstrPoolCreate(), rpmstrPoolFree() and rpmstrPoolLink()
+   * String insertion: rpmstrPoolId(), rpmstrPoolIdn()
+   * Accessors: rpmstrPoolStr(), rpmstrPoolStrlen(), rpmstrPoolStreq(), rpmstrPoolNumStr()
+   * Disable/enable insertion: rpmstrPoolFreeze(), rpmstrPoolUnfreeze()
+ * New rpmIsGlob() function to fix glob_pattern_p() portability issues
+ * New rpmtdToPool() function for optimized header string array to string pool
+   insertion
+ * New rpmGetArchColor() function for retrieving the canonical "color"
+   of an architecture
+
+#### Other interface changes
+ * Database iterators on the RPMDBI_LABEL pseudo-index are now realiable
+   wrt match count and architecture matching
+
+### Internal improvements and cleanups
+
+ * Fix legacy retrofits getting performed on new packages with no files
+ * Fix incomplete data killing rpmdsMerge() with assert()
+ * Fix partial reads and errors in package IO ([RhBug:802839](https://bugzilla.redhat.com/show_bug.cgi?id=802839), [RhBug:580974](https://bugzilla.redhat.com/show_bug.cgi?id=580974))
+ * Fix a thinko in file triplet validation that allowed some invalid
+   cases to pass
+ * Fix dependency lookups modifying transaction element dependency set
+   iterators
+ * Fix librpmio exporting a clashing glob() implementation ([RhBug:819680](https://bugzilla.redhat.com/show_bug.cgi?id=819680))
+ * Fix NSS-usage clash by using private context when possible ([RhBug:871485](https://bugzilla.redhat.com/show_bug.cgi?id=871485))
+ * Fix NSS crypto using deprecated functions and symbols
+ * Fix Fread() and Fwrite() behavior on EINTR ([RhBug:580974](https://bugzilla.redhat.com/show_bug.cgi?id=580974))
+
+ * Optimize adding packages to transaction
+ * Optimize transaction dependency checking
+ * Optimize dependency set manipulation and comparison
+ * Optimize to fingerprinting and file disposition calculations
+ * Optimize to rpm cli erasure (-e) target package lookups
+ * Optimize internal dependency generator data structures
+ * Optimize overall memory consumption and performance by utilizing
+   string pool and id-based operations where most beneficial and possible
+
+ * File state machine divided and conquered for relative sanity
+ * Preliminary work towards abstract package payload API
+ * Unify ad-hoc string caches to utilize string pools instead
+ * Avoid revalidation attempts on known bad headers from rpmdb
+ * Issue warnings on unexpectedly failed file/directory removal
+ * Clean up fingerprinting code and data structures
+ * Clean up spec parsing, especially wrt %files list
+
+### Build process
+ * Fix spurious compile warnings on architectures where -fstack-protector is
+   not supported
+ * Fix compile warnings on gcc >= 4.7
+ * Fix compile warnings ẃith NSS >= 3.14
+ * Use secure_getenv() instead of private !__secure_getenv() when available
+ * Fix sepolicy plugin getting built when SELinux support is disabled
+ * Fix support for platforms where fdatasync() is not available
+ * Dozens of new cases added to the selftest-suite, including systematic
+   testing for %config behavior and file replacement
+ * Added support for Lua 5.2
+ * Added support for using beecrypt as an alternative crypto implementation
+   (--with-beecrypt)
+ * For NSS crypto implementation, NSS version >= 3.12 is now required
+
+## Compatibility notes
+
+ * This release is API- and ABI-compatible with rpm 4.10.x (soname does not change)
+ * However, two previously public enum values have been removed from rpmfi.h header
+   which can cause compile failures for eg language bindings if they try to further
+   export these symbols:
+   * RPMFILE_EXCLUDE which has only ever been useful to librpmbuild
+   * RPMFILE_UNPATCHED which is a long-since obsolete and unused placeholder value
+ * No new package-level incompatibilities introduced
+ * Spec file incompatibilities:
+   * Many previously silently accepted spec files will now emit warnings on
+     bogus %changelog dates: day name not matching date is very common in
+     specs as this has not been previously validated.
+   * Some previously accepted spec files can now fail to parse due to stricter
+     validation
+   * Spec files utilizing the new %license behavior are not compatible with
+     older rpm versions
+   * Older rpm versions do not understand double-quoting of special %doc
+     entries. Globs can be used as a backwards-compatible workaround for escaping
+     special characters in file names.

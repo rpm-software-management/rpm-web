@@ -1,0 +1,186 @@
+# RPM 4.8.0 Release Notes
+
+
+
+## Download information
+ * [rpm-4.8.0.tar.bz2](http://rpm.org/releases/rpm-4.8.x/rpm-4.8.0.tar.bz2) source
+ * SHA1SUM: 84210ab42f36ad6b3d856c86a974a5178d1de864
+
+## Summary of changes from RPM 4.7.x
+
+### General bugfixes and enhancements
+
+ * Fix ftp/http proxy options ([RhBug:529214](https://bugzilla.redhat.com/show_bug.cgi?id=529214)) (regression originating from 4.6.0)
+ * Fix remote package retrieval in rpm2cpio ([RhBug:523260](https://bugzilla.redhat.com/show_bug.cgi?id=523260))
+ * Fix --tid and --querybynumber query selectors (regression originating from 4.6.0)
+ * Fix extranuous dependency type characters in --filerequires/provides output
+ * Fix package relocatability checking (broken since forever)
+ * Fix --excludepath ([RhBug:409637](https://bugzilla.redhat.com/show_bug.cgi?id=409637))
+ * Fix verification result depending on verbosity level ([RhBug:510213](https://bugzilla.redhat.com/show_bug.cgi?id=510213))
+ * Fix filename starting with '-' treated as stdin
+ * Fix --nodirtokens yet again ([RhBug:546663](https://bugzilla.redhat.com/show_bug.cgi?id=546663))
+ * Query error code fixes (SuseBug:527191)
+ * Report multiple scriptlet dependency bits in deptype format extension
+ * Permit user specified query formats to behave differently on rpm's verbosity level
+ * Dependency information queries now return the dependency type too in verbose mode
+ * New tag extensions:
+   * DBINSTANCE (record number of installed packages)
+   * HEADERCOLOR (multilib "color" of header)
+   * EVR, NVR, NEVR, NEVRA, NVRA (convenience formatting of name, epoch, version, release and arch tags)
+   * EPOCHNUM (epoch of header, returns 0 for no epoch)
+   * VERBOSE (is rpm in verbose mode or not)
+ * New format extensions:
+   * :fstate (human readable file state information)
+   * :vflags (human readable file verifyflags information)
+ * Major speed improvement in file list queries (eg -qal)
+ * Major speed improvements in installation dependency calculations
+ * Error out early when trying to install to readonly filesystem (ticket [#99](http://rpm.org/ticket/99), [RhBug:464750](https://bugzilla.redhat.com/show_bug.cgi?id=464750))
+ * Disk space problems are only reported for affected packages ([RhBug:517418](https://bugzilla.redhat.com/show_bug.cgi?id=517418))
+ * Skip %posttrans scriptlets of failed transaction elements
+ * Package erasures are now ordered too (ticket [#48](http://rpm.org/ticket/48), [RhBug:479257](https://bugzilla.redhat.com/show_bug.cgi?id=479257), [RhBug:448153](https://bugzilla.redhat.com/show_bug.cgi?id=448153)
+ * Improved ordering of packages with dependency loops - loopy sets are now guaranteed to be installed together (ticket [#51](http://rpm.org/ticket/51))
+ * Install ordering now differentiates between "colored" dependencies, giving better order with multilib package sets
+ * Handle Requires(pre,preun) ordering correctly on erasure
+ * %_netsharedpath is evaluated for erasures too ([RhBug:494640](https://bugzilla.redhat.com/show_bug.cgi?id=494640))
+ * Validate rpmlib() dependencies on src.rpm install ([RhBug:490613](https://bugzilla.redhat.com/show_bug.cgi?id=490613))
+ * Various minor corner-case memory leaks fixed
+ * Several documentation fixes (ticket [#72](http://rpm.org/ticket/72), [#63](http://rpm.org/ticket/63))
+ * Several translation updates (Spanish, Portugese Brasilian, Polish, German, Japanese, French, Serbian)
+
+### Package building
+
+ * Automatic extraction of OCaml dependencies
+ * Automatic extraction of mime-handler provides from .desktop files
+ * Automatic extraction of font provides
+ * OSGi dependency generator fixes (ticket [#101](http://rpm.org/ticket/101))
+ * Extra options can be now specified and passed to dependency extractor scripts
+ * %files now accepts multiple filelists through -f (ticket [#70](http://rpm.org/ticket/70), [RhBug:475359](https://bugzilla.redhat.com/show_bug.cgi?id=475359))
+ * Use 444 permissions for all .debug files ([RhBug:522194](https://bugzilla.redhat.com/show_bug.cgi?id=522194))
+ * Handle .desktop files with spaces in filename ([RhBug:520920](https://bugzilla.redhat.com/show_bug.cgi?id=520920))
+ * Fix duplicate dependency checking on build ([RhBug:490378](https://bugzilla.redhat.com/show_bug.cgi?id=490378))
+ * Various commonly used Python macros added (ticket [#83](http://rpm.org/ticket/83))
+ * Support for multiple major python versions in brp-python-bytecompile ([RhBug:531117](https://bugzilla.redhat.com/show_bug.cgi?id=531117))
+ * Packages can now have a separate bug reporting url by setting BugUrl in spec or through %_bugurl in macro configuration ([RhBug:512774](https://bugzilla.redhat.com/show_bug.cgi?id=512774))
+ * Fix %sources and %patches containing the same items multiple times (ticket [#82](http://rpm.org/ticket/82))
+ * Add default %clean section unless overridden in spec (ticket [#81](http://rpm.org/ticket/81))
+ * %patch macro supports new -d option (ticket [#69](http://rpm.org/ticket/69))
+ * New %make_install macro which does the right thing wrt modern autotools (ie "make install DESTDIR=...")
+ * Unset CDPATH (and DISPLAY) environment variables on build-scripts ([RhBug:426955](https://bugzilla.redhat.com/show_bug.cgi?id=426955))
+ * Always run build-scripts in C-locale
+ * Don't set --target in %configure ([RhBug:458648](https://bugzilla.redhat.com/show_bug.cgi?id=458648))
+ * Fix segfault on %include of empty file
+ * Add XZ and LZMA recompress support to brp-compress (ticket [#84](http://rpm.org/ticket/84))
+ * Correctly inherit default %attr(-,-,-) from %defattr ([RhBug:515685](https://bugzilla.redhat.com/show_bug.cgi?id=515685))
+ * Support DWARF-3 in debugedit ([RhBug:505774](https://bugzilla.redhat.com/show_bug.cgi?id=505774))
+ * Much stricter set of allowed characters in various tags like Name, Version etc (ticket [#59](http://rpm.org/ticket/59), [RhBug:493157](https://bugzilla.redhat.com/show_bug.cgi?id=493157))
+ * PreReq and BuildPreReq are now officially deprecated, with warnings at build-time
+ * PreReq is mapped to Requires(pre,preun) at build-time
+ * Permit %ghost to be used on non-existent files ([RhBug:495040](https://bugzilla.redhat.com/show_bug.cgi?id=495040))
+ * Configurable changelog trimming in rpm files (ticket [#47](http://rpm.org/ticket/47))
+ * Error out on unsupported payload compressor ([RhBug:495429](https://bugzilla.redhat.com/show_bug.cgi?id=495429))
+ * Correctly handle "./" in file paths ([RhBug:491388](https://bugzilla.redhat.com/show_bug.cgi?id=491388))
+ * Various tweaks to the internal file classifier ([RhBug:491349](https://bugzilla.redhat.com/show_bug.cgi?id=491349))
+ * Handle XZ in %uncompress macro
+ * New built-in %getconfdir macro for getting rpm configuration "home directory"
+ * Support for signing with the ancient PGP has been removed
+ * Backwards compatibility macros %{PACKAGE_VERSION} and %{PACKAGE_RELEASE} are no longer supported in spec. Use %{version} and %{release} instead.
+
+### API changes
+ * New rstreq() and rstreqn() string helper functions.
+ * New pgpParsePkts() function to read armored OpenPGP pubkeys can now be parsed from memory
+ * New pgpVerifySig() function to perform the low-level DSA/RSA signature verification
+ * New rpmDigestBundle data-type and interfaces to deal with multiple digests calculated at once for same data
+ * New rpmSetMemFail() API for hooking custom memory allocation failure handler has been added
+ * New headerGetNumber() convenience function for retrieving numeric data from headers
+ * New headerGetString() and headerGetAsString() convenience functions for retrieving non-array string data from headers
+ * New Ftell() function to return rpmio stream position (ie ftell() clone)
+ * Fopen() & etc now accepts compressor names (eg "gzip") in addition to the io type names (eg "gzdio")
+ * rpmtsAddEraseElement() returns error codes on failure
+ * Low-level disk space checking functions rpmtsInitDSI(), rpmtsUpdateDSI() and rpmtsCheckDSIProblems() have been removed from the transaction API (these were never usable outside rpmtsRun() anyway)
+ * Iterating over RPMDBI_PACKAGES with offset no longer causes an endless loop
+ * rpmProblem "objects" are now reference counted
+ * Obsolete headerDump() and headerGetLangs() interfaces have been removed
+ * headerNVR() family of calls is now deprecated
+ * rpmal interface has been made internal-only
+ * Rpm's public headers no longer needlessly expose libmagic dependency
+
+### Internal improvements and cleanups
+
+ * Major code cleanups to signature- and low-level header handling, rpmio operations and database backends
+ * Numerous issues found by Clang-analyzer: unused code removed and potential segfaults fixed
+ * Transaction dependency caching uses in-memory hash instead of temporary database, avoiding various chroot-related issues
+ * Database files and indexes are opened with relative paths, avoiding issues with chroot ([RhBug:507309](https://bugzilla.redhat.com/show_bug.cgi?id=507309) & others)
+ * rpmdb index for Obsoletes added
+ * Hardcoded and broken ldconfig-scriptlet interpreter optimization removed
+ * Ensure RPMSENSE_RPMLIB is consistently set on rpmlib() dependencies everywhere
+ * DNEVR string is generated lazily on rpmdsNEVR() calls instead of every rpmdsNext()
+ * rpmal completely reimplemented with hashes for massive speedup
+ * All NSS-dependencies and low-level signature verification have been pushed to librpmio
+ * Handle errors in rpmDigestDup() correctly
+ * Remember hash algorithm in digest context
+ * Signature check error code sanity: RPMRC_NOKEY always means "this could be fixed by importing the key", RPMRC_FAIL is "invalid signature"
+ 
+### Lua interface
+ * Make rpm.unregister() Lua extension actually work, and permit hook to unregister itself
+ * Add rpm.b64encode() and rpm.b64decode() extensions for base64 encoding and decoding
+
+### Python bindings
+ * Major overhaul to modernize and cleanup the code, "pythonize" the interfaces
+ * Review all exceptions raised from within rpm-python, revise as necessary
+ * Split the C-level module into separate "runtime" and build modules to avoid hard dependency on librpmbuild
+ * Preliminary support for Python 3.x (compiles, loads and works with limitations + caveats)
+ * All rpm object types support sub-typing now (but with caveats)
+ * Implementation for various things have been moved to pure Python where possible. Notably TransactionSet class is by default a pure Python object, inherited from the C-level class
+ * All functions and methods accepting file descriptors now accept any file-like objects implementing .fileno() method too
+ * All functions and methods accepting strings now accept Unicode objects too (automatically converted to UTF-8 internally)
+ * Various missing constants have been added (RPMDBI_LABEL, RPMSENSE_ANY, RPMRC-codes...)
+ * Various memory leaks fixed
+
+#### Generic utility functions
+ * Export rpmlog() to Python as rpm.log() function
+ * Support numeric expansion in rpm.expandMacro()
+
+#### Header class
+ * Support for (empty) header object creation and (limited) modification
+ * Headers can be instanciated from file-like objects, unloaded header blobs (byte arrays) and from other headers (ie copied)
+ * New header methods: .write(), .convert(), isSource()
+ * Header .keys() method now returns all keys and is faster too
+ * Support iterating over header objects
+
+#### Transaction set class
+ * addInstall() method now accepts any file-like objects and file names in addition to fd integers
+ * addErase() method now accepts headers and match iterators in addition to labels and record numbers
+ * Various transaction set flags and other attributes are exported directly as object attributes
+ * New methods getKeyring() and setKeyring() permit manipulating transaction set keyring from Python, such as using a custom (non-rpmdb) keyring for signature verification
+
+#### Dependency set class
+ * All types of rpm.ds objects can now be created by calling rpm.ds constructor:
+ * New method Compare() replaces former strange != syntax for determining dependency overlap
+
+#### Spec class
+ * Spec object instanciation has been decoupled from transaction objects and can now be directly instanciated by calling the spec constructor
+ * Allow accessing spec package structures from Python (ticket [#14](http://rpm.org/ticket/14), [RhBug:46726](https://bugzilla.redhat.com/show_bug.cgi?id=46726))
+ * Former spec object methods have been converted to object attributes instead (incompatible)
+
+#### New classes
+ * Bindings for rpm keyring (rpm.keyring)
+ * Bindings for pubkey types (rpm.pubkey)
+ * Bindings for rpm problem objects has been added (rpm.prob)
+ * File-object like bindings for rpm io interface (rpm.fd)
+
+#### Deprecated and removed interfaces
+ * rpm.headerLoad() is deprecated. Call header constructor instead.
+ * hdr.expandFilelist() and hdr.compressFilelist() are deprecated. Use hdr.convert() instead.
+ * hdr.dsOfHeader() and hdr.dsFromHeader() are deprecated. Call rpm.ds constructor instead.
+ * rpm.ps (aka problem set) type has been removed, ts.problems() now returns a regular list object
+ * mi.count() and ds.count() methods have been deprecated. Use len() instead.
+ * Invalid tp_print methods have been removed (these were against Python recommedations)
+ * Support for ambiguous and quirky cmp() and rich comparisons have been removed from rpm.ds objects
+ * Support for ambiguous cmp() has been removed from header objects. Use rpm.versionCompare() instead.
+
+### Build process
+ * Fix building with binutils-gold (ticket [#107](http://rpm.org/ticket/107))
+ * Fix out-of-tree build when Lua enabled (ticket [#91](http://rpm.org/ticket/91))
+ * Linkage cleanups
+
+## Compatibility notes

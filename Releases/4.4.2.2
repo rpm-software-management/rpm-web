@@ -1,0 +1,50 @@
+# RPM 4.4.2.2
+
+## Download information
+ * [rpm-4.4.2.2.tar.gz](http://www.rpm.org/releases/rpm-4.4.x/rpm-4.4.2.2.tar.gz) source
+ * SHA1SUM: e69dc7898de34ffc82b33fa5a01285e62681c972
+
+## Changes from version 4.4.2.1 to 4.4.2.2
+ * avoid .rpmnew if file in package hasn't changed ([RhBug:194246](https://bugzilla.redhat.com/show_bug.cgi?id=194246))
+ * avoid .rpmnew/.rpmsave if files only differ by timestamp ([RhBug:128622](https://bugzilla.redhat.com/show_bug.cgi?id=128622))
+ * minor makefile cleanups
+ * install preferred multilib color packages first ([RhBug:214737](https://bugzilla.redhat.com/show_bug.cgi?id=214737))
+ * show pre- and posttrans scripts in --scripts query (SuseBug:253620)
+ * create compat macros for ia32e and amd64 ([RhBug:211119](https://bugzilla.redhat.com/show_bug.cgi?id=211119), [RhBug:223355](https://bugzilla.redhat.com/show_bug.cgi?id=223355))
+ * fix various buffer overflows in macro handling ([RhBug:253971](https://bugzilla.redhat.com/show_bug.cgi?id=253971))
+ * fix building with latest glibc open() changes
+ * convert manuals to UTF-8
+ * make find-lang --with-gnome picks up omf files ([RhBug:251400](https://bugzilla.redhat.com/show_bug.cgi?id=251400))
+ * fail build on dependency extraction errors ([RhBug:226751](https://bugzilla.redhat.com/show_bug.cgi?id=226751))
+ * update default per-arch compiler flags for modern gcc ([RhBug:212583](https://bugzilla.redhat.com/show_bug.cgi?id=212583))
+ * add comment about checking --help to manuals ([RhBug:164281](https://bugzilla.redhat.com/show_bug.cgi?id=164281))
+ * avoid truncating /var/log/rpmpkgs in case of errors ([RhBug:232830](https://bugzilla.redhat.com/show_bug.cgi?id=232830))
+ * avoid wrong selinux context on /var/log/rpmpkgs creation ([RhBug:315271](https://bugzilla.redhat.com/show_bug.cgi?id=315271))
+ * rpmtsAddInstallElement() consistency ([RhBug:180996](https://bugzilla.redhat.com/show_bug.cgi?id=180996), [RhBug:281611](https://bugzilla.redhat.com/show_bug.cgi?id=281611))
+ * clarify --initdb usage in manual ([RhBug:218057](https://bugzilla.redhat.com/show_bug.cgi?id=218057))
+ * skip stale and unaccessible (FUSE) mountpoints ([RhBug:190496](https://bugzilla.redhat.com/show_bug.cgi?id=190496), [RhBug:220991](https://bugzilla.redhat.com/show_bug.cgi?id=220991))
+ * buildid-related debugedit fixes
+ * add/update Spanish and Italian translations
+ * add missing files for translation ([RhBug:249608](https://bugzilla.redhat.com/show_bug.cgi?id=249608))
+ * ARM-architecture fixes
+ * fix --dump usage description in manual
+ * update scriptlet names to match with reality ([RhBug:248128](https://bugzilla.redhat.com/show_bug.cgi?id=248128))
+ * make docdir checking strict ([RhBug:246819](https://bugzilla.redhat.com/show_bug.cgi?id=246819))
+ * perl dependency extraction fixes ([RhBug:214496](https://bugzilla.redhat.com/show_bug.cgi?id=214496), [RhBug:198033](https://bugzilla.redhat.com/show_bug.cgi?id=198033), [RhBug:249135](https://bugzilla.redhat.com/show_bug.cgi?id=249135))
+ * permit API users to select non-exiting rpmdb termination
+ * dont check for termination signals in middle of transaction
+ * avoid leaving stale locks around on python tracebacks
+ * debugedit -l file matching fixes
+ * don't read *.rpmnew etc backup macro files
+ * fix error reporting on rpm --checksig ([RhBug:155079](https://bugzilla.redhat.com/show_bug.cgi?id=155079))
+ * fix false mire matches on nonexistent headers ([RhBug:277161](https://bugzilla.redhat.com/show_bug.cgi?id=277161))
+ * handle mire matching on binary blobs
+ * fix segfault in mire matching on binary data types
+ * add Sparc Niagara arch support ([RhBug:263521](https://bugzilla.redhat.com/show_bug.cgi?id=263521))
+ * add %alpha macro for supported alpha archs ([RhBug:295941](https://bugzilla.redhat.com/show_bug.cgi?id=295941))
+ * fix typos in default optflags for some archs ([RhBug:305221](https://bugzilla.redhat.com/show_bug.cgi?id=305221))
+ * fix disk space checking on 100% full filesystems ([RhBug:308171](https://bugzilla.redhat.com/show_bug.cgi?id=308171))
+ * own omf directories found by find-lang ([RhBug:296731](https://bugzilla.redhat.com/show_bug.cgi?id=296731))
+ * fake callbacks on erasure for packages without files ([RhBug:259961](https://bugzilla.redhat.com/show_bug.cgi?id=259961))
+ * python: add methods for checking and terminating on signals
+ * python: add method for expanding macros

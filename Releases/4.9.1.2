@@ -1,0 +1,21 @@
+# RPM 4.9.1.2 Release Notes
+
+
+
+## Download information
+ * [rpm-4.9.1.2.tar.bz2](http://rpm.org/releases/rpm-4.9.x/rpm-4.9.1.2.tar.bz2) source
+ * SHA1SUM: 5ec557424d90461f76d4ad30bfb6653b79920d58
+
+## Summary of changes from RPM 4.9.1.1
+
+This is a mainly a security update for CVE:2011-3378, with just one
+additional fix for a severe signal handling regression in RPM 4.9.1
+and 4.9.1.1.
+
+### Security
+ * Do more thorough sanity checking on header (region) offsets when loading headers to avoid crashes
+   (memory corruption, buffer overflows) on malformed packages (CVE:2011-3378, originally reported as [RhBug:741606](https://bugzilla.redhat.com/show_bug.cgi?id=741606))
+
+### General bugfixes and enhancements
+ * Fix a regression in RPM 4.9.1 and 4.9.1.1 rpmdb-related signal handling which can cause rpmdb not to be shut down
+   cleanly on eg ctrl-c ([RhBug:739492](https://bugzilla.redhat.com/show_bug.cgi?id=739492))                                             

@@ -1,0 +1,54 @@
+# RPM 4.7.1 Release Notes
+
+
+
+## Download information
+ * [rpm-4.7.1.tar.bz2](http://rpm.org/releases/rpm-4.7.x/rpm-4.7.1.tar.bz2) source
+ * SHA1SUM: 45da31c209337d085d70c0183b6d7c9b89daa6c6
+
+## Summary of changes from rpm 4.7.0
+
+### General bugfixes and enhancements
+  
+ * Honor Requires(pre,preun) style dependencies on erase dependency checking
+ * Fixing ordering brokenness caused by all dependencies as being treated as pre-requisites ([RhBug:502269](https://bugzilla.redhat.com/show_bug.cgi?id=502269))
+ * Format Requires(pre,preun) style dependencies correctly in deptype format extension
+ * Fix crash on symlink fingerprinting ([RhBug:505777](https://bugzilla.redhat.com/show_bug.cgi?id=505777))
+ * Fix invalid memory access on fingerprinting causing bogus results on file dependency lookups ([RhBug:506323](https://bugzilla.redhat.com/show_bug.cgi?id=506323))
+ * Fix invalid memory access on rpmlog()
+ * Avoid bogus errors from chrooted verify due to dependency caching issues ([RhBug:50807](https://bugzilla.redhat.com/show_bug.cgi?id=50807))
+ * Fix verification result code depending on verbosity level ([RhBug:510213](https://bugzilla.redhat.com/show_bug.cgi?id=510213))
+ * Fix --excludepath ([RhBug:509637](https://bugzilla.redhat.com/show_bug.cgi?id=509637), regression introduced in 4.7.0)
+ * Honor --nofiledigest on install ([RhBug:508021](https://bugzilla.redhat.com/show_bug.cgi?id=508021), regression introduced in 4.6.0)
+ * Log an error on short lead section ([RhBug:511101](https://bugzilla.redhat.com/show_bug.cgi?id=511101), regression introduced in 4.6.0)
+ * Fix parsing of PGP public key signature packets (regression introduced in 4.6.0)
+ * Add an index for obsoletes ([RhBug:507702](https://bugzilla.redhat.com/show_bug.cgi?id=507702), but needs --rebuilddb to become active)
+ * Create the directory used for transaction lock if necessary
+ * Don't treat filenames starting with '-' as stdin
+ * Don't accept '-' for stdin in manifest files ([RhBug:461353](https://bugzilla.redhat.com/show_bug.cgi?id=461353))
+ * Fix rpm.unregister() Lua extension
+ * Handle rpmhook unregistering itself correctly
+ * Add -h/--help option to rpm2cpio (ticket [#63](http://rpm.org/ticket/63))
+ * Various minor documentation + translation fixes and updates ([RhBug:482921](https://bugzilla.redhat.com/show_bug.cgi?id=482921))
+
+### Package building
+ * Fix --with-kde with KDE3 ([RhBug:466009](https://bugzilla.redhat.com/show_bug.cgi?id=466009))
+ * Fix calculation of hardlinked file sizes ([RhBug:503020](https://bugzilla.redhat.com/show_bug.cgi?id=503020))
+ * Map legacy PreReq tag into Requires(pre,preun) at build for closer mapping to former semantics
+ * Add DWARF-3 support to debugedit ([RhBug:505774](https://bugzilla.redhat.com/show_bug.cgi?id=505774))
+ * %files now accepts multiple filelists (ticket [#70](http://rpm.org/ticket/70), [RhBug:475359](https://bugzilla.redhat.com/show_bug.cgi?id=475359))
+ * Base64-encode %policy files to ensure they can be stored as \0-terminated strings in header
+ * Much improved OSGi dependency generator script (ticket [#39](http://rpm.org/ticket/39))
+ * Some typos fixed in javadeps (ticket [#72](http://rpm.org/ticket/72))
+
+### Internal improvements
+ * Restore former value of RPMSENSE_PREREQ, permitting it to be tested again
+ * Hide NSS peculiarities over fork() from API users
+ * Minor optimization to rpmdsNotify()
+ 
+### Python bindings
+ * Avoid corrupting problem altNEVR string in python ts.check() ([RhBug:501068](https://bugzilla.redhat.com/show_bug.cgi?id=501068))
+
+### Build process
+ * Fix permissions of some non-executable macro etc files
+ * Fix building outside source directory (ticket [#65](http://rpm.org/ticket/65))

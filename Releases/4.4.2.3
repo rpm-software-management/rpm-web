@@ -1,0 +1,67 @@
+# RPM 4.4.2.3
+
+## Download information
+ * [rpm-4.4.2.3.tar.gz](http://www.rpm.org/releases/rpm-4.4.x/rpm-4.4.2.3.tar.gz) source
+ * SHA1SUM: 10311c6404796507f193323d387c5e3f79e72d6b
+
+## Changes from version 4.4.2.2 to 4.4.2.3
+ * avoid bogus dependencies from private glibc flags on ARM ([RhBug:436770](https://bugzilla.redhat.com/show_bug.cgi?id=436770))
+ * leave room for trailing zero on macro shell expansion ([RhBug:431009](https://bugzilla.redhat.com/show_bug.cgi?id=431009))
+ * updated Polish translation
+ * add super-H arch support ([RhBug:432496](https://bugzilla.redhat.com/show_bug.cgi?id=432496))
+ * avoid permission denied messages from FUSE mounts ([RhBug:432907](https://bugzilla.redhat.com/show_bug.cgi?id=432907))
+ * improved header i18n locale matching (MdvBug:???)
+ * play nice with xargs (avoid exit code 255)
+ * updated sr + sr@latin translations
+ * updated pt_BR translation
+ * fix printing of filenames with whitespace in check-files ([RhBug:430428](https://bugzilla.redhat.com/show_bug.cgi?id=430428))
+ * add support for lzma compressed sources
+ * remove questionable non-utf polish comment confusing doxygen
+ * clarify rpmtsCheck() documentation ([RhBug:159638](https://bugzilla.redhat.com/show_bug.cgi?id=159638))
+ * clarify rpm manpage wrt rpmbuild binary vs package ([RhBug:233232](https://bugzilla.redhat.com/show_bug.cgi?id=233232))
+ * add OSGi dependency extractor script
+ * rename norwegian translation no -> nb ([RhBug:332271](https://bugzilla.redhat.com/show_bug.cgi?id=332271))
+ * find-lang POSIX-compliant find(1) usage + spelling fixes
+ * find-lang localized man page and qt translation support
+ * match *.omf, not *omf in find-lang
+ * debugedit fixes for DW_FORM_ref_addr and empty DW_AT_comp_dir
+ * don't mess up problem pkgNEVR in python ts.check() ([RhBug:349091](https://bugzilla.redhat.com/show_bug.cgi?id=349091))
+ * use NEVRA, not NEVR everywhere for rpmProblems
+ * add Catalan translation ([RhBug:350401](https://bugzilla.redhat.com/show_bug.cgi?id=350401))
+ * fix segfault in %{lua:...}'s rpm_print
+ * don't automatically print a newline in rpm_print
+ * fix free on invalid pointer on temp file failure (MdvBug:???)
+ * use dgettext() instead of just gettext() (MdvBug:???)
+ * align rpm -V output (MdvBug:31287)
+ * fix build without -O2 (MdvBug:???)
+ * make rpmbuild honor --quiet (MdvBug:???, [RhBug:124300](https://bugzilla.redhat.com/show_bug.cgi?id=124300))
+ * fix rpm -K segfault on corrupted header (MdvBug:33735)
+ * fix download path in README
+ * fix query return codes ([RhBug:244236](https://bugzilla.redhat.com/show_bug.cgi?id=244236))
+ * don't do tilde expansion if HOME is not set
+ * add python method for for retrieving (without setting) ts vsflags
+ * OS X Leopard portability fixes
+ * ordering fix (don't use RPMSENSE_PREREQ)
+ * fix multi-line macro expansion in last line of spec (MdvBug:27417)
+ * avoid compressFilelist() stack overflow in pathological cases
+ * handle "use vX.X.X" in perl dependency extraction ([RhBug:140597](https://bugzilla.redhat.com/show_bug.cgi?id=140597))
+ * fix field-width specifiers when no space between ([RhBug:323221](https://bugzilla.redhat.com/show_bug.cgi?id=323221))
+ * don't unlink non-temporary file in FSM_UNDO ([RhBug:223931](https://bugzilla.redhat.com/show_bug.cgi?id=223931))
+ * print --usage to stderr instead of stdout ([RhBug:164021](https://bugzilla.redhat.com/show_bug.cgi?id=164021))
+ * set a default 0022 umask value always ([RhBug:83006](https://bugzilla.redhat.com/show_bug.cgi?id=83006))
+ * last 8 bytes of RSA modulus is keyid for V3 pubkeys ([RhBug:205080](https://bugzilla.redhat.com/show_bug.cgi?id=205080))
+ * convert '-' to '_' within --define macro names ([RhBug:124995](https://bugzilla.redhat.com/show_bug.cgi?id=124995))
+ * handle spaces in file path arguments correctly ([RhBug:217258](https://bugzilla.redhat.com/show_bug.cgi?id=217258))
+ * avoid access(2) quirks querying symlinks, lstat(2) instead ([RhBug:60288](https://bugzilla.redhat.com/show_bug.cgi?id=60288))
+ * permit files with glob characters in *.rpm packages ([#147383](http://rpm.org/ticket/147383))
+ * add support for triggerprein scriptlets
+ * add support for Geode CPU ([RhBug:428979](https://bugzilla.redhat.com/show_bug.cgi?id=428979))
+ * missing space in russian translation (MdvBug:36974)
+ * print regular provides on build too (MdvBug:36672)
+ * bandaid for truncated error message in russian (MdvBug:31680)
+ * install secondary arch macros on x86_64 ([RhBug:194123](https://bugzilla.redhat.com/show_bug.cgi?id=194123))
+ * don't mess up --target when reading rpmrc includes ([RhBug:232429](https://bugzilla.redhat.com/show_bug.cgi?id=232429))
+ * whitespace in dirnames fixes wrt rpmbuild ([RhBug:220449](https://bugzilla.redhat.com/show_bug.cgi?id=220449))
+ * much improved find-debuginfo script
+ * debuginfo build-id integration
+ * bandaid for reads timeouting on heavily loaded systems (MdvBug:???)

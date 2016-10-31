@@ -1,0 +1,274 @@
+# RPM 4.10.0 Release Notes
+
+
+
+## Download information
+### RPM 4.10.0
+ * [rpm-4.10.0.tar.bz2](http://rpm.org/releases/rpm-4.10.x/rpm-4.10.0.tar.bz2) source
+ * SHA1SUM: d78f19194066c3895f91f58dc84e3aad69f0b02c
+
+## Summary of changes from RPM 4.9.x
+
+### General bugfixes and enhancements
+ * Support dpkg-style sorting of tilde (~) in version/release (ticket [#56](http://rpm.org/ticket/56), [RhBug:734802](https://bugzilla.redhat.com/show_bug.cgi?id=734802), ...)
+ * Automatically reload SELinux labels if policy changes while in transaction ([RhBug:746073](https://bugzilla.redhat.com/show_bug.cgi?id=746073))
+ * Various error messages now include file name (or other information)
+   on the failing file where previously unavailable
+
+ * Erasure progress reporting added, -h/--hash and --percent are accepted on rpm -e too
+ * Install/erasure progress now shows package version (NEVR) information in -h/--hash mode
+ * Install/erasure progress now shows package architecture as well (NEVRA) in non-hash mode
+
+ * Database rebuild (ie --rebuilddb) on a paniced environment
+   no longer requires manual environment removal ([RhBug:590710](https://bugzilla.redhat.com/show_bug.cgi?id=590710)) and no longer
+   attempts to access any indexes of the potentially broken database being
+   rebuilt.
+
+#### Transactions
+ * Allow obsoletes across colors ([RhBug:713323](https://bugzilla.redhat.com/show_bug.cgi?id=713323))
+ * Treat obsoletes as conflicts when obsoleted packages aren't being removed ([RhBug:804069](https://bugzilla.redhat.com/show_bug.cgi?id=804069))
+ * Fix pretrans dependency calculation when provider is upgraded
+ * Non-installed files are not considered provided in dependency calculations.
+ * --nodocs and --noconfigs side-effects are now considered in dependency
+   calculations - files which will not be installed are not provided.
+ * %pretrans scriptlet failure now fails the install of the package
+   (similarly to %pre and %preun semantics)
+
+ * Detect file conflicts within package itself ([RhBug:808750](https://bugzilla.redhat.com/show_bug.cgi?id=808750))
+ * Detect file conflicts on device nodes
+ * Detect file conflicts when permissions (user, group, mode) differ
+
+#### Queries
+ * Recognize epoch as part of a label on queries etc (ticket [#117](http://rpm.org/ticket/117))
+ * Fix false match on trailing dash on queries etc ([RhBug:488567](https://bugzilla.redhat.com/show_bug.cgi?id=488567))
+ * Include package architecture in --last output ([RhBug:768516](https://bugzilla.redhat.com/show_bug.cgi?id=768516))
+ * Fix trailing whitespace on versionless dependencies in
+   --requires, --provides, --obsoletes and --conflicts outputs
+   ([RhBug:717534](https://bugzilla.redhat.com/show_bug.cgi?id=717534), [RhBug:735801](https://bugzilla.redhat.com/show_bug.cgi?id=735801))
+ * Stricter validation of query format strings that would've previously
+   caused crashes
+ * Query string field formatting is now applied to all output, eg
+   "error" messages like "(none)" which were previously unformatted
+ * Show %verifyscript in --scripts query too
+ * Show all interpreter arguments in --scripts query (ticket [#847](http://rpm.org/ticket/847))
+ * Reflect --pipe command failures in exit code ([RhBug:735481](https://bugzilla.redhat.com/show_bug.cgi?id=735481))
+
+#### Keys and signatures
+ * Log an error on attempt to sign V3 packages ([RhBug:517818](https://bugzilla.redhat.com/show_bug.cgi?id=517818) & others)
+ * Log an error when trying to sign packages with unsupported
+   key/signature parameters ([RhBug:748116](https://bugzilla.redhat.com/show_bug.cgi?id=748116), [RhBug:719154](https://bugzilla.redhat.com/show_bug.cgi?id=719154))
+ * Fix misleading error message when gpg key is expired ([RhBug:672727](https://bugzilla.redhat.com/show_bug.cgi?id=672727))  
+ * gpg-pubkey headers now carry key id as "packager" tag and their
+   "buildtime" tag now reflects key creation time instead of import time
+ * gpg-pubkey headers are now verifiable by sha1 digest
+   that is constant for a given key everywhere
+ * rpmkeys utility now accepts --test switch with --import
+
+#### Miscellanous fixes
+ * Switch back to pre-4.9.x BDB cache size ([RhBug:752897](https://bugzilla.redhat.com/show_bug.cgi?id=752897))
+ * Fall back to private BDB environment on (file)systems not supporting shared environment
+ * Fix memory corruption on rpmdb size estimation ([RhBug:766260](https://bugzilla.redhat.com/show_bug.cgi?id=766260))
+ * Fix macro expansion buffer overflow regression introduced in 4.9.x ([RhBug:431009](https://bugzilla.redhat.com/show_bug.cgi?id=431009) reprise)
+ * Fix verify output regression introduced in 4.9.x ([RhBug:797964](https://bugzilla.redhat.com/show_bug.cgi?id=797964))
+ * Fix rpm2cpio returning an error on successful extraction of a large (> 2GB) payload ([RhBug:790396](https://bugzilla.redhat.com/show_bug.cgi?id=790396))
+ * rpm2cpio.sh script now understands XZ compressed payloads ([RhBug:674348](https://bugzilla.redhat.com/show_bug.cgi?id=674348))
+ * Add support for ppc64p7 architecture
+
+ * Documentation and translation updates (RhBug::746525, [RhBug:809402](https://bugzilla.redhat.com/show_bug.cgi?id=809402), [RhBug:804049](https://bugzilla.redhat.com/show_bug.cgi?id=804049), ...)
+
+### Package building
+
+ * Add support for 7zip compressed sources
+ * Fix package generation in presence of high inode numbers ([RhBug:714678](https://bugzilla.redhat.com/show_bug.cgi?id=714678))
+ * Order hardlinks in a deltarpm friendlier way
+ * %configure macro now defaults to --disable-dependency-tracking (ticket [#52](http://rpm.org/ticket/52))
+ * Support new GNOME/xdg help location in %find_lang ([RhBug:736523](https://bugzilla.redhat.com/show_bug.cgi?id=736523), others)
+ * Fix various scripts to permit whitespace in $RPM_BUILD_ROOT path
+
+#### Spec processing
+ * Stricter parsing of %if, %if(n)arch and %if(n)os spec conditionals
+ * Do not process %include in false branch of spec conditionals ([RhBug:782970](https://bugzilla.redhat.com/show_bug.cgi?id=782970))
+ * Warn but don't fail the build on missing excluded files ([RhBug:745629](https://bugzilla.redhat.com/show_bug.cgi?id=745629))
+ * Sanity check trigger scriptlet arguments
+
+#### Automatic dependency generation
+ * Extract perl dependecies from "use parent qw(Foo)"
+ * Quoting fixes to OCaml dependency extractor scripts
+ * Automatic download of sources and patches if they dont exist locally. This feature is disabled
+   by default however as there is currently no means to verify (the digest of) the downloaded content.
+ * Add support for automatic namespacing of dependency generator output,
+   settable by %!__attr_namespace macro in file attribute config and/or specs,
+   eg "%!__elf_namespace foo" to wrap all elf dependency output with "foo(...)"
+   Note that current dependency generators typically hardcode their
+   own namespace, generators need to be modified to fully support this.
+ * Updated file attribute rules for working with file >= 5.10 too
+ * Fix classification of ELF binaries with setuid/setgid bits
+ * Recognize "font collection" as fonts in file classification
+ * Fix brace matching on multiline constructs on perl dependency generation ([RhBug:752119](https://bugzilla.redhat.com/show_bug.cgi?id=752119)) 
+
+#### Debug-info generation
+ * Recognize .debug_macro in debuginfo generation ([RhBug:759272](https://bugzilla.redhat.com/show_bug.cgi?id=759272))
+ * Generate debug symlinks for all filenames sharing a build-id ([RhBug:641377](https://bugzilla.redhat.com/show_bug.cgi?id=641377))
+ * Warn but don't fail the build when STABS debuginfo encountered ([RhBug:725378](https://bugzilla.redhat.com/show_bug.cgi?id=725378), others)
+
+### Removed features
+ * Support for long since deprecated OpenPGP V3 public keys has been removed.
+   V3 signatures are still supported however.
+ * Removed detection for various prehistoric systems
+ * Support for "fpio" (aka libc FILE) streams has been removed from the
+   rpm IO subsystem.
+ * Unused and unmaintained java dependency generator has been removed
+
+### API changes
+
+#### New interfaces
+ * New improved interfaces headerImport() and headerExport() 
+   deprecating headerLoad() and headerUnload()
+ * Base64 manipulation API: rpmBase64Encode(), rpmBase64Decode() and
+   rpmBase64CRC() 
+ * rpmKeyringVerifySig() keyring method for simpler signature verification
+ * New interfaces for OpenPGP packet manipulation: pgpPrtParams(),
+   pgpDigParamsCmp(), pgpDigParamsAlgo(), pgpDigGetParams(), pgpDigParamsFree()
+ * New low-level pgpVerifySignature() signature verification function
+ * Rpm IO file descriptors now remember the path they were opened with
+   (when applicaple). This is retrievable with a new Fdescr() function.
+ * New rpmdsMatchesDep() function, allowing use of index from rpmdb
+   queries
+ * Export rpm's string hashing function in librpmio as rstrhash()
+ * New rpmtdFlags() function for retrieving flags of a tag data container
+
+#### Removed / internalized interfaces
+ * rpmShowProgress() internal state variables are no longer exported
+ * pgpLen() function has been removed (buggy and unsafe)
+ * headerCheckPayloadFormat(), headerMergeLegacySigs() and
+   headerRegenSigHeader() functions have been removed / made internal.
+ * fdNew() function has been removed from the API, file descritors
+   can only be created by Fopen() and friends
+ * fdGetFILE() function has been removed (FILE streams are no longer supported)
+ * timedRead() function has been removed
+ * rpmsqFork() and rpmsqWait() functions have been removed
+ * rpmSetTables() function has been made internal
+
+#### Other interface changes
+ * Transaction progress callback enhancements:
+   * RPMCALLBACK_UNINST_PROGRESS now reflects real erasure progress
+   * New RPMCALLBACK_INST_STOP callback event issued when package install stops
+   * New RPMCALLBACK_SCRIPT_START and RPMCALLBACK_SCRIPT_STOP callback
+     events issued on package scriptlet start and stop (RhBug:606239).
+ * pgpExtractPubkeyFingerprint() and rpmPubkeyNew() now properly handle
+   and propagate errors from pgpPubkeyFingerprint() failure.
+ * Implicit self-provides and RPMTAG_OPTFLAGS are now added during
+   rpmSpecParse() already
+ * Change type of scriptlet argument tags (RPMTAG_PREINPROG etc) to
+   string arrays which they always have been
+ * New RPMTAG_FILENLINKS tag extension for retrieving file link counts
+ * New tag extensions for pretty-formatting dependency data:
+   RPMTAG_REQUIRENEVRS, RPMTAG_PROVIDENEVRS, RPMTAG_OBSOLETENEVRS and
+   RPMTAG_CONFLICTNEVRS
+ * New RPMTAG_INSTFILENAMES tag extension for retrieving state
+   aware file lists (ie non-installed files are not listed)
+ * New RPMTAG_FILENLINKS tag extension for retrieving file link counts
+ * New RPMDBI_INSTFILENAMES pseudo-index for retrieving only installed files
+ * Fread() and Fwrite() on NULL descriptor now return an error
+ * Support Ftell() on zlib compressed streams
+ * Fix crashes and other issues on non-fpio Fflush()
+ * fdFree() now always return NULL like other "destructor" functions in rpm
+ * rpmdsRpmlib() returns error code on failure
+ * rpmtsImportPubkey() now honors RPMTRANS_FLAG_TEST flag if set
+ * Arbitrary limitation on rpmtsSetKeyring() removed, keyring change
+   is now permitted at all times
+ * Transaction set keyring is never automatically loaded when 
+   signature checking is disabled via rpmtsSetVSFlags()
+ * rpmfiNew() can now fail and return NULL on headers with inconsistent file
+   list data.
+ * rpmtsAddInstallElement() and rpmtsAddEraseElement() can now fail
+   on headers with inconsistent or missing data
+ * rpmtsRun() now fully recalculates file dispositions even if a test-run
+   was done on the same transaction set earlier. This allows
+   symlink <-> directory replacement tricks in %pretrans to work again on
+   clients like yum which first perform a test-transaction.
+ * headerGet() now sets RPMTD_INVALID flag on tag data containers when
+   retrieval fails due to inconsistent data (primarily extensions)
+ * ufdCopy() now returns off_t to permit correct return code on large files
+
+### Internal improvements and cleanups
+ * Much stronger header validity and consistency checks
+ * Much stronger OpenPGP packet validity and consistency checks
+ * File state machine and its interfaces cleaned up and simplified
+ * Use temporary suffix on install even if clock is wrong
+ * Optimizations for string length calculations on header import
+ * Optimizations for header loading from rpmdb
+ * Optimizations and cleanups to public key and signature manipulation
+ * Optimizations, corrections and cleanups to OpenPGP packet manipulation
+ * Optimizations for header data retrieval in python bindings
+ * Abstract crypto interface to allow support for alternative cryptography
+   libraries (besides NSS).
+ * Do not rely on mkstemp() implementation to set restrictive umask
+ * Fix potential crash on Fclose() errors on XZ/LZMA streams
+ * Add internal interfaces for scriptlet manipulation, make rpmScript opaque
+ * Remember dependency set color through rpmdsCurrent()
+ * Fix file state on colored file replacements
+ * File descriptor IO cleanups
+ * Database manipulation cleanups: improved internal APIs, replace
+   assert() deaths with proper error handling etc
+ * Sanitize internal package lead section API
+ * Simplify dependency generator execution
+ * Mass-elimination of unused and dead variable manipulations (assignments,
+   increments...) and related cleanups throughout the codebase
+ * Validate semantic correctness of various inter-related tags (such as filename triplets)
+ * Numerous previously ignored error conditions are now properly handled
+ * On Linux, make AT_PLATFORM and AT_HWCAP available to internal hardware detection code
+ * Remove piles of ancient bit-rotten platform-specific macros
+ * Remove unused SELinux file context path macros
+ * Remove libio usage to provide consistent sematics for Fread() and Fwrite() 
+
+### Python bindings
+ * Add RPMSENSE_PRETRANS and RPMSENSE_POSTTRANS constants
+ * Add module-level rpm.reloadConfig() function for resetting and/or
+   reloading global rpm configuration
+ * Add clear() method to transaction set objects (to remove all transaction members)
+ * Add name property to rpm.fd objects, similar to Python file objects
+ * Add !__reduce!__() method to header objects to support pickling and copying
+ * Fix transaction element Parent() method to return correct type
+ * Fix crash in rpm.fd object conversion on error
+ * Fix crash on list construction error in low-memory conditions
+ * Fix memory leaks on rpm.fd object conversion and in the deprecated
+   hdr.fiFromHeader(), hdr.dsFromHeader() and hdr.dsOfHeader() methods
+ * Fix METH_NOARGS callback signatures (internal)
+ * Fix SystemError on inserting an empty list insert to header
+ * Replace uses of deprecated PyCObject with PyCapsule ([RhBug:623864](https://bugzilla.redhat.com/show_bug.cgi?id=623864))
+ * Retrieving header data can now raise rpm.error exception on invalid data
+ 
+### Build process
+ * Remove distro/vendor autodetection from configure. $build_vendor is
+   used for "canonical vendor" unless overridden by --with-vendor=<name>.
+   NOTE: this affects macro configuration + rpmrc search paths and
+   %{_vendor} macro default value.
+ * Create and install platform configuration for all known architectures,
+   on all OS'es
+ * Do not attempt running the test-suite without fakechroot (ticket [#851](http://rpm.org/ticket/851))
+ * Do not require support for XZ compression in the test-suite
+ * Fix build with newer Berkeley DB versions when not using --with-external-db
+ * Support for ancient bzip2 library versions removed
+ * zlib is now considered a mandatory library
+ * Several new test-suite cases
+ * Except for compilation, test-suite now runs fully inside fakechroot
+ * Remove unused checks from configure
+ * Build can be silenced on automake versions which support it
+ * Python bindings can now be alternatively built with Python distutils,
+   making it simpler to build the bindings for different Python versions,
+   notably 2.x vs 3.x ([RhBug:531543](https://bugzilla.redhat.com/show_bug.cgi?id=531543))
+
+## Compatibility notes
+ * Packages utilizing the new tilde version handling cannot be correctly upgraded by older
+   versions of RPM. The use of this feature is tracked with new rpmlib(TildeInVersions) dependency.
+ * Programs parsing --percent mode output are likely to require adjustments
+   due to the added erasure progress and package info format change: package
+   NEVRA is now used instead of NVR.
+ * The way hardlinks in packages was changed to flatten the inode numbers
+   to single virtual int32_t space instead of using physical device and inode pairs from
+   buildroot files. This makes inode and device numbers predictable and reproducable
+   across builds and avoids issues with very large inode/device numbers on 64bit filesystems.
+   The change is supposed to be fully backwards compatible with former rpm (and cpio)
+   versions as the numerical semantics are preserved, this compatibility note is
+   "just for the record."

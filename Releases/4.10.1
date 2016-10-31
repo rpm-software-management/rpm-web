@@ -1,0 +1,52 @@
+# RPM 4.10.1 Release Notes
+
+
+
+## Download information
+ * [rpm-4.10.1.tar.bz2](http://rpm.org/releases/rpm-4.10.x/rpm-4.10.1.tar.bz2) source
+ * SHA1SUM: 3881f0f0fb686405517bfa367c49d36a0cc7a2c3
+
+## Summary of changes from RPM 4.10.0
+
+### General bugfixes and enhancements
+ * Permit key imports on transactions where signature checking is
+   disabled, regression of sorts introduced in 4.10.0 ([RhBug:856225](https://bugzilla.redhat.com/show_bug.cgi?id=856225))
+ * Fix RPMPROB_FILTER_FORCERELOCATE aka --badreloc, regression introduced
+   in 4.9.0 ([RhBug:828784](https://bugzilla.redhat.com/show_bug.cgi?id=828784))
+ * Verify files from non-installed packages again, regression introduced
+   in 4.9.0 ([RhBug:826589](https://bugzilla.redhat.com/show_bug.cgi?id=826589))
+ * Fix large (> 4GB) package support, regression introduced in 4.9.0
+   ([RhBug:844936](https://bugzilla.redhat.com/show_bug.cgi?id=844936))
+ * Only create the first instance of a file shared between multiple
+   packages on install (speedup + improved verification timestamp
+   behavior)
+ * Report config and missinok flags too in deptype format extension
+ * Fix relative path handling in --whatprovides query
+ * Accept em64t architecture as an alias for x86_64 ([RhBug:800489](https://bugzilla.redhat.com/show_bug.cgi?id=800489))
+ * Fix 32bit ppc getting misidentified as ppc64p7
+
+### Package building
+ * Add --noclean and --nocheck options to rpmbuild ([RhBug:756531](https://bugzilla.redhat.com/show_bug.cgi?id=756531))
+ * Permit non-existent %ghost directories to be packaged ([RhBug:839656](https://bugzilla.redhat.com/show_bug.cgi?id=839656))
+ * Dont silence patch by default ([RhBug:678000](https://bugzilla.redhat.com/show_bug.cgi?id=678000), [RhBug:773503](https://bugzilla.redhat.com/show_bug.cgi?id=773503))
+ * Accept "owner" as an alias to "user" %verify attribute ([RhBug:838657](https://bugzilla.redhat.com/show_bug.cgi?id=838657))
+ * Add "power64" arch macro for all supported PowerPC 64 processors
+   ([RhBug:818320](https://bugzilla.redhat.com/show_bug.cgi?id=818320))
+ * Fix bogus "unclosed %if" error when %include is used in conditionals
+ * Report starting line for unclosed %if errors in spec
+ * Always print out package dependencies on build
+
+### API changes
+ * Restore pre-4.10.0 fdFree() behavior, ie return the fd itself
+   while references exist, returning NULL introduced fd leak regressions.
+
+### Internal improvements and cleanups
+ * Fix memory leak on config file disposition calculations, regression
+   introduced in 4.10.0
+ * Fix memory leak in spec changelog parsing error paths
+ * Fix memory leak in spec buildarch parsing recursion
+ * Fix rpmdsMatchesDep() behavior on obsoletes
+ * Honor RPMSENSE_MISSINGOK flag in dependency checking
+ * Some added cases to the internal test-suite
+ * Valgrind suppression file included for filtering /proc/self/auxv
+   related false positives

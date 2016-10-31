@@ -1,0 +1,114 @@
+# RPM 4.7.0 Release Notes
+
+
+
+## Download information
+ * [rpm-4.7.0.tar.bz2](http://rpm.org/releases/rpm-4.7.x/rpm-4.7.0.tar.bz2) source
+ * SHA1SUM: f871df62eb4fcdbb67d3eca9772688cf80fb1cdd
+
+## Summary of changes from RPM 4.6.x
+
+### General bugfixes and enhancements
+ * Vastly reduced memory footprint in transactions.
+ * Vastly improved performance in file conflict checking, especially in package upgrades and erasures.
+ * Support for POSIX.1e draft 15 file capabilities in packages has been added.
+   * It's now possible to specify file capabilities in %files section of spec files using %caps(<capabilities>) attribute. <capabilities> is simply the textual representation of capabilities as specified in the draft.
+ * Support for the new XZ compression format (aka LZMA) in package payloads and sources has been added. Older "lzma-alone" format is supported in parallel.
+ * Verification now notices extranuous ACL's on files.
+ * Much improved handling of failed upgrades. ([RhBug:454903](https://bugzilla.redhat.com/show_bug.cgi?id=454903))
+ * Rpm's configuration directory (traditionally /usr/lib/rpm/) can now be changed at run-time with RPM_CONFIGDIR environment variable. This path is also exported as %_rpmconfigdir macro which can be used to locate rpm helper scripts without hardcoding paths in configuration/specs.
+ * New "deptype" format extension has been added.
+ * %posttrans scriptlets no longer require re-opening the package at end of transaction. ([RhBug:457126](https://bugzilla.redhat.com/show_bug.cgi?id=457126))
+ * Fix PGP fingerprint calculation. ([RhBug:493777](https://bugzilla.redhat.com/show_bug.cgi?id=493777))
+ * Fix RSA signature checking when signature is smaller than modulus ([RhBug:494049](https://bugzilla.redhat.com/show_bug.cgi?id=494049))
+ * Several memory leaks in signature checking failure cases have been fixed.
+ * Fix handling of some relative paths in rpmCleanPath() ([RhBug:491388](https://bugzilla.redhat.com/show_bug.cgi?id=491388))
+ * Query and verify selection options are show just once in --help output.
+ * Permit package signing and signature checking to be interrupted in reasonable time.
+ * Avoid parsing %patch on spec query ([RhBug:487855](https://bugzilla.redhat.com/show_bug.cgi?id=487855))
+ * Adjust cli-switches, spec parser and documentation for md5 -> generic digest change, aliases for md5 left to avoid breaking compatibility needlessly ([RhBug:487597](https://bugzilla.redhat.com/show_bug.cgi?id=487597), [RhBug:493162](https://bugzilla.redhat.com/show_bug.cgi?id=493162)).
+ * Several updated translations.
+ * Documentation clarifications and corrections ([RhBug:483253](https://bugzilla.redhat.com/show_bug.cgi?id=483253), [RhBug:466597](https://bugzilla.redhat.com/show_bug.cgi?id=466597))
+
+### Package building
+ * Disallow path name components (~, / and ..) in name, version and release tags ([RhBug:493157](https://bugzilla.redhat.com/show_bug.cgi?id=493157))
+ * Changelog timestamps are always in UTC to avoid "time warp" syndrome
+ * rpmbuild can be configured to run a post-build package checker such as rpmlint. (ticket [#2](http://rpm.org/ticket/2))
+ * %patch default arguments can now be controlled with %_default_patch_flags macro. ([RhBug:471006](https://bugzilla.redhat.com/show_bug.cgi?id=471006))
+ * Package build dependencies are no longer needlessly checked on --rmsource. ([RhBug:452477](https://bugzilla.redhat.com/show_bug.cgi?id=452477))
+ * Don't require sources and patches to be present for --rmspec to work. ([RhBug:472427](https://bugzilla.redhat.com/show_bug.cgi?id=472427))
+ * Sub-packages inherit Group from main package if not specified. ([RhBug:470714](https://bugzilla.redhat.com/show_bug.cgi?id=470714))
+ * New %getenv macro for retrieving environment variables has been added.
+ * New %getconfdir macro for retrieving rpm configuration directory (typically /usr/lib/rpm/) has been added.
+ * ELF files (DSO's and executables) in noarch package terminate build unless overridden by %_binaries_in_noarch_packages_terminate_build macro. (only if internal dependency generator is used)
+ * Improved Qt translation support in find-lang.
+ * Improved OSGi dependency extractor script. ([RhBug:466111](https://bugzilla.redhat.com/show_bug.cgi?id=466111))
+ * Avoid unnecessary byte-compilation of python scripts in [s]bin directories.
+ * Update rpmrc defaults to use -mtune instead of deprecated -mcpu ([RhBug:493696](https://bugzilla.redhat.com/show_bug.cgi?id=493696))
+ * Restrictions on dependency names have been loosened to permit eg. UTF-8 characters as the first character. ([RhBug:455119](https://bugzilla.redhat.com/show_bug.cgi?id=455119))
+ * Dependency extractor scripts are only run once per file (with internal dependency generator), this can speed building of script-heavy packages noticeably.
+ * Prefer more specific types over generic "text" in file classification ([RhBug:491349](https://bugzilla.redhat.com/show_bug.cgi?id=491349))
+ * Beginnings of librpm level Lua-extensions have been added. As of 4.7.0, only rpm.vercmp() for package version comparison is exported to Lua.
+
+### API changes
+ * RPM libraries are now using libtool versioning for better compatibility tracking.
+ * New interfaces and other enhancements:
+   * Headers retrieved from the rpmdb remember their database record number. This can be retrieved with new API call headerGetInstance().
+   * rpmConfigDir() function for retrieving rpm configuration dir as been added.
+   * Header "magic" value is now exported as rpm_header_magic symbol.
+   * headerGet() can now return string arrays as argv-style NULL-terminated array.
+   * "Class" of tag type can now be directly retrieved with new rpmTagTypeGetClass() function. This is mainly relevant for tag extensions whose type can differ from the one specified in rpm tag table. (ticket [#25](http://rpm.org/ticket/25))
+ * The following API calls have been removed. No known API user is affected, these have only been used by RPM itself internally:
+   * rpmfiFContext() function for retrieving SELinux contexts from header has been removed. Rpm headers do not have SELinux contexts so this was non-sensical.
+   * rpmfiTypeString() function for retrieving the "type" of file info set has been removed. File info sets have no type, transaction elements do.
+   * rpmtsRelocateElement() and rpmtsSetRelocateElement() functions have been removed.
+ * The interface of the following API calls has changed somewhat. These should be transparent to all API users:
+   * rpmfiNew() scareMem argument has been replaced with a set of flags to control what data is copied from header. Former meanings of scareMem 0/1 value are preserved so this should be transparent to API users.
+   * rpmdsNew() flags argument is ignored, dependency sets now always own the data they refer to instead of optionally pointing to header memory.
+   * dboffset argument in rpmteNew() and rpmtsAddEraseElement() is now ignored, header instance number is used instead.
+   * Unused and useless "tag" argument of rpmteFI() call has been removed. This has been only used by rpm internally, no API user should be affected.
+   * rpmInstallInterfaceFlags and rpmEraseInterfaceFlags enumerations have been merged into rpmInstallFlags. No API user should be affected.
+
+### Internal improvements and cleanups
+ * Known architectures (used by rpmtsInitIterator() with RPMDBI_LABEL) are now retrieved from configuration at run-time instead of using a hardcoded list
+ * Number of unused/useless fields removed from internal structs (rpmfi, fsm, psm, ...)
+ * rpmfi structure is almost fully opaque throughout rpm, internal API's have been added as necessary.
+ * rpmte structure has been made fully opaque throughout rpm, internal API's have been added as necessary.
+ * Transaction elements are used for passing around package data instead of murky cross-references between file info sets, calculated file states, transaction elements and headers.
+ * Only the parts of rpmfi that actually needed by different operations (erase, install etc) are loaded to conserve memory.
+ * rpmfiNew() transparently compresses string data which is typically highly redundant (such as file user and group names) to conserve memory.
+ * All file info sets are freed from memory during rpmtsRun() to conserve memory. Only precalculated file state information is carried throughout the transaction in a new internal rpmfs structure.
+ * rpmtsRun() has been cleaned up and refactored to sensible pieces.
+ * rpmdsMerge() now works on all dependency sets regardless of how they were instanciated.
+ * File relocation code has been sanitized, cleaned up and refactored to more sensible pieces.
+ * File fingerprinting has been rewritten to avoid (fairly common) worst-case quadratic memory consumption.
+ * Several memory leaks in rpmbuild have been fixed and cpio list generation cleaned up and simplified in the process.
+ * The embedded Lua subsystem is now properly shut down on exit, and it's initialization has been cleaned up.
+ * Transaction elements know if their install/erase failed.
+ * Transaction elements know their rpmdb record in real-time.
+ * Minor optimization to %_netsharedpaths and %_install_lang handling.
+ * Minor optimization to hot path rpmdsCompare() function.
+
+### Build process
+ * Much improved build-time self-test suite.
+ * Various Hurd portability fixes. (ticket [#3](http://rpm.org/ticket/3), [#4](http://rpm.org/ticket/4) and [#5](http://rpm.org/ticket/5)).
+ * A handful of remaining compiler warnings have been eliminated.
+ * Some linkage cleanups (avoid linking to unnecessary libraries)
+ * Optional new build-dependencies:
+   * For POSIX.1e draft 15 file capabilities support, RPM needs to be built with [libcap](http://ftp.kernel.org/pub/linux/libs/security/linux-privs/libcap2/).
+   * For POSIX 1003.1e draft 17 ACL verification support, RPM needs to be built with [ftp://oss.sgi.com/projects/xfs/cmd_tars/ acl]
+   * For XZ and LZMA payload compression support, RPM needs to be built with [XZ](http://tukaani.org/xz/) library.
+
+## Compatibility notes
+This section describes potential compatibility issues with RPM 4.6.0. If upgrading from an older release, consult RPM 4.6.0 [compatibility notes](/wiki:Releases/4.6.0#Compatibilitynotes/) for additional information.
+### POSIX.1e draft 15 file capabilities
+ * File capability support, both build and runtime, is only available if RPM is built with libcap or compatible library.
+ * On Linux, capabilities are only available with kernel versions 2.6.24 and newer.
+ * Many filesystems (such as NFS) do not support capabilities at all. This can cause install-time failures and/or incorrectly functioning packages when such filesystems might be in use.
+ * Packages taking advantage of this feature can not be built or installed with older RPM versions. Use of this feature is tracked with new rpmlib(FileCaps) dependency.
+### XZ payload compression
+ * Packages built with XZ payload compression can not be installed with older versions of RPM. Use of this is tracked with new rpmlib(PayloadIsXz) dependency.
+ * As of this writing, the [XZ format](http://tukaani.org/xz/xz-file-format.txt) has been declared stable but there's no stable release of the XZ library yet.
+### Package building and build environment setup
+ * Using the new %getenv macro and rpm.vercmp() Lua extension in spec (or macro configuration like ~/.rpmmacros) makes such spec spec unbuildable with older RPM versions. Additional care needs to be taken if using rpm.vercmp() in package scriptlets as currently there is no feature tracking system for the Lua interface: scriptlets need to check if this feature is available by themselves if backwards compatibility is required.
+ * Due to relaxed checks on first charater of dependency names in this version, older RPM versions can error out on dependency names that this version accepts.

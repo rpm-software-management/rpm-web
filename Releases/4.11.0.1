@@ -1,0 +1,38 @@
+# RPM 4.11.0.1 Release Notes
+
+
+
+## Download information
+ * [rpm-4.11.0.1.tar.bz2](http://rpm.org/releases/rpm-4.11.x/rpm-4.11.0.1.tar.bz2) source
+ * SHA1SUM: 4f4362c40136c3a59ce164c142d62ea081793379
+
+## Summary of changes from RPM 4.11.0
+ 
+Shortly after the release of RPM 4.11.0, a critical last-minute regression
+in %ghost %config behavior was discovered and the 4.11.0 release was
+pulled from downloads entirely as the regression could cause severe
+data loss: 4.11.0 would remove %ghost %config files on package upgrades.
+As the rpmdb contents (ie /var/lib/rpm/*) are commonly packaged
+as %config %ghost files, upgrading rpm itself with 4.11.0 would
+erase the entire database with, well, disastrous results. To protect
+the innocent, the dangerous 4.11.0 release will not be reintroduced on
+rpm.org at all.
+
+Be sure to check out the [4.11.0 release notes](/wiki:Releases/4.11.0/)
+for the vast majority of changes from 4.10 however.
+
+## General bugfixes and enhancements
+ * Fix regression introduced in RPM 4.11.0 where %ghost %config files would
+   get removed on package upgrade.
+ * Restore legacy behavior of %ghost %config files on erasure: when package
+   is removed, %ghost %config files are left in place as-is - not removed
+   and not backed up like regular %config files. While this behavior could
+   be considered a long-standing bug, the behavior goes back at least a
+   decade and packages might be relying on it to preserve precious data.
+ * Always preserve %ghost %config on erasure. Related to above, older rpm
+   versions would remove a %ghost %config file on erasure when the on-disk
+   file was identical to the non-packaged version present in buildroot at
+   build-time.
+ 
+## Build proces
+ * Add test-cases for %ghost and %ghost %config behavior.

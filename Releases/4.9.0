@@ -1,0 +1,237 @@
+# RPM 4.9.0 Release Notes
+
+
+
+## Download information
+### RPM 4.9.0
+ * [rpm-4.9.0.tar.bz2](http://rpm.org/releases/rpm-4.9.x/rpm-4.9.0.tar.bz2) source
+ * SHA1SUM: 6bb5a392705ef6edad26c305f9bc9b6ac66ab47d
+
+## Summary of changes from RPM 4.8.x
+
+### General bugfixes and enhancements
+ * Improved install/erase/upgrade failure handling: elements skipped due to earlier failure cause their dependent elements to get skipped too, and all failed and skipped elements are logged.
+ * Rpm now refuses to install packages which are obsoleted by an already installed package ([RhBug:486565](https://bugzilla.redhat.com/show_bug.cgi?id=486565))
+ * Obsoletion within install set is handled automatically: obsoleting package replaces obsoleted package in the transaction set.
+ * Allow installation of self-conflicting packages, this can be used eg for creating "singleton" behavior between alternatives ([#806](http://rpm.org/ticket/806), [RhBug:651951](https://bugzilla.redhat.com/show_bug.cgi?id=651951))
+ * Dependency matching behaves more consistently in corner cases where release value is missing.
+ * Rpm now detects initial installation (eg install to an empty chroot) and disables fsync()/fdatasync() calls for the duration of that transaction, resulting in much faster install when there's no existing data to protect.
+ * Database operations (including package install/erase) are much faster due to fewer indexes.
+ * Disk space accounting now considers the estimated size requirements of the rpm database too ([#26](http://rpm.org/ticket/26))
+ * -F/--freshen now takes architecture into consideration on multilib systems ([RhBug:553108](https://bugzilla.redhat.com/show_bug.cgi?id=553108))
+ * --nocontexts now also disables SELinux context change when executing scriptlets.
+
+ * --info/-i query format has been changed to much more readable single "tag: value" per line formatting. Also epoch, architecture and bugurl are included in the output ([RhBug:575499](https://bugzilla.redhat.com/show_bug.cgi?id=575499))
+ * All dependency bits are now reported in :deptype format extension
+ * Spec queries can now be performed on both binary and source headers ([RhBug:540807](https://bugzilla.redhat.com/show_bug.cgi?id=540807), ticket [#89](http://rpm.org/ticket/89))
+ * Fix crash on unknown tags in header iteration query formats such as --xml.
+
+ * Fix bogus missing dependencies verify failures on package pre-requisites([RhBug:223642](https://bugzilla.redhat.com/show_bug.cgi?id=223642))
+ * Database verification (ie --verifydb) now runs with transaction lock protection
+
+ * Public key --import now supports more than one key per file ([RhBug:586827](https://bugzilla.redhat.com/show_bug.cgi?id=586827))
+ * When signing, verify the GPG-created signature can be used by rpm ([RhBug:608599](https://bugzilla.redhat.com/show_bug.cgi?id=608599))
+ * Package resigning now correctly detects whether previously signed by the same key and signing parameters ([RhBug:488953](https://bugzilla.redhat.com/show_bug.cgi?id=488953), [RhBug:608608](https://bugzilla.redhat.com/show_bug.cgi?id=608608))
+
+ * Differentiate between conflicts in database vs installing set in the conflict error message
+ * Much improved translations, thanks to offloading their maintenance to Transifex.
+ * Numerous documentation fixes.
+
+### New command-line utilities
+ * The keyring related operations of importing public keys and verifying package signatures have been split into a new "rpmkeys" cli utility
+ * Package signing and signature deletion operations have been split into a new "rpmsign" cli utility (related to [RhBug:624585](https://bugzilla.redhat.com/show_bug.cgi?id=624585))
+ * Rpm database maintenance related operations --initdb, --rebuilddb and --verifydb have been split into a new "rpmdb" cli utility
+ * Spec file query support has been split to a new "rpmspec" cli utility and enhanced in many ways. This also means the main rpm/rpmquery executables no longer need to link to librpmbuild.
+
+### Package building
+ * Package scriptlets can now be optionally macro-expanded at runtime. Also a "query format" expansion is supported, which allows access to run-time data from package's own header. All scriptlet types support new -e (expand) and -q (queryformat) options in the spec.  (XXX add link to documentation once it exists)
+ * Integrated support for packaging SELinux policies through %sepolicy section in spec (XXX add more details + link to documentation once it exists)
+ * EXPERIMENTAL support for package "collections" which are sort of like named triggers that only run once within a transaction. This can be used for example to avoid redundant calls for cache updates etc. (XXX add link to documentation once it exists)
+ * New "VCS" tag has been added to permit attaching upstream version control repository information to packages.
+ * Unknown dependency qualifiers are now always treated as errors and abort build
+ * Pre-transaction (scriptlet) dependencies can now be correctly expressed by using Requires(pretrans). Pretrans dependencies cannot be satisfied by packages in the install set, they must be present on the system before the transaction starts.
+ * Post-transaction (scriptlet) dependencies can now be correctly expressed by using Requires(posttrans). Posttrans dependencies do not affect ordering, they just must be present when the transaction finishes.
+ * Packages can now supply extra transaction ordering hints via new OrderWithRequires tag. This follows Requires tag syntax, but does not generate actual dependencies. Only if the involved packages are present in the same transaction, the ordering hints are treated as if they were Requires when calculating the transaction order.
+ * Support uncompressed package payloads
+
+ * Numerous perl dependency generator fixes (tickets XXX, [#128](http://rpm.org/ticket/128), [RhBug:477516](https://bugzilla.redhat.com/show_bug.cgi?id=477516)...)
+ * In simple cases, #!/usr/bin/env interpreter dependencies are now generated automatically ([#136](http://rpm.org/ticket/136))
+ * All parts of internal dependency generator are now implemented via external helpers and can be overridden via macros
+ * Dependency generators are now pluggable. Arbitrary number of dependency types is supported, new types can be added through a drop-in directory and file classification is now done with a combination of path and libmagic-type include/exclude regular expressions (XXX add link to documentation once it exists)
+ * Automatically generated dependencies can now be filtered with regex patterns. Entire paths can be completely excluded from dependency generation, and also individual generated dependencies can be excluded.
+ * Dependency extraction scripts now run with blocked IO and should be race-free (aka getOutputFrom() syndrome) ([RhBug:609117](https://bugzilla.redhat.com/show_bug.cgi?id=609117))
+ * RPM_BUILD_ROOT environment variable is now always available in all build-scripts.
+ * Default behavior of SIGPIPE is restored for build-scriptlets ([RhBug:651463](https://bugzilla.redhat.com/show_bug.cgi?id=651463))
+
+ * Fix relative paths causing tarball to be accessed instead of spec (ticket [#137](http://rpm.org/ticket/137))
+ * Short-circuiting binary builds is now allowed by rpmbuild for developer convenience while testing. Short-circuited packages are tainted with an unsatisfiable dependency to limit their use for the intended testing-only purpose.
+
+ * Debuginfo generation now creates an index for speeding up GDB if possible ([RhBug:617166](https://bugzilla.redhat.com/show_bug.cgi?id=617166))
+ * Debuginfo generation can now handle cross-directory hardlink ([RhBug:618426](https://bugzilla.redhat.com/show_bug.cgi?id=618426))
+
+### Removed features
+ * Support for --ftswalk and related options has been removed. Use find+xargs instead.
+ * Support for --hdlist "system headerlist" and --fileid query selectors have been removed.
+ * Support for --sign during rpmbuild has been removed. Signing must be done as a separate step using the new "rpmsign" command.
+ * Stubs for --aid and --nosuggest options have been removed. These have been no-ops since rpm >= 4.6.0.
+ * %_signature macro is no longer necessary for package signing and is not looked at.
+ * Support for %_dependency_whiteout macro has been removed.
+
+ * Support for RPMTAG_FSNAMES and RPMTAG_FSSIZES tag extensions has been removed.
+
+ * Support for sqlite as database backend has been removed.
+ * Support for numerous database backend configuration options have been removed. Many of them had never been actually implemented, and even larger number were things that should not be changable through configuration at all.
+ * The following database indexes have been removed: Filedigests, Pubkeys, Requireversion, Provideversion, Removetid. Pubkeys has not been used or useful since RPM 4.6.0, Filedigests was unproportionally expensive for its use (--fileid query) and the others have been completely unused throughout their history of existence.
+
+ * Support for %policy directive in spec files has been removed and replaced with a more powerful %sepolicy section.
+ * Numerous ancient, unused and bitrotten scripts have been removed
+
+### API changes
+
+ * Enumeration abuses for bitfields and argument types throughout the APIs have been eliminated. Besides being more "correct", this results in a much friendlier API for C++ users who were previously required to use numerous casts to work around the enumeration vs integer mismatches.
+ * The entire librpmbuild API has changed. Apart from most of rpmfc.h, not a single function or structure is left of the old "API" which exposed all internal data structures and helper functions, and had interface design mistakes so grave that maintaining compatibility was not reasonable. (XXX add brief description of the new API)
+ * Package signing has been split to a new librpmsign library, with a completely new interface consisting of rpmPkgSign() and rpmPkgDelSign() functions + rpmSignArgs control struct.
+ * While the number of removed APIs is quite large, the "core API" is practically unchanged. The removed APIs are generally either things that are only of internal use to librpm and should have never been exported, or have been unused for a long, long time.
+
+#### New interfaces
+
+ * A new problem type RPMPROB_OBSOLETES has been added
+ * A new rpmProblemCompare() function for testing problem equality has been added
+ * A new, saner problem set iteration interface rpmpsiNext() has been added
+ * A new rpmpsMerge() function for merging problem sets has been added
+ * Transaction problems are now associated with the transaction elements causing/triggering them. New functions rpmteProblems() and rpmteCleanProblems() have been added for accessing and cleaning up this information. rpmtsProblems() can still be used to retrieve all the combined problems in transaction though.
+
+ * Dependency sets from installed packages now remember the originating header instance (aka record number). This can be retrieved with the new rpmdsInstance() function, which is non-zero for dependencies from installed headers.
+ * A new rpmdsCurrent() function for returning a single dependency set instance from current iteration point has been added.
+
+ * A new function rpmcliImportPubkeys() has been added as a higher level API to importing public keys
+ * A new function rpmcliVerifySignatures() has been added as a higher level API to verifying package signatures
+
+ * New functions rpmTagGetTagType() and rpmTagGetReturnType() for retrieving the true tag type and return type have been added. Previously callers needed to bitmask rpmTagGetType() return values to get the part they were interested in.
+
+ * New functions rpmdbIndexIteratorInit(), rpmdbIndexIteratorNext(), rpmdbIndexIteratorNumPkgs(), rpmdbIndexIteratorPkgOffset(), rpmdbIndexIteratorTagNum() and rpmdbIndexIteratorFree() to iterate over rpm database index keys and pkg- and tagnums (as opposed to headers) has been added
+ * Supported database indexes are documented in the API (RPMDBI_* constants from rpmDbiTag enumeration) and should be used instead of rpmTag values with rpmdbInitIterator(), rpmtsInitIterator() and rpmdbKeyIteratorInit().
+
+#### Removed / internalized interfaces
+ * Reference decrementing functions rpmtsUnlink(), headerUnlink(), rpmdbUnlink(), rpmdsUnlink(), rpmfiUnlink(), rpmProblemUnlink(), rpmpsUnlink(), rpmKeyringUnlink() and rpmPubkeyUnlink() have been removed from the API. These are internal helpers only which do not behave as expected when reference count goes to zero. Use the fooFree() functions instead.
+
+ * Ordering related rpmteTSI(), rpmteSetTSI(), rpmteDepth(), rpmteSetDepth(), rpmteNpreds(), rpmteSetNpreds(), rpmteTree(), rpmteSetTree(), rpmteDegree(), rpmteSetDegree(), rpmteBreadth() and rpmteSetBreadth() functions have been removed either completely or made internal-only. These were only ever useful for internal purposes and those uses have been eliminated.
+ * rpmteNew() and rpmteFree() have been removed from the public API. Transaction elements can only be created by adding items to a transaction set, and can not be directly free'ed.
+ * rpmteFd() function has been removed. It was only of internal use and those uses have been eliminated.
+
+ * Unused rpmpsTrim() function has been removed.
+ * rpmpsAppend() function has been removed from the API. Use rpmProblemCreate() + rpmpsAppendProblem() instead
+
+ * Unused and useless rpmdsBT(), rpmdsSetBT(), rpmdsRefs() and rpmdsSetRefs() functions have been removed.
+ * The following "internal only / possible future use" dependency flags have been removed to make room for more useful things in the constrained bitfield: RPMSENSE_PROVIDES, RPMSENSE_CONFLICTS, RPMSENSE_OBSOLETES, RPMSENSE_PATCHES, RPMSENSE_SCRIPT_PREP, RPMSENSE_SCRIPT_BUILD, RPMSENSE_SCRIPT_INSTALL, RPMSENSE_SCRIPT_CLEAN.
+ * rpmdsProblem() function has been removed (this was of internal use only)
+
+ * Unused and unimplemented pseudo DBI-tags RPMDBI_DEPENDS, RPMDBI_ADDED, RPMDBI_REMOVED, RPMDBI_AVAILABLE and RPMDBI_ARGLIST have been removed.
+ * Almost all low-level rpmdb manipulation functions have been removed or internalized: rpmdbOpen(), rpmdbInit(), rpmdbClose(), rpmdbVerify(), rpmdbSync(), rpmdbRebuild(), rpmdbLink(), rpmdbCloseDBI(), rpmdbAdd() and rpmdbRemove() functions have been removed from the public API to prevent direct access to the rpmdb: all rpmdb manipulation must now go through the transaction layer.
+
+ * rpmtsSELinuxEnabled() function has been removed. Test RPMTRANS_FLAG_NOCONTEXTS transaction flag to see whether a transaction runs with SELinux enabled instead.
+ * rpmtsSpec() and rpmtsSetSpec() functions have been carefully burned to ashes and buried twelve feet under. Use rpmSpecParse() instead.
+ * rpmtsFindPubkey() function has been removed (this has been deprecated and unused since rpm 4.6.0)
+
+ * rpmcliSign() function and rpmSignFlags enumeration have been removed. Use rpmSign() and rpmDelSign() from librpmsign instead.
+ * Unused qva_prefix and qva_verbose + internal-only qva_mi and qva_gi fields in rpmQVKArguments struct have been removed.
+ * Unused rootdir and qva_flags fields in rpmInstallArguments has been removed (rpmcliRootDir is now used instead)
+ * rpmSignPoptTable, rpmDatabasePoptTable and ... popt option tables have been moved to the relevant command line utilities, eliminating them from the public API.
+ * rpmgi aka "rpm generalized iterator" has been removed from the public API.
+ * The internal helper function rpmcliShowMatches() function has been removed from the public API.
+ * rpmQueryVerify() has been removed from the public API. Use rpmcliQuery() / rpmcliArgIter() instead.
+
+ * Unused URL control struct urlinfo and its related functions urlNew(), urlFree() and urlSplit() have been removed.
+ * Unused fdReadable() and fdWritable() functions have been removed
+ * Filesystem related rpmGetFilesystemUsage(), rpmGetFilesystemList() and rpmFreeFilesystems() functions have been removed. They were only of internal use and those uses have been eliminated.
+ * Rpm's internal copy of FTS functionality has been removed from the public API.
+ * StringBuf and functions associated with it have been removed from the public API.
+
+#### Other interface changes
+ * RPMTRANS_FLAG_REVERSE, RPMTRANS_FLAG_ADDINDEPS and RPMTRANS_FLAG_NOSUGGEST and a number of "reservation for future development" from 2002 era transaction flags are no longer honored. The symbols still exist but are defined to 0 to make room for new, actually used flags. 
+ * rpmteFailed() now returns number of failures for the element. This can be used to determine whether the element itself failed or if it was skipped due to other failures.
+ * rpmtsRun() now ignores the "okProbs" argument.
+ * Rpm's file descriptor handling functions no longer assert() on NULL fd's, but return errors/NULL as appropriate.
+ * rpmcliFini() now performs all/most necessary memory cleanup calls for cli-use.
+ * Calling rpmReadConfigFiles() no longer changes the process umask.
+ * rpmdbInitIterator() and rpmtsInitIterator() now iterate over the indexes when "keyp" argument is NULL instead of returning empty iterators.
+ * rpmdbInit() and rpmtsInitDB() now create all the secondary indexes too (ticket [#156](http://rpm.org/ticket/156))
+ * Enum type abuse elimination changes:
+   * The type of tag argument to rpmdbInitIterator() and rpmtsInitIterator() interfaces have been changed to indicate they take an rpmDbiTag (value) as the tag argument, not any arbitrary header tag. Using RPMTAG_* values still works though, as long as the corresponding index actually exists.
+   * All uses of rpmTag and rpmSigTag enum types in function arguments have been changed to an integral rpmTagVal type
+   * All uses of pgpHashAlgo enum type in function arguments have been changed to int
+   * All uses of enum hMagic type in function arguments have been changed to int
+   * All uses of enumerations as a bitfield type have been changed to an integral rpmFlags type
+
+### Internal improvements and cleanups
+ * Most includes have been moved out of the catch-all system.h include to places that actually need them
+ * Pile of useless debug options and related code uglification has been removed all over the codebase.
+ * Lots and lots of major code cleanups all over the codebase (file- and package state machines, dependency checking, ordering, querying, rpmdb, signature generation and verification...)
+ * Numerous code-rearrangements to more logical source file units.
+ * Numerous type cleanups/corrections throughout the codebase from experiments with building the source with g++
+ * Use of C++ reserved keywords in the codebase has been removed
+ * Numerous unnecessary compatibility workarounds/hacks from rpm 1.x - 2.x era have been removed
+
+ * Scriptlet running mechanism has been cleaned up, decoupled from package state machine to an abstraction of their own, and no longer needs header(s) or even transaction set to execute. This is not really used yet, but technically would allow implementing things such as %postuntrans which hasn't been possible before.
+ * The macro engine is no longer limited by pre-allocated static buffer sizes, the expansion buffer grows dynamically (ticket [#45](http://rpm.org/ticket/45))
+ * New secondary database indexes can be created on the fly without requiring a full database rebuild
+ * The fundamental database configuration is now hardwired in librpm instead of being scattered around macro configuration, ensuring rpm is in control of its database and index formats and the underlying Berkeley DB subsystem configuration.
+ * Dependency set color is only calculated on colored transactions, saving some memory on non-multilib systems.
+ * Transaction lock path is now really per-transaction.
+ * Hash tables now dynamically grow if they get too full.
+ * A hash table is now used for looking up removed packages, eliminating linear searches.
+ * A hash table is now used for tracking already verified headers in the rpmdb, better matching the sparse nature of rpmdb header numbers.
+ * Two different but similar user + group information caching mechanisms between librpm and librpmbuild have been unified.
+ * Hardcoded group ids in user + group information caching mechanisms have been removed.
+
+ * New internal API for chroot() operations
+ * New internal plugin / hook API for supporting the collections
+
+ * Many new additions to the internal test-suite
+
+### Lua interface
+ * posix.exec() and os.exit() now return an error if called within the rpm process. These can only be used in child processes which have been created with posix.fork()
+
+### Python bindings
+ * Problems() method has been added to transaction elements for inspecting the per-element problems.
+ * Instance() method has been added to dependency sets for determing if a dependency came from an installed header or not.
+ * Dependency set constructor now supports using <=, =, > style operators in addition to using rpm.RPMSENSE_LESS etc bit manipulation.
+ * Spec constructor now accepts flags to control parse behavior (rpm.RPMSPEC_ANYARCH, rpm.RPMSPEC_FORCE, rpm.RPMSPEC_NOLANG)
+ * Packages can be now signed and unsigned from python via two new functions: rpm.addSign() and rpm.delSign()
+ * The C-level transaction set object is now visible in the bindings as rpm.TransactionSetCore as a hint that inheriting from it is ok.
+ * Transaction set dbMatch() method now iterates over actual indexes when no key is passed to secondary index, eg iterating over rpm.RPMTAG_OBSOLETENAME returns only the headers which contain obsoletes-dependencies.
+ * New dbIndex() method has been added to transaction set, permitting iteration over database index key values and retrieving the associated header instance numbers.
+ * Supported database indexes are documented in the API (rpm.RPMDBI_* constants) and are recommended for use with dbMatch() and dbKeys() to disambiguate from header tags.
+
+### Build process
+ * Support for truly ancient Berkeley DB versions has been removed. BDB >= 4.5 is now required. Basic support for BDB >= 5.0 has been added.
+ * SELinux support now requires version XXX of libselinux and additionally libsemanage (XXX fill in the details)
+ * Replacements for functions mandated by C99- and POSIX.1-2001 have been removed
+ * Many compatibility workarounds for ancient systems have been removed
+ * New configure switch --disable-plugins to prevent building of plugins (mostly useful for static debug builds)
+ * Python extension module is always built as a shared object. In order to build with --disable-shared, building of python bindings needs to be disabled.
+ * Unused checks removed from configure
+ * OS X portability fixes
+
+## Compatibility notes
+
+### Run-time package scriptlet expansion
+ * Packages using run-time scriptlet expansion (-e and/or -q arguments to %pre, %post etc scriptlets in spec) cannot be built or correctly installed with older versions of RPM. The use of this feature is tracked with new rpmlib(ScriptletExpansion) dependency.
+
+### Collections
+ * Packages relying on the new collections feature cannot be built or correctly installed with older versions of RPM. As this feature is still considered EXPERIMENTAL as of this writing, there's no tracking dependency for it yet either. Once the feature is considered fully ready and supported, the tracking dependency is likely to be called rpmlib(Collections).
+
+### Order hinting
+ * The order hinting mechanism usage is NOT tracked with rpmlib() dependencies. The rationale behind this is that older rpm versions can succesfully install packages containing ordering hints, the hints only enable improved ordering wrt optional related packages.
+
+### SELinux policies
+ * Older versions of RPM supported a %policy directive in spec for attaching SELinux policies into the package header, but this was never really usable for anything. Any uses of the %policy directive in specs should be removed as this unused directive prevents building with RPM 4.9.0 and later, while not doing anything for older versions. 
+ * Starting with RPM 4.9.0, SELinux policy packaging is supported via new %sepolicy section in the spec. Such packages cannot be built, but are installable on older RPM versions too (but the included policies will not be used in any way).
+
+### RPM database configuration and format
+ * RPM 4.9.0 can use the database and its indexes from older versions as-is, but for new databases (including --rebuilddb result) Berkeley DB BTREE is used for all the secondary indexes, which differs from the previous stock configuration and causes errors if accessed with older RPM version. The main Packages database format is unchanged however, meaning --rebuilddb with an older RPM version can be used to "downgrade" the database.
+
+### Automatic dependency generation
+ * While the new internal dependency generator uses the same macro !__foo_requires and !__foo_provides naming style for helper executables for backwards compatibility, the more fine-grained file type classification means that full compatibility with internal dependency generator overrides cannot be guaranteed: for example perl and perl module dependencies are two distinct "classes" now, whereas previously both were lumped under "perl" name.
+ * The external dependency generator system is still available and unchanged, so all the workarounds for former dependency generator defiencies involving switching to the external dependency generator should continue to work as-is.
+ * rpmlib(VersionedDependencies) dependencies are no longer generated. The tracking has been somewhat flawed since it's introduction, and is only relevant for rpm < 3.0.2 or so.

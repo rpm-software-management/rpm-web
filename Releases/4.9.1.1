@@ -1,0 +1,17 @@
+# RPM 4.9.1.1 Release Notes
+
+
+
+## Download information
+ * [rpm-4.9.1.1.tar.bz2](http://rpm.org/releases/rpm-4.9.x/rpm-4.9.1.1.tar.bz2) source
+ * SHA1SUM: 10bad109911449dc0075e8f62f9b2c3b2175a67e
+
+## Summary of changes from RPM 4.9.1
+
+This is a bugfix-only release to fix nasty package building
+regressions introduced in the brown paperbag [4.9.1 release](/wiki:Releases/4.9.1/).
+
+### Package building
+ * Restore %defattr() behavior on special %doc files
+ * Fix recursion of directories with trailing slash in %files
+ * Fix trailing slash getting added to %dir paths

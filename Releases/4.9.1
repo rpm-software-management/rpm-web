@@ -1,0 +1,94 @@
+# RPM 4.9.1 Release Notes
+
+
+
+## Download information
+ * *DO NOT USE* - this is a buggy release. You'll want [4.9.1.1](/wiki:Releases/4.9.1.1/) instead!
+ * [rpm-4.9.1.tar.bz2](http://rpm.org/releases/rpm-4.9.x/rpm-4.9.1.tar.bz2) source
+ * SHA1SUM: c142f0de1a109a719e322e44690f060eb8cd06e8
+
+## Summary of changes from RPM 4.9.0
+
+### Security
+ * Sanity check signatures even if we dont have a key ([RhBug:721225](https://bugzilla.redhat.com/show_bug.cgi?id=721225))
+ * Fix crash/memory corruption on PGP packets/armors with more than one key ([RhBug:667582](https://bugzilla.redhat.com/show_bug.cgi?id=667582))
+
+### General bugfixes and enhancements
+ * Fix sanity check on number of query/verify sources ([RhBug:691930](https://bugzilla.redhat.com/show_bug.cgi?id=691930))
+ * Fix a corner-case crash in package manifest reading ([RhBug:688091](https://bugzilla.redhat.com/show_bug.cgi?id=688091))
+ * Fix --verifydb to actually work
+ * Both files must be colored for multilib conflict resolution ([RhBug:705115](https://bugzilla.redhat.com/show_bug.cgi?id=705115))
+ * Permit %verifyscript from non-installed packages (SuseBug:???)
+ * Don't run collections on script stages like %pre/posttrans (SuseBug:???)
+ * Don't abort install/upgrade on chown/chmod failure if permissions are already correct (RhBug:???, SuseBug:???, ticket ???)
+ * Issue an error on failure to replace original package on signing
+ * The short -D cli switch is for --define, not --predefine ([RhBug:706161](https://bugzilla.redhat.com/show_bug.cgi?id=706161))
+ * Preferred color pkgs should be erased last ([RhBug:680261](https://bugzilla.redhat.com/show_bug.cgi?id=680261))
+ * Verify some properties of replaced and wrong-colored files ([RhBug:528383](https://bugzilla.redhat.com/show_bug.cgi?id=528383))
+ * Take file state into accoutn for file dependencies (RhBug:???)
+ * Improved rpm2cpio documentation
+ * Improved --deploops output
+
+### Package building
+ * Fix crash on empty %prep and %changelog section ([RhBug:706959](https://bugzilla.redhat.com/show_bug.cgi?id=706959), SuseBug:???)
+ * Fix crash on macro which undefines itself (SuseBug:???)
+ * Fix explicit directory %attr() when %defattr() is active ([RhBug:681540](https://bugzilla.redhat.com/show_bug.cgi?id=681540))
+ * Pay attention to dir vs file when building ([RhBug:505995](https://bugzilla.redhat.com/show_bug.cgi?id=505995))
+ * Fail build on unclosed macros & trailing line continuations in spec ([RhBug:681567](https://bugzilla.redhat.com/show_bug.cgi?id=681567))
+ * Always abort build immediately on spec %prep section errors
+ * Don't remove buildroot docdir on %doc usage (ticket [#836](http://rpm.org/ticket/836))
+ * Support automatic unpacking of lzip and lrzip compressed sources
+ * Support automatic unpacking of 'PK00' zip compressed sources ([RhBug:699529](https://bugzilla.redhat.com/show_bug.cgi?id=699529))
+ * Fix find-lang to find *@*.qm QT i18n files ([RhBug:699945](https://bugzilla.redhat.com/show_bug.cgi?id=699945))
+ * Fix classification of script files with file >= 5.07 ([RhBug:712251](https://bugzilla.redhat.com/show_bug.cgi?id=712251))
+ * Fix classification of ELF binaries with sticky bit ([RhBug:689182](https://bugzilla.redhat.com/show_bug.cgi?id=689182))
+ * Dependency generator could miss trailing output in corner cases
+ * Support optional "magic_and_path" flag in file attributes
+ * Same flags are now supported in file attribute include- and exclude rules
+ * Reflect file classifier errors in rpmdeps tool exit code
+ * Honor $TMPDIR in build helper scripts
+ * New --parse option in rpmspec tool to dump preprocessed spec contents (think of 'gcc -E')
+ * DWARF-4 support added to debugedit ([RhBug:707677](https://bugzilla.redhat.com/show_bug.cgi?id=707677))
+ * Abort debuginfo generation if STABS format encountered ([RhBug:453506](https://bugzilla.redhat.com/show_bug.cgi?id=453506))
+ * Add optional -r flag to find-debuginfo.sh to invoke eu-strip --reloc-debug-sections.
+
+### API changes
+ * rpmPubkeyDig() now returns NULL on PGP parse failure
+ * Honor trailing slash (ie directories only) in rpmGlob()
+ * Reset cli-configured flag on rpmcliFini() ([RhBug:709421](https://bugzilla.redhat.com/show_bug.cgi?id=709421))
+ * Calling rpmtsRun() with no packages is not an error ([RhBug:699929](https://bugzilla.redhat.com/show_bug.cgi?id=699929))
+ * Minor API documentation fixups
+
+### Internal improvements and cleanups
+ * Fix memleak on PGP keys with more than one user id
+ * Avoid possible unlink(NULL) call if writing a script file fails
+ * Fix memleak in parseDescription(), readIcon() and writeRPM()
+ * Handle readlink() failure in genCpioListAndHeader() correctly
+ * Handle HEADERFLAG_SORTED bit correctly in headerUnsort()
+ * Catch write errors when generating scriptlet temporary files
+ * Give at least some indication of error from fchdir() failures
+ * Handle headerGet() / pgpPrtPkts() failure on signature verify
+ * Remember to free db index iterators too on forced termination
+ * Fix dangling databases from iterators (ticket [#820](http://rpm.org/ticket/820))
+ * Dont reference transaction set from transaction elements
+ * Fix memleak in rpmsign tool
+ * Fix memleaks in macro definition error cases
+ * Fix missing va_end() call in rstrscat()
+
+### Lua interface
+ * Fix memleak on rpm.expand()
+ * Add support for nested Lua macro expansion ([RhBug:490740](https://bugzilla.redhat.com/show_bug.cgi?id=490740))
+
+### Python bindings
+ * Fix header !__getattr!__() behavior on non-tags
+ * Fix rpm.fd read() to actually work
+ * Fix rpm.fd seek() to raise exceptions on errors
+ * Fix rpm.ds Instance() method (it doesn't take any arguments)
+ * Add Failed() method to rpm.te objects for retrieving post-transaction element status
+
+### Build process
+ * Compatibility with autoconf-2.68
+ * Silence unused-but-set warnings on gcc >= 4.6.0
+ * zlib is considered mandatory
+ * Use pkg-config to find Lua + determine flags (ticket [#88](http://rpm.org/ticket/88))
+ * Python version compatibility fixes

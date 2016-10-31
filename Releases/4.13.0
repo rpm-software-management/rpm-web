@@ -1,0 +1,125 @@
+# RPM 4.13.0-rc2 Release Notes
+
+
+
+## Download information
+ * [http://rpm.org/releases/testing/rpm-4.13.0-rc2.tar.bz2] source
+ * SHA1SUM: `58dfe53cceb49d76315492d25efa8231b5fcf1fb`
+
+## Summary of changes from RPM 4.12.0.1
+
+### Major Features
+
+ * [FileTriggers File triggers]
+ * [PackagerDocs/BooleanDependencies Boolean Dependencies]
+ * Support for file signatures in the security.ima xattr
+
+### Command line
+
+ * --whatrecommends, --whatsuggests, --whatsupplements, --whatenhances, --filetriggers query parameters
+ * Deprecated rpmbuild --addsign (use rpmsign instead!)
+ * Add support for `rpmbuild -r[abpcils] SRPM` to allowdoing all build steps from a source package 
+ * Honor --noglob in install modes too
+ * Try to print error on stderr if log function failed ([RhBug:1139444](https://bugzilla.redhat.com/show_bug.cgi?id=1139444))
+ * Fixed --last sorting with non-en locales
+ * RPM no longer asks for passphrases of GPG keys on its own but lets GPG use pinentry
+
+### Building
+ * Terminate builds on empty manifest files (?_empty_manifest_terminate_build)
+ * Error out on multiple triggers with the same target within a spec file ([RhBug:585384](https://bugzilla.redhat.com/show_bug.cgi?id=585384), [RhBug:702378](https://bugzilla.redhat.com/show_bug.cgi?id=702378))
+ * Don't include not explicitly listed files from doc dir into package ([RhBug:728959](https://bugzilla.redhat.com/show_bug.cgi?id=728959))
+ * Fix references to go sources in debuginfo packages ([RhBug:1184221](https://bugzilla.redhat.com/show_bug.cgi?id=1184221))
+ * Fix "sources" and "patches" lua vars to not depend on ording of the spec file ([RhBug:1084309](https://bugzilla.redhat.com/show_bug.cgi?id=1084309))
+ * rpmbuild -tX checks for multiple specfiles in the source tarball ([RhBug:886395](https://bugzilla.redhat.com/show_bug.cgi?id=886395))
+ * Pass _find_debuginfo_opts -g to eu-strip for executables ([RhBug:1186563](https://bugzilla.redhat.com/show_bug.cgi?id=1186563))
+ * Deprecated %makeinstall use %make_install instead ([RhBug:1148195](https://bugzilla.redhat.com/show_bug.cgi?id=1148195))
+ * Better handling of compressed patches
+ * RemovePathPostfixes to allow conflicting files in sub packages
+ * Removed unused dependency generator scripts
+ * Check spec for valid UTF-8 encoding (%_invalid_encoding_terminates_build)
+ * Warn on unused macros
+ * Don't allow infinite recursion loop with "package file" manifests ([RhBug:461352](https://bugzilla.redhat.com/show_bug.cgi?id=461352))
+ * Fix perl dependency generator for multi line statements ([RhBug:1024517](https://bugzilla.redhat.com/show_bug.cgi?id=1024517))
+ * Don't preserve ownership from tar when root ([RhBug:1133946](https://bugzilla.redhat.com/show_bug.cgi?id=1133946))
+ * Dependency Generators for weak deps
+ * Enable {} expansion in rpmGlob() / %files
+ * No longer bytecompile python scripts in docdir
+ * Improvements to find-lang.sh
+ * Improvements to perl dependency generator
+ * Use default value (currently 7) for XZ compression if not value is given 
+ * Support for debuginfo compression ([RhBug:833311](https://bugzilla.redhat.com/show_bug.cgi?id=833311), [RhBug:971119](https://bugzilla.redhat.com/show_bug.cgi?id=971119))
+ * Support for minidebuginfo ([RhBug:834073](https://bugzilla.redhat.com/show_bug.cgi?id=834073), [RhBug:1382394](https://bugzilla.redhat.com/show_bug.cgi?id=1382394), [RhBug:1052415](https://bugzilla.redhat.com/show_bug.cgi?id=1052415))
+ * Support for RISCV and MIPS r6 architectures
+ * New macro %_buildhost can be used to override gethostname() value ([RhBug:1309367](https://bugzilla.redhat.com/show_bug.cgi?id=1309367))
+ * Use armv7hl as ISA for all armv7 systems ([RhBug:1326871](https://bugzilla.redhat.com/show_bug.cgi?id=1326871))
+ * Filter automatic unversioned dependencies when versioned ones exist ([RhBug:678605](https://bugzilla.redhat.com/show_bug.cgi?id=678605))
+ * Enable --no-backup-if-mismatch by default in %patch macro ([RhBug:884755](https://bugzilla.redhat.com/show_bug.cgi?id=884755))
+ * Honor %{_default_patch_flags} and fuzz settings in %autosetup / %autopatch too
+ * Fix non-working combination of %lang and %doc directive ([RhBug:1254483](https://bugzilla.redhat.com/show_bug.cgi?id=1254483))
+ * Fix %autosetup tripping errors on rpmspec queries
+ * Fix recursive calling of rpmdeps tool ([RhBug:1297557](https://bugzilla.redhat.com/show_bug.cgi?id=1297557))
+ * Warn on invalid epoch presence in dependency versions ([RhBug:1251453](https://bugzilla.redhat.com/show_bug.cgi?id=1251453))
+ * Make terminating on invalid version string configurable
+ * Make %autopatch abort on errors
+ * Add support for all dependency types to rpmdeps
+ 
+
+### Installation
+ * Don't wait for transaction lock within scriptlets
+ * Handle %ghost file in payload of old packages ([RhBug:1156497](https://bugzilla.redhat.com/show_bug.cgi?id=1156497))
+ * Fix %preun scriptlet not aborting package erase
+ * Ignore SIGPIPE during scriptlet execution ([RhBug:1264198](https://bugzilla.redhat.com/show_bug.cgi?id=1264198))
+
+## Security
+ * More thorough validation of header data ranges ([RhBug:1373107](https://bugzilla.redhat.com/show_bug.cgi?id=1373107))
+ * Avoid leaking unchecked data (CVE:2013-6435)
+ * Overflow of cpio filename buffer ([RhBug:1168715](https://bugzilla.redhat.com/show_bug.cgi?id=1168715), CVE:2014-8118)
+ * Undefined behavior in base64 decode 
+ * Segfault when NEVRA tags are not present in package (RhBug:???)
+ * Segfault in tag data string formatting ([RhBug:1316903](https://bugzilla.redhat.com/show_bug.cgi?id=1316903))
+ * Read past buffer end in tag data formatting ([RhBug:1316896](https://bugzilla.redhat.com/show_bug.cgi?id=1316896))
+ * Ensure at least one tag in header region (RhBug:???)
+ * Segfault in filelist compression on malformed package ([RhBug:1273360](https://bugzilla.redhat.com/show_bug.cgi?id=1273360))
+ * Read past allocated buffer ([RhBug:1260248](https://bugzilla.redhat.com/show_bug.cgi?id=1260248))
+
+### Bugfix
+ * Don't include not explicitly listed files from doc dir into package
+ * Fix path to go sources in debuginfo packages
+ * Fix handling %license in files manifest ([RhBug:1200761](https://bugzilla.redhat.com/show_bug.cgi?id=1200761))
+ * Ensure child process is terminated after fork() without exec() in lua
+ * Fix handling of more than two identical multilib files ([RhBug:1170124](https://bugzilla.redhat.com/show_bug.cgi?id=1170124))
+ * Fix  size and archive size generation on big-endian systems
+ * Reset architecture defaults on rpmFreeRpmrc() ([RhBug:1115483](https://bugzilla.redhat.com/show_bug.cgi?id=1115483))
+ * Fix double-free on rpmdb close from C++
+ * Unlimited macro expansion in specs 
+
+### API
+ * New rpmsqSetInterruptSafety() function for disabling `^C` handling
+ * rpmSpecPkgGetSection() to get fileFile, fileList and policyList from parsed spec file
+ * Added trigger indexes to rpmds data type
+ * rpmPkgSign() no longer gets a passphrase parameter
+ * New RPMCALLBACK_ELEM_PROGRESS callback type
+ * New rpmExpandMacros() function for better control over macro expansion
+
+### Lua
+ * New posix.redirect2null() extension ([RhBug:1287918](https://bugzilla.redhat.com/show_bug.cgi?id=1287918))
+
+### Python Binding
+ * rpm.setInterruptSafety() for disabling `^C` handling
+ * fileFile, fileList, policyList attributes for specpkg object
+ * Added doc strings for many functions and methods
+ * Fixes for Python3 compatibility
+
+### Internal
+ * Allow gpg to get passphrase by itself ([RhBug:1228234](https://bugzilla.redhat.com/show_bug.cgi?id=1228234))
+ * Added Recommendname, Suggestname, Supplementname, Enhancename indexes to rpmdb
+ * Added Filetriggername and Transfiletrigername indexes to rpmdb
+ * Refactoring work on the rpmdb backend code
+ * Refactoring work on the signature code
+ * Refactoring work on the dependency generation code
+ * Refactoring work on the dependency checking code
+ * Small improvements on the ordering code
+
+## Compatibility
+ * The new indexes are generated automatically. But querying them as user before they got build by root can cause an error.
+ * Changed pass phrase handling requires GPG setup working with gpg-agent and pinentry for signing

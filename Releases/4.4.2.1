@@ -1,0 +1,128 @@
+# RPM 4.4.2.1
+
+## Download information
+ * [rpm-4.4.2.1.tar.gz](http://rpm.org/releases/rpm-4.4.x/rpm-4.4.2.1.tar.gz) source
+ * SHA1SUM: d3a6c7f9f8f42849cad80cb6d3ddbe7ce2e72782
+
+## Changes from version 4.4.2 to 4.4.2.1
+
+ * remove internal sqlite, zlib, gettext
+ * remove obsolete utilities
+ * remove vendor gpg keys
+ * fix spec parenthesis parsing
+ * allow building without neon
+ * disable hkp lookup by default
+ * re-enable file-conflicts detection ([RhBug:151609](https://bugzilla.redhat.com/show_bug.cgi?id=151609))
+ * fix potential segfault in available file provides checking
+ * fix Requires(pre,postun) ([RhBug:155700](https://bugzilla.redhat.com/show_bug.cgi?id=155700)) 
+ * fix db build wrt newer CFLAGS
+ * fix popt CHARSET for various languages ([RhBug:172155](https://bugzilla.redhat.com/show_bug.cgi?id=172155))
+ * fix install size calculation with excludes in manifest ([RhBug:89661](https://bugzilla.redhat.com/show_bug.cgi?id=89661))
+ * use full path in the rpm cronjob ([RhBug:174211](https://bugzilla.redhat.com/show_bug.cgi?id=174211))
+ * filter out incorrect perl(main) provides ([RhBug:177960](https://bugzilla.redhat.com/show_bug.cgi?id=177960))
+ * fix scriptlet deadlock ([RhBug:146549](https://bugzilla.redhat.com/show_bug.cgi?id=146549))
+ * fix netshared path comparison ([RhBug:52725](https://bugzilla.redhat.com/show_bug.cgi?id=52725))
+ * make fcntl lock sensitive to --root ([RhBug:151255](https://bugzilla.redhat.com/show_bug.cgi?id=151255))
+ * fix rpmvercomp for strings with trailing null segments ([RhBug:178798](https://bugzilla.redhat.com/show_bug.cgi?id=178798))
+ * fix doxygen generation ([RhBug:187714](https://bugzilla.redhat.com/show_bug.cgi?id=187714))
+ * fix potential segfault if no rpmlock_path defined ([RhBug:231146](https://bugzilla.redhat.com/show_bug.cgi?id=231146))
+ * fix for thinko in debugedit on ppc
+ * fix debugedit wrt OOo
+ * fix debugedit with ../../ in paths
+ * fix various other issues in debugedit ([RhBug:205339](https://bugzilla.redhat.com/show_bug.cgi?id=205339))
+ * allow customisable diff and use -p by default ([RhBug:146981](https://bugzilla.redhat.com/show_bug.cgi?id=146981))
+ * handle fork failure 
+ * fix a typo causing compiler warning (SuseBug:178055)
+ * fix a %{buildsubdir} typo/thinko
+ * fix uncompress waitpid logic to shut up the compiler (SuseBug:160434)
+ * add support for %{_docdir} macro ([RhBug:125514](https://bugzilla.redhat.com/show_bug.cgi?id=125514)) 
+ * fix segfault on rpmbuild with empty file list
+ * allow --ignoresize for erase operations
+ * don't attempt to execute empty transaction (SuseBug:43267) 
+ * don't segfault if Fileno() is called with NULL
+ * don't attempt to execute empty transaction (SuseBug:43267)
+ * don't segfault if Fileno() is called with NULL
+ * abort build if cwd not determinable 
+ * fix --noghost query option ([RhBug:103207](https://bugzilla.redhat.com/show_bug.cgi?id=103207))
+ * fix off-by-one error in glob
+ * check rpmtsInitDB() return value
+ * build internal Lua without readline support
+ * make rpmdbSync obey the no_dbsync flag
+ * fix package verification for packages with header+payload RSA but no header-only RSA
+ * drop any s-bits early when deleting files (SuseBug:50376, [RhBug:125517](https://bugzilla.redhat.com/show_bug.cgi?id=125517))
+ * fix handling of old packages that use HEADERIMAGE
+ * catch disk-space errors when writing signed packages
+ * fix default verify flags for %doc ([RhBug:235353](https://bugzilla.redhat.com/show_bug.cgi?id=235353))
+ * fix debugedit for relative paths ([RhBug:232222](https://bugzilla.redhat.com/show_bug.cgi?id=232222))
+ * add configurable preferable elf colour policy ([RhBug:235757](https://bugzilla.redhat.com/show_bug.cgi?id=235757))
+ * python: always treat changelog as list
+ * use older perl helper scripts by default
+ * add mono req/provides support
+ * remove SELinux context verification ([RhBug:193488](https://bugzilla.redhat.com/show_bug.cgi?id=193488))
+ * fix building without Lua support
+ * fix --rebuilddb with --root option
+ * fix --setperms and --setugids with uninstalled packages
+ * don't run pre- and posttrans scripts in test mode
+ * dbmatch keys can be unicode objects also ([RhBug:219008](https://bugzilla.redhat.com/show_bug.cgi?id=219008))
+ * gendiff: let diff arguments be specified in the environment
+ * gendiff: emit diff headers ([RhBug:237561](https://bugzilla.redhat.com/show_bug.cgi?id=237561))
+ * improved error messages in verification of unreadable files
+ * python: raise exception if tsAdd fails
+ * check for supported package payload format ([RhBug:140052](https://bugzilla.redhat.com/show_bug.cgi?id=140052))
+ * fail build if beecrypt headers not found
+ * build: check unpackaged files even if other errors are present
+ * restore SIGILL handler in machine detection code
+ * add --dupes popt alias for detecting duplicate packages in rpmdb
+ * fix typo in check-prereq ([RhBug:203182](https://bugzilla.redhat.com/show_bug.cgi?id=203182))
+ * add --dupes popt alias for detecting duplicate packages in rpmdb
+ * fix typo in check-prereq ([RhBug:203182](https://bugzilla.redhat.com/show_bug.cgi?id=203182))
+ * python: fix rpm.te Key() refcount ([RhBug:182063](https://bugzilla.redhat.com/show_bug.cgi?id=182063))
+ * python: always treat fileverifyflags as list
+ * disable strict aliasing if compiler supports it (type-punning warns)
+ * add zh_TW translation
+ * add support for srcdefattr macro (SuseBug:48870, [RhBug:125515](https://bugzilla.redhat.com/show_bug.cgi?id=125515))
+ * detect python 2.5 automatically in configure
+ * python: reference counting for match-iterators ([RhBug:241751](https://bugzilla.redhat.com/show_bug.cgi?id=241751))
+ * updated fi translation
+ * fix format string errors in de translation
+ * allow characters > 127 that don't fit the current locale in spec
+ * treat null epoch equal to zero epoch in freshen ([RhBug:143301](https://bugzilla.redhat.com/show_bug.cgi?id=143301))
+ * python: treat null epoch equal to zero labelCompare ([RhBug:227860](https://bugzilla.redhat.com/show_bug.cgi?id=227860))
+ * permit installing multiple package versions with -i ([RhBug:213399](https://bugzilla.redhat.com/show_bug.cgi?id=213399))
+ * fix <name>.<arch> query output for non-installed package ([RhBug:124016](https://bugzilla.redhat.com/show_bug.cgi?id=124016))
+ * updated pl translation
+ * don't read packages with non-verifiable signatures ([RhBug:239557](https://bugzilla.redhat.com/show_bug.cgi?id=239557))
+ * don't try to open non-existent file twice in query
+ * flush query format buffer before listing files ([RhBug:212833](https://bugzilla.redhat.com/show_bug.cgi?id=212833))
+ * check all header strings to resize buffer ([RhBug:212833](https://bugzilla.redhat.com/show_bug.cgi?id=212833))
+ * don't segfault on a header without RPMTAG_NAME ([RhBug:239557](https://bugzilla.redhat.com/show_bug.cgi?id=239557))
+ * fix file status for replaced files ([RhBug:237478](https://bugzilla.redhat.com/show_bug.cgi?id=237478))
+ * make %_signature default to gpg instead of none
+ * don't skip directories in fingerprinting ([RhBug:140055](https://bugzilla.redhat.com/show_bug.cgi?id=140055), [RhBug:223639](https://bugzilla.redhat.com/show_bug.cgi?id=223639), ...)
+ * remove vendor, release specific dependency whitouts
+ * remove upstream spec files for rpm and popt
+ * don't open temporary databases in rpmdbOpenAll()
+ * open non-temporary db's before chroot ([RhBug:103952](https://bugzilla.redhat.com/show_bug.cgi?id=103952), [RhBug:173285](https://bugzilla.redhat.com/show_bug.cgi?id=173285))
+ * don't treat provides as implicit obsoletes ([RhBug:111071](https://bugzilla.redhat.com/show_bug.cgi?id=111071), ...)
+ * fix CVE-2007-1536, CVE-2007-2799 in internal libmagic 
+ * support specifying fuzz factor to %patch ([RhBug:243720](https://bugzilla.redhat.com/show_bug.cgi?id=243720))
+ * enable ordering on erase mode
+ * transaction ordering fixes ([RhBug:196590](https://bugzilla.redhat.com/show_bug.cgi?id=196590), [RhBug:202540](https://bugzilla.redhat.com/show_bug.cgi?id=202540), [RhBug:202542](https://bugzilla.redhat.com/show_bug.cgi?id=202542), ...)
+ * added IPv4/6 and EPSV support 
+ * transaction ordering fixes ([RhBug:196590](https://bugzilla.redhat.com/show_bug.cgi?id=196590), [RhBug:202540](https://bugzilla.redhat.com/show_bug.cgi?id=202540), [RhBug:202542](https://bugzilla.redhat.com/show_bug.cgi?id=202542), ...)
+ * added IPv4/6 and EPSV support
+ * remove hardcoded /var/log/lastlog kludgery
+ * don't mmap large files ([RhBug:139539](https://bugzilla.redhat.com/show_bug.cgi?id=139539), [RhBug:177616](https://bugzilla.redhat.com/show_bug.cgi?id=177616))
+ * detect and provide a requirement for DT_GNU_HASH
+ * ARM architecture update
+ * update popt version for clean upgradability
+ * remove hardcoded libtermcap vs bash kludge
+ * updated Russian man pages ([RhBug:185620](https://bugzilla.redhat.com/show_bug.cgi?id=185620))
+ * fix a sparse warning in popt.h ([RhBug:202005](https://bugzilla.redhat.com/show_bug.cgi?id=202005))
+ * disable broken "make check" tests
+ * treat /usr/share/gtk-doc/html/ as a docdir
+ * plug some minor memory leaks
+ * use --wildcards with tar for compatibility with tar >= 1.15.91
+ * fix segfault on errors if neon transport is used ([RhBug:220392](https://bugzilla.redhat.com/show_bug.cgi?id=220392))
+ * new buildroot sanity checker scripts check-buildroot and check-rpaths
+ * new debugedit option for recomputing build ID

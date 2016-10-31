@@ -1,0 +1,32 @@
+# RPM 4.10.2 Release Notes
+
+
+
+## Download information
+ * [rpm-4.10.2.tar.bz2](http://rpm.org/releases/rpm-4.10.x/rpm-4.10.2.tar.bz2) source
+ * SHA1SUM: 2455aa402823b34cdc3ee04e85accdffb70c5cb3
+
+## Summary of changes from RPM 4.10.1
+
+### Security
+ * Fix missing error code on unparseable signature in packages,
+   regression introduced in rpm 4.10.0. This could result in packages with
+   malformed signature falling through signature checking.
+
+### General bugfixes and enhancements
+ * Fix missing error code on --import on bogus key file ([RhBug:869667](https://bugzilla.redhat.com/show_bug.cgi?id=869667))
+ * Fix installation of packages containing skipped hardlinks ([RhBug:864622](https://bugzilla.redhat.com/show_bug.cgi?id=864622))
+ * Fix --setperms regression introduced in rpm 4.10.0 ([RhBug:881835](https://bugzilla.redhat.com/show_bug.cgi?id=881835))
+ * Fix locale dependent behavior in rpm2cpio.sh ([RhBug:878363](https://bugzilla.redhat.com/show_bug.cgi?id=878363))
+ * Add --undefine cli switch for undefining macros (related to [RhBug:876308](https://bugzilla.redhat.com/show_bug.cgi?id=876308))
+ * Documentation updates ([RhBug:665536](https://bugzilla.redhat.com/show_bug.cgi?id=665536), [RhBug:742362](https://bugzilla.redhat.com/show_bug.cgi?id=742362), ...)
+
+### Internal improvements and cleanups
+ * Fix NSS-usage clash by using private context when possible ([RhBug:871485](https://bugzilla.redhat.com/show_bug.cgi?id=871485))
+ * Fix partial reads and errors in package IO ([RhBug:802839](https://bugzilla.redhat.com/show_bug.cgi?id=802839), [RhBug:580974](https://bugzilla.redhat.com/show_bug.cgi?id=580974))
+ * Fix handling of allocation failure in DSA signature initialization
+
+### Build process
+ * Fix noarch !__isa_* macro filter in installplatform ([RhBug:865436](https://bugzilla.redhat.com/show_bug.cgi?id=865436))
+ * Fix warnings when building with gcc >= 4.7
+ * Fix warnings when building against NSS >= 3.14

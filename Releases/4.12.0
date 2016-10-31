@@ -1,0 +1,164 @@
+# RPM 4.12.0 Release Notes
+
+
+
+## Download information
+ * [rpm-4.12.0.tar.bz2](http://rpm.org/releases/rpm-4.12.x/rpm-4.12.0.tar.bz2) source
+ * SHA1SUM: `9e91dd0cdd8178aafdb165a7c9ae3a60ce8f6007`
+
+## Summary of changes from RPM 4.11.2
+
+### General bugfixes and enhancements
+ * New --nopretrans and --noposttrans disabler switches (previously tied
+   to --nopre/--nopost)
+ * New --noplugins switch to disable all plugins
+ * New --reinstall mode which can handle changing file policies ([RhBug:966715](https://bugzilla.redhat.com/show_bug.cgi?id=966715))
+ * New --exportdb and --importdb switches in rpmdb(8)
+ * New --recommends, --suggests, --supplements and --enhances query aliases
+   for querying weak dependencies
+ * New optional payload format to support large (> 4GB) files within
+   packages (ticket [#41](http://rpm.org/ticket/41))
+ * New rpm2archive utility for converting rpm payload to tar archives
+
+ * Fix curl globbing being enabled on remote retrieval ([RhBug:1076277](https://bugzilla.redhat.com/show_bug.cgi?id=1076277))
+ * Fix $1 argument to %pretrans, %posttrans and %verifyscript to behave
+   like all other scripts
+ * Fix mixed binary + source rpm installation progress ([RhBug:984724](https://bugzilla.redhat.com/show_bug.cgi?id=984724))
+ * Fix file actions sometimes carrying state across multiple rpmtsRun()
+   calls ([RhBug:1076552](https://bugzilla.redhat.com/show_bug.cgi?id=1076552))
+ * Fix duplicate usernames causing false positives on verification (ticket [#872](http://rpm.org/ticket/872))
+ * Fix ordering to prefer self-provides on ordering when appropriate ([RhBug:1111349](https://bugzilla.redhat.com/show_bug.cgi?id=1111349))
+ * Fix a double-free on unpadded signature header
+
+ * Add support for "new" architectures:
+   * m68k (again)
+   * Sparc Niagara (detection)
+   * ARM v6 and v7 (hardware FPU detection)
+ * Documentation, translation updates
+
+### Package building
+ * New warnings on invalid / dubious spec constructs:
+   * Detect multiple %files sections per package
+   * Detect empty %files -f manifest files
+   * Detect multiple %changelog sections per spec
+   * Detect duplicate Group, Summary, Description, Distribution, Vendor,
+     License and Packager tags per package (ticket #27)
+ * Add support for specifying [weak dependencies](/wiki:PackagerDocs/Dependencies#Weakdependencies/)
+   (Recommends, Suggests, Supplements and Enhances) tags in spec
+ * Add support for automatic generation of weak dependencies ([RhBug:1117912](https://bugzilla.redhat.com/show_bug.cgi?id=1117912))
+
+ * New %{load:<path>} macro to load custom macro files (from eg spec)
+ * New %_smp_ncpus_max macro to configure CPU limit for parallel builds
+   (related to [RhBug:669638](https://bugzilla.redhat.com/show_bug.cgi?id=669638))
+ * New %make_build macro for hiding parallel-build magic from specs
+   (ticket [#115](http://rpm.org/ticket/115))
+ * New %_rundir macro for referring to /run (formerly /var/run) directory
+ * New %!__gpg_reserved_space macro allows preallocating space for signatures
+   which allows very fast package signing
+ * Add support for detecting and warning on macro scoping violations
+   ([RhBug:552944](https://bugzilla.redhat.com/show_bug.cgi?id=552944)) when %trace is active
+ * Add support for %autosetup -S git_am variant (RhBug:???)
+ * Fix parametrized macros eating newlines ([RhBug:1045723](https://bugzilla.redhat.com/show_bug.cgi?id=1045723))
+ * Fix around macro scoping problems in %autosetup (RhBug:???)
+
+ * Fix ELF soname dependencies getting generated for non-library DSO's
+   too (RhBug:???)
+ * Fix garbage sonames sometimes getting added as dependencies (ticket [#158](http://rpm.org/ticket/158))
+ * Fix various issues in dependency generator
+ * Fix libtool dependency generation with libtool >= 2.4.2 version
+ * Fix external dependency generator to use the same generators as
+   internal one by default
+ * Fix crash on missing name-argument to %package ([RhBug:1123722](https://bugzilla.redhat.com/show_bug.cgi?id=1123722))
+
+ * Fix non-canonical path usage for matching in debugedit ([RhBug:1077148](https://bugzilla.redhat.com/show_bug.cgi?id=1077148))
+ * Fix PPC ABI change in default configuration ([RhBug:1085127](https://bugzilla.redhat.com/show_bug.cgi?id=1085127))
+
+### Removed features
+ * Remove support for %_noPayloadPrefix (rpm < 3.0.5 compatibility)
+ * Remove experimental support for "collections", added in 4.9.0
+
+### API changes
+ * New rpmtxnBegin() and rpmtxnEnd() to permit clients to control transaction
+   locking
+ * New rpmtsImportHeader() to permit importing "detached" headers into rpmdb
+ * New rpmtsAddReinstallElement() function for reinstalling packages
+
+ * New rpmdbIndexIteratorNextTd() provides a nicer iterator interface to
+   rpmdb indexes
+
+ * New file info set iterator functions: rpmfiFLinks(), rpmfiFindFN(),
+   rpmfiStat()...
+ * New file info set iterator functions for accessing original paths
+   from relocated packages: rpmfiOFN(), rpmfiOBN(), rpmfiODN(), rpmfiFindOFN()
+ * New archive API on top of file info iterators: (FIXME: describe...)
+ * New "rpmfiles" object + related API for random access to file info sets
+ * Many new file info set iteration modes (FIXME: describe...)
+
+ * New rpmteFiles() to return transaction element file info set, to be used
+   instead of rpmteFI()
+ * New rpmdsTagF(), rpmdsTagEVR(), rpmdsD(), rpmdsPutToHeader(), rpmdsTi(),
+   rpmdsTagTi() and rpmdsSinglePoolTix() methods to rpmds objects
+
+### Internal improvements and cleanups
+ * Lots of cleanups all over the codebase
+   * Former "file state manager" eliminated and rewritten
+   * "Package state manager" largely eliminated
+   * File IO subsystem sanity & improvements
+   * Berkeley DB dependencies isolated to backend code
+   * File info sets are finally properly opaque
+   * Handle trigger indexes within rpmds objects
+ * Partial thread-safety by added locks/mutexes (FIXME: describe...)
+   * Configuration and macros
+   * Logging
+   * Keyrings and keys
+   * ...
+ * Fix symlink timestamp on install on systems which support it
+ * Fix problematic license on internal  mergesort() implementation (removed)
+ * Fix rpm dependency on libselinux (moved to a plugin)
+ * Fix installation to always use header, not payload metadata
+ * Fix global macro state side-effects from rpmInstallSourcePackage()
+
+ * Fix oversized stack allocation on verify ([RhBug:1106594](https://bugzilla.redhat.com/show_bug.cgi?id=1106594))
+ * Fix buffer overflows on malformed macro define/undefine ([RhBug:1087000](https://bugzilla.redhat.com/show_bug.cgi?id=1087000))
+ * Optimize package generation and signing considerably
+ * Optimize file requires processing
+ * Optimize installed dependency processing
+
+### Plugins
+ * A new plugin system, internal-only for now (FIXME: describe...)
+ * Plugins included in this release:
+   * systemd_inhibit plugin - preventing shutdown while transaction
+     is in progress (RhBug:1109927)
+   * selinux plugin - basic SELinux support, previously in librpm directly
+   * syslog - example plugin for logging rpm activity to syslog
+
+### Python bindings
+ * Database index iteration returns proper types for non-strings
+ * New rpm.fi methods: FLinks(), FindFN(), OFN()...
+ * New fi.FLinks() method added
+ * New rpm.files object + related API for random access to file info sets
+ * New rpm.archive object + related API for manipulating package payloads
+ * New te.Files() method added
+ * New addReinstall() method in transaction set objects (related to
+   [RhBug:966715](https://bugzilla.redhat.com/show_bug.cgi?id=966715), [RhBug:1071854](https://bugzilla.redhat.com/show_bug.cgi?id=1071854)...)
+ * New rpm.strpool object for utilizing shared string pool with eg
+   rpm.fi and rpm.ds objects
+ * New rpm.header_magic constant exported
+ * Fix several Python 3 compatibility issues ([RhBug:1064758](https://bugzilla.redhat.com/show_bug.cgi?id=1064758)
+   * Fix build- and sign-module initialization ([RhBug:1064758](https://bugzilla.redhat.com/show_bug.cgi?id=1064758))
+   * Fix sign-module missing module methods
+   * Fix incompatible module name usage (foomodule.so vs foo.so)
+   * Fix misc Python 2 vs 3 API difference issues
+ * ... FIXME:this list is very incomplete
+
+### Lua interface
+ * New rpm.load() function for loading macro files
+
+### Build process
+ * New test-cases for various issues
+ * Fix dist tarballs to use PAX format to overcome UID/GID limitations
+ * Fix in-tree python binding build with setup.py (related to [RhBug:531543](https://bugzilla.redhat.com/show_bug.cgi?id=531543))
+ * Fix librpmsign library to follow same versioning as other rpm libraries for consistency's sake
+
+## Compatibility notes
+ * Packages containing larger than 4GB files cannot be installed with older rpm versions. This incompatibility is tracked with rpmlib(LargeFiles) dependency in such packages.

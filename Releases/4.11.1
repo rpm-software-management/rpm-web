@@ -1,0 +1,77 @@
+# RPM 4.11.1 Release Notes
+
+
+
+## Download information
+ * [rpm-4.11.1.tar.bz2](http://rpm.org/releases/rpm-4.11.x/rpm-4.11.1.tar.bz2) source
+ * SHA1SUM: `31ddc4185137ce3f718c99e91dcb040614fe820c`
+
+## Summary of changes from RPM 4.11.0.1
+
+### General bugfixes and enhancements
+ * Fix transaction getting hung due to stale locks from concurrent
+   query ([RhBug:860500](https://bugzilla.redhat.com/show_bug.cgi?id=860500))
+ * Fix race condition(s) on rpm database open/close ([RhBug:924417](https://bugzilla.redhat.com/show_bug.cgi?id=924417)...)
+ * Fix a possible segfault on file digest calculation ([RhBug:909618](https://bugzilla.redhat.com/show_bug.cgi?id=909618))
+ * Fix rpm ignoring crypto initialization failure ([RhBug:909627](https://bugzilla.redhat.com/show_bug.cgi?id=909627), [RhBug:909618](https://bugzilla.redhat.com/show_bug.cgi?id=909618))
+ * Fix possible buffer overflow in macro shell expansion
+ * Fix explicit file conflicts in installed packages being ignored
+ * Fix self-conflict and/or -obsolete sometimes causing conflicts
+   and/or obsoletes in other packages to be unnoticed.
+ * Fix replaced files not getting reported at all during verification
+ * Fix bogus file conflict on symlink permissions (related to [RhBug:950748](https://bugzilla.redhat.com/show_bug.cgi?id=950748))
+ * Fix rpm's macro path being missing from --showrc output
+ * Fix multiple --pipe options silently overriding others  ([RhBug:966093](https://bugzilla.redhat.com/show_bug.cgi?id=966093))
+ * Fix segfault on expanding %{lua} ([RhBug:972646](https://bugzilla.redhat.com/show_bug.cgi?id=972646))
+ * Fix zero-length arguments to built-in macros expanding to "}"
+
+ * Add support for AArch64 architecture
+ * Documentation and translation updates, spelling fixes ([RhBug:708734](https://bugzilla.redhat.com/show_bug.cgi?id=708734)...)
+
+### Package building
+ * Fix rpmbuild argument checking for non-build operations ([RhBug:919080](https://bugzilla.redhat.com/show_bug.cgi?id=919080))
+ * Fix %attr() and %defattr() affecting symlink permissions ([RhBug:950748](https://bugzilla.redhat.com/show_bug.cgi?id=950748))
+ * Fix %pretrans and %posttrans dependencies not being printed on build
+ * Fix VCS tag not getting included in source rpms
+ * Fix segfault in debugedit ([RhBug:929365](https://bugzilla.redhat.com/show_bug.cgi?id=929365))
+ * Fix debugedit choking on .debug_gdb_script section (SuseBug:818502)
+ * Fix perl module classification to require .pm suffix ([RhBug:927211](https://bugzilla.redhat.com/show_bug.cgi?id=927211))
+ * Fix %ghost files sometimes getting included in payload
+ * Fix PKG_CONFIG_PATH not getting set according to target arch ([RhBug:212522](https://bugzilla.redhat.com/show_bug.cgi?id=212522))
+ * Fix non-directories getting accepted as directories in spec
+ * Fix packaged files escaping buildroot through relative directory paths
+   ([RhBug:951979](https://bugzilla.redhat.com/show_bug.cgi?id=951979))
+ * Add warning on ambiguous (likely invalid) name on macro definitions
+
+### API changes
+
+#### New interfaces
+ * rpmfiNewPool() shared string pool-aware rpmfi constructor
+ * rpmdsNewPool(), rpmdsThisPool(), rpmdsSinglePool() and rpmdsRpmlibPool()
+   shared string pool-aware rpmds constructors
+
+#### Other interface changes
+ * Change rpmdsMerge() to return number of merged entries (or error)
+ * Fix rpmdsFind() failing to compare between dependency flags when either
+   of them is RPMSENSE_ANY
+ * Fix rpmfiFNlink() considering files with zero inodes as hardlinks
+
+### Python bindings
+ * Fix ts.dbMatch() not accepting python long integer objects
+
+### Internal improvements and cleanups
+ * Optimize argvJoin()
+ * Optimize macro table performance and macro expansion
+ * Optimize spec parse performance (up to factor of 10)
+ * Optimize check-files script
+ * Fix various missing error checks in package signing and prelink helper
+
+### Build process
+ * Fix build outside source directory
+ * Fix various macro issues preventing  "./configure; make; make install"
+   sequence from producing a working rpm
+ * Fix various test-suite issues to make it less dependent on configuration
+   details
+ * Fix support for Lua 5.2
+ * Fix Python bindings build with Python 3
+ * Add several new test-suite cases

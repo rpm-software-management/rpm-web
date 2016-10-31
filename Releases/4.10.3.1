@@ -1,0 +1,25 @@
+# RPM 4.10.3.1 Release Notes
+
+
+
+## Download information
+ * [rpm-4.10.3.1.tar.bz2](http://rpm.org/releases/rpm-4.10.x/rpm-4.10.3.1.tar.bz2) source
+ * SHA1SUM: b336cb1c28b43c061d2a0ce04decf3f013131a8b
+
+## Summary of changes from RPM 4.10.3
+
+Shortly after the release of RPM 4.10.3, a critical last-minute regression
+in %ghost %config behavior was discovered and the 4.10.3 release was
+pulled from downloads entirely as the regression could cause data loss:
+4.10.3 could in some situations remove %ghost %config files
+on package upgrades.  To protect the innocent, the potentially dangerous
+4.10.3 release will not be reintroduced on rpm.org at all.
+
+## General bugfixes and enhancements
+ * Fix regression introduced in RPM 4.10.3 where %ghost %config files could
+   get removed on package upgrade in some cases.
+ * See [4.10.3 release notes](/wiki:Releases/4.10.3/) for other changes since
+   rpm 4.10.2
+
+## Build proces
+ * Add test-cases for %ghost and %ghost %config behavior.

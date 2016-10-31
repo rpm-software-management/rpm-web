@@ -1,0 +1,22 @@
+# RPM 4.10.3 Release Notes
+
+
+
+## Download information
+ * *The original 4.10.3 release contained a potentially dangerous regression and has been pulled out of distribution permanently. Use [RPM 4.10.3.1](/wiki:Releases/4.10.3.1/) instead*
+
+## Summary of changes from RPM 4.10.2
+
+### General bugfixes and enhancements
+ * Fix install-regression introduced in RPM 4.10.0 which can cause creation of real files and
+   directories skipped when the path is shared with a %ghost.
+ * Tranlation updates
+
+### Package building
+ * Make double-quoting work for special %doc for consistency with
+   rest of %files section (ticket [#858](http://rpm.org/ticket/858))
+ * Fix rpmspec --parse to not require sources and patches to be present
+ * Report the actual unknown option instead of ? in parametrized macros
+
+### Build process
+ * Use secure_getenv() instead of private !__secure_getenv() when available

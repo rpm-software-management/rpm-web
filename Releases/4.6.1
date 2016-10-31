@@ -1,0 +1,39 @@
+# RPM 4.6.1 Release Notes
+
+
+
+## Download information
+ * [rpm-4.6.1.tar.bz2](http://rpm.org/releases/rpm-4.6.x/rpm-4.6.1.tar.bz2) source
+ * SHA1SUM: ba04de85a37ab10c203ef1cfbf291cb8c195cc3b
+
+## Summary of changes from rpm 4.6.0
+
+### General bugfixes and enhancements
+ * Fix PGP fingerprint calculation. ([RhBug:493777](https://bugzilla.redhat.com/show_bug.cgi?id=493777)) 
+ * Fix RSA signature checking when signature is smaller than modulus ([RhBug:494049](https://bugzilla.redhat.com/show_bug.cgi?id=494049), regression introduced by switching to NSS in 4.6.0)
+ * Fix parsing of PGP public key signature packets (regression introduced in 4.6.0).
+ * Permit package signing and signature checking to be interrupted in reasonable time. 
+ * Add support for MD2 digests.
+ * Several memory leaks in signature checking failure cases have been fixed.
+ * Fix handling of some relative paths in rpmCleanPath() ([RhBug:491388](https://bugzilla.redhat.com/show_bug.cgi?id=491388)) 
+ * Honor --nomanifest on install too
+ * Avoid parsing %patch on spec query ([RhBug:487855](https://bugzilla.redhat.com/show_bug.cgi?id=487855))
+ * Permit NULL to rpmdsSingle() again (regression introduced in 4.6.0)
+ * Minor optimizations to rpmdsCompare() and rpmdsNotify()
+ * Fix old broken UTF-8 conversion of Korean manuals ([RhBug:466597](https://bugzilla.redhat.com/show_bug.cgi?id=466597))
+ * Various minor documentation + translation fixes and updates.
+
+### Package building
+ * Dependency extractor scripts are only run once per file (with internal dependency generator), this can speed building of script-heavy packages noticeably. 
+ * Restrictions on dependency names have been loosened to permit eg. UTF-8 characters as the first character. ([RhBug:455119](https://bugzilla.redhat.com/show_bug.cgi?id=455119))
+ * Disallow path name components (~, / and ..) in name, version and release tags ([RhBug:493157](https://bugzilla.redhat.com/show_bug.cgi?id=493157)) 
+ * Update rpmrc defaults to use -mtune instead of deprecated -mcpu ([RhBug:493696](https://bugzilla.redhat.com/show_bug.cgi?id=493696)) 
+ * Add ISA-macros for Alpha architecture
+ * Fix --with-kde with KDE3 (rhbz[#466009](http://rpm.org/ticket/466009))
+
+### Python bindings
+ * Catch exceptions from Python string/number conversions in ts.dbMatch()
+
+### Build process
+ * Fix permissions of some non-executable macro etc files
+ * Sanitize defaultdocdir generation.
