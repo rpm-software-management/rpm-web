@@ -6,6 +6,7 @@ title: Documentation
 This page attempts to track the various relevant documentation that exists for RPM.
 
 ## User Documentation
+### General Use
 * [RPM Tutorial](http://fedoranews.org/alex/tutorial/rpm/)
 * [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html)
 * In wiki:
@@ -13,18 +14,18 @@ This page attempts to track the various relevant documentation that exists for R
   * [RPM Database Recovery](user_doc/db_recovery.html)
   * [RPM Query Formats](user_doc/query_format.html) 
 
-## Packager Documentation
+### Packager Documentation
 * [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html)
 * In wiki:
-  * [Conditional Builds (rpmbuild &#8211;&#8211;with/&#8211;&#8211;without)](packager_doc/conditional_builds.html)
-  * [Dependencies](packager_doc/dependencies.html)
-  * [More on Dependencies](packager_doc/more_dependencies.html)
-  * [Dependency Generators](packager_doc/dependency_generators.html) (new in 4.9)
-  * [Automated, VCS integrated patch application](packager_doc/autosetup.html) (new in 4.11)
-  * [Macros](packager_doc/macros.html)
-  * [Embedded Lua interpreter](packager_doc/lua.html)
-  * [Runtime scriptlet expansion (new in 4.9)](packager_doc/scriptlet_expansion.html)
-  * [Building Packages so that multiple versions of the same package can co-install](packager_doc/multiple_versions.html)
+  * [Conditional Builds (rpmbuild &#8211;&#8211;with/&#8211;&#8211;without)](user_doc/conditional_builds.html)
+  * [Dependencies](user_doc/dependencies.html)
+  * [More on Dependencies](user_doc/more_dependencies.html)
+  * [Dependency Generators](user_doc/dependency_generators.html) (new in 4.9)
+  * [Automated, VCS integrated patch application](user_doc/autosetup.html) (new in 4.11)
+  * [Macros](user_doc/macros.html)
+  * [Embedded Lua interpreter](user_doc/lua.html)
+  * [Runtime scriptlet expansion (new in 4.9)](user_doc/scriptlet_expansion.html)
+  * [Building Packages so that multiple versions of the same package can co-install](user_doc/multiple_versions.html)
 
 ## RPM Language Bindings Documentation
 * [RPM Python](http://www.ukuug.org/events/linux2004/programme/paper-PNasrat-1/rpm-python-slides/frames.html) slideset / tutorial
