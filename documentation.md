@@ -28,18 +28,20 @@ This page attempts to track the various relevant documentation that exists for R
   * [Runtime scriptlet expansion (new in 4.9)](user_doc/scriptlet_expansion.html)
   * [Building Packages so that multiple versions of the same package can co-install](user_doc/multiple_versions.html)
 
-## RPM Language Bindings Documentation
+## Developer Documentation
+
+### RPM API
+* [Plugin Interface (RPM >= 4.12)](devel_doc/plugins.html)
+* [Programming RPM with C](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-programming-c.html) from Fedora RPM Guide
+
+### RPM Language Bindings
 * [RPM Python](http://www.ukuug.org/events/linux2004/programme/paper-PNasrat-1/rpm-python-slides/frames.html) slideset / tutorial
 * [Programming RPM with Python](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-rpm-programming-python.html) from Fedora RPM Guide
 * [Programming RPM with Perl](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-programming-perl.html) from Fedora RPM Guide 
 
-## Developer Documentation
-* [Programming RPM with C](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-programming-c.html) from Fedora RPM Guide
 
-* [Plugin Interface (RPM >= 4.12)](devel_doc/plugins.html)
-* [Release maintaince](devel_doc/release_maintaince.html)
-
-* Miscellaneous docs in wiki:
+### Miscellaneous docs:
+  * [Release maintaince](devel_doc/release_maintaince.html)
   * [How to ensure Large File Support for tools using the rpm API](devel_doc/large_files.html)
   * [Description of RPM internal state machines](devel_doc/state_machines.html)
   * [Description of RPM file format](devel_doc/file_format.html)
