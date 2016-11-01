@@ -126,13 +126,13 @@ title: rpm.org - Timeline
 #### RPM 4.11.0 beta1 released! (Dec 11th 2012) ####
  * Various mostly minor bugs and regressions fixed since alpha
  * See [draft release notes](wiki/Releases/4.11.0) for download information and full details of changes since 4.10.x
- * [http://lists.rpm.org/pipermail/rpm-announce/2012-December/000037.html Original announcement]
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2012-December/000037.html)
 
 #### RPM 4.10.2 released! (Dec 10th 2012) ####
  * Fixes a security regression introduced in rpm 4.10.0
  * Various other minor bugs and regressions fixed
  * See [release notes](wiki/Releases/4.10.2) for download information and full details of changes since 4.10.1
- * [http://lists.rpm.org/pipermail/rpm-announce/2012-December/000036.html Original announcement]
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2012-December/000036.html)
 
 #### RPM 4.11.0 alpha released! (Nov 7th 2012) ####
  * Improved performance and memory use
@@ -142,13 +142,13 @@ title: rpm.org - Timeline
  * Fully automated patch application with optionally using DVCS of choice in specs
  * Lots of bugs, old and new, fixed
  * See [draft release notes](wiki/Releases/4.11.0) for download information and full details of changes since 4.10.x
- * [http://lists.rpm.org/pipermail/rpm-announce/2012-November/000035.html Original announcement]
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2012-November/000035.html)
 
 #### RPM 4.10.1 released! (Oct 3rd 2012) ####
  * Several fixes to regressions introduced all the way back in 4.9.0 and some in 4.10.0
  * Some minor enhancements to (spec parsing, package building, install-performance on shared files etc)
  * See [release notes](wiki/Releases/4.10.1) for download information and full details of changes since 4.10.0
- * [http://lists.rpm.org/pipermail/rpm-announce/2012-October/thread.html Original announcement]
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2012-October/thread.html)
 
 #### RPM 4.10.0 released! (May 24th 2012) ####
  * Support for dpkg-style tilde version/release sort operator added
@@ -156,7 +156,7 @@ title: rpm.org - Timeline
  * Performance improvements
  * Lots of bugs, old and new, fixed
  * See [release notes](wiki/Releases/4.10.0) for download information and full details of changes since 4.9.x
- * [http://lists.rpm.org/pipermail/rpm-announce/2012-May/000033.html Original announcement]
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2012-May/000033.html)
 
 #### RPM 4.10.0 beta1 released (Apr 23rd 2012) ####
  * Main changes since 4.10.0-alpha:
@@ -165,7 +165,7 @@ title: rpm.org - Timeline
    * Obsoletes handling improvements
    * Support for dpkg-style sorting of tilde in versions
  * See [draft release notes](wiki/Releases/4.10.0) for download information and full details of changes since 4.9.x
- * [http://lists.rpm.org/pipermail/rpm-announce/2012-April/000032.html Original announcement]
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2012-April/000032.html)
 
 #### RPM 4.9.1.3 released! (Apr 3rd 2012) ####
  * This is a security-only update for CVE:2012-0060, CVE:2012-0061 and CVE:2012-0815
@@ -176,7 +176,7 @@ title: rpm.org - Timeline
  * Performance improvements
  * Erasure progress implemented
  * See [draft release notes](wiki/Releases/4.10.0) for download information and full details of changes since 4.9.x
- * [http://lists.rpm.org/pipermail/rpm-announce/2012-March/000030.html Original announcement]
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2012-March/000030.html)
 
 #### RPM 4.9.1.2 released! (Sep 29th 2011) ####
  * CVE:2011-3378 security issue causing crashes on reading malformed packages (RhBug:741606)
@@ -194,7 +194,7 @@ title: rpm.org - Timeline
  * Numerous other bugfixes ranging from crashers to memory leaks to quiet misbehavior
  * Numerous minor enhancements especially wrt packaging and dependency generation
  * See [release notes](wiki/Releases/4.9.1) for download information and full details of changes since 4.9.0
- * [http://lists.rpm.org/pipermail/rpm-announce/2011-July/000028.html Original announcement]
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2011-July/000028.html)
 
 #### Temporary restrictions on bug reporting (Mar 25th 2011) ####
 Due to a big surge in spam tickets in recent times, ticket creation and modification have temporarily been restricted to "known users". Better ways to deal with ticket spam are being investigated and the restriction will be naturally lifted once a better solution is in place. Apologies for any inconvenience caused, and feel free to use the mailing lists for reporting issues for the time being.
@@ -205,7 +205,7 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
  * New ordering hinting mechanism
  * Lots of bugs, old and new, fixed
  * See [release notes](wiki/Releases/4.9.0) for full details what has changed since 4.8.x
- * [http://lists.rpm.org/pipermail/rpm-announce/2011-March/000027.html Original announcement]
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2011-March/000027.html)
 
 #### RPM 4.9.0 rc1 released! (Feb 15th 2011) ####
  * Main changes since beta1:
@@ -221,50 +221,50 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
    * Further customization features in the dependency generator
    * Install order hinting mechanism added 
  * See [draft release notes](wiki/Releases/4.9.0) for full details what has changed since 4.8.x
- * [http://lists.rpm.org/pipermail/rpm-announce/2011-January/000026.html Original annoucement]
+ * [Original annoucement](http://lists.rpm.org/pipermail/rpm-announce/2011-January/000026.html)
 
 #### RPM 4.9.0 alpha released! (Nov 19th 2010) ####
  * Pluggable dependency generator
  * Performance improvements
  * ...and much much more, see [draft release notes](wiki/Releases/4.9.0) for full details what has changed since 4.8.x
- * [http://lists.rpm.org/pipermail/rpm-announce/2010-November/000025.html Original announcement]
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2010-November/000025.html)
 
 #### RPM 4.8.1 released! (Jun 11th 2010) ####
  * CVE:2010-2059 security issue on hardlinked executables with SUID/SGID bits and POSIX file capabilities
  * Transactions no longer hang due to unrelated non-responsive filesystems such as NFS / FUSE mounts
  * Several regressions and other bugs fixed 
  * See [release notes](wiki/Releases/4.8.1) for details what has changed since 4.8.0
- * [http://lists.rpm.org/pipermail/rpm-announce/2010-June/thread.html Original annoucement]
+ * [Original annoucement](http://lists.rpm.org/pipermail/rpm-announce/2010-June/thread.html)
 
 #### RPM 4.8.0 released! (Jan 8th 2010) ####
  * Performance improvements, much improved ordering (erasures ordered too, dependency loops handled better) etc...
  * Major revamp of Python bindings, including preliminary support for Python 3.x
  * Lots of bugs, old and new, fixed
  * See [release notes](wiki/Releases/4.8.0) for details what has changed since 4.7.x
- * [http://lists.rpm.org/pipermail/rpm-announce/2010-January/000023.html Original announcement]
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2010-January/000023.html)
 
 #### RPM 4.8.0 beta1 released! (Dec 7th 2009) ####
  * Performance improvements, much improved ordering (erasures ordered too, dependency loops handled better) etc...
  * Major revamp of Python bindings, including preliminary support for Python 3.x
  * Lots of bugs, old and new, fixed
  * See [draft release notes](wiki/Releases/4.8.0) for details what has changed since 4.7.x
- * [http://lists.rpm.org/pipermail/rpm-announce/2009-December/000022.html Original annoucement]
+ * [Original annoucement](http://lists.rpm.org/pipermail/rpm-announce/2009-December/000022.html)
 
 #### RPM 4.7.2 released! (Nov 25th 2009) ####
  * Lots of bugfixes all around, some minor enhancements
  * See [release notes](wiki/Releases/4.7.2) for further details.
- * [http://lists.rpm.org/pipermail/rpm-announce/2009-November/000021.html Original annoucement]
+ * [Original annoucement](http://lists.rpm.org/pipermail/rpm-announce/2009-November/000021.html)
 
 #### RPM 4.7.1 released! (Jul 21st 2009) ####
  * Lots of bugfixes all around, some minor enhancements
  * See [release notes](wiki/Releases/4.7.1) for further details.
- * [http://lists.rpm.org/pipermail/rpm-announce/2009-July/000020.html Original annoucement]
+ * [Original annoucement](http://lists.rpm.org/pipermail/rpm-announce/2009-July/000020.html)
 
 #### RPM 4.6.1 released! (May 18th 2009) ####
  * Several signature checking/handling fixes
  * Various other bugfixes and minor improvements all around
  * See [release notes](wiki/Releases/4.6.1) for further details.
- * [http://lists.rpm.org/pipermail/rpm-announce/2009-May/000019.html Original annoucement]
+ * [Original annoucement](http://lists.rpm.org/pipermail/rpm-announce/2009-May/000019.html)
 
 #### RPM 4.7.0 released! (Apr 16th 2009) ####
  * Vastly improved performance and reduced memory footprint over older versions
@@ -272,11 +272,11 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
  * Support for POSIX file capabilities
  * Lots of bugs fixed
  * RPM 4.7.0 [release notes](wiki/Releases/4.7.0)
- * [http://lists.rpm.org/pipermail/rpm-announce/2009-April/000018.html Original announcement] and changes from RC1.
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2009-April/000018.html) and changes from RC1.
 
 #### RPM 4.7.0 rc1 released! (Apr 9th 2009) ####
  * Fixes a few nasty regressions introduced in beta1
- * Bunch of bug fixes, both old and new, fixed, see [http://lists.rpm.org/pipermail/rpm-announce/2009-April/000017.html original announcement] for full summary of changes since beta1
+ * Bunch of bug fixes, both old and new, fixed, see [original announcement](http://lists.rpm.org/pipermail/rpm-announce/2009-April/000017.html) for full summary of changes since beta1
  * RPM 4.7.0 [draft release notes](wiki/Releases/4.7.0)
 
 #### RPM 4.7.0 beta1 released! (Feb 26th 2009) ####
@@ -289,13 +289,13 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
  * Vast amount of fixes and improvements over the aging 4.4.x series
  * See [release notes](wiki/Releases/4.6.0) and
    [compatibility notes](wiki/Releases/4.6.0#Compatibilitynotes) for details what has changed since 4.4.x
- * [http://lists.rpm.org/pipermail/rpm-announce/2009-February/000013.html Original announcement]
+ * [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2009-February/000013.html)
 
 #### RPM 4.6.0 release candidate 4 out (Jan 30th 2009) ####
  * Fixes:
    * Various corner-case misbehaviors and segfaults 
    * Reduce impact of NSS disliking forks
- * Full summary of changes since RC3 available [http://lists.rpm.org/pipermail/rpm-announce/2009-January/000012.html here]
+ * Full summary of changes since RC3 available [here](http://lists.rpm.org/pipermail/rpm-announce/2009-January/000012.html)
  * RPM 4.6.0 draft [release notes](wiki/Releases/4.6.0)
 
 #### RPM 4.6.0 release candidate 3 out (Dec 9th 2008) ####
@@ -304,12 +304,12 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
    * Public header C++ brokenness
    * Compatibility workarounds for old and broken packages
    * Buildroot correctness on sub-packages with differing versions
- * Full summary of changes since RC2 available [http://lists.rpm.org/pipermail/rpm-announce/2009-January/000012.html here]
+ * Full summary of changes since RC2 available [here](http://lists.rpm.org/pipermail/rpm-announce/2009-January/000012.html)
  * RPM 4.6.0 draft [release notes](wiki/Releases/4.6.0)
 
 #### RPM 4.6.0 release candidate 2 out (Nov 29th 2008) ####
  * Bunch of more or less minor issues found in rc1
- * Full summary of changes since RC1 available [http://lists.rpm.org/pipermail/rpm-announce/2009-January/000012.html here]
+ * Full summary of changes since RC1 available [here](http://lists.rpm.org/pipermail/rpm-announce/2009-January/000012.html)
  * RPM 4.6.0 draft [release notes](wiki/Releases/4.6.0)
 
 #### RPM 4.6.0 release candidate 1 out (Oct 16th 2008) ####
@@ -328,7 +328,7 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
  * Dozens of bugfixes and minor improvements all around
  * [Summary of changes](wiki/Releases/4.4.2.3)
- * [https://lists.dulug.duke.edu/pipermail/rpm-announce/2008-April/000003.html Original announcement] (with incorrect tarball url, duh)
+ * [Original announcement](https://lists.dulug.duke.edu/pipermail/rpm-announce/2008-April/000003.html) (with incorrect tarball url, duh)
 
 
 #### RPM development switches to GIT (Mar 31th 2008) ####
@@ -338,17 +338,17 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 #### RPM 4.4.2.3 release candidate 1 out for testing (Jan 25th 2008) ####
 
  * Dozens of bugfixes and minor improvements all around
- * [https://lists.dulug.duke.edu/pipermail/rpm-maint/2008-January/000737.html Original announcement]
+ * [Original announcement](https://lists.dulug.duke.edu/pipermail/rpm-maint/2008-January/000737.html)
 
 #### RPM 4.4.2.2 released! (Oct 3rd 2007) ####
 
  * Dozens of bugfixes and minor improvements all around
  * [Summary of changes](wiki/Releases/4.4.2.2)
- * [https://lists.dulug.duke.edu/pipermail/rpm-maint/2007-October/000546.html Original announcement] 
+ * [Original announcement](https://lists.dulug.duke.edu/pipermail/rpm-maint/2007-October/000546.html)
 
 #### RPM 4.4.2.1 released! (Jul 23rd 2007) ####
 
  * Dozens of bugfixes and minor improvements all around
  * Cleaning up of vendor specific hacks etc
  * [Summary of changes](wiki/Releases/4.4.2.1)
- * [https://lists.dulug.duke.edu/pipermail/rpm-announce/2007-July/000001.html Original announcement]
+ * [Original announcement](https://lists.dulug.duke.edu/pipermail/rpm-announce/2007-July/000001.html)
