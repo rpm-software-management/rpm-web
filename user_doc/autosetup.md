@@ -33,7 +33,7 @@ In addition to automating plain old "patch" command invocations, %autosetup allo
 
 The resulting build directory can be used for bisecting problems introduced in patches, and developing new patches from the build directory is more natural than with gendiff.
 
-##%autosetup options
+## %autosetup options
 
 Generally %autosetup accepts the same arguments as %setup does. The notable exceptions are
 
