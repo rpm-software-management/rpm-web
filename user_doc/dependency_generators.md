@@ -4,10 +4,14 @@ title: rpm.org - RPM Dependency Generator
 ---
 # RPM Dependency Generator
 
-One basic design goal of RPM is to be able to check if a package really is going to work on the system it is being installed. To achive this RPM does not (only) rely on requiring packages as stated by the packagers but auto detects executables and libraries that are used. To make this work RPM also examines the packages for libraries that could be used by other packages and creates "Provides:" for them. This works reasonable well for binary executables and shared object files (libraries). Where ever there is no automatic generation of Provides: and Requires: packagers can resort to add manual Requires: to the packages they need or even add Provides: to the packages by hand. Over the years this has led to huge areas that are not covered by RPM's auto generator. To claim back these areas a plug-in interface was created to allow packagers/distributions to auto create Provides: and Requires: for single domains without tampering with the rpm code.
+One basic design goal of RPM is to be able to check if a package really is going to work on the system it is being installed. To achive this RPM does not (only) rely on requiring packages as stated by the packagers but auto detects executables and libraries that are used. To make this work RPM also examines the packages for libraries that could be used by other packages and creates "Provides:" for them.
+
+This works reasonable well for binary executables and shared object files (libraries). Where ever there is no automatic generation of Provides: and Requires: packagers can resort to add manual Requires: to the packages they need or even add Provides: to the packages by hand. Over the years this has led to huge areas that are not covered by RPM's auto generator. To claim back these areas a plug-in interface was created to allow packagers/distributions to auto create Provides: and Requires: for single domains without tampering with the rpm code.
 
 ## File Attributes
-To avoid passing every file through every dependency generator file attributes are used. All files in packages are classified based on the present file attribute rules, and files can have an arbitrary number of attributes. Each file attribute can have a Provides: and a Requires: generator. A file attribute is represented by a macro file in %{_fileattrsdir} (typically /usr/lib/rpm/fileattrs/), and must have .attr suffix to be processed. The following file attribute macros are recognized:
+To avoid passing every file through every dependency generator file attributes are used. All files in packages are classified based on the present file attribute rules, and files can have an arbitrary number of attributes. Each file attribute can have a Provides: and a Requires: generator.
+
+A file attribute is represented by a macro file in %{_fileattrsdir} (typically /usr/lib/rpm/fileattrs/), and must have .attr suffix to be processed. The following file attribute macros are recognized:
 
 ```
 %__NAME_provides
@@ -85,10 +89,10 @@ rpmbuild and rpmdeps have a hidden --rpmfcdebug switch that enables additional o
     <list of dependencies associated with this file>
 ```
 
-    File attribute matches are the names of the fileattr rules which matched for the file, and that's where rule troubleshooting typically starts: a file with no attributes will not have any dependencies attached...
+File attribute matches are the names of the fileattr rules which matched for the file, and that's where rule troubleshooting typically starts: a file with no attributes will not have any dependencies attached...
 
 ## Open Questions
-    * Passing the package version might be handy for interpreted languages that don't have support for versioned Requires: (like Python imports). This way the Provides: could get the version of the package and other packages could at least manually require a version (rage). 
+* Passing the package version might be handy for interpreted languages that don't have support for versioned Requires: (like Python imports). This way the Provides: could get the version of the package and other packages could at least manually require a version (rage). 
 
 ## Examples
 * [File attributes shipped with RPM](https://github.com/rpm-software-management/rpm/tree/master/fileattrs)
