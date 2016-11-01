@@ -8,7 +8,11 @@ TODO: Update according to modification/redesign of rpm.org
 
 ## Git branches
 
-Rpm development takes place in the git master branch, but no releases are created from the master. All releases are created from stable branches, created when a development cycle is coming to an end. All releases, including any alpha/beta/rc pre-releases, of this major version are cut from that branch: * rpm-4.12.x branch from which all 4.12.x versions are cut from * rpm-4.11.x branch from which all 4.11.x versions are cut from * ...
+Rpm development takes place in the git master branch, but no releases are created from the master. All releases are created from stable branches, created when a development cycle is coming to an end. All releases, including any alpha/beta/rc pre-releases, of this major version are cut from that branch:
+
+* rpm-4.12.x branch from which all 4.12.x versions are cut from
+* rpm-4.11.x branch from which all 4.11.x versions are cut from
+* ...
 
 When pulling fixes from git master to stable branches, always use -x to get the automatic cherry-pick commit marker. This way its easier to see which patches come from master, and which commit exactly.
 

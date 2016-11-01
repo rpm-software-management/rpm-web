@@ -20,6 +20,7 @@ As stated above the transaction state machine is responsible for the overall upd
 * transaction.c - Defines high level actions that can be perfomed upon an rpmts/transaction. 
 
 Depending on how you want to think about it, you can consider the transaction state machine as having several entry points that must be manually entered (rpmtsCheck(), rpmtsOrder(), rpmtsRun()) in order, or you can think of rpmtsCheck and rpmtsOrder as just setup for the entry of the TSM via rpmtsRun(). If you take the first approach, then state machine has a high level logic of:
+
 ```
    Check Transaction For Dependency Satisfaction (rpmtsCheck())
    If success
@@ -27,7 +28,9 @@ Depending on how you want to think about it, you can consider the transaction st
    if success
       Run Transaction (rpmtsRun())
 ```
+
 Either way you look at it the major work of the TSM is done in rpmtsRun, so below is pseudo code to document its flow:
+
 ```
 Not Done Yet
 ```
@@ -47,6 +50,7 @@ These "purposes" are seen by the PSM as an overall goal to achieve, which are de
 * PSM_PKGSAVE - used to repackage a package. 
 
 The PSM is thus entered with one of these three initial states, that then gets translated to the PSM goal. Whichever the goal the PSM at a high level looks like this:
+
 ```
    PSM_INIT                             # Initialize package state machine for goal
    if success PSM_PRE                   # Pre package install/erase/repackage activites (e.g. %pre)
@@ -54,6 +58,7 @@ The PSM is thus entered with one of these three initial states, that then gets t
    if success PSM_POST                  # Post package install/erase/repackage activities (e.g. %post)
    PSM_FINI                             # Clean up PSM
 ```
+
 To enter into the PSM, a call is made to rpmpsmStage() (this is found in psm.c) with the second argument being the state/stage you wish the PSM to transition too. The intial stage is, is one of the three states listed above (i.e. PSM_PKGINSTALL, PSM_PKGERASE, PSM_PKGSTAGE). After this initial entry the PSM transitions through the five major states listed above (i.e. PSM_INIT, PSM_PRE, PSM_PROCESS, PSM_POST, PSM_FINI). Beyond these major states, their are several sub states into which each of the major states can transition. They are listed below:
 
 * PSM_COMMIT - NOT SURE
@@ -78,6 +83,7 @@ The following are in the PSM, but are no-ops presently (Jeff, Is there an explan
 The remaining subsections will list the high level logic of the major states (PSM_INIT, PSM_PRE, PSM_PROCESS, PSM_POST, PSM_FINI).
 
 ## PSM_PKGINSTALL, PSM_PKGERASE, PSM_PKGSAVE
+
 ```
 set PSM goal
 transition to PSM_INIT
@@ -91,6 +97,7 @@ transition to PSM_FINI
 ```
 
 ## PSM_INIT
+
 ```
 calculate pkg instance count
 if goal PSM_PKGINSTALL
@@ -112,6 +119,7 @@ return
 ```
 
 ## PSM_PRE
+
 ```
 if test return
 transition to PSM_CHROOT_IN   # This will change into the chroot, if we are not 
@@ -148,6 +156,7 @@ if goal PSM_PGKSAVE
 ```
 
 ## PSM_PROCESS
+
 ```
 if test return 
 if goal PSM_PKGINSTALL
@@ -204,6 +213,7 @@ if goal PSM_PKGSAVE
 ```
 
 ## PSM_POST
+
 ```
 if test return OK
 if goal PSM_PKGINSTALL
@@ -239,6 +249,7 @@ return OK
 ```
 
 ## PSM_FINI
+
 ```
 #
 # Exit chroot

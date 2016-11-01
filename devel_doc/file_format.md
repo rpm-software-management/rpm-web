@@ -47,34 +47,44 @@ There have been no previous versions of this docuent.
 ### 2.1. Overall conventions
 
 In the diagrams below, a box like this:
+
 ```
                      +---+
                      |   | <-- the vertical bars might be missing
                      +---+
 ```
+
 represents one byte; a box like this:
+
 ```
                      +~~~~~~~~~~+
                      |          |
                      +~~~~~~~~~~+
 ```
+
 represents a relatively large fixed number of bytes; a box like this
+
 ```
+
                      +==============+
                      |              |
                      +==============+
 ```
+
 represents a variable number of bytes.
 
 Bytes stored within a computer do not have a "bit order", since they are always treated as a unit. However, a byte considered as an integer between 0 and 255 does have a most- and least- significant bit, and since we write numbers with the most- significant digit on the left, we also write bytes with the most- significant bit on the left. In the diagrams below, we number the bits of a byte so that bit 0 is the least-significant bit, i.e., the bits are numbered:
+
 ```
                      +--------+
                      |76543210|
                      +--------+
 ```
+
 This document does not address the issue of the order in which bits of a byte are transmitted on a bit-sequential medium, since the data format described here is byte- rather than bit-oriented.
 
 Within a computer, a number may occupy multiple bytes. All multi-byte numbers in the format described here are stored with the most-significant byte first (at the lower memory address). This is known as network byte order[x]. For example, the decimal number 520 is stored as:
+
 ```
                          0        1
                      +--------+--------+
@@ -93,6 +103,7 @@ A rpm file consists of four sections: a "lead", a signature "header", a payload 
 ### 2.3. Lead format
 
 The lead has the following structure:
+
 ```
                      +---+---+---+---+---+---+---+---+---+---+
                      |M1 |M2 |M3 |M4 |MAJ|MIN| TYPE  | ARCH  | (more ->)
@@ -143,6 +154,7 @@ A compliant consumer may only accept Major versions 3 and 4. It may only accept 
 ## 2.4. Header format
 
 The header has a header lead, followed by index entries, then the actual data. It has the following structure:
+
 ```
                      +---+---+---+---+---+---+---+---+---+---+---+---+
                      |HM1|HM2|HM3|VER|   RESERVED    |  INDEXCOUNT   | (more ->)
@@ -173,6 +185,7 @@ STORESIZE
 ### 2.4.x Header Index entry format
 
 Each header index entry has the following structure:
+
 ```
                      +---+---+---+---+---+---+---+---+---+---+---+---+
                      |      TAG      |     TYPE      |     OFFSET    | (more ->)
@@ -182,6 +195,7 @@ Each header index entry has the following structure:
                      |     COUNT     |
                      +---+---+---+---+
 ```
+
 ### 2.4.x Field definitions
 TAG
 : This is a number which identifies the context of the data.
