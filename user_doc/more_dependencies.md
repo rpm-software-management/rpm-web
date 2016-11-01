@@ -12,7 +12,7 @@ Starting with rpm 4.6.0, it's possible to specify dependencies to be specific to
          Requires: somepackage%{?_isa} = version
 ```
 
-For further details about this feature, see [PackagerDocs/ArchDependencies]().
+More details in a [separate article](user_docs/arch_dependencies.html).
 
 ## Scriptlet Dependencies
 Often package scriptlets need various other packages in order to execute correctly, and sometimes those dependencies aren't even needed at runtime, only for installation. Such install/erase-time dependencies can be expressed with "Requires(<scriptlet>): <dependency>" notation, for example the following tells rpm that useradd program is needed by the package %pre scriptlet (often the case if a package uses a custom group/username for its files):
