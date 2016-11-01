@@ -95,11 +95,11 @@ A rpm file consists of four sections: a "lead", a signature "header", a payload 
 The lead has the following structure:
 ```
                      +---+---+---+---+---+---+---+---+---+---+
-                     |M1 |M2 |M3 |M4 |MAJ|MIN| TYPE  | ARCH  | (more -&gt;)
+                     |M1 |M2 |M3 |M4 |MAJ|MIN| TYPE  | ARCH  | (more ->)
                      +---+---+---+---+---+---+---+---+---+---+
 
                      +~~~~~~~~~~~~~~~~~~+---+---+
-                     | 66 bytes of NAME |OS |SIG| (more -&gt;)
+                     | 66 bytes of NAME |OS |SIG| (more ->)
                      +~~~~~~~~~~~~~~~~~~+---+---+
 
                      +~~~~~~~~~~~~~~~~~~~~~~+

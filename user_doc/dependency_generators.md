@@ -68,8 +68,8 @@ Note that within spec-files, any backslashes need to be double-escaped to preven
 ## Troubleshooting
 rpmbuild and rpmdeps have a hidden --rpmfcdebug switch that enables additional output for the dependency generation stage. The output format is currently roughly as follows:
 ```
-&lt;file number&gt; &lt;on-disk path&gt; &lt;color info&gt; &lt;file attribute matches&gt;
-    &lt;list of dependencies associated with this file&gt;
+<file number> <on-disk path> <color info> <file attribute matches>
+    <list of dependencies associated with this file>
     ```
     File attribute matches are the names of the fileattr rules which matched for the file, and that's where rule troubleshooting typically starts: a file with no attributes will not have any dependencies attached...
 ## Open Questions

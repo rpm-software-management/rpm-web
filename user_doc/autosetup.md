@@ -47,7 +47,7 @@ While typically patch and source names tend to be descriptive for humans, making
 %{lua:for i=1,45 do print(string.format("Patch%u: bash42-%03u\n", i, i)) end}
 ```
 
-On spec parse, the above expands to as many patch declarations (best inspected with 'rpmspec --parse &lt;spec&gt;'):
+On spec parse, the above expands to as many patch declarations (best inspected with 'rpmspec --parse <spec>'):
 ```
 Patch1: bash42-001
 Patch2: bash42-002

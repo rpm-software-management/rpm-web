@@ -11,7 +11,7 @@ A fairly unknown feature of RPM is that it comes with an embedded Lua interprete
 The internal Lua can be used as the interpreter of rpm any scriptlets (%pre, %post etc):
 
 ```
-%pre -p &lt;lua&gt;
+%pre -p <lua>
 print("Hello from Lua")
 ```
 
@@ -114,8 +114,8 @@ This extension adds regular expression matching to Lua.
 
 A simple example:
 ```
-expr = rex.new(&lt;regex&lt;)
-if expr:match(&lt;arg&lt;) then
+expr = rex.new(<regex<)
+if expr:match(<arg<) then
     ... do stuff ...
 end
 ```

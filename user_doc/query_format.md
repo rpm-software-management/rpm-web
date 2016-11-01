@@ -104,13 +104,13 @@ The following example query is run against dev because I know %verify is used th
 ```
 The flags are defined in rpmlib.h (check there for changes):
 ```
-    #define RPMVERIFY_MD5           (1 &lt;&lt; 0)
-    #define RPMVERIFY_FILESIZE      (1 &lt;&lt; 1)
-    #define RPMVERIFY_LINKTO        (1 &lt;&lt; 2)
-    #define RPMVERIFY_USER          (1 &lt;&lt; 3)
-    #define RPMVERIFY_GROUP         (1 &lt;&lt; 4)
-    #define RPMVERIFY_MTIME         (1 &lt;&lt; 5)
-    #define RPMVERIFY_MODE          (1 &lt;&lt; 6)
-    #define RPMVERIFY_RDEV          (1 &lt;&lt; 7)
+    #define RPMVERIFY_MD5           (1 << 0)
+    #define RPMVERIFY_FILESIZE      (1 << 1)
+    #define RPMVERIFY_LINKTO        (1 << 2)
+    #define RPMVERIFY_USER          (1 << 3)
+    #define RPMVERIFY_GROUP         (1 << 4)
+    #define RPMVERIFY_MTIME         (1 << 5)
+    #define RPMVERIFY_MODE          (1 << 6)
+    #define RPMVERIFY_RDEV          (1 << 7)
 ```
 A 1 bit in the output of the query means the check is enabled.

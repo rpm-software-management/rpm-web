@@ -14,8 +14,8 @@ title: rpm.org - RPM Frequently asked questions (FAQ)
 <dd>On modern Linux, the audit subsystem can lend a hand here:
 ```# echo "-w /var/lib/rpm/Packages -p war -k rpmdb" >> /etc/audit/audit.rules
 # service auditd restart```</dd>
-<dd>The next time you get the "Thread/process [pid/tid] died..." message, you can look up the process causing this failure from the audit records, just replace &lt;pid&gt; with the [pid] part of the error message:
-```# ausearch -k rpmdb --pid &lt;pid&gt;```</dd>
+<dd>The next time you get the "Thread/process [pid/tid] died..." message, you can look up the process causing this failure from the audit records, just replace <pid> with the [pid] part of the error message:
+```# ausearch -k rpmdb --pid <pid>```</dd>
 <dd>Once the originating program is known, its time to file a bug.</dd>
 </dl>
 

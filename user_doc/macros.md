@@ -9,9 +9,9 @@ RPM has fully recursive spec file macros. Simple macros do straight text substit
 ## Defining a Macro
 To define a macro use:
 ```
-    %define &lt;name&gt;[(opts)] &lt;body&gt;
+    %define <name>[(opts)] <body>
 ```
-All whitespace surrounding &lt;body&gt; is removed. Name may be composed of alphanumeric characters, and the character `_' and must be at least 3 characters in length. A macro without an (opts) field is "simple" in that only recursive macro expansion is performed. A parameterized macro contains an (opts) field. The opts (i.e. string between parentheses) is passed exactly as is to getopt(3) for argc/argv processing at the beginning of a macro invocation. While a parameterized macro is being expanded, the following shell-like macros are available:
+All whitespace surrounding <body> is removed. Name may be composed of alphanumeric characters, and the character `_' and must be at least 3 characters in length. A macro without an (opts) field is "simple" in that only recursive macro expansion is performed. A parameterized macro contains an (opts) field. The opts (i.e. string between parentheses) is passed exactly as is to getopt(3) for argc/argv processing at the beginning of a macro invocation. While a parameterized macro is being expanded, the following shell-like macros are available:
 ```
     %0      the name of the macro being invoked
     %*      all arguments (unlike shell, not including any processed flags)
@@ -44,15 +44,15 @@ There are several builtin macros (with reserved names) that are needed to perfor
   %undefine ...       undefine a macro
   %global ...         define a macro whose body is available in global context
 
-  %{expand:...}       like eval, expand ... to &lt;body&gt; and (re-)expand &lt;body&gt;
+  %{expand:...}       like eval, expand ... to <body> and (re-)expand <body>
 
   %{lua:...}          expand with the embedded Lua interpreter
 
-  %{uncompress:...}   expand ... to &lt;file&gt; and test to see if &lt;file&gt; is
+  %{uncompress:...}   expand ... to <file> and test to see if <file> is
                       compressed.  The expansion is
-                          cat &lt;file&gt;                # if not compressed
-                          gzip -dc &lt;file&gt;           # if gzip'ed
-                          bzip2 -dc &lt;file&gt;          # if bzip'ed
+                          cat <file>                # if not compressed
+                          gzip -dc <file>           # if gzip'ed
+                          bzip2 -dc <file>          # if bzip'ed
   %{basename:...}     basename(1) macro analogue
   %{dirname:...}      dirname(1) macro analogue
   %{suffix:...}       expand to suffix part of a file name
@@ -60,9 +60,9 @@ There are several builtin macros (with reserved names) that are needed to perfor
   %{getenv:...}       getenv(3) macro analogue
   %{getconfdir:...}   expand to rpm "home" directory (typically /usr/lib/rpm)
 
-  %{S:...}            expand ... to &lt;source&gt; file name
-  %{P:...}            expand ... to &lt;patch&gt; file name
-  %{F:...}            expand ... to &lt;file&gt; file name
+  %{S:...}            expand ... to <source> file name
+  %{P:...}            expand ... to <patch> file name
+  %{F:...}            expand ... to <file> file name
 ```
 Note that %define and %global differ in more ways than just scope: the body of a %define'd macro is lazily expanded (ie when used), but the body of %global is expanded at definition time. It's possible to use %%-escaping to force lazy expansion of %global.
 
@@ -100,11 +100,11 @@ There are two "private" helper macros:
 ## Using a Macro
 To use a macro, write:
 ```
-    %&lt;name&gt; ...
+    %<name> ...
 ```
 or
 ```
-    %{&lt;name&gt;}
+    %{<name>}
 ```
 The %{...} form allows you to place the expansion adjacent to other text. The %\<name\> form, if a parameterized macro, will do argc/argv processing of the rest of the line as described above. Normally you will likely want to invoke a parameterized macro by using the %\<name\> form so that parameters are expanded properly.
 
@@ -127,7 +127,7 @@ When the command line option "--define 'macroname value'" allows the user to spe
 
 Evaluating a macro can be difficult outside of an rpm execution context. If you wish to see the expanded value of a macro, you may use the option
 ```
-    --eval '&lt;macro expression&gt;'
+    --eval '<macro expression>'
 ```
 that will read rpm config files and print the macro expansion on stdout.
 

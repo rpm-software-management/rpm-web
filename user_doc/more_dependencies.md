@@ -86,17 +86,17 @@ You have a bag of features that are injected into a package in a non-ordered fas
 A simple (but possibly not adequate) scheme to achieve this is:
 ```
     Name: foo
-    Version: &lt;the "root version" of the source code&gt;
-    Release: &lt;release instance&gt;.&lt;branch&gt;
+    Version: <the "root version" of the source code>
+    Release: <release instance>.<branch>
 ```
 where the release instance is something like YYYMMMDD or some linear record of the number of builds with the current tar file, it is used to preserve ordering when necessary.
 
 Another alternative scheme might be:
 ```
     Name: foo
-    Epoch: &lt;branch&gt;
-    Version: &lt;the branch specific version of the code&gt;
-    Release: &lt;release instance&gt;
+    Epoch: <branch>
+    Version: <the branch specific version of the code>
+    Release: <release instance>
 ```
 
 ## Build dependencies
