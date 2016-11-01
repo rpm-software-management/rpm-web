@@ -13,7 +13,8 @@ capable of
 
 ## News
 
-* New website in the making (Oct 28 2016)
+#### New website in the making (Oct 28 2016)
 
-* RPM 4.13.0-rc2 released! (Oct 10 2016)
+#### RPM 4.13.0-rc2 released! (Oct 10 2016)
+* See [release notes]( wiki/Releases/4.13.0) for details and download information
 
