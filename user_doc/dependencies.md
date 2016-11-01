@@ -119,11 +119,12 @@ The depsolver may offer to treat the weak like very weak relations or the other 
 In addition to normal, forward relations that behave the same way as Requires: there are also two weak dependencies that work backward. Instead of adding packages that match the relations of to-be-installed packages these Relations add packages that contain relations matching to-be-installed packages.
 
 There are two dependency types at each level of strength. One is a forward relation, similar to Requires; the other is a reverse relation. For reverse relation the roles of the declaring and matching package(s) are switched out.
-<table>
-<tr><td></td><td>Forward</td><td>Reverse</td></tr>
-<tr><td>Weak</td><td>Recommends:</td><td>Supplements:</td></tr>
-<tr><td>Very Weak</td><td>Suggests:</td><td>Enhances:</td></tr>
-</table>
+
+|           |Forward      |Reverse       |
+|-----------|-------------|--------------|
+|Weak       |Recommends:  |Supplements:  |
+|Very weak  |Suggests:    |Enhances:     |
+
 So installing a package containing Recommends: foo should cause the dependency solver to also select a package that is named foo or that Provides: foo, assuming one exists and its selection does not lead to unresolvable dependencies.
 
 On the other hand, if a package that is named foo or that Provides: foo is selected, and a package bar containing Supplements: foo" exists, then bar is also selected as long as doing so does not lead to unresolvable dependencies.
