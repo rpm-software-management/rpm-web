@@ -7,12 +7,14 @@ title: rpm.org - Conditional Builds
 Rpmbuild supports conditional package builds with the command line switches --with and --without.
 
 Here is an example to enable gnutls and disable openssl support:
+
 ```
 $ rpmbuild -ba newpackage.spec --with gnutls --without openssl
 ```
 
 ## Enable --with/--without parameters
 To use this feature in a spec file, add this to the beginning of the spec:
+
 ```
 # add --with gnutls option, i.e. disable gnutls by default
 %bcond_with gnutls
@@ -37,11 +39,12 @@ BuildRequires:  openssl-devel
 ## Pass it to %configure
 
 To pass this option to configure or other scripts than understand a --with-foo or --without-foo parameter, you can use the %{?_with_foo} macro:
+
 ```
 %configure \
         %{?_with_gnutls} \
                 %{?_with_openssl}
-                ```
+```
 
 ## References
 * [doc/manual/conditionalbuilds](https://github.com/rpm-software-management/rpm/blob/master/doc/manual/conditionalbuilds)

@@ -7,16 +7,20 @@ title: rpm.org - More on Dependencies
 ## Architecture-specific Dependencies
 
 Starting with rpm 4.6.0, it's possible to specify dependencies to be specific to a given architecture family:
+
 ```
          Requires: somepackage%{?_isa} = version
 ```
+
 For further details about this feature, see [PackagerDocs/ArchDependencies]().
 
 ## Scriptlet Dependencies
 Often package scriptlets need various other packages in order to execute correctly, and sometimes those dependencies aren't even needed at runtime, only for installation. Such install/erase-time dependencies can be expressed with "Requires(<scriptlet>): <dependency>" notation, for example the following tells rpm that useradd program is needed by the package %pre scriptlet (often the case if a package uses a custom group/username for its files):
+
 ```
         Requires(pre): /usr/sbin/useradd
 ```
+
 This has two "side-effects":
 * It ensures that the package providing /usr/sbin/useradd is installed before this package. In presence of dependency loops, scriptlet dependencies are the only way to ensure correct install order.
 * If there are no other dependencies on the package providing /usr/sbin/useradd, that package is permitted to be removed from the system after installation(!) 
@@ -35,18 +39,23 @@ Customizing automatic dependency generation is covered in [dependency generator 
 
 ## Interpreters and Shells
 Modules for interpreted languages like perl and tcl impose additional dependency requirements on packages. A script written for an interpreter often requires language specific modules to be installed in order to execute correctly. In order to automatically detect language specific modules, each interpreter may have its own [Docs/DependencyGenerator generators](). To prevent module name collisions between interpreters, module names are enclosed within parentheses and a conventional interpreter specific identifier is prepended:
+
 ```
   Provides: perl(MIME-Base64), perl(Mail-Header)-1-09
 
   Requires: perl(Carp), perl(IO-Wrap) = 4.5
 ```
+
 The output of a per-interpreter dependency generator (notice in this example the first requirement is a package and the rest are language specific modules)
+
 ```
     Mail-Header >= 1.01
     perl(Carp) >= 3.2
     perl(IO-Wrap) == 4.5 or perl(IO-Wrap)-4.5
 ```
+
 the output from dependency generator is
+
 ```
     Foo-0.9
     perl(Widget)-0-1
@@ -56,12 +65,14 @@ the output from dependency generator is
 For the most part, dependencies should be transparent to the user. However, a few things will change.
 
 First, when packages are added or upgraded, all of their dependencies must be satisfied. If they are not, an error message like this appears:
+
 ```
     failed dependencies:
         libICE.so.6  is needed by somepackage-2.11-1
         libSM.so.6  is needed by somepackage-2.11-1
         libc.so.5  is needed by somepackage-2.11-1
 ```
+
 Similarly, when packages are removed, a check is made to ensure that no installed packages will have their dependency conditions break due to the packages being removed. If you wish to turn off dependency checking for a particular command, use the --nodeps flag.
 
 ## Querying for Dependencies
@@ -76,6 +87,7 @@ As of RPM 2.2.2, -V (aka --verify) verifies package dependencies by default. You
 It is quite common to need to branch a set of sources in version control. It is not so obvious how those branches should be represented in the package version numbers. Here is one solution.
 
 You have a bag of features that are injected into a package in a non-ordered fashion, and you want to have the package name-version-release be able to:
+
 ```
     1) identify the "root version" of the source code.
     2) identify the handful of features that are in that
@@ -83,15 +95,19 @@ You have a bag of features that are injected into a package in a non-ordered fas
     3) preserve sufficient ordering so that packages upgrade
        without the use of --oldpackage.
 ```
+
 A simple (but possibly not adequate) scheme to achieve this is:
+
 ```
     Name: foo
     Version: <the "root version" of the source code>
     Release: <release instance>.<branch>
 ```
+
 where the release instance is something like YYYMMMDD or some linear record of the number of builds with the current tar file, it is used to preserve ordering when necessary.
 
 Another alternative scheme might be:
+
 ```
     Name: foo
     Epoch: <branch>
@@ -101,6 +117,7 @@ Another alternative scheme might be:
 
 ## Build dependencies
 The following dependencies need to be fullfilled at build time. These are similar to the install time version but these apply only during package creation and are specified in the specfile. They end up as "regular" dependencies of the source package (SRPM) (BuildRequires? become Requires) but are not added to the binary package at all.
+
 ```
     BuildRequires:
     BuildConflicts:
