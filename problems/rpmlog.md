@@ -105,6 +105,7 @@ Dates in fixed order with "&#124;" as separator one item (package/transaction) p
      * makes the probably most interesting items less readable... 
 
 Sample (may be out of date):
+
 ```
 STARTTRANSACTION Tue Feb 23 16:58:57 CET 2010|4.9.0|force|b1f5b4b255fe69efc90feec6793fb307
 CommandLine yum|-y|--skip-broken|install|foobar
