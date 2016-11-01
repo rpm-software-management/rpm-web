@@ -6,8 +6,7 @@ title: rpm.org - Timeline
 #### RPM 4.13.0-rc2 released! (October 20th 2016) ####
  * Numerous bugfixes and minor enhancements across the board
  * Support for debuginfo compression and minidebuginfo
- * See the announcement for full details of what has changed since rc1:
-   http://lists.rpm.org/pipermail/rpm-maint/2016-October/004620.html
+ * See [the original announcement](http://lists.rpm.org/pipermail/rpm-maint/2016-October/004620.html) for full details of what has changed since rc1
  * See [draft release notes](wiki/Releases/4.13.0) for download information and full details of changes since 4.12.0.1
 
 #### RPM 4.13.0-rc1 released! (September 2nd 2015) ####
