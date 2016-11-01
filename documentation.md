@@ -24,7 +24,7 @@ This page attempts to track the various relevant documentation that exists for R
   * [Automated, VCS integrated patch application](user_doc/autosetup.html) (new in 4.11)
   * [Macros](user_doc/macros.html)
   * [Embedded Lua interpreter](user_doc/lua.html)
-  * [Runtime scriptlet expansion (new in 4.9)](user_doc/scriptlet_expansion.html)
+  * [Runtime scriptlet expansion](user_doc/scriptlet_expansion.html) (new in 4.9)
   * [Building Packages so that multiple versions of the same package can co-install](user_doc/multiple_versions.html)
 
 ## RPM API
