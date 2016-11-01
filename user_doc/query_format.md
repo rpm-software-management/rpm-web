@@ -10,7 +10,7 @@ As it is impossible to please everyone with one style of query output, RPM allow
 
 All of the information a package contains, apart from signatures and the actual files, is in a part of the package called the header. Each piece of information in the header has a tag associated with it which allows RPM to to tell the difference between the name and description of a package.
 
-To get a list of all of the tags your version of RPM knows about, run the command 'rpm --querytags'. It will print out a list like (but much longer then) this:
+To get a list of all of the tags your version of RPM knows about, run the command `rpm --querytags`. It will print out a list like (but much longer then) this:
 
 ```
     RPMTAG_NAME
@@ -108,7 +108,7 @@ The :shescape may be used on plain strings to get a string which can pass throug
 
 ## Query Expressions
 
-Simple conditionals may be evaluated through query expressions. Expressions are delimited by %|...|. The only type of expression currently supported is a C-like ternary conditional, which provides simple if/then/else conditions. For example, the following query format display "present" if the SOMETAG tag is present, and "missing" otherwise:
+Simple conditionals may be evaluated through query expressions. Expressions are delimited by `%|...|`. The only type of expression currently supported is a C-like ternary conditional, which provides simple if/then/else conditions. For example, the following query format display "present" if the SOMETAG tag is present, and "missing" otherwise:
 
 ```
     %|SOMETAG?{present}:{missing}|
