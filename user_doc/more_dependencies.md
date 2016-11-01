@@ -38,7 +38,7 @@ A similar process allows RPM to add Provides information automatically. Any shar
 Customizing automatic dependency generation is covered in [dependency generator documentation]().
 
 ## Interpreters and Shells
-Modules for interpreted languages like perl and tcl impose additional dependency requirements on packages. A script written for an interpreter often requires language specific modules to be installed in order to execute correctly. In order to automatically detect language specific modules, each interpreter may have its own [Docs/DependencyGenerator generators](). To prevent module name collisions between interpreters, module names are enclosed within parentheses and a conventional interpreter specific identifier is prepended:
+Modules for interpreted languages like perl and tcl impose additional dependency requirements on packages. A script written for an interpreter often requires language specific modules to be installed in order to execute correctly. In order to automatically detect language specific modules, each interpreter may have its own [generators](dependency_generators.html). To prevent module name collisions between interpreters, module names are enclosed within parentheses and a conventional interpreter specific identifier is prepended:
 
 ```
   Provides: perl(MIME-Base64), perl(Mail-Header)-1-09
