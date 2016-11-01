@@ -8,16 +8,16 @@ Have a question that's not answered in any of the documentation? We have several
 rpm.org makes use of the following [email lists](http://lists.rpm.org/mailman/listinfo):
 
 [rpm-ecosystem@lists.rpm.org](http://lists.rpm.org/mailman/listinfo/rpm-ecosystem)
-: This list is used for discussion and questions regarding RPM ecosystem, i. e. RPM and all related software, tools and other stuff.
+: Used for discussion and questions regarding RPM ecosystem, i. e. RPM and all related software, tools and other stuff.
 
 [rpm-announce@lists.rpm.org](http://lists.rpm.org/mailman/listinfo/rpm-announce)
-: This is a low-traffic list, used only for announcements regarding the RPM software.
+: Used only for announcements regarding the RPM software (low-traffic).
 
 [rpm-list@lists.rpm.org](http://lists.rpm.org/mailman/listinfo/rpm-list)
-: This list is used for discussion and questions regarding the use of RPM software.
+: Used for discussion and questions regarding the use of RPM software.
 
 [rpm-maint@lists.rpm.org](http://lists.rpm.org/mailman/listinfo/rpm-maint)
-: This list is used by RPM maintainers to discuss development and maintenance issues regarding the RPM software.
+: Used by RPM maintainers to discuss development and maintenance issues regarding the RPM software.
 
 Visit the list-info pages linked above for information on subscribing to the lists or for viewing the archives.
 
