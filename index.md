@@ -4,8 +4,12 @@ title: rpm.org - Home
 ---
 
 The RPM Package Manager (RPM) is a powerful package management system
-capable of installing, uninstalling, verifying, querying, and updating
-and building computer software packages.
+capable of
+* building computer software from source into easily distributable
+  packages
+* installing, updating and uninstalling packaged software
+* querying information and verifying integrity packaged software
+  and resulting software installation
 
 ## News
 
