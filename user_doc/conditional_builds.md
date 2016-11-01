@@ -43,7 +43,7 @@ To pass this option to configure or other scripts than understand a --with-foo o
 ```
 %configure \
         %{?_with_gnutls} \
-                %{?_with_openssl}
+        %{?_with_openssl}
 ```
 
 ## References
