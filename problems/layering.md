@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Problems of layering
+title: rpm.org - Problems of layering
 ---
 One level up: [Contribute](../contribute.html)
 

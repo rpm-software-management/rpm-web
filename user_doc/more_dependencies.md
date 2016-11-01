@@ -1,6 +1,6 @@
 ---
 layout: default
-title: More on Dependencies
+title: rpm.org - More on Dependencies
 ---
 # More on Dependencies
 

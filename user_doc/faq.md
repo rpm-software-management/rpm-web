@@ -1,6 +1,6 @@
 ---
 layout: default
-title: RPM Frequently asked questions (FAQ)
+title: rpm.org - RPM Frequently asked questions (FAQ)
 ---
 # RPM Frequently asked questions (FAQ)
 

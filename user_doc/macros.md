@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Macro syntax
+title: rpm.org - Macro syntax
 ---
 # Macro syntax
 

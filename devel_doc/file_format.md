@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Description of RPM file format
+title: rpm.org - Description of RPM file format
 ---
 # Description of RPM file format
 

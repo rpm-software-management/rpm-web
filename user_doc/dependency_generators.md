@@ -1,6 +1,6 @@
 ---
 layout: default
-title: RPM Dependency Generator
+title: rpm.org - RPM Dependency Generator
 ---
 # RPM Dependency Generator
 

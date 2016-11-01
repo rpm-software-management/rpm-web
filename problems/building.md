@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Problems of building
+title: rpm.org - Problems of building
 ---
 One level up: [Contribute](../contribute.html)
 

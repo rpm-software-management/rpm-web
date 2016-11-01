@@ -1,6 +1,6 @@
 ---
 layout: default
-title: RPM Query Formats
+title: rpm.org - RPM Query Formats
 ---
 # RPM Query Formats
 

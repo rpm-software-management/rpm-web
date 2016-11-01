@@ -1,6 +1,6 @@
 ---
 layout: default
-title: RPM Plugin Interface (DRAFT)
+title: rpm.org - RPM Plugin Interface (DRAFT)
 ---
 # RPM Plugin Interface (DRAFT)
 

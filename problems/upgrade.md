@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Problems of upgrade
+title: rpm.org - Problems of upgrade
 ---
 One level up: [Contribute](../contribute.html)
 

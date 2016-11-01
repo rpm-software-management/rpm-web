@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Problems of distribution differencies
+title: rpm.org - Problems of distribution differencies
 ---
 One level up: [Contribute](../contribute.html)
 

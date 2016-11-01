@@ -1,6 +1,6 @@
 ---
 layout: default
-title: RPM Database Recovery
+title: rpm.org - RPM Database Recovery
 ---
 # RPM Database Recovery
 This document provides an overview of how to deal with RPM database corruption.

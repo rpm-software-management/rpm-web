@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Embedded Lua interpreter
+title: rpm.org - Embedded Lua interpreter
 ---
 # Lua in RPM
 

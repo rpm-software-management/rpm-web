@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Boolean Dependencies
+title: rpm.org - Boolean Dependencies
 ---
 
 

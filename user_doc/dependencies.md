@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Dependencies
+title: rpm.org - Dependencies
 ---
 # Dependencies
 

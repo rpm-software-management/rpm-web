@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Automating patch application in specs
+title: rpm.org - Automating patch application in specs
 ---
 # Automating patch application in specs
 

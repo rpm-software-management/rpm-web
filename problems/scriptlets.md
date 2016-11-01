@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Problems of scriptlets
+title: rpm.org - Problems of scriptlets
 ---
 One level up: [Contribute](../contribute.html)
 

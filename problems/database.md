@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Problems of RPM Database
+title: rpm.org - Problems of RPM Database
 ---
 One level up: [Contribute](../contribute.html)
 

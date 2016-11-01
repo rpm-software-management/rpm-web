@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Internal RPM State Machines (largely OBSOLETE)
+title: rpm.org - Internal RPM State Machines (largely OBSOLETE)
 ---
 # Internal RPM State Machines (largely OBSOLETE)
  When updating a system RPM walks through three state machines:

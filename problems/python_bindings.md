@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Problems of python bindings
+title: rpm.org - Problems of python bindings
 ---
 One level up: [Contribute](../contribute.html)
 

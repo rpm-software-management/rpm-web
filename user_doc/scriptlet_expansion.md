@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Runtime scriptlet expansion
+title: rpm.org - Runtime scriptlet expansion
 ---
 # Runtime scriptlet expansion (DRAFT)
 

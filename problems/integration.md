@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Problems of integration
+title: rpm.org - Problems of integration
 ---
 One level up: [Contribute](../contribute.html)
 

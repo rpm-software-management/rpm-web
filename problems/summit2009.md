@@ -1,6 +1,6 @@
 ---
 layout: default
-title: RPM Summit at openSUSE Conference 2009
+title: rpm.org - RPM Summit at openSUSE Conference 2009
 ---
 One level up: [Contribute](../contribute.html)
 

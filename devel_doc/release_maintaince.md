@@ -1,6 +1,6 @@
 ---
 layout: default
-title: RPM Maintenance
+title: rpm.org - RPM Maintenance
 ---
 TODO: Update according to modification/redesign of rpm.org
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: RPM Log
+title: rpm.org - RPM Log
 ---
 One level up: [Contribute](../contribute.html)
 
