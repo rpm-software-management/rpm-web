@@ -8,14 +8,14 @@ title: RPM Frequently asked questions (FAQ)
 <dl>
 <dt>I have /usr/local mounted on NFS on 1500 systems and this causes upgrades to break occasionally</dt>
 <dd>You can tell RPM about unwritable network mounts with %_netsharedpath macro. For example to have RPM leave NFS-mounted /home and /usr/local alone:
-<pre># echo "%_netsharedpath /home:/usr/local" > /etc/rpm/macros.netshared</pre></dd>
+```# echo "%_netsharedpath /home:/usr/local" > /etc/rpm/macros.netshared```</dd>
 <dt>My rpmdb is corrupted! I'm getting errors about "Thread/process died in Berkeley DB library" telling me to run database recovery</dt>
 <dd>Chances are the database is not really corrupted, it was just uncleanly shut down and most likely doing 'rm -f /var/lib/rpm/__db.*' is enough to clear the situation. However if you didn't manually issue kill -9 on rpm (or other process accessing the rpmdb) and are (frequently) getting this error, something is wrong, and tracking down the cause is important as it is likely to be a bug of some kind somewhere, possibly in seemingly unrelated software. It can be tricky though: the error means that a former process got forcefully killed (or crashed) in middle of accessing the rpmdb, and there's no way to for you or the developers to know what happened at the time you actually see this error.</dd>
 <dd>On modern Linux, the audit subsystem can lend a hand here:
-<pre># echo "-w /var/lib/rpm/Packages -p war -k rpmdb" >> /etc/audit/audit.rules
-# service auditd restart</pre></dd>
+```# echo "-w /var/lib/rpm/Packages -p war -k rpmdb" >> /etc/audit/audit.rules
+# service auditd restart```</dd>
 <dd>The next time you get the "Thread/process [pid/tid] died..." message, you can look up the process causing this failure from the audit records, just replace &lt;pid&gt; with the [pid] part of the error message:
-<pre># ausearch -k rpmdb --pid &lt;pid&gt;</pre></dd>
+```# ausearch -k rpmdb --pid &lt;pid&gt;```</dd>
 <dd>Once the originating program is known, its time to file a bug.</dd>
 </dl>
 

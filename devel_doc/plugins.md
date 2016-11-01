@@ -7,7 +7,7 @@ title: RPM Plugin Interface (DRAFT)
  The current plugin interface is concentrated around what goes on inside rpmtsRun(), and there's little that happens outside it. There's no reason the interface could not be enhanced to other directions, this is just a consequence of one of the primary motivations behind the plugins: enabling other projects like SELinux and MSSF to handle the area they know best, and without having to support a dozen different security "frameworks" within rpm itself.
 
 The plugin API consists of a set of hooks that mostly come in pairs. All hooks receive the plugin itself as the first argument, similarly to this of C++ or self in Python. As of RPM 4.12.0 the following hooks exist:
-<pre>
+```
 struct rpmPluginHooks_s { 
     /* plugin constructor and destructor hooks */
     plugin_init_func                    init;
@@ -27,7 +27,7 @@ struct rpmPluginHooks_s {
     plugin_fsm_file_post_func           fsm_file_post;
     plugin_fsm_file_prepare_func        fsm_file_prepare;
 };
-</pre>
+```
 
 ## Initialization and cleanup
 

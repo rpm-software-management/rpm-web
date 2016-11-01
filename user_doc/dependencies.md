@@ -18,55 +18,55 @@ Updaters have a bit different view on Obsoletes: as they need to find out what p
 
 ## Provides
 Provides can be added to packages so they can be refered to by dependencies other than by their name. E.g. you need to make sure the system your package is being installed on has a package which provides a certain capability, even though you don't care what specific package provides it. For example, sendmail won't work properly unless a local delivery agent (lda) is present. You can ensure that one is installed like this:
-<pre>
+```
     Requires: lda
-</pre>
+```
 This will match either a package called lda (as mentioned above), or any package which contains:
-<pre>
+```
     Provides: lda
-</pre>
+```
 in its .spec file. No version numbers may be used with virtual packages.
 
 Provides are often used to supply file dependencies such as /bin/sh on machines that are only partly managed by rpm. A virtual package with
-<pre>
+```
     Provides: /bin/sh
-</pre>
+```
 differs from a package that has /bin/sh in the %files list in that the package can be safely removed without removing /bin/sh.
 
 ## Requires
 With this tag a package can require another with the matching name or Provides to be installed (if the package containign the Requires: is going to be installed). This is checked when a new package is installed and if a package with a matching Provides: is removed.
 
 To require the packages python and perl, use:
-<pre>
+```
     Requires: python perl
-</pre>
+```
 in the spec file. Note that "Requires python, perl" would work as well. If you needed to have a very recent version of python but any version of perl,
-<pre>
+```
     Requires: python >= 1.3, perl
-</pre>
+```
 would do the trick. Again, the ',' in the line is optional. Instead of '>=', you may also use '<', '>', '<=', or '='. Spaces are required around the numeric operator to separate the operator from the package name.
 
 ## Versioning
 The full syntax for specifying a dependency on an epoch, version and release is
-<pre>
+```
     [epoch:]version[-release]
-</pre>
+```
 where
-<pre>
+```
     epoch   (optional) number, with assumed default of 0 if not supplied
     version (required) can contain any character except '-'
     release (optional) can contain any character except '-'
-</pre>
+```
 For example,
-<pre>
+```
     Requires: perl >= 9:5.00502-3
-</pre>
+```
 specifies
-<pre>
+```
     epoch=9
     version=5.00502
     release=3
-</pre>
+```
 The epoch (if present) is a monotonically increasing integer, neither the version or the release can contain the '-' hyphen character, and the dependency parser does not permit white space within a definition. Unspecified epoch and releases are assumed to be zero, and are interpreted as "providing all" or "requiring any" value.
 
 The release tag is usually incremented every time a package is rebuilt for any reason, even if the source code does not change. For example, changes to the specfile, compiler(s) used to build the package, and/or dependency changes should all be tracked by incrementing the release. The version number, on the other hand, is usually set by the developer or upstream maintainer, and should not be casually modified by the packager.
@@ -78,30 +78,30 @@ The algorithm that RPM uses to determine the version ordering of packages is sim
 The concept of "newer" used by rpm to determine when a package should be upgraded can be broken if version format changes oddly, such as when the version segments cannot be meaningfully compared.
 
 Example of a bad format change: 2.1.7Ax to 19980531
-<pre>
+```
   The date may be the older version, but it is numerically greater
   2 so it is considered newer :(
-</pre>
+```
 Example of a bad increment: 2.1.7a to 2.1.7A
-<pre>
+```
   The 'a' (ASCII 97) is compared against 'A' (ASCII 65), making 2.1.7a
   the newer version.
-</pre>
+```
 Stick to major.minor.patchlevel using numbers for each if you can. Keeps life simple :-)
 
 If a Requires: line needs to include an epoch in the comparison, then the line should be written like
-<pre>
+```
     Requires: somepackage = 23:version
-</pre>
+```
 You can't continue a "Requires: " line. If you have multiple "Requires: " lines then the package requires all packages mentioned on all of the lines to be installed.
 
 ## Conflicts
 Conflicts are basically inverse Requires. If there is a matching package the package cannot be installed. It does not matter whether the Conflict: tag is on the already installed or to be installed package.
 
 The qmail spec file may codify this with a line like:
-<pre>
+```
     Conflicts: sendmail
-</pre>
+```
 Dependency checking (including checking for conflicts) may be overridden by using the --nodeps flag.
 
 ## Weak dependencies

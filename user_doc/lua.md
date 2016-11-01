@@ -10,10 +10,10 @@ A fairly unknown feature of RPM is that it comes with an embedded Lua interprete
 
 The internal Lua can be used as the interpreter of rpm any scriptlets (%pre, %post etc):
 
-<pre>
+```
 %pre -p &lt;lua&gt;
 print("Hello from Lua")
-</pre>
+```
 
 The point? Remember, Lua is embedded in rpm. This means the Lua scriptlets run in the rpm process context, instead of forking a new process to execute something. This has a number of advantages over, say, using /bin/sh as scriptlet interpreter:
 
@@ -32,16 +32,16 @@ While scriptlets shouldn't be allowed to fail normally, you can signal scriptlet
 
 The internal Lua interpreter can be used for dynamic macro content creation:
 
-<pre>
+```
 %{lua: print("Requires: foo >= 1.2")}
-</pre>
+```
 
 The above is a silly example and doesn't even begin to show how powerful a feature this is. For a slightly more complex example, RPM itself uses this to implement %patches and %sources macros (new in RPM 4.6.0):
 
-<pre>
+```
 %patches %{lua: for i, p in ipairs(patches) do print(p.." ") end}
 %sources %{lua: for i, s in ipairs(sources) do print(s.." ") end}
-</pre>
+```
 
 ## Available Lua extensions in RPM
 
@@ -113,12 +113,12 @@ Lua standard library offers fairly limited set of io operations. The posix exten
 This extension adds regular expression matching to Lua.
 
 A simple example:
-<pre>
+```
 expr = rex.new(&lt;regex&lt;)
 if expr:match(&lt;arg&lt;) then
     ... do stuff ...
 end
-</pre>
+```
 
 TODO: fully document
 

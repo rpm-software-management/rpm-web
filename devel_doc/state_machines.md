@@ -20,17 +20,17 @@ As stated above the transaction state machine is responsible for the overall upd
 * transaction.c - Defines high level actions that can be perfomed upon an rpmts/transaction. 
 
 Depending on how you want to think about it, you can consider the transaction state machine as having several entry points that must be manually entered (rpmtsCheck(), rpmtsOrder(), rpmtsRun()) in order, or you can think of rpmtsCheck and rpmtsOrder as just setup for the entry of the TSM via rpmtsRun(). If you take the first approach, then state machine has a high level logic of:
-<pre>
+```
    Check Transaction For Dependency Satisfaction (rpmtsCheck())
    If success
       Order Transaction Elements based on dependencies (rpmtsOrder())
    if success
       Run Transaction (rpmtsRun())
-</pre>
+```
 Either way you look at it the major work of the TSM is done in rpmtsRun, so below is pseudo code to document its flow:
-<pre>
+```
 Not Done Yet
-</pre>
+```
 
 ## The Package State Machine
 
@@ -47,13 +47,13 @@ These "purposes" are seen by the PSM as an overall goal to achieve, which are de
 * PSM_PKGSAVE - used to repackage a package. 
 
 The PSM is thus entered with one of these three initial states, that then gets translated to the PSM goal. Whichever the goal the PSM at a high level looks like this:
-<pre>
+```
    PSM_INIT                             # Initialize package state machine for goal
    if success PSM_PRE                   # Pre package install/erase/repackage activites (e.g. %pre)
    if success PSM_PROCESS               # Deliver/Erase/Repackage Files (FSM is entered here).
    if success PSM_POST                  # Post package install/erase/repackage activities (e.g. %post)
    PSM_FINI                             # Clean up PSM
-</pre>
+```
 To enter into the PSM, a call is made to rpmpsmStage() (this is found in psm.c) with the second argument being the state/stage you wish the PSM to transition too. The intial stage is, is one of the three states listed above (i.e. PSM_PKGINSTALL, PSM_PKGERASE, PSM_PKGSTAGE). After this initial entry the PSM transitions through the five major states listed above (i.e. PSM_INIT, PSM_PRE, PSM_PROCESS, PSM_POST, PSM_FINI). Beyond these major states, their are several sub states into which each of the major states can transition. They are listed below:
 
 * PSM_COMMIT - NOT SURE
@@ -78,7 +78,7 @@ The following are in the PSM, but are no-ops presently (Jeff, Is there an explan
 The remaining subsections will list the high level logic of the major states (PSM_INIT, PSM_PRE, PSM_PROCESS, PSM_POST, PSM_FINI).
 
 ## PSM_PKGINSTALL, PSM_PKGERASE, PSM_PKGSAVE
-<pre>
+```
 set PSM goal
 transition to PSM_INIT
 if OK
@@ -88,10 +88,10 @@ if OK
 if OK
    transition to PSM_POST
 transition to PSM_FINI
-</pre>
+```
 
 ## PSM_INIT
-<pre>
+```
 calculate pkg instance count
 if goal PSM_PKGINSTALL
     increment pkg instance count
@@ -109,10 +109,10 @@ if goal PSM_PKGSAVE
    open repackaged package for write
 
 return
-</pre>
+```
 
 ## PSM_PRE
-<pre>
+```
 if test return
 transition to PSM_CHROOT_IN   # This will change into the chroot, if we are not 
 already there; then it returns here
@@ -145,10 +145,10 @@ if goal PSM_PGKSAVE
    # This will intentionally poison the repackaged packages signature
    add REMOVETID to header
    write header to repackaged package
-</pre>
+```
 
 ## PSM_PROCESS
-<pre>
+```
 if test return 
 if goal PSM_PKGINSTALL
    if justdb return
@@ -201,10 +201,10 @@ if goal PSM_PKGSAVE
    enter FSM with goal of FSM_PKGBUILD
    transition to PSM_NOTIFY with RPMCALLBACK_INST_PROGRESS
    return OK
-</pre>
+```
 
 ## PSM_POST
-<pre>
+```
 if test return OK
 if goal PSM_PKGINSTALL
    calculate install time
@@ -236,10 +236,10 @@ if goal PSM_PKGERASE
 # Exit chroot
 transition to PSM_CHROOT_OUT
 return OK
-</pre>
+```
 
 ## PSM_FINI
-<pre>
+```
 #
 # Exit chroot
 transition to PSM_CHROOT_OUT
@@ -248,7 +248,7 @@ if PSM has had error
    display error message
    transition to PSM_NOTIFY with RPMCALLBACK_CPIO_ERROR
 clean up
-</pre>
+```
 
 ## The File State Machine
 RIP

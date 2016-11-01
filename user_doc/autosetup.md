@@ -7,7 +7,7 @@ title: Automating patch application in specs
 ## %autosetup description
 
 Starting with version 4.11, RPM has a set of new macros to further automate source unpacking and patch application. Previously one had to manually specify each patch to be applied, eg
-<pre>
+```
 %prep
 %setup -q
 %patch0
@@ -15,17 +15,17 @@ Starting with version 4.11, RPM has a set of new macros to further automate sour
 %patch2
 ...
 %patch149
-</pre>
+```
 
 This can get rather tedious when the number of patches is large. The new %autosetup macro allows taking care of all this in a single step: the following applies all the patches declared in the spec, ordered by the patch number:
-<pre>
+```
 %prep
 %autosetup
-</pre>
+```
 In addition to automating plain old "patch" command invocations, %autosetup allows utilizing various version control systems such as git, mercurial (aka hg), quilt and bzr for managing the build directory source. For example this unpacks the vanilla source, initializes a git repository in the build directory and then applies all the patches defined in the spec using individual git apply + commits:
-<pre>
+```
 %autosetup -S git
-</pre>
+```
 The resulting build directory can be used for bisecting problems introduced in patches, and developing new patches from the build directory is more natural than with gendiff.
 
 ##%autosetup options
@@ -43,17 +43,17 @@ Note that the exact behavior of -S option depends on the used VCS: for example q
 ## Automating patch (and source) declarations
 
 While typically patch and source names tend to be descriptive for humans, making automating the declarations impossible, some upstreams (for example bash and vim) provide bugfixes by serially numbered patches. In such cases automation can be taken one step further by programmatically generating the patch declarations as well. As of this writing there are no specific helper macros for performing this, but for example the embedded Lua interpreter can be used for the purpose:
-<pre>
+```
 %{lua:for i=1,45 do print(string.format("Patch%u: bash42-%03u\n", i, i)) end}
-</pre>
+```
 
 On spec parse, the above expands to as many patch declarations (best inspected with 'rpmspec --parse &lt;spec&gt;'):
-<pre>
+```
 Patch1: bash42-001
 Patch2: bash42-002
 Patch3: bash42-003
 Patch4: bash42-004
 ...
 Patch45: bash42-045
-</pre>
+```
 Combined with %autosetup, this can eliminate a very large number of repetitive spec lines, making package maintenance that little bit easier. 

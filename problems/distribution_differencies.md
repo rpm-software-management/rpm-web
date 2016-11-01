@@ -17,19 +17,19 @@ This page tries to list differences in packaging between distributions and to pr
 * Ruby packaging
 
     * Fedora: uses these macros:
-    <pre>
+    ```
     a) %global ruby_sitelib %(ruby -rrbconfig -e 'puts Config::CONFIG["sitelibdir"] ')
     b) %global ruby_sitearch %(ruby -rrbconfig -e 'puts Config::CONFIG["sitearchdir"] ')
     c) %global gemdir %(ruby -rubygems -e 'puts Gem::dir' 2>/dev/null)
-    </pre>
+    ```
     and adds Requires: ruby(abi) = 1.8 to packages
 
     * openSUSE: uses %rb_ver and %rb_arch macros and the following corresponding paths:
-    <pre>
+    ```
     a) %{_libdir}/ruby/vendor_ruby/%{rb_ver}
     b) %{_libdir}/ruby/vendor_ruby/%{rb_ver}/%{rb_arch}
     c) %{_libdir}/ruby/gems/%{rb_ver}
-    </pre>
+    ```
     (almost the same, difference is site_ruby vs. vendor_ruby)
 
     * solution: create the macros in upstream, use them consistently in both distributions 
@@ -56,7 +56,7 @@ This page tries to list differences in packaging between distributions and to pr
 * init scripts
 
     * Fedora:
-    <pre>
+    ```
     Requires(post): chkconfig
     Requires(postun): initscripts
     Requires(preun): chkconfig
@@ -75,9 +75,9 @@ This page tries to list differences in packaging between distributions and to pr
     if [ "$1" -ge "1" ] ; then
         /sbin/service <script> condrestart >/dev/null 2>&1 || :
     fi`
-    </pre>
+    ```
     * openSUSE:
-    <pre>
+    ```
     PreReq: %insserv_prereq %fillup_prereq
 
     %install
@@ -101,7 +101,7 @@ This page tries to list differences in packaging between distributions and to pr
     %defattr(-,root,root)
     %{_initddir}/<script>
     %{_sbindir}/rc<script>
-    </pre>
+    ```
     * solution: try to unify the procedure, if some macros are still needed, try to push them to upstream RPM
     * openSUSE 11.1 and older have broken macro %{_initrddir} - it should read %{_initddir} 
 
@@ -117,10 +117,10 @@ This page tries to list differences in packaging between distributions and to pr
 * Python packaging
 
     * Fedora: uses two variables in python spec files:
-    <pre>
+    ```
     %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
     %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
-    </pre>
+    ```
 
 first one is for noarch packages, second for arch packages
 
@@ -130,12 +130,12 @@ first one is for noarch packages, second for arch packages
 * make install
 
     * Fedora: macro %makeinstall is defined as:
-    <pre>
+    ```
     make \
         prefix="%{buildroot}%{_prefix}"
         libdir="%{buildroot}%{_libdir}"
     ...
-    </pre>
+    ```
     * openSUSE: defined as make DESTDIR=$RPM_BUILD_ROOT install
     * solution: push openSUSE definition to upstream - (done, see [https://github.com/rpm-software-management/rpm/commit/883253ea6af71f8063d7a045841c35bad22147e2](https://github.com/rpm-software-management/rpm/commit/883253ea6af71f8063d7a045841c35bad22147e2))
 
