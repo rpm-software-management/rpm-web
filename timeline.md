@@ -400,6 +400,8 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
  * rpm-4.2.1.tar.gz missing
 
+#### Red Hat Linux RPM Guide book published (May 23 2003) ####
+
 #### RPM 4.2 released (Mar 19 2003 ??) ####
 
  * rpm-4.2.tar.gz missing
@@ -415,6 +417,10 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 #### RPM 4.0.3 released (Dec 3 2001 ??) ####
 
  * [rpm-4.0.3.tar.gz download](http://archive.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.3.tar.gz)
+
+#### RPM specified as the LSB packaging format (Jun 29 2001) ####
+ * [Linux Standard Base 1.0](http://refspecs.linuxfoundation.org/LSB_1.0.0/gLSB/book1.html) included RPM as the standard packaging format.
+   Unfortunately this only covered RPM v3 packages.
 
 #### RPM 4.0.2 released (Mar 13 2001 ??) ####
 
@@ -524,6 +530,8 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
  * RPM was originally GPL-only, but was soon [relicensed](https://github.com/rpm-software-management/rpm/commit/3a7e18a373b51458a1094bd6e3026ccea35efdc0)
    to GPL/LGPL early on.
+
+#### Maximum RPM book published (Aug 6 1997) ####
 
 #### RPM 2.4.3 released (Jul 16 1997 ??) ####
 
