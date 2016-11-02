@@ -729,5 +729,5 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
  * [The first commit](https://github.com/rpm-software-management/rpm/commit/7153c160969d70a083f791bf75f9b4d09d2f2a45)
    to what was a state-of-the art CVS repository back then. Whether this
-   was done by Marc Ewing or Erik Troan is lost in history due as the
+   was done by Marc Ewing or Erik Troan is lost in history as the
    commit was done as root - those were the days...
