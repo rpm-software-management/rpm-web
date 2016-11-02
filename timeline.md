@@ -360,9 +360,17 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
  * [Original announcement](https://http://lists.rpm.org/pipermail/rpm-announce/2006-December/000005.html)
 
-#### RPM 4.4.2 release (Jul 21st 2005 ??) ####
+#### RPM 4.4.2 released (Jul 21st 2005 ??) ####
 
  * [rpm-4.4.2.tar.gz](http://archive.rpm.org/releases/rpm-4.4.x/rpm-4.4.2.tar.gz)
+
+#### RPM 4.4.1 released (??) ####
+
+ * rpm-4.4.1.tar.gz missing
+
+#### RPM 4.4 released (??) ####
+
+ * rpm-4.4.tar.gz missing
 
 #### RPM 4.3.3 released (Nov 2 2005 ??) ####
 
