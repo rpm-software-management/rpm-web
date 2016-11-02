@@ -4,6 +4,17 @@ title: rpm.org - More on Dependencies
 ---
 # More on Dependencies
 
+## Boolean Dependencies
+
+Starting with rpm 4.13.0, rpm supports boolean expressions in all
+dependencies. For example:
+
+```
+	Requires: (pkgA or (pkgB and pkgC))
+```
+
+More details in a [separate article](boolean_dependencies.html).
+
 ## Architecture-specific Dependencies
 
 Starting with rpm 4.6.0, it's possible to specify dependencies to be specific to a given architecture family:
