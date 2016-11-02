@@ -356,9 +356,41 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
  * [Original announcement](https://http://lists.rpm.org/pipermail/rpm-announce/2006-December/000005.html)
 
+#### rpm-4.4.2 release (Jul 21st 2005 ??) ####
+
+ * [rpm-4.4.2.tar.gz](http://archive.rpm.org/releases/rpm-4.4.x/rpm-4.4.2.tar.gz)
+
 #### rpm-4.3.3.tar.gz released (Nov 2 2005 ??) ####
 
  * [rpm-4.3.3.tar.gz download](http://archive.rpm.org/releases/historical/rpm-4.3.x/rpm-4.3.3.tar.gz)
+
+#### rpm-4.2.3.tar.gz released (Sep 2004 ??) ####
+
+ * rpm-4.2.3.tar.gz missing
+
+#### rpm-4.3.2.tar.gz released (Sep 17 2004 ??) ####
+
+ * rpm-4.3.2.tar.gz missing
+
+#### rpm-4.3.1.tar.gz released (Apr 16 2004 ??) ####
+
+ * rpm-4.3.1.tar.gz missing
+
+#### rpm-4.2.2.tar.gz released (Mar 24 2004 ??) ####
+
+ * rpm-4.2.2.tar.gz missing
+
+#### rpm-4.3.tar.gz released (Jan 26 2004 ??) ####
+
+ * rpm-4.3.tar.gz missing
+
+#### rpm-4.2.1.tar.gz released (Sep 25 2003 ??) ####
+
+ * rpm-4.2.1.tar.gz missing
+
+#### rpm-4.2.tar.gz released (Mar 19 2003 ??) ####
+
+ * rpm-4.2.tar.gz missing
 
 #### rpm-4.1.tar.gz released (Sep 17 2002 ??) ####
 
