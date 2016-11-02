@@ -351,3 +351,7 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
  * Cleaning up of vendor specific hacks etc
  * [Summary of changes](wiki/Releases/4.4.2.1)
  * [Original announcement](https://lists.dulug.duke.edu/pipermail/rpm-announce/2007-July/000001.html)
+
+#### rpm.org reboot (Dec 14th 2006) ####
+
+ * [Original announcement](https://http://lists.rpm.org/pipermail/rpm-announce/2006-December/000005.html)
