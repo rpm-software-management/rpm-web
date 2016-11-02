@@ -446,6 +446,11 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
  * [rpm-3.0.4.tar.gz download](http://archive.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.4.tar.gz)
 
+#### RPM renamed (Jan 17 2000) ####
+
+ * Originally known as Red Hat Package Manager, RPM was renamed to the
+   more generic recursive acronym of RPM Package Manager.
+
 #### RPM 3.0.3 released (Oct 6 1999 ??) ####
 
  * [rpm-3.0.3.tar.gz download](http://archive.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.3.tar.gz)
