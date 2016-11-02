@@ -355,3 +355,347 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 #### rpm.org reboot (Dec 14th 2006) ####
 
  * [Original announcement](https://http://lists.rpm.org/pipermail/rpm-announce/2006-December/000005.html)
+
+#### rpm-4.3.3.tar.gz released (Nov 2 2005 ??) ####
+
+ * [rpm-4.3.3.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-4.3.x/rpm-4.3.3.tar.gz)
+
+#### rpm-4.1.tar.gz released (Sep 17 2002 ??) ####
+
+ * [rpm-4.1.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-4.1.x/rpm-4.1.tar.gz)
+
+#### rpm-4.0.4.tar.gz released (Mar 14 2002 ??) ####
+
+ * [rpm-4.0.4.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-4.0.x/rpm-4.0.4.tar.gz)
+
+#### rpm-4.0.3.tar.gz released (Dec 3 2001 ??) ####
+
+ * [rpm-4.0.3.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-4.0.x/rpm-4.0.3.tar.gz)
+
+#### rpm-4.0.2.tar.gz released (Mar 13 2001 ??) ####
+
+ * [rpm-4.0.2.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-4.0.x/rpm-4.0.2.tar.gz)
+
+#### rpm-4.0.1.tar.gz released (Jan 18 2001 ??) ####
+
+ * [rpm-4.0.1.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-4.0.x/rpm-4.0.1.tar.gz)
+
+#### rpm-4.0.tar.gz released (Sep 13 2000 ??) ####
+
+ * [rpm-4.0.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-4.0.x/rpm-4.0.tar.gz)
+
+#### rpm-3.0.6.tar.gz released (Sep 13 2000 ??) ####
+
+ * [rpm-3.0.6.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-3.0.x/rpm-3.0.6.tar.gz)
+
+#### rpm-3.0.5.tar.gz released (Jul 20 2000 ??) ####
+
+ * [rpm-3.0.5.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-3.0.x/rpm-3.0.5.tar.gz)
+
+#### rpm-3.0.4.tar.gz released (Mar 16 2000 ??) ####
+
+ * [rpm-3.0.4.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-3.0.x/rpm-3.0.4.tar.gz)
+
+#### rpm-3.0.3.tar.gz released (Oct 6 1999 ??) ####
+
+ * [rpm-3.0.3.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-3.0.x/rpm-3.0.3.tar.gz)
+
+#### rpm-3.0.2.tar.gz released (Jul 7 1999 ??) ####
+
+ * [rpm-3.0.2.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-3.0.x/rpm-3.0.2.tar.gz)
+
+#### rpm-3.0.1.tar.gz released (May 24 1999 ??) ####
+
+ * [rpm-3.0.1.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-3.0.x/rpm-3.0.1.tar.gz)
+
+#### rpm-3.0.tar.gz released (Apr 19 1999 ??) ####
+
+ * [rpm-3.0.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-3.0.x/rpm-3.0.tar.gz)
+
+#### rpm-2.5.6.tar.gz released (Dec 29 1998 ??) ####
+
+ * [rpm-2.5.6.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.5.x/rpm-2.5.6.tar.gz)
+
+#### rpm-2.5.5.tar.gz released (Oct 15 1998 ??) ####
+
+ * [rpm-2.5.5.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.5.x/rpm-2.5.5.tar.gz)
+
+#### rpm-2.5.4.tar.gz released (Sep 30 1998 ??) ####
+
+ * [rpm-2.5.4.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.5.x/rpm-2.5.4.tar.gz)
+
+#### rpm-2.5.3.tar.gz released (Sep 5 1998 ??) ####
+
+ * [rpm-2.5.3.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.5.x/rpm-2.5.3.tar.gz)
+
+#### rpm-2.5.2.tar.gz released (Jul 1 1998 ??) ####
+
+ * [rpm-2.5.2.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.5.x/rpm-2.5.2.tar.gz)
+
+#### rpm-2.5.1.tar.gz released (May 28 1998 ??) ####
+
+ * [rpm-2.5.1.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.5.x/rpm-2.5.1.tar.gz)
+
+#### rpm-2.5.tar.gz released (May 15 1998 ??) ####
+
+ * [rpm-2.5.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.5.x/rpm-2.5.tar.gz)
+
+#### rpm-2.4.12.tar.gz released (Jan 8 1998 ??) ####
+
+ * [rpm-2.4.12.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.12.tar.gz)
+
+#### rpm-2.4.11.tar.gz released (Dec 30 1997 ??) ####
+
+ * [rpm-2.4.11.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.11.tar.gz)
+
+#### rpm-2.4.10.tar.gz released (Oct 31 1997 ??) ####
+
+ * [rpm-2.4.10.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.10.tar.gz)
+
+#### rpm-2.4.9.tar.gz released (Oct 28 1997 ??) ####
+
+ * [rpm-2.4.9.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.9.tar.gz)
+
+#### rpm-2.4.8.tar.gz released (Oct 10 1997 ??) ####
+
+ * [rpm-2.4.8.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.8.tar.gz)
+
+#### rpm-2.4.7.tar.gz released (Sep 12 1997 ??) ####
+
+ * [rpm-2.4.7.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.7.tar.gz)
+
+#### rpm-2.4.6.tar.gz released (Aug 29 1997 ??) ####
+
+ * [rpm-2.4.6.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.6.tar.gz)
+
+#### rpm-2.4.5.tar.gz released (Aug 26 1997 ??) ####
+
+ * [rpm-2.4.5.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.5.tar.gz)
+
+#### rpm-2.4.4.tar.gz released (Aug 21 1997 ??) ####
+
+ * [rpm-2.4.4.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.4.tar.gz)
+
+#### License change to dual GPL/LGPL (Aug 10th 1997) ####
+
+ * RPM was originally GPL-only, but was soon [relicensed](https://github.com/rpm-software-management/rpm/commit/3a7e18a373b51458a1094bd6e3026ccea35efdc0)
+   to GPL/LGPL early on.
+
+#### rpm-2.4.3.tar.gz released (Jul 16 1997 ??) ####
+
+ * [rpm-2.4.3.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.3.tar.gz)
+
+#### rpm-2.4.2.tar.gz released (Jun 28 1997 ??) ####
+
+ * [rpm-2.4.2.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.2.tar.gz)
+
+#### rpm-2.4.1.tar.gz released (May 27 1997 ??) ####
+
+ * [rpm-2.4.1.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.1.tar.gz)
+
+#### rpm-2.4.tar.gz released (May 16 1997 ??) ####
+
+ * [rpm-2.4.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.4.x/rpm-2.4.tar.gz)
+
+#### rpm-2.3.11.tar.gz released (Apr 24 1997 ??) ####
+
+ * [rpm-2.3.11.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.3.x/rpm-2.3.11.tar.gz)
+
+#### rpm-2.3.10.tar.gz released (Apr 16 1997 ??) ####
+
+ * [rpm-2.3.10.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.3.x/rpm-2.3.10.tar.gz)
+
+#### rpm-2.3.9.tar.gz released (Apr 8 1997 ??) ####
+
+ * [rpm-2.3.9.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.3.x/rpm-2.3.9.tar.gz)
+
+#### rpm-2.3.8.tar.gz released (Mar 20 1997 ??) ####
+
+ * [rpm-2.3.8.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.3.x/rpm-2.3.8.tar.gz)
+
+#### rpm-2.3.7.tar.gz released (Feb 20 1997 ??) ####
+
+ * [rpm-2.3.7.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.3.x/rpm-2.3.7.tar.gz)
+
+#### rpm-2.3.6.tar.gz released (Feb 17 1997 ??) ####
+
+ * [rpm-2.3.6.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.3.x/rpm-2.3.6.tar.gz)
+
+#### rpm-2.3.5.tar.gz released (Feb 14 1997 ??) ####
+
+ * [rpm-2.3.5.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.3.x/rpm-2.3.5.tar.gz)
+
+#### rpm-2.3.4.tar.gz released (Jan 31 1997 ??) ####
+
+ * [rpm-2.3.4.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.3.x/rpm-2.3.4.tar.gz)
+
+#### rpm-2.3.3.tar.gz released (Jan 24 1997 ??) ####
+
+ * [rpm-2.3.3.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.3.x/rpm-2.3.3.tar.gz)
+
+#### rpm-2.3.2.tar.gz released (Jan 16 1997 ??) ####
+
+ * [rpm-2.3.2.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.3.x/rpm-2.3.2.tar.gz)
+
+#### rpm-2.3.1.tar.gz released (Jan 15 1997 ??) ####
+
+ * [rpm-2.3.1.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.3.x/rpm-2.3.1.tar.gz)
+
+#### rpm-2.3.tar.gz released (Dec 26 1996 ??) ####
+
+ * [rpm-2.3.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.3.x/rpm-2.3.tar.gz)
+
+#### rpm-2.2.11.tar.gz released (Dec 20 1996 ??) ####
+
+ * [rpm-2.2.11.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.2.x/rpm-2.2.11.tar.gz)
+
+#### rpm-2.2.10.tar.gz released (Dec 12 1996 ??) ####
+
+ * [rpm-2.2.10.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.2.x/rpm-2.2.10.tar.gz)
+
+#### rpm-2.2.9.tar.gz released (Nov 22 1996 ??) ####
+
+ * [rpm-2.2.9.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.2.x/rpm-2.2.9.tar.gz)
+
+#### rpm-2.2.8.tar.gz released (Oct 31 1996 ??) ####
+
+ * [rpm-2.2.8.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.2.x/rpm-2.2.8.tar.gz)
+
+#### rpm-2.2.7.tar.gz released (Oct 17 1996 ??) ####
+
+ * [rpm-2.2.7.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.2.x/rpm-2.2.7.tar.gz)
+
+#### rpm-2.2.6.tar.gz released (??) ####
+
+ * [rpm-2.2.6.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.2.x/rpm-2.2.6.tar.gz)
+
+#### rpm-2.2.5.tar.gz released (??) ####
+
+ * [rpm-2.2.5.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.2.x/rpm-2.2.5.tar.gz)
+
+#### rpm-2.2.4.tar.gz released (??) ####
+
+ * [rpm-2.2.4.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.2.x/rpm-2.2.4.tar.gz)
+
+#### rpm-2.2.2.tar.gz released (??) ####
+
+ * [rpm-2.2.2.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.2.x/rpm-2.2.2.tar.gz)
+
+#### rpm-2.2.1.tar.gz released (??) ####
+
+ * [rpm-2.2.1.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.2.x/rpm-2.2.1.tar.gz)
+
+#### rpm-2.2.tar.gz released (??) ####
+
+ * [rpm-2.2.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.2.x/rpm-2.2.tar.gz)
+
+#### rpm-2.1.2.tar.gz released (??) ####
+
+ * [rpm-2.1.2.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.1.x/rpm-2.1.2.tar.gz)
+
+#### rpm-2.1.1.tar.gz released (??) ####
+
+ * [rpm-2.1.1.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.1.x/rpm-2.1.1.tar.gz)
+
+#### rpm-2.1.tar.gz released (??) ####
+
+ * [rpm-2.1.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.1.x/rpm-2.1.tar.gz)
+
+#### rpm-2.0.11.tar.gz released (??) ####
+
+ * [rpm-2.0.11.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.0.x/rpm-2.0.11.tar.gz)
+
+#### rpm-2.0.10.tar.gz released (??) ####
+
+ * [rpm-2.0.10.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.0.x/rpm-2.0.10.tar.gz)
+
+#### rpm-2.0.9.tar.gz released (??) ####
+
+ * [rpm-2.0.9.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.0.x/rpm-2.0.9.tar.gz)
+
+#### rpm-2.0.8.tar.gz released (??) ####
+
+ * [rpm-2.0.8.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.0.x/rpm-2.0.8.tar.gz)
+
+#### rpm-2.0.7.tar.gz released (??) ####
+
+ * [rpm-2.0.7.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.0.x/rpm-2.0.7.tar.gz)
+
+#### rpm-2.0.6.tar.gz released (??) ####
+
+ * [rpm-2.0.6.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.0.x/rpm-2.0.6.tar.gz)
+
+#### rpm-2.0.5.tar.gz released (??) ####
+
+ * [rpm-2.0.5.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.0.x/rpm-2.0.5.tar.gz)
+
+#### rpm-2.0.4.tar.gz released (??) ####
+
+ * [rpm-2.0.4.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.0.x/rpm-2.0.4.tar.gz)
+
+#### rpm-2.0.3.tar.gz released (??) ####
+
+ * [rpm-2.0.3.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.0.x/rpm-2.0.3.tar.gz)
+
+#### rpm-2.0.2.tar.gz released (??) ####
+
+ * [rpm-2.0.2.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.0.x/rpm-2.0.2.tar.gz)
+
+#### rpm-2.0.1.tar.gz released (??) ####
+
+ * [rpm-2.0.1.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.0.x/rpm-2.0.1.tar.gz)
+
+#### rpm-2.0.tar.gz released (??) ####
+
+ * [rpm-2.0.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-2.0.x/rpm-2.0.tar.gz)
+
+#### rpm-1.4.7.tar.gz released (??) ####
+
+ * [rpm-1.4.7.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-1.x/rpm-1.4.7.tar.gz)
+
+#### rpm-1.4.6.tar.gz released (??) ####
+
+ * [rpm-1.4.6.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-1.x/rpm-1.4.6.tar.gz)
+
+#### rpm-1.4.5.tar.gz released (??) ####
+
+ * [rpm-1.4.5.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-1.x/rpm-1.4.5.tar.gz)
+
+#### rpm-1.4.4.tar.gz released (??) ####
+
+ * [rpm-1.4.4.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-1.x/rpm-1.4.4.tar.gz)
+
+#### rpm-1.4.2a.tar.gz released (??) ####
+
+ * [rpm-1.4.2a.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-1.x/rpm-1.4.2a.tar.gz)
+
+#### rpm-1.4.2.tar.gz released (??) ####
+
+ * [rpm-1.4.2.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-1.x/rpm-1.4.2.tar.gz)
+
+#### rpm-1.4.1.tar.gz released (??) ####
+
+ * [rpm-1.4.1.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-1.x/rpm-1.4.1.tar.gz)
+
+#### rpm-1.4.tar.gz released (??) ####
+
+ * [rpm-1.4.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-1.x/rpm-1.4.tar.gz)
+
+#### rpm-1.3.1.tar.gz released (??) ####
+
+ * [rpm-1.3.1.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-1.x/rpm-1.3.1.tar.gz)
+
+#### rpm-1.3.tar.gz released (??) ####
+
+ * [rpm-1.3.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-1.x/rpm-1.3.tar.gz)
+
+#### rpm-1.2.tar.gz released (??) ####
+
+ * [rpm-1.2.tar.gz download](/home/pmatilai/Downloads/rpm//historical/rpm-1.x/rpm-1.2.tar.gz)
+
+#### First commit (Nov 27th 1995) ####
+
+ * [The first commit](https://github.com/rpm-software-management/rpm/commit/7153c160969d70a083f791bf75f9b4d09d2f2a45)
+   to what was a state-of-the art CVS repository back then. Whether this
+   was done by Marc Ewing or Erik Troan is lost in history due as the
+   commit was done as root - those were the days...
