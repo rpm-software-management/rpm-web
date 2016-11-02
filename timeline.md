@@ -10,7 +10,7 @@ title: rpm.org - Timeline
  * See [draft release notes](wiki/Releases/4.13.0) for download information and full details of changes since 4.12.0.1
 
 #### RPM 4.13.0-rc1 released! (September 2nd 2015) ####
- * Finalized syntax for [Rich Dependencies](PackagerDocs/BooleanDependencies)
+ * Finalized syntax for [Rich Dependencies](user_doc/boolean_dependencies.html)
  * Added support for file signatures in security.ima xattr
  * Enable {} expansion in rpmGlob()/%files and enhanced glob handling
  * Fix compressed patches
