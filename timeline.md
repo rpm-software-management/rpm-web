@@ -27,6 +27,10 @@ title: rpm.org - Timeline
  * Support for Boolean Dependencies
  * Lots code cleanups and numerous bugfixes
  * See [draft release notes](wiki/Releases/4.13.0) for download information and full details of changes since 4.12.0.1
+
+#### RPM moves to GitHub (Mar 24th 2016) ####
+ * RPM git master repo moved from rpm.org to GitHub
+
 #### RPM 4.12.0.1 released! (Sep 18th 2014) ####
  * Fixes a regression in archive size calculation during build
  * See [release notes](wiki/Releases/4.12.0.1) for download information and full details of changes since 4.12.0
