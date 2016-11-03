@@ -21,6 +21,7 @@ This page attempts to track the various relevant documentation that exists for R
   * [More on Dependencies](user_doc/more_dependencies.html)
   * [Dependency Generators](user_doc/dependency_generators.html) (new in 4.9)
   * [Boolean Dependencies](user_doc/boolean_dependencies.html) aka Rich Dependencies (new in 4.13)
+  * [File triggers](user_doc/file_triggers.html) (new in 4.13)
   * [Automated, VCS integrated patch application](user_doc/autosetup.html) (new in 4.11)
   * [Macros](user_doc/macros.html)
   * [Embedded Lua interpreter](user_doc/lua.html)
