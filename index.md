@@ -15,8 +15,13 @@ capable of
 
 ## News
 
-#### New website in the making (Oct 28 2016)
-
-#### RPM 4.13.0-rc2 released! (Oct 10 2016)
+#### RPM 4.13.0 released! (Nov 03 2016)
 * See [release notes]( wiki/Releases/4.13.0) for details and download information
+* Major new features include:
+  * File triggers
+  * Boolean dependencies
+* Numerous other enhancements and bugfixes
 
+#### RPM 4.12.0.2 released! (Nov 03 2016)
+* See [release notes]( wiki/Releases/4.12.0.2) for details and download information
+* This is a security and regression fix update
