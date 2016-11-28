@@ -71,3 +71,11 @@ Looks like a scriptlet contains a % character - probably from an undefined
 and though unexpanded macro. The shell (by default /bin/sh) executing the
 scriptlet is not happy with that. Check your scriptlets with rpm -q --scripts
 pkgname and fix the scriptlet or bug the original packager. 
+
+#### How can I add a file with a space in the name?
+
+You can't just type the space within the name as it is used in the spec as
+delimiter. One way to deal with this is match the file with a glob expression
+that does not contain the space. Another way is to surround the path with
+double-quotes. Unfortunately this will prevent globs to be expanded. So you
+need to stick to one of the methods and can't use both in the same entry.
