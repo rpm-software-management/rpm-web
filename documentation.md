@@ -15,7 +15,8 @@ This page attempts to track the various relevant documentation that exists for R
 
 ## Packager Documentation
 * [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html)
-* On rpm.org:
+* [RPM Guide](http://rpm-guide.readthedocs.io) - A Good introduction into RPM Packaging
+* On rpm.org about special topics:
   * [Conditional Builds (rpmbuild &#8211;&#8211;with/&#8211;&#8211;without)](user_doc/conditional_builds.html)
   * [Dependencies](user_doc/dependencies.html)
   * [More on Dependencies](user_doc/more_dependencies.html)
