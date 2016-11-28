@@ -53,6 +53,12 @@ Or-dependencies are not supported in existing RPM versions. This can be
 achieved by having a common virtual provide in A and B, and having C require
 that.
 
+Since rpm version 4.13 you can also use [Boolean Dependencies](user_doc/boolean_dependencies.html). So you can directly use:
+
+```
+Requires: ( pkgA >= 1.2.3 or pkgB )
+```
+
 #### How can I replace a directory with a symlink or vice-versa?
 You dont. If you are desperate, it can be achieved with a %pretrans
 scriptlet written with the embedded Lua interpreter, but this is fragile at
