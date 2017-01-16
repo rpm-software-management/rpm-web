@@ -13,7 +13,7 @@ To define a macro use:
     %define <name>[(opts)] <body>
 ```
 
-All whitespace surrounding <body> is removed. Name may be composed of alphanumeric characters, and the character `_' and must be at least 3 characters in length. A macro without an (opts) field is "simple" in that only recursive macro expansion is performed. A parameterized macro contains an (opts) field. The opts (i.e. string between parentheses) is passed exactly as is to getopt(3) for argc/argv processing at the beginning of a macro invocation. While a parameterized macro is being expanded, the following shell-like macros are available:
+All whitespace surrounding <body> is removed. Name may be composed of alphanumeric characters, and the character `_' and must be at least 3 characters in length. A macro without an (opts) field is "simple" in that only recursive macro expansion is performed. A parameterized macro contains an (opts) field. The opts (i.e. string between parentheses) is passed exactly as is to getopt(3) for argc/argv processing at the beginning of a macro invocation. "--" can be used to separate options from arguments. While a parameterized macro is being expanded, the following shell-like macros are available:
 
 ```
     %0      the name of the macro being invoked
