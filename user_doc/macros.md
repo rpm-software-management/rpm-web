@@ -51,7 +51,7 @@ There are several builtin macros (with reserved names) that are needed to perfor
 
   %{expand:...}       like eval, expand ... to <body> and (re-)expand <body>
 
-  %{lua:...}          expand with the embedded Lua interpreter
+  %{lua:...}          expand with the [embedded Lua interpreter](lua.html)
 
   %{uncompress:...}   expand ... to <file> and test to see if <file> is
                       compressed.  The expansion is
