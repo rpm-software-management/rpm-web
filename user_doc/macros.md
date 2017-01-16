@@ -166,6 +166,7 @@ of the same macro, the last one wins. User-level configuration goes
 to ~/.rpmmacros which is always the last one in the path.
 
 The macro file syntax is simply:
+
 ```
 %<name>		<body>
 ```
