@@ -30,7 +30,7 @@ At the end of invocation of a parameterized macro, the above macros are (at the 
 ## Writing a Macro
 Within the body of a macro, there are several constructs that permit testing for the presence of optional parameters. The simplest construct is "%{-f}" which expands (literally) to "-f" if -f was mentioned when the macro was invoked. There are also provisions for including text if flag was present using "%{-f:X}". This macro expands to (the expansion of) X if the flag was present. The negative form, "%{-f:Y}", expanding to (the expansion of) Y if -f was *not* present, is also supported.
 
-In addition to the "%{...}" form, shell expansion can be performed using "%(shell command)". The expansion of "%(...)" is the output of (the expansion of) ... fed to /bin/sh. For example, "%(date +%%y%%m%%d)" expands to the string "YYMMDD" (final newline is deleted). Note the 2nd % needed to escape the arguments to /bin/date. There is currently an 8K limit on the size that this macro can expand to.
+In addition to the "%{...}" form, shell expansion can be performed using "%(shell command)". The expansion of "%(...)" is the output of (the expansion of) ... fed to /bin/sh. For example, "%(date +%%y%%m%%d)" expands to the string "YYMMDD" (final newline is deleted). Note the 2nd % needed to escape the arguments to /bin/date.
 
 ## Builtin Macros
 There are several builtin macros (with reserved names) that are needed to perform useful operations. The current list is
