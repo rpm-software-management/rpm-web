@@ -37,12 +37,12 @@ rpm.org makes use of the following [Freenode](http://freenode.net/)
 
 rpm.org
 : Bugs and enhancement requests for RPM can be filed in upstream
-[issue tracker](https://github.com/rpm-software-management/rpm/issues)
+[issue tracker](https://github.com/rpm-software-management/rpm/issues).
 
 Vendor bugs
 : RPM is used in a variety of Linux distributions, varying greatly in the number of vendor-specific patches and configuration. Bugs experienced in these distributions are through the distribution vendor bug tracking system.
 
-Security issues:
+Security issues
 : Rpm.org does not currently have a specific security process or -personnel.
 If you need to report an issue so sensitive in nature that it cannot be
 reported via normal bug reporting channels (see above), please contact
