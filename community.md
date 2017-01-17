@@ -41,3 +41,11 @@ rpm.org
 
 Vendor bugs
 : RPM is used in a variety of Linux distributions, varying greatly in the number of vendor-specific patches and configuration. Bugs experienced in these distributions are through the distribution vendor bug tracking system.
+
+Security issues:
+: Rpm.org does not currently have a specific security process or -personnel.
+If you need to report an issue so sensitive in nature that it cannot be
+reported via normal bug reporting channels (see above), please contact
+[Red Hat Product security](https://access.redhat.com/security/team/contact)
+who have kindly agreed to act as the point of contact for rpm.org upstream
+security issues until further notice.
