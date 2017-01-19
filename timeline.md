@@ -373,7 +373,7 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
 #### RPM 4.4.2 released (Jul 21st 2005 ??) ####
 
- * [rpm-4.4.2.tar.gz](http://archive.rpm.org/releases/rpm-4.4.x/rpm-4.4.2.tar.gz)
+ * [rpm-4.4.2.tar.gz](http://ftp.rpm.org/releases/rpm-4.4.x/rpm-4.4.2.tar.gz)
 
 #### RPM 4.4.1 released (??) ####
 
@@ -385,7 +385,7 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
 #### RPM 4.3.3 released (Nov 2 2005 ??) ####
 
- * [rpm-4.3.3.tar.gz download](http://archive.rpm.org/releases/historical/rpm-4.3.x/rpm-4.3.3.tar.gz)
+ * [rpm-4.3.3.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-4.3.x/rpm-4.3.3.tar.gz)
 
 #### RPM 4.2.3 released (Sep 2004 ??) ####
 
@@ -419,15 +419,15 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
 #### RPM 4.1 released (Sep 17 2002 ??) ####
 
- * [rpm-4.1.tar.gz download](http://archive.rpm.org/releases/historical/rpm-4.1.x/rpm-4.1.tar.gz)
+ * [rpm-4.1.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-4.1.x/rpm-4.1.tar.gz)
 
 #### RPM 4.0.4 released (Mar 14 2002 ??) ####
 
- * [rpm-4.0.4.tar.gz download](http://archive.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.4.tar.gz)
+ * [rpm-4.0.4.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.4.tar.gz)
 
 #### RPM 4.0.3 released (Dec 3 2001 ??) ####
 
- * [rpm-4.0.3.tar.gz download](http://archive.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.3.tar.gz)
+ * [rpm-4.0.3.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.3.tar.gz)
 
 #### RPM specified as the LSB packaging format (Jun 29 2001) ####
  * [Linux Standard Base 1.0](http://refspecs.linuxfoundation.org/LSB_1.0.0/gLSB/book1.html) included RPM as the standard packaging format.
@@ -435,27 +435,27 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
 #### RPM 4.0.2 released (Mar 13 2001 ??) ####
 
- * [rpm-4.0.2.tar.gz download](http://archive.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.2.tar.gz)
+ * [rpm-4.0.2.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.2.tar.gz)
 
 #### RPM 4.0.1 released (Jan 18 2001 ??) ####
 
- * [rpm-4.0.1.tar.gz download](http://archive.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.1.tar.gz)
+ * [rpm-4.0.1.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.1.tar.gz)
 
 #### RPM 4.0 released (Sep 13 2000 ??) ####
 
- * [rpm-4.0.tar.gz download](http://archive.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.tar.gz)
+ * [rpm-4.0.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-4.0.x/rpm-4.0.tar.gz)
 
 #### RPM 3.0.6 released (Sep 13 2000 ??) ####
 
- * [rpm-3.0.6.tar.gz download](http://archive.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.6.tar.gz)
+ * [rpm-3.0.6.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.6.tar.gz)
 
 #### RPM 3.0.5 released (Jul 20 2000 ??) ####
 
- * [rpm-3.0.5.tar.gz download](http://archive.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.5.tar.gz)
+ * [rpm-3.0.5.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.5.tar.gz)
 
 #### RPM 3.0.4 released (Mar 16 2000 ??) ####
 
- * [rpm-3.0.4.tar.gz download](http://archive.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.4.tar.gz)
+ * [rpm-3.0.4.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.4.tar.gz)
 
 #### RPM renamed (Jan 17 2000) ####
 
@@ -464,83 +464,83 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
 #### RPM 3.0.3 released (Oct 6 1999 ??) ####
 
- * [rpm-3.0.3.tar.gz download](http://archive.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.3.tar.gz)
+ * [rpm-3.0.3.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.3.tar.gz)
 
 #### RPM 3.0.2 released (Jul 7 1999 ??) ####
 
- * [rpm-3.0.2.tar.gz download](http://archive.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.2.tar.gz)
+ * [rpm-3.0.2.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.2.tar.gz)
 
 #### RPM 3.0.1 released (May 24 1999 ??) ####
 
- * [rpm-3.0.1.tar.gz download](http://archive.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.1.tar.gz)
+ * [rpm-3.0.1.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.1.tar.gz)
 
 #### RPM 3.0 released (Apr 19 1999 ??) ####
 
- * [rpm-3.0.tar.gz download](http://archive.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.tar.gz)
+ * [rpm-3.0.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-3.0.x/rpm-3.0.tar.gz)
 
 #### RPM 2.5.6 released (Dec 29 1998 ??) ####
 
- * [rpm-2.5.6.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.6.tar.gz)
+ * [rpm-2.5.6.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.6.tar.gz)
 
 #### RPM 2.5.5 released (Oct 15 1998 ??) ####
 
- * [rpm-2.5.5.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.5.tar.gz)
+ * [rpm-2.5.5.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.5.tar.gz)
 
 #### RPM 2.5.4 released (Sep 30 1998 ??) ####
 
- * [rpm-2.5.4.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.4.tar.gz)
+ * [rpm-2.5.4.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.4.tar.gz)
 
 #### RPM 2.5.3 released (Sep 5 1998 ??) ####
 
- * [rpm-2.5.3.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.3.tar.gz)
+ * [rpm-2.5.3.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.3.tar.gz)
 
 #### RPM 2.5.2 released (Jul 1 1998 ??) ####
 
- * [rpm-2.5.2.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.2.tar.gz)
+ * [rpm-2.5.2.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.2.tar.gz)
 
 #### RPM 2.5.1 released (May 28 1998 ??) ####
 
- * [rpm-2.5.1.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.1.tar.gz)
+ * [rpm-2.5.1.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.1.tar.gz)
 
 #### RPM 2.5 released (May 15 1998 ??) ####
 
- * [rpm-2.5.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.tar.gz)
+ * [rpm-2.5.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.5.x/rpm-2.5.tar.gz)
 
 #### RPM 2.4.12 released (Jan 8 1998 ??) ####
 
- * [rpm-2.4.12.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.12.tar.gz)
+ * [rpm-2.4.12.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.12.tar.gz)
 
 #### RPM 2.4.11 released (Dec 30 1997 ??) ####
 
- * [rpm-2.4.11.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.11.tar.gz)
+ * [rpm-2.4.11.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.11.tar.gz)
 
 #### RPM 2.4.10 released (Oct 31 1997 ??) ####
 
- * [rpm-2.4.10.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.10.tar.gz)
+ * [rpm-2.4.10.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.10.tar.gz)
 
 #### RPM 2.4.9 released (Oct 28 1997 ??) ####
 
- * [rpm-2.4.9.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.9.tar.gz)
+ * [rpm-2.4.9.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.9.tar.gz)
 
 #### RPM 2.4.8 released (Oct 10 1997 ??) ####
 
- * [rpm-2.4.8.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.8.tar.gz)
+ * [rpm-2.4.8.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.8.tar.gz)
 
 #### RPM 2.4.7 released (Sep 12 1997 ??) ####
 
- * [rpm-2.4.7.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.7.tar.gz)
+ * [rpm-2.4.7.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.7.tar.gz)
 
 #### RPM 2.4.6 released (Aug 29 1997 ??) ####
 
- * [rpm-2.4.6.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.6.tar.gz)
+ * [rpm-2.4.6.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.6.tar.gz)
 
 #### RPM 2.4.5 released (Aug 26 1997 ??) ####
 
- * [rpm-2.4.5.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.5.tar.gz)
+ * [rpm-2.4.5.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.5.tar.gz)
 
 #### RPM 2.4.4 released (Aug 21 1997 ??) ####
 
- * [rpm-2.4.4.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.4.tar.gz)
+ * [rpm-2.4.4.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.4.tar.gz)
 
 #### License change to dual GPL/LGPL (Aug 10th 1997) ####
 
@@ -551,99 +551,99 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
 #### RPM 2.4.3 released (Jul 16 1997 ??) ####
 
- * [rpm-2.4.3.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.3.tar.gz)
+ * [rpm-2.4.3.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.3.tar.gz)
 
 #### RPM 2.4.2 released (Jun 28 1997 ??) ####
 
- * [rpm-2.4.2.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.2.tar.gz)
+ * [rpm-2.4.2.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.2.tar.gz)
 
 #### RPM 2.4.1 released (May 27 1997 ??) ####
 
- * [rpm-2.4.1.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.1.tar.gz)
+ * [rpm-2.4.1.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.1.tar.gz)
 
 #### RPM 2.4 released (May 16 1997 ??) ####
 
- * [rpm-2.4.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.tar.gz)
+ * [rpm-2.4.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.4.x/rpm-2.4.tar.gz)
 
 #### RPM 2.3.11 released (Apr 24 1997 ??) ####
 
- * [rpm-2.3.11.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.11.tar.gz)
+ * [rpm-2.3.11.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.11.tar.gz)
 
 #### RPM 2.3.10 released (Apr 16 1997 ??) ####
 
- * [rpm-2.3.10.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.10.tar.gz)
+ * [rpm-2.3.10.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.10.tar.gz)
 
 #### RPM 2.3.9 released (Apr 8 1997 ??) ####
 
- * [rpm-2.3.9.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.9.tar.gz)
+ * [rpm-2.3.9.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.9.tar.gz)
 
 #### RPM 2.3.8 released (Mar 20 1997 ??) ####
 
- * [rpm-2.3.8.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.8.tar.gz)
+ * [rpm-2.3.8.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.8.tar.gz)
 
 #### RPM 2.3.7 released (Feb 20 1997 ??) ####
 
- * [rpm-2.3.7.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.7.tar.gz)
+ * [rpm-2.3.7.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.7.tar.gz)
 
 #### RPM 2.3.6 released (Feb 17 1997 ??) ####
 
- * [rpm-2.3.6.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.6.tar.gz)
+ * [rpm-2.3.6.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.6.tar.gz)
 
 #### RPM 2.3.5 released (Feb 14 1997 ??) ####
 
- * [rpm-2.3.5.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.5.tar.gz)
+ * [rpm-2.3.5.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.5.tar.gz)
 
 #### RPM 2.3.4 released (Jan 31 1997 ??) ####
 
- * [rpm-2.3.4.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.4.tar.gz)
+ * [rpm-2.3.4.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.4.tar.gz)
 
 #### RPM 2.3.3 released (Jan 24 1997 ??) ####
 
- * [rpm-2.3.3.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.3.tar.gz)
+ * [rpm-2.3.3.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.3.tar.gz)
 
 #### RPM 2.3.2 released (Jan 16 1997 ??) ####
 
- * [rpm-2.3.2.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.2.tar.gz)
+ * [rpm-2.3.2.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.2.tar.gz)
 
 #### RPM 2.3.1 released (Jan 15 1997 ??) ####
 
- * [rpm-2.3.1.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.1.tar.gz)
+ * [rpm-2.3.1.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.1.tar.gz)
 
 #### RPM 2.3 released (Dec 26 1996 ??) ####
 
- * [rpm-2.3.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.tar.gz)
+ * [rpm-2.3.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.3.x/rpm-2.3.tar.gz)
 
 #### RPM 2.2.11 released (Dec 20 1996 ??) ####
 
- * [rpm-2.2.11.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.11.tar.gz)
+ * [rpm-2.2.11.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.11.tar.gz)
 
 #### RPM 2.2.10 released (Dec 12 1996 ??) ####
 
- * [rpm-2.2.10.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.10.tar.gz)
+ * [rpm-2.2.10.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.10.tar.gz)
 
 #### RPM 2.2.9 released (Nov 22 1996 ??) ####
 
- * [rpm-2.2.9.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.9.tar.gz)
+ * [rpm-2.2.9.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.9.tar.gz)
 
 #### RPM 2.2.8 released (Oct 31 1996 ??) ####
 
- * [rpm-2.2.8.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.8.tar.gz)
+ * [rpm-2.2.8.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.8.tar.gz)
 
 #### RPM 2.2.7 released (Oct 17 1996 ??) ####
 
- * [rpm-2.2.7.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.7.tar.gz)
+ * [rpm-2.2.7.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.7.tar.gz)
 
 #### RPM 2.2.6 released (Sep 20 1996 ??) ####
 
- * [rpm-2.2.6.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.6.tar.gz)
+ * [rpm-2.2.6.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.6.tar.gz)
 
 #### RPM 2.2.5 released (Sep 02 1996 ??) ####
 
- * [rpm-2.2.5.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.5.tar.gz)
+ * [rpm-2.2.5.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.5.tar.gz)
 
 #### RPM 2.2.4 released (Aug 20 1996 ??) ####
 
- * [rpm-2.2.4.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.4.tar.gz)
+ * [rpm-2.2.4.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.4.tar.gz)
 
 #### RPM 2.2.3 released (Aug 08 1996 ??) ####
 
@@ -651,119 +651,119 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
 #### RPM 2.2.2 released (Jul 23 1996 ??) ####
 
- * [rpm-2.2.2.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.2.tar.gz)
+ * [rpm-2.2.2.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.2.tar.gz)
 
 #### RPM 2.2.1 released (Jul 17 1996 ??) ####
 
- * [rpm-2.2.1.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.1.tar.gz)
+ * [rpm-2.2.1.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.1.tar.gz)
 
 #### RPM 2.2 released (Jul 16 1996 ??) ####
 
- * [rpm-2.2.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.tar.gz)
+ * [rpm-2.2.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.2.x/rpm-2.2.tar.gz)
 
 #### RPM 2.1.2 released (Jul 12 1996 ??) ####
 
- * [rpm-2.1.2.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.1.x/rpm-2.1.2.tar.gz)
+ * [rpm-2.1.2.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.1.x/rpm-2.1.2.tar.gz)
 
 #### RPM 2.1.1 released (Jul 11 1996 ??) ####
 
- * [rpm-2.1.1.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.1.x/rpm-2.1.1.tar.gz)
+ * [rpm-2.1.1.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.1.x/rpm-2.1.1.tar.gz)
 
 #### RPM 2.1 released (Jul 10 1996 ??) ####
 
- * [rpm-2.1.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.1.x/rpm-2.1.tar.gz)
+ * [rpm-2.1.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.1.x/rpm-2.1.tar.gz)
 
 #### RPM 2.0.11 released (Jun 05 1996 ??) ####
 
- * [rpm-2.0.11.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.11.tar.gz)
+ * [rpm-2.0.11.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.11.tar.gz)
 
 #### RPM 2.0.10 released (Jun 04 1996 ??) ####
 
- * [rpm-2.0.10.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.10.tar.gz)
+ * [rpm-2.0.10.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.10.tar.gz)
 
 #### RPM 2.0.9 released (May 23 1996 ??) ####
 
- * [rpm-2.0.9.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.9.tar.gz)
+ * [rpm-2.0.9.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.9.tar.gz)
 
 #### RPM 2.0.8 released (May 07 1996 ??) ####
 
- * [rpm-2.0.8.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.8.tar.gz)
+ * [rpm-2.0.8.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.8.tar.gz)
 
 #### RPM 2.0.7 released (April 15 1996 ??) ####
 
- * [rpm-2.0.7.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.7.tar.gz)
+ * [rpm-2.0.7.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.7.tar.gz)
 
 #### RPM 2.0.6 released (April 08 1996 ??) ####
 
- * [rpm-2.0.6.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.6.tar.gz)
+ * [rpm-2.0.6.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.6.tar.gz)
 
 #### RPM 2.0.5 released (April 03 1996 ??) ####
 
- * [rpm-2.0.5.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.5.tar.gz)
+ * [rpm-2.0.5.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.5.tar.gz)
 
 #### RPM 2.0.4 released (??) ####
 
- * [rpm-2.0.4.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.4.tar.gz)
+ * [rpm-2.0.4.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.4.tar.gz)
 
 #### RPM 2.0.3 released (??) ####
 
- * [rpm-2.0.3.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.3.tar.gz)
+ * [rpm-2.0.3.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.3.tar.gz)
 
 #### RPM 2.0.2 released (??) ####
 
- * [rpm-2.0.2.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.2.tar.gz)
+ * [rpm-2.0.2.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.2.tar.gz)
 
 #### RPM 2.0.1 released (??) ####
 
- * [rpm-2.0.1.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.1.tar.gz)
+ * [rpm-2.0.1.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.1.tar.gz)
 
 #### RPM 2.0 released (??) ####
 
- * [rpm-2.0.tar.gz download](http://archive.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.tar.gz)
+ * [rpm-2.0.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-2.0.x/rpm-2.0.tar.gz)
 
 #### RPM 1.4.7 released (??) ####
 
- * [rpm-1.4.7.tar.gz download](http://archive.rpm.org/releases/historical/rpm-1.x/rpm-1.4.7.tar.gz)
+ * [rpm-1.4.7.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-1.x/rpm-1.4.7.tar.gz)
 
 #### RPM 1.4.6 released (??) ####
 
- * [rpm-1.4.6.tar.gz download](http://archive.rpm.org/releases/historical/rpm-1.x/rpm-1.4.6.tar.gz)
+ * [rpm-1.4.6.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-1.x/rpm-1.4.6.tar.gz)
 
 #### RPM 1.4.5 released (??) ####
 
- * [rpm-1.4.5.tar.gz download](http://archive.rpm.org/releases/historical/rpm-1.x/rpm-1.4.5.tar.gz)
+ * [rpm-1.4.5.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-1.x/rpm-1.4.5.tar.gz)
 
 #### RPM 1.4.4 released (??) ####
 
- * [rpm-1.4.4.tar.gz download](http://archive.rpm.org/releases/historical/rpm-1.x/rpm-1.4.4.tar.gz)
+ * [rpm-1.4.4.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-1.x/rpm-1.4.4.tar.gz)
 
 #### RPM 1.4.2a released (??) ####
 
- * [rpm-1.4.2a.tar.gz download](http://archive.rpm.org/releases/historical/rpm-1.x/rpm-1.4.2a.tar.gz)
+ * [rpm-1.4.2a.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-1.x/rpm-1.4.2a.tar.gz)
 
 #### RPM 1.4.2 released (??) ####
 
- * [rpm-1.4.2.tar.gz download](http://archive.rpm.org/releases/historical/rpm-1.x/rpm-1.4.2.tar.gz)
+ * [rpm-1.4.2.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-1.x/rpm-1.4.2.tar.gz)
 
 #### RPM 1.4.1 released (??) ####
 
- * [rpm-1.4.1.tar.gz download](http://archive.rpm.org/releases/historical/rpm-1.x/rpm-1.4.1.tar.gz)
+ * [rpm-1.4.1.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-1.x/rpm-1.4.1.tar.gz)
 
 #### RPM 1.4 released (??) ####
 
- * [rpm-1.4.tar.gz download](http://archive.rpm.org/releases/historical/rpm-1.x/rpm-1.4.tar.gz)
+ * [rpm-1.4.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-1.x/rpm-1.4.tar.gz)
 
 #### RPM 1.3.1 released (??) ####
 
- * [rpm-1.3.1.tar.gz download](http://archive.rpm.org/releases/historical/rpm-1.x/rpm-1.3.1.tar.gz)
+ * [rpm-1.3.1.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-1.x/rpm-1.3.1.tar.gz)
 
 #### RPM 1.3 released (??) ####
 
- * [rpm-1.3.tar.gz download](http://archive.rpm.org/releases/historical/rpm-1.x/rpm-1.3.tar.gz)
+ * [rpm-1.3.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-1.x/rpm-1.3.tar.gz)
 
 #### RPM 1.2 released (??) ####
 
- * [rpm-1.2.tar.gz download](http://archive.rpm.org/releases/historical/rpm-1.x/rpm-1.2.tar.gz)
+ * [rpm-1.2.tar.gz download](http://ftp.rpm.org/releases/historical/rpm-1.x/rpm-1.2.tar.gz)
 
 #### First commit (Nov 27th 1995) ####
 
