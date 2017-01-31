@@ -10,8 +10,9 @@ capable of
 * building computer software from source into easily distributable
   packages
 * installing, updating and uninstalling packaged software
-* querying information and verifying integrity packaged software
-  and resulting software installation
+* querying detailed information about the packaged software, whether
+  installed or not
+* verifying integrity of packaged software and resulting software installation
 
 ## News
 
