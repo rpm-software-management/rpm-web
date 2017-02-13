@@ -30,6 +30,11 @@ This page attempts to track the various relevant documentation that exists for R
   * [Building Packages so that multiple versions of the same package can co-install](user_doc/multiple_versions.html)
 
 ## RPM API
+* API documentation
+  * [RPM 4.13.x](http://ftp.rpm.org/api/4.13.0/)
+  * [RPM 4.12.x](http://ftp.rpm.org/api/4.12.0.1/)
+  * [Older versions](http://ftp.rpm.org/api/)
+
 * [Plugin Interface (RPM >= 4.12)](devel_doc/plugins.html)
 * [Programming RPM with C](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-programming-c.html) from Fedora RPM Guide
 * [How to ensure Large File Support for tools using the rpm API](devel_doc/large_files.html)
