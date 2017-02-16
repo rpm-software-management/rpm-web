@@ -3,6 +3,10 @@ layout: default
 title: rpm.org - Timeline
 ---
 
+#### RPM 4.13.0.1 release! (Feb 16 2017)
+* See [release notes](wiki/Releases/4.13.0.1) for details and download information
+* This is a security and regression fix update
+
 #### RPM 4.13.0 released! (Nov 03 2016)
 * See [release notes]( wiki/Releases/4.13.0) for details and download information
 * Major new features include:

@@ -7,6 +7,7 @@ title: rpm.org - Download
 
 ### RPM 4.13.x
 
+* [RPM 4.13.0.1](http://ftp.rpm.org/releases/rpm-4.13.x/rpm-4.13.0.1.tar.bz2) ([Release notes](wiki/Releases/4.13.0.1.html))
 * [RPM 4.13.0](http://ftp.rpm.org/releases/rpm-4.13.x/rpm-4.13.0.tar.bz2) ([Release notes](wiki/Releases/4.13.0.html))
 
 ### RPM 4.12.x
