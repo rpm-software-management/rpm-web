@@ -30,6 +30,15 @@ actually see this error.
 
 On modern Linux, the audit subsystem can lend a hand here:
 
+On systemd-era hosts (on recent Fedora versions syscall auditing is disabled
+by default, the sed is needed to re-enable it):
+```
+# echo "-w /var/lib/rpm/Packages -p war -k rpmdb" > /etc/audit/rules.d/rpmdb.rules
+# sed -ie "/-a task,never/s/^/#/g" /etc/audit/rules.d/audit.rules
+# systemctl restart auditd.service
+```
+
+On sysvinit-era hosts:
 ```
 # echo "-w /var/lib/rpm/Packages -p war -k rpmdb" >> /etc/audit/audit.rules
 # service auditd restart
