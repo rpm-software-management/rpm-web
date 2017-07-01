@@ -10,7 +10,7 @@ Here you can find links to software related to RPM such as frontends, packaging 
 
 * [YUM](http://yum.baseurl.org/) is an RPM frontend written in Python.
 * [libzypp/zypper](http://en.opensuse.org/Libzypp) is an RPM frontend written in C/C++ (used by openSUSE, SLES and Ark Linux). It uses [SAT solver](https://github.com/openSUSE/libsolv) for dependency solving.
-* [DNF](https://github.com/akozumpl/dnf) is an RPM frontend written in Python. It uses [SAT solver](https://github.com/openSUSE/libsolv) for the hard work.
+* [DNF](https://github.com/rpm-software-management/dnf) is an RPM frontend written in Python. It uses [SAT solver](https://github.com/openSUSE/libsolv) for the hard work.
 * [Urpmi](http://gitweb.mageia.org/software/rpm/urpmi/) is an RPM frontend written in Perl (used by Mageia and Mandriva)
 * [APT-RPM](http://apt-rpm.org/) is an RPM port of the Debian APT package management tool written in C++.
 * [SmartPM](http://labix.org/smart) is another frontend for RPM (also works with DEB, Slackware etc packaging formats) written mostly in Python
