@@ -16,6 +16,17 @@ capable of
 
 ## News
 
+#### RPM 4.14.0 alpha released! (Aug 10 2017)
+* See [release notes](wiki/Releases/4.14.0) for details and download information* Highlights include:
+  * Major revamp of debuginfo packages
+  * Major macro engine changes to sanitize and improve the "language"
+  * Major rewrite of package/header reading and signature checking to utilize a single codepath
+  * A configurable mode to conserve SSD disks
+  * Weak dependencies are taken into account when ordering
+  * Support for with/without rich dependencies
+  * New SHA256 digests in packages: one for compressed payload alone and one for the header
+  * Many bugfixes and enhancements all over the place 
+
 #### RPM 4.13.0.1 released! (Feb 16 2017)
 * See [release notes](wiki/Releases/4.13.0.1) for details and download information
 * This is a security and regression fix update
