@@ -41,15 +41,19 @@ There are several builtin macros (with reserved names) that are needed to perfor
   %dump               print the active (i.e. non-covered) macro table
   %verbose            is rpm in verbose mode?
 
-  %{echo:...}         print ... to stderr
+  %{echo:...}         print ... to stdout
   %{warn:...}         print ... to stderr
-  %{error:...}        print ... to stderr and return BADSPEC
+  %{error:...}        print ... to stderr and raise an error
  
   %define ...         define a macro
   %undefine ...       undefine a macro
   %global ...         define a macro whose body is available in global context
 
   %{expand:...}       like eval, expand ... to <body> and (re-)expand <body>
+  %{shrink:...}       trim leading and trailing whitespace, reduce
+                      intermediate whitespace to a single space (in >= 4.14.0)
+  %{quote:...}        quote a parametric macro argument, needed to pass
+                      empty strings or strings with whitespace (in >= 4.14.0)
 
   %{lua:...}          expand with the [embedded Lua interpreter](lua.html)
 
