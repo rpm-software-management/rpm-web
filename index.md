@@ -16,6 +16,15 @@ capable of
 
 ## News
 
+#### RPM 4.14.0 RC1 released! (Sep 06 2017)
+* See [release notes](wiki/Releases/4.14.0) for details and download information
+* Highlights since alpha:
+  * Support for 'unless' rich dependencies
+  * Ensure header is present in callback events
+  * Macro argument quoting changed to be much more compatible
+  * Experimental LMDB backend
+  * Misc bugfixes and minor enhancements 
+
 #### RPM 4.14.0 alpha released! (Aug 10 2017)
 * See [release notes](wiki/Releases/4.14.0) for details and download information
 * Highlights include:
@@ -24,7 +33,7 @@ capable of
   * Major rewrite of package/header reading and signature checking to utilize a single codepath
   * A configurable mode to conserve SSD disks
   * Weak dependencies are taken into account when ordering
-  * Support for with/without rich dependencies
+  * Support for 'with' and 'without' rich dependencies
   * New SHA256 digests in packages: one for compressed payload alone and one for the header
   * Many bugfixes and enhancements all over the place 
 
