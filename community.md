@@ -35,9 +35,12 @@ rpm.org makes use of the following [Freenode](http://freenode.net/)
 
 ## Reporting bugs
 
-rpm.org
-: Bugs and enhancement requests for RPM can be filed in upstream
+Upstream
+: Bugs and enhancement requests for the RPM software can be filed in upstream
 [issue tracker](https://github.com/rpm-software-management/rpm/issues).
+
+: Issues and enhancement requests for the rpm.org website can be filed
+[here](https://github.com/rpm-software-management/rpm-web/issues).
 
 Vendor bugs
 : RPM is used in a variety of Linux distributions, varying greatly in the number of vendor-specific patches and configuration. Bugs experienced in these distributions are through the distribution vendor bug tracking system.
