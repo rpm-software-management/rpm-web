@@ -14,8 +14,15 @@ To avoid passing every file through every dependency generator file attributes a
 A file attribute is represented by a macro file in %{_fileattrsdir} (typically /usr/lib/rpm/fileattrs/), and must have .attr suffix to be processed. The following file attribute macros are recognized:
 
 ```
+%__NAME_conflicts
+%__NAME_enhances
+%__NAME_obsoletes
 %__NAME_provides
 %__NAME_requires
+%__NAME_recommends
+%__NAME_suggests
+%__NAME_supplements
+
 %__NAME_path
 %__NAME_magic
 %__NAME_flags
@@ -36,15 +43,27 @@ Flags are a comma-separated lists, as of rpm 4.9.1 the supported flags are:
 A generator is just an executable that reads file name(s) from stdin and writes out Provides: or Requires: on stdout. This way the generator can be implemented in whatever language is preferred and can use e.g. language specific libraries or tools. Generators get called once for each file with matching attributes. Generators can be declare in the file attributes file by defining the following macros:
 
 ```
+%__NAME_conflicts
+%__NAME_enhances
+%__NAME_obsoletes
 %__NAME_provides
 %__NAME_requires
+%__NAME_recommends
+%__NAME_suggests
+%__NAME_supplements
 ```
 
 The value is the command line of the generator script/executable and any arguments that should be passed to it. In addition to what's defined in the provides/requires macros, it's possible to pass additional arbitrary switches to generators by defining the following macros:
 
 ```
+%__NAME_conflicts_opts
+%__NAME_enhances_opts
+%__NAME_obsoletes_opts
 %__NAME_provides_opts
 %__NAME_requires_opts
+%__NAME_recommends_opts
+%__NAME_suggests_opts
+%__NAME_supplements_opts
 ```
 
 The _opts macros should not be used in file attribute definitions, they are intended for spec-specific tweaks only. Note that any options are fully generator-specific, rpm only requires generators to support the stdin, stdout protocol.
