@@ -16,6 +16,14 @@ capable of
 
 ## News
 
+#### RPM 4.14.0 RC2 released! (Sep 28 2017)
+* See [release notes](wiki/Releases/4.14.0) for details and download information
+* Highlights since RC1:
+  * Two symlink following related security bugs (CVE-2017-7500, CVE-2017-7501)
+  * Fix a bug of file triggers failing on some packages
+  * Fix a package generation regression on 32bit architectures with packages
+    over 2GB in size (introduced in 4.14.0 alpha)
+
 #### RPM 4.14.0 RC1 released! (Sep 06 2017)
 * See [release notes](wiki/Releases/4.14.0) for details and download information
 * Highlights since alpha:
