@@ -3,6 +3,38 @@ layout: default
 title: rpm.org - Timeline
 ---
 
+#### RPM 4.14.0 released! (Oct 12 2017)
+* See [release notes](wiki/Releases/4.14.0) for details and download information
+* Highlights include:
+  * Major revamp of debuginfo packages
+  * Major macro engine changes to sanitize and improve the "language"
+  * Major rewrite of package/header reading and signature checking to utilize a single codepath
+  * New SHA256 digests in packages: one for compressed payload alone and one for the header
+  * Weak dependencies are taken into account when ordering
+  * Support for a configurable mode to conserve SSD disks
+  * Support for 'with', 'without' and 'unless' rich dependencies
+  * Support for zstd compression
+  * Experimental support for LMDB database backend
+  * Restrict symlink following on installation (CVE-2017-7500, CVE-2017-7501)
+  * Many bugfixes and enhancements all over the place
+
+#### RPM 4.14.0 RC2 released! (Sep 28 2017)
+* See [release notes](wiki/Releases/4.14.0) for details and download information
+* Highlights since RC1:
+  * Two symlink following related security bugs (CVE-2017-7500, CVE-2017-7501)
+  * Fix a bug of file triggers failing on some packages
+  * Fix a package generation regression on 32bit architectures with packages
+    over 2GB in size (introduced in 4.14.0 alpha)
+
+#### RPM 4.14.0 RC1 released! (Sep 06 2017)
+* See [release notes](wiki/Releases/4.14.0) for details and download information
+* Highlights since alpha:
+  * Support for 'unless' rich dependencies
+  * Ensure header is present in callback events
+  * Macro argument quoting changed to be much more compatible
+  * Experimental LMDB backend
+  * Misc bugfixes and minor enhancements
+
 #### RPM 4.14.0 alpha released! (Thu Aug 2017)
 * See [release notes](wiki/Releases/4.14.0) for details and download information* Highlights include:
   * Major revamp of debuginfo packages
