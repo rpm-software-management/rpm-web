@@ -41,6 +41,7 @@ Here you can find links to software related to RPM such as frontends, packaging 
 
 ### Language bindings
 * [perl-RPM2](http://search.cpan.org/dist/RPM2/) provides an object-oriented interface to RPM facilities for Perl.
+* [perl-RPM4](http://search.cpan.org/~tvignaud/RPM4/) provides an object-oriented interface to RPM facilities for Perl.
 * [RPM-Specfile](http://search.cpan.org/dist/RPM-Specfile/) is a Perl extension for creating RPM specfiles.
 * [Ruby-RPM](http://rubyforge.org/projects/ruby-rpm/) provides Ruby bindings to RPM.
 * Python bindings for RPM are distributed as part of [RPM releases](download).
