@@ -16,6 +16,10 @@ capable of
 
 ## News
 
+#### RPM 4.13.0.2 released! (Oct 26 2017)
+* See [release notes](wiki/Releases/4.13.0.2) for details and download information
+* This is a security and bug fix update
+
 #### RPM 4.14.0 released! (Oct 12 2017)
 * See [release notes](wiki/Releases/4.14.0) for details and download information
 * Highlights include:
