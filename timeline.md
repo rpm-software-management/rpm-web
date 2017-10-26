@@ -420,7 +420,7 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
 #### rpm.org reboot (Dec 14th 2006) ####
 
- * [Original announcement](https://http://lists.rpm.org/pipermail/rpm-announce/2006-December/000005.html)
+ * [Original announcement](https://lists.rpm.org/pipermail/rpm-announce/2006-December/000005.html)
 
 #### RPM 4.4.2 released (Jul 21st 2005 ??) ####
 
