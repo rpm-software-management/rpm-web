@@ -595,7 +595,7 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
 #### License change to dual GPL/LGPL (Aug 10th 1997) ####
 
- * RPM was originally GPL-only, but was soon [relicensed](https://github.com/rpm-software-management/rpm/commit/3a7e18a373b51458a1094bd6e3026ccea35efdc0)
+ * RPM was originally GPL-only, but was [relicensed](https://github.com/rpm-software-management/rpm/commit/3a7e18a373b51458a1094bd6e3026ccea35efdc0)
    to GPL/LGPL early on.
 
 #### Maximum RPM book published (Aug 6 1997) ####
