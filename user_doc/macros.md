@@ -49,6 +49,7 @@ There are several builtin macros (with reserved names) that are needed to perfor
   %undefine ...       undefine a macro
   %global ...         define a macro whose body is available in global context
 
+  %{load:...}         load a macro file (in >= 4.12.0)
   %{expand:...}       like eval, expand ... to <body> and (re-)expand <body>
   %{shrink:...}       trim leading and trailing whitespace, reduce
                       intermediate whitespace to a single space (in >= 4.14.0)
