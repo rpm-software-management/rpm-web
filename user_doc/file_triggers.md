@@ -26,7 +26,9 @@ This file trigger will execute `/usr/bin/ldconfig` right after installation of a
 grep "foo" && /usr/sbin/ldconfig
 ```
 
-This file trigger will execute `/usr/bin/ldconfig` for each package containing files starting with `/usr/lib` and containing "foo" at the same time.
+This file trigger will execute `/usr/bin/ldconfig` for each package containing files starting with `/usr/lib` and containing "foo" at the same time. Note that
+the prefix-matched files includes all types of files - regular files,
+directories, symlinks etc.
 
 The file triggers are defined in spec files of packages. E.g. file trigger executing `ldconfig` could be defined in glibc package.
 
