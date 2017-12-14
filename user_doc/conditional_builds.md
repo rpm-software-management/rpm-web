@@ -21,10 +21,9 @@ To use this feature in a spec file, add this to the beginning of the spec:
 # add --without openssl option, i.e. enable openssl by default
 %bcond_without openssl 
 ```
-
 If you want to change whether or not an option is enabled by default, only change %bcond_with to %bcond_without or vice versa. The remainder of the spec file needs to stay the same.
 
-## Check wether an option is enabled
+## Check whether an option is enabled
 To define BuildRequires depending on the commandline switch, you can use the %{with foo} macro:
 
 ```
@@ -35,6 +34,16 @@ BuildRequires:  gnutls-devel
 BuildRequires:  openssl-devel
 %endif
 ```
+
+Alternatively you can test presence (or lack of thereof) of %with_foo macros
+which is nicer in other situations, eg:
+```
+%configure \
+   %{?with_static:--enable-static} \
+   %{!?with_static:--disable-static} 
+```
+
+Always test for the with-condition, not the without-counterpart!
 
 ## Pass it to %configure
 
