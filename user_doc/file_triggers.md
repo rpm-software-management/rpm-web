@@ -52,5 +52,5 @@ Here is a list of all possible types:
 
    %transfiletriggerun: Executed once before transaction for all packages that will be uninstalled in this transaction and that contains file(s) that matches prefix of this trigger. Also execute before transaction if there is a package containing this file trigger in that transaction and there is/are some files(s) matching prefix of this trigger in rpmdb.
 
-   %transfiletriggerpostun: Executed once after transaction for all uninstalled packages that contained file(s) that matches prefix of this trigger. 
+   %transfiletriggerpostun: Executed once after transaction for all uninstalled packages that contained file(s) that matches prefix of this trigger. Note: the list of triggering files is not available in this trigger type.
 
