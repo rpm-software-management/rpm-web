@@ -6,9 +6,11 @@ title: rpm.org - Boolean Dependencies
 
 ## Boolean Dependencies
 
-With rpm-4.13 RPM is able to process boolean expressions in all dependencies (Requires, Recommends, Suggests, Supplements, Enhances, Conflicts). Boolean Expressions are always enclosed with parenthesis. They are build out of "normal" dependencies: either name only or name, comparison and version description.
+Starting with rpm-4.13, RPM is able to process boolean expressions in all dependencies (Requires, Recommends, Suggests, Supplements, Enhances, Conflicts). Boolean Expressions are always enclosed with parenthesis. They are build out of "normal" dependencies: either name only or name, comparison and version description.
 
 ## Boolean Operators
+
+The following operators were introduced in RPM 4.13:
 
  * `and` - requires all operands to be fulfilled for the term to be True.
   * `Conflicts: (pkgA and pkgB)`
@@ -19,7 +21,18 @@ With rpm-4.13 RPM is able to process boolean expressions in all dependencies (Re
  * `if else` - same as above but requires the third operand to be fulfilled if the second is not
   * `Requires: (myPkg-backend-mariaDB if mariaDB else sqlite)`
 
-For now there is no `not` operator. If it turns out that the operators above are not sufficient it might be added in the future.
+The following additional operators were introduced in RPM 4.14:
+
+ * `with` - requires all operands to be fulfilled by the same package for the term to be True.
+  * `Requires: (pkgA-foo with pkgA-bar)`
+ * `without` - requires a single package that satisfies the first operand but not the second (set subtraction)
+  * `Requires: (pkgA-foo without pkgA-bar)`
+ * `unless` - requires the first operand to be fulfilled if the second is not (reverse negative implication)
+  * `Conflicts: (myPkg-driverA unless driverB)`
+ * `unless else` - same as above but requires the third operand to be fulfilled if the second is
+  * `Conflicts: (myPkg-backend-SDL1 unless myPkg-backend-SDL2 else SDL2)`
+
+The `if` operator cannot be used in the same context with `or` and the `unless` operator cannot be used in the same context with `and`.
 
 ## Nesting 
 
@@ -32,6 +45,12 @@ Examples:
 `Requires: (pkgA or (pkgB and pkgC))`
 
 `Supplements: (foo and (lang-support-cz or lang-support-all))`
+
+`Requires: ((pkgA with capB) or (pkgB without capA))`
+
+`Supplements: ((driverA and driverA-tools) unless driverB)`
+
+`Recommends: ((myPkg-langCZ and (font1-langCZ or font2-langCZ)) if langsupportCZ)`
 
 ## Semantics
 
