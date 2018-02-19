@@ -39,6 +39,7 @@ Upstream
 : Bugs and enhancement requests for the RPM software can be filed in upstream
 [issue tracker](https://github.com/rpm-software-management/rpm/issues).
 
+Website
 : Issues and enhancement requests for the rpm.org website can be filed
 [here](https://github.com/rpm-software-management/rpm-web/issues).
 
