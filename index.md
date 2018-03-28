@@ -16,6 +16,10 @@ capable of
 
 ## News
 
+#### RPM 4.13.1 released! (Mar 28 2018)
+* See [release notes](wiki/Releases/4.13.1) for details and download information
+* This release is primarily about file trigger bugfixes and with/without/unless rich dependency backport
+
 #### RPM 4.14.1 released! (Jan 16 2018)
 * See [release notes](wiki/Releases/4.14.1) for details and download information
 * This is primarily a bug fix release, with a few minor enhancements as well
