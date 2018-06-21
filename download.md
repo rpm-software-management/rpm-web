@@ -25,6 +25,6 @@ title: rpm.org - Download
 
 For older releases, head over to [RPM timeline](timeline.html).
 
-### POPT (mirrored)
+## POPT (mirrored)
 
 * [POPT](http://ftp.rpm.org/mirror/popt/)
