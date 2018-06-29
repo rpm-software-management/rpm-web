@@ -3,6 +3,11 @@ layout: default
 title: rpm.org - Timeline
 ---
 
+#### RPM 4.14.2-rc1 released! (Jun 29 2018)
+* Support for enforcing signature policy and payload verification
+* Numerous bugfixes and minor enhancements across the board
+* See [release notes](wiki/Releases/4.14.2) for details and download information
+
 #### RPM 4.13.1 released! (Mar 28 2018)
 * See [release notes](wiki/Releases/4.13.1) for details and download information
 * This release is primarily about file trigger bugfixes and with/without/unless rich dependency backport
