@@ -406,7 +406,7 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
  * Dozens of bugfixes and minor improvements all around
  * [Summary of changes](wiki/Releases/4.4.2.3)
- * [Original announcement](https://lists.dulug.duke.edu/pipermail/rpm-announce/2008-April/000003.html) (with incorrect tarball url, duh)
+ * [Original announcement](https://lists.rpm.org/pipermail/rpm-announce/2008-April/000003.html) (with incorrect tarball url, duh)
 
 
 #### RPM development switches to GIT (Mar 31th 2008) ####
@@ -416,20 +416,20 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 #### RPM 4.4.2.3 release candidate 1 out for testing (Jan 25th 2008) ####
 
  * Dozens of bugfixes and minor improvements all around
- * [Original announcement](https://lists.dulug.duke.edu/pipermail/rpm-maint/2008-January/000737.html)
+ * [Original announcement](https://lists.rpm.org/pipermail/rpm-maint/2008-January/000737.html)
 
 #### RPM 4.4.2.2 released! (Oct 3rd 2007) ####
 
  * Dozens of bugfixes and minor improvements all around
  * [Summary of changes](wiki/Releases/4.4.2.2)
- * [Original announcement](https://lists.dulug.duke.edu/pipermail/rpm-maint/2007-October/000546.html)
+ * [Original announcement](https://lists.rpm.org/pipermail/rpm-maint/2007-October/000546.html)
 
 #### RPM 4.4.2.1 released! (Jul 23rd 2007) ####
 
  * Dozens of bugfixes and minor improvements all around
  * Cleaning up of vendor specific hacks etc
  * [Summary of changes](wiki/Releases/4.4.2.1)
- * [Original announcement](https://lists.dulug.duke.edu/pipermail/rpm-announce/2007-July/000001.html)
+ * [Original announcement](https://lists.rpm.org/pipermail/rpm-announce/2007-July/000001.html)
 
 #### rpm.org reboot (Dec 14th 2006) ####
 
