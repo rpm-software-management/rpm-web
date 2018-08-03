@@ -39,7 +39,7 @@ Generally %autosetup accepts the same arguments as %setup does. The notable exce
 
 * %autosetup defaults to quiet operation, so -q is not needed or accepted. Use -v to enable verbose source unpacking if needed.
 * -N disables automatic patch application if necessary for some reason. If %autosetup is called with -N, the patch-application phase can be manually invoked with %autopatch macro.
-* -S<vcs> specifies the VCS to use. Currently supported VCSes are: "git", "hg" (for mercurial), "bzr", "quilt" and "patch". If -S is omitted, %autosetup defaults to "patch"
+* -S<vcs> specifies the VCS to use. Currently supported VCSes are: "git", "hg" (for mercurial), "bzr", "quilt" and "patch", "git_am" (rpm >= 4.12) and "gendiff" (rpm >= 4.14). If -S is omitted, %autosetup defaults to "patch"
 * -p<number> argument to control patch prefix stripping (same as -p to %patch)
 * -b (for creating patch backups) is accepted but currently ignored - this is not meaningful for a full-blown VCS anyway 
 
