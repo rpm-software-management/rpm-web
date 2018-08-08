@@ -2,6 +2,8 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.14.2-rc2 released! (Aug 08 2018)
+* Fixes to various minor resource leaks and other misc bugfixes since rc1
 
 #### RPM 4.14.2-rc1 released! (Jun 29 2018)
 * Support for enforcing signature policy and payload verification
