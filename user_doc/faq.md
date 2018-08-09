@@ -16,8 +16,10 @@ For example to have RPM leave NFS-mounted /home and /usr/local alone:
 
 #### My rpmdb is corrupted! I'm getting errors about "Thread/process died in Berkeley DB library" telling me to run database recovery
 Chances are the database is not really corrupted, it was just uncleanly shut
-down and most likely doing `rm -f /var/lib/rpm/__db.*` is enough to clear
-the situation. 
+down and often doing `rm -f /var/lib/rpm/__db.*` is enough to clear
+the situation. However unless you're certain that the error appeared
+on a read-only access, backing up the database and doing 'rpmdb --rebuilddb'
+is in order.
 
 However if you didn't manually issue `kill -9` on rpm
 (or other process accessing the rpmdb) and are (frequently) getting this
