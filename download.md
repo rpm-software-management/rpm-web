@@ -7,6 +7,7 @@ title: rpm.org - Download
 
 ### RPM 4.14.x
 
+* [RPM 4.14.2](http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.tar.bz2) ([Release notes](wiki/Releases/4.14.2.html))
 * [RPM 4.14.1](http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.1.tar.bz2) ([Release notes](wiki/Releases/4.14.1.html))
 * [RPM 4.14.0](http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.0.tar.bz2) ([Release notes](wiki/Releases/4.14.0.html))
 

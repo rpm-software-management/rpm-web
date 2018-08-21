@@ -16,6 +16,12 @@ capable of
 
 ## News
 
+#### RPM 4.14.2 released! (Aug 21 2018)
+* Support for enforcing signature policy and payload verification
+* Numerous bugfixes and minor enhancements across the board
+* See [release notes](wiki/Releases/4.14.2) for details and download information
+
+* See [release notes](wiki/Releases/4.14.2) for details and download information
 #### RPM 4.14.2-rc2 released! (Aug 08 2018)
 * Fixes to various minor resource leaks and other misc bugfixes since rc1
 * See [release notes](wiki/Releases/4.14.2) for details and download information
