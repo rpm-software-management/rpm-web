@@ -18,7 +18,7 @@ capable of
 
 #### RPM 4.14.2.1 released! (Oct 22 2018)
 * Critical security bugfix for --setperms and --setugids regression in 4.14.2
-* See [release notes](wiki/Releases/4.14.2) for details and download information
+* See [release notes](wiki/Releases/4.14.2.1) for details and download information
 
 #### RPM 4.14.2 released! (Aug 21 2018)
 * Support for enforcing signature policy and payload verification
