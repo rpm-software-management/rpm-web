@@ -19,7 +19,7 @@ The point? Remember, Lua is embedded in rpm. This means the Lua scriptlets run i
 
 * No forking involved means it runs faster. Lua itself is fairly fast as an interpreter too.
 * No external dependencies introduced to packages.
-* The internal interpreter can run when there's nothing at all installed yet, because it doesn't need to be forked. Consider the initial install phase: before even /bin/sh is available to execute the simplest shell built-in commands, the shell's dependencies will have to be installed. What if some of those need scriptlets?
+* The internal interpreter can run when there's nothing at all installed yet, because it doesn't need to be exec()'ed. Consider the initial install phase: before even /bin/sh is available to execute the simplest shell built-in commands, the shell's dependencies will have to be installed. What if some of those need scriptlets?
     Internal Lua is the only thing that can reliably run in %pretrans. On initial system installation, there's absolutely nothing in the environment where %pretrans scriptlets execute. This is a condition you cannot even detect with any other means: testing for existence of a file or directory would otherwise require a shell, which is not there.
  * Syntax errors in <lua> scripts are detected at package build time.
  * As it runs in within the rpm process context, it can do things that external process cannot do, such as define new macros. 
