@@ -3,7 +3,7 @@ layout: default
 title: rpm.org - Download
 ---
 
-## Current stable releases
+## Current stable releases (supported)
 
 ### RPM 4.14.x
 
@@ -23,7 +23,7 @@ title: rpm.org - Download
 
 * N/A
 
-## Old releases
+## Old releases (no longer supported)
 
 For older releases, head over to [RPM timeline](timeline.html).
 
