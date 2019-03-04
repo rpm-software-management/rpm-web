@@ -51,5 +51,6 @@ Here you can find links to software related to RPM such as frontends, packaging 
 * [phprpm](http://cekirdek.uludag.org.tr/~meren/php_rpm/) provides some basic functionality for accessing RPM files from PHP programs.
 * [perl-URPM](http://gitweb.mageia.org/software/rpm/perl-URPM/) is a Perl extension for manipulating rpm headers and packages.
 * [libsolv](https://github.com/openSUSE/libsolv) has bindings for Perl, Python and Ruby. 
+* [Rust RPM](https://github.com/rustrpm) has Rust bindings for RPM and associated tools.
 
 
