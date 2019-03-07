@@ -58,7 +58,7 @@ The Semantic of the dependencies stay unchanged but instead checking for one mat
 
 Note that '''Provides''' are not dependencies and '''cannot contain Boolean Expressions'''.
 
-### Cautionary tale about `if`
+### Incompatible nesting of operators
 
 Note that the `if` operator is also returning a Boolean value. This is close to what the intuitive reading in most cases. E.g:
 
@@ -73,10 +73,12 @@ is a Conflict unless pkgB is installed and pkgA is not. So one might rather want
 
 `Conflicts: (pkgA and pkgB)`
 
- in most cases. The same is true if the `if` operator is nested in `or` terms.
+ in this case. The same is true if the `if` operator is nested in `or` terms.
 
 `Requires: ((pkgA if pkgB) or pkgC or pkg)` 
 
 As the `if` term is True if pkgB is not installed this also makes the whole term True. If pkgA only helps if pkgB is installed you should use `and` instead:
 
 `Requires: ((pkgA and pkgB) or pkgC or pkg)` 
+
+To avoid this confusion rpm refuses nesting `if` in such `or` like contexts (including `Conflicts:`) and `unless` in `and` like contexts.
