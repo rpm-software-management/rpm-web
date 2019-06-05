@@ -2,6 +2,19 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.15.0 alpha released! (Jun 5 2019)
+* See [release notes](wiki/Releases/4.15.0) full details and download information
+* Highlights include:
+  * Faster builds on SMP systems
+  * Support for dynamic build dependencies
+  * Support for %elif, %elifos and %elifarch statements in spec
+  * Caret version operator (the opposite of tilde)
+  * New %patchlist and %sourcelist spec sections
+  * Support for non-privileged chroot operations (experimental)
+  * Native support for Lua 5.2-5.3 without compat defines in Lua
+  * String data is returned as surrogate-escaped utf-8 in Python 3 bindings
+  * Numerous bugfixes and other enhancements all over the place
+
 #### RPM 4.14.2.1 released! (Oct 22 2018)
 * Critical security bugfix for --setperms and --setugids regression in 4.14.2
 * See [release notes](wiki/Releases/4.14.2.1) for details and download information
