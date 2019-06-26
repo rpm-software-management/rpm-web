@@ -2,6 +2,14 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.15.0 beta released! (Jun 26 2019)
+* See [release notes](wiki/Releases/4.15.0) full details and download information
+* Several bugs and regressions in 4.15.0 alpha fixed
+* Highlights since alpha:
+  * %dnl macro primitive for comments
+  * Support for gcc -g3 level debuginfo
+  * Ban unprintable ASCII control codes in filenames
+
 #### RPM 4.15.0 alpha released! (Jun 5 2019)
 * See [release notes](wiki/Releases/4.15.0) full details and download information
 * Highlights include:
