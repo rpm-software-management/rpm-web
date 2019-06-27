@@ -40,6 +40,7 @@ There are several builtin macros (with reserved names) that are needed to perfor
                       expansion
   %dump               print the active (i.e. non-covered) macro table
   %verbose            is rpm in verbose mode?
+  %dnl                dicard to next line, without expanding (in >= 4.15.0)
 
   %{echo:...}         print ... to stdout
   %{warn:...}         print ... to stderr
