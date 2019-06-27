@@ -39,6 +39,7 @@ There are several builtin macros (with reserved names) that are needed to perfor
   %trace              toggle print of debugging information before/after
                       expansion
   %dump               print the active (i.e. non-covered) macro table
+  %getncpus           number of cpus available to the process
   %verbose            is rpm in verbose mode?
   %dnl                dicard to next line, without expanding (in >= 4.15.0)
 
