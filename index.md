@@ -16,6 +16,12 @@ capable of
 
 ## News
 
+#### RPM 4.15.0 beta released! (Aug 28 2019)
+* See [release notes](wiki/Releases/4.15.0) full details and download information
+* Highlights since beta:
+  * New %{expr:...} built-in macro for evaluating expressions
+  * Several bugs and regressions (in 4.15.0 beta and otherwise) fixed
+  
 #### RPM 4.15.0 beta released! (Jun 26 2019)
 * See [release notes](wiki/Releases/4.15.0) full details and download information
 * Several bugs and regressions in 4.15.0 alpha fixed
