@@ -5,6 +5,9 @@ title: rpm.org - Download
 
 ## Current stable releases (supported)
 
+### RPM 4.15.x
+* [RPM 4.15.0](http://ftp.rpm.org/releases/rpm-4.15.x/rpm-4.15.0.tar.bz2) ([Release notes](wiki/Releases/4.15.0.html))
+
 ### RPM 4.14.x
 
 * [RPM 4.14.2.1](http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2) ([Release notes](wiki/Releases/4.14.2.1.html))
@@ -12,16 +15,9 @@ title: rpm.org - Download
 * [RPM 4.14.1](http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.1.tar.bz2) ([Release notes](wiki/Releases/4.14.1.html))
 * [RPM 4.14.0](http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.0.tar.bz2) ([Release notes](wiki/Releases/4.14.0.html))
 
-### RPM 4.13.x
-
-* [RPM 4.13.1](http://ftp.rpm.org/releases/rpm-4.13.x/rpm-4.13.1.tar.bz2) ([Release notes](wiki/Releases/4.13.1.html))
-* [RPM 4.13.0.2](http://ftp.rpm.org/releases/rpm-4.13.x/rpm-4.13.0.2.tar.bz2) ([Release notes](wiki/Releases/4.13.0.2.html))
-* [RPM 4.13.0.1](http://ftp.rpm.org/releases/rpm-4.13.x/rpm-4.13.0.1.tar.bz2) ([Release notes](wiki/Releases/4.13.0.1.html))
-* [RPM 4.13.0](http://ftp.rpm.org/releases/rpm-4.13.x/rpm-4.13.0.tar.bz2) ([Release notes](wiki/Releases/4.13.0.html))
-
 ## Current test releases
 
-* [RPM 4.15.0 alpha](http://ftp.rpm.org/releases/testing/rpm-4.14.90-git14653.tar.bz2)
+* N/A
 
 ## Old releases (no longer supported)
 
