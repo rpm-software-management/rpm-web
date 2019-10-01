@@ -16,6 +16,12 @@ title: rpm.org - Timeline
   * String data is returned as surrogate-escaped utf-8 in Python 3 bindings
   * Numerous bugfixes and other enhancements all over the place
 
+#### RPM 4.15.0 rc1 released! (Aug 28 2019)
+* See [release notes](wiki/Releases/4.15.0) full details and download information
+* Highlights since beta:
+  * New %{expr:...} built-in macro for evaluating expressions
+  * Several bugs and regressions (in 4.15.0 beta and otherwise) fixed
+
 #### RPM 4.15.0 beta released! (Jun 26 2019)
 * See [release notes](wiki/Releases/4.15.0) full details and download information
 * Several bugs and regressions in 4.15.0 alpha fixed
