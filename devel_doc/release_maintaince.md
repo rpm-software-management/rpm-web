@@ -45,13 +45,12 @@ If the answer to any of the above is "yes" then its almost certainly not appropr
 2. Prepare the sources:
 
     * Bump the version in configure.ac
-    * Bump rpm_version_info (ie library soname version info) in rpm.am, Basic libtool guidelines for maintenance updates to stable versions:
+    * Bump rpm_version_info (ie library soname version info) in rpm.am. Basic libtool guidelines for maintenance updates to stable versions:
 
         * always increment revision
         * if new API's added, increment age
         * if you think of updating current, you're doing something wrong unless its the first (beta) version of a new branch
-
-	For details, consult the libtool manual: https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html 
+	* for details, consult the [libtool manual](https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
     * Optionally Update translations from Zanata (TODO: document)
     * Update the sources for the above (Makefiles, .po regeneration and all): ```make dist```
     * Commit the changes from the previous step with something like 'Preparing for X.Y.Z' as message 
