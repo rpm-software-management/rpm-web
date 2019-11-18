@@ -16,8 +16,14 @@ capable of
 
 ## News
 
+#### RPM 4.15.1 released! (Nov 18 2019)
+* See [release notes](wiki/Releases/4.15.1) for full details and download information
+* Highlights include:
+  * Fixes to several important bugs and regressions
+  * New gcrypt crypto backend
+
 #### RPM 4.15.0 released! (Sep 26 2019)
-* See [release notes](wiki/Releases/4.15.0) full details and download information
+* See [release notes](wiki/Releases/4.15.0) for full details and download information
 * Highlights include:
   * Dynamic build dependencies
   * Support for %elif, %elifos and %elifarch statements in spec
