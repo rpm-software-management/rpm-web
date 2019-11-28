@@ -71,9 +71,11 @@ Requires: ( pkgA >= 1.2.3 or pkgB )
 ```
 
 #### How can I replace a directory with a symlink or vice-versa?
+
 You dont. If you are desperate, it can be achieved with a %pretrans
 scriptlet written with the embedded Lua interpreter, but this is fragile at
-best. TODO: add an actual example...
+best. The Fedora project has [examples and further guidance](https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/) you
+might be helpful.
 
 #### /var/tmp/rpm-tmp.XXXXXX: line NN: fg: no job control
 I get the above error message while installing or removing a package. What does it mean?
