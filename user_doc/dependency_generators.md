@@ -40,7 +40,7 @@ Flags are a comma-separated lists, as of rpm 4.9.1 the supported flags are:
 * magic_and_path - require both magic and pattern to match 
 
 ## Generators
-A generator is just an executable that reads file name(s) from stdin and writes out Provides: or Requires: on stdout. This way the generator can be implemented in whatever language is preferred and can use e.g. language specific libraries or tools. Generators get called once for each file with matching attributes. Generators can be declare in the file attributes file by defining the following macros:
+A generator is just an executable that reads file name(s) from stdin and writes out Provides: or Requires: on stdout, one per line. This way the generator can be implemented in whatever language is preferred and can use e.g. language specific libraries or tools. Generators get called once for each file with matching attributes. Generators can be declare in the file attributes file by defining the following macros:
 
 ```
 %__NAME_conflicts
