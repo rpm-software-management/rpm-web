@@ -9,7 +9,7 @@ The RPM Package Manager (RPM) is a powerful command line driven package manageme
 
 RPM is [free software](http://www.gnu.org/philosophy/free-sw.html), released under the [GNU GPL](http://www.fsf.org/licensing/licenses/gpl.html). 
 
-RPM is a core component of many Linux distributions, such as [Red Hat Enterprise Linux](http://www.redhat.com/rhel/), the [Fedora Project](http://fedoraproject.org/), [SUSE Linux Enterprise](http://www.novell.com/linux/), [openSUSE](http://opensuse.org/), [CentOS](http://centos.org/), [Tizen](http://www.tizen.org/), [Mageia](http://mageia.org/) and many others.
+RPM is a core component of many Linux distributions, such as [Red Hat Enterprise Linux](http://www.redhat.com/rhel/), the [Fedora Project](http://fedoraproject.org/), [SUSE Linux Enterprise](https://www.suse.com/), [openSUSE](http://opensuse.org/), [CentOS](http://centos.org/), [Tizen](http://www.tizen.org/), [Mageia](http://mageia.org/) and many others.
 
 It is also used on many other operating systems as well, and the RPM format is part of the [Linux Standard Base](http://www.linuxfoundation.org/en/Specifications)
 
