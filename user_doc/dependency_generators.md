@@ -11,7 +11,7 @@ This works reasonable well for binary executables and shared object files (libra
 ## File Attributes
 To avoid passing every file through every dependency generator file attributes are used. All files in packages are classified based on the present file attribute rules, and files can have an arbitrary number of attributes. Each file attribute can have a Provides: and a Requires: generator.
 
-A file attribute is represented by a macro file in %{_fileattrsdir} (typically /usr/lib/rpm/fileattrs/), and must have .attr suffix to be processed. The following file attribute macros are recognized:
+A file attribute is represented by a macro file in `%{_fileattrsdir}` (typically `/usr/lib/rpm/fileattrs/`), and must have .attr suffix to be processed. The following file attribute macros are recognized:
 
 ```
 %__NAME_conflicts
@@ -31,13 +31,14 @@ A file attribute is represented by a macro file in %{_fileattrsdir} (typically /
 %__NAME_exclude_flags
 ```
 
-NAME needs to be replaced by the name choosen for the file attribute and needs to be the same as the file name of the macro file itself (without the .attr suffix). While technically all of them are optional, typically two or more of them are present to form a meaningul attribute. All the values are further macro-expanded on use, and additionally the path and magic related values are interpreted as extended regular expressions.
+NAME needs to be replaced by the name choosen for the file attribute and needs to be the same as the file name of the macro file itself (without the `.attr` suffix). While technically all of them are optional, typically two or more of them are present to form a meaningul attribute. All the values are further macro-expanded on use, and additionally the path and magic related values are interpreted as extended regular expressions.
 
-The path REs are matching the path of the file relative to the install root or in other word the path the files are going to end up on disk (e.g. /bin/bash). The magic REs are matched against the result of libmagic (see "man file" and "man magic"), and some of them are also stored in the FILECLASS tag (try {"{{rpm -q --fileclass PACKAGENAME}}}" for example). To get compatible results with rpm, use "file -z -e tokens <file>" when determining appropriate file attribute magic RE's. Matching is inclusive unless changed by flags: if path, magic or both match, the file is considered to have the attribute in question, unless there's a matching exclude pattern (also inclusive by default) or a flag which prevents the match.
+The path REs are matching the path of the file relative to the install root or in other word the path the files are going to end up on disk (e.g. `/bin/bash`). The magic REs are matched against the result of libmagic (see `man file` and `man magic`), and some of them are also stored in the `FILECLASS` tag (try `rpm -q --fileclass PACKAGENAME` for example). To get compatible results with rpm, use `file -z -e tokens <file>` when determining appropriate file attribute magic RE's. Matching is inclusive unless changed by flags: if path, magic or both match, the file is considered to have the attribute in question, unless there's a matching exclude pattern (also inclusive by default) or a flag which prevents the match.
+
 
 Flags are a comma-separated lists, as of rpm 4.9.1 the supported flags are:
-* exeonly - require executable bit set
-* magic_and_path - require both magic and pattern to match 
+* `exeonly` - require executable bit set
+* `magic_and_path` - require both magic and pattern to match
 
 ## Generators
 A generator is just an executable that reads file name(s) from stdin and writes out Provides: or Requires: on stdout, one per line. This way the generator can be implemented in whatever language is preferred and can use e.g. language specific libraries or tools. Generators get called once for each file with matching attributes. Generators can be declare in the file attributes file by defining the following macros:
@@ -66,7 +67,7 @@ The value is the command line of the generator script/executable and any argumen
 %__NAME_supplements_opts
 ```
 
-The _opts macros should not be used in file attribute definitions, they are intended for spec-specific tweaks only. Note that any options are fully generator-specific, rpm only requires generators to support the stdin, stdout protocol.
+The `_opts` macros should not be used in file attribute definitions, they are intended for spec-specific tweaks only. Note that any options are fully generator-specific, rpm only requires generators to support the stdin, stdout protocol.
 
 ## Old Style Dependency Generators
 Old style generators, also known as "the external dependency generator", differ from the "internal" one in several ways. One difference that generator developers need to be aware of is that the new generators get called once per each file of a type, but the old generator is passed the entire file list of a package all at once. For compatibility reasons all generators should accept arbitrary number of files on stdin. A more profound difference is the data generated: packages built with old-style generators contain less data about the files, such as "color" information which is vital for rpm's functionality on multiarch systems, file type information and per-file dependency tracking. The old-style generators are deprecated and should not be used for new packaging, this functionality is only kept for backwards compatibility and may get removed in a future release of rpm.
@@ -86,13 +87,13 @@ Technically all aspects of file attributes and the generator helpers they use ca
 %__provides_exclude_from
 ```
 
-The values of these are macro-expanded and the results interpreted as (extended) regular expressions. The exclude_from variants operate on paths, for example to prevent all provides generated from *.so files in %{_libdir}/mypkg/ from being added:
+The values of these are macro-expanded and the results interpreted as (extended) regular expressions. The `exclude_from` variants operate on paths, for example to prevent all provides generated from `*.so` files in `%{_libdir}/mypkg/` from being added:
 
 ```
 %define __provides_exclude_from ^%{_libdir}/mypkg/.*.so$
 ```
 
-would prevent any provides from *.so files in %{_libdir}/mypkg/ from being added to packages. The exclude variants operate on generated dependency strings, for example the following would prevent all typical library requires from being added, regardless of which files they originate from:
+would prevent any provides from `*.so` files in `%{_libdir}/mypkg/` from being added to packages. The exclude variants operate on generated dependency strings, for example the following would prevent all typical library requires from being added, regardless of which files they originate from:
 
 ```
 %define __requires_exclude ^lib.*$
@@ -101,7 +102,7 @@ would prevent any provides from *.so files in %{_libdir}/mypkg/ from being added
 Note that within spec-files, any backslashes need to be double-escaped to prevent the spec parser from eating them.
 
 ## Troubleshooting
-rpmbuild and rpmdeps have a hidden --rpmfcdebug switch that enables additional output for the dependency generation stage. The output format is currently roughly as follows:
+rpmbuild and rpmdeps have a hidden `--rpmfcdebug` switch that enables additional output for the dependency generation stage. The output format is currently roughly as follows:
 
 ```
 <file number> <on-disk path> <color info> <file attribute matches>
@@ -109,9 +110,6 @@ rpmbuild and rpmdeps have a hidden --rpmfcdebug switch that enables additional o
 ```
 
 File attribute matches are the names of the fileattr rules which matched for the file, and that's where rule troubleshooting typically starts: a file with no attributes will not have any dependencies attached...
-
-## Open Questions
-* Passing the package version might be handy for interpreted languages that don't have support for versioned Requires: (like Python imports). This way the Provides: could get the version of the package and other packages could at least manually require a version (rage). 
 
 ## Examples
 * [File attributes shipped with RPM](https://github.com/rpm-software-management/rpm/tree/master/fileattrs)
