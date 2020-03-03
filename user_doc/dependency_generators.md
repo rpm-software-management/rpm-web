@@ -6,12 +6,12 @@ title: rpm.org - RPM Dependency Generator
 
 One basic design goal of RPM is to be able to check if a package really is going to work on the system it is being installed. To achive this RPM does not (only) rely on requiring packages as stated by the packagers but auto detects executables and libraries that are used. To make this work RPM also examines the packages for libraries that could be used by other packages and creates "Provides:" for them.
 
-This works reasonable well for binary executables and shared object files (libraries). Where ever there is no automatic generation of Provides: and Requires: packagers can resort to add manual Requires: to the packages they need or even add Provides: to the packages by hand. Over the years this has led to huge areas that are not covered by RPM's auto generator. To claim back these areas a plug-in interface was created to allow packagers/distributions to auto create Provides: and Requires: for single domains without tampering with the rpm code.
+This works reasonable well for binary executables and shared object files (libraries). Where ever there is no automatic generation of `Provides:` and `Requires:` packagers can resort to add manual Requires: to the packages they need or even add `Provides:` to the packages by hand. Over the years this has led to huge areas that are not covered by RPM's auto generator. To claim back these areas a plug-in interface was created to allow packagers/distributions to auto-create dependencies for single domains without tampering with the rpm code.
 
 ## File Attributes
-To avoid passing every file through every dependency generator file attributes are used. All files in packages are classified based on the present file attribute rules, and files can have an arbitrary number of attributes. Each file attribute can have a Provides: and a Requires: generator.
+To avoid passing every file through every dependency generator file attributes are used. All files in packages are classified based on the present file attribute rules, and files can have an arbitrary number of attributes. Each file attribute can have dependency generators for all supported types.
 
-A file attribute is represented by a macro file in `%{_fileattrsdir}` (typically `/usr/lib/rpm/fileattrs/`), and must have .attr suffix to be processed. The following file attribute macros are recognized:
+A file attribute is represented by a macro file in `%{_fileattrsdir}` (typically `/usr/lib/rpm/fileattrs/`), and must have `.attr` suffix to be processed. The following file attribute macros are recognized:
 
 ```
 %__NAME_conflicts
@@ -41,7 +41,7 @@ Flags are a comma-separated lists, as of rpm 4.9.1 the supported flags are:
 * `magic_and_path` - require both magic and pattern to match
 
 ## Generators
-A generator is just an executable that reads file name(s) from stdin and writes out Provides: or Requires: on stdout, one per line. This way the generator can be implemented in whatever language is preferred and can use e.g. language specific libraries or tools. Generators get called once for each file with matching attributes. Generators can be declare in the file attributes file by defining the following macros:
+A generator is just an executable that reads file name(s) from stdin and writes out dependencies on stdout, one per line. This way the generator can be implemented in whatever language is preferred and can use e.g. language specific libraries or tools. Generators get called once for each file with matching attributes. Generators can be declare in the file attributes file by defining the following macros:
 
 ```
 %__NAME_conflicts
@@ -73,9 +73,29 @@ The `_opts` macros should not be used in file attribute definitions, they are in
 Old style generators, also known as "the external dependency generator", differ from the "internal" one in several ways. One difference that generator developers need to be aware of is that the new generators get called once per each file of a type, but the old generator is passed the entire file list of a package all at once. For compatibility reasons all generators should accept arbitrary number of files on stdin. A more profound difference is the data generated: packages built with old-style generators contain less data about the files, such as "color" information which is vital for rpm's functionality on multiarch systems, file type information and per-file dependency tracking. The old-style generators are deprecated and should not be used for new packaging, this functionality is only kept for backwards compatibility and may get removed in a future release of rpm.
 
 ## Writing Dependency Generators
-Generally each type of Provides: and Requires should be handled in one place. The idea is not that every package ships it's own generators but one central package is taking care. So generators should go either directly into RPM (talk to us on the rpm-maint list) or shipped in one central package dealing with the domain. This would be something like the interpreter of the language in question or the package containing a central reqistry or even just the directory where other packages are supposed to put their files into.
+Generally each type of dependency should be handled in one place. The idea is not that every package ships it's own generators but one central package is taking care. So generators should go either directly into RPM (talk to us on the rpm-maint list) or shipped in one central package dealing with the domain. This would be something like the interpreter of the language in question or the package containing a central reqistry or even just the directory where other packages are supposed to put their files into.
 
-TODO: Describe development model and decide upon a central repository for hosting and sharing generators that are not (yet) in RPM upstream.
+In addition to globally defined macros, the following macros are exported to generators on per-package basis (rpm >= 4.15):
+- `%name`
+- `%epoch`
+- `%version`
+- `%release`
+
+### Parametric macro generators (rpm >= 4.16)
+
+If the generator macro is declared as a parametric macro, the macro itself
+is called for dependency generation, with file as first argument (ie `%1`)
+and the macro expansion itself is considered as the generated dependencies,
+one per line. Rpm's own macro primitives are limited, but by using `%{lua:...}`
+enables writing complicated macro-only generators.
+
+A trivial example to create provides from path basenames, which would be
+enormously faster than the equivalent traditional generator
+shelling out to execute a script that calls `basename`:
+
+```
+%__foo_provides()	%{basename:%{1}}
+```
 
 ## Tweaking Dependency Generators
 Technically all aspects of file attributes and the generator helpers they use can be overridden from spec by (re)defining the related macros, but packagers should generally avoid this as the attributes and their names are subject to change, depending on rpm version and which packages are present during build. Unwanted dependencies can be filtered with a separate set of macros which are intended primarily for use in spec-files:
