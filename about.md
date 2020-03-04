@@ -11,7 +11,7 @@ RPM is [free software](https://www.gnu.org/philosophy/free-sw.html), released un
 
 RPM is a core component of many Linux distributions, such as [Red Hat Enterprise Linux](https://www.redhat.com/rhel/), the [Fedora Project](https://fedoraproject.org/), [SUSE Linux Enterprise](https://www.suse.com/), [openSUSE](https://opensuse.org/), [CentOS](https://centos.org/), [Tizen](https://www.tizen.org/), [Mageia](https://mageia.org/) and many others.
 
-It is also used on many other operating systems as well, and the RPM format is part of the [Linux Standard Base](https://www.linuxfoundation.org/en/Specifications)
+It is also used on many other operating systems as well, and the RPM format is part of the [Linux Standard Base](https://refspecs.linuxfoundation.org/lsb.shtml)
 
 RPM is quite a mature project in the OSS landscape, with first VCS
 commit of the current tree dating back to 1995. As such it can be
