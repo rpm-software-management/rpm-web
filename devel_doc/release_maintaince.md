@@ -8,13 +8,19 @@ TODO: Update according to modification/redesign of rpm.org
 
 ## Git branches
 
-Rpm development takes place in the git master branch, but no releases are created from the master. All releases are created from stable branches, created when a development cycle is coming to an end. All releases, including any alpha/beta/rc pre-releases, of this major version are cut from that branch:
+Rpm development takes place in the git master branch, but releases are created from stable branches, created when a development cycle is coming to an end. 
+Alfa tarball is traditionally cut from master, but prior to beta release
+the tree is branched and beta and later releases are *always* created
+from a branch, not master.
 
-* rpm-4.12.x branch from which all 4.12.x versions are cut from
-* rpm-4.11.x branch from which all 4.11.x versions are cut from
+* rpm-4.15.x branch from which all 4.15.x versions are cut from
+* rpm-4.14.x branch from which all 4.14.x versions are cut from
 * ...
 
-When pulling fixes from git master to stable branches, always use -x to get the automatic cherry-pick commit marker. This way its easier to see which patches come from master, and which commit exactly.
+When pulling fixes from git master to stable branches, always use -x to get the automatic cherry-pick commit marker. This way its easier to see which patches come from master, and which commit exactly. If a cherry-pick conflicts,
+see if it's resolvable with a suitable upstream commit and if not, when
+fixing manually change the "cherry-picked from" message into "Backported from
+commit hash" to mark the difference.
 
 ## Selecting commits for cherry-picking (or backporting) for maintenance updates
 
@@ -64,18 +70,28 @@ If the answer to any of the above is "yes" then its almost certainly not appropr
 
 5. Unpack the tarball next to the previous version and inspect the differences (something like 'diff -uNr rpm-<X.Y.Z> rpm-<X.Y.Z+1>') and watch out for unexpected material. If you find any, STOP, figure it out and go back as many steps as required.
 
-6. Tag the release. Something like:
+6. Submit the whole lot as a pull-request to the branch in question
+
+    * In case of maintenance releases, leave it up for commenting for at
+      least a week to allow for community feedback
+    * Review needs a different mindset than new code: look for compatibility
+      and stability issues in particular, as per "selecting commits"
+      above
+
+7. Tag the release. Something like:
 
     git tag -a -m "RPM X.Y.Z release" rpm-X.Y.Z-release
 
-7. Push the tag. This is the point of no return for a given release.
+8. Push the tag. This is the point of no return for a given release.
 
     git push --tags
 
-8. Upload the bz2 tarball to ftp-osl.osuosl.org to the appropriate per-branch directory in ~/ftp/releases/
+9. Upload the bz2 tarball
+   * scp to rpm@ftp-osl.osuosl.org to the appropriate per-branch directory in ~/ftp/releases/
+   * run ./trigger-rpm script in the rpm home directory to start mirror process
 
 9. Make the release official:
 
     * add tarball checksum and download location to the release notes
-    * add a new item to http://rpm.org/wiki/News
+    * add a new item to http://rpm.org/wiki/News and http://rpm.org/timeline
     * send an announcement mail to rpm-announce@lists.rpm.org and rpm-maint@lists.rpm.org (and why not rpm-list@lists.rpm.org too) 
