@@ -18,7 +18,7 @@ title: rpm.org - Download
 
 ## Current test releases
 
-* N/A
+ * [RPM 4.16.0 alpha](http://ftp.rpm.org/releases/testing/rpm-4.15.90-git14970.tar.bz2)
 
 ## Old releases (no longer supported)
 
