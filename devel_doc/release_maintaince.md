@@ -64,11 +64,8 @@ If the answer to any of the above is "yes" then its almost certainly not appropr
 
     * Bump the version in configure.ac
     * Bump rpm_version_info (ie library soname version info) in rpm.am. Basic libtool guidelines for maintenance updates to stable versions:
-
-        * always increment revision
-        * if new API's added, increment age
-        * if you think of updating current, you're doing something wrong unless its the first (beta) version of a new branch
-        * for details, consult the [libtool manual](https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
+        * consult the [libtool manual](https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
+        * soname bumps can only occur at the first version of a new branch (ie alpha/beta)
 
     * Optionally Update translations from Zanata (TODO: document)
     * Update the sources for the above (Makefiles, .po regeneration and all): ```make dist```
