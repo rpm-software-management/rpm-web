@@ -48,6 +48,17 @@ If the answer to any of the above is "yes" then its almost certainly not appropr
 
 1. Prepare preliminary release notes at http://rpm.org/wiki/Releases/X.Y.Z
 
+    * Not every commit needs a corresponding release notes entry, eg
+      internal refactoring and cleanup should not be detailed, and 
+      often a new feature consists of multiple commits that deserve exactly
+      on entry in the notes
+    * Follow common style in the text, git commit messages are rarely good
+      as-is. Start with what it does: add/fix/remove/change/optimize,
+      followed by concise description.
+    * Upstream GH tickets can use #ticketno shortcut, references to external
+      bugzillas follow naming conventions: RhBug:bugno, SuseBug:bugno,
+      MgaBug:bugno (optimally make these actual links)
+
 2. Prepare the sources:
 
     * Bump the version in configure.ac
