@@ -6,9 +6,11 @@ title: rpm.org - Timeline
 #### RPM 4.16.0 ALPHA released! (Mar 23 2020)
 * See [draft release notes](wiki/Releases/4.16.0) for full details and download information
 * Highlights include:
-  * New sqlite and read-only BDB backends, NDB promoted to stable
+  * New experimental sqlite and read-only BDB backends, NDB promoted to stable
   * Powerful macro and %if expressions including ternary operator
   * Automatic SSD detection and optimization on Linux
+  * Optional MIME type based file classification
+  * Dependency generation by parametric macros
 
 #### RPM 4.15.1 released! (Nov 18 2019)
 * See [release notes](wiki/Releases/4.15.1) for full details and download information
