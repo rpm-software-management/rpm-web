@@ -54,7 +54,8 @@ If the answer to any of the above is "yes" then its almost certainly not appropr
       on entry in the notes
     * Follow common style in the text, git commit messages are rarely good
       as-is. Start with what it does: add/fix/remove/change/optimize,
-      followed by concise description.
+      followed by concise description. Group and sort by types of change.
+    * Not all releases need the same exact subtitle groups, use common sense.
     * Upstream GH tickets can use #ticketno shortcut, references to external
       bugzillas follow naming conventions: RhBug:bugno, SuseBug:bugno,
       MgaBug:bugno (optimally make these actual links)
