@@ -16,6 +16,13 @@ capable of
 
 ## News
 
+#### RPM 4.14.3 RC1 released! (Mar 26 2020)
+* See [draft release notes](wiki/Releases/4.14.3) for full details and download information
+* Highlights include
+  * Backported support for caret version
+  * Numerous bugfixes across the board
+  * Clarify RPM license
+
 #### RPM 4.16.0 ALPHA released! (Mar 23 2020)
 * See [draft release notes](wiki/Releases/4.16.0) for full details and download information
 * Highlights include:
@@ -24,6 +31,7 @@ capable of
   * Automatic SSD detection and optimization on Linux
   * Optional MIME type based file classification
   * Dependency generation by parametric macros
+  * Clarify RPM license
 
 #### RPM 4.15.1 released! (Nov 18 2019)
 * See [release notes](wiki/Releases/4.15.1) for full details and download information
