@@ -42,7 +42,7 @@ Flags are a comma-separated lists, as of rpm 4.9.1 the supported flags are:
 
 ## Generators
 A generator is just an executable that reads file name(s) from stdin and writes out dependencies on stdout, one per line. Note that unlike the classifier
-path RE, the paths passed to generators have `%buildroot' prepended as most
+path RE, the paths passed to generators have `%buildroot` prepended as most
 generators need to look at the actual file contents on disk.
 This way the generator can be implemented in whatever language is preferred and can use e.g. language specific libraries or tools. Generators get called once for each file with matching attributes. Generators can be declare in the file attributes file by defining the following macros:
 
