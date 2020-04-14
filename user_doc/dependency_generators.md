@@ -33,7 +33,7 @@ A file attribute is represented by a macro file in `%{_fileattrsdir}` (typically
 
 NAME needs to be replaced by the name choosen for the file attribute and needs to be the same as the file name of the macro file itself (without the `.attr` suffix). While technically all of them are optional, typically two or more of them are present to form a meaningul attribute. All the values are further macro-expanded on use, and additionally the path and magic related values are interpreted as extended regular expressions.
 
-The path REs are matching the path of the file relative to the install root or in other word the path the files are going to end up on disk (e.g. `/bin/bash`). The magic REs are matched against the result of libmagic (see `man file` and `man magic`), and some of them are also stored in the `FILECLASS` tag (try `rpm -q --fileclass PACKAGENAME` for example). To get compatible results with rpm, use `file -z -e tokens <file>` when determining appropriate file attribute magic RE's. Matching is inclusive unless changed by flags: if path, magic or both match, the file is considered to have the attribute in question, unless there's a matching exclude pattern (also inclusive by default) or a flag which prevents the match.
+The path REs are matched against the packaged path, without `%buildroot` - e.g. `/bin/bash`. The magic REs are matched against the result of libmagic (see `man file` and `man magic`), and some of them are also stored in the `FILECLASS` tag (try `rpm -q --fileclass PACKAGENAME` for example). To get compatible results with rpm, use `file -z -e tokens <file>` when determining appropriate file attribute magic RE's. Matching is inclusive unless changed by flags: if path, magic or both match, the file is considered to have the attribute in question, unless there's a matching exclude pattern (also inclusive by default) or a flag which prevents the match.
 
 
 Flags are a comma-separated lists, as of rpm 4.9.1 the supported flags are:
@@ -41,7 +41,10 @@ Flags are a comma-separated lists, as of rpm 4.9.1 the supported flags are:
 * `magic_and_path` - require both magic and pattern to match
 
 ## Generators
-A generator is just an executable that reads file name(s) from stdin and writes out dependencies on stdout, one per line. This way the generator can be implemented in whatever language is preferred and can use e.g. language specific libraries or tools. Generators get called once for each file with matching attributes. Generators can be declare in the file attributes file by defining the following macros:
+A generator is just an executable that reads file name(s) from stdin and writes out dependencies on stdout, one per line. Note that unlike the classifier
+path RE, the paths passed to generators have `%buildroot' prepended as most
+generators need to look at the actual file contents on disk.
+This way the generator can be implemented in whatever language is preferred and can use e.g. language specific libraries or tools. Generators get called once for each file with matching attributes. Generators can be declare in the file attributes file by defining the following macros:
 
 ```
 %__NAME_conflicts
@@ -88,6 +91,8 @@ is called for dependency generation, with file as first argument (ie `%1`)
 and the macro expansion itself is considered as the generated dependencies,
 one per line. Rpm's own macro primitives are limited, but by using `%{lua:...}`
 enables writing complicated macro-only generators.
+As with traditional generators, the path passed as `%1` has `%buildroot`
+prepended.
 
 A trivial example to create provides from path basenames, which would be
 enormously faster than the equivalent traditional generator
