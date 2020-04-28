@@ -16,6 +16,14 @@ capable of
 
 ## News
 
+#### RPM 4.14.3 released! (Apr 28 2020)
+=======
+* See [release notes](wiki/Releases/4.14.3) for full details and download information
+* Highlights include
+  * Backported support for caret version
+  * Numerous bugfixes across the board
+  * Clarify RPM license
+
 #### RPM 4.14.3 RC1 released! (Mar 26 2020)
 * See [draft release notes](wiki/Releases/4.14.3) for full details and download information
 * Highlights include
