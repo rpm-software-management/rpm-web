@@ -4,20 +4,20 @@ title: rpm.org - Dependencies
 ---
 # Dependencies
 
-Dependencies provide a way for a package builder to require other packages or capabilities to be installed before or simultaneously with one another. These can be used to require a python interpretor for a python based application for example. RPM ensures dependencies are satisfied whenever packages are installed, erased, or upgraded. This page describes the basics. More topics can be found on More On Dependencies.
+Dependencies provide a way for a package builder to require other packages or capabilities to be installed before or simultaneously with one another. For example, these can be used to require a python interpreter for a python-based application. RPM ensures dependencies are satisfied whenever packages are installed, erased, or upgraded. This page describes the basics. More topics can be found in More On Dependencies.
 
 ## The Package name
-The package name is the most important way to refere to a package. Updates also follow the package name and packages with the same name constitute a line of updates of which only the newest is considered up to date. So if two version if the same software are supposed to be installed at the same time they have to go into packages with different names that of course need to reside at different locations on disk). A typical way of doing this is to as the unchanging part of the version number part of the name. E.g. python3-3.2.1-1.
+The package name is the most important way to refer to a package. Updates also follow the package name and packages with the same name constitute a line of updates of which only the newest is considered up-to-date. So if two versions of the same software are supposed to be installed at the same time, they have to go into packages with different names, which of course need to reside at different locations on disk). A typical way of doing this is to add the unchanging part of the version number as part of the name, e.g. `python3-3.2.1-1` and `python-2.3.4-5` could be installed at the same time.
 
 ## Obsoletes
-Obsoletes alter the way updates work. This plays out a bit different depending if rpm is used directly on the command line or the update is performed by an updates/dependency solver.
+Obsoletes alter the way updates work. This plays out a bit differently depending whether rpm is used directly on the command line or the update is performed by an updates/dependency solver.
 
-RPM removes all packages matching obsoletes of packages being installed. As it sees the obsoleting package as their updates. There has not to be a one to one relation ship between obsoleting and obsoleted packages. Note that rpm -i does not do updates and though treat Obsoletes: as Conflicts (since rpm-4.10). For most cases rpm -i should be avoided and rpm -U should be used unless this specific behavior is desired (e.g. for kernels).
+RPM removes all packages matching obsoletes of packages being installed, as it sees the obsoleting package as their updates. There does not have to be a one-to-one relationship between obsoleting and obsoleted packages. Note that `rpm -i` does not do updates and therefore treats Obsoletes: as Conflicts: (since rpm-4.10). For most cases `rpm -i` should be avoided and `rpm -U` should be used unless this specific behavior is desired (e.g. for kernels).
 
-Updaters have a bit different view on Obsoletes: as they need to find out what packages to install as an update. As a result packages containing matching Obsoletes: are added as updates and replace the matching packages.
+Updaters have a slightly different view on Obsoletes: as they need to find out what packages to install as an update. As a result packages containing matching Obsoletes: are added as updates and replace the matching packages.
 
 ## Provides
-Provides can be added to packages so they can be refered to by dependencies other than by their name. E.g. you need to make sure the system your package is being installed on has a package which provides a certain capability, even though you don't care what specific package provides it. For example, sendmail won't work properly unless a local delivery agent (lda) is present. You can ensure that one is installed like this:
+Provides can be added to packages so they can be referred to by dependencies other than by their name. This is useful when you need to make sure that the system your package is being installed on has a package which provides a certain capability, even though you don't care what specific package provides it. For example, sendmail won't work properly unless a local delivery agent (lda) is present. You can ensure that one is installed like this:
 
 ```
     Requires: lda
@@ -29,7 +29,7 @@ This will match either a package called lda (as mentioned above), or any package
     Provides: lda
 ```
 
-in its .spec file. No version numbers may be used with virtual packages.
+in its spec file. No version numbers may be used with virtual packages.
 
 Provides are often used to supply file dependencies such as /bin/sh on machines that are only partly managed by rpm. A virtual package with
 
@@ -37,10 +37,10 @@ Provides are often used to supply file dependencies such as /bin/sh on machines 
     Provides: /bin/sh
 ```
 
-differs from a package that has /bin/sh in the %files list in that the package can be safely removed without removing /bin/sh.
+differs from a package that has `/bin/sh` in the %files list in that the package can be safely removed without removing `/bin/sh`.
 
 ## Requires
-With this tag a package can require another with the matching name or Provides to be installed (if the package containign the Requires: is going to be installed). This is checked when a new package is installed and if a package with a matching Provides: is removed.
+With this tag a package can require another with the matching name or Provides to be installed (if the package containing the Requires: is going to be installed). This is checked when a new package is installed and if a package with a matching Provides: is removed.
 
 To require the packages python and perl, use:
 
@@ -48,7 +48,7 @@ To require the packages python and perl, use:
     Requires: python perl
 ```
 
-in the spec file. Note that "Requires python, perl" would work as well. If you needed to have a very recent version of python but any version of perl,
+in the spec file. Note that "Requires: python, perl" would work as well. If you needed to have a very recent version of python but any version of perl,
 
 ```
     Requires: python >= 1.3, perl
@@ -91,7 +91,7 @@ The release tag is usually incremented every time a package is rebuilt for any r
 
 Version numbering should be kept simple so that it is easy to determine the version ordering for any set of packages. If the packager needs to separate a release from all other releases that came before it, then the epoch, the most significant part of package ordering, can be changed.
 
-The algorithm that RPM uses to determine the version ordering of packages is simple and developers are encouraged not to rely on the details of its working. Developers should keep their numbering scheme simple so any reasonable ordering algorithm would work. The version comparison algorithm is in the routine rpmvercmp() and it is just a segmented strcmp(3). First, the boundaries of the segments are found using isdigit(3)/isalpha(3). Each segment is then compared in order with the right most segment being the least significant. The alphabetical portions are compared using a lexical graphical ascii ordering, the digit segments strip leading zeroes and compare the strlen before doing a strcmp. If both numerical strings are equal, the longer string is larger. Notice that the algorithm has no knowledge of decimal fractions, and perl-5.6 is "older" than perl-5.00503 because the number 6 is less than the number 503.
+The algorithm that RPM uses to determine the version ordering of packages is simple and developers are encouraged not to rely on the details of its working. Developers should keep their numbering scheme simple so any reasonable ordering algorithm would work. The version comparison algorithm is in the routine rpmvercmp() and it is just a segmented strcmp(3). First, the boundaries of the segments are found using isdigit(3)/isalpha(3). Each segment is then compared in order with the right most segment being the least significant. The alphabetical portions are compared using a lexicographical ascii ordering, the digit segments strip leading zeroes and compare the strlen before doing a strcmp. If both numerical strings are equal, the longer string is larger. Notice that the algorithm has no knowledge of decimal fractions, and perl-5.6 is "older" than perl-5.00503 because the number 6 is less than the number 503.
 
 The concept of "newer" used by rpm to determine when a package should be upgraded can be broken if version format changes oddly, such as when the version segments cannot be meaningfully compared.
 
@@ -135,14 +135,13 @@ Dependency checking (including checking for conflicts) may be overridden by usin
 In addition to the strong dependencies created by Requires, there are 4 dependencies that are completely ignored by rpm itself. Their purpose is to be used by dependency solvers to make choices about what packages to install. They come in two levels of strength:
 
 * Weak: By default the dependency solver shall attempt to process the dependency 
-
 as though it were strong. If this is results in an error then they should be ignored and not trigger an error or warning.
 
 * Very weak: By default the dependency solver shall ignore them. But they may be used to show the matching packages as option to the user. 
 
 The depsolver may offer to treat the weak like very weak relations or the other way round.
 
-In addition to normal, forward relations that behave the same way as Requires: there are also two weak dependencies that work backward. Instead of adding packages that match the relations of to-be-installed packages these Relations add packages that contain relations matching to-be-installed packages.
+In addition to normal, forward relations that behave the same way as Requires:, there are also two weak dependencies that work backwards. Instead of adding packages that match the relations of to-be-installed packages these Relations add packages that contain relations matching to-be-installed packages.
 
 There are two dependency types at each level of strength. One is a forward relation, similar to Requires; the other is a reverse relation. For reverse relation the roles of the declaring and matching package(s) are switched out.
 
@@ -153,7 +152,7 @@ There are two dependency types at each level of strength. One is a forward relat
 
 So installing a package containing Recommends: foo should cause the dependency solver to also select a package that is named foo or that Provides: foo, assuming one exists and its selection does not lead to unresolvable dependencies.
 
-On the other hand, if a package that is named foo or that Provides: foo is selected, and a package bar containing Supplements: foo" exists, then bar is also selected as long as doing so does not lead to unresolvable dependencies.
+On the other hand, if a package that is named foo or that Provides: foo is selected, and a package bar containing "Supplements: foo" exists, then bar is also selected as long as doing so does not lead to unresolvable dependencies.
 
-In other words, if you have packages A and B and you want to declare a weak relation between them A -> B, you can either specify it as package A containing Recommends: B or package B containing Supplements: A.
+In other words, if you have packages A and B and you want to declare a weak relation between them A -> B, you can either specify it as package A containing "Recommends: B" or package B containing "Supplements: A".
 
