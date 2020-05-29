@@ -16,6 +16,13 @@ capable of
 
 ## News
 
+#### RPM 4.16.0 BETA1 released! (May 29 2020)
+* See [draft release notes](wiki/Releases/4.16.0) for full details and download information
+* Highlights since the alpha release include:
+  * A new version parsing and comparison API in C and Python
+  * Native version comparison support in expressions
+  * Assorted bugfixes and minor enhancements
+
 #### RPM 4.14.3 released! (Apr 28 2020)
 * See [release notes](wiki/Releases/4.14.3) for full details and download information
 * Highlights include
