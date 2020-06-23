@@ -24,6 +24,6 @@ title: rpm.org - Download
 
 For older releases, head over to [RPM timeline](timeline.html).
 
-### POPT (mirrored)
+### POPT
 
-* [POPT](http://ftp.rpm.org/mirror/popt/)
+* [POPT 1.18](http://ftp.rpm.org/popt/releases/popt-1.x/popt-1.18.tar.gz) ([Release notes](https://github.com/rpm-software-management/popt/releases/tag/popt-1.18-release)

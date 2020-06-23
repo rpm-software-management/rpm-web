@@ -3,7 +3,20 @@ layout: default
 title: rpm.org - Timeline
 ---
 
-#### POPT 1.18 RC1 released, upstream rebooted! (May 29 2020)
+#### RPM 4.16.0 BETA2 released! (Jun 23 2020)
+* See [draft release notes](wiki/Releases/4.16.0) for full details and download information
+* Highlights since beta1 release include:
+  * Several important fixes across the board
+  * Parallelise test-suite execution
+
+#### POPT 1.18 released, upstream rebooted! (Jun 23 2020)
+* See [release notes](https://github.com/rpm-software-management/popt/releases/tag/popt-1.18-release) for full details and download information
+* Highlighs since popt 1.16 include
+  * Ancient security issue with popt failing to drop privileges on alias exec from a SUID/SGID program
+  * Collected accumulated fixes from distros etc
+  * Source and build-system cleanup and modernization
+
+#### POPT 1.18 RC1 released, upstream rebooted! (May 29 2029)
 * See [the announcement](http://lists.rpm.org/pipermail/rpm-announce/2020-May/000077.html) for the background story, details and download info
 * Highlighs since popt 1.16 include
   * Ancient security issue with popt failing to drop privileges on alias exec from a SUID/SGID program
