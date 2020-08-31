@@ -18,6 +18,11 @@ The rpm.org web site is maintained in [another git repository](https://github.co
 
 `git clone https://github.com/rpm-software-management/rpm-web.git`
 
+### Translations
+
+Rpm is translated to non-English languages via
+[Fedora Weblate instance](https://translate.fedoraproject.org/)
+
 ### Submitting changes
 
 Write access can be granted for established contributors upon request, but
