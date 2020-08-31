@@ -15,6 +15,10 @@ capable of
 * verifying integrity of packaged software and resulting software installation
 
 ## News
+#### RPM 4.16.0 RC1 released! (Aug 31 2020)
+* See [draft release notes](wiki/Releases/4.16.0) for full details and download information
+* Miscellaneous bugfixes across the board
+
 #### RPM 4.16.0 BETA3 released! (Jun 24 2020)
 * See [draft release notes](wiki/Releases/4.16.0) for full details and download information
 * Fixes (reverts) dependency generator regression in beta2
