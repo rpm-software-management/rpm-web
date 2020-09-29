@@ -24,7 +24,7 @@ The point? Remember, Lua is embedded in rpm. This means the Lua scriptlets run i
  * Syntax errors in <lua> scripts are detected at package build time.
  * As it runs in within the rpm process context, it can do things that external process cannot do, such as define new macros. 
 
-Scriptlet arguments are accessible from a global 'arg' table. Note: due to an error in the original implementation, the arg indexes are off by one from general expectation and this cannot be easily fixed due to backwards compatibility requirements. The argument containing number of installed package instances is arg[2] and the similar argument for trigger targets is arg[3], whereas traditionally they are 1 and 2 (eg $1 and $2 in shell scripts).
+Scriptlet arguments are accessible from a global 'arg' table. Note: in Lua, indexes customarily start at 1 (one) instead of 0 (zero), and for the better or worse, the rpm implementation follows this practise. Thus the scriptlet arg indexes are off by one from general expectation based on traditional scriptlet arguments. The argument containing number of installed package instances is arg[2] and the similar argument for trigger targets is arg[3], whereas traditionally they are 1 and 2 (eg $1 and $2 in shell scripts).
 
 While scriptlets shouldn't be allowed to fail normally, you can signal scriptlet failure status by using Lua's error(msg, [level]) function if you need to. As <lua> scriptlets run within the rpm process itself, care needs to be taken within the scripts - eg os.exit() must not be called (see ticket #167). In newer rpm versions (>= 4.9.0) this is not an issue as rpm protects itself by returning errors on unsafe os.exit() and posix.exec().
 
