@@ -17,6 +17,7 @@ capable of
 ## News
 #### RPM 4.16.0 released! (Sep 30 2020)
 * See [release notes](wiki/Releases/4.16.0) for full details and download information
+* [Announcement](http://lists.rpm.org/pipermail/rpm-announce/2020-September/000082.html) email
 * Highlights include:
   * Database backends:
     * NDB backend promoted to stable
