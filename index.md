@@ -15,6 +15,21 @@ capable of
 * verifying integrity of packaged software and resulting software installation
 
 ## News
+#### RPM 4.16.0 released! (Sep 30 2020)
+* See [release notes](wiki/Releases/4.16.0) for full details and download information
+* Highlights include:
+  * Database backends:
+    * NDB backend promoted to stable
+    * New sqlite-based backend
+    * New experimental read-only BDB backend
+    * BDB database backend deprecated
+  * Powerful macro and %if expressions including ternary operator and native version comparison
+  * Optional MIME type based file classification
+  * Dependency generation by parametric macros
+  * A new version parsing and comparison API in C and Python
+  * Parallelise test-suite execution
+  * Clarify RPM license
+
 #### RPM 4.16.0 RC1 released! (Aug 31 2020)
 * See [draft release notes](wiki/Releases/4.16.0) for full details and download information
 * Miscellaneous bugfixes across the board
