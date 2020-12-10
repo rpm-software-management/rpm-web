@@ -15,6 +15,17 @@ capable of
 * verifying integrity of packaged software and resulting software installation
 
 ## News
+#### RPM 4.17.1 released (Jul 01 2022)
+* This is primarily a bug fix release, with select minor enhancements.
+* See [release notes](wiki/Releases/4.17.1) for details and download information
+* Highlights include:
+  * New `%bcond` macro for a nicer way to define build conditionals
+  * New `%{verbose:...}` macro for verbose mode expansion
+  * Separate warning summary in `rpmbuild(8)`
+  * OpenPGP parser and IMA security fixes (CVE-2021-3521)
+  * Buildroot policy fixes
+  * Various other important and regression fixes
+
 #### RPM 4.18.0 beta1 released (Jun 28 2022)
 * See [release notes](wiki/Releases/4.18.0) for details and download information
 * Highlights since 4.18.0-alpha2 release include
