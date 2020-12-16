@@ -2,10 +2,14 @@
 layout: default
 title: rpm.org - Timeline
 ---
-#### RPM 4.16.1.1 released! (Dec 16 2020)
-* See [release notes](wiki/Releases/4.16.1.1) for download information
+#### RPM 4.16.1.2 released! (Dec 16 2020)
+* See [release notes](wiki/Releases/4.16.1.2) for download information
 * This is a brown paperbag release to fix a single regression in 4.16.1
-  which causes rpmbuild to crash if hostname is not resolvable.
+  which causes rpmbuild to crash if hostname is not resolvable, and
+  an accidental soname bump introduced in now withdrawn 4.16.1.1.
+
+#### RPM 4.16.1.1 released ... and withdrawn (Dec 16 2020)
+* The release got eaten by a mob of angry 2020 grues.
 
 #### RPM 4.16.1 released! (Dec 10 2020)
 * See [release notes](wiki/Releases/4.16.1) for full details and download information

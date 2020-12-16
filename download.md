@@ -6,7 +6,7 @@ title: rpm.org - Download
 ## Current stable releases (supported)
 
 ### RPM 4.16.x
-* [RPM 4.16.1.1](http://ftp.rpm.org/releases/rpm-4.16.x/rpm-4.16.1.1.tar.bz2) ([Release notes](wiki/Releases/4.16.1.1.html))
+* [RPM 4.16.1.2](http://ftp.rpm.org/releases/rpm-4.16.x/rpm-4.16.1.2.tar.bz2) ([Release notes](wiki/Releases/4.16.1.2.html))
 * [RPM 4.16.1](http://ftp.rpm.org/releases/rpm-4.16.x/rpm-4.16.1.tar.bz2) ([Release notes](wiki/Releases/4.16.1.html))
 * [RPM 4.16.0](http://ftp.rpm.org/releases/rpm-4.16.x/rpm-4.16.0.tar.bz2) ([Release notes](wiki/Releases/4.16.0.html))
 
