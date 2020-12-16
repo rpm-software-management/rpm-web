@@ -16,6 +16,11 @@ capable of
 
 ## News
 
+#### RPM 4.16.1.1 released! (Dec 16 2020)
+* See [release notes](wiki/Releases/4.16.1.1) for download information
+* This is a brown paperbag release to fix a single regression in 4.16.1
+  which causes rpmbuild to crash if hostname is not resolvable.
+
 #### RPM 4.16.1 released! (Dec 10 2020)
 * See [release notes](wiki/Releases/4.16.1) for full details and download information
 * This is a bugfix-only release to address one regression in 4.16.0 and
