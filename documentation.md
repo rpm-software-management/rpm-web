@@ -31,6 +31,7 @@ This page attempts to track the various relevant documentation that exists for R
 
 ## RPM API
 * API documentation
+  * [RPM 4.16.x](http://ftp.rpm.org/api/4.16.1/)
   * [RPM 4.15.x](http://ftp.rpm.org/api/4.15.1/)
   * [RPM 4.14.x](http://ftp.rpm.org/api/4.14.0/)
   * [RPM 4.13.x](http://ftp.rpm.org/api/4.13.0/)
