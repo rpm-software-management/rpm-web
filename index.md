@@ -15,6 +15,13 @@ capable of
 * verifying integrity of packaged software and resulting software installation
 
 ## News
+
+#### RPM 4.16.1.3 and 4.15.1.1 released! (Mar 22 2021)
+* These are primarily security releases for CVE-2021-3421, CVE-2021-20271
+  and CVE-2021-20266, with some additional fixes for important bugs.
+* See [4.16.1.3](wiki/Releases/4.16.1.3) and [4.15.1.1](wiki/Releases/4.15.1.1)
+  release notes for download information and further details.
+
 #### RPM 4.16.1.2 released! (Dec 16 2020)
 * See [release notes](wiki/Releases/4.16.1.2) for download information
 * This is a brown paperbag release to fix a single regression in 4.16.1
