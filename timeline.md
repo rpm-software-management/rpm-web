@@ -2,6 +2,14 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.17.0 ALPHA released! (Apr 26 2021)
+* See [draft release notes](wiki/Releases/4.17.0) for details and download information
+* Highlights include:
+  * More robust install failure handling
+  * Many macro improvements, in particular wrt Lua integration
+  * Some long-needed transaction API improvements
+  * Beginnings of a reference manual
+
 #### RPM 4.16.1.3 and 4.15.1.1 released! (Mar 22 2021)
 * These are primarily security releases for CVE-2021-3421, CVE-2021-20271
   and CVE-2021-20266, with some additional fixes for important bugs.
