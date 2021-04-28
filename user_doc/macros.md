@@ -53,10 +53,13 @@ There are several builtin macros (with reserved names) that are needed to perfor
 
   %{load:...}         load a macro file (in >= 4.12.0)
   %{expand:...}       like eval, expand ... to <body> and (re-)expand <body>
+  %{macrobody:...}    unexpanded body of a macro
   %{shrink:...}       trim leading and trailing whitespace, reduce
                       intermediate whitespace to a single space (in >= 4.14.0)
   %{quote:...}        quote a parametric macro argument, needed to pass
                       empty strings or strings with whitespace (in >= 4.14.0)
+  %{expr:...}         evaluate an expression (in >= 4.15.0)
+  %{exists:...}       test file existence (in >= 4.17.0)
 
   %{lua:...}          expand with the [embedded Lua interpreter](lua.html)
 
@@ -74,7 +77,6 @@ There are several builtin macros (with reserved names) that are needed to perfor
 
   %{S:...}            expand ... to <source> file name
   %{P:...}            expand ... to <patch> file name
-  %{F:...}            expand ... to <file> file name
 ```
 
 Note that %define and %global differ in more ways than just scope: the body of a %define'd macro is lazily expanded (ie when used), but the body of %global is expanded at definition time. It's possible to use %%-escaping to force lazy expansion of %global.
