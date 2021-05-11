@@ -5,6 +5,60 @@ title: rpm.org - RPM Database Recovery
 # RPM Database Recovery
 This document provides an overview of how to deal with RPM database corruption.
 
+## Introduction
+
+Since version 4.16.0 RPM supports two new database backends: One based on `sqlite` and one native implementation called `ndb`. Both are much more stable and resilient than the traditional Berkley DB based backend (`bdb`).
+
+The backend rpm is supposed to use can be found out by executing
+
+```
+rpm -E "%{_db_backend}"
+```
+
+To be sure one should look into the database directory. The location can be queried by:
+
+```
+rpm -E "%{_dbpath}
+```
+
+but typically is `/var/lib/rpm`.
+
+* The `sqlite` backend has files beginning with `rpmdb.sqlite` in the dbpath.
+* The `ndb` backend has a `Packages.db` file.
+* BDB backend has many files named after RPM tags like
+  * `Dirnames`
+  * `Group`
+  * `Name`
+  * `Providename`
+  * ...
+  * `Packages` - which holds all the headers and is the primary data source
+  * optionally `__db.001`, `__db.002`, ... - BDB environment files
+
+# Sqlite and NDB Backend
+
+In case something goes wrong with these databases create a backup first:
+
+```
+# cd /var/lib
+# tar zcvf /var/preserve/rpmdb-`date +"%d%m%Y"`.tar.gz rpm
+```
+
+Most problems can then be solved by running
+
+```
+rpmdb --rebuilddb
+```
+
+which creates the database structure from the RPM headers that are also stored in the database. If this fails you may try the sqlite tools for saving the database or at least rescue the `Packages` table.
+
+The ndb backend offers an more involved rescue process with
+
+```
+rpmdb --salvagedb
+```
+
+# BDB Backend
+
 ## Removing stale locks
 
 If an RPM command hangs, segfaults, or otherwise behaves abnormally during use then the first task is to check for stale lock files. This can be accomplished with -CA option to the rpmdb_stat command:
@@ -55,7 +109,31 @@ If the Packages file now passes the verify step, then as an additional sanity ch
 If this query passes without generating any messages to standard error, then it is time to rebuild the indexes by invoking:
 
 ```
-# rpm -v --rebuilddb
+# rpmdb -v --rebuilddb
 ```
 
-At this point you should have a functioning RPM database again. If any of the recovery steps failed, then a bug should be reported. When creating the report, provide the tar.gz backup of the RPM DB as an attachment, along with any daily package list log files named /var/log/rpm*. 
+At this point you should have a functioning RPM database again.
+
+
+# If all fails
+
+
+If the recovery failed, then a bug should be reported. Note that this is a rare event and it is possible that your system took more damage than just the rpm database.
+
+When creating the bug report, provide the tar.gz backup of the RPM DB as an attachment. If available also provide the list of installed packages. First try
+
+```
+# rpm -qa 1> /dev/null
+```
+
+If this does not work or the result is suspiciously short you can look into `/var/log/rpm*`. RPM comes with a cron script to back up the list of installed packages daily there but it may not be installed on the system.
+
+Another place to look for the list of installed packages may be the logs of a higher level installer/updater that may still be undamaged.
+
+If you have the list of packages available it may be easier to re-create the rpmdb than reparing it. Run
+
+```
+rpm -i --justdb PACKAGES
+```
+
+or reinstalling all packages completely after moving the broken database out of the way.
