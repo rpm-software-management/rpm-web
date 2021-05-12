@@ -598,7 +598,7 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
 #### RPM 4.4.2 released (Jul 21st 2005 ??) ####
 
- * [rpm-4.4.2.tar.gz](https://ftp.osuosl.org/pub/rpm/releases/rpm-4.4.x/rpm-4.4.2.tar.gz)
+ * [rpm-4.4.2.tar.gz](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-4.4.x/rpm-4.4.2.tar.gz)
 
 #### RPM 4.4.1 released (??) ####
 
