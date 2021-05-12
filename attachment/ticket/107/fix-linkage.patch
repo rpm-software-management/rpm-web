@@ -1,0 +1,22 @@
+Description: Fix linkage of some binaries
+ These binaries use symbols from other libraries, but do not link to them.
+ Because of this they fail to build with binutils-gold which make default
+ --no-add-needed.
+Author: Michal Čihař <nijel@debian.org>
+Forwarded: http://rpm.org/ticket/107
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -118,11 +118,11 @@
+ 
+ rpmlibexec_PROGRAMS +=	rpmdeps
+ rpmdeps_SOURCES =	tools/rpmdeps.c
+-rpmdeps_LDADD =		build/librpmbuild.la
++rpmdeps_LDADD =		lib/librpm.la rpmio/librpmio.la build/librpmbuild.la @WITH_POPT_LIB@
+ 
+ bin_PROGRAMS +=		rpmgraph
+ rpmgraph_SOURCES =	tools/rpmgraph.c
+-rpmgraph_LDADD =	lib/librpm.la
++rpmgraph_LDADD =	lib/librpm.la rpmio/librpmio.la @WITH_POPT_LIB@
+ 
+ dist_bin_SCRIPTS =	scripts/gendiff
+ 

@@ -1,0 +1,98 @@
+#!/usr/bin/python
+
+import rpm
+import os
+import sys
+import getopt
+import commands
+from rpmUtils.miscutils import stringToVersion
+
+DEFAULT_CMP="find $(pwd) -type f"
+PROV="/tmp/osgi-prov.txt"
+REQ="/tmp/osgi-req.txt"
+
+# this function was take out of rpmdev-vercmp
+def vercmp((e1, v1, r1), (e2, v2, r2)):
+   rc = rpm.labelCompare((e1, v1, r1), (e2, v2, r2))
+   return rc
+
+def usage():
+	print "This script check if osgideps.pl RPM deps generator can be activate on a given list of OSGI bundles.\n"
+	print "Usage: osgideps-check [option]"
+	print "	-h --help		show this help"
+	print "	-c --command	command that print a list of file to stdin (e.g find /usr/shar/java -type f)"
+	print "  -d --debug		run from '/tmp/osgi-prov.txt' and '/tmp/osgi-prov.txt' pre-builded file"
+
+# parse params          
+cmd = DEFAULT_CMP
+debug = False                 
+try:                                
+	opts, args = getopt.getopt(sys.argv[1:], "hcd", ["help", "command=", "debug"]) 
+except getopt.GetoptError:           
+	usage()                          
+	sys.exit(2)
+
+for opt, arg in opts:
+	if opt in ("-h", "--help"):
+		usage()                     
+		sys.exit()                  
+	elif opt in ("-c", "--command"):
+		cmd = arg  
+	elif opt in ("-d", "--debug"):
+		debug = True
+		
+if debug == False:
+	cmd_req = "%s | /usr/lib/rpm/osgideps.pl -r | sort -u > %s" % (cmd, REQ)
+	cmd_prov = "%s | /usr/lib/rpm/osgideps.pl -p | sort -u > %s" % (cmd, PROV)
+	print "Running '%s'..." % cmd_req
+	os.system(cmd_req)	
+	print "Running '%s'..." % cmd_prov
+	os.system(cmd_prov)
+
+reqs = open(REQ, 'r')
+for req in reqs:
+	isProv = False
+	reqIsNewerThanProv = False
+	providedBundles = ""
+	provs = open(PROV, 'r')
+	for prov in provs:
+		reqBundle = str(req).strip().split(" ")[0]
+		provBundle = str(prov).strip().split(" ")[0]
+		reqVersion = ""; provVersion = ""		
+		if  reqBundle == provBundle:
+			# TODO: This assume that provide without version match all requires and vis versa.
+			# (I think that rpm work like that be I'm currently not 100% sure of that)
+			try:
+				reqVersion = str(req).strip().split(" ")[2].strip()
+				provVersion = str(prov).strip().split(" ")[2].strip()
+				reqCmp = str(req).strip().split(" ")[1].strip()
+				provCmp = str(prov).strip().split(" ")[1].strip()
+				(e1, v1, r1) = stringToVersion(provVersion)
+				(e2, v2, r2) = stringToVersion(reqVersion)
+				rc = vercmp((e1, v1, r1), (e2, v2, r2))
+				# We stricly check version matching here.
+				if (reqCmp == '=' and rc == 0) or (reqCmp == '>=' and rc >= 0):
+					isProv = True
+					exit
+				else:
+					isProv = False
+					providedBundles = str(prov).strip() + " "
+					reqIsNewerThanProv = True 
+			except:
+				isProv = True
+				if (reqVersion.strip() != "" and provVersion.strip() != ""):
+					print "ERROR: This script suck for '%s' bundle req:%s - prov:%s" % (reqBundle, reqVersion, provVersion)
+	provs.close()
+	if isProv == False:
+		if reqIsNewerThanProv == True:
+			print "ERROR: req:'%s' '%s' prov:'%s'" % (req.strip(), reqCmp, providedBundles) 
+		else:	
+			# We check if the osgi bundle is provided by osgi-system-package meta rpm package
+			(status, output) = commands.getstatusoutput("rpm -q --whatprovides '%s' | grep osgi-system-package" % reqBundle) 
+			if status != 0:
+				print "ERROR: bundle '%s' not provided" % str(req).strip()
+reqs.close()
+
+
+           
+

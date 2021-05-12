@@ -1,0 +1,75 @@
+Index: rpm-4.6.0-rc1/python/spec-py.c
+===================================================================
+--- rpm-4.6.0-rc1.orig/python/spec-py.c
++++ rpm-4.6.0-rc1/python/spec-py.c
+@@ -5,6 +5,7 @@
+ #include "system.h"
+ 
+ #include "spec-py.h"
++#include "header-py.h"
+ 
+ /** \ingroup python
+  * \name Class: Rpmspec
+@@ -147,6 +148,53 @@ spec_get_sources(specObject *s)
+ 
+ }
+ 
++static PyObject *
++spec_get_sourceHeader(specObject *s)
++{
++    rpmSpec spec;
++
++    spec = specFromSpec(s);
++    if (spec == NULL) {
++        return NULL;
++    }
++    if (!spec->sourceHeader) {
++        initSourceHeader(spec);
++    }
++    return (PyObject *) hdr_Wrap(spec->sourceHeader);
++}
++
++static PyObject *
++spec_get_packageHeaders(specObject *s)
++{
++    rpmSpec spec;
++    PyObject *obj;
++    Package p;
++    int n;
++    char *srcname;
++
++    spec = specFromSpec(s);
++    if (spec == NULL) {
++        return NULL;
++    }
++    for (p = spec->packages, n = 0; p; p = p->next, n++) {}
++    obj = PyList_New(n);
++    if (obj == NULL) {
++        return NULL;
++    }
++    if (!spec->sourceHeader) {
++        initSourceHeader(spec);
++    }
++    srcname = headerFormat(
++          spec->sourceHeader,
++          spec->noSource ? "%{name}-%{version}-%{release}.nosrc.rpm"
++          : "%{name}-%{version}-%{release}.src.rpm", NULL);
++    for (p = spec->packages, n = 0; p; p = p->next, n++) {
++        headerPutString(p->header, RPMTAG_SOURCERPM, srcname);
++        PyList_SET_ITEM(obj, n, (PyObject *) hdr_Wrap(p->header));
++    }
++    return obj;
++}
++
+ /**
+  */
+ 
+@@ -159,6 +207,8 @@ static PyMethodDef spec_Spec_methods[] =
+     {"install",   (PyCFunction) spec_get_install, METH_VARARGS,  NULL },
+     {"clean",   (PyCFunction) spec_get_clean, METH_VARARGS,  NULL },
+     {"buildRoot",   (PyCFunction) spec_get_buildroot, METH_VARARGS,  NULL },
++    {"sourceHeader",   (PyCFunction) spec_get_sourceHeader, METH_VARARGS,  NULL },
++    {"packageHeaders",   (PyCFunction) spec_get_packageHeaders, METH_VARARGS,  NULL },
+     {NULL}  /* Sentinel */
+ };
+ 

@@ -1,0 +1,11 @@
+--- a/build.c	2009-04-03 07:38:40.000000000 -0400
++++ b/build.c	2010-02-11 09:43:12.809240587 -0500
+@@ -218,7 +218,7 @@
+     if (*specFile != '/') {
+ 	char *cwd = rpmGetCwd();
+ 	char *s = NULL;
+-	rasprintf(&s, "%s/%s", cwd, arg);
++	rasprintf(&s, "%s/%s", cwd, specFile);
+ 	free(cwd);
+ 	free(specFile);
+ 	specFile = s;

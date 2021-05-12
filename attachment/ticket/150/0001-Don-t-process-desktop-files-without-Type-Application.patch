@@ -1,0 +1,34 @@
+From 7adf30794954c8ac8d7862d35af674faef1ed155 Mon Sep 17 00:00:00 2001
+From: Pavol Rusnak <stick@gk2.sk>
+Date: Wed, 17 Mar 2010 16:02:46 +0100
+Subject: [PATCH] Don't process desktop files without Type=Application and Exec= line
+
+---
+ scripts/desktop-file.prov |   10 ++++++----
+ 1 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/scripts/desktop-file.prov b/scripts/desktop-file.prov
+index abb79f9..5b159ae 100755
+--- a/scripts/desktop-file.prov
++++ b/scripts/desktop-file.prov
+@@ -9,11 +9,13 @@ OLD_IFS="$IFS"
+ while read instfile ; do
+ 	case "$instfile" in
+ 	*.desktop)
+-		mime=`cat "$instfile" | grep MimeType= | cut -d'=' -f2`
+-                IFS=';'
++		if ! grep -q '^Type=Application$' "$instfile"; then continue; fi
++		if ! grep -q '^Exec=' "$instfile"; then continue; fi
++		mime=`grep '^MimeType=' "$instfile" | cut -d'=' -f2`
++		IFS=';'
+ 		for type in $mime ; do
+-		        echo 'mimehandler('$type')'
+-	        done
++			echo 'mimehandler('$type')'
++		done
+ 		;;
+ 	esac
+ done
+-- 
+1.6.4.2
+

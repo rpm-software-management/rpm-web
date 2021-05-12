@@ -1,0 +1,27 @@
+From c9a3fdd25bf17e868c186aa6d08a9f8c80aeae4b Mon Sep 17 00:00:00 2001
+From: =?utf-8?q?Ville=20Skytt=C3=A4?= <ville.skytta@iki.fi>
+Date: Sun, 19 Apr 2009 23:51:19 +0300
+Subject: [PATCH] Add --disable-dependency-tracking to %configure options.
+
+autotools dependency tracking isn't generally useful in rpm builds;
+disabling it results in cleaner build logs and possibly slight build
+speedups.
+---
+ macros.in |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/macros.in b/macros.in
+index c187f62..4738857 100644
+--- a/macros.in
++++ b/macros.in
+@@ -1018,6 +1018,7 @@ print (t)\
+   %{_configure} --host=%{_host} --build=%{_build} \\\
+ 	--target=%{_target_platform} \\\
+ 	--program-prefix=%{?_program_prefix} \\\
++	--disable-dependency-tracking \\\
+ 	--prefix=%{_prefix} \\\
+ 	--exec-prefix=%{_exec_prefix} \\\
+ 	--bindir=%{_bindir} \\\
+-- 
+1.6.0.6
+

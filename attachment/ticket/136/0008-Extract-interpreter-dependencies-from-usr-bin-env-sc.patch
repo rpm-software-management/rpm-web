@@ -1,0 +1,39 @@
+From ab02d04ccebfebf9b0c01056a730a97cdce24eb9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ville=20Skytt=C3=A4?= <ville.skytta@iki.fi>
+Date: Wed, 10 Feb 2010 22:45:54 +0200
+Subject: [PATCH 8/8] Extract interpreter dependencies from #!/usr/bin/env scripts.
+
+---
+ scripts/interpreter.req |   17 ++++++++++++++++-
+ 1 files changed, 16 insertions(+), 1 deletions(-)
+
+diff --git a/scripts/interpreter.req b/scripts/interpreter.req
+index 215bd50..1e7dd6a 100755
+--- a/scripts/interpreter.req
++++ b/scripts/interpreter.req
+@@ -1,6 +1,21 @@
+ #!/bin/sh
+ 
+-# TODO: handle #!/usr/bin/env somehow
++# "rpm managed" dirs in system default path
++defpaths="/bin /usr/bin"
++
+ while read filename; do
++    # common cases
+     sed -n -e '1s:^#![[:space:]]*\(/[^[:space:]]\{1,\}\).*:\1:p' "$filename"
++    #!/usr/bin/env /foo/bar
++    sed -n -e '1s:^#![[:space:]]*[^[:space:]]*/bin/env[[:space:]]\{1,\}\(/[^[:space:]]\{1,\}\):\1:p' "$filename"
++    #!/usr/bin/env foo -> look in default paths
++    sed -n -e '1s:^#![[:space:]]*[^[:space:]]*/bin/env[[:space:]]\{1,\}\([^/[:space:]]\{1,\}\)[[:space:]]*$:\1:p' "$filename" \
++        | while read interpreter; do
++        for path in $defpaths; do
++            if [ -x $path/$interpreter ]; then
++                echo $path/$interpreter
++                break
++            fi
++        done
++    done
+ done
+-- 
+1.6.6
+

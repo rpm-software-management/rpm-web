@@ -1,0 +1,67 @@
+--- eclipse.spec	12 Feb 2009 20:05:15 -0000	1.608
++++ eclipse.spec	5 Mar 2009 18:36:11 -0000
+@@ -1,3 +1,5 @@
++%define __find_requires /usr/lib/rpm/osgideps.pl -r
++
+ # TODO:
+ # - update ecj-rpmdebuginfo patch
+ # - look at startup script and launcher patches
+@@ -1381,6 +1383,15 @@
+ %{_libdir}/%{name}/plugins/org.eclipse.ui.workbench_*
+ %{_libdir}/%{name}/plugins/org.eclipse.update.configurator_*
+ %{_libdir}/%{name}/plugins/org.eclipse.equinox.simpleconfigurator_*
++%{_libdir}/%{name}/plugins/javax.servlet_*
++%{_libdir}/%{name}/plugins/javax.servlet.jsp_*
++%{_libdir}/%{name}/plugins/org.eclipse.core.resources_*
++%{_libdir}/%{name}/plugins/org.eclipse.core.resources.compatibility_*
++%{_libdir}/%{name}/plugins/org.eclipse.text_*
++%{_libdir}/%{name}/plugins/org.eclipse.team.core_*
++%{_libdir}/%{name}/plugins/org.eclipse.ant.core_*
++%{_libdir}/%{name}/plugins/org.eclipse.core.variables_*
++%{_libdir}/%{name}/plugins/org.eclipse.osgi.services_*
+ 
+ %if %{initialize}
+ %files platform -f %{name}-platform.install
+@@ -1400,14 +1411,11 @@
+ %dir %{_datadir}/%{name}/dropins
+ %{_libdir}/%{name}/features/org.eclipse.platform_*
+ %{_libdir}/%{name}/plugins/com.jcraft.jsch_*
+-%{_libdir}/%{name}/plugins/javax.servlet_*
+-%{_libdir}/%{name}/plugins/javax.servlet.jsp_*
+ %{_libdir}/%{name}/plugins/org.apache.ant_*
+ %{_libdir}/%{name}/plugins/org.apache.commons.el_*
+ %{_libdir}/%{name}/plugins/org.apache.commons.logging_*
+ %{_libdir}/%{name}/plugins/org.apache.lucene_*
+ %{_libdir}/%{name}/plugins/org.apache.lucene.analysis_*
+-%{_libdir}/%{name}/plugins/org.eclipse.ant.core_*
+ %{_libdir}/%{name}/plugins/org.eclipse.compare_*
+ %{_libdir}/%{name}/plugins/org.eclipse.core.boot_*
+ %{_libdir}/%{name}/plugins/org.eclipse.core.filebuffers_*
+@@ -1419,11 +1427,8 @@
+ %ifarch %{ix86}
+ %{_libdir}/%{name}/plugins/org.eclipse.core.net.linux.x86_*
+ %endif
+-%{_libdir}/%{name}/plugins/org.eclipse.core.resources_*
+-%{_libdir}/%{name}/plugins/org.eclipse.core.resources.compatibility_*
+ %{_libdir}/%{name}/plugins/org.eclipse.core.runtime.compatibility_*
+ %{_libdir}/%{name}/plugins/org.eclipse.core.runtime.compatibility.registry_*
+-%{_libdir}/%{name}/plugins/org.eclipse.core.variables_*
+ %{_libdir}/%{name}/plugins/org.eclipse.debug.core_*
+ %{_libdir}/%{name}/plugins/org.eclipse.debug.ui_*
+ %{_libdir}/%{name}/plugins/org.eclipse.equinox.http.jetty_*
+@@ -1440,14 +1445,11 @@
+ %{_libdir}/%{name}/plugins/org.eclipse.jsch.ui_*
+ %{_libdir}/%{name}/plugins/org.eclipse.ltk.core.refactoring_*
+ %{_libdir}/%{name}/plugins/org.eclipse.ltk.ui.refactoring_*
+-%{_libdir}/%{name}/plugins/org.eclipse.osgi.services_*
+ %{_libdir}/%{name}/plugins/org.eclipse.osgi.util_*
+ %{_libdir}/%{name}/plugins/org.eclipse.platform_*
+ %{_libdir}/%{name}/plugins/org.eclipse.platform.doc.user_*
+ %{_libdir}/%{name}/plugins/org.eclipse.search_*
+-%{_libdir}/%{name}/plugins/org.eclipse.team.core_*
+ %{_libdir}/%{name}/plugins/org.eclipse.team.ui_*
+-%{_libdir}/%{name}/plugins/org.eclipse.text_*
+ %{_libdir}/%{name}/plugins/org.eclipse.ui.browser_*
+ %{_libdir}/%{name}/plugins/org.eclipse.ui.cheatsheets_*
+ %{_libdir}/%{name}/plugins/org.eclipse.ui.console_*
+

@@ -1,0 +1,21 @@
+--- rpm/mimetypes.prov.sav	2009-10-24 05:23:07.000000000 +0200
++++ rpm/mimetypes.prov	2010-03-17 15:33:57.437352306 +0100
+@@ -6,11 +6,13 @@ OLD_IFS="$IFS"
+ while read instfile ; do
+     case "$instfile" in
+     *.desktop)
+-        mime=$(sed -re '/^MimeType *= *([a-zA-Z0-9. _/;-]*)/!d' $instfile | cut -d'=' -f2)
+-        IFS=';'
+-        for type in $mime ; do
+-            echo 'mimetype('$type')'
+-        done
++        if grep '^Type *= *Application' "$instfile" >/dev/null 2>/dev/null; then
++            mime=$(sed -re '/^MimeType *= *([a-zA-Z0-9. _/;-]*)/!d' $instfile | cut -d'=' -f2)
++            IFS=';'
++            for type in $mime ; do
++                echo 'mimetype('$type')'
++            done
++        fi
+         ;;
+     esac
+ done

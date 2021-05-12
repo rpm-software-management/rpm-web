@@ -1,0 +1,15 @@
+Description: Fix include path
+ These files are in source tree and not build tree.
+Author: Michal Čihař <nijel@debian.org>
+Forwarded: http://rpm.org/ticket/91
+--- a/rpmio/Makefile.am
++++ b/rpmio/Makefile.am
+@@ -32,7 +32,7 @@
+ 	-lpthread
+ 
+ if WITH_LUAEXT
+-AM_CPPFLAGS += -I$(top_builddir)/luaext/
++AM_CPPFLAGS += -I$(top_srcdir)/luaext/
+ librpmio_la_LIBADD += $(top_builddir)/luaext/libluaext.la
+ endif
+ 

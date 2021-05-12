@@ -1,0 +1,41 @@
+From 33c67ad75fad304d65103e033a3d59b1c8178c85 Mon Sep 17 00:00:00 2001
+From: =?utf-8?q?Ville=20Skytt=C3=A4?= <ville.skytta@iki.fi>
+Date: Tue, 4 Aug 2009 00:34:31 +0300
+Subject: [PATCH] Add *.xz and *.lzma recompress support to brp-compress.
+
+---
+ scripts/brp-compress |   10 +++++-----
+ 1 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/scripts/brp-compress b/scripts/brp-compress
+index 28051d9..2c28237 100755
+--- a/scripts/brp-compress
++++ b/scripts/brp-compress
+@@ -23,9 +23,9 @@ do
+ 	[ "`basename $f`" = "dir" ] && continue
+ 
+ 	case "$f" in
+-	 *.Z) gunzip $f; b=`echo $f | sed -e 's/\.Z$//'`;;
+-	 *.gz) gunzip $f; b=`echo $f | sed -e 's/\.gz$//'`;;
+-	 *.bz2) bunzip2 $f; b=`echo $f | sed -e 's/\.bz2$//'`;;
++	 *.gz|*.Z)    gunzip  $f; b=`echo $f | sed -e 's/\.\(gz\|Z\)$//'`;;
++	 *.bz2)       bunzip2 $f; b=`echo $f | sed -e 's/\.bz2$//'`;;
++	 *.xz|*.lzma) unxz    $f; b=`echo $f | sed -e 's/\.\(xz\|lzma\)$//'`;;
+ 	 *) b=$f;;
+ 	esac
+ 
+@@ -48,9 +48,9 @@ do
+ 
+     for f in `find $d -type l`
+     do
+-	l=`ls -l $f | sed -e 's/.* -> //' -e 's/\.gz$//' -e 's/\.bz2$//' -e 's/\.Z$//'`
++	l=`ls -l $f | sed -e 's/.* -> //' -e 's/\.\(gz\|Z\|bz2\|xz\|lzma\)$//'`
+ 	rm -f $f
+-	b=`echo $f | sed -e 's/\.gz$//' -e 's/\.bz2$//' -e 's/\.Z$//'`
++	b=`echo $f | sed -e 's/\.\(gz\|Z\|bz2\|xz\|lzma\)$//'`
+ 	ln -sf $l$COMPRESS_EXT $b$COMPRESS_EXT
+     done
+ done
+-- 
+1.6.0.6
+
