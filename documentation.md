@@ -31,12 +31,12 @@ This page attempts to track the various relevant documentation that exists for R
 
 ## RPM API
 * API documentation
-  * [RPM 4.16.x](http://ftp.rpm.org/api/4.16.1/)
-  * [RPM 4.15.x](http://ftp.rpm.org/api/4.15.1/)
-  * [RPM 4.14.x](http://ftp.rpm.org/api/4.14.0/)
-  * [RPM 4.13.x](http://ftp.rpm.org/api/4.13.0/)
-  * [RPM 4.12.x](http://ftp.rpm.org/api/4.12.0.1/)
-  * [Older versions](http://ftp.rpm.org/api/)
+  * [RPM 4.16.x](https://ftp.osuosl.org/pub/rpm/api/4.16.1/)
+  * [RPM 4.15.x](https://ftp.osuosl.org/pub/rpm/api/4.15.1/)
+  * [RPM 4.14.x](https://ftp.osuosl.org/pub/rpm/api/4.14.0/)
+  * [RPM 4.13.x](https://ftp.osuosl.org/pub/rpm/api/4.13.0/)
+  * [RPM 4.12.x](https://ftp.osuosl.org/pub/rpm/api/4.12.0.1/)
+  * [Older versions](https://ftp.osuosl.org/pub/rpm/api/)
 
 * [Plugin Interface (RPM >= 4.12)](devel_doc/plugins.html)
 * [Programming RPM with C](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-programming-c.html) from Fedora RPM Guide
@@ -56,7 +56,7 @@ This page attempts to track the various relevant documentation that exists for R
 ## Books
 The following books have been published regarding RPM:
 
-* **Maximum RPM** A book written by Ed Bailey. It is available in hardback (442 pages), and has recently been re-printed by Sams in soft-cover (450 pages - ISBN: 0672311054). The hardcover edition includes a quick reference card. An on-line version of the original book is also available, and a more up to date, work in progress version can be found [here](http://ftp.rpm.org/max-rpm/). 
+* **Maximum RPM** A book written by Ed Bailey. It is available in hardback (442 pages), and has recently been re-printed by Sams in soft-cover (450 pages - ISBN: 0672311054). The hardcover edition includes a quick reference card. An on-line version of the original book is also available, and a more up to date, work in progress version can be found [here](https://ftp.osuosl.org/pub/rpm/max-rpm/). 
 * **Red Hat RPM Guide** A more recent book by Eric Foster-Johnson, this has recently been released under the Open Publication License and a draft close to the published version is available on-line as [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html). This book covers everything from basic usage to advanced tricks, package creation and API programming. Participation in updating the Guide can be done via the [Fedora Documentation Project](http://fedoraproject.org/wiki/DocsProject). Discussions about moving this content and work upstream to rpm.org can occur on [fedora-docs-list](http://www.redhat.com/mailman/listinfo/fedora-docs-list). 
 
 ## Other Resources
