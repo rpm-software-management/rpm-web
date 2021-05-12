@@ -46,7 +46,7 @@ If the answer to any of the above is "yes" then its almost certainly not appropr
 
 ## Cutting a release
 
-1. Prepare preliminary release notes at http://rpm.org/wiki/Releases/X.Y.Z
+1. Prepare preliminary release notes at https://rpm.org/wiki/Releases/X.Y.Z
 
     * Not every commit needs a corresponding release notes entry, eg
       internal refactoring and cleanup should not be detailed, and 
@@ -102,5 +102,5 @@ If the answer to any of the above is "yes" then its almost certainly not appropr
 9. Make the release official:
 
     * add tarball checksum and download location to the release notes
-    * add a new item to http://rpm.org/wiki/News and http://rpm.org/timeline
+    * add a new item to https://rpm.org/wiki/News and https://rpm.org/timeline
     * send an announcement mail to rpm-announce@lists.rpm.org and rpm-maint@lists.rpm.org (and why not rpm-list@lists.rpm.org too) 
