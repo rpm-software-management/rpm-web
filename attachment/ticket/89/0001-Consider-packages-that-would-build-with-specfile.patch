@@ -1,0 +1,54 @@
+From 528eb975d94e2d2e18bc868858293aeca7ea26c0 Mon Sep 17 00:00:00 2001
+From: Lubomir Rintel <lkundrak@v3.sk>
+Date: Wed, 19 Aug 2009 18:32:51 +0200
+Subject: [PATCH] Consider packages that would build with --specfile
+
+Currently --specfile takes all package structures into account, even
+those which would not result in binary packages since they lack %files
+section. This typically causes trouble with packages that only build
+into subpackages, since the user has no way if finding out which
+packages would actually build.
+
+To retain compatibility in that case this adds the source package to
+the list, using "src" as an arch, which makes it distinguishable from
+the binary packages.
+---
+ build/spec.c |   15 ++++++++++++---
+ 1 files changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/build/spec.c b/build/spec.c
+index 76b22a2..8c0b6da 100644
+--- a/build/spec.c
++++ b/build/spec.c
+@@ -552,7 +552,6 @@ int rpmspecQuery(rpmts ts, QVA_t qva, const char * arg)
+     int anyarch = 1;
+     int force = 1;
+     int res = 1;
+-    int xx;
+ 
+     if (qva->qva_showPackage == NULL)
+ 	goto exit;
+@@ -568,8 +567,18 @@ int rpmspecQuery(rpmts ts, QVA_t qva, const char * arg)
+     }
+ 
+     res = 0;
+-    for (pkg = spec->packages; pkg != NULL; pkg = pkg->next)
+-	xx = qva->qva_showPackage(qva, ts, pkg->header);
++
++    /* Source package */
++    initSourceHeader(spec);
++    headerPutString (spec->sourceHeader, RPMTAG_ARCH, "src");
++    qva->qva_showPackage(qva, ts, spec->sourceHeader);
++
++    /* Binary subpackages */
++    for (pkg = spec->packages; pkg != NULL; pkg = pkg->next) {
++        if (pkg->fileList == NULL)
++            continue;
++	qva->qva_showPackage(qva, ts, pkg->header);
++    }
+ 
+ exit:
+     spec = freeSpec(spec);
+-- 
+1.6.2.5
+

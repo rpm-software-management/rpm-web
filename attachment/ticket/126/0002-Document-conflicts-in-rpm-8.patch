@@ -1,0 +1,43 @@
+From 61b145eb80c56ccc1a063c6bf650098e4546c10b Mon Sep 17 00:00:00 2001
+From: =?utf-8?q?Ville=20Skytt=C3=A4?= <ville.skytta@iki.fi>
+Date: Sat, 23 Jan 2010 14:50:17 +0200
+Subject: [PATCH 2/2] Document --conflicts in rpm(8).
+
+---
+ doc/rpm.8 |   13 ++++++++-----
+ 1 files changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/doc/rpm.8 b/doc/rpm.8
+index 4e038f4..ae89d79 100644
+--- a/doc/rpm.8
++++ b/doc/rpm.8
+@@ -77,11 +77,11 @@ rpm \- RPM Package Manager
+ .PP
+ 
+ 
+- [\fB--changelog\fR] [\fB-c,--configfiles\fR] [\fB-d,--docfiles\fR] [\fB--dump\fR]
+- [\fB--filesbypkg\fR] [\fB-i,--info\fR] [\fB--last\fR] [\fB-l,--list\fR]
+- [\fB--provides\fR] [\fB--qf,--queryformat \fIQUERYFMT\fB\fR]
+- [\fB-R,--requires\fR] [\fB--scripts\fR] [\fB-s,--state\fR]
+- [\fB--triggers,--triggerscripts\fR]
++ [\fB--changelog\fR] [\fB-c,--configfiles\fR] [\fB--conflicts\fR]
++ [\fB-d,--docfiles\fR] [\fB--dump\fR] [\fB--filesbypkg\fR] [\fB-i,--info\fR]
++ [\fB--last\fR] [\fB-l,--list\fR] [\fB--provides\fR]
++ [\fB--qf,--queryformat \fIQUERYFMT\fB\fR] [\fB-R,--requires\fR]
++ [\fB--scripts\fR] [\fB-s,--state\fR] [\fB--triggers,--triggerscripts\fR]
+ 
+ .SS "verify-options"
+ .PP
+@@ -590,6 +590,9 @@ Display change information for the package.
+ \fB-c, --configfiles\fR
+ List only configuration files (implies \fB-l\fR).
+ .TP
++\fB--conflicts\fR
++List capabilities this package conflicts with.
++.TP
+ \fB-d, --docfiles\fR
+ List only documentation files (implies \fB-l\fR).
+ .TP
+-- 
+1.6.2.5
+

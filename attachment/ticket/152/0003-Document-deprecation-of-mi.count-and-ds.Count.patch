@@ -1,0 +1,39 @@
+From 8d61118d0dab422f4cdd4a71a09b18886ff0afec Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ville=20Skytt=C3=A4?= <ville.skytta@iki.fi>
+Date: Fri, 19 Mar 2010 20:09:15 +0200
+Subject: [PATCH 3/3] Document deprecation of mi.count() and ds.Count().
+
+---
+ python/rpmds-py.c |    2 +-
+ python/rpmmi-py.c |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/python/rpmds-py.c b/python/rpmds-py.c
+index ac1b6b1..49a02e4 100644
+--- a/python/rpmds-py.c
++++ b/python/rpmds-py.c
+@@ -196,7 +196,7 @@ static PyObject * rpmds_Rpmlib(rpmdsObject * s)
+ 
+ static struct PyMethodDef rpmds_methods[] = {
+  {"Count",	(PyCFunction)rpmds_Count,	METH_NOARGS,
+-	"ds.Count -> Count	- Return no. of elements.\n" },
++	"Deprecated, use len(ds) instead.\n" },
+  {"Ix",		(PyCFunction)rpmds_Ix,		METH_NOARGS,
+ 	"ds.Ix -> Ix		- Return current element index.\n" },
+  {"DNEVR",	(PyCFunction)rpmds_DNEVR,	METH_NOARGS,
+diff --git a/python/rpmmi-py.c b/python/rpmmi-py.c
+index f6dd802..df54997 100644
+--- a/python/rpmmi-py.c
++++ b/python/rpmmi-py.c
+@@ -118,7 +118,7 @@ static struct PyMethodDef rpmmi_methods[] = {
+     {"instance",    (PyCFunction) rpmmi_Instance,	METH_NOARGS,
+ 	NULL },
+     {"count",       (PyCFunction) rpmmi_Count,		METH_NOARGS,
+-	NULL },
++"Deprecated, use len(mi) instead.\n" },
+     {"pattern",	    (PyCFunction) rpmmi_Pattern,	METH_VARARGS|METH_KEYWORDS,
+ "mi.pattern(TagN, mire_type, pattern)\n\
+ - Set a secondary match pattern on tags from retrieved header.\n" },
+-- 
+1.7.0.1
+

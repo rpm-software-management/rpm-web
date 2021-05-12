@@ -1,0 +1,1398 @@
+execve("/bin/rpm", ["rpm", "--root", "/", "-ihv", "ts-0-0.x86_64.rpm"], ["GREP_COLOR=36;7", "LESSKEY=/etc/lesskey.bin", "NNTPSERVER=news", "MANPATH=/usr/share/man:/usr/loca"..., "HOSTNAME=borg", "XKEYSYMDB=/usr/share/X11/XKeysym"..., "HOST=borg", "TERM=screen.linux", "SHELL=/bin/bash", "PROFILEREAD=true", "HISTSIZE=1000", "PS1_XROOT=\\[\\e[1;30m\\]\\A \\[\\e[0;"..., "MORE=-sl", "JRE_HOME=/usr//jvm/jre", "USER=root", "LS_COLORS=no=0:fi=0:di=1;34:ln=1"..., "SUDO_USER=jengelh", "XNLSPATH=/usr/share/X11/nls", "SUDO_UID=25121", "ENV=/etc/bash.bashrc", "HOSTTYPE=x86_64", "FROM_HEADER=", "USERNAME=root", "PAGER=less", "CSHEDIT=emacs", "XDG_CONFIG_DIRS=/etc/xdg", "MINICOM=-c on", "MAIL=/var/spool/mail/root", "PATH=/root/bin:/usr/local/bin:/u"..., "CPU=x86_64", "NXDIR=/usr/NX", "JAVA_BINDIR=/usr/lib64/jvm/java/"..., "INPUTRC=/etc/inputrc", "PWD=/home/jengelh/lbuild/input/t"..., "JAVA_HOME=/usr/lib64/jvm/java", "EDITOR=/usr/bin/joe", "PCREGREP_COLOR=36;7", "LANG=POSIX", "PYTHONSTARTUP=/etc/pythonstart", "PS1_USER=\\A \\h:$(hxpref_beautify"..., "SDK_HOME=/usr/lib64/jvm/java", "PS1_ROOT=\\A \\h:$(hxpref_beautify"..., "PS1=\\[\\e[1;30m\\]\\A \\[\\e[0;31m\\]\\"..., "QT_SYSTEM_DIR=/usr/share/desktop"..., "JDK_HOME=/usr/lib64/jvm/java", "HOME=/root", "SUDO_COMMAND=/bin/bash -c export"..., "SHLVL=1", "LESS_ADVANCED_PREPROCESSOR=no", "OSTYPE=linux", "LS_OPTIONS=-NT0 --color=auto --g"..., "XCURSOR_THEME=DMZ", "WINDOWMANAGER=/usr/bin/twm", "LESS=-Mi", "MACHTYPE=x86_64-suse-linux", "LOGNAME=root", "CVS_RSH=ssh", "XDG_DATA_DIRS=/usr/share", "LC_CTYPE=en_US.UTF-8", "LESSOPEN=lessopen.sh %s", "SUDO_GID=100", "DISPLAY=", "PS1_XUSER=\\[\\e[1;30m\\]\\A \\[\\e[0;"..., "LESSCLOSE=lessclose.sh %s %s", "G_BROKEN_FILENAMES=1", "JAVA_ROOT=/usr/lib64/jvm/java", "COLORTERM=1", "XAUTHORITY=/home/jengelh/.Xautho"..., "mc=() {  . /usr/share/mc/bin/mc-"..., "_=/usr/bin/strace"]) = 0
+brk(0)                                  = 0x213f000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d1300b000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d1300a000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+open("/etc/ld.so.cache", O_RDONLY)      = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1358789597, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=184, st_size=91207, st_atime=2010/05/18-08:18:01, st_mtime=2010/05/15-08:17:29, st_ctime=2010/05/15-08:17:29}) = 0
+mmap(NULL, 91207, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6d12ff3000
+close(3)                                = 0
+open("/usr/lib64/librpm.so.0", O_RDONLY) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\340\352\2\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=3507119746, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=2800, st_size=1431200, st_atime=2010/05/18-14:22:05, st_mtime=2009/11/23-20:58:57, st_ctime=2009/11/25-00:27:56}) = 0
+mmap(NULL, 3530696, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d12a91000
+fadvise64(3, 0, 3530696, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d12be6000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d12de5000, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x154000) = 0x7f6d12de5000
+mmap(0x7f6d12dee000, 4040, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f6d12dee000
+close(3)                                = 0
+open("/usr/lib64/librpmio.so.0", O_RDONLY) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\3\1\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=3507167206, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=656, st_size=334344, st_atime=2010/05/18-14:22:05, st_mtime=2009/11/23-20:58:57, st_ctime=2009/11/25-00:27:56}) = 0
+mmap(NULL, 2441448, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d1283c000
+fadvise64(3, 0, 2441448, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d12888000, 2097152, PROT_NONE) = 0
+mmap(0x7f6d12a88000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4c000) = 0x7f6d12a88000
+mmap(0x7f6d12a8e000, 8424, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f6d12a8e000
+close(3)                                = 0
+open("/lib64/libpopt.so.0", O_RDONLY)   = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\300\35\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=2159089925, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=80, st_size=39992, st_atime=2010/05/18-14:18:01, st_mtime=2009/10/24-02:21:10, st_ctime=2009/11/10-20:46:02}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12ff2000
+mmap(NULL, 2135088, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d12632000
+fadvise64(3, 0, 2135088, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d1263a000, 2097152, PROT_NONE) = 0
+mmap(0x7f6d1283a000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x8000) = 0x7f6d1283a000
+close(3)                                = 0
+open("/lib64/libpthread.so.0", O_RDONLY) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\360X\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=2159090032, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=264, st_size=131260, st_atime=2010/05/18-04:05:01, st_mtime=2010/01/27-12:43:20, st_ctime=2010/02/16-21:26:56}) = 0
+mmap(NULL, 2208640, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d12416000
+fadvise64(3, 0, 2208640, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d1242c000, 2097152, PROT_NONE) = 0
+mmap(0x7f6d1262c000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x16000) = 0x7f6d1262c000
+mmap(0x7f6d1262e000, 13184, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f6d1262e000
+close(3)                                = 0
+open("/lib64/libc.so.6", O_RDONLY)      = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\353\1\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=2159130462, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=2752, st_size=1408560, st_atime=2010/05/18-04:05:01, st_mtime=2010/01/27-12:43:17, st_ctime=2010/02/16-21:26:56}) = 0
+mmap(NULL, 3516488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d120bb000
+fadvise64(3, 0, 3516488, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d1220c000, 2097152, PROT_NONE) = 0
+mmap(0x7f6d1240c000, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x151000) = 0x7f6d1240c000
+mmap(0x7f6d12411000, 18504, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f6d12411000
+close(3)                                = 0
+open("/usr/lib64/liblua.so.5.1", O_RDONLY) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\243\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=3507172491, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=384, st_size=193112, st_atime=2010/05/18-14:22:05, st_mtime=2009/10/24-06:05:14, st_ctime=2009/11/15-20:26:22}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12ff1000
+mmap(NULL, 2288136, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d11e8c000
+fadvise64(3, 0, 2288136, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d11eb9000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d120b8000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2c000) = 0x7f6d120b8000
+close(3)                                = 0
+open("/lib64/libselinux.so.1", O_RDONLY) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\340]\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=2159090045, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=232, st_size=118048, st_atime=2010/05/18-04:30:01, st_mtime=2009/10/24-02:19:25, st_ctime=2009/11/15-10:15:45}) = 0
+mmap(NULL, 2217720, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d11c6e000
+fadvise64(3, 0, 2217720, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d11c8a000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d11e89000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b000) = 0x7f6d11e89000
+mmap(0x7f6d11e8b000, 1784, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f6d11e8b000
+close(3)                                = 0
+open("/lib64/libbz2.so.1", O_RDONLY)    = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\30\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=2159089881, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=128, st_size=62912, st_atime=2010/05/18-09:31:03, st_mtime=2009/10/24-03:20:07, st_ctime=2009/11/15-10:18:55}) = 0
+mmap(NULL, 2157936, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d11a5f000
+fadvise64(3, 0, 2157936, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d11a6d000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d11c6c000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xd000) = 0x7f6d11c6c000
+close(3)                                = 0
+open("/lib64/libz.so.1", O_RDONLY)      = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\20\36\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=2157845540, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=176, st_size=88640, st_atime=2010/05/18-04:05:01, st_mtime=2009/10/24-02:05:52, st_ctime=2009/11/15-21:48:54}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12ff0000
+mmap(NULL, 2183664, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d11849000
+fadvise64(3, 0, 2183664, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d1185d000, 2097152, PROT_NONE) = 0
+mmap(0x7f6d11a5d000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x14000) = 0x7f6d11a5d000
+close(3)                                = 0
+open("/usr/lib64/libelf.so.1", O_RDONLY) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0/\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=3507142023, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=160, st_size=80448, st_atime=2010/05/17-22:24:32, st_mtime=2009/10/24-03:29:50, st_ctime=2009/11/15-10:18:34}) = 0
+mmap(NULL, 2175328, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d11635000
+fadvise64(3, 0, 2175328, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d11648000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d11847000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x12000) = 0x7f6d11847000
+close(3)                                = 0
+open("/lib64/liblzma.so.0", O_RDONLY)   = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0000)\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=2157310041, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=264, st_size=133640, st_atime=2010/05/18-09:31:03, st_mtime=2009/10/24-02:22:33, st_ctime=2009/11/15-21:00:00}) = 0
+mmap(NULL, 2228664, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d11414000
+fadvise64(3, 0, 2228664, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d11434000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d11633000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1f000) = 0x7f6d11633000
+close(3)                                = 0
+open("/lib64/libm.so.6", O_RDONLY)      = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0`>\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=2159132320, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=680, st_size=346560, st_atime=2010/05/18-04:05:01, st_mtime=2010/01/27-12:43:18, st_ctime=2010/02/16-21:26:56}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12fef000
+mmap(NULL, 2441400, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d111bf000
+fadvise64(3, 0, 2441400, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d11213000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d11412000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x53000) = 0x7f6d11412000
+close(3)                                = 0
+open("/lib64/libdl.so.2", O_RDONLY)     = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\360\r\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=2159131917, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=32, st_size=14872, st_atime=2010/05/18-04:05:01, st_mtime=2010/01/27-12:43:18, st_ctime=2010/02/16-21:26:56}) = 0
+mmap(NULL, 2109696, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d10fbb000
+fadvise64(3, 0, 2109696, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d10fbd000, 2097152, PROT_NONE) = 0
+mmap(0x7f6d111bd000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x7f6d111bd000
+close(3)                                = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12fee000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12fed000
+arch_prctl(ARCH_SET_FS, 0x7f6d12fed790) = 0
+mprotect(0x7f6d111bd000, 4096, PROT_READ) = 0
+mprotect(0x7f6d11412000, 4096, PROT_READ) = 0
+mprotect(0x7f6d11633000, 4096, PROT_READ) = 0
+mprotect(0x7f6d11847000, 4096, PROT_READ) = 0
+mprotect(0x7f6d11a5d000, 4096, PROT_READ) = 0
+mprotect(0x7f6d11c6c000, 4096, PROT_READ) = 0
+mprotect(0x7f6d11e89000, 4096, PROT_READ) = 0
+mprotect(0x7f6d120b8000, 8192, PROT_READ) = 0
+mprotect(0x7f6d1240c000, 16384, PROT_READ) = 0
+mprotect(0x7f6d1262c000, 4096, PROT_READ) = 0
+mprotect(0x7f6d1283a000, 4096, PROT_READ) = 0
+mprotect(0x7f6d12a88000, 8192, PROT_READ) = 0
+mprotect(0x7f6d12de5000, 20480, PROT_READ) = 0
+mprotect(0x614000, 4096, PROT_READ)     = 0
+mprotect(0x7f6d1300c000, 4096, PROT_READ) = 0
+munmap(0x7f6d12ff3000, 91207)           = 0
+set_tid_address(0x7f6d12fed860)         = 8885
+set_robust_list(0x7f6d12fed870, 0x18)   = 0
+futex(0x7fffc04769fc, FUTEX_WAKE_PRIVATE, 1) = 0
+futex(0x7fffc04769fc, 0x189 /* FUTEX_??? */, 1, NULL, 7f6d12fed790) = -1 EAGAIN (Resource temporarily unavailable)
+rt_sigaction(SIGRTMIN, {0x7f6d1241b780, [], SA_RESTORER|SA_SIGINFO, 0x7f6d12424c00}, NULL, 8) = 0
+rt_sigaction(SIGRT_1, {0x7f6d1241b810, [], SA_RESTORER|SA_RESTART|SA_SIGINFO, 0x7f6d12424c00}, NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+getrlimit(RLIMIT_STACK, {rlim_cur=8192*1024, rlim_max=RLIM_INFINITY}) = 0
+brk(0)                                  = 0x213f000
+brk(0x2160000)                          = 0x2160000
+open("/etc/selinux/config", O_RDONLY)   = -1 ENOENT (No such file or directory)
+statfs("/selinux", {f_type=0x58465342, f_bsize=4096, f_blocks=365698971, f_bfree=188677221, f_bavail=188677221, f_files=292585344, f_ffree=291625617, f_fsid={2307, 0}, f_namelen=255, f_frsize=4096}) = 0
+open("/proc/mounts", O_RDONLY)          = 3
+fstat(3, {st_dev=makedev(0, 3), st_ino=17313828, st_mode=S_IFREG|0444, st_nlink=1, st_uid=0, st_gid=0, st_blksize=1024, st_blocks=0, st_size=0, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:19, st_ctime=2010/05/18-14:30:19}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13009000
+read(3, "rootfs / rootfs rw 0 0\nudev /dev"..., 1024) = 1024
+read(3, "itory/sles11/x86/sdk2 iso9660 ro"..., 1024) = 711
+read(3, "", 1024)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13009000, 4096)            = 0
+open("/usr/lib/locale/locale-archive", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/share/locale/locale.alias", O_RDONLY) = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=3235892744, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=2512, st_atime=2010/05/18-04:05:01, st_mtime=2010/01/27-12:32:57, st_ctime=2010/02/16-21:30:13}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13009000
+read(3, "# Locale name alias data base.\n#"..., 4096) = 2512
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13009000, 4096)            = 0
+open("/usr/lib/locale/en_US.UTF-8/LC_CTYPE", O_RDONLY) = -1 ENOENT (No such file or directory)
+open("/usr/lib/locale/en_US.utf8/LC_CTYPE", O_RDONLY) = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1143512464, st_mode=S_IFREG|0644, st_nlink=175, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=504, st_size=256316, st_atime=2010/05/18-09:31:03, st_mtime=2010/01/27-12:33:42, st_ctime=2010/02/16-21:30:57}) = 0
+mmap(NULL, 256316, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6d12fae000
+close(3)                                = 0
+open("/usr/lib64/gconv/gconv-modules.cache", O_RDONLY) = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=2699002489, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=56, st_size=26050, st_atime=2010/05/18-04:20:01, st_mtime=2010/01/27-12:32:56, st_ctime=2010/02/16-21:30:13}) = 0
+mmap(NULL, 26050, PROT_READ, MAP_SHARED, 3, 0) = 0x7f6d13003000
+close(3)                                = 0
+futex(0x7f6d12410f60, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+open("/usr/lib/rpm/rpmpopt-4.7.1", O_RDONLY) = 3
+lseek(3, 0, SEEK_END)                   = 8577
+lseek(3, 0, SEEK_SET)                   = 0
+read(3, "#/*! \\page config_rpmpopt Defaul"..., 8577) = 8577
+close(3)                                = 0
+open("/etc/popt", O_RDONLY)             = -1 ENOENT (No such file or directory)
+stat("/etc/popt.d", 0x7fffc04767d0)     = -1 ENOENT (No such file or directory)
+open("/root/.popt", O_RDONLY)           = -1 ENOENT (No such file or directory)
+umask(022)                              = 022
+open("/etc/resolv.conf", O_RDONLY)      = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1350672152, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=39, st_atime=2010/05/18-04:05:01, st_mtime=2009/09/02-18:52:38, st_ctime=2010/02/03-01:40:10}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "nameserver 127.0.0.1\nsearch medo"..., 4096) = 39
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+stat("/etc/resolv.conf", {st_dev=makedev(9, 3), st_ino=1350672152, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=39, st_atime=2010/05/18-04:05:01, st_mtime=2009/09/02-18:52:38, st_ctime=2010/02/03-01:40:10}) = 0
+open("/etc/resolv.conf", O_RDONLY)      = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1350672152, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=39, st_atime=2010/05/18-04:05:01, st_mtime=2009/09/02-18:52:38, st_ctime=2010/02/03-01:40:10}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "nameserver 127.0.0.1\nsearch medo"..., 4096) = 39
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+socket(PF_FILE, 0x80801 /* SOCK_??? */, 0) = 3
+connect(3, {sa_family=AF_FILE, path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+close(3)                                = 0
+socket(PF_FILE, 0x80801 /* SOCK_??? */, 0) = 3
+connect(3, {sa_family=AF_FILE, path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+close(3)                                = 0
+open("/etc/nsswitch.conf", O_RDONLY)    = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1358792995, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=1244, st_atime=2010/05/18-04:05:01, st_mtime=2009/11/16-08:14:47, st_ctime=2009/11/16-08:14:48}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "#\n# /etc/nsswitch.conf\n#\n# An ex"..., 4096) = 1244
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/etc/ld.so.cache", O_RDONLY)      = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1358789597, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=184, st_size=91207, st_atime=2010/05/18-08:18:01, st_mtime=2010/05/15-08:17:29, st_ctime=2010/05/15-08:17:29}) = 0
+mmap(NULL, 91207, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f6d12f97000
+close(3)                                = 0
+open("/lib64/libnss_files.so.2", O_RDONLY) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\200!\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_dev=makedev(9, 3), st_ino=2159132328, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=104, st_size=51896, st_atime=2010/05/18-04:05:01, st_mtime=2010/01/27-12:43:19, st_ctime=2010/02/16-21:26:56}) = 0
+mmap(NULL, 2147728, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f6d10dae000
+fadvise64(3, 0, 2147728, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d10db9000, 2097152, PROT_NONE) = 0
+mmap(0x7f6d10fb9000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xb000) = 0x7f6d10fb9000
+close(3)                                = 0
+mprotect(0x7f6d10fb9000, 4096, PROT_READ) = 0
+munmap(0x7f6d12f97000, 91207)           = 0
+open("/etc/host.conf", O_RDONLY)        = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1350672057, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=370, st_atime=2010/05/18-04:06:01, st_mtime=2009/10/24-05:00:29, st_ctime=2009/11/15-21:36:53}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "#\n# /etc/host.conf - resolver co"..., 4096) = 370
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+futex(0x7f6d12414324, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+open("/etc/hosts", O_RDONLY|O_CLOEXEC)  = 3
+fcntl(3, F_GETFD)                       = 0x1 (flags FD_CLOEXEC)
+fstat(3, {st_dev=makedev(9, 3), st_ino=1350672066, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=781, st_atime=2010/05/17-22:43:01, st_mtime=2010/05/02-22:42:08, st_ctime=2010/05/02-22:42:08}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "#\n# hosts         This file desc"..., 4096) = 781
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/etc/rpm/platform", O_RDONLY)     = -1 ENOENT (No such file or directory)
+uname({sysname="Linux", nodename="borg", release="2.6.33.2-jen97-default", version="#1 SMP 2010-04-02 16:56:15 +0200", machine="x86_64"}) = 0
+stat("/root/.rpmrc", 0x7fffc0476440)    = -1 ENOENT (No such file or directory)
+access("/usr/lib/rpm/rpmrc", R_OK)      = 0
+open("/usr/lib/rpm/rpmrc", O_RDONLY)    = 3
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+fstat(3, {st_dev=makedev(9, 3), st_ino=1143486983, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=32, st_size=15127, st_atime=2010/05/18-14:22:05, st_mtime=2009/11/23-20:58:56, st_ctime=2009/11/25-00:27:55}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13001000
+poll([{fd=3, events=POLLIN}], 1, 1000)  = 1 ([{fd=3, revents=POLLIN}])
+read(3, "#/*! \\page config_rpmrc Default "..., 8192) = 8192
+poll([{fd=3, events=POLLIN}], 1, 1000)  = 1 ([{fd=3, revents=POLLIN}])
+read(3, "uildarchtranslate: ppc8560: ppc\n"..., 8192) = 6935
+poll([{fd=3, events=POLLIN}], 1, 1000)  = 1 ([{fd=3, revents=POLLIN}])
+read(3, "", 1257)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13001000, 8192)            = 0
+access("/usr/lib/rpm/suse/rpmrc", R_OK) = -1 ENOENT (No such file or directory)
+access("/etc/rpmrc", R_OK)              = -1 ENOENT (No such file or directory)
+open("/usr/lib/rpm/macros", O_RDONLY)   = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1143487395, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=96, st_size=47636, st_atime=2010/05/18-14:22:05, st_mtime=2010/04/20-08:35:34, st_ctime=2010/04/20-08:35:34}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "#/*! \\page config_macros Default"..., 4096) = 4096
+read(3, "hese are the default values that"..., 4096) = 4096
+read(3, "re willing to supply content in "..., 4096) = 4096
+read(3, "\n#\n# Should the build of package"..., 4096) = 4096
+read(3, "i_config_Packages) if defined, o"..., 4096) = 4096
+open("/proc/meminfo", O_RDONLY)         = 4
+fstat(4, {st_dev=makedev(0, 3), st_ino=4026531982, st_mode=S_IFREG|0444, st_nlink=1, st_uid=0, st_gid=0, st_blksize=1024, st_blocks=0, st_size=0, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:19, st_ctime=2010/05/18-14:30:19}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13001000
+read(4, "MemTotal:       12327628 kB\nMemF"..., 1024) = 1024
+close(4)                                = 0
+munmap(0x7f6d13001000, 4096)            = 0
+read(3, "bi_htconfig_rebuild}}\\\n  %{!?_rp"..., 4096) = 4096
+brk(0x2181000)                          = 0x2181000
+brk(0x2180000)                          = 0x2180000
+read(3, " as install hint)\n#\t\t1\tElf32 per"..., 4096) = 4096
+read(3, "sspath:CLASSPATH=\\\"%{_javaclassp"..., 4096) = 4096
+read(3, "ude\n%_infodir\t\t%{_datadir}/info\n"..., 4096) = 4096
+read(3, "=`sed -n -e 's,AM_ACLOCAL_INCLUD"..., 4096) = 4096
+read(3, "port sys; print sys.prefix\" 2>/d"..., 4096) = 4096
+read(3, "IN_CLASS=%1\\\nBASE_FLAGS=%2\\\nBASE"..., 4096) = 2580
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/usr/lib/rpm/platform/x86_64-linux/macros", O_RDONLY) = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1143252470, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=2480, st_atime=2010/05/18-14:29:10, st_mtime=2009/11/23-20:58:56, st_ctime=2009/11/25-00:27:55}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "# Per-platform rpm configuration"..., 4096) = 2480
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/usr/lib/rpm/suse/macros", O_RDONLY) = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1143486985, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=32, st_size=14011, st_atime=2010/05/18-14:22:05, st_mtime=2009/10/23-17:57:00, st_ctime=2009/11/25-00:27:55}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "%suse_check \\\n        %{?buildro"..., 4096) = 4096
+read(3, "then \\\n       /sbin/SuSEconfig -"..., 4096) = 4096
+read(3, "    %{-Y:FORCE_YES=1}%{!-Y:FORCE"..., 4096) = 4096
+read(3, "    done\n\n%insserv_force_if_yast"..., 4096) = 1723
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/etc/rpm", O_RDONLY|O_NONBLOCK|O_DIRECTORY|O_CLOEXEC) = 3
+fcntl(3, F_GETFD)                       = 0x1 (flags FD_CLOEXEC)
+getdents64(3, {{d_ino=1884196071, d_off=4, d_type=DT_UNKNOWN, d_reclen=24, d_name="."} {d_ino=1342177408, d_off=10, d_type=DT_UNKNOWN, d_reclen=24, d_name=".."} {d_ino=1907871135, d_off=18, d_type=DT_UNKNOWN, d_reclen=40, d_name="macros.gconf2"} {d_ino=1908328623, d_off=36, d_type=DT_UNKNOWN, d_reclen=40, d_name="macros.jpackage"} {d_ino=1906570670, d_off=44, d_type=DT_UNKNOWN, d_reclen=40, d_name="macros.mkinitrd"} {d_ino=1908435222, d_off=51, d_type=DT_UNKNOWN, d_reclen=40, d_name="macros.python"} {d_ino=1907968609, d_off=67, d_type=DT_UNKNOWN, d_reclen=32, d_name="macros.tcl"} {d_ino=1884196086, d_off=75, d_type=DT_UNKNOWN, d_reclen=32, d_name="macros.perl"} {d_ino=1907871616, d_off=83, d_type=DT_UNKNOWN, d_reclen=40, d_name="macros.optipng"} {d_ino=1884042542, d_off=91, d_type=DT_UNKNOWN, d_reclen=32, d_name="macros.php"} {d_ino=1906537303, d_off=512, d_type=DT_UNKNOWN, d_reclen=40, d_name="macros.kernel-source"}}, 32768) = 384
+getdents64(3, {}, 32768)                = 0
+close(3)                                = 0
+open("/etc/rpm/macros.gconf2", O_RDONLY) = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1907871135, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=16, st_size=4585, st_atime=2010/05/18-14:22:05, st_mtime=2009/10/20-10:26:31, st_ctime=2009/11/15-20:30:32}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "#\n# RPM macros for gconf applica"..., 4096) = 4096
+read(3, "\n%find_gconf_schemas() \\\ntest -d"..., 4096) = 489
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/etc/rpm/macros.jpackage", O_RDONLY) = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1908328623, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=24, st_size=9154, st_atime=2010/05/18-14:22:05, st_mtime=2009/10/21-23:57:26, st_ctime=2009/11/15-21:32:08}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "#\n# RPM macros for Java applicat"..., 4096) = 4096
+read(3, "LD_ROOT/%{_mavendepmapfragdir}\\\n"..., 4096) = 4096
+read(3, "sh to create\n#\n# already in /usr"..., 4096) = 962
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/etc/rpm/macros.kernel-source", O_RDONLY) = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1906537303, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=1968, st_atime=2010/05/18-14:22:05, st_mtime=2010/04/02-20:27:37, st_ctime=2010/04/08-15:15:03}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "# A few cross-distro definitions"..., 4096) = 1968
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/etc/rpm/macros.mkinitrd", O_RDONLY) = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1906570670, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=95, st_atime=2010/05/18-14:22:05, st_mtime=2010/02/17-16:29:08, st_ctime=2010/03/07-20:59:58}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "#\n# Update links for mkinitrd sc"..., 4096) = 95
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/etc/rpm/macros.optipng", O_RDONLY) = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1907871616, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=203, st_atime=2010/05/18-14:22:05, st_mtime=2009/10/19-19:03:12, st_ctime=2009/11/15-20:50:40}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "%optipng() \\\n  find %1 -links 1 "..., 4096) = 203
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/etc/rpm/macros.perl", O_RDONLY)  = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1884196086, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4076, st_atime=2010/05/18-14:22:05, st_mtime=2010/03/24-12:45:40, st_ctime=2010/04/04-17:43:57}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "# macros.perl file\n# macros for "..., 4096) = 4076
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/etc/rpm/macros.php", O_RDONLY)   = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1884042542, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=88, st_atime=2010/05/18-14:22:05, st_mtime=2010/02/15-18:33:16, st_ctime=2010/02/23-19:52:22}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "#\n# Interface versions exposed b"..., 4096) = 88
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/etc/rpm/macros.python", O_RDONLY) = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1908435222, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=1105, st_atime=2010/05/18-14:22:05, st_mtime=2010/03/29-17:31:28, st_ctime=2010/05/15-08:16:34}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "%py_ver\t\t\t%(python -c \"import sy"..., 4096) = 1105
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/etc/rpm/macros.tcl", O_RDONLY)   = 3
+fstat(3, {st_dev=makedev(9, 3), st_ino=1907968609, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=443, st_atime=2010/05/18-14:22:05, st_mtime=2009/10/24-03:31:03, st_ctime=2009/11/15-21:45:21}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "# RPM macros for Tcl\n\n# The mino"..., 4096) = 443
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("/etc/rpm/macros", O_RDONLY)       = -1 ENOENT (No such file or directory)
+open("/etc/rpm/x86_64-linux/macros", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat("/root/.rpmmacros", 0x7fffc0476400) = -1 ENOENT (No such file or directory)
+stat("/usr/lib/rpm/init.lua", 0x7fffc0476740) = -1 ENOENT (No such file or directory)
+open("/proc/filesystems", O_RDONLY)     = 3
+fstat(3, {st_dev=makedev(0, 3), st_ino=4026531975, st_mode=S_IFREG|0444, st_nlink=1, st_uid=0, st_gid=0, st_blksize=1024, st_blocks=0, st_size=0, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:19, st_ctime=2010/05/18-14:30:19}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+read(3, "nodev\tsysfs\nnodev\trootfs\nnodev\tb"..., 1024) = 405
+read(3, "", 1024)                       = 0
+close(3)                                = 0
+munmap(0x7f6d13002000, 4096)            = 0
+open("ts-0-0.x86_64.rpm", O_RDONLY)     = 3
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+poll([{fd=3, events=POLLIN}], 1, 1000)  = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\355\253\356\333\3\0\0\0\0\1ts-0-0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 96) = 96
+poll([{fd=3, events=POLLIN}], 1, 1000)  = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\216\255\350\1\0\0\0\0\0\0\0\5\0\0\0T", 16) = 16
+poll([{fd=3, events=POLLIN}], 1, 1000)  = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\0\0\0>\0\0\0\7\0\0\0D\0\0\0\20\0\0\1\r\0\0\0\6\0\0\0\0\0\0\0\1"..., 164) = 164
+poll([{fd=3, events=POLLIN}], 1, 1000)  = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\0\0\0\0", 4)                  = 4
+fstat(3, {st_dev=makedev(9, 3), st_ino=837363081, st_mode=S_IFREG|0644, st_nlink=1, st_uid=25121, st_gid=100, st_blksize=4096, st_blocks=8, st_size=1621, st_atime=2010/05/18-14:29:51, st_mtime=2010/05/18-14:29:41, st_ctime=2010/05/18-14:29:49}) = 0
+poll([{fd=3, events=POLLIN}], 1, 1000)  = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\216\255\350\1\0\0\0\0\0\0\0+\0\0\1\331", 16) = 16
+poll([{fd=3, events=POLLIN}], 1, 1000)  = 1 ([{fd=3, revents=POLLIN}])
+read(3, "\0\0\0?\0\0\0\7\0\0\1\311\0\0\0\20\0\0\0d\0\0\0\10\0\0\0\0\0\0\0\1"..., 1161) = 1161
+open("/var/lib/rpm/pubkeys", O_RDONLY|O_NONBLOCK|O_DIRECTORY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+access("/var/lib/rpm/Packages", F_OK)   = 0
+open("/proc/stat", O_RDONLY|O_CLOEXEC)  = 4
+read(4, "cpu  15726338 2232232 15373122 1"..., 8192) = 1720
+close(4)                                = 0
+stat("/var/lib/rpm/DB_CONFIG", 0x7fffc04660e0) = -1 ENOENT (No such file or directory)
+open("/var/lib/rpm/DB_CONFIG", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/__db.002", 0x7fffc0466180) = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/__db.003", 0x7fffc04661b0) = -1 ENOENT (No such file or directory)
+brk(0x21a2000)                          = 0x21a2000
+brk(0x21c3000)                          = 0x21c3000
+brk(0x21e4000)                          = 0x21e4000
+brk(0x2205000)                          = 0x2205000
+stat("/var/lib/rpm/Packages", {st_dev=makedev(9, 3), st_ino=3779703544, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=72344, st_size=37040128, st_atime=2010/05/18-14:30:17, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Packages", O_RDONLY) = 4
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+read(4, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\377\20\0\0"..., 512) = 512
+close(4)                                = 0
+open("/var/lib/rpm/Packages", O_RDONLY) = 4
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+fstat(4, {st_dev=makedev(9, 3), st_ino=3779703544, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=72344, st_size=37040128, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(4, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\377\20\0\0"..., 4096, 0) = 4096
+fcntl(4, F_SETLK, {type=F_RDLCK, whence=SEEK_SET, start=0, len=0}) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+brk(0x2226000)                          = 0x2226000
+brk(0x2222000)                          = 0x2222000
+brk(0x221e000)                          = 0x221e000
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+access("/var/lib/rpm/Name", F_OK)       = 0
+stat("/var/lib/rpm/Name", {st_dev=makedev(9, 3), st_ino=3779703545, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=96, st_size=49152, st_atime=2010/05/18-14:30:17, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Name", O_RDONLY)     = 5
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+read(5, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\3\0\0\0"..., 512) = 512
+close(5)                                = 0
+open("/var/lib/rpm/Name", O_RDONLY)     = 5
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+fstat(5, {st_dev=makedev(9, 3), st_ino=3779703545, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=96, st_size=49152, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(5, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\3\0\0\0"..., 4096, 0) = 4096
+pread(5, "\0\0\0\0\1\0\0\0\5\0\0\0\0\0\0\0\v\0\0\0J\1\270\2\0\2\366\17\355\17\335\17"..., 4096, 20480) = 4096
+pread(5, "\0\0\0\0\1\0\0\0\v\0\0\0\5\0\0\0\0\0\0\0\276\0\204\7\0\2\353\17\342\17\326\17"..., 4096, 45056) = 4096
+pread(4, "\0\0\0\0\1\0\0\0000\n\0\0\0\0\0\0,\n\0\0~\1Q\3\0\2\373\17\357\17\352\17"..., 4096, 10682368) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\276\2\0\0\0\0\0\0\0\0\0\0\1\0\210\t\0\7\0\0\0\23\0\0"..., 4096, 2875392) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\335\30\0\0\0\0\0\0\0\0\0\0\n\1+\7\0\2\373\17\357\17\352\17"..., 4096, 26071040) = 4096
+pread(4, "\0\0\0\0\1\0\0\0T\5\0\0\0\0\0\0U\5\0\0\1\0\346\17\0\7\0\0\0\22\0\0"..., 4096, 5586944) = 4096
+pread(4, "\0\0\0\0\1\0\0\0U\5\0\0T\5\0\0\0\0\0\0\1\0z\4\0\7MQsSj1"..., 4096, 5591040) = 4096
+pread(4, "\0\0\0\0\1\0\0\0n\7\0\0\0\0\0\0\0\0\0\0\1\0\354\t\0\7\0\0\0\23\0\0"..., 4096, 7790592) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\25\10\0\0\0\0\0\0\26\10\0\0\1\0\346\17\0\7\0\0\0\22\0\0"..., 4096, 8474624) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\26\10\0\0\25\10\0\0\0\0\0\0\1\0J\0\0\007478a32"..., 4096, 8478720) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\1\0\0\0\0\0\0\0\0\0\0\0\10\1C\7\0\2\373\17\366\17\361\17"..., 4096, 4096) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\27\10\0\0\0\0\0\0\30\10\0\0\1\0\346\17\0\7\0\0\0\22\0\0"..., 4096, 8482816) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\30\10\0\0\27\10\0\0\0\0\0\0\1\0\336\1\0\7AG4kk+"..., 4096, 8486912) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\336\30\0\0\0\0\0\0\0\0\0\0\n\1+\7\0\2\373\17\357\17\352\17"..., 4096, 26075136) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\31\10\0\0\0\0\0\0\32\10\0\0\1\0\346\17\0\7\0\0\0\22\0\0"..., 4096, 8491008) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\32\10\0\0\31\10\0\0\0\0\0\0\1\0\332\2\0\7kNmPhq"..., 4096, 8495104) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\34\10\0\0\0\0\0\0\0\0\0\0\1\0\360\t\0\7\0\0\0\22\0\0"..., 4096, 8503296) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\35\10\0\0\0\0\0\0\0\0\0\0\1\0\340\t\0\7\0\0\0\22\0\0"..., 4096, 8507392) = 4096
+pread(4, "\0\0\0\0\1\0\0\0/\n\0\0\0\0\0\0\341\30\0\0~\1Q\3\0\2\373\17\357\17\352\17"..., 4096, 10678272) = 4096
+pread(4, "\0\0\0\0\1\0\0\0 \10\0\0\0\0\0\0\0\0\0\0\1\0\370\t\0\7\0\0\0\22\0\0"..., 4096, 8519680) = 4096
+brk(0x223f000)                          = 0x223f000
+pread(4, "\0\0\0\0\1\0\0\0\235\n\0\0\0\0\0\0\0\0\0\0\1\0\264\t\0\7\0\0\0\23\0\0"..., 4096, 11128832) = 4096
+pread(4, "\0\0\0\0\1\0\0\0x\16\0\0\0\0\0\0\0\0\0\0\1\0\230\t\0\7\0\0\0\22\0\0"..., 4096, 15171584) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\237\16\0\0\0\0\0\0\0\0\0\0\1\0\370\t\0\7\0\0\0\22\0\0"..., 4096, 15331328) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\242\16\0\0\0\0\0\0\0\0\0\0\1\0000\n\0\7\0\0\0\22\0\0"..., 4096, 15343616) = 4096
+pread(4, "\0\0\0\0\1\0\0\0v\25\0\0\0\0\0\0\0\0\0\0\1\0\30\n\0\7\0\0\0\22\0\0"..., 4096, 22503424) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\341\30\0\0/\n\0\0\0\0\0\0\222\0'\v\0\2\373\17\357\17\352\17"..., 4096, 26087424) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\302\32\0\0\0\0\0\0\0\0\0\0\1\0\254\10\0\7\0\0\0\22\0\0"..., 4096, 28057600) = 4096
+pread(4, "\0\0\0\0\1\0\0\0,\n\0\0000\n\0\0\0\0\0\0\220\0008\v\0\2\373\17\357\17\352\17"..., 4096, 10665984) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\303\32\0\0\0\0\0\0\0\0\0\0\1\0\340\t\0\7\0\0\0\22\0\0"..., 4096, 28061696) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\270\36\0\0\0\0\0\0\0\0\0\0\1\0\360\t\0\7\0\0\0\22\0\0"..., 4096, 32210944) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\271\36\0\0\0\0\0\0\0\0\0\0\1\0\374\16\0\7\0\0\0\22\0\0"..., 4096, 32215040) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\2\0\0\0\0\0\0\0\0\0\0\0\2\1o\7\0\2\373\17\357\17\352\17"..., 4096, 8192) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\272\36\0\0\0\0\0\0\0\0\0\0\1\0\224\6\0\7\0\0\0\22\0\0"..., 4096, 32219136) = 4096
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+close(3)                                = 0
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+brk(0x2260000)                          = 0x2260000
+brk(0x225c000)                          = 0x225c000
+brk(0x2258000)                          = 0x2258000
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+access("/var/lib/rpm/Conflictname", F_OK) = 0
+stat("/var/lib/rpm/Conflictname", {st_dev=makedev(9, 3), st_ino=3779704855, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=24, st_size=12288, st_atime=2010/05/18-10:56:45, st_mtime=2010/05/15-08:34:33, st_ctime=2010/05/15-08:34:33}) = 0
+open("/var/lib/rpm/Conflictname", O_RDONLY) = 3
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+read(3, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\0\0\0\0"..., 512) = 512
+close(3)                                = 0
+open("/var/lib/rpm/Conflictname", O_RDONLY) = 3
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+fstat(3, {st_dev=makedev(9, 3), st_ino=3779704855, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=24, st_size=12288, st_atime=2010/05/18-10:56:45, st_mtime=2010/05/15-08:34:33, st_ctime=2010/05/15-08:34:33}) = 0
+pread(3, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\0\0\0\0"..., 4096, 0) = 4096
+pread(3, "\0\0\0\0\1\0\0\0\2\0\0\0\0\0\0\0\0\0\0\0F\0\367\f\0\2\360\17\347\17\336\17"..., 4096, 8192) = 4096
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+umask(022)                              = 022
+open("/var/lib/rpm/__db.000", O_RDWR|O_CREAT, 0644) = 6
+umask(022)                              = 022
+fcntl(6, F_SETLK, {type=F_WRLCK, whence=SEEK_SET, start=0, len=0}) = 0
+close(3)                                = 0
+close(5)                                = 0
+close(4)                                = 0
+rt_sigaction(SIGHUP, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGHUP, {0x7f6d1285c980, [], SA_RESTORER|SA_SIGINFO, 0x7f6d12424c00}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGINT, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGINT, {0x7f6d1285c980, [], SA_RESTORER|SA_SIGINFO, 0x7f6d12424c00}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGTERM, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGTERM, {0x7f6d1285c980, [], SA_RESTORER|SA_SIGINFO, 0x7f6d12424c00}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGQUIT, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGQUIT, {0x7f6d1285c980, [], SA_RESTORER|SA_SIGINFO, 0x7f6d12424c00}, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGPIPE, NULL, {SIG_DFL, [], 0}, 8) = 0
+rt_sigaction(SIGPIPE, {0x7f6d1285c980, [], SA_RESTORER|SA_SIGINFO, 0x7f6d12424c00}, {SIG_DFL, [], 0}, 8) = 0
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+open("/proc/stat", O_RDONLY|O_CLOEXEC)  = 3
+read(3, "cpu  15726339 2232232 15373122 1"..., 8192) = 1720
+close(3)                                = 0
+stat("/var/lib/rpm/DB_CONFIG", 0x7fffc04761e0) = -1 ENOENT (No such file or directory)
+open("/var/lib/rpm/DB_CONFIG", O_RDONLY) = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/__db.002", 0x7fffc0476280) = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/__db.003", 0x7fffc04762b0) = -1 ENOENT (No such file or directory)
+brk(0x2244000)                          = 0x2244000
+stat("/var/lib/rpm/Packages", {st_dev=makedev(9, 3), st_ino=3779703544, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=72344, st_size=37040128, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Packages", O_RDWR)   = 3
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+read(3, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\377\20\0\0"..., 512) = 512
+close(3)                                = 0
+open("/var/lib/rpm/Packages", O_RDWR)   = 3
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+fstat(3, {st_dev=makedev(9, 3), st_ino=3779703544, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=72344, st_size=37040128, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(3, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\377\20\0\0"..., 4096, 0) = 4096
+fcntl(3, F_SETLK, {type=F_WRLCK, whence=SEEK_SET, start=0, len=0}) = 0
+getcwd("/home/jengelh/lbuild/input/ts", 128) = 30
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Name", {st_dev=makedev(9, 3), st_ino=3779703545, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=96, st_size=49152, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Name", O_RDWR)       = 4
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+read(4, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\3\0\0\0"..., 512) = 512
+close(4)                                = 0
+open("/var/lib/rpm/Name", O_RDWR)       = 4
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+fstat(4, {st_dev=makedev(9, 3), st_ino=3779703545, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=96, st_size=49152, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(4, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\3\0\0\0"..., 4096, 0) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\5\0\0\0\0\0\0\0\v\0\0\0J\1\270\2\0\2\366\17\355\17\335\17"..., 4096, 20480) = 4096
+pread(4, "\0\0\0\0\1\0\0\0\v\0\0\0\5\0\0\0\0\0\0\0\276\0\204\7\0\2\353\17\342\17\326\17"..., 4096, 45056) = 4096
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+chdir("/")                              = 0
+fstat(1, {st_dev=makedev(0, 12), st_ino=10, st_mode=S_IFCHR|0600, st_nlink=1, st_uid=25121, st_gid=5, st_blksize=1024, st_blocks=0, st_rdev=makedev(136, 7), st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:19, st_ctime=2010/05/18-14:24:59}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13002000
+write(1, "Preparing...                ", 28) = 28
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+stat("/", {st_dev=makedev(9, 3), st_ino=128, st_mode=S_IFDIR|0755, st_nlink=28, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/18-14:30:02, st_mtime=2010/05/18-14:30:03, st_ctime=2010/05/18-14:30:03}) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Basenames", {st_dev=makedev(9, 3), st_ino=3779703665, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=9520, st_size=5455872, st_atime=2010/05/18-14:30:17, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Basenames", O_RDWR)  = 5
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+read(5, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\264\0\0\0"..., 512) = 512
+close(5)                                = 0
+open("/var/lib/rpm/Basenames", O_RDWR)  = 5
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+fstat(5, {st_dev=makedev(9, 3), st_ino=3779703665, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=9520, st_size=5455872, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(5, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\264\0\0\0"..., 4096, 0) = 4096
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+pread(5, "\0\0\0\0\1\0\0\0\316\1\0\0\0\0\0\0\0\0\0\0\342\0\212\4\0\2\361\17\340\17\312\17"..., 4096, 1892352) = 4096
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+statfs("/", {f_type=0x58465342, f_bsize=4096, f_blocks=365698971, f_bfree=188677221, f_bavail=188677221, f_files=292585344, f_ffree=291625617, f_fsid={2307, 0}, f_namelen=255, f_frsize=4096}) = 0
+stat("/", {st_dev=makedev(9, 3), st_ino=128, st_mode=S_IFDIR|0755, st_nlink=28, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/18-14:30:02, st_mtime=2010/05/18-14:30:03, st_ctime=2010/05/18-14:30:03}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "                                "..., 1024) = 1024
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "                    (100%)\10\10\10\10\10\10"..., 1024) = 1024
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "%)\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10"..., 1024) = 1024
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10####"..., 1024) = 1024
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "\10\10\10\10############################"..., 304) = 304
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "################################"..., 51) = 51
+chdir("/home/jengelh/lbuild/input/ts")  = 0
+open("ts-0-0.x86_64.rpm", O_RDONLY)     = 7
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+poll([{fd=7, events=POLLIN}], 1, 1000)  = 1 ([{fd=7, revents=POLLIN}])
+read(7, "\355\253\356\333\3\0\0\0\0\1ts-0-0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 96) = 96
+poll([{fd=7, events=POLLIN}], 1, 1000)  = 1 ([{fd=7, revents=POLLIN}])
+read(7, "\216\255\350\1\0\0\0\0\0\0\0\5\0\0\0T", 16) = 16
+poll([{fd=7, events=POLLIN}], 1, 1000)  = 1 ([{fd=7, revents=POLLIN}])
+read(7, "\0\0\0>\0\0\0\7\0\0\0D\0\0\0\20\0\0\1\r\0\0\0\6\0\0\0\0\0\0\0\1"..., 164) = 164
+poll([{fd=7, events=POLLIN}], 1, 1000)  = 1 ([{fd=7, revents=POLLIN}])
+read(7, "\0\0\0\0", 4)                  = 4
+fstat(7, {st_dev=makedev(9, 3), st_ino=837363081, st_mode=S_IFREG|0644, st_nlink=1, st_uid=25121, st_gid=100, st_blksize=4096, st_blocks=8, st_size=1621, st_atime=2010/05/18-14:29:51, st_mtime=2010/05/18-14:29:41, st_ctime=2010/05/18-14:29:49}) = 0
+poll([{fd=7, events=POLLIN}], 1, 1000)  = 1 ([{fd=7, revents=POLLIN}])
+read(7, "\216\255\350\1\0\0\0\0\0\0\0+\0\0\1\331", 16) = 16
+poll([{fd=7, events=POLLIN}], 1, 1000)  = 1 ([{fd=7, revents=POLLIN}])
+read(7, "\0\0\0?\0\0\0\7\0\0\1\311\0\0\0\20\0\0\0d\0\0\0\10\0\0\0\0\0\0\0\1"..., 1161) = 1161
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Triggername", {st_dev=makedev(9, 3), st_ino=3779704928, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=24, st_size=12288, st_atime=2010/05/18-10:56:54, st_mtime=2010/05/15-08:17:19, st_ctime=2010/05/15-08:17:19}) = 0
+open("/var/lib/rpm/Triggername", O_RDWR) = 8
+fcntl(8, F_SETFD, FD_CLOEXEC)           = 0
+read(8, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\0\0\0\0"..., 512) = 512
+close(8)                                = 0
+open("/var/lib/rpm/Triggername", O_RDWR) = 8
+fcntl(8, F_SETFD, FD_CLOEXEC)           = 0
+fstat(8, {st_dev=makedev(9, 3), st_ino=3779704928, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=24, st_size=12288, st_atime=2010/05/18-10:56:54, st_mtime=2010/05/15-08:17:19, st_ctime=2010/05/15-08:17:19}) = 0
+pread(8, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\0\0\0\0"..., 4096, 0) = 4096
+pread(8, "\0\0\0\0\1\0\0\0\2\0\0\0\0\0\0\0\0\0\0\0\10\0\233\17\0\2\370\17\357\17\334\17"..., 4096, 8192) = 4096
+dup(7)                                  = 9
+fcntl(9, F_GETFL)                       = 0x8000 (flags O_RDONLY|O_LARGEFILE)
+fstat(9, {st_dev=makedev(9, 3), st_ino=837363081, st_mode=S_IFREG|0644, st_nlink=1, st_uid=25121, st_gid=100, st_blksize=4096, st_blocks=8, st_size=1621, st_atime=2010/05/18-14:29:51, st_mtime=2010/05/18-14:29:41, st_ctime=2010/05/18-14:29:49}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d13001000
+lseek(9, 0, SEEK_CUR)                   = 1457
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "   1:ts                     ", 28) = 28
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12fff000
+read(9, "\3757zXZ\0\0\n\341\373\f\241\2\0!\1\34\0\0\0\20\317X\314\340\0\363\0K]\0\30"..., 32768) = 164
+read(9, "", 28672)                      = 0
+brk(0x226a000)                          = 0x226a000
+mmap(NULL, 67112960, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d0cdad000
+socket(PF_FILE, 0x80801 /* SOCK_??? */, 0) = 10
+connect(10, {sa_family=AF_FILE, path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+close(10)                               = 0
+socket(PF_FILE, 0x80801 /* SOCK_??? */, 0) = 10
+connect(10, {sa_family=AF_FILE, path="/var/run/nscd/socket"}, 110) = -1 ENOENT (No such file or directory)
+close(10)                               = 0
+open("/etc/ld.so.cache", O_RDONLY)      = 10
+fstat(10, {st_dev=makedev(9, 3), st_ino=1358789597, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=184, st_size=91207, st_atime=2010/05/18-08:18:01, st_mtime=2010/05/15-08:17:29, st_ctime=2010/05/15-08:17:29}) = 0
+mmap(NULL, 91207, PROT_READ, MAP_PRIVATE, 10, 0) = 0x7f6d12f97000
+close(10)                               = 0
+open("/lib64/libnss_compat.so.2", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\23\0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=2159132324, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=64, st_size=31800, st_atime=2010/05/18-04:05:01, st_mtime=2010/01/27-12:43:19, st_ctime=2010/02/16-21:26:56}) = 0
+mmap(NULL, 2127088, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0cba5000
+fadvise64(10, 0, 2127088, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0cbac000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0cdab000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x6000) = 0x7f6d0cdab000
+close(10)                               = 0
+open("/lib64/libnsl.so.1", O_RDONLY)    = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\340@\0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=2159132323, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=176, st_size=89240, st_atime=2010/05/18-04:05:01, st_mtime=2010/01/27-12:43:19, st_ctime=2010/02/16-21:26:56}) = 0
+mmap(NULL, 2194128, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0c98d000
+fadvise64(10, 0, 2194128, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0c9a2000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0cba1000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x14000) = 0x7f6d0cba1000
+mmap(0x7f6d0cba3000, 6864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f6d0cba3000
+close(10)                               = 0
+mprotect(0x7f6d0cba1000, 4096, PROT_READ) = 0
+mprotect(0x7f6d0cdab000, 4096, PROT_READ) = 0
+munmap(0x7f6d12f97000, 91207)           = 0
+open("/etc/ld.so.cache", O_RDONLY)      = 10
+fstat(10, {st_dev=makedev(9, 3), st_ino=1358789597, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=184, st_size=91207, st_atime=2010/05/18-08:18:01, st_mtime=2010/05/15-08:17:29, st_ctime=2010/05/15-08:17:29}) = 0
+mmap(NULL, 91207, PROT_READ, MAP_PRIVATE, 10, 0) = 0x7f6d12f97000
+close(10)                               = 0
+open("/lib64/libnss_nis.so.2", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220 \0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=2159132332, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=88, st_size=43736, st_atime=2010/05/18-04:05:01, st_mtime=2010/01/27-12:43:19, st_ctime=2010/02/16-21:26:56}) = 0
+mmap(NULL, 2139352, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0c782000
+fadvise64(10, 0, 2139352, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0c78c000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0c98b000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x9000) = 0x7f6d0c98b000
+close(10)                               = 0
+mprotect(0x7f6d0c98b000, 4096, PROT_READ) = 0
+munmap(0x7f6d12f97000, 91207)           = 0
+open("/etc/passwd", O_RDONLY|O_CLOEXEC) = 10
+fcntl(10, F_GETFD)                      = 0x1 (flags FD_CLOEXEC)
+lseek(10, 0, SEEK_CUR)                  = 0
+fstat(10, {st_dev=makedev(9, 3), st_ino=1358995409, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=2985, st_atime=2010/05/18-14:09:01, st_mtime=2010/05/05-14:08:52, st_ctime=2010/05/05-14:08:52}) = 0
+mmap(NULL, 2985, PROT_READ, MAP_SHARED, 10, 0) = 0x7f6d12ffe000
+lseek(10, 2985, SEEK_SET)               = 2985
+fstat(10, {st_dev=makedev(9, 3), st_ino=1358995409, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=2985, st_atime=2010/05/18-14:09:01, st_mtime=2010/05/05-14:08:52, st_ctime=2010/05/05-14:08:52}) = 0
+munmap(0x7f6d12ffe000, 2985)            = 0
+close(10)                               = 0
+open("/etc/ld.so.cache", O_RDONLY)      = 10
+fstat(10, {st_dev=makedev(9, 3), st_ino=1358789597, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=184, st_size=91207, st_atime=2010/05/18-08:18:01, st_mtime=2010/05/15-08:17:29, st_ctime=2010/05/15-08:17:29}) = 0
+mmap(NULL, 91207, PROT_READ, MAP_PRIVATE, 10, 0) = 0x7f6d12f97000
+close(10)                               = 0
+open("/lib64/libnss_ldap.so.2", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\2209\0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=2159090035, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=168, st_size=85368, st_atime=2010/05/18-04:05:01, st_mtime=2009/10/19-21:18:03, st_ctime=2009/11/15-21:36:25}) = 0
+mmap(NULL, 2227584, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0c562000
+fadvise64(10, 0, 2227584, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0c576000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0c775000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x13000) = 0x7f6d0c775000
+mmap(0x7f6d0c777000, 44416, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f6d0c777000
+close(10)                               = 0
+open("/usr/lib64/libldap-2.4.so.2", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0 \352\0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=3507172602, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=560, st_size=282648, st_atime=2010/05/18-04:05:01, st_mtime=2009/10/24-06:55:26, st_ctime=2009/11/15-20:26:30}) = 0
+mmap(NULL, 2377696, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0c31d000
+fadvise64(10, 0, 2377696, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0c360000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0c55f000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x42000) = 0x7f6d0c55f000
+close(10)                               = 0
+open("/usr/lib64/liblber-2.4.so.2", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\3209\0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=3507172599, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=128, st_size=64680, st_atime=2010/05/18-04:05:01, st_mtime=2009/10/24-06:55:25, st_ctime=2009/11/15-20:26:30}) = 0
+mmap(NULL, 2159912, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0c10d000
+fadvise64(10, 0, 2159912, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0c11c000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0c31b000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0xe000) = 0x7f6d0c31b000
+close(10)                               = 0
+open("/usr/lib64/libgssapi_krb5.so.2", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0@s\0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=3507138203, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=384, st_size=193328, st_atime=2010/05/17-20:08:01, st_mtime=2010/04/22-01:37:08, st_ctime=2010/04/24-20:07:02}) = 0
+mmap(NULL, 2288864, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0bede000
+fadvise64(10, 0, 2288864, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0bf0b000, 2097152, PROT_NONE) = 0
+mmap(0x7f6d0c10b000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x2d000) = 0x7f6d0c10b000
+close(10)                               = 0
+open("/lib64/libresolv.so.2", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\3408\0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=2159133547, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=160, st_size=80896, st_atime=2010/05/18-04:05:01, st_mtime=2010/01/27-12:43:20, st_ctime=2010/02/16-21:26:56}) = 0
+mmap(NULL, 2185864, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0bcc8000
+fadvise64(10, 0, 2185864, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0bcdb000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0beda000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x12000) = 0x7f6d0beda000
+mmap(0x7f6d0bedc000, 6792, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f6d0bedc000
+close(10)                               = 0
+open("/usr/lib64/libsasl2.so.2", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0@M\0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=3507166268, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=208, st_size=106344, st_atime=2010/05/18-04:05:01, st_mtime=2009/10/19-20:47:54, st_ctime=2009/11/15-20:57:37}) = 0
+mmap(NULL, 2201552, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0baae000
+fadvise64(10, 0, 2201552, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0bac7000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0bcc6000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x18000) = 0x7f6d0bcc6000
+close(10)                               = 0
+open("/usr/lib64/libssl.so.0.9.8", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220@\1\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=3507172558, st_mode=S_IFREG|0555, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=656, st_size=334768, st_atime=2010/05/18-04:16:01, st_mtime=2010/04/01-11:42:13, st_ctime=2010/04/07-04:15:54}) = 0
+mmap(NULL, 2429968, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0b85c000
+fadvise64(10, 0, 2429968, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0b8a7000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0baa6000, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x4a000) = 0x7f6d0baa6000
+close(10)                               = 0
+open("/usr/lib64/libcrypto.so.0.9.8", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\245\6\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=3507164546, st_mode=S_IFREG|0555, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=3144, st_size=1605840, st_atime=2010/05/18-04:16:01, st_mtime=2010/04/01-11:42:13, st_ctime=2010/04/07-04:15:54}) = 0
+mmap(NULL, 3715896, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0b4d0000
+fadvise64(10, 0, 3715896, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0b633000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0b832000, 155648, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x162000) = 0x7f6d0b832000
+mmap(0x7f6d0b858000, 13112, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f6d0b858000
+close(10)                               = 0
+open("/usr/lib64/libkrb5.so.3", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\231\1\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=3507172539, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=1512, st_size=771352, st_atime=2010/05/17-20:08:01, st_mtime=2010/04/22-01:37:09, st_ctime=2010/04/24-20:07:02}) = 0
+mmap(NULL, 2867072, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0b214000
+fadvise64(10, 0, 2867072, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0b2c6000, 2097152, PROT_NONE) = 0
+mmap(0x7f6d0b4c6000, 40960, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0xb2000) = 0x7f6d0b4c6000
+close(10)                               = 0
+open("/usr/lib64/libk5crypto.so.3", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0@\\\0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=3507141933, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=352, st_size=179280, st_atime=2010/05/17-20:08:01, st_mtime=2010/04/22-01:37:08, st_ctime=2010/04/24-20:07:02}) = 0
+mmap(NULL, 2275464, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0afe8000
+fadvise64(10, 0, 2275464, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0b012000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0b211000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x29000) = 0x7f6d0b211000
+close(10)                               = 0
+open("/lib64/libcom_err.so.2", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\340\23\0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=2159089885, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=32, st_size=14720, st_atime=2010/05/18-04:05:01, st_mtime=2009/10/19-20:28:26, st_ctime=2009/11/15-20:26:25}) = 0
+mmap(NULL, 2109840, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0ade4000
+fadvise64(10, 0, 2109840, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0ade7000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0afe6000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x2000) = 0x7f6d0afe6000
+close(10)                               = 0
+open("/usr/lib64/libkrb5support.so.0", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0 $\0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=3507172541, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=72, st_size=35488, st_atime=2010/05/17-20:08:01, st_mtime=2010/04/22-01:37:10, st_ctime=2010/04/24-20:07:02}) = 0
+mmap(NULL, 2130768, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0abdb000
+fadvise64(10, 0, 2130768, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0abe2000, 2097152, PROT_NONE) = 0
+mmap(0x7f6d0ade2000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x7000) = 0x7f6d0ade2000
+close(10)                               = 0
+open("/lib64/libkeyutils.so.1", O_RDONLY) = 10
+read(10, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\260\v\0\0\0\0\0\0"..., 832) = 832
+fstat(10, {st_dev=makedev(9, 3), st_ino=2159090022, st_mode=S_IFREG|0755, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=24, st_size=10336, st_atime=2010/05/18-04:06:01, st_mtime=2009/10/24-05:05:55, st_ctime=2009/11/15-21:34:47}) = 0
+mmap(NULL, 2105424, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 10, 0) = 0x7f6d0a9d8000
+fadvise64(10, 0, 2105424, POSIX_FADV_WILLNEED) = 0
+mprotect(0x7f6d0a9da000, 2093056, PROT_NONE) = 0
+mmap(0x7f6d0abd9000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 10, 0x1000) = 0x7f6d0abd9000
+close(10)                               = 0
+mprotect(0x7f6d0abd9000, 4096, PROT_READ) = 0
+mprotect(0x7f6d0ade2000, 4096, PROT_READ) = 0
+mprotect(0x7f6d0afe6000, 4096, PROT_READ) = 0
+mprotect(0x7f6d0b211000, 8192, PROT_READ) = 0
+mprotect(0x7f6d0b4c6000, 32768, PROT_READ) = 0
+mprotect(0x7f6d0b832000, 57344, PROT_READ) = 0
+mprotect(0x7f6d0baa6000, 8192, PROT_READ) = 0
+mprotect(0x7f6d0bcc6000, 4096, PROT_READ) = 0
+mprotect(0x7f6d0beda000, 4096, PROT_READ) = 0
+mprotect(0x7f6d0c10b000, 4096, PROT_READ) = 0
+mprotect(0x7f6d0c31b000, 4096, PROT_READ) = 0
+mprotect(0x7f6d0c55f000, 4096, PROT_READ) = 0
+mprotect(0x7f6d0c775000, 4096, PROT_READ) = 0
+munmap(0x7f6d12f97000, 91207)           = 0
+rt_sigaction(SIGPIPE, {0x1, [], SA_RESTORER, 0x7f6d120ed560}, {0x7f6d1285c980, [], SA_RESTORER|SA_SIGINFO, 0x7f6d12424c00}, 8) = 0
+geteuid()                               = 0
+futex(0x7f6d0c776548, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+open("/etc/ldap.conf", O_RDONLY)        = 10
+fstat(10, {st_dev=makedev(9, 3), st_ino=1357234870, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=24, st_size=9554, st_atime=2010/05/18-01:30:01, st_mtime=2010/05/13-01:29:36, st_ctime=2010/05/13-01:29:37}) = 0
+fstat(10, {st_dev=makedev(9, 3), st_ino=1357234870, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=24, st_size=9554, st_atime=2010/05/18-01:30:01, st_mtime=2010/05/13-01:29:36, st_ctime=2010/05/13-01:29:37}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12ffe000
+read(10, "#\n# This is the configuration fi"..., 4096) = 4096
+read(10, "th Novell\n# Directory Services ("..., 4096) = 4096
+read(10, "ctclass automountMap nisMap\n#nss"..., 4096) = 1362
+read(10, "", 4096)                      = 0
+close(10)                               = 0
+munmap(0x7f6d12ffe000, 4096)            = 0
+open("/etc/ldap.secret", O_RDONLY)      = 10
+fstat(10, {st_dev=makedev(9, 3), st_ino=1350672095, st_mode=S_IFREG|0600, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=18, st_atime=2010/05/18-04:06:01, st_mtime=2009/09/03-15:04:44, st_ctime=2009/09/14-17:06:17}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12ffe000
+read(10, "thism2as4evafuk4u!", 4096)    = 18
+read(10, "", 4096)                      = 0
+close(10)                               = 0
+munmap(0x7f6d12ffe000, 4096)            = 0
+uname({sysname="Linux", nodename="borg", release="2.6.33.2-jen97-default", version="#1 SMP 2010-04-02 16:56:15 +0200", machine="x86_64"}) = 0
+open("/etc/hosts", O_RDONLY|O_CLOEXEC)  = 10
+fstat(10, {st_dev=makedev(9, 3), st_ino=1350672066, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=781, st_atime=2010/05/17-22:43:01, st_mtime=2010/05/02-22:42:08, st_ctime=2010/05/02-22:42:08}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12ffe000
+read(10, "#\n# hosts         This file desc"..., 4096) = 781
+read(10, "", 4096)                      = 0
+close(10)                               = 0
+munmap(0x7f6d12ffe000, 4096)            = 0
+open("/etc/openldap/ldap.conf", O_RDONLY) = 10
+fstat(10, {st_dev=makedev(9, 3), st_ino=1350672203, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=212, st_atime=2010/05/18-04:06:01, st_mtime=2009/09/02-19:00:29, st_ctime=2009/09/14-17:06:26}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12ffe000
+read(10, "#\n# LDAP Defaults\n#\n\n# See ldap."..., 4096) = 212
+read(10, "", 4096)                      = 0
+close(10)                               = 0
+munmap(0x7f6d12ffe000, 4096)            = 0
+geteuid()                               = 0
+getuid()                                = 0
+open("/root/ldaprc", O_RDONLY)          = -1 ENOENT (No such file or directory)
+open("/root/.ldaprc", O_RDONLY)         = -1 ENOENT (No such file or directory)
+open("ldaprc", O_RDONLY)                = -1 ENOENT (No such file or directory)
+stat("/etc/ldap.conf", {st_dev=makedev(9, 3), st_ino=1357234870, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=24, st_size=9554, st_atime=2010/05/18-01:30:01, st_mtime=2010/05/13-01:29:36, st_ctime=2010/05/13-01:29:37}) = 0
+geteuid()                               = 0
+socket(PF_NETLINK, SOCK_RAW, 0)         = 10
+bind(10, {sa_family=AF_NETLINK, pid=0, groups=00000000}, 12) = 0
+getsockname(10, {sa_family=AF_NETLINK, pid=8885, groups=00000000}, [12]) = 0
+sendto(10, "\24\0\0\0\26\0\1\3[\210\362K\0\0\0\0\0\0\0\0", 20, 0, {sa_family=AF_NETLINK, pid=0, groups=00000000}, 12) = 20
+recvmsg(10, {msg_name(12)={sa_family=AF_NETLINK, pid=0, groups=00000000}, msg_iov(1)=[{"8\0\0\0\24\0\2\0[\210\362K\265\"\0\0\2\10\200\376\1\0\0\0\10\0\1\0\177\0\0\1"..., 4096}], msg_controllen=0, msg_flags=0}, 0) = 504
+recvmsg(10, {msg_name(12)={sa_family=AF_NETLINK, pid=0, groups=00000000}, msg_iov(1)=[{"@\0\0\0\24\0\2\0[\210\362K\265\"\0\0\n\200\200\376\1\0\0\0\24\0\1\0\0\0\0\0"..., 4096}], msg_controllen=0, msg_flags=0}, 0) = 704
+recvmsg(10, {msg_name(12)={sa_family=AF_NETLINK, pid=0, groups=00000000}, msg_iov(1)=[{"\24\0\0\0\3\0\2\0[\210\362K\265\"\0\0\0\0\0\0\1\0\0\0\24\0\1\0\0\0\0\0"..., 4096}], msg_controllen=0, msg_flags=0}, 0) = 20
+close(10)                               = 0
+open("/etc/hosts", O_RDONLY|O_CLOEXEC)  = 10
+fstat(10, {st_dev=makedev(9, 3), st_ino=1350672066, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=781, st_atime=2010/05/17-22:43:01, st_mtime=2010/05/02-22:42:08, st_ctime=2010/05/02-22:42:08}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12ffe000
+read(10, "#\n# hosts         This file desc"..., 4096) = 781
+read(10, "", 4096)                      = 0
+close(10)                               = 0
+munmap(0x7f6d12ffe000, 4096)            = 0
+open("/etc/gai.conf", O_RDONLY)         = 10
+fstat(10, {st_dev=makedev(9, 3), st_ino=1350672184, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=2689, st_atime=2010/05/18-09:51:11, st_mtime=2010/01/27-12:43:15, st_ctime=2010/02/16-21:26:56}) = 0
+fstat(10, {st_dev=makedev(9, 3), st_ino=1350672184, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=2689, st_atime=2010/05/18-09:51:11, st_mtime=2010/01/27-12:43:15, st_ctime=2010/02/16-21:26:56}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f6d12ffe000
+read(10, "# Configuration for getaddrinfo("..., 4096) = 2689
+read(10, "", 4096)                      = 0
+close(10)                               = 0
+munmap(0x7f6d12ffe000, 4096)            = 0
+futex(0x7f6d12412ea4, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+socket(PF_INET6, SOCK_DGRAM, IPPROTO_IP) = 10
+connect(10, {sa_family=AF_INET6, sin6_port=htons(389), inet_pton(AF_INET6, "::1", &sin6_addr), sin6_flowinfo=0, sin6_scope_id=0}, 28) = 0
+getsockname(10, {sa_family=AF_INET6, sin6_port=htons(33302), inet_pton(AF_INET6, "::1", &sin6_addr), sin6_flowinfo=0, sin6_scope_id=0}, [28]) = 0
+connect(10, {sa_family=AF_UNSPEC, sa_data="\0\0\0\0\0\0\0\0\0\0\0\0\0\0"}, 16) = 0
+connect(10, {sa_family=AF_INET, sin_port=htons(389), sin_addr=inet_addr("127.0.0.1")}, 16) = 0
+getsockname(10, {sa_family=AF_INET6, sin6_port=htons(52034), inet_pton(AF_INET6, "::ffff:127.0.0.1", &sin6_addr), sin6_flowinfo=0, sin6_scope_id=0}, [28]) = 0
+close(10)                               = 0
+socket(PF_INET6, SOCK_STREAM, IPPROTO_IP) = 10
+fcntl(10, F_SETFD, FD_CLOEXEC)          = 0
+setsockopt(10, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0
+setsockopt(10, SOL_TCP, TCP_NODELAY, [1], 4) = 0
+fcntl(10, F_GETFL)                      = 0x2 (flags O_RDWR)
+fcntl(10, F_SETFL, O_RDWR|O_NONBLOCK)   = 0
+connect(10, {sa_family=AF_INET6, sin6_port=htons(389), inet_pton(AF_INET6, "::1", &sin6_addr), sin6_flowinfo=0, sin6_scope_id=0}, 28) = -1 EINPROGRESS (Operation now in progress)
+poll([{fd=10, events=POLLOUT|POLLERR|POLLHUP}], 1, 5000) = 1 ([{fd=10, revents=POLLOUT}])
+getpeername(10, {sa_family=AF_INET6, sin6_port=htons(389), inet_pton(AF_INET6, "::1", &sin6_addr), sin6_flowinfo=0, sin6_scope_id=0}, [28]) = 0
+fcntl(10, F_GETFL)                      = 0x802 (flags O_RDWR|O_NONBLOCK)
+fcntl(10, F_SETFL, O_RDWR)              = 0
+write(10, "0,\2\1\1`'\2\1\3\4\16cn=root,o=borg\200\22this"..., 46) = 46
+poll([{fd=10, events=POLLIN|POLLPRI|POLLERR|POLLHUP}], 1, 5000) = 1 ([{fd=10, revents=POLLIN}])
+read(10, "0\f\2\1\1a\7\n", 8)           = 8
+read(10, "\1\0\4\0\4\0", 6)             = 6
+setsockopt(10, SOL_SOCKET, SO_KEEPALIVE, [0], 4) = 0
+fcntl(10, F_SETFD, FD_CLOEXEC)          = 0
+getsockname(10, {sa_family=AF_INET6, sin6_port=htons(60020), inet_pton(AF_INET6, "::1", &sin6_addr), sin6_flowinfo=0, sin6_scope_id=0}, [28]) = 0
+getpeername(10, {sa_family=AF_INET6, sin6_port=htons(389), inet_pton(AF_INET6, "::1", &sin6_addr), sin6_flowinfo=0, sin6_scope_id=0}, [28]) = 0
+write(10, "0\201\274\2\1\2c\201\266\4\17ou=users,o=borg\n\1\2\n\1\0"..., 191) = 191
+poll([{fd=10, events=POLLIN|POLLPRI|POLLERR|POLLHUP}], 1, 5000) = 1 ([{fd=10, revents=POLLIN}])
+read(10, "0\f\2\1\2e\7\n", 8)           = 8
+read(10, "\1\0\4\0\4\0", 6)             = 6
+rt_sigaction(SIGPIPE, {0x7f6d1285c980, [], SA_RESTORER|SA_SIGINFO, 0x7f6d120ed560}, NULL, 8) = 0
+open("/etc/passwd", O_RDONLY|O_CLOEXEC) = 11
+lseek(11, 0, SEEK_CUR)                  = 0
+fstat(11, {st_dev=makedev(9, 3), st_ino=1358995409, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=2985, st_atime=2010/05/18-14:09:01, st_mtime=2010/05/05-14:08:52, st_ctime=2010/05/05-14:08:52}) = 0
+mmap(NULL, 2985, PROT_READ, MAP_SHARED, 11, 0) = 0x7f6d12ffe000
+lseek(11, 2985, SEEK_SET)               = 2985
+fstat(11, {st_dev=makedev(9, 3), st_ino=1358995409, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=2985, st_atime=2010/05/18-14:09:01, st_mtime=2010/05/05-14:08:52, st_ctime=2010/05/05-14:08:52}) = 0
+munmap(0x7f6d12ffe000, 2985)            = 0
+close(11)                               = 0
+rt_sigaction(SIGPIPE, {0x1, [], SA_RESTORER, 0x7f6d120ed560}, {0x7f6d1285c980, [], SA_RESTORER|SA_SIGINFO, 0x7f6d120ed560}, 8) = 0
+stat("/etc/ldap.conf", {st_dev=makedev(9, 3), st_ino=1357234870, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=24, st_size=9554, st_atime=2010/05/18-01:30:01, st_mtime=2010/05/13-01:29:36, st_ctime=2010/05/13-01:29:37}) = 0
+geteuid()                               = 0
+getsockname(10, {sa_family=AF_INET6, sin6_port=htons(60020), inet_pton(AF_INET6, "::1", &sin6_addr), sin6_flowinfo=0, sin6_scope_id=0}, [28]) = 0
+getpeername(10, {sa_family=AF_INET6, sin6_port=htons(389), inet_pton(AF_INET6, "::1", &sin6_addr), sin6_flowinfo=0, sin6_scope_id=0}, [28]) = 0
+stat("/etc/ldap.conf", {st_dev=makedev(9, 3), st_ino=1357234870, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=24, st_size=9554, st_atime=2010/05/18-01:30:01, st_mtime=2010/05/13-01:29:36, st_ctime=2010/05/13-01:29:37}) = 0
+geteuid()                               = 0
+getsockname(10, {sa_family=AF_INET6, sin6_port=htons(60020), inet_pton(AF_INET6, "::1", &sin6_addr), sin6_flowinfo=0, sin6_scope_id=0}, [28]) = 0
+getpeername(10, {sa_family=AF_INET6, sin6_port=htons(389), inet_pton(AF_INET6, "::1", &sin6_addr), sin6_flowinfo=0, sin6_scope_id=0}, [28]) = 0
+write(10, "0\201\274\2\1\3c\201\266\4\17ou=users,o=borg\n\1\2\n\1\0"..., 191) = 191
+poll([{fd=10, events=POLLIN|POLLPRI|POLLERR|POLLHUP}], 1, 5000) = 1 ([{fd=10, revents=POLLIN}])
+read(10, "0\f\2\1\3e\7\n", 8)           = 8
+read(10, "\1\0\4\0\4\0", 6)             = 6
+rt_sigaction(SIGPIPE, {0x7f6d1285c980, [], SA_RESTORER|SA_SIGINFO, 0x7f6d120ed560}, NULL, 8) = 0
+write(2, "warning: ", 9)                = 9
+write(2, "user sys does not exist - using "..., 37) = 37
+open("/test;4bf2885b", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 11
+fcntl(11, F_SETFD, FD_CLOEXEC)          = 0
+close(11)                               = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "                                "..., 1024) = 1024
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "                    ( 49%)\10\10\10\10\10\10"..., 1024) = 1024
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "%)\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10"..., 152) = 152
+rename("/test;4bf2885b", "/test")       = 0
+getuid()                                = 0
+getuid()                                = 0
+chown("/test", 0, 0)                    = 0
+chmod("/test", 0644)                    = 0
+utime("/test", [2010/05/18-14:29:40, 2010/05/18-14:29:40]) = 0
+munmap(0x7f6d0cdad000, 67112960)        = 0
+close(9)                                = 0
+munmap(0x7f6d13001000, 4096)            = 0
+munmap(0x7f6d12fff000, 8192)            = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "######################          "..., 1024) = 1024
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "########            (100%)\10\10\10\10\10\10"..., 1024) = 1024
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "%)\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10\10"..., 152) = 152
+ioctl(1, SNDCTL_TMR_TIMEBASE or TCGETS, {c_iflags=0x2500, c_oflags=0x5, c_cflags=0xbf, c_lflags=0x8a3b, c_line=0, c_cc="\x03\x1c\x7f\x15\x04\x00\x01\x00\x11\x13\x1a\x00\x12\x0f\x17\x16\x00\x00\x00"}) = 0
+write(1, "################################"..., 51) = 51
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[HUP INT QUIT PIPE TERM RTMIN RT_1], NULL, 8) = 0
+pread(3, "\0\0\0\0\1\0\0\0\1\0\0\0\0\0\0\0\0\0\0\0\10\1C\7\0\2\373\17\366\17\361\17"..., 4096, 4096) = 4096
+pwrite(3, "\0\0\0\0\1\0\0\0\1\0\0\0\0\0\0\0\0\0\0\0\10\1C\7\0\2\373\17\366\17\361\17"..., 4096, 4096) = 4096
+fdatasync(3)                            = 0
+pread(3, "\0\0\0\0\1\0\0\0/\n\0\0\0\0\0\0\341\30\0\0~\1Q\3\0\2\373\17\357\17\352\17"..., 4096, 10678272) = 4096
+pread(3, "\0\0\0\0\1\0\0\0\341\30\0\0/\n\0\0\0\0\0\0\222\0'\v\0\2\373\17\357\17\352\17"..., 4096, 26087424) = 4096
+pread(3, "\0\0\0\0\1\0\0\0\377\20\0\0\0\0\0\0\376\20\0\0\0\0\0\20\0\0\0\0\0003\0\0"..., 4096, 17821696) = 4096
+pwrite(3, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\376\20\0\0"..., 4096, 0) = 4096
+pwrite(3, "\0\0\0\0\1\0\0\0/\n\0\0\0\0\0\0\341\30\0\0\200\1@\3\0\2\373\17\357\17\352\17"..., 4096, 10678272) = 4096
+pwrite(3, "\0\0\0\0\1\0\0\0\377\20\0\0\0\0\0\0\0\0\0\0\1\0h\5\0\7\0\0\0003\0\0"..., 4096, 17821696) = 4096
+fdatasync(3)                            = 0
+fdatasync(3)                            = 0
+pwrite(4, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\3\0\0\0"..., 4096, 0) = 4096
+pwrite(4, "\0\0\0\0\1\0\0\0\v\0\0\0\5\0\0\0\0\0\0\0\300\0x\7\0\2\353\17\342\17\326\17"..., 4096, 45056) = 4096
+pwrite(5, "\0\0\0\0\1\0\0\0\316\1\0\0\0\0\0\0\0\0\0\0\342\0\202\4\0\2\361\17\340\17\312\17"..., 4096, 1892352) = 4096
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Group", {st_dev=makedev(9, 3), st_ino=3779703666, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=64, st_size=32768, st_atime=2010/05/18-14:30:18, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Group", O_RDWR)      = 9
+fcntl(9, F_SETFD, FD_CLOEXEC)           = 0
+read(9, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\3\0\0\0"..., 512) = 512
+close(9)                                = 0
+open("/var/lib/rpm/Group", O_RDWR)      = 9
+fcntl(9, F_SETFD, FD_CLOEXEC)           = 0
+fstat(9, {st_dev=makedev(9, 3), st_ino=3779703666, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=64, st_size=32768, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(9, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\3\0\0\0"..., 4096, 0) = 4096
+pread(9, "\0\0\0\0\1\0\0\0\5\0\0\0\0\0\0\0\7\0\0\0H\0\353\7\0\2\357\17\256\17\216\17"..., 4096, 20480) = 4096
+pread(9, "\0\0\0\0\1\0\0\0\7\0\0\0\5\0\0\0\0\0\0\0\6\0\237\f\0\2\336\17\325\17\265\17"..., 4096, 28672) = 4096
+pwrite(9, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\3\0\0\0"..., 4096, 0) = 4096
+pwrite(9, "\0\0\0\0\1\0\0\0\5\0\0\0\0\0\0\0\7\0\0\0J\0\337\7\0\2\357\17\256\17\216\17"..., 4096, 20480) = 4096
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Requirename", {st_dev=makedev(9, 3), st_ino=3779703674, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=464, st_size=233472, st_atime=2010/05/18-14:29:57, st_mtime=2010/05/18-10:57:02, st_ctime=2010/05/18-10:57:02}) = 0
+open("/var/lib/rpm/Requirename", O_RDWR) = 11
+fcntl(11, F_SETFD, FD_CLOEXEC)          = 0
+read(11, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0,\0\0\0"..., 512) = 512
+close(11)                               = 0
+open("/var/lib/rpm/Requirename", O_RDWR) = 11
+fcntl(11, F_SETFD, FD_CLOEXEC)          = 0
+fstat(11, {st_dev=makedev(9, 3), st_ino=3779703674, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=464, st_size=233472, st_atime=2010/05/18-14:29:57, st_mtime=2010/05/18-10:57:02, st_ctime=2010/05/18-10:57:02}) = 0
+pread(11, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0,\0\0\0"..., 4096, 0) = 4096
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Providename", {st_dev=makedev(9, 3), st_ino=3779703677, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=2096, st_size=1290240, st_atime=2010/05/18-14:30:18, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Providename", O_RDWR) = 12
+fcntl(12, F_SETFD, FD_CLOEXEC)          = 0
+read(12, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\233\0\0\0"..., 512) = 512
+close(12)                               = 0
+open("/var/lib/rpm/Providename", O_RDWR) = 12
+fcntl(12, F_SETFD, FD_CLOEXEC)          = 0
+fstat(12, {st_dev=makedev(9, 3), st_ino=3779703677, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=2096, st_size=1290240, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(12, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\233\0\0\0"..., 4096, 0) = 4096
+pread(12, "\0\0\0\0\1\0\0\0\202\0\0\0\0\0\0\0\225\0\0\0\272\0\237\1\0\2\356\17\345\17\324\17"..., 4096, 532480) = 4096
+pread(12, "\0\0\0\0\1\0\0\0\225\0\0\0\202\0\0\0\0\0\0\0\212\0\n\6\0\2\330\17\317\17\246\17"..., 4096, 610304) = 4096
+pread(12, "\0\0\0\0\1\0\0\0\37\0\0\0\0\0\0\0\0\0\0\0\272\0\\\2\0\2\365\17\354\17\326\17"..., 4096, 126976) = 4096
+pwrite(12, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\233\0\0\0"..., 4096, 0) = 4096
+pwrite(12, "\0\0\0\0\1\0\0\0\37\0\0\0\0\0\0\0\0\0\0\0\274\0H\2\0\2\365\17\354\17\326\17"..., 4096, 126976) = 4096
+pwrite(12, "\0\0\0\0\1\0\0\0\202\0\0\0\0\0\0\0\225\0\0\0\274\0\223\1\0\2\356\17\345\17\324\17"..., 4096, 532480) = 4096
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Dirnames", {st_dev=makedev(9, 3), st_ino=3779703887, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=4200, st_size=2150400, st_atime=2010/05/18-14:30:18, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Dirnames", O_RDWR)   = 13
+fcntl(13, F_SETFD, FD_CLOEXEC)          = 0
+read(13, "\0\0\0\0\1\0\0\0\0\0\0\0b1\5\0\t\0\0\0\0\20\0\0\0\t\0\0\0\0\0\0"..., 512) = 512
+close(13)                               = 0
+open("/var/lib/rpm/Dirnames", O_RDWR)   = 13
+fcntl(13, F_SETFD, FD_CLOEXEC)          = 0
+fstat(13, {st_dev=makedev(9, 3), st_ino=3779703887, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=4200, st_size=2150400, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(13, "\0\0\0\0\1\0\0\0\0\0\0\0b1\5\0\t\0\0\0\0\20\0\0\0\t\0\0\0\0\0\0"..., 4096, 0) = 4096
+pread(13, "\0\0\0\0\1\0\0\0\1\0\0\0\0\0\0\0\0\0\0\0\f\0000\r\3\3\364\17\324\17\250\17"..., 4096, 4096) = 4096
+pread(13, "\0\0\0\0\1\0\0\0P\0\0\0\0\0\0\0\0\0\0\0/\0\20\7\2\3\364\17\230\7(\10"..., 4096, 327680) = 4096
+pread(13, "\0\0\0\0\1\0\0\0\2\0\0\0\0\0\0\0002\1\0\0006\0d\v\1\5\374\17\360\17\350\17"..., 4096, 8192) = 4096
+pwrite(13, "\0\0\0\0\1\0\0\0\2\0\0\0\0\0\0\0002\1\0\0006\0\\\v\1\5\374\17\350\17\340\17"..., 4096, 8192) = 4096
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Requireversion", {st_dev=makedev(9, 3), st_ino=3779704814, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=328, st_size=167936, st_atime=2010/05/18-14:30:18, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Requireversion", O_RDWR) = 14
+fcntl(14, F_SETFD, FD_CLOEXEC)          = 0
+read(14, "\0\0\0\0\1\0\0\0\0\0\0\0b1\5\0\t\0\0\0\0\20\0\0\0\t\0\0\0\0\0\0"..., 512) = 512
+close(14)                               = 0
+open("/var/lib/rpm/Requireversion", O_RDWR) = 14
+fcntl(14, F_SETFD, FD_CLOEXEC)          = 0
+fstat(14, {st_dev=makedev(9, 3), st_ino=3779704814, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=328, st_size=167936, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(14, "\0\0\0\0\1\0\0\0\0\0\0\0b1\5\0\t\0\0\0\0\20\0\0\0\t\0\0\0\0\0\0"..., 4096, 0) = 4096
+pread(14, "\0\0\0\0\1\0\0\0\1\0\0\0\0\0\0\0\0\0\0\0\6\0\240\17\2\3\364\17\300\17\340\17"..., 4096, 4096) = 4096
+pread(14, "\0\0\0\0\1\0\0\0\35\0\0\0\5\0\0\0\6\0\0\0\242\0@\6\1\5\370\17\314\17\300\17"..., 4096, 118784) = 4096
+pread(14, "\0\0\0\0\1\0\0\0\25\0\0\0\0\0\0\0\7\0\0\0\1\0\346\17\0\7\1\0\0\0\2\0"..., 4096, 86016) = 4096
+pread(14, "\0\0\0\0\1\0\0\0\7\0\0\0\25\0\0\0&\0\0\0\1\0\346\17\0\7\0\0\25\2\0\0"..., 4096, 28672) = 4096
+pread(14, "\0\0\0\0\1\0\0\0&\0\0\0\7\0\0\0\0\0\0\0\1\0\204\0\0\7\3\0\0\0%\4"..., 4096, 155648) = 4096
+pread(14, "\0\0\0\0\1\0\0\0\10\0\0\0\0\0\0\0\26\0\0\0\1\0\346\17\0\7\1\0\0\0\3\0"..., 4096, 32768) = 4096
+pread(14, "\0\0\0\0\1\0\0\0\26\0\0\0\10\0\0\0'\0\0\0\1\0\346\17\0\7\0\0\25\2\0\0"..., 4096, 90112) = 4096
+pread(14, "\0\0\0\0\1\0\0\0'\0\0\0\26\0\0\0\0\0\0\0\1\0\204\0\0\7\4\0\0\0%\4"..., 4096, 159744) = 4096
+pread(14, "\0\0\0\0\1\0\0\0(\0\0\0\6\0\0\0\21\0\0\0L\0<\t\1\5\370\17L\rD\r"..., 4096, 163840) = 4096
+pwrite(14, "\0\0\0\0\1\0\0\0\0\0\0\0b1\5\0\t\0\0\0\0\20\0\0\0\t\0\0\0\0\0\0"..., 4096, 0) = 4096
+pwrite(14, "\0\0\0\0\1\0\0\0\7\0\0\0&\0\0\0\25\0\0\0\1\0\346\17\0\7\0\0\25\2\0\0"..., 4096, 28672) = 4096
+pwrite(14, "\0\0\0\0\1\0\0\0\10\0\0\0\26\0\0\0\0\0\0\0\1\0\214\0\0\7\4\0\0\0%\4"..., 4096, 32768) = 4096
+pwrite(14, "\0\0\0\0\1\0\0\0\25\0\0\0\7\0\0\0\0\0\0\0\1\0\214\0\0\7\3\0\0\0%\4"..., 4096, 86016) = 4096
+pwrite(14, "\0\0\0\0\1\0\0\0\26\0\0\0'\0\0\0\10\0\0\0\1\0\346\17\0\7\0\0\25\2\0\0"..., 4096, 90112) = 4096
+pwrite(14, "\0\0\0\0\1\0\0\0\35\0\0\0\5\0\0\0\6\0\0\0\242\0@\6\1\5\370\17\314\17\300\17"..., 4096, 118784) = 4096
+pwrite(14, "\0\0\0\0\1\0\0\0&\0\0\0\0\0\0\0\7\0\0\0\1\0\346\17\0\7\1\0\0\0\2\0"..., 4096, 155648) = 4096
+pwrite(14, "\0\0\0\0\1\0\0\0'\0\0\0\0\0\0\0\26\0\0\0\1\0\346\17\0\7\1\0\0\0\3\0"..., 4096, 159744) = 4096
+pwrite(14, "\0\0\0\0\1\0\0\0(\0\0\0\6\0\0\0\21\0\0\0L\0004\t\1\5\370\17D\r<\r"..., 4096, 163840) = 4096
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Provideversion", {st_dev=makedev(9, 3), st_ino=3779704822, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=1088, st_size=557056, st_atime=2010/05/18-14:30:18, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Provideversion", O_RDWR) = 15
+fcntl(15, F_SETFD, FD_CLOEXEC)          = 0
+read(15, "\0\0\0\0\1\0\0\0\0\0\0\0b1\5\0\t\0\0\0\0\20\0\0\0\t\0\0\0\0\0\0"..., 512) = 512
+close(15)                               = 0
+open("/var/lib/rpm/Provideversion", O_RDWR) = 15
+fcntl(15, F_SETFD, FD_CLOEXEC)          = 0
+fstat(15, {st_dev=makedev(9, 3), st_ino=3779704822, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=1088, st_size=557056, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(15, "\0\0\0\0\1\0\0\0\0\0\0\0b1\5\0\t\0\0\0\0\20\0\0\0\t\0\0\0\0\0\0"..., 4096, 0) = 4096
+pread(15, "\0\0\0\0\1\0\0\0\1\0\0\0\0\0\0\0\0\0\0\0z\0,\10\2\3\364\17\230\10T\t"..., 4096, 4096) = 4096
+pread(15, "\0\0\0\0\1\0\0\0\3\0\0\0\0\0\0\0~\0\0\0\222\0\224\3\1\5\374\17\224\3\360\17"..., 4096, 12288) = 4096
+pwrite(15, "\0\0\0\0\1\0\0\0\3\0\0\0\0\0\0\0~\0\0\0\224\0x\3\1\5\374\17\224\3\360\17"..., 4096, 12288) = 4096
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Installtid", {st_dev=makedev(9, 3), st_ino=3779704823, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=80, st_size=40960, st_atime=2010/05/18-14:30:18, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Installtid", O_RDWR) = 16
+fcntl(16, F_SETFD, FD_CLOEXEC)          = 0
+read(16, "\0\0\0\0\1\0\0\0\0\0\0\0b1\5\0\t\0\0\0\0\20\0\0\0\t\0\0\0\0\0\0"..., 512) = 512
+close(16)                               = 0
+open("/var/lib/rpm/Installtid", O_RDWR) = 16
+fcntl(16, F_SETFD, FD_CLOEXEC)          = 0
+fstat(16, {st_dev=makedev(9, 3), st_ino=3779704823, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=80, st_size=40960, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(16, "\0\0\0\0\1\0\0\0\0\0\0\0b1\5\0\t\0\0\0\0\20\0\0\0\t\0\0\0\0\0\0"..., 4096, 0) = 4096
+pread(16, "\0\0\0\0\1\0\0\0\1\0\0\0\0\0\0\0\0\0\0\0\10\0\204\17\2\3\364\17\224\17\324\17"..., 4096, 4096) = 4096
+pread(16, "\0\0\0\0\1\0\0\0\4\0\0\0\10\0\0\0\7\0\0\0\260\0\320\7\1\5\370\17\354\17\344\17"..., 4096, 16384) = 4096
+pwrite(16, "\0\0\0\0\1\0\0\0\4\0\0\0\10\0\0\0\7\0\0\0\262\0\274\7\1\5\370\17\354\17\344\17"..., 4096, 16384) = 4096
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Sigmd5", {st_dev=makedev(9, 3), st_ino=3779704827, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=136, st_size=77824, st_atime=2010/05/18-14:30:18, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Sigmd5", O_RDWR)     = 17
+fcntl(17, F_SETFD, FD_CLOEXEC)          = 0
+read(17, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\0\0\0\0"..., 512) = 512
+close(17)                               = 0
+open("/var/lib/rpm/Sigmd5", O_RDWR)     = 17
+fcntl(17, F_SETFD, FD_CLOEXEC)          = 0
+fstat(17, {st_dev=makedev(9, 3), st_ino=3779704827, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=136, st_size=77824, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(17, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\0\0\0\0"..., 4096, 0) = 4096
+pread(17, "\0\0\0\0\1\0\0\0\6\0\0\0\0\0\0\0\n\0\0\0\16\1J\2\0\2\357\17\346\17\325\17"..., 4096, 24576) = 4096
+pread(17, "\0\0\0\0\1\0\0\0\n\0\0\0\6\0\0\0\0\0\0\0 \0`\16\0\2\357\17\346\17\325\17"..., 4096, 40960) = 4096
+pwrite(17, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\0\0\0\0"..., 4096, 0) = 4096
+pwrite(17, "\0\0\0\0\1\0\0\0\n\0\0\0\6\0\0\0\0\0\0\0\"\0F\16\0\2\357\17\346\17\325\17"..., 4096, 40960) = 4096
+brk(0x228b000)                          = 0x228b000
+brk(0x2287000)                          = 0x2287000
+brk(0x2283000)                          = 0x2283000
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Sha1header", {st_dev=makedev(9, 3), st_ino=3779704828, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=160, st_size=90112, st_atime=2010/05/18-14:30:18, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Sha1header", O_RDWR) = 18
+fcntl(18, F_SETFD, FD_CLOEXEC)          = 0
+read(18, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\24\0\0\0"..., 512) = 512
+close(18)                               = 0
+open("/var/lib/rpm/Sha1header", O_RDWR) = 18
+fcntl(18, F_SETFD, FD_CLOEXEC)          = 0
+fstat(18, {st_dev=makedev(9, 3), st_ino=3779704828, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=160, st_size=90112, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(18, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\24\0\0\0"..., 4096, 0) = 4096
+pread(18, "\0\0\0\0\1\0\0\0\2\0\0\0\0\0\0\0\0\0\0\0\222\0\276\1\0\2\327\17\316\17\245\17"..., 4096, 8192) = 4096
+pwrite(18, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\24\0\0\0"..., 4096, 0) = 4096
+pwrite(18, "\0\0\0\0\1\0\0\0\2\0\0\0\0\0\0\0\0\0\0\0\224\0\214\1\0\2\327\17\316\17\245\17"..., 4096, 8192) = 4096
+getgid()                                = 0
+getuid()                                = 0
+stat("/var", {st_dev=makedev(9, 3), st_ino=1073741953, st_mode=S_IFDIR|0755, st_nlink=14, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:30, st_mtime=2010/02/26-11:36:45, st_ctime=2010/02/26-11:36:45}) = 0
+stat("/var/lib", {st_dev=makedev(9, 3), st_ino=3507401633, st_mode=S_IFDIR|0755, st_nlink=57, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/17-19:19:39, st_ctime=2010/05/17-19:19:39}) = 0
+stat("/var/lib/rpm", {st_dev=makedev(9, 3), st_ino=1359243633, st_mode=S_IFDIR|0755, st_nlink=3, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=8, st_size=4096, st_atime=2010/05/17-19:19:32, st_mtime=2010/05/15-08:15:52, st_ctime=2010/05/15-08:15:52}) = 0
+access("/var/lib/rpm", W_OK)            = 0
+access("/var/lib/rpm/__db.001", F_OK)   = -1 ENOENT (No such file or directory)
+stat("/var/lib/rpm/Filedigests", {st_dev=makedev(9, 3), st_ino=3779704833, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=11968, st_size=10002432, st_atime=2010/05/18-14:30:18, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+open("/var/lib/rpm/Filedigests", O_RDWR) = 19
+fcntl(19, F_SETFD, FD_CLOEXEC)          = 0
+read(19, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\0\0\0\0"..., 512) = 512
+close(19)                               = 0
+open("/var/lib/rpm/Filedigests", O_RDWR) = 19
+fcntl(19, F_SETFD, FD_CLOEXEC)          = 0
+fstat(19, {st_dev=makedev(9, 3), st_ino=3779704833, st_mode=S_IFREG|0644, st_nlink=1, st_uid=0, st_gid=0, st_blksize=4096, st_blocks=11968, st_size=10002432, st_atime=2010/05/18-14:30:19, st_mtime=2010/05/18-14:30:18, st_ctime=2010/05/18-14:30:18}) = 0
+pread(19, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\0\0\0\0"..., 4096, 0) = 4096
+pread(19, "\0\0\0\0\1\0\0\0,\4\0\0\0\0\0\0002\5\0\0\366\0\377\2\0\2\357\17\346\17\325\17"..., 4096, 4374528) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\27\5\0\0\0\0\0\0\25\5\0\0\1\0\346\17\0\7\3\0\0\0\4\0"..., 4096, 5337088) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\25\5\0\0\27\5\0\0\22\5\0\0\1\0\346\17\0\7\0\0\304\2\0\0"..., 4096, 5328896) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\22\5\0\0\25\5\0\0o\2\0\0\1\0\346\17\0\7\304\4\0\0\304\2"..., 4096, 5316608) = 4096
+pread(19, "\0\0\0\0\1\0\0\0o\2\0\0\22\5\0\0\f\5\0\0\1\0\346\17\0\7\0\0\245\7\0\0"..., 4096, 2551808) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\f\5\0\0o\2\0\0\t\5\0\0\1\0\346\17\0\7\304\2\0\0]\n"..., 4096, 5292032) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\t\5\0\0\f\5\0\0\363\4\0\0\1\0\346\17\0\7\0\0\304\2\0\0"..., 4096, 5279744) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\363\4\0\0\t\5\0\0\v\0\0\0\1\0\346\17\0\7\234\17\0\0\304\2"..., 4096, 5189632) = 4096
+brk(0x22a4000)                          = 0x22a4000
+pread(19, "\0\0\0\0\1\0\0\0\v\0\0\0\363\4\0\0\n\5\0\0\1\0\346\17\0\7\0\0H\22\0\0"..., 4096, 45056) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\n\5\0\0\v\0\0\0\v\5\0\0\1\0\346\17\0\7\"\3\0\0\25\1"..., 4096, 5283840) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\v\5\0\0\n\5\0\0\r\5\0\0\1\0\346\17\0\7\0\0\"\3\0\0"..., 4096, 5287936) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\r\5\0\0\v\5\0\0\16\5\0\0\1\0\346\17\0\7\277\6\0\0\"\3"..., 4096, 5296128) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\16\5\0\0\r\5\0\0\21\5\0\0\1\0\346\17\0\7\0\0\220\t\0\0"..., 4096, 5300224) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\21\5\0\0\16\5\0\0\23\5\0\0\1\0\346\17\0\7\"\3\0\0003\f"..., 4096, 5312512) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\23\5\0\0\21\5\0\0\24\5\0\0\1\0\346\17\0\7\0\0\"\3\0\0"..., 4096, 5320704) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\24\5\0\0\23\5\0\0\26\5\0\0\1\0\346\17\0\7\214\21\0\0\"\3"..., 4096, 5324800) = 4096
+pread(19, "\0\0\0\0\1\0\0\0\26\5\0\0\24\5\0\0\0\0\0\0\1\0\326\1\0\7\0\0B\24\0\0"..., 4096, 5332992) = 4096
+brk(0x22cb000)                          = 0x22cb000
+brk(0x22bc000)                          = 0x22bc000
+brk(0x22ac000)                          = 0x22ac000
+pwrite(19, "\0\0\0\0\1\0\0\0\0\0\0\0a\25\6\0\10\0\0\0\0\20\0\0\0\10\0\0\0\0\0\0"..., 4096, 0) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\v\0\0\0\n\5\0\0\363\4\0\0\1\0\346\17\0\7\"\3\0\0\25\1"..., 4096, 45056) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0o\2\0\0\f\5\0\0\22\5\0\0\1\0\346\17\0\7\"\3\0\0003\f"..., 4096, 2551808) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0,\4\0\0\0\0\0\0002\5\0\0\366\0\377\2\0\2\357\17\346\17\325\17"..., 4096, 4374528) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\363\4\0\0\v\0\0\0\t\5\0\0\1\0\346\17\0\7\0\0\"\3\0\0"..., 4096, 5189632) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\t\5\0\0\363\4\0\0\f\5\0\0\1\0\346\17\0\7\277\6\0\0\"\3"..., 4096, 5279744) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\n\5\0\0\v\5\0\0\v\0\0\0\1\0\346\17\0\7\0\0H\22\0\0"..., 4096, 5283840) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\v\5\0\0\r\5\0\0\n\5\0\0\1\0\346\17\0\7\234\17\0\0\304\2"..., 4096, 5287936) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\f\5\0\0\t\5\0\0o\2\0\0\1\0\346\17\0\7\0\0\220\t\0\0"..., 4096, 5292032) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\r\5\0\0\16\5\0\0\v\5\0\0\1\0\346\17\0\7\0\0\304\2\0\0"..., 4096, 5296128) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\16\5\0\0\21\5\0\0\r\5\0\0\1\0\346\17\0\7\304\2\0\0]\n"..., 4096, 5300224) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\21\5\0\0\23\5\0\0\16\5\0\0\1\0\346\17\0\7\0\0\245\7\0\0"..., 4096, 5312512) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\22\5\0\0o\2\0\0\25\5\0\0\1\0\346\17\0\7\0\0\"\3\0\0"..., 4096, 5316608) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\23\5\0\0\24\5\0\0\21\5\0\0\1\0\346\17\0\7\304\4\0\0\304\2"..., 4096, 5320704) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\24\5\0\0\26\5\0\0\23\5\0\0\1\0\346\17\0\7\0\0\304\2\0\0"..., 4096, 5324800) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\25\5\0\0\22\5\0\0\27\5\0\0\1\0\346\17\0\7\214\21\0\0\"\3"..., 4096, 5328896) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\26\5\0\0\0\0\0\0\24\5\0\0\1\0\346\17\0\7\3\0\0\0\4\0"..., 4096, 5332992) = 4096
+pwrite(19, "\0\0\0\0\1\0\0\0\27\5\0\0\25\5\0\0\0\0\0\0\1\0\336\1\0\7\0\0B\24\0\0"..., 4096, 5337088) = 4096
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], ~[KILL STOP RTMIN RT_1], 8) = 0
+rt_sigprocmask(SIG_SETMASK, ~[KILL STOP RTMIN RT_1], NULL, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1], [], 8) = 0
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+close(7)                                = 0
+fdatasync(3)                            = 0
+fcntl(6, F_SETLK, {type=F_UNLCK, whence=SEEK_SET, start=0, len=0}) = 0
+close(6)                                = 0
+close(19)                               = 0
+close(18)                               = 0
+close(17)                               = 0
+close(16)                               = 0
+close(15)                               = 0
+close(14)                               = 0
+close(13)                               = 0
+close(8)                                = 0
+close(12)                               = 0
+close(11)                               = 0
+close(9)                                = 0
+close(5)                                = 0
+close(4)                                = 0
+fdatasync(3)                            = 0
+close(3)                                = 0
+open("/var/lib/rpm/Packages", O_RDWR)   = 3
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+fdatasync(3)                            = 0
+close(3)                                = 0
+brk(0x22a4000)                          = 0x22a4000
+brk(0x22a3000)                          = 0x22a3000
+brk(0x22a0000)                          = 0x22a0000
+brk(0x228d000)                          = 0x228d000
+rt_sigaction(SIGHUP, {SIG_DFL, [], SA_RESTORER, 0x7f6d12424c00}, NULL, 8) = 0
+rt_sigaction(SIGINT, {SIG_DFL, [], SA_RESTORER, 0x7f6d12424c00}, NULL, 8) = 0
+rt_sigaction(SIGTERM, {SIG_DFL, [], SA_RESTORER, 0x7f6d12424c00}, NULL, 8) = 0
+rt_sigaction(SIGQUIT, {SIG_DFL, [], SA_RESTORER, 0x7f6d12424c00}, NULL, 8) = 0
+rt_sigaction(SIGPIPE, {SIG_DFL, [], SA_RESTORER, 0x7f6d12424c00}, NULL, 8) = 0
+exit_group(0)                           = ?

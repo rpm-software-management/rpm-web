@@ -1,0 +1,28 @@
+Add in a -h (help) command for rpm2cpio
+
+From:  <>
+
+
+---
+
+ rpm2cpio.c |    8 +++++++-
+ 1 files changed, 7 insertions(+), 1 deletions(-)
+
+--- a/rpm2cpio.c
++++ b/rpm2cpio.c
+@@ -23,8 +23,14 @@
+     setprogname(argv[0]);	/* Retrofit glibc __progname */
+     if (argc == 1)
+ 	fdi = fdDup(STDIN_FILENO);
+-    else
++    else {
++        /* -h switch added for Debian because a user asked for it */
++        if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0) {
++            fprintf(stderr, "Usage: rpm2cpio file.rpm\n");
++            exit(1);
++        }
+ 	fdi = Fopen(argv[1], "r.ufdio");
++    }
+ 
+     if (Ferror(fdi)) {
+ 	fprintf(stderr, "%s: %s: %s\n", argv[0],

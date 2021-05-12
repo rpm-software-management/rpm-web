@@ -1,0 +1,14 @@
+Fix out of sources build.
+--- a/lib/Makefile.am
++++ b/lib/Makefile.am
+@@ -57,8 +57,8 @@
+ librpm_la_LIBADD += @WITH_DB_LIB@
+ endif
+ 
+-tagtbl.c: Makefile.am $(top_srcdir)/lib/rpmtag.h gentagtbl.sh
+-	@AWK=${AWK} ${SHELL} gentagtbl.sh $(top_srcdir)/lib/rpmtag.h > $@
++tagtbl.c: Makefile.am $(top_srcdir)/lib/rpmtag.h $(top_srcdir)/lib/gentagtbl.sh
++	@AWK=${AWK} ${SHELL} $(top_srcdir)/lib/gentagtbl.sh $(top_srcdir)/lib/rpmtag.h > $@
+ BUILT_SOURCES = tagtbl.c
+ 
+ if WITH_INTERNAL_DB
