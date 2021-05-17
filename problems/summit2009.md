@@ -59,6 +59,6 @@ Currently rpm only counts the number of packages with the same name when it calc
 Add a convenient way for scriptlet authors to find out which version of the package was installed before/obsoleted. Idea: put headerids in some ENV var, query with --querybynumber.
 
 ### Using tilde (~) in version
-Michael suggested to use the tilde (~) in version numbers. Versions 1.3~foo comes just before 1.3. This feature could be (mis)used as a version separator in kernel packages. That solves the problem that 2.6.31_8.1.3 is newer than 2.6.31.1_8.1.3 (whereas 2.6.31~8.1.3 is older than 2.6.31.1~8.1.3). There is already a ticket for that: [http://rpm.org/ticket/56](http://rpm.org/ticket/56)
+Michael suggested to use the tilde (~) in version numbers. Versions 1.3~foo comes just before 1.3. This feature could be (mis)used as a version separator in kernel packages. That solves the problem that 2.6.31_8.1.3 is newer than 2.6.31.1_8.1.3 (whereas 2.6.31~8.1.3 is older than 2.6.31.1~8.1.3). There is already a ticket for that: [https://rpm.org/ticket/56](https://rpm.org/ticket/56)
 
 Also see [https://bugzilla.novell.com/show_bug.cgi?id=540558](https://bugzilla.novell.com/show_bug.cgi?id=540558), [https://bugzilla.novell.com/show_bug.cgi?id=466994](https://bugzilla.novell.com/show_bug.cgi?id=466994) 
