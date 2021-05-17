@@ -50,6 +50,6 @@ Here you can find links to software related to RPM such as frontends, packaging 
 * [php-rpminfo](https://git.remirepo.net/cgit/tools/php-rpminfo.git/) allows to retrieve information from RPM files or from the installed RPMs database from PHP. See [docs](https://www.php.net/rpminfo) for details.
 * [perl-URPM](http://gitweb.mageia.org/software/rpm/perl-URPM/) is a Perl extension for manipulating rpm headers and packages.
 * [libsolv](https://github.com/openSUSE/libsolv) has bindings for Perl, Python and Ruby. 
-* [Rust RPM](https://github.com/rustrpm) has Rust bindings for RPM and associated tools.
+* [librpm.rs](https://github.com/rpm-software-management/librpm.rs) has Rust bindings for librpm.
 
 
