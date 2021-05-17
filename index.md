@@ -17,7 +17,7 @@ capable of
 ## News
 #### RPM 4.17.0 ALPHA released! (Apr 26 2021)
 * See [draft release notes](wiki/Releases/4.17.0) for details and download information
-* [Original announcement](https://lists.rpm.org/pipermail/rpm-announce/2021-April/000088.html)
+* [Original announcement](http://lists.rpm.org/pipermail/rpm-announce/2021-April/000088.html)
 * Highlights include:
   * More robust install failure handling
   * Many macro improvements, in particular wrt Lua integration
