@@ -23,7 +23,6 @@ Here you can find links to software related to RPM such as frontends, packaging 
 * [cpanspec](http://cpanspec.sourceforge.net/) is another tool for creating RPM packages from Perl CPAN modules.
 * [rpmrebuild](http://rpmrebuild.sourceforge.net/) is a tool that can generate a spec from an already installed RPM (useful when you don't have access to real source rpm, eg with packages of proprietary software)
 * [Specfile Editor](http://www.eclipse.org/linuxtools/projectPages/specfile/) is a spec file editor plugin for Eclipse.
-* [RPM Stubby](http://www.eclipse.org/linuxtools/projectPages/rpmstubby/) is a spec file generator plugin for Eclipse. 
 
 ### Build tools 
 * [Open Build Service](http://openbuildservice.org/) is a generic build- and distribution system.
