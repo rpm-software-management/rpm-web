@@ -47,7 +47,7 @@ Here you can find links to software related to RPM such as frontends, packaging 
 * Python bindings for RPM are distributed as part of [RPM releases](download).
 * [JRPM](http://jrpm.sourceforge.net/) is a java library to manipule and create RPM archives.
 * [Redline](http://www.introspectrum.com/oss/) is a pure Java library for manipulating RPM Package Manager packages.
-* [phprpm](http://cekirdek.uludag.org.tr/~meren/php_rpm/) provides some basic functionality for accessing RPM files from PHP programs.
+* [php-rpminfo](https://git.remirepo.net/cgit/tools/php-rpminfo.git/) allows to retrieve information from RPM files or from the installed RPMs database from PHP. See [docs](https://www.php.net/rpminfo) for details.
 * [perl-URPM](http://gitweb.mageia.org/software/rpm/perl-URPM/) is a Perl extension for manipulating rpm headers and packages.
 * [libsolv](https://github.com/openSUSE/libsolv) has bindings for Perl, Python and Ruby. 
 * [Rust RPM](https://github.com/rustrpm) has Rust bindings for RPM and associated tools.
