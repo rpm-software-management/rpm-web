@@ -18,7 +18,7 @@ Here you can find links to software related to RPM such as frontends, packaging 
 
 ### Packager tools
 * [rpmlint](https://github.com/rpm-software-management/rpmlint) is a tool for checking for common errors in RPM packaging.
-* [rpmdevtools](https://hosted.fedoraproject.org/projects/rpmdevtools) contains scripts and (X)Emacs support files to aid in RPM packaging.
+* [rpmdevtools](https://fedoraproject.org/wiki/Rpmdevtools) contains scripts and (X)Emacs support files to aid in RPM packaging.
 * [cpan2rpm](http://search.cpan.org/~ecalder/cpan2rpm/) generates RPM packages from Perl CPAN modules.
 * [cpanspec](http://cpanspec.sourceforge.net/) is another tool for creating RPM packages from Perl CPAN modules.
 * [rpmrebuild](http://rpmrebuild.sourceforge.net/) is a tool that can generate a spec from an already installed RPM (useful when you don't have access to real source rpm, eg with packages of proprietary software)
