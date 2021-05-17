@@ -43,7 +43,7 @@ Here you can find links to software related to RPM such as frontends, packaging 
 * [perl-RPM2](http://search.cpan.org/dist/RPM2/) provides an object-oriented interface to RPM facilities for Perl.
 * [perl-RPM4](http://search.cpan.org/~tvignaud/RPM4/) provides an object-oriented interface to RPM facilities for Perl.
 * [RPM-Specfile](http://search.cpan.org/dist/RPM-Specfile/) is a Perl extension for creating RPM specfiles.
-* [Ruby-RPM](http://rubyforge.org/projects/ruby-rpm/) provides Ruby bindings to RPM.
+* [Ruby-RPM](https://github.com/hansode/ruby-2.1.x-rpm) provides Ruby bindings to RPM.
 * Python bindings for RPM are distributed as part of [RPM releases](download).
 * [JRPM](http://jrpm.sourceforge.net/) is a java library to manipule and create RPM archives.
 * [Redline](http://www.introspectrum.com/oss/) is a pure Java library for manipulating RPM Package Manager packages.
