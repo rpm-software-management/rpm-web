@@ -17,7 +17,7 @@ Here you can find links to software related to RPM such as frontends, packaging 
 * [Poldek](http://poldek.pld-linux.org/) is another frontend for RPM, primarily used by the PLD distribution. 
 
 ### Packager tools
-* [rpmlint](http://rpmlint.zarb.org/) is a tool for checking for common errors in RPM packaging.
+* [rpmlint](https://github.com/rpm-software-management/rpmlint) is a tool for checking for common errors in RPM packaging.
 * [rpmdevtools](https://hosted.fedoraproject.org/projects/rpmdevtools) contains scripts and (X)Emacs support files to aid in RPM packaging.
 * [cpan2rpm](http://search.cpan.org/~ecalder/cpan2rpm/) generates RPM packages from Perl CPAN modules.
 * [cpanspec](http://cpanspec.sourceforge.net/) is another tool for creating RPM packages from Perl CPAN modules.
