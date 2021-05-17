@@ -31,7 +31,7 @@ Here you can find links to software related to RPM such as frontends, packaging 
 * [Koji](https://fedorahosted.org/koji/) is a package build and tracking system.
 * [Mock](https://github.com/rpm-software-management/mock) is a 'simple' chroot build environment manager for building RPMs.
 * [Mach](http://thomas.apestaart.org/projects/mach/) is a more generic chroot environment manager that can also be used for building RPMs.
-* [Mezzanine](http://beta.kainx.org/wiki/view/Mezzanine) is a set of tools which simplify the management of software packages and collections of software packages. 
+* [Mezzanine](https://warewulf.lbl.gov/mezzanine.html) is a set of tools which simplify the management of software packages and collections of software packages. 
 
 ### Other tools
 * [DeltaRPM](http://gitorious.org/deltarpm/) contais tools for creating and applying change deltas of RPM packages
