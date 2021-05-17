@@ -34,7 +34,7 @@ Here you can find links to software related to RPM such as frontends, packaging 
 * [Mezzanine](https://warewulf.lbl.gov/mezzanine.html) is a set of tools which simplify the management of software packages and collections of software packages. 
 
 ### Other tools
-* [DeltaRPM](http://gitorious.org/deltarpm/) contais tools for creating and applying change deltas of RPM packages
+* [DeltaRPM](https://github.com/rpm-software-management/deltarpm) contais tools for creating and applying change deltas of RPM packages
 * [rpm2html](http://www.nongnu.org/rpm2html/) generates web pages that describe a set of RPM packages.
 * [rpmreaper](https://fedorahosted.org/rpmreaper/) is a ncurses-based application for finding unnecessary packages in the system.
 * [libsolv](https://github.com/openSUSE/libsolv) is library for package dependency resolution. 
