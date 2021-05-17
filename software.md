@@ -29,7 +29,7 @@ Here you can find links to software related to RPM such as frontends, packaging 
 * [Copr](https://fedorahosted.org/copr/) is a lightweight build- and distribution system.
 * [Iurt](https://wiki.mageia.org/en/Iurt) is a package build system.
 * [Koji](https://fedorahosted.org/koji/) is a package build and tracking system.
-* [Mock](https://hosted.fedoraproject.org/projects/mock/) is a 'simple' chroot build environment manager for building RPMs.
+* [Mock](https://github.com/rpm-software-management/mock) is a 'simple' chroot build environment manager for building RPMs.
 * [Mach](http://thomas.apestaart.org/projects/mach/) is a more generic chroot environment manager that can also be used for building RPMs.
 * [Mezzanine](http://beta.kainx.org/wiki/view/Mezzanine) is a set of tools which simplify the management of software packages and collections of software packages. 
 
