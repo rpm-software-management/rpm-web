@@ -1,0 +1,57 @@
+diff -up rpm-4.6.0-rc1/lib/fprint.c.path_max rpm-4.6.0-rc1/lib/fprint.c
+diff -up rpm-4.6.0-rc1/lib/query.c.path_max rpm-4.6.0-rc1/lib/query.c
+--- rpm-4.6.0-rc1/lib/query.c.path_max	2008-10-31 18:36:33.000000000 +0100
++++ rpm-4.6.0-rc1/lib/query.c	2008-10-31 18:36:39.110000000 +0100
+@@ -5,10 +5,6 @@
+ 
+ #include "system.h"
+ 
+-#ifndef PATH_MAX
+-# define PATH_MAX 255
+-#endif
+-
+ #include <inttypes.h>
+ 
+ #include <rpm/rpmcli.h>
+diff -up rpm-4.6.0-rc1/misc/realpath.c.path_max rpm-4.6.0-rc1/misc/realpath.c
+--- rpm-4.6.0-rc1/misc/realpath.c.path_max	2008-10-31 18:33:35.660000000 +0100
++++ rpm-4.6.0-rc1/misc/realpath.c	2008-10-31 18:35:31.710000000 +0100
+@@ -19,18 +19,6 @@
+ extern int errno;
+ #endif
+ 
+-#ifndef PATH_MAX
+-#ifdef _POSIX_VERSION
+-#define PATH_MAX _POSIX_PATH_MAX
+-#else
+-#ifdef MAXPATHLEN
+-#define PATH_MAX MAXPATHLEN
+-#else
+-#define PATH_MAX 1024
+-#endif
+-#endif
+-#endif
+-
+ #define MAX_READLINKS 32
+ 
+ #ifdef __STDC__
+diff -up rpm-4.6.0-rc1/system.h.path_max rpm-4.6.0-rc1/system.h
+--- rpm-4.6.0-rc1/system.h.path_max	2008-10-31 18:31:57.000000000 +0100
++++ rpm-4.6.0-rc1/system.h	2008-10-31 18:37:14.950000000 +0100
+@@ -185,6 +185,16 @@ char *realpath(const char *path, char re
+ #include <limits.h>
+ #endif
+ 
++#ifndef PATH_MAX
++#ifdef _POSIX_PATH_MAX
++#define PATH_MAX _POSIX_PATH_MAX
++#elif defined MAXPATHLEN
++#define PATH_MAX MAXPATHLEN
++#else
++#define PATH_MAX 256
++#endif
++#endif
++
+ #if HAVE_ERR_H
+ #include <err.h>
+ #endif

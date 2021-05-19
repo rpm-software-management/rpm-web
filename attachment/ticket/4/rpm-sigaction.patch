@@ -1,0 +1,47 @@
+diff -up rpm-4.6.0-rc1/rpmio/rpmsq.c.sigaction rpm-4.6.0-rc1/rpmio/rpmsq.c
+--- rpm-4.6.0-rc1/rpmio/rpmsq.c.sigaction	2008-10-31 17:58:42.090000000 +0100
++++ rpm-4.6.0-rc1/rpmio/rpmsq.c	2008-10-31 18:13:49.410000000 +0100
+@@ -152,7 +152,7 @@ static sigset_t rpmsqCaught;
+ 
+ static struct rpmsig_s {
+     int signum;
+-    void (*handler) (int signum, void * info, void * context);
++    rpmsqAction_t handler;
+     int active;
+     struct sigaction oact;
+ } rpmsigTbl[] = {
+@@ -254,7 +254,11 @@ int rpmsqEnable(int signum, rpmsqAction_
+ 		    continue;
+ 
+ 		(void) sigemptyset (&sa.sa_mask);
++#ifdef SA_SIGINFO
+ 		sa.sa_flags = SA_SIGINFO;
++#else
++		sa.sa_flags = 0;
++#endif
+ 		sa.sa_sigaction = (void*)(handler != NULL ? handler : tbl->handler);
+ 		if (sigaction(tbl->signum, &sa, &tbl->oact) < 0) {
+ 		    SUB_REF(tbl);
+diff -up rpm-4.6.0-rc1/rpmio/rpmsq.h.sigaction rpm-4.6.0-rc1/rpmio/rpmsq.h
+--- rpm-4.6.0-rc1/rpmio/rpmsq.h.sigaction	2008-10-31 18:10:56.320000000 +0100
++++ rpm-4.6.0-rc1/rpmio/rpmsq.h	2008-10-31 18:12:02.680000000 +0100
+@@ -7,6 +7,7 @@
+  */
+ 
+ #include <rpm/rpmsw.h>
++#include <signal.h>
+ 
+ #ifdef __cplusplus
+ extern "C" {
+@@ -26,7 +27,11 @@ typedef struct rpmsqElem * rpmsq;
+  * @param info		(siginfo_t) signal info
+  * @param context	signal context
+  */
++#ifdef SA_SIGINFO
+ typedef void (*rpmsqAction_t) (int signum, void * info, void * context);
++#else
++typedef void (*rpmsqAction_t) (int signum);
++#endif
+ 
+ extern int _rpmsq_debug;
+ 
