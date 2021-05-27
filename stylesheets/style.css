@@ -182,6 +182,7 @@ hr {
 
 table {
   border: 1px solid #373737;
+  border-collapse: collapse;
   margin-bottom: 20px;
   text-align: left;
  }
