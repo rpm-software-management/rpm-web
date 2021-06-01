@@ -2,7 +2,7 @@
 <xs:schema
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:swid="http://standards.iso.org/iso/19770/-2/2015/schema.xsd"
-  targetNamespace="http://rpm.org/metadata/swidtags.xsd"
+  targetNamespace="https://rpm.org/metadata/swidtags.xsd"
   elementFormDefault="qualified">
   <xs:import namespace="http://standards.iso.org/iso/19770/-2/2015/schema.xsd"
     schemaLocation="http://standards.iso.org/iso/19770/-2/2015-current/schema.xsd"/>
