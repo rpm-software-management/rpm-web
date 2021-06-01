@@ -1,7 +1,7 @@
 Description: Fix include path
  These files are in source tree and not build tree.
 Author: Michal Čihař <nijel@debian.org>
-Forwarded: http://rpm.org/ticket/91
+Forwarded: https://rpm.org/ticket/91
 --- a/rpmio/Makefile.am
 +++ b/rpmio/Makefile.am
 @@ -32,7 +32,7 @@

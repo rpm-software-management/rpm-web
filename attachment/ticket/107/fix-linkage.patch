@@ -3,7 +3,7 @@ Description: Fix linkage of some binaries
  Because of this they fail to build with binutils-gold which make default
  --no-add-needed.
 Author: Michal Čihař <nijel@debian.org>
-Forwarded: http://rpm.org/ticket/107
+Forwarded: https://rpm.org/ticket/107
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -118,11 +118,11 @@
