@@ -24,13 +24,13 @@ Visit the list-info pages linked above for information on subscribing to the lis
 You need to be subscribed to the mailing lists to be able to post there.
 
 ## IRC Channels
-rpm.org makes use of the following [Freenode](http://freenode.net/)
+rpm.org makes use of the following [Libera Chat](http://libera.chat)
 [IRC](http://www.irchelp.org/) channels:
 
-\#rpm.org ([web chat](http://webchat.freenode.net?channels=%23rpm.org))
+\#rpm ([web chat](https://web.libera.chat/gamja/?channels=%23rpm))
 : General discussion regarding RPM
 
-\#rpm-ecosystem ([web chat](http://webchat.freenode.net?channels=%23rpm-ecosystem))
+\#rpm-ecosystem ([web chat](http://https://web.libera.chat/gamja/?channels=%23rpm-ecosystem))
 : General discussion regarding the entire RPM ecosystem
 
 ## Reporting bugs
