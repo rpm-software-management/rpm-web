@@ -30,7 +30,7 @@ rpm.org makes use of the following [Libera Chat](http://libera.chat)
 \#rpm ([web chat](https://web.libera.chat/gamja/?channels=%23rpm))
 : General discussion regarding RPM
 
-\#rpm-ecosystem ([web chat](http://https://web.libera.chat/gamja/?channels=%23rpm-ecosystem))
+\#rpm-ecosystem ([web chat](https://web.libera.chat/gamja/?channels=%23rpm-ecosystem))
 : General discussion regarding the entire RPM ecosystem
 
 ## Reporting bugs
