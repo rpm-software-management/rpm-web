@@ -17,6 +17,7 @@ capable of
 ## News
 #### RPM 4.17.0 BETA1 released! (Jun 22 2021)
 * See [draft release notes](wiki/Releases/4.17.0) for details and download information
+* [Original announcement](https://lists.rpm.org/pipermail/rpm-announce/2021-June/000090.html)
 * Highlights since alpha include:
   * Debuginfo extraction split to external project:
     https://sourceware.org/debugedit/
