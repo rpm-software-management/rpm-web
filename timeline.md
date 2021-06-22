@@ -15,6 +15,12 @@ title: rpm.org - Timeline
     doc improvements
   * Miscellaneous bugs and regressions fixed
 
+#### IRC-channel move to Libera Chat (Jun 17 2021)
+* The recent developments leave us no choice but to follow the masses
+  to the new Libera Chat IRC network
+* Along with the change we're moving from #rpm.org to #rpm channel
+* Further details in the [original announcement](https://lists.rpm.org/pipermail/rpm-announce/2021-June/000089.html)
+
 #### RPM 4.17.0 ALPHA released! (Apr 26 2021)
 * See [draft release notes](wiki/Releases/4.17.0) for details and download information
 * Highlights include:
