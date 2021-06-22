@@ -2,6 +2,19 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.17.0 BETA1 released! (Jun 22 2021)
+* See [draft release notes](wiki/Releases/4.17.0) for details and download information
+* Highlights since alpha include:
+  * Debuginfo extraction split to external project:
+    https://sourceware.org/debugedit/
+  * Python helpers split to external project:
+    https://github.com/rpm-software-management/python-rpm-packaging
+  * Various unmaintained scripts removed
+  * New buildroot policy to remove `.la` files by default
+  * Man pages converted to Markdown for easier maintenance + many other
+    doc improvements
+  * Miscellaneous bugs and regressions fixed
+
 #### RPM 4.17.0 ALPHA released! (Apr 26 2021)
 * See [draft release notes](wiki/Releases/4.17.0) for details and download information
 * Highlights include:
