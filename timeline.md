@@ -4,6 +4,7 @@ title: rpm.org - Timeline
 ---
 #### RPM 4.17.0 RC1 released! (Aug 20 2021)
 * See [draft release notes](wiki/Releases/4.17.0) for details and download information
+* [Original announcement](https://lists.rpm.org/pipermail/rpm-announce/2021-August/000091.html)
 * Highlights since alpha include:
   * Fix building from tarball to not require pandoc
   * New dbus-announce plugin added
