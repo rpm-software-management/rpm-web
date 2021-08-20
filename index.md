@@ -15,6 +15,13 @@ capable of
 * verifying integrity of packaged software and resulting software installation
 
 ## News
+#### RPM 4.17.0 RC1 released! (Aug 20 2021)
+* See [draft release notes](wiki/Releases/4.17.0) for details and download information
+* Highlights since alpha include:
+  * Fix building from tarball to not require pandoc
+  * New dbus-announce plugin added
+  * Multiple minor resource leaks fixed
+
 #### RPM 4.17.0 BETA1 released! (Jun 22 2021)
 * See [draft release notes](wiki/Releases/4.17.0) for details and download information
 * [Original announcement](https://lists.rpm.org/pipermail/rpm-announce/2021-June/000090.html)
