@@ -6,28 +6,17 @@ title: rpm.org - Documentation
 This page attempts to track the various relevant documentation that exists for RPM.
 
 ## General Use
-* [RPM Tutorial](http://fedoranews.org/alex/tutorial/rpm/)
+* [RPM Reference Manual](https://rpm-software-management.github.io/rpm/manual/)
+* [RPM man pages](https://rpm-software-management.github.io/rpm/man/)
+* [Fedora News RPM Tutorial](http://fedoranews.org/alex/tutorial/rpm/)
 * [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html)
-* On rpm.org:
-  * [RPM Frequently asked questions (FAQ)](user_doc/faq.html)
-  * [RPM Database Recovery](user_doc/db_recovery.html)
-  * [RPM Query Formats](user_doc/query_format.html) 
+* [RPM Frequently asked questions (FAQ)](user_doc/faq.html)
+* [RPM Database Recovery](user_doc/db_recovery.html)
 
 ## Packager Documentation
 * [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html)
 * [RPM Guide](https://rpm-packaging-guide.github.io/) - A Good introduction into RPM Packaging
-* On rpm.org about special topics:
-  * [Conditional Builds (rpmbuild &#8211;&#8211;with/&#8211;&#8211;without)](user_doc/conditional_builds.html)
-  * [Dependencies](user_doc/dependencies.html)
-  * [More on Dependencies](user_doc/more_dependencies.html)
-  * [Dependency Generators](user_doc/dependency_generators.html) (new in 4.9)
-  * [Boolean Dependencies](user_doc/boolean_dependencies.html) aka Rich Dependencies (new in 4.13)
-  * [File triggers](user_doc/file_triggers.html) (new in 4.13)
-  * [Automated, VCS integrated patch application](user_doc/autosetup.html) (new in 4.11)
-  * [Macros](user_doc/macros.html)
-  * [Embedded Lua interpreter](user_doc/lua.html)
-  * [Runtime scriptlet expansion](user_doc/scriptlet_expansion.html) (new in 4.9)
-  * [Building Packages so that multiple versions of the same package can co-install](user_doc/multiple_versions.html)
+* [Building Packages so that multiple versions of the same package can co-install](user_doc/multiple_versions.html)
 
 ## RPM API
 * API documentation
@@ -38,7 +27,6 @@ This page attempts to track the various relevant documentation that exists for R
   * [RPM 4.12.x](https://ftp.osuosl.org/pub/rpm/api/4.12.0.1/)
   * [Older versions](https://ftp.osuosl.org/pub/rpm/api/)
 
-* [Plugin Interface (RPM >= 4.12)](devel_doc/plugins.html)
 * [Programming RPM with C](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-programming-c.html) from Fedora RPM Guide
 * [How to ensure Large File Support for tools using the rpm API](devel_doc/large_files.html)
 
@@ -47,11 +35,9 @@ This page attempts to track the various relevant documentation that exists for R
 * [Programming RPM with Python](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-rpm-programming-python.html) from Fedora RPM Guide
 * [Programming RPM with Perl](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-programming-perl.html) from Fedora RPM Guide 
 
-
 ## Miscellaneous Developer Docs:
   * [Release maintaince](devel_doc/release_maintaince.html)
   * [Description of RPM internal state machines](devel_doc/state_machines.html)
-  * [Description of RPM file format](devel_doc/file_format.html)
 
 ## Books
 The following books have been published regarding RPM:
