@@ -15,6 +15,26 @@ capable of
 * verifying integrity of packaged software and resulting software installation
 
 ## News
+#### RPM 4.17.0 released! (Sep 3 2021)
+* See [release notes](wiki/Releases/4.17.0) for details and download information
+* [Original announcement](https://lists.rpm.org/pipermail/rpm-announce/2021-September/000092.html)
+* Highlights include:
+  * More robust install failure handling
+  * Many macro improvements, in particular wrt Lua integration
+  * Some long-needed transaction API improvements
+  * New buildroot policy to remove `.la` files by default
+  * New dbus-announce plugin added
+  * Many miscellaneous bugs, leaks and regressions fixed
+  * Man pages converted to Markdown for easier maintenance + many other
+    doc improvements
+  * Beginnings of a reference manual:
+    https://rpm-software-management.github.io/rpm/manual/
+  * Debuginfo extraction split to external project:
+    https://sourceware.org/debugedit/
+  * Python helpers split to external project:
+    https://github.com/rpm-software-management/python-rpm-packaging
+  * Various unmaintained scripts removed
+
 #### RPM 4.17.0 RC1 released! (Aug 20 2021)
 * See [draft release notes](wiki/Releases/4.17.0) for details and download information
 * [Original announcement](https://lists.rpm.org/pipermail/rpm-announce/2021-August/000091.html)

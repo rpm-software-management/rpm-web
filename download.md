@@ -4,6 +4,8 @@ title: rpm.org - Download
 ---
 
 ## Current stable releases (supported)
+### RPM 4.17.x
+* [RPM 4.17.0](https://ftp.osuosl.org/pub/rpm/releases/rpm-4.17.x/rpm-4.17.0.tar.bz2) ([Release notes](wiki/Releases/4.17.0.html))
 
 ### RPM 4.16.x
 * [RPM 4.16.1.3](https://ftp.osuosl.org/pub/rpm/releases/rpm-4.16.x/rpm-4.16.1.3.tar.bz2) ([Release notes](wiki/Releases/4.16.1.3.html))
@@ -11,14 +13,9 @@ title: rpm.org - Download
 * [RPM 4.16.1](https://ftp.osuosl.org/pub/rpm/releases/rpm-4.16.x/rpm-4.16.1.tar.bz2) ([Release notes](wiki/Releases/4.16.1.html))
 * [RPM 4.16.0](https://ftp.osuosl.org/pub/rpm/releases/rpm-4.16.x/rpm-4.16.0.tar.bz2) ([Release notes](wiki/Releases/4.16.0.html))
 
-### RPM 4.15.x
-* [RPM 4.15.1.1](https://ftp.osuosl.org/pub/rpm/releases/rpm-4.15.x/rpm-4.15.1.1.tar.bz2) ([Release notes](wiki/Releases/4.15.1.1.html))
-* [RPM 4.15.1](https://ftp.osuosl.org/pub/rpm/releases/rpm-4.15.x/rpm-4.15.1.tar.bz2) ([Release notes](wiki/Releases/4.15.1.html))
-* [RPM 4.15.0](https://ftp.osuosl.org/pub/rpm/releases/rpm-4.15.x/rpm-4.15.0.tar.bz2) ([Release notes](wiki/Releases/4.15.0.html))
-
 ## Current test releases
 
-* [RPM 4.17.0 RC1](wiki/Releases/4.17.0.html))
+* N/A
 
 ## Old releases (no longer supported)
 
