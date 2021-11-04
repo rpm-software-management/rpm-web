@@ -25,6 +25,13 @@ Rpm is translated to non-English languages via
 
 ### Submitting changes
 
+When planning any non-trivial amount of work on rpm or the web-site,
+please discuss it first on the [rpm mailing lists](community) with the
+rpm.org development team to avoid situations where efforts go wasted
+because it's not in line with RPM design and goals.
+
+Do read our [contributing guidelines](https://github.com/rpm-software-management/rpm/blob/master/CONTRIBUTING.md) as the very first thing.
+
 Write access can be granted for established contributors upon request, but
 for most things sending patches to the
 [rpm-maint mailing list](http://lists.rpm.org/mailman/listinfo/rpm-maint)
@@ -32,10 +39,6 @@ or creating a pull request on GitHub should be sufficient.
 
 When sending patches, please use `git send-email` instead of any desktop
 email clients.
-
-When planning on major changes to either code or web-site, please discuss
-it first on the [rpm mailing lists](community) with the rpm.org development
-team.
 
 ### Where to start
 
