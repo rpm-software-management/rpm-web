@@ -6,9 +6,8 @@ title: rpm.org - Contribute
 
 ### Source code
 
-Our source code is maintained in a
-[git repository](https://github.com/rpm-software-management/rpm) at
-[GitHub](https://github.com/):
+Our source code is maintained in a GitHub
+[git repository](https://github.com/rpm-software-management/rpm):
 
 `git clone https://github.com/rpm-software-management/rpm.git`
 
