@@ -67,7 +67,6 @@ If the answer to any of the above is "yes" then its almost certainly not appropr
         * consult the [libtool manual](https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
         * soname bumps can only occur at the first version of a new branch (ie alpha/beta)
 
-    * Optionally Update translations from Zanata (TODO: document)
     * Update the sources for the above (Makefiles, .po regeneration and all): ```make dist```
     * Commit the changes from the previous step with something like 'Preparing for X.Y.Z' as message 
 
