@@ -4,6 +4,11 @@ title: rpm.org - Community
 ---
 Have a question that's not answered in any of the documentation? We have several channels for community support. This page serves as a way to list and explain each avenue of communication channel.
 
+## GitHub Discussions
+The [GitHub Discussions](https://github.com/rpm-software-management/rpm/discussions)
+can be used for discussing all aspects of rpm, be it an end user question,
+new development ideas or anything in between.
+
 ## Mailing Lists
 rpm.org makes use of the following [email lists](http://lists.rpm.org/mailman/listinfo):
 

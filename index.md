@@ -28,6 +28,10 @@ capable of
   * Numerous macro improvements and fixes
   * Numerous OpenPGP parser correctness and security fixes
 
+#### GitHub Discussions open (Wed Apr 13 2022)
+* We're opening up the [GitHub Discussions](https://github.com/rpm-software-management/rpm/discussions)
+  to section as an experiment to improve communications with the community
+
 #### RPM 4.17.0 released! (Sep 3 2021)
 * See [release notes](wiki/Releases/4.17.0) for details and download information
 * [Original announcement](https://lists.rpm.org/pipermail/rpm-announce/2021-September/000092.html)
