@@ -15,6 +15,19 @@ capable of
 * verifying integrity of packaged software and resulting software installation
 
 ## News
+#### RPM 4.18.0 alpha1 released! (Wed Apr 13 2022)
+* See [release notes](wiki/Releases/4.18.0) for details and download information
+* Highlights include:
+  * Big file handling rework to address a class of symlink vulnerabilities
+    during install, restore and erasure
+  * More intuitive conditional builds macro `%bcond`
+  * Weak dependencies accept qualifiers like `meta` and `pre` now
+  * New interactive shell for working with macros (`rpmspec --shell`) and embedded Lua (`rpmlua`)
+  * New `%conf` spec section for build configuration
+  * New `rpmuncompress` cli tool simplifies unpacking multiple sources
+  * Numerous macro improvements and fixes
+  * Numerous OpenPGP parser correctness and security fixes
+
 #### RPM 4.17.0 released! (Sep 3 2021)
 * See [release notes](wiki/Releases/4.17.0) for details and download information
 * [Original announcement](https://lists.rpm.org/pipermail/rpm-announce/2021-September/000092.html)
