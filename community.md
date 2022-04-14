@@ -28,6 +28,13 @@ Visit the list-info pages linked above for information on subscribing to the lis
 
 You need to be subscribed to the mailing lists to be able to post there.
 
+## Matrix Roooms
+rpm.org makes use of the following [Matrix](https://matrix.org/) rooms:
+
+\#rpm: https://matrix.to/#/#rpm:matrix.org
+
+\#rpm-ecosystem: https://matrix.to/#/#rpm-ecosystem:matrix.org
+
 ## IRC Channels
 rpm.org makes use of the following [Libera Chat](http://libera.chat)
 [IRC](http://www.irchelp.org/) channels:
