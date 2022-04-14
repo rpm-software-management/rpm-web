@@ -25,7 +25,9 @@ Rpm is translated to non-English languages via
 ### Submitting changes
 
 **When planning any non-trivial amount of work on rpm or the web-site,
-please discuss it first on the [rpm mailing lists](community) with the
+please discuss it first on
+[GitHub](https://github.com/rpm-software-management/rpm/discussions) or
+the [rpm mailing lists](community) with the
 rpm.org development team to avoid situations where efforts go wasted
 because it's not in line with RPM design and goals.**
 
