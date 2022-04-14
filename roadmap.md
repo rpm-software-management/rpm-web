@@ -31,7 +31,7 @@ title: rpm.org - Roadmap
   * Spec generation and templating
   * File trigger design review + adjustment
   * Finalize plugin API, make public
-* RPM v6 readiness
+  * RPM v6 readiness
 * RPM v6 specification
 
 ## 2025
