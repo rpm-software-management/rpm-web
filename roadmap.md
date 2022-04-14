@@ -28,6 +28,7 @@ title: rpm.org - Roadmap
 ## 2024
 * RPM 4.20 release (Q3)
   * Autotools build support removed
+  * Support for RPM v3 packages removed
   * Spec generation and templating
   * File trigger design review + adjustment
   * Finalize plugin API, make public
