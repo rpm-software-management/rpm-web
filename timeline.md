@@ -2,6 +2,13 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.18.0 alpha2 released! (Wed May 05 2022)
+* See [release notes](wiki/Releases/4.18.0) for details and download information
+* Unfortunately alpha1 had a handful of small but annoying regressions
+  introduced late in the cycle, making it quite untestable in large scale.
+  This alpha2 update is just to address those, no new functionality is
+  being added.
+
 #### RPM 4.18.0 alpha1 released! (Wed Apr 13 2022)
 * See [release notes](wiki/Releases/4.18.0) for details and download information
 * Highlights include:
