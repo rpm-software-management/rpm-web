@@ -53,13 +53,13 @@ This handles the simple case of how the package managers interact with the packa
 
 Packages installed on a system must not own the same files as any other package unless: 1. the files they own are identical 2. the files they own are multilib binaries and are allowed to supplant one another
 
-Now, if we want to install a package like php5.1.2 and php5.2.1 on the same system you'll need to make sure all the files that each package owns are installed into version-specific paths. This also means that both versions will need to look for their modules, their libraries and in some cases their configuration in version-specific paths so they do not tread on one another in the packaging system nor in regular use. How to build the packages to facilitate this varies from language to language.
+Now, if we want to install a package like php5.1.2 and php5.2.1 on the same system, you'll need to make sure all the files that each package owns are installed into version-specific paths. This also means that both versions will need to look for their modules, their libraries and in some cases their configuration in version-specific paths so they do not tread on one another in the packaging system nor in regular use. How to build the packages to facilitate this varies from language to language.
 
 Note: break out links for languages here.
 
 ### module building
 
-When modules for applications or languages are built/linked against a specific version and REQUIRE the version they were linked to then any modules you make into packages will need to understand the location differences and, if they can be built against any versions of any packages, should be able to be built for those - putting the module files into the appropriately versioned paths. This gets one step deeper if you require multiple versions of modules to be installed at the same time, too: ex: python-urgrabber-3.0 and python-urlgrabber-3.9.1 both built for python2.6 but also for python3.1
+When modules for applications or languages are built/linked against a specific version and REQUIRE the version they were linked to then any modules you make into packages will need to understand the location differences and, if they can be built against any versions of any packages, should be able to be built for those - putting the module files into the appropriately versioned paths. This gets one step deeper if you require multiple versions of modules to be installed at the same time, too: ex: python-urgrabber-3.0 and python-urlgrabber-3.9.1 both built for python2.6 but also for python3.1.
 
 ### alternatives
 
@@ -71,4 +71,4 @@ Alternatives works if you need to install one or the other of conflicting or ove
 
 ## Notes
 
-1. This page is not complete, if you know of something you think should be added here, please contact seth vidal or any rpm.org developer to help you. 
+1. This page is not complete, if you know of something you think should be added here, please contact any rpm.org developer to help you. 
