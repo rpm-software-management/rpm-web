@@ -2,6 +2,13 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### POPT 1.19 rc1 released (Tue Jun 07 2022)
+* See [release notes](https://github.com/rpm-software-management/popt/releases/tag/popt-1.19-rc1) for full details and download information
+* Highlights since popt 1.18 include
+  * Two regressions from 1.18 fixed
+  * Code cleanups and fixes
+  * License clarification
+
 #### RPM 4.18.0 alpha2 released! (Wed May 05 2022)
 * See [release notes](wiki/Releases/4.18.0) for details and download information
 * Unfortunately alpha1 had a handful of small but annoying regressions
