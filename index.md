@@ -20,21 +20,21 @@ capable of
 * Highlights since 4.18.0-alpha2 release include
   * Misc bugs old and new fixed
 
-#### POPT 1.19 rc1 released (Tue Jun 07 2022)
+#### POPT 1.19 rc1 released (Jun 07 2022)
 * See [release notes](https://github.com/rpm-software-management/popt/releases/tag/popt-1.19-rc1) for full details and download information
 * Highlights since popt 1.18 include
   * Two regressions from 1.18 fixed
   * Code cleanups and fixes
   * License clarification
 
-#### RPM 4.18.0 alpha2 released! (Wed May 05 2022)
+#### RPM 4.18.0 alpha2 released! (May 05 2022)
 * See [release notes](wiki/Releases/4.18.0) for details and download information
 * Unfortunately alpha1 had a handful of small but annoying regressions
   introduced late in the cycle, making it quite untestable in large scale.
   This alpha2 update is just to address those, no new functionality is
   being added.
 
-#### RPM 4.18.0 alpha1 released! (Wed Apr 13 2022)
+#### RPM 4.18.0 alpha1 released! (Apr 13 2022)
 * See [release notes](wiki/Releases/4.18.0) for details and download information
 * Highlights include:
   * Big file handling rework to address a class of symlink vulnerabilities
@@ -47,7 +47,7 @@ capable of
   * Numerous macro improvements and fixes
   * Numerous OpenPGP parser correctness and security fixes
 
-#### GitHub Discussions open (Wed Apr 13 2022)
+#### GitHub Discussions open (Apr 13 2022)
 * We're opening up the [GitHub Discussions](https://github.com/rpm-software-management/rpm/discussions)
   to section as an experiment to improve communications with the community
 
