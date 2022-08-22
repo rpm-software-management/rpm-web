@@ -22,6 +22,9 @@ The rpm.org web site is maintained in [another git repository](https://github.co
 Rpm is translated to non-English languages via
 [Fedora Weblate instance](https://translate.fedoraproject.org/)
 
+Please do not submit translation updates as upstream pull-requests or
+patches, we have no means to review translations.
+
 ### Submitting changes
 
 **When planning any non-trivial amount of work on rpm or the web-site,
