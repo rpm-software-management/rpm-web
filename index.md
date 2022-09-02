@@ -22,6 +22,10 @@ capable of
   * New SourceLicense tag in spec
   * Miscellanous bugfixes across the board
 
+#### RPM 4.17.1.1 released (Sep 02 2022)
+* This is a bug fix release to address two regressions introduced in 4.17.1.
+* See [release notes](wiki/Releases/4.17.1.1) for details and download information
+
 #### RPM 4.17.1 released (Jul 01 2022)
 * This is primarily a bug fix release, with select minor enhancements.
 * See [release notes](wiki/Releases/4.17.1) for details and download information
