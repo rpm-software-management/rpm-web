@@ -3,6 +3,13 @@ layout: default
 title: rpm.org - Timeline
 ---
 
+#### RPM 4.18.0 rc1 released (Sep 02 2022)
+* See [release notes](wiki/Releases/4.18.0) for details and download information
+* Highlights since 4.18.0-beta1 release include
+  * Sequoia-based OpenPGP backend added
+  * New SourceLicense tag in spec
+  * Miscellanous bugfixes across the board
+
 #### RPM 4.17.1 released (Jul 01 2022)
 * This is primarily a bug fix release, with select minor enhancements.
 * See [release notes](wiki/Releases/4.17.1) for details and download information
