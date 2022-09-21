@@ -3,6 +3,27 @@ layout: default
 title: rpm.org - Timeline
 ---
 
+#### RPM 4.18.0 released (Sep 20 2022)
+* See [release notes](wiki/Releases/4.18.0) for details and download information
+* Highlights include:
+  * Big file handling rework to address a class of symlink vulnerabilities
+    during install, restore and erasure
+  * More intuitive conditional builds macro `%bcond`
+  * Weak dependencies accept qualifiers like `meta` and `pre` now
+  * New Sequoia-based OpenPGP backend
+  * New interactive shell for working with macros (`rpmspec --shell`) and embedded Lua (`rpmlua`)
+  * New `%conf` spec section for build configuration
+  * New `rpmuncompress` cli tool simplifies unpacking multiple sources
+  * Numerous macro improvements and fixes
+  * Numerous internal OpenPGP parser correctness and security fixes
+
+#### POPT 1.19 released (Sep 20 2022)
+* See [release notes](https://github.com/rpm-software-management/popt/releases/tag/popt-1.19-release) for full details and download information
+* Highlights since popt 1.18 include
+  * Two regressions from 1.18 fixed
+  * Code cleanups and fixes
+  * License clarification
+
 #### RPM 4.18.0 rc1 released (Sep 02 2022)
 * See [release notes](wiki/Releases/4.18.0) for details and download information
 * Highlights since 4.18.0-beta1 release include
