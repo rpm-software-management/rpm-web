@@ -20,12 +20,9 @@ This page attempts to track the various relevant documentation that exists for R
 
 ## RPM API
 * API documentation
+  * [RPM 4.18.x](https://ftp.osuosl.org/pub/rpm/api/4.18.0/)
   * [RPM 4.17.x](https://ftp.osuosl.org/pub/rpm/api/4.17.0/)
   * [RPM 4.16.x](https://ftp.osuosl.org/pub/rpm/api/4.16.1/)
-  * [RPM 4.15.x](https://ftp.osuosl.org/pub/rpm/api/4.15.1/)
-  * [RPM 4.14.x](https://ftp.osuosl.org/pub/rpm/api/4.14.0/)
-  * [RPM 4.13.x](https://ftp.osuosl.org/pub/rpm/api/4.13.0/)
-  * [RPM 4.12.x](https://ftp.osuosl.org/pub/rpm/api/4.12.0.1/)
   * [Older versions](https://ftp.osuosl.org/pub/rpm/api/)
 
 * [Programming RPM with C](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-programming-c.html) from Fedora RPM Guide
