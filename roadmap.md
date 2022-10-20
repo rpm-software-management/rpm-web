@@ -9,6 +9,7 @@ title: rpm.org - Roadmap
 * Bugfix releases for 4.16 and 4.17 (Q2)
 * RPM 4.18 release (Q3)
   * Main focus on fixing symlink CVEs
+  * Sequoia PGP support
   * Various packaging-side improvements
 * Popt 1.19 release (Q3)
   * To go with RPM 4.18
@@ -16,12 +17,12 @@ title: rpm.org - Roadmap
 
 ## 2023
 * RPM 4.19 release (Q3)
-  * Eliminate internal OpenPGP parser
-  * Support for an alternative modern build system (possibly CMake)
+  * CMake based build system
   * Resource management for parallel builds
   * Purge obsolete API
   * Replace fakechroot with better technology
   * Declarative user/group handling
+  * Deprecate internal OpenPGP parser
 * RPM v6 scoping (ongoing)
 * First public draft of RPM v6 format
 
