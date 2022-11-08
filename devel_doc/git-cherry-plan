@@ -1,0 +1,166 @@
+#!/bin/bash
+
+PROGRAM=cherry-plan
+CONFIG=cherryPlan
+HEAD=$(git rev-parse --abbrev-ref HEAD)
+ABBREV=$(git rev-parse --short HEAD | tr -d '\n' | wc -c)
+DIR=$(git config --get $CONFIG.directory); DIR=${DIR:+$DIR/}
+PATTERN="^(cherry picked from commit \(.*\))\$"
+README="\
+# Commands:
+# pick <commit> = use commit
+# drop <commit> = remove commit, not suitable
+# noop <commit> = remove commit, already applied
+#      <commit> = remove commit, not decided yet
+#
+# These lines MUST NOT be re-ordered; they are executed from top to bottom.
+#
+# vim:syntax=gitrebase"
+
+usage() {
+    echo "\
+usage: git $PROGRAM <command> [<args>]
+
+Manage persistent rebase-like todo lists (\"plans\") to cherry-pick commits.
+
+Useful for crafting larger cherry-pick batches and collaborating on them, e.g.
+when preparing stable releases.
+
+This tool produces a standalone file equivalent of
+
+    git rebase -i HEAD <branch>
+
+with a few extras, see the instructions at the bottom of the file.
+
+Commands
+    make <branch> [<limit> [<file>]]
+                        create plan for current branch with commits on <branch>
+                        except those up to (and including) <limit>, save to
+                        <file>
+    pull <branch> [<file>]
+                        append new commits on <branch> to plan <file>
+    apply [<file>]      apply plan <file> to current branch
+    mark [<file>]       mark applied commits in plan <file>
+
+Argument defaults
+    <file>              <current-branch>.plan
+    <limit>             HEAD
+
+Configuration
+    $CONFIG.directory
+                        where to save default plan <file>s, default: \$PWD
+    $CONFIG.fromPatterns
+                        line-separated list of patterns to extract applied
+                        commit from commit message, default:
+                        $PATTERN
+"
+    exit 1
+}
+
+print_readme() {
+    local head=$(abbrev $(git rev-parse HEAD))
+    local branch=$(abbrev $(git rev-parse $2))
+    local range=$head..$branch
+    local count=$(git rev-list --count $range)
+    echo >> $1
+    echo "# Rebase $range onto $head ($count commands)" >> $1
+    echo "#" >> $1
+    echo "$README" >> $1
+}
+
+fail_exists() {
+    if [ -f $1 ]; then
+        echo "File $1 already exists" >&2
+        exit 1
+    fi
+}
+
+fail_missing() {
+    if [ ! -f $1 ]; then
+        echo "File $1 not found" >&2
+        exit 1
+    fi
+}
+
+get_hash() {
+    sed 's/^.\{5\}//' | cut -d' ' -f1
+}
+
+abbrev() {
+    echo $1 | cut -c -$ABBREV
+}
+
+get_applied() {
+    local log=$(git rev-list --pretty="format:%b" $1..)
+    local patterns=$(git config --get-all $CONFIG.fromPatterns)
+    [ -z "$patterns" ] && patterns=$PATTERN
+    echo "$patterns" | while IFS= read -r line; do
+        echo "$log" | sed -n "s/$line/\1/p"
+    done
+}
+
+get_last() {
+    sed '/^#/d; /^$/d' $1 | tail -1 | get_hash
+}
+
+get_branch() {
+    sed -n 's/^# Rebase .*\.\.\(.*\) onto .*$/\1/p' $1
+}
+
+mark() {
+    sed -i "s/^noop /     /" $1
+    get_applied $2 | while read line; do
+        sed -i "s/^.\{5\}\($(abbrev $line)\)/noop \1/" $1
+    done
+}
+
+log() {
+    git rev-list --reverse --no-commit-header --pretty="format:     %h %s" $1
+}
+
+CMD=$1; shift
+
+if [ "$CMD" == "make" ]; then
+    branch=$1
+    [ -z "$branch" ] && usage
+    limit=$2
+    file=${3:-$DIR$HEAD.plan}
+    fail_exists $file
+    [ -n "$DIR" ] && mkdir -p $DIR
+    log $limit..$branch > $file
+    mark $file $branch
+    print_readme $file $branch
+    echo $file
+
+elif [ "$CMD" == "pull" ]; then
+    branch=$1
+    [ -z "$branch" ] && usage
+    file=${2:-$DIR$HEAD.plan}
+    fail_missing $file
+    limit=$(get_last $file)
+    if [ -z $limit ]; then
+        > $file
+    else
+        sed -i "/^.\{5\}$limit/q" $file
+    fi
+    log $limit..$branch | tee -a $file
+    print_readme $file $branch
+
+elif [ "$CMD" == "apply" ]; then
+    file=${1:-$DIR$HEAD.plan}
+    fail_missing $file
+    grep '^pick ' $file | while read line; do
+        commit=$(echo "$line" | get_hash)
+        echo "Applying commit $commit"
+        git cherry-pick -x $commit >/dev/null || false
+    done || exit 1
+    echo "Plan applied successfully!"
+
+elif [ "$CMD" == "mark" ]; then
+    file=${1:-$DIR$HEAD.plan}
+    fail_missing $file
+    mark $file $(get_branch $file)
+
+else
+    usage
+fi
