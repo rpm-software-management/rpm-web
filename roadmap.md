@@ -16,13 +16,14 @@ title: rpm.org - Roadmap
 * RPM v6 scoping (ongoing)
 
 ## 2023
+* Bugfix release for 4.18 (Q1)
 * RPM 4.19 release (Q3)
   * CMake based build system
-  * Resource management for parallel builds
-  * Purge obsolete API
-  * Replace fakechroot with better technology
   * Declarative user/group handling
+  * Resource management for parallel builds
+  * Replace fakechroot with better technology
   * Deprecate internal OpenPGP parser
+  * Purge obsolete API
 * RPM v6 scoping (ongoing)
 * First public draft of RPM v6 format
 
