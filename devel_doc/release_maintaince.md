@@ -55,8 +55,8 @@ one per stable branch, and a helper script.
 To allow the script to detect already applied commits, run:
 
 ```
-$ git config --add cherryPlan.indicators '^(cherry picked from commit \(.*\))$'
-$ git config --add cherryPlan.indicators '^Backported from commit \(.*\)$'
+$ git config --add cherryPlan.fromPatterns '^(cherry picked from commit \(.*\))$'
+$ git config --add cherryPlan.fromPatterns '^Backported from commit \(.*\)$'
 ```
 
 ### Making a plan
