@@ -32,7 +32,7 @@ title: rpm.org - Roadmap
 * RPM 4.20 release (Q3)
   * Support for RPM v3 packages removed
   * Support for multi-arch packages
-  * Spec generation and templating
+  * Spec templating
   * File trigger design review + adjustment
   * Finalize plugin API, make public
   * RPM v6 readiness
