@@ -19,6 +19,7 @@ title: rpm.org - Roadmap
 * Bugfix release for 4.18 (Q1)
 * RPM 4.19 release (Q3)
   * CMake based build system
+  * Dynamic spec generation
   * Declarative user/group handling
   * Resource management for parallel builds
   * Replace fakechroot with better technology
@@ -29,8 +30,8 @@ title: rpm.org - Roadmap
 
 ## 2024
 * RPM 4.20 release (Q3)
-  * Autotools build support removed
   * Support for RPM v3 packages removed
+  * Support for multi-arch packages
   * Spec generation and templating
   * File trigger design review + adjustment
   * Finalize plugin API, make public
