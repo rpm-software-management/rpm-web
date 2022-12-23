@@ -18,7 +18,7 @@ rpm -E "%{_db_backend}"
 To be sure one should look into the database directory. The location can be queried by:
 
 ```
-rpm -E "%{_dbpath}
+rpm -E "%{_dbpath}"
 ```
 
 but typically is `/var/lib/rpm`.
