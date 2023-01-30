@@ -2,6 +2,8 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM v6 package format draft published (Jan 30 2023)
+* The initial v6 format draft is now [up for discussion](https://github.com/rpm-software-management/rpm/discussions/2374)
 
 #### RPM 4.18.0 released (Sep 20 2022)
 * See [release notes](wiki/Releases/4.18.0) for details and download information
