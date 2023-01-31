@@ -5,16 +5,6 @@ title: rpm.org - Roadmap
 
 # RPM Roadmap
 
-## 2022
-* Bugfix releases for 4.16 and 4.17 (Q2)
-* RPM 4.18 release (Q3)
-  * Main focus on fixing symlink CVEs
-  * Sequoia PGP support
-  * Various packaging-side improvements
-* Popt 1.19 release (Q3)
-  * To go with RPM 4.18
-* RPM v6 scoping (ongoing)
-
 ## 2023
 * Bugfix release for 4.18 (Q1)
 * RPM 4.19 release (Q3)
@@ -26,7 +16,7 @@ title: rpm.org - Roadmap
   * Deprecate internal OpenPGP parser
   * Purge obsolete API
 * RPM v6 scoping (ongoing)
-* First public draft of RPM v6 format
+* First [public draft of RPM v6 format](https://github.com/rpm-software-management/rpm/discussions/2374)
 
 ## 2024
 * RPM 4.20 release (Q3)
