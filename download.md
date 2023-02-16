@@ -14,7 +14,7 @@ title: rpm.org - Download
 
 ## Current test releases
 
-* N/A[RPM 4.18 rc1](wiki/Releases/4.18.0.html)
+* N/A
 
 ## Old releases (no longer supported)
 
