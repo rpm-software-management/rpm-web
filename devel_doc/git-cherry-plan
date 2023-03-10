@@ -5,13 +5,14 @@ CONFIG=cherryPlan
 HEAD=$(git rev-parse --abbrev-ref HEAD)
 ABBREV=$(git rev-parse --short HEAD | tr -d '\n' | wc -c)
 DIR=$(git config --get $CONFIG.directory); DIR=${DIR:+$DIR/}
-PATTERN="^(cherry picked from commit \(.*\))\$"
+SUBJECT="# Rebase"
 README="\
+#
 # Commands:
 # pick <commit> = use commit
 # drop <commit> = remove commit, not suitable
 # noop <commit> = remove commit, already applied
-#      <commit> = remove commit, not decided yet
+#      <commit> = remove commit, not reviewed yet
 #
 # These lines MUST NOT be re-ordered; they are executed from top to bottom.
 #
@@ -19,53 +20,51 @@ README="\
 
 usage() {
     echo "\
-usage: git $PROGRAM <command> [<args>]
+Usage: git $PROGRAM <command> [<args>]
 
 Manage persistent rebase-like todo lists (\"plans\") to cherry-pick commits.
 
 Useful for crafting larger cherry-pick batches and collaborating on them, e.g.
-when preparing stable releases.
+when preparing a stable release from a development branch.
 
-This tool produces a standalone file equivalent of
+This tool produces an equivalent of
 
     git rebase -i HEAD <branch>
 
-with a few extras, see the instructions at the bottom of the file.
+with the following differences:
 
-Commands
-    make <branch> [<limit> [<file>]]
-                        create plan for current branch with commits on <branch>
-                        except those up to (and including) <limit>, save to
-                        <file>
+    * standalone file (can be shared, tracked in git, etc.)
+    * incremental (always applies to HEAD, no rewriting of history)
+    * includes already applied commits for more context (\"noop\" command)
+    * supports the empty command (to indicate unreviewed commits)
+
+Commands:
+    make <branch> [<file>]
+                    create plan for current branch with commits on <branch>,
+                    save to <file>
     pull <branch> [<file>]
-                        append new commits on <branch> to plan <file>
-    apply [<file>]      apply plan <file> to current branch
-    mark [<file>]       mark applied commits in plan <file>
+                    append new commits on <branch> to plan <file>, print them
+                    on stdout
+    update [<file>]
+                    reflect current branch in plan <file>
+    apply [<file>]  apply plan <file> to current branch
 
-Argument defaults
-    <file>              <current-branch>.plan
-    <limit>             HEAD
+Argument defaults:
+    <file>          <current-branch>.plan
 
-Configuration
+Configuration:
     $CONFIG.directory
-                        where to save default plan <file>s, default: \$PWD
-    $CONFIG.fromPatterns
-                        line-separated list of patterns to extract applied
-                        commit from commit message, default:
-                        $PATTERN
+                    where to save plan <file> if unspecified, default: \$PWD
+    $CONFIG.fromPattern
+                    regex to extract original commit hash from commit message
+                    of ported commit, set this to mark ported commits as
+                    applied
 "
     exit 1
 }
 
-print_readme() {
-    local head=$(abbrev $(git rev-parse HEAD))
-    local branch=$(abbrev $(git rev-parse $2))
-    local range=$head..$branch
-    local count=$(git rev-list --count $range)
-    echo >> $1
-    echo "# Rebase $range onto $head ($count commands)" >> $1
-    echo "#" >> $1
-    echo "$README" >> $1
+get_file() {
+    echo ${1:-$DIR$HEAD.plan}
 }
 
 fail_exists() {
@@ -82,21 +81,49 @@ fail_missing() {
     fi
 }
 
-get_hash() {
-    sed 's/^.\{5\}//' | cut -d' ' -f1
+abbrev() {
+    cut -c -$ABBREV
 }
 
-abbrev() {
-    echo $1 | cut -c -$ABBREV
+log() {
+    git rev-list --reverse --no-commit-header --pretty="format:     %h %s" $1
 }
 
 get_applied() {
-    local log=$(git rev-list --pretty="format:%b" $1..)
-    local patterns=$(git config --get-all $CONFIG.fromPatterns)
-    [ -z "$patterns" ] && patterns=$PATTERN
-    echo "$patterns" | while IFS= read -r line; do
-        echo "$log" | sed -n "s/$line/\1/p"
+    local pattern
+
+    # identical patches
+    grep -f <(git rev-list $1.. | git diff-tree -p --stdin | \
+              git patch-id | cut -d' ' -f1) \
+            <(git rev-list ..$1 | git diff-tree -p --stdin | \
+              git patch-id) | cut -d' ' -f2
+
+    # ported patches
+    pattern=$(git config --get $CONFIG.fromPattern) || return
+    git rev-list --pretty="format:%b" $1.. | sed -n "s/$pattern/\1/p"
+}
+
+mark() {
+    get_applied $1 | while read line; do
+        sed -i "s/^.....\($(echo $line | abbrev)\)/noop \1/" $2
     done
+}
+
+subject() {
+    local head=$(git rev-parse HEAD | abbrev)
+    local range=$head..$(get_last $1)
+    local count=$(git rev-list --count $range)
+    local text="$SUBJECT $range onto $head ($count commands)"
+
+    if grep -q "^$SUBJECT" $1; then
+        sed -i "s/^$SUBJECT .*\$/$text/" $1
+    else
+        echo $text >> $1
+    fi
+}
+
+get_hash() {
+    sed 's/^.....//' | cut -d' ' -f1
 }
 
 get_last() {
@@ -104,62 +131,47 @@ get_last() {
 }
 
 get_branch() {
-    sed -n 's/^# Rebase .*\.\.\(.*\) onto .*$/\1/p' $1
-}
-
-mark() {
-    sed -i "s/^noop /     /" $1
-    get_applied $2 | while read line; do
-        sed -i "s/^.\{5\}\($(abbrev $line)\)/noop \1/" $1
-    done
-}
-
-log() {
-    git rev-list --reverse --no-commit-header --pretty="format:     %h %s" $1
+    sed -n "s/^$SUBJECT .*\.\.\(.*\) onto .*\$/\1/p" $1
 }
 
 CMD=$1; shift
 
 if [ "$CMD" == "make" ]; then
+    [ "$#" -lt 1 ] && usage
     branch=$1
-    [ -z "$branch" ] && usage
-    limit=$2
-    file=${3:-$DIR$HEAD.plan}
+    file=$(get_file $2)
     fail_exists $file
-    [ -n "$DIR" ] && mkdir -p $DIR
-    log $limit..$branch > $file
-    mark $file $branch
-    print_readme $file $branch
+
+    log HEAD..$branch > $file
+    mark $branch $file
+
+    echo >> $file
+    subject $file
+    echo "$README" >> $file
     echo $file
 
 elif [ "$CMD" == "pull" ]; then
+    [ "$#" -lt 1 ] && usage
     branch=$1
-    [ -z "$branch" ] && usage
-    file=${2:-$DIR$HEAD.plan}
+    file=$(get_file $2)
     fail_missing $file
-    limit=$(get_last $file)
-    if [ -z $limit ]; then
-        > $file
-    else
-        sed -i "/^.\{5\}$limit/q" $file
-    fi
-    log $limit..$branch | tee -a $file
-    print_readme $file $branch
+    last=$(get_last $file)
+
+    log $last..$branch | tee >(sed -i "/^.....$last/ r /dev/stdin" $file)
+    subject $file
+
+elif [ "$CMD" == "update" ]; then
+    file=$(get_file $1)
+    fail_missing $file
+    branch=$(get_branch $file)
+
+    mark $branch $file
+    subject $file
 
 elif [ "$CMD" == "apply" ]; then
-    file=${1:-$DIR$HEAD.plan}
+    file=$(get_file $1)
     fail_missing $file
-    grep '^pick ' $file | while read line; do
-        commit=$(echo "$line" | get_hash)
-        echo "Applying commit $commit"
-        git cherry-pick -x $commit >/dev/null || false
-    done || exit 1
-    echo "Plan applied successfully!"
-
-elif [ "$CMD" == "mark" ]; then
-    file=${1:-$DIR$HEAD.plan}
-    fail_missing $file
-    mark $file $(get_branch $file)
+    grep '^pick ' $file | get_hash | xargs git cherry-pick -x
 
 else
     usage

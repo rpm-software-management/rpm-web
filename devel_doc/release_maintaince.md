@@ -44,6 +44,8 @@ and mark those that you intend to pick.  This approach allows you to:
 
 * Try out different variants of the plan to see which apply cleanly
 
+* Track the plan in a git repo
+
 The rest of this section describes a workflow that involves such a text file,
 one per stable branch, and a helper script.
 
@@ -51,13 +53,6 @@ one per stable branch, and a helper script.
 
 [Download](git-cherry-plan) the script, make it executable and put it into your
 `$PATH`.
-
-To allow the script to detect already applied commits, run:
-
-```
-$ git config --add cherryPlan.fromPatterns '^(cherry picked from commit \(.*\))$'
-$ git config --add cherryPlan.fromPatterns '^Backported from commit \(.*\)$'
-```
 
 ### Making a plan
 
@@ -71,18 +66,33 @@ $ git cherry-plan make master
 This will create a file `<stable>.plan` in the current directory with a
 chronological list of commits on master since the branching point, in a format
 similar to that of `git rebase -i`, and mark with `noop` those that have been
-cherry-picked or backported already.
+cherry-picked already.
 
-To later pull new commits from master into the plan, use:
+Backported commits won't be automatically detected as their patches differ from
+the original ones.  These would ideally be indicated in commit messages by a
+fixed pattern referring to the original commit hash, similar to that added by
+`git cherry-pick -x`, however we currently use no such pattern consistently so
+for the time being, you'll have to go through `git log <stable>` and mark such
+commits in the plan manually.  Once a standard pattern is used across our
+stable branches, you can use the `cherryPlan.portedRegex` config option to mark
+such commits automatically, for example:
 
 ```
-$ git cherry-plan pull master
+$ git config cherryPlan.portedRegex '^(backported from commit \(.*\))$'
 ```
 
 For complete usage help, run:
 
 ```
 $ git cherry-plan -h
+```
+
+### Updating a plan
+
+To later pull new commits from master into the plan, use:
+
+```
+$ git cherry-plan pull master
 ```
 
 ### Editing a plan
@@ -208,7 +218,7 @@ when committing the changes, make sure to replace the line "(cherry picked from
 commit ...)" with "Backported from commit ...", then run:
 
 ```
-$ git cherry-plan mark
+$ git cherry-plan update
 ```
 
 This will update the `noop` markers in the plan copy so that they reflect the
