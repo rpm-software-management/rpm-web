@@ -33,3 +33,4 @@ title: rpm.org - Roadmap
   * Package format facelift
   * Hands-free packaging
 
+For further information and feedback, head over to our [discussion forum.](https://github.com/rpm-software-management/rpm/discussions/2015)
