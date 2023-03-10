@@ -2,6 +2,16 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.18.1 released (Mar 13 2023)
+* This is a bug fix release addressing a number of regressions and other issues.
+* See [release notes](wiki/Releases/4.18.1) for details and download information
+* Highlights include:
+  * Preserve packages bit-by-bit again when adding and then removing signatures
+  * Fix install of block and character special files
+  * Disable `debuginfod` server lookups during package builds
+  * Plugin fixes (fapolicyd and selinux)
+  * Various OpenPGP and macro parser fixes
+
 #### RPM v6 package format draft published (Jan 30 2023)
 * The initial v6 format draft is now [up for discussion](https://github.com/rpm-software-management/rpm/discussions/2374)
 
