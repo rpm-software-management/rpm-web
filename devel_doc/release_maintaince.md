@@ -81,9 +81,11 @@ the original ones.  These would ideally be indicated in commit messages by a
 fixed pattern referring to the original commit hash, similar to that added by
 `git cherry-pick -x`, however we currently use no such pattern consistently so
 for the time being, you'll have to go through `git log <stable>` and mark such
-commits in the plan manually.  Once a standard pattern is used across our
-stable branches, you can use the `cherryPlan.portedRegex` config option to mark
-such commits automatically, for example:
+commits in the plan manually.
+
+Once a standard pattern is used across our stable branches, you can use the
+`cherryPlan.portedRegex` config option to mark such commits automatically, for
+example:
 
 ```
 $ git config cherryPlan.portedRegex '^(backported from commit \(.*\))$'
