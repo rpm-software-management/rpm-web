@@ -68,7 +68,15 @@ chronological list of commits on master since the branching point, in a format
 similar to that of `git rebase -i`, and mark with `noop` those that have been
 cherry-picked already.
 
-Backported commits won't be automatically detected as their patches differ from
+For complete usage help, run:
+
+```
+$ git cherry-plan -h
+```
+
+#### Backported commits
+
+Adapted commits won't be automatically detected as their patches differ from
 the original ones.  These would ideally be indicated in commit messages by a
 fixed pattern referring to the original commit hash, similar to that added by
 `git cherry-pick -x`, however we currently use no such pattern consistently so
@@ -79,12 +87,6 @@ such commits automatically, for example:
 
 ```
 $ git config cherryPlan.portedRegex '^(backported from commit \(.*\))$'
-```
-
-For complete usage help, run:
-
-```
-$ git cherry-plan -h
 ```
 
 ### Updating a plan
