@@ -55,8 +55,8 @@ Argument defaults:
 Configuration:
     $CONFIG.directory
                     where to save plan <file> if unspecified, default: \$PWD
-    $CONFIG.fromPattern
-                    regex to extract original commit hash from commit message
+    $CONFIG.portedRegex
+                    pattern to extract original commit hash from commit message
                     of ported commit, set this to mark ported commits as
                     applied
 "
@@ -99,7 +99,7 @@ get_applied() {
               git patch-id) | cut -d' ' -f2
 
     # ported patches
-    pattern=$(git config --get $CONFIG.fromPattern) || return
+    pattern=$(git config --get $CONFIG.portedRegex) || return
     git rev-list --pretty="format:%b" $1.. | sed -n "s/$pattern/\1/p"
 }
 
