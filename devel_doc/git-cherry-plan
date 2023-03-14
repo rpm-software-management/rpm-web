@@ -35,8 +35,8 @@ with the following differences:
 
     * standalone file (can be shared, tracked in git, etc.)
     * incremental (always applies to HEAD, no rewriting of history)
-    * includes already applied commits for more context (\"noop\" command)
-    * supports the empty command (to indicate unreviewed commits)
+    * includes already applied commits for more context (\"noop\" marker)
+    * supports the empty marker (to indicate unreviewed commits)
 
 Commands:
     make <branch> [<file>]
@@ -46,7 +46,7 @@ Commands:
                     append new commits on <branch> to plan <file>, print them
                     on stdout
     update [<file>]
-                    reflect current branch in plan <file>
+                    mark applied commits in plan <file>
     apply [<file>]  apply plan <file> to current branch
 
 Argument defaults:
