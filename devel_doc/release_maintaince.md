@@ -20,7 +20,7 @@ from a branch, not master.
 When pulling fixes from git master to stable branches, always use -x to get the automatic cherry-pick commit marker. This way its easier to see which patches come from master, and which commit exactly. If a cherry-pick conflicts,
 see if it's resolvable with a suitable upstream commit and if not, when
 fixing manually change the "(cherry picked from commit ...)" message into
-"Backported from commit ..." to mark the difference.
+"(backported from commit ...)" to mark the difference.
 
 ## Selecting commits
 
@@ -219,7 +219,7 @@ This will go through each `pick` commit and run `git cherry-pick -x` on it.
 In case a commit doesn't apply cleanly, the process will stop and a message
 will be printed.  At that point, proceed with conflict resolution as usual and
 when committing the changes, make sure to replace the line "(cherry picked from
-commit ...)" with "Backported from commit ...", then run:
+commit ...)" with "(backported from commit ...)", then run:
 
 ```
 $ git cherry-plan update
