@@ -236,6 +236,10 @@ commit(s).
 
 ## Cutting a release
 
+RPM 4.19 has moved to CMake as the build system.  Prior releases (4.18 and
+older) use Automake, though, so the following text will list instructions for
+both build systems for the time being, until 4.18 goes out of support.
+
 1. Prepare preliminary release notes at https://rpm.org/wiki/Releases/X.Y.Z
 
     * Not every commit needs a corresponding release notes entry, eg
@@ -252,19 +256,37 @@ commit(s).
 
 2. Prepare the sources:
 
-    * Bump the version in configure.ac
-    * Bump rpm_version_info (ie library soname version info) in rpm.am. Basic libtool guidelines for maintenance updates to stable versions:
-        * consult the [libtool manual](https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
-        * soname bumps can only occur at the first version of a new branch (ie alpha/beta)
+    1. CMake
 
-    * Update the sources for the above (Makefiles, .po regeneration and all): ```make dist```
+        * Make sure your build is configured with the `-D WITH_IMAEVM=ON`
+          option (this is needed for the `rpm-plugin-ima.8` man page to be
+          generated, a current limitation of the build system, to be fixed)
+        * Bump `VERSION` in `project()` in CMakeLists.txt
+        * Bump `RPM_SOVERSION` and `RPM_LIBVERSION` in CMakeLists.txt
+            * consult the associated comment block in CMakeLists.txt for instructions
+            * soname bumps can only occur at the first version of a new branch (ie alpha/beta)
+
+    2. Automake
+
+        * Bump the version in configure.ac
+        * Bump rpm_version_info (ie library soname version info) in rpm.am. Basic libtool guidelines for maintenance updates to stable versions:
+            * consult the [libtool manual](https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
+            * soname bumps can only occur at the first version of a new branch (ie alpha/beta)
+        * Update the sources for the above (Makefiles, .po regeneration and all): ```make dist```
+
     * Commit the changes from the previous step with something like 'Preparing for X.Y.Z' as message 
 
 3. Generate the final release tarball:
 
-    ```make distcheck```
+    1. CMake
 
-4. Check that the previous step does not introduce any new changes (eg 'git diff')
+        ```make dist```
+
+    2. Automake
+
+        ```make distcheck```
+
+4. Automake only: Check that the previous step does not introduce any new changes (eg 'git diff')
 
 5. Unpack the tarball next to the previous version and inspect the differences (something like 'diff -uNr rpm-<X.Y.Z> rpm-<X.Y.Z+1>') and watch out for unexpected material. If you find any, STOP, figure it out and go back as many steps as required.
 
