@@ -265,6 +265,12 @@ both build systems for the time being, until 4.18 goes out of support.
         * Bump `RPM_SOVERSION` and `RPM_LIBVERSION` in CMakeLists.txt
             * consult the associated comment block in CMakeLists.txt for instructions
             * soname bumps can only occur at the first version of a new branch (ie alpha/beta)
+        * Update the translations
+            ```sh
+            $ git submodule update --init
+            $ cd po/
+            $ git pull origin master
+            ```
 
     2. Automake
 
