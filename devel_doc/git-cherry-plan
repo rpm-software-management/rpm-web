@@ -37,6 +37,7 @@ with the following differences:
     * incremental (always applies to HEAD, no rewriting of history)
     * includes already applied commits for more context (\"noop\" marker)
     * supports the empty marker (to indicate unreviewed commits)
+    * optionally groups commits by logical changesets (e.g. pull requests)
 
 Commands:
     make <branch> [<file>]
@@ -59,6 +60,10 @@ Configuration:
                     pattern to extract original commit hash from commit message
                     of ported commit, set this to mark ported commits as
                     applied
+    $CONFIG.changesetCmd
+                    shell command that prints changeset title (or nothing if no
+                    changeset associated) from commit hash as argument, set
+                    this to group and annotate commits by logical changesets
 "
     exit 1
 }
@@ -92,13 +97,13 @@ log() {
 get_applied() {
     local pattern
 
-    # identical patches
+    # Identical patches
     grep -f <(git rev-list $1.. | git diff-tree -p --stdin | \
               git patch-id | cut -d' ' -f1) \
             <(git rev-list ..$1 | git diff-tree -p --stdin | \
               git patch-id) | cut -d' ' -f2
 
-    # ported patches
+    # Ported patches
     pattern=$(git config --get $CONFIG.portedRegex) || return
     git rev-list --pretty="format:%b" $1.. | sed -n "s/$pattern/\1/p"
 }
@@ -130,8 +135,56 @@ get_last() {
     sed '/^#/d; /^$/d' $1 | tail -1 | get_hash
 }
 
+get_line() {
+    grep -n "^.....$2 " $1 | cut -d: -f1
+}
+
 get_branch() {
     sed -n "s/^$SUBJECT .*\.\.\(.*\) onto .*\$/\1/p" $1
+}
+
+annotate() {
+    local cmd
+    local file=$1
+    local from=${2-1}
+
+    local lnum=0
+    local cnum=0
+    local lcnum=0
+    local setnum=0
+    local setbeg=0
+
+    local commit
+    local title
+    local ltitle
+
+    cmd=$(git config --get $CONFIG.changesetCmd) || return
+    cat $file | while IFS= read line; do
+        let "lnum++"
+        [[ $lnum -lt $from || -z $line || $line = \#* ]] && continue
+
+        let "cnum++"
+        commit=$(echo "$line" | get_hash)
+        title=$($cmd $commit | head -n1)
+        [ -z "$title" ] && title=$commit
+        [ "$title" == "$ltitle" ] && continue
+
+        # Pad the changeset that just ended (except if single-commit)
+        if [ $cnum -gt 1 ]; then
+            if [[ $lcnum == 1 && $setnum -gt 1 ]]; then
+                sed -i "${setbeg}i \\\\" $file
+                let "lnum++,setbeg++"
+            fi
+            sed -i "${setbeg}i # $ltitle" $file; let "lnum++"
+            sed -i "${lnum}i \\\\" $file; let "lnum++"
+        fi
+
+        let "setnum++"
+        setbeg=$lnum
+        ltitle=$title
+        lcnum=$cnum
+        cnum=0
+    done
 }
 
 CMD=$1; shift
@@ -144,6 +197,7 @@ if [ "$CMD" == "make" ]; then
 
     log HEAD..$branch > $file
     mark $branch $file
+    annotate $file
 
     echo >> $file
     subject $file
@@ -156,9 +210,17 @@ elif [ "$CMD" == "pull" ]; then
     file=$(get_file $2)
     fail_missing $file
     last=$(get_last $file)
+    lnum=$(get_line $file $last)
+    new=$(log $last..$branch)
 
-    log $last..$branch | tee >(sed -i "/^.....$last/ r /dev/stdin" $file)
+    [ -z "$new" ] && exit
+
+    echo "$new" | sed -i "${lnum}r /dev/stdin" $file
+    sed -i "$(( lnum + 1 ))i \\\n#### Pulled $(date +%D) ####" $file
+    annotate $file $(( lnum + 2 ))
     subject $file
+
+    echo "$new"
 
 elif [ "$CMD" == "update" ]; then
     file=$(get_file $1)

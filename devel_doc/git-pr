@@ -1,0 +1,30 @@
+#!/bin/bash
+
+gitdir=$(git rev-parse --path-format=absolute --git-common-dir)
+commit=$1
+dir=${gitdir}/pr/commits/${commit:0:2}
+path=${dir}/${commit:2}
+
+mkdir -p $dir
+
+if [ ! -e "${path}" ]; then
+    json=$(gh pr list --state merged --limit 1 \
+           --json number,title,url,labels --search ${commit}) || exit 1
+    if [ "${json}" == "[]" ] || \
+         echo "${json}" | jq -r ".[].labels[].name" | grep -q '^release$'; then
+        touch ${path}
+        exit 1
+    fi
+    number=$(echo "${json}" | jq ".[].number")
+    title=$(echo "${json}" | jq -r ".[].title")
+    mkdir -p ${dir} ${gitdir}/pr/numbers
+    echo "${title}" > ${gitdir}/pr/numbers/${number}
+    ln -s ../../numbers/${number} ${path}
+fi
+
+if [ -L "${path}" ]; then
+    file=$(readlink -f ${path})
+    number=$(basename ${file})
+    echo "$(cat ${file}) (PR #${number})"
+    echo "https://github.com/rpm-software-management/rpm/pull/${number}"
+fi
