@@ -83,12 +83,47 @@ fixed pattern referring to the original commit hash, similar to that added by
 for the time being, you'll have to go through `git log <stable>` and mark such
 commits in the plan manually.
 
-Once a standard pattern is used across our stable branches, you can use the
-`cherryPlan.portedRegex` config option to mark such commits automatically, for
-example:
+Once a standard pattern is established across our stable branches, you can
+configure the script to mark such commits automatically like this:
 
 ```
 $ git config cherryPlan.portedRegex '^(backported from commit \(.*\))$'
+```
+
+#### Grouping commits
+
+Commits often come as part of bigger logical changesets, typically recorded as
+merge commits in the git log.  This can help when reviewing individual commits
+in terms of providing the big picture.
+
+RPM maintains a linear history by following the rebase workflow upstream,
+meaning that there are no merge commits and thus no records of the originating
+topic branches in git.  The information is still available at the GitHub server
+in the form of pull requests (PRs), though, and can be obtained programatically
+with the [`gh(1)`](https://cli.github.com/) tool.
+
+To make this useful for our purposes here, a small wrapper script
+[`git-pr`](git-pr) is available which takes a commit hash as an argument and
+prints the PR title, number and URL to stdout.  It caches the results (in the
+`.git/pr` directory) so that repeated queries don't make any network
+connections and thus are instantaneous.
+
+This wrapper can then be used by `git-cherrypick` to group and annotate commits
+by PRs when generating plans.  To enable that, download the wrapper, put it
+into your `$PATH` and run:
+
+```
+$ git config cherryPlan.changesetCmd git-pr
+```
+
+When generating a plan for the first time with this feature enabled, note that
+it may take a while until it fetches all the respective PR data from GitHub.
+
+Also note that if you're not using `gh(1)` for other purposes already, you'll
+be prompted to authenticate with GitHub by running:
+
+```
+$ gh auth login
 ```
 
 ### Updating a plan
@@ -189,7 +224,10 @@ $ grep '^pick ' <stable>.plan | wc -l
 
 If you use VIM, you can add [this](plan.vim) snippet into your `~/.vimrc` to
 cycle through markers on the current line with the `C-a` key and do a `git
-show` with the `Enter` key.
+show` of the current commit with the `Enter` key.
+
+If you also install the `git-pr` script mentioned above, you can type `gx` to
+open the current commit's PR in your default browser.
 
 ### Sharing a plan
 

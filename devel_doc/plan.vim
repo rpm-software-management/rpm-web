@@ -1,3 +1,5 @@
+let s:gitchset = trim(system("git config --get cherryPlan.changesetCmd"))
+
 function! s:cycle()
     let l:cmds = ['    ', 'drop', 'pick']
     let l:line = getline('.')
@@ -9,14 +11,39 @@ function! s:cycle()
     call setline('.', l:next . l:line[4:])
 endfunction
 
-function! s:gitshow()
-    let l:hash = split(getline('.')[5:], ' ')[0]
-    silent exec "!git show --color " . l:hash . " | less -cR" | redraw!
+function! s:hash()
+    let l:line = getline('.')
+    if empty(l:line) || l:line[0] == '#'
+        return
+    endif
+    return split(l:line[5:], ' ')[0]
 endfunction
 
-function! s:initplan()
+function! s:gitshow()
+    let l:hash = s:hash()
+    if empty(l:hash)
+        return
+    endif
+    silent exec "!git show --color " . s:hash() . " | less -cR" | redraw!
+endfunction
+
+function! s:propen()
+    let l:hash = s:hash()
+    if empty(l:hash)
+        return
+    endif
+    let l:url = systemlist(s:gitchset . " " . l:hash)
+    if empty(l:url)
+        echo "No changeset associated with this commit."
+        return
+    endif
+    silent exec "!xdg-open " . l:url[1] | redraw!
+endfunction
+
+function! s:init()
     nmap <buffer> <silent> <C-A>    :call <sid>cycle()<CR>
     nmap <buffer> <silent> <CR>     :call <sid>gitshow()<CR>
+    nmap <buffer> <silent> gx       :call <sid>propen()<CR>
 endfunction
 
-autocmd BufNewFile,BufRead *.plan call <sid>initplan()
+autocmd BufNewFile,BufRead *.plan call <sid>init()
