@@ -120,6 +120,9 @@ $ git config cherryPlan.changesetCmd 'git pr'
 When generating a plan for the first time with this feature enabled, note that
 it may take a while until it fetches all the relevant PR data from GitHub.
 
+Note that single-commit PRs are not annotated (as those are usually named after
+the commit's subject line anyway), only those with two or more commits are.
+
 Also note that if you're not using `gh(1)` for other purposes already, you'll
 be first prompted to authenticate with GitHub by running:
 
