@@ -188,53 +188,54 @@ annotate() {
 }
 
 CMD=$1; shift
+case $CMD in
+    make)
+        [ "$#" -lt 1 ] && usage
+        branch=$1
+        file=$(get_file $2)
+        fail_exists $file
 
-if [ "$CMD" == "make" ]; then
-    [ "$#" -lt 1 ] && usage
-    branch=$1
-    file=$(get_file $2)
-    fail_exists $file
+        log HEAD..$branch > $file
+        mark $branch $file
+        annotate $file
 
-    log HEAD..$branch > $file
-    mark $branch $file
-    annotate $file
+        echo >> $file
+        subject $file
+        echo "$README" >> $file
+        echo $file
+    ;;
+    pull)
+        [ "$#" -lt 1 ] && usage
+        branch=$1
+        file=$(get_file $2)
+        fail_missing $file
+        last=$(get_last $file)
+        lnum=$(get_line $file $last)
+        new=$(log $last..$branch)
 
-    echo >> $file
-    subject $file
-    echo "$README" >> $file
-    echo $file
+        [ -z "$new" ] && exit
 
-elif [ "$CMD" == "pull" ]; then
-    [ "$#" -lt 1 ] && usage
-    branch=$1
-    file=$(get_file $2)
-    fail_missing $file
-    last=$(get_last $file)
-    lnum=$(get_line $file $last)
-    new=$(log $last..$branch)
+        echo "$new" | sed -i "${lnum}r /dev/stdin" $file
+        sed -i "$(( lnum + 1 ))i \\\n#### Pulled $(date +%D) ####" $file
+        annotate $file $(( lnum + 2 ))
+        subject $file
 
-    [ -z "$new" ] && exit
+        echo "$new"
+    ;;
+    update)
+        file=$(get_file $1)
+        fail_missing $file
+        branch=$(get_branch $file)
 
-    echo "$new" | sed -i "${lnum}r /dev/stdin" $file
-    sed -i "$(( lnum + 1 ))i \\\n#### Pulled $(date +%D) ####" $file
-    annotate $file $(( lnum + 2 ))
-    subject $file
-
-    echo "$new"
-
-elif [ "$CMD" == "update" ]; then
-    file=$(get_file $1)
-    fail_missing $file
-    branch=$(get_branch $file)
-
-    mark $branch $file
-    subject $file
-
-elif [ "$CMD" == "apply" ]; then
-    file=$(get_file $1)
-    fail_missing $file
-    grep '^pick ' $file | get_hash | xargs git cherry-pick -x
-
-else
-    usage
-fi
+        mark $branch $file
+        subject $file
+    ;;
+    apply)
+        file=$(get_file $1)
+        fail_missing $file
+        grep '^pick ' $file | get_hash | xargs git cherry-pick -x
+    ;;
+    *)
+        usage
+    ;;
+esac
