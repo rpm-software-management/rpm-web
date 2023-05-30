@@ -114,7 +114,7 @@ commits by PRs when generating plans.  To enable that, download the wrapper,
 put it into your `$PATH` and run:
 
 ```
-$ git config cherryPlan.changesetCmd git-pr
+$ git config cherryPlan.changesetCmd 'git pr'
 ```
 
 When generating a plan for the first time with this feature enabled, note that
