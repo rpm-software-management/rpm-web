@@ -94,8 +94,8 @@ $ git config cherryPlan.portedRegex '^(backported from commit \(.*\))$'
 
 Commits often come as part of bigger logical changesets, represented by topic
 branches in the author's fork and then optionally recorded as merge commits in
-the git log.  This can help one to understand the big picture when looking at
-an individual commit.
+the git log.  This can help one understand the big picture when looking at an
+individual commit.
 
 RPM maintains a linear history by following the rebase workflow upstream,
 meaning that there are no merge commits and thus no records of the originating
