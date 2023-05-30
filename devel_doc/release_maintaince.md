@@ -103,7 +103,7 @@ topic branches in git.  The information is still available at the GitHub server
 in the form of pull requests (PRs), though, and can be obtained programatically
 with the [`gh(1)`](https://cli.github.com/) tool.
 
-To make this useful for our purposes here, a small wrapper script `git-pr` is
+To make this useful for our purposes here, a small wrapper script `git pr` is
 [available](git-pr) which takes a commit hash as an argument and prints the PR
 title, number and URL to stdout.  It caches the results (in the `.git/pr`
 directory) so that repeated queries don't make any network connections and thus
