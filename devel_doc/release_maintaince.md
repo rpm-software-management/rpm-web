@@ -92,9 +92,10 @@ $ git config cherryPlan.portedRegex '^(backported from commit \(.*\))$'
 
 #### Grouping commits
 
-Commits often come as part of bigger logical changesets, typically recorded as
-merge commits in the git log.  This can help when reviewing individual commits
-in terms of providing the big picture.
+Commits often come as part of bigger logical changesets, represented by topic
+branches in the author's fork and then optionally recorded as merged commits in
+the git log.  This can help one to understand the big picture when looking at
+an individual commit.
 
 RPM maintains a linear history by following the rebase workflow upstream,
 meaning that there are no merge commits and thus no records of the originating
@@ -102,25 +103,25 @@ topic branches in git.  The information is still available at the GitHub server
 in the form of pull requests (PRs), though, and can be obtained programatically
 with the [`gh(1)`](https://cli.github.com/) tool.
 
-To make this useful for our purposes here, a small wrapper script
-[`git-pr`](git-pr) is available which takes a commit hash as an argument and
-prints the PR title, number and URL to stdout.  It caches the results (in the
-`.git/pr` directory) so that repeated queries don't make any network
-connections and thus are instantaneous.
+To make this useful for our purposes here, a small wrapper script `git-pr` is
+[available](git-pr) which takes a commit hash as an argument and prints the PR
+title, number and URL to stdout.  It caches the results (in the `.git/pr`
+directory) so that repeated queries don't make any network connections and thus
+are instantaneous.
 
-This wrapper can then be used by `git-cherrypick` to group and annotate commits
-by PRs when generating plans.  To enable that, download the wrapper, put it
-into your `$PATH` and run:
+This wrapper can then be used by `git-cherry-plan` to group and annotate
+commits by PRs when generating plans.  To enable that, download the wrapper,
+put it into your `$PATH` and run:
 
 ```
 $ git config cherryPlan.changesetCmd git-pr
 ```
 
 When generating a plan for the first time with this feature enabled, note that
-it may take a while until it fetches all the respective PR data from GitHub.
+it may take a while until it fetches all the relevant PR data from GitHub.
 
 Also note that if you're not using `gh(1)` for other purposes already, you'll
-be prompted to authenticate with GitHub by running:
+be first prompted to authenticate with GitHub by running:
 
 ```
 $ gh auth login
