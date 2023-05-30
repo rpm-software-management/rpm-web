@@ -93,7 +93,7 @@ $ git config cherryPlan.portedRegex '^(backported from commit \(.*\))$'
 #### Grouping commits
 
 Commits often come as part of bigger logical changesets, represented by topic
-branches in the author's fork and then optionally recorded as merged commits in
+branches in the author's fork and then optionally recorded as merge commits in
 the git log.  This can help one to understand the big picture when looking at
 an individual commit.
 
@@ -109,7 +109,7 @@ title, number and URL to stdout.  It caches the results (in the `.git/pr`
 directory) so that repeated queries don't make any network connections and thus
 are instantaneous.
 
-This wrapper can then be used by `git-cherry-plan` to group and annotate
+This wrapper can then be used by `git cherry-plan` to group and annotate
 commits by PRs when generating plans.  To enable that, download the wrapper,
 put it into your `$PATH` and run:
 
