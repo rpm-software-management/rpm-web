@@ -16,6 +16,12 @@ capable of
 
 ## News
 
+#### RPM 4.19.0 ALPHA2 released (Jun 09 2023)
+* This is a bug fix update to address a couple of issues found by the early
+  adopters of ALPHA1, mostly related to some bits and pieces missed during the
+  CMake transition.
+* See [draft release notes](wiki/Releases/4.19.0) for details and download information
+
 #### RPM 4.19.0 ALPHA released (Apr 13 2023)
 * See [draft release notes](wiki/Releases/4.19.0) for details and download information
 * Highlights include:
