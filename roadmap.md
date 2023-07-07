@@ -17,6 +17,7 @@ title: rpm.org - Roadmap
   * Purge obsolete API
 * RPM v6 scoping (ongoing)
 * First [public draft of RPM v6 format](https://github.com/rpm-software-management/rpm/discussions/2374)
+* Migrate away from SemaphoreCI Classic (Q3)
 
 ## 2024
 * RPM 4.20 release (Q3)
