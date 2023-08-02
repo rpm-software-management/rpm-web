@@ -14,7 +14,7 @@ title: rpm.org - Download
 * [RPM 4.17.0](https://ftp.osuosl.org/pub/rpm/releases/rpm-4.17.x/rpm-4.17.0.tar.bz2) ([Release notes](wiki/Releases/4.17.0.html))
 
 ## Current test releases
-* [RPM 4.19 BETA](https://ftp.osuosl.org/pub/rpm/releases/testing/rpm-4.18.92.tar.bz2)
+* [RPM 4.19 BETA](https://ftp.osuosl.org/pub/rpm/releases/testing/rpm-4.18.92.tar.bz2) ([Release notes (draft)](wiki/Releases/4.19.0.html))
 
 ## Old releases (no longer supported)
 
