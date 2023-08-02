@@ -2,6 +2,18 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.19.0 BETA released (Aug 02 2023)
+* This is a feature-complete pre-release with a number of bug fixes since ALPHA2.
+* See [draft release notes](wiki/Releases/4.19.0) for details and download information
+* Highlights include:
+    * New `sysusers.sh` script as a drop-in replacement for `systemd-sysusers(8)`
+    * New `%{specpartsdir}` macro for configuring the spec snippet location
+    * New `%{rpmversion}` macro for obtaining the running RPM version
+    * New Python binding usage examples
+    * Adoption of Linux containers in the test-suite, replacing `fakechroot(1)`
+    * Platform detection fixes and improvements for x86 CPUs
+    * Chroot handling fixes
+
 #### RPM 4.19.0 ALPHA2 released (Jun 09 2023)
 * This is a bug fix update to address a couple of issues found by the early
   adopters of ALPHA1, mostly related to some bits and pieces missed during the
