@@ -9,12 +9,12 @@ This page attempts to track the various relevant documentation that exists for R
 * [RPM Reference Manual](https://rpm-software-management.github.io/rpm/manual/)
 * [RPM man pages](https://rpm-software-management.github.io/rpm/man/)
 * [Fedora News RPM Tutorial](http://fedoranews.org/alex/tutorial/rpm/)
-* [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html)
+* [Fedora RPM Guide](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/RPM/)
 * [RPM Frequently asked questions (FAQ)](user_doc/faq.html)
 * [RPM Database Recovery](user_doc/db_recovery.html)
 
 ## Packager Documentation
-* [Fedora RPM Guide](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/index.html)
+* [Fedora RPM Guide](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/RPM/)
 * [RPM Guide](https://rpm-packaging-guide.github.io/) - A Good introduction into RPM Packaging
 * [Building Packages so that multiple versions of the same package can co-install](user_doc/multiple_versions.html)
 
@@ -25,13 +25,13 @@ This page attempts to track the various relevant documentation that exists for R
   * [RPM 4.16.x](https://ftp.osuosl.org/pub/rpm/api/4.16.1/)
   * [Older versions](https://ftp.osuosl.org/pub/rpm/api/)
 
-* [Programming RPM with C](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-programming-c.html) from Fedora RPM Guide
+* [Programming RPM with C](https://docs.fedoraproject.org/en-US/packaging-guidelines/C_and_C++/) from Fedora RPM Guide
 * [How to ensure Large File Support for tools using the rpm API](devel_doc/large_files.html)
 
 ## RPM Language Bindings
 * [RPM Python](http://www.ukuug.org/events/linux2004/programme/paper-PNasrat-1/rpm-python-slides/frames.html) slideset / tutorial
-* [Programming RPM with Python](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-rpm-programming-python.html) from Fedora RPM Guide
-* [Programming RPM with Perl](http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-programming-perl.html) from Fedora RPM Guide 
+* [Programming RPM with Python](https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/) from Fedora RPM Guide
+* [Programming RPM with Perl](https://docs.fedoraproject.org/en-US/packaging-guidelines/Perl/) from Fedora RPM Guide 
 
 ## Miscellaneous Developer Docs:
   * [Release maintaince](devel_doc/release_maintaince.html)
