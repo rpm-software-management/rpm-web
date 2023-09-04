@@ -17,7 +17,7 @@ capable of
 ## News
 
 #### RPM 4.19.0 RC1 released (Sep 04 2023)
-* This is a release candidate with a number of bug fixes since BETA.
+* This is a release candidate with minor enhancements and bug fixes since BETA.
 * See [draft release notes](wiki/Releases/4.19.0) for details and download information
 * Highlights include:
     * New `rpmspec` aliases for weak dependency queries
