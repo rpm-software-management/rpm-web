@@ -2,6 +2,17 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.19.0 RC1 released (Sep 04 2023)
+* This is a release candidate with a number of bug fixes since BETA.
+* See [draft release notes](wiki/Releases/4.19.0) for details and download information
+* Highlights include:
+    * New `rpmspec` aliases for weak dependency queries
+    * More consistent behavior with `%optflags` and noarch builds
+    * Test-suite fixes and tweaks to the new container-based backend
+    * Export our libraries as a CMake `find_package()` config
+    * Default to C.UTF-8 locale in CMake
+    * Other CMake fixes and tweaks
+
 #### CI migrated from SemaphoreCI Classic to GitHub Actions (Aug 03 2023)
 * Due to the planned [discontinuation](https://semaphoreci.com/blog/semaphore-classic-deprecation)
   of SemaphoreCI Classic starting in early September 2023, we have moved to
