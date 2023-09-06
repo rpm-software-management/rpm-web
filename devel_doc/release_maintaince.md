@@ -295,6 +295,17 @@ both build systems for the time being, until 4.18 goes out of support.
     * Upstream GH tickets can use #ticketno shortcut, references to external
       bugzillas follow naming conventions: RhBug:bugno, SuseBug:bugno,
       MgaBug:bugno (optimally make these actual links)
+    * Only reference *issues*, not pull requests
+
+2. Check the GitHub milestone for the given release
+
+    * All issues and PRs should be closed.
+
+Hints:
+
+    * On the Issues tab, use a query with the `milestone:<X.Y.Z>` filter (where
+      `<X.Y.Z>` is the release in question)
+    * You can also select one from the `Milestones` dropdown
 
 2. Prepare the sources:
 
@@ -336,7 +347,12 @@ both build systems for the time being, until 4.18 goes out of support.
 
 4. Automake only: Check that the previous step does not introduce any new changes (eg 'git diff')
 
-5. Unpack the tarball next to the previous version and inspect the differences (something like 'diff -uNr rpm-<X.Y.Z> rpm-<X.Y.Z+1>') and watch out for unexpected material. If you find any, STOP, figure it out and go back as many steps as required.
+5. Unpack the tarball next to the previous version and inspect the differences,
+   watching out for unexpected material.  If you find any, STOP, figure it out
+   and go back as many steps as required.  Note that the `docs` directory may
+   be omitted in most cases since it typically contains a lot of noise.
+
+    diff --color=always -uNr rpm-<X.Y.Z-1> rpm-<X.Y.Z> -x docs | less -R
 
 6. Submit the whole lot as a pull-request to the branch in question
 
@@ -352,7 +368,7 @@ both build systems for the time being, until 4.18 goes out of support.
 
 8. Push the tag. This is the point of no return for a given release.
 
-    git push --tags
+    git push rpm-X.Y.Z-release
 
 9. Upload the bz2 tarball
    * scp to rpm@ftp-osl.osuosl.org to the appropriate per-branch directory in ~/ftp/releases/
