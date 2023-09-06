@@ -300,9 +300,6 @@ both build systems for the time being, until 4.18 goes out of support.
 2. Check the GitHub milestone for the given release
 
     * All issues and PRs should be closed.
-
-Hints:
-
     * On the Issues tab, use a query with the `milestone:<X.Y.Z>` filter (where
       `<X.Y.Z>` is the release in question)
     * You can also select one from the `Milestones` dropdown
