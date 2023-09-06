@@ -352,7 +352,7 @@ Hints:
    and go back as many steps as required.  Note that the `docs` directory may
    be omitted in most cases since it typically contains a lot of noise.
 
-    diff --color=always -uNr rpm-<X.Y.Z-1> rpm-<X.Y.Z> -x docs | less -R
+    ```diff --color=always -uNr rpm-<X.Y.Z-1> rpm-<X.Y.Z> -x docs | less -R```
 
 6. Submit the whole lot as a pull-request to the branch in question
 
@@ -364,15 +364,15 @@ Hints:
 
 7. Tag the release. Something like:
 
-    git tag -a -m "RPM X.Y.Z release" rpm-X.Y.Z-release
+    ```git tag -a -m "RPM X.Y.Z release" rpm-X.Y.Z-release```
 
 8. Push the tag. This is the point of no return for a given release.
 
-    git push rpm-X.Y.Z-release
+    ```git push rpm-X.Y.Z-release```
 
 9. Upload the bz2 tarball
-   * scp to rpm@ftp-osl.osuosl.org to the appropriate per-branch directory in ~/ftp/releases/
-   * run ./trigger-rpm script in the rpm home directory to start mirror process
+   * scp to rpm@ftp-osl.osuosl.org to the appropriate per-branch directory in `~/ftp/releases/`
+   * run `./trigger-rpm` script in the rpm home directory to start mirror process
 
 9. Make the release official:
 
