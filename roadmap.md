@@ -11,7 +11,7 @@ title: rpm.org - Roadmap
   * Build infra modernization
     * [CMake based build system](https://github.com/rpm-software-management/rpm/pull/2096)
     * [Replace fakechroot with better technology](https://github.com/rpm-software-management/rpm/issues/1580)
-    * Migrate away from SemaphoreCI Classic (Q3)
+    * [Migrate away from SemaphoreCI Classic](https://github.com/rpm-software-management/rpm/issues/2569)
   * Hands-free packaging
     * [Dynamic spec generation](https://github.com/rpm-software-management/rpm/discussions/2032)
     * [Declarative user/group handling](https://github.com/rpm-software-management/rpm/issues/1032)
