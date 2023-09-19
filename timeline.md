@@ -2,6 +2,23 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.19.0 released (Sep 19 2023)
+* See [release notes](wiki/Releases/4.19.0) for details and download information
+* Highlights include:
+    * New spec snippet [support](https://rpm-software-management.github.io/rpm/manual/dynamic_specs.html) for dynamic spec generation
+    * New `sysusers.d(5)` [integration](https://rpm-software-management.github.io/rpm/manual/users_and_groups.html) for automated user and group handling
+    * Proper shell-like globbing and escaping in `%files` and CLI
+    * Memory and address-space aware build resource allocation
+    * Platform detection fixes and improvements for x86 CPUs
+    * Chroot handling fixes
+    * New CMake build system
+    * Export of RPM libraries for CMake's `find_package()`
+    * Adoption of Linux containers in the test-suite, replacing `fakechroot(1)`
+    * New Python binding usage examples
+    * Translations [split off](https://github.com/rpm-software-management/rpm-l10n/)
+    * Removal of various deprecated and/or unused APIs
+    * Various internal code cleanups
+
 #### RPM 4.19.0 RC1 released (Sep 04 2023)
 * This is a release candidate with minor enhancements and bug fixes since BETA.
 * See [draft release notes](wiki/Releases/4.19.0) for details and download information
