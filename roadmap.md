@@ -31,7 +31,7 @@ title: rpm.org - Roadmap
     * [Support for multi-arch dependencies](https://github.com/rpm-software-management/rpm/issues/2197)
     * [File trigger design review + adjustment](https://github.com/rpm-software-management/rpm/issues/2655)
   * [Finalize plugin API, make public](https://github.com/rpm-software-management/rpm/issues/1536)
-  * Embracing container technologies
+  * Security
     * Increased build and install scriptlet isolation
 
 * RPM v6 specification
@@ -40,6 +40,7 @@ title: rpm.org - Roadmap
 * RPM 6.0 release (Q3)
   * Package format facelift
   * Hands-free packaging
-  * Embracing container technologies
+  * Security
+    * [Enforced signature-checking by default](https://github.com/rpm-software-management/rpm/issues/1573)
 
 For further information and feedback, head over to our [discussion forum.](https://github.com/rpm-software-management/rpm/discussions/2015)
