@@ -16,6 +16,19 @@ capable of
 
 ## News
 
+#### RPM 4.18.2 released (Nov 13 2023)
+* This is a bug fix release with a few minor enhancements.
+* See [release notes](wiki/Releases/4.18.2) for details and download information
+* Highlights include:
+    * New `%{rpmversion}` and `%{_iconsdir}` macros
+    * New `rpmspec(8)` aliases for weak dependency queries
+    * Add libmagic exceptions for HTML, SVG and PNG
+    * Fix `SOURCE_DATE_EPOCH=0` regression
+    * Fix various `rpm2archive(8)` issues
+    * Fix various Lua interface issues
+    * Various regression fixes
+    * Numerous documentation fixes and improvements
+
 #### RPM 4.19.0 released (Sep 19 2023)
 * See [release notes](wiki/Releases/4.19.0) for details and download information
 * Highlights include:
