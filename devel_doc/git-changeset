@@ -17,14 +17,17 @@ if [ ! -e "${path}" ]; then
     fi
     number=$(echo "${json}" | jq ".[].number")
     title=$(echo "${json}" | jq -r ".[].title")
+    labels=$(echo "${json}" | jq -r ".[].labels[].name" | xargs)
     mkdir -p ${dir} ${gitdir}/changeset/numbers
-    echo "${title}" > ${gitdir}/changeset/numbers/${number}
+    echo -e "${title}\n${labels}" > ${gitdir}/changeset/numbers/${number}
     ln -s ../../numbers/${number} ${path}
 fi
 
 if [ -L "${path}" ]; then
     file=$(readlink -f ${path})
     number=$(basename ${file})
-    echo "$(cat ${file}) (PR #${number})"
+    echo -n "PR #${number}: "
+    cat ${file} | sed -n "1p"
+    cat ${file} | sed -n "2p"
     echo "https://github.com/rpm-software-management/rpm/pull/${number}"
 fi
