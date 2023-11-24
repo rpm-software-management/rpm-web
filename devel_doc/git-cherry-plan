@@ -95,17 +95,11 @@ log() {
 }
 
 get_applied() {
-    local pattern
-
-    # Identical patches
-    grep -f <(git rev-list $1.. | git diff-tree -p --stdin | \
-              git patch-id | cut -d' ' -f1) \
-            <(git rev-list ..$1 | git diff-tree -p --stdin | \
-              git patch-id) | cut -d' ' -f2
-
-    # Ported patches
-    pattern=$(git config --get $CONFIG.portedRegex) || return
-    git rev-list --pretty="format:%b" $1.. | sed -n "s/$pattern/\1/p"
+    local log=$(git rev-list --pretty="format:%b" $1..)
+    local patterns=$(git config --get-all $CONFIG.portedRegex) || return
+    echo "$patterns" | while read -r line; do
+        echo "$log" | sed -En "s/$line/\1/p"
+    done
 }
 
 mark() {
