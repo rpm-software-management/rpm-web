@@ -2,24 +2,28 @@
 layout: default
 title: rpm.org - RPM Maintenance
 ---
-TODO: Update according to modification/redesign of rpm.org
 
 # RPM Maintenance
 
 ## Git branches
 
-Rpm development takes place in the git master branch, but releases are created from stable branches, created when a development cycle is coming to an end. 
-Alfa tarball is traditionally cut from master, but prior to beta release
-the tree is branched and beta and later releases are *always* created
-from a branch, not master.
+RPM development takes place in the git master branch, but releases are created
+from stable branches when a development cycle is coming to an end.  The alpha
+tarball is traditionally cut from master, but prior to the beta release the
+tree is branched and the beta and later releases are *always* created from a
+branch, not master.
 
-* rpm-4.15.x branch from which all 4.15.x versions are cut from
-* rpm-4.14.x branch from which all 4.14.x versions are cut from
+The stable branches follow a common naming scheme:
+
+* `rpm-4.19.x`: all 4.19.x versions are cut from this branch
+* `rpm-4.18.x`: all 4.18.x versions are cut from this branch
 * ...
 
-When pulling fixes from git master to stable branches, always use -x to get the automatic cherry-pick commit marker. This way its easier to see which patches come from master, and which commit exactly. If a cherry-pick conflicts,
-see if it's resolvable with a suitable upstream commit and if not, when
-fixing manually change the "(cherry picked from commit ...)" message into
+When pulling fixes from git master to stable branches, always use `-x` to get
+the automatic cherry-pick commit marker.  This way it's easier to see which
+patches come from master, and which commit exactly.  If a cherry-pick
+conflicts, see if it's resolvable with a suitable upstream commit and if not,
+fix it manually and change the "(cherry picked from commit ...)" message into
 "(backported from commit ...)" to mark the difference.
 
 ## Selecting commits
@@ -47,20 +51,42 @@ and mark those that you intend to pick.  This approach allows you to:
 * Track the plan in a git repo
 
 The rest of this section describes a workflow that involves such a text file,
-one per stable branch, and a helper script.
+one per stable branch, and helper scripts.
 
-### Installing the script
+### Installing the scripts
 
-[Download](git-cherry-plan) the script, make it executable and put it into your
-`$PATH`.
+Download the following utilities, put them into your `$PATH` and make them
+executable:
+
+* [git-cherry-plan](git-cherry-plan)
+* [git-changeset](git-changeset)
+* [git-changelog](git-changelog)
+
+### Configuring the scripts
+
+Download the default [configuration file](gitconfig) and apply it to your git
+checkout as follows:
+
+```
+cat gitconfig >> .git/config
+```
+
+You will also need the [GitHub CLI utility](https://cli.github.com/) which is
+required by `git-changeset`.  On Fedora, get it with:
+
+```
+dnf install gh
+```
+
+Then, run `gh auth login` to authenticate with GitHub.
 
 ### Making a plan
 
-First, generate a plan for the stable branch (e.g. rpm-4.15.x):
+First, generate a plan for the stable branch (e.g. `rpm-4.19.x`):
 
 ```
-$ git checkout <stable>
-$ git cherry-plan make master
+git checkout <stable>
+git cherry-plan make master
 ```
 
 This will create a file `<stable>.plan` in the current directory with a
@@ -68,66 +94,15 @@ chronological list of commits on master since the branching point, in a format
 similar to that of `git rebase -i`, and mark with `noop` those that have been
 cherry-picked already.
 
+If the `git-changeset` utility is installed, commits will be grouped by their
+originating GitHub pull requests.  This may take a while on the first run since
+the script needs to fetch the PR data from GitHub.  The data is then cached
+locally in the `.git/changeset/` directory and reused on next runs.
+
 For complete usage help, run:
 
 ```
-$ git cherry-plan -h
-```
-
-#### Backported commits
-
-Adapted commits won't be automatically detected as their patches differ from
-the original ones.  These would ideally be indicated in commit messages by a
-fixed pattern referring to the original commit hash, similar to that added by
-`git cherry-pick -x`, however we currently use no such pattern consistently so
-for the time being, you'll have to go through `git log <stable>` and mark such
-commits in the plan manually.
-
-Once a standard pattern is established across our stable branches, you can
-configure the script to mark such commits automatically like this:
-
-```
-$ git config cherryPlan.portedRegex '^(backported from commit \(.*\))$'
-```
-
-#### Grouping commits
-
-Commits often come as part of bigger logical changesets, represented by topic
-branches in the author's fork and then optionally recorded as merge commits in
-the git log.  This can help one understand the big picture when looking at an
-individual commit.
-
-RPM maintains a linear history by following the rebase workflow upstream,
-meaning that there are no merge commits and thus no records of the originating
-topic branches in git.  The information is still available at the GitHub server
-in the form of pull requests (PRs), though, and can be obtained programatically
-with the [`gh(1)`](https://cli.github.com/) tool.
-
-To make this useful for our purposes here, a small wrapper script `git pr` is
-[available](git-pr) which takes a commit hash as an argument and prints the PR
-title, number and URL to stdout.  It caches the results (in the `.git/pr`
-directory) so that repeated queries don't make any network connections and thus
-are instantaneous.
-
-This wrapper can then be used by `git cherry-plan` to group and annotate
-commits by PRs when generating plans.  To enable that, download the wrapper,
-put it into your `$PATH` and run:
-
-```
-$ git config cherryPlan.changesetCmd 'git pr'
-```
-
-When generating a plan for the first time with this feature enabled, note that
-it may take a while until it fetches all the relevant PR data from GitHub.
-
-Note that single-commit PRs are not annotated (as those are usually named after
-the commit's subject line anyway), only those with two or more commits are.
-
-Also note that if you're not using `gh(1)` for other purposes already, you'll
-be first prompted to authenticate with GitHub by running:
-
-```
-$ gh auth login
+git cherry-plan -h
 ```
 
 ### Updating a plan
@@ -135,7 +110,7 @@ $ gh auth login
 To later pull new commits from master into the plan, use:
 
 ```
-$ git cherry-plan pull master
+git cherry-plan pull master
 ```
 
 ### Editing a plan
@@ -188,7 +163,7 @@ You may want to skip any commits that were already reviewed in the last release
 indication of where the review stopped, but it's a good idea to look a bit
 further back, in case some otherwise suitable commits were omitted due to
 [budget](#choosing-a-commit-budget) constraints and such.  In particular,
-regression or security updates (e.g. rpm-4.15.1.1) tend to include very
+regression or security updates (e.g. rpm-4.19.1.1) tend to include very
 specific cherry-picks, leaving gaps behind that may contain useful material for
 the next stable release.
 
@@ -205,7 +180,7 @@ to mark them with `drop`, for example (replace `<linenum>` with the last line
 to mark):
 
 ```
-$ sed -i '1,<linenum> s/^     /drop /' <stable>.plan
+sed -i '1,<linenum> s/^     /drop /' <stable>.plan
 ```
 
 #### Choosing a commit budget
@@ -221,7 +196,7 @@ if possible.
 You can check the number of picks so far by running:
 
 ```
-$ grep '^pick ' <stable>.plan | wc -l
+grep '^pick ' <stable>.plan | wc -l
 ```
 
 #### VIM config
@@ -230,8 +205,8 @@ If you use VIM, you can add [this](plan.vim) snippet into your `~/.vimrc` to
 cycle through markers on the current line with the `C-a` key and do a `git
 show` of the current commit with the `Enter` key.
 
-If you also install the `git pr` script mentioned above, you can type `gx` to
-open the current commit's PR in your default browser.
+If you also install the `git changeset` script mentioned above, you can type
+`gx` to open the current commit's PR in your default browser.
 
 ### Sharing a plan
 
@@ -243,17 +218,17 @@ to keep it short.
 ### Applying a plan
 
 Once the plan is ready, make a copy of the plan and create a topic branch for
-the release (e.g. rpm-4.15.1):
+the release (e.g. rpm-4.19.1):
 
 ```
-$ cp <stable>.plan <release>.plan
-$ git checkout -b <release>
+cp <stable>.plan <release>.plan
+git checkout -b <release>
 ```
 
 Then, apply the plan:
 
 ```
-$ git cherry-plan apply
+git cherry-plan apply
 ```
 
 This will go through each `pick` commit and run `git cherry-pick -x` on it.
@@ -264,7 +239,7 @@ when committing the changes, make sure to replace the line "(cherry picked from
 commit ...)" with "(backported from commit ...)", then run:
 
 ```
-$ git cherry-plan update
+git cherry-plan update
 ```
 
 This will update the `noop` markers in the plan copy so that they reflect the
@@ -282,97 +257,124 @@ RPM 4.19 has moved to CMake as the build system.  Prior releases (4.18 and
 older) use Automake, though, so the following text will list instructions for
 both build systems for the time being, until 4.18 goes out of support.
 
-1. Prepare preliminary release notes at https://rpm.org/wiki/Releases/X.Y.Z
+In the following text, the `X.Y.Z` string denotes the version number that
+you're preparing, for example `4.19.0`.
 
-    * Not every commit needs a corresponding release notes entry, eg
-      internal refactoring and cleanup should not be detailed, and 
-      often a new feature consists of multiple commits that deserve exactly
-      on entry in the notes
-    * Follow common style in the text, git commit messages are rarely good
-      as-is. Start with what it does: add/fix/remove/change/optimize,
-      followed by concise description. Group and sort by types of change.
-    * Not all releases need the same exact subtitle groups, use common sense.
-    * Upstream GH tickets can use #ticketno shortcut, references to external
-      bugzillas follow naming conventions: RhBug:bugno, SuseBug:bugno,
-      MgaBug:bugno (optimally make these actual links)
-    * Only reference *issues*, not pull requests
+1. Check the GitHub milestone:
 
-2. Check the GitHub milestone for the given release
+    1. Go to our GitHub repository, open the Issues tab and filter by the
+       expression `is:issue is:open milestone:X.Y.Z`.
+    1. Verify that there are no matches, otherwise make sure to close any open
+       issues in that milestone before proceeding further.
 
-    * All issues and PRs should be closed.
-    * On the Issues tab, use a query with the `milestone:<X.Y.Z>` filter (where
-      `<X.Y.Z>` is the release in question)
-    * You can also select one from the `Milestones` dropdown
+1. Prepare the sources:
 
-2. Prepare the sources:
-
-    1. CMake
+    1. CMake:
 
         * Make sure your build is configured with the `-D WITH_IMAEVM=ON`
           option (this is needed for the `rpm-plugin-ima.8` man page to be
-          generated, a current limitation of the build system, to be fixed)
+          generated, a current limitation of the build system, to be fixed).
         * Bump `VERSION` in `project()` in CMakeLists.txt
-        * Bump `RPM_SOVERSION` and `RPM_LIBVERSION` in CMakeLists.txt
-            * consult the associated comment block in CMakeLists.txt for instructions
-            * soname bumps can only occur at the first version of a new branch (ie alpha/beta)
-        * Update the translations
-            ```sh
-            $ git submodule update --init
-            $ cd po/
-            $ git pull origin master
+        * Bump `RPM_SOVERSION` and `RPM_LIBVERSION` in CMakeLists.txt:
+            * Consult the associated comment block in CMakeLists.txt for
+              instructions.
+            * soname bumps can only occur at the first version of a new branch
+              (i.e. alpha/beta).
+        * Update the translations:
+            ```
+            git submodule update --init
+            cd po/
+            git pull origin master
             ```
 
-    2. Automake
+    1. Automake:
 
-        * Bump the version in configure.ac
-        * Bump rpm_version_info (ie library soname version info) in rpm.am. Basic libtool guidelines for maintenance updates to stable versions:
-            * consult the [libtool manual](https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
-            * soname bumps can only occur at the first version of a new branch (ie alpha/beta)
-        * Update the sources for the above (Makefiles, .po regeneration and all): ```make dist```
+        * Bump the version in `configure.ac`
+        * Bump `rpm_version_info` (i.e. library soname version info) in the
+          `rpm.am` file.  Basic libtool guidelines for maintenance updates to
+          stable versions apply:
+            * Consult the [libtool manual](https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
+            * soname bumps can only occur at the first version of a new branch
+              (i.e. alpha/beta)
+        * Update the sources for the above (Makefiles, `.po` regeneration and
+          all): `make dist`
 
-    * Commit the changes from the previous step with something like 'Preparing for X.Y.Z' as message 
+    3. Commit the changes from the previous step with something like "Preparing
+       for X.Y.Z" as the message
 
-3. Generate the final release tarball:
+1. Generate the final release tarball:
 
-    1. CMake
+    * CMake: `make dist`
+    * Automake: `make distcheck`
 
-        ```make dist```
+1. Automake only: Check that the previous step does not introduce any new
+   changes (e.g. `git diff`).
 
-    2. Automake
-
-        ```make distcheck```
-
-4. Automake only: Check that the previous step does not introduce any new changes (eg 'git diff')
-
-5. Unpack the tarball next to the previous version and inspect the differences,
+1. Unpack the tarball next to the previous version and inspect the differences,
    watching out for unexpected material.  If you find any, STOP, figure it out
-   and go back as many steps as required.  Note that the `docs` directory may
-   be omitted in most cases since it typically contains a lot of noise.
+   and go back as many steps as required.  Note that the `docs/` directory may
+   be omitted in most cases since it typically contains a lot of unimportant,
+   automatically generated changes.  To inspect the differences, you can use
+   the following command:
 
-    ```diff --color=always -uNr rpm-<X.Y.Z-1> rpm-<X.Y.Z> -x docs | less -R```
+    `diff --color=always -uNr -x docs rpm-X.Y.Z-1 rpm-X.Y.Z | less -R`
 
-6. Submit the whole lot as a pull-request to the branch in question
+1. Submit the whole lot as a pull request to the branch in question:
 
-    * In case of maintenance releases, leave it up for commenting for at
-      least a week to allow for community feedback
+    * In case of maintenance releases, leave it up for commenting for at least
+      a week to allow for community feedback
     * Review needs a different mindset than new code: look for compatibility
-      and stability issues in particular, as per "selecting commits"
-      above
+      and stability issues in particular, as per "Selecting commits" above
 
-7. Tag the release. Something like:
+1. Tag the release:
 
-    ```git tag -a -m "RPM X.Y.Z release" rpm-X.Y.Z-release```
+    `git tag -am "RPM X.Y.Z release" rpm-X.Y.Z-release`
 
-8. Push the tag. This is the point of no return for a given release.
+1. Push the tag.  This is the point of no return for a given release:
 
-    ```git push rpm-X.Y.Z-release```
+    `git push rpm-X.Y.Z-release`
 
-9. Upload the bz2 tarball
-   * scp to rpm@ftp-osl.osuosl.org to the appropriate per-branch directory in `~/ftp/releases/`
-   * run `./trigger-rpm` script in the rpm home directory to start mirror process
+1. Upload the bz2 tarball:
 
-9. Make the release official:
+    1. `scp` it to `rpm@ftp-osl.osuosl.org` into the appropriate per-branch
+       directory in `~/ftp/releases/`
+    1. Run the `./trigger-rpm` script in the home directory to start mirror
+       process
 
-    * add tarball checksum and download location to the release notes
-    * add a new item to https://rpm.org/wiki/News and https://rpm.org/timeline
-    * send an announcement mail to rpm-announce@lists.rpm.org and rpm-maint@lists.rpm.org (and why not rpm-list@lists.rpm.org too) 
+1. Create the release notes for [rpm.org](https://rpm.org/)
+
+    1. Generate a changelog: `git changelog -m rpm-X.Y.Z-release >
+       changelog.md` (see `git changelog -h` for more details)
+    1. Clone the [rpm-web](https://github.com/rpm-software-management/rpm-web)
+       repository (if not cloned yet) and enter it
+    1. Make a copy of the `wiki/Releases/skeleton.md` file and name it
+       `wiki/Releases/X.Y.Z.md`
+    1. Fill in the blanks, use the contents of `changelog.md` for the "Summary
+       of changes" section
+    1. Add an entry to the `index.md` file announcing the release (see the
+       existing entries for inspiration), copy the Highlights section from
+       `changelog.md`
+    1. Copy the entry into the `timeline.md` file
+    1. Add an entry to the `download.md` file
+    1. Commit the whole lot with a commit message such as "Release X.Y.Z"
+
+1. Make the release official:
+
+    1. Push the above commit to the remote (this will automatically regenerate
+       the pages)
+    2. Send out an announcement mail, typically like this:
+        ```
+        To: rpm-announce@lists.rpm.org, rpm-maint@lists.rpm.org, rpm-list@lists.rpm.org
+        Subject: RPM X.Y.Z released!
+
+        [some intro followed by the output of "git changelog"]
+
+        For a complete list of changes, visit:
+
+            https://rpm.org/wiki/Releases/X.Y.Z
+        ```
+    3. Open a new [GitHub
+       discussion](https://github.com/rpm-software-management/rpm/discussions)
+       with the content that's similar to the email and pin it.
+
+1. Party!
