@@ -8,6 +8,7 @@ path=${dir}/${commit:2}
 mkdir -p $dir
 
 if [ ! -e "${path}" ]; then
+    echo >&2 "Fetching changeset for commit $commit"
     json=$(gh pr list --state merged --limit 1 \
            --json number,title,url,labels --search ${commit}) || exit 1
     if [ "${json}" == "[]" ] || \
