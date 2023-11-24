@@ -2,7 +2,7 @@
 
 gitdir=$(git rev-parse --path-format=absolute --git-common-dir)
 commit=$1
-dir=${gitdir}/pr/commits/${commit:0:2}
+dir=${gitdir}/changeset/commits/${commit:0:2}
 path=${dir}/${commit:2}
 
 mkdir -p $dir
@@ -17,8 +17,8 @@ if [ ! -e "${path}" ]; then
     fi
     number=$(echo "${json}" | jq ".[].number")
     title=$(echo "${json}" | jq -r ".[].title")
-    mkdir -p ${dir} ${gitdir}/pr/numbers
-    echo "${title}" > ${gitdir}/pr/numbers/${number}
+    mkdir -p ${dir} ${gitdir}/changeset/numbers
+    echo "${title}" > ${gitdir}/changeset/numbers/${number}
     ln -s ../../numbers/${number} ${path}
 fi
 

@@ -37,7 +37,7 @@ with the following differences:
     * incremental (always applies to HEAD, no rewriting of history)
     * includes already applied commits for more context (\"noop\" marker)
     * supports the empty marker (to indicate unreviewed commits)
-    * optionally groups commits by logical changesets (e.g. pull requests)
+    * groups commits by logical changesets (with git-changeset)
 
 Commands:
     make <branch> [<file>]
@@ -60,10 +60,6 @@ Configuration:
                     pattern to extract original commit hash from commit message
                     of ported commit, set this to mark ported commits as
                     applied
-    $CONFIG.changesetCmd
-                    shell command that prints changeset title (or nothing if no
-                    changeset associated) from commit hash as argument, set
-                    this to group and annotate commits by logical changesets
 "
     exit 1
 }
@@ -138,7 +134,6 @@ get_branch() {
 }
 
 annotate() {
-    local cmd
     local file=$1
     local from=${2-1}
 
@@ -152,14 +147,13 @@ annotate() {
     local title
     local ltitle
 
-    cmd=$(git config --get $CONFIG.changesetCmd) || return
     cat $file | while IFS= read line; do
         let "lnum++"
         [[ $lnum -lt $from || -z $line || $line = \#* ]] && continue
 
         let "cnum++"
         commit=$(echo "$line" | get_hash)
-        title=$($cmd $commit | head -n1)
+        title=$(git changeset $commit | head -n1)
         [ -z "$title" ] && title=$commit
         [ "$title" == "$ltitle" ] && continue
 
