@@ -41,9 +41,9 @@ function! s:propen()
 endfunction
 
 function! s:init()
-    nmap <buffer> <silent> <C-A>    :call <sid>cycle()<CR>
-    nmap <buffer> <silent> <CR>     :call <sid>gitshow()<CR>
-    nmap <buffer> <silent> gx       :call <sid>propen()<CR>
+    nmap <buffer> <silent> <C-SPACE>    :call <sid>cycle()<CR>
+    nmap <buffer> <silent> <CR>         :call <sid>gitshow()<CR>
+    nmap <buffer> <silent> gx           :call <sid>propen()<CR>
 endfunction
 
 autocmd BufNewFile,BufRead *.plan call <sid>init()

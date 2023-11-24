@@ -202,8 +202,8 @@ grep '^pick ' <stable>.plan | wc -l
 #### VIM config
 
 If you use VIM, you can add [this](plan.vim) snippet into your `~/.vimrc` to
-cycle through markers on the current line with the `C-a` key and do a `git
-show` of the current commit with the `Enter` key.
+cycle through markers on the current line with the `CTRL+SPACE` key and do a
+`git show` of the current commit with the `Enter` key.
 
 If you also install the `git changeset` script mentioned above, you can type
 `gx` to open the current commit's PR in your default browser.
