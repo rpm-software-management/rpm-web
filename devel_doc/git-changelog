@@ -1,0 +1,165 @@
+#!/bin/python3
+
+from textwrap import shorten
+import argparse
+import re
+import subprocess
+
+
+class Config:
+    SIMPLE = 0,
+    MULTILINE = 1,
+    MAP = 2,
+
+class PlainLog(object):
+    def __init__(self, prev, empty, no_preamble, width, *args, **kwargs):
+        self.range = '{}..'.format(prev)
+        self.empty = empty
+        self.no_preamble = no_preamble
+        self.width = width
+
+    def _preamble(self):
+        return RELEASE + ' Changelog'
+
+    def _section(self, section):
+        return HEADINGS[section] + '\n'
+
+    def _pull(self, pull):
+        fmt = '  * {} (#{})'
+        title, num, url = pull
+        title = shorten(title, self.width - len(fmt.format('', num)))
+        return fmt.format(title, num)
+
+    def __str__(self):
+        out = []
+        if not self.no_preamble:
+            out = [self._preamble(), '']
+        p = pulls(self.range)
+        last = len(SECTIONS) - 1
+        for section in SECTIONS:
+            heading = self._section(section)
+            if section not in p:
+                if self.empty:
+                    out.append(heading)
+                continue
+            out.append(heading)
+            for pull in sorted(p[section]):
+                out.append(self._pull(pull))
+            out.append('')
+        return '\n'.join(out)
+
+class MarkdownLog(PlainLog):
+    def __init__(self, prev, empty, no_preamble, width, level,
+                 *args, **kwargs):
+        super(MarkdownLog, self).__init__(prev, empty, no_preamble, width)
+        self.level = level - 1
+
+    def _heading(self, level, name):
+        return '{} {}'.format('#' * (self.level + level), name)
+
+    def _preamble(self):
+        return self._heading(1, RELEASE + ' Changelog')
+
+    def _section(self, section):
+        return self._heading(2, HEADINGS[section])
+
+    def _pull(self, pull):
+        return '* {} ([#{}]({}))'.format(*pull)
+
+
+def shell(cmd, sep=None):
+    out = subprocess.run(cmd, capture_output=True, shell=True, text=True)
+    return out.stdout.strip()
+
+def config(key, type=Config.SIMPLE):
+    if type == Config.SIMPLE:
+        cmd = '--get'
+        sep = ','
+    elif type == Config.MULTILINE:
+        cmd = '--get-all'
+        sep = '\n'
+    elif type == Config.MAP:
+        cmd = '--get-regexp'
+        sep = '\n'
+    out = shell('git config {} {}'.format(cmd, key)).split(sep)
+    if type != Config.MAP:
+        return out
+    d = {}
+    for line in out:
+        if not line:
+            continue
+        k, v = line.split(' ', 1)
+        k = k.split('.')[-1]
+        d[k] = v
+    return d
+
+def logs(rng):
+    return shell('git rev-list --pretty="format:%b" ' + rng)
+
+def commits(rng):
+    s = logs(rng)
+    z = [re.findall(p, s) for p in PATTERNS]
+    return [x for y in z for x in y]
+
+def pulls(rng):
+    pulls = {}
+    nums = set()
+    ignore = set(IGNORE)
+
+    for commit in commits(rng):
+        out = shell('git changeset ' + commit)
+        if not out:
+            continue
+        lines = out.split('\n')
+        title = lines[0].split(':', 1)[1].strip()
+        labels = set([label.lower() for label in lines[1].split(' ')])
+        url = lines[2]
+
+        num = lines[0].split(':')[0][4:]
+        if num in nums:
+            continue
+        nums.add(num)
+
+        if labels & ignore:
+            continue
+        labels = labels & HEADINGS.keys()
+        if not labels:
+            labels = set(['other'])
+
+        for label in labels:
+            pulls.setdefault(label, []).append((title, num, url))
+
+    return pulls
+
+
+RELEASE = shell("git tag -l --format='%(contents)' $(git describe --abbrev=0)")
+PATTERNS = [re.compile(pattern, re.MULTILINE)
+            for pattern in config('cherryPlan.portedRegex', Config.MULTILINE)]
+SECTIONS = config('changelog.sections')
+IGNORE = config('changelog.ignore')
+HEADINGS = config('changelog.headings', Config.MAP)
+
+parser = argparse.ArgumentParser(
+    description='Generate a changelog for the last tag based on changesets.')
+parser.add_argument('prev', type=str, help='previous tag')
+parser.add_argument('-e', '--empty', action='store_true',
+                    help='include empty sections')
+parser.add_argument('-n', '--no-preamble', action='store_true',
+                    help='don\'t include preamble')
+parser.add_argument('-m', '--markdown', action='store_true',
+                    help='output in Markdown format')
+parser.add_argument('-w', '--width', type=int, default=80,
+                    help='maximum line width in plain-text mode '
+                         '(default: 80)')
+parser.add_argument('-l', '--level', type=int, default=1,
+                    help='first heading level in Markdown format '
+                         '(default: 0)')
+args = parser.parse_args()
+
+if args.markdown:
+    Log = MarkdownLog
+else:
+    Log = PlainLog
+
+log = Log(args.prev, args.empty, args.no_preamble, args.width, args.level)
+print(log)

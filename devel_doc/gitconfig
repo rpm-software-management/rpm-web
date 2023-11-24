@@ -1,0 +1,16 @@
+[cherryPlan]
+	portedRegex = ^\\(cherry picked from commit (.*)\\)$
+	portedRegex = ^\\(backported from commit (.*)\\)$
+[changelog]
+	sections = highlight,cli,transaction,crypto,spec,fileformat,api,build,other
+	ignore = cleanup,test,documentation
+[changelog "headings"]
+	api = API
+	cli = Command line
+	spec = SPEC format
+	build = Build system
+	crypto = Signatures
+	fileformat = File format
+	highlight = Highlights
+	other = Other
+	transaction = Transactions
