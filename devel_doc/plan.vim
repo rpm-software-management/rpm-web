@@ -24,7 +24,8 @@ function! s:gitshow()
     if empty(l:hash)
         return
     endif
-    silent exec "!git show --color " . s:hash() . " | less -cR" | redraw!
+    silent exec "!git show --stat -p --color " . s:hash() . " | less -cR" |
+    \   redraw!
 endfunction
 
 function! s:propen()
