@@ -1,5 +1,3 @@
-let s:gitchset = trim(system("git config --get cherryPlan.changesetCmd"))
-
 function! s:cycle()
     let l:cmds = ['    ', 'drop', 'pick']
     let l:line = getline('.')
@@ -33,12 +31,12 @@ function! s:propen()
     if empty(l:hash)
         return
     endif
-    let l:url = systemlist(s:gitchset . " " . l:hash)
-    if empty(l:url)
+    let l:out = systemlist("git changeset " . l:hash)
+    if empty(l:out)
         echo "No changeset associated with this commit."
         return
     endif
-    silent exec "!xdg-open " . l:url[1] | redraw!
+    silent exec "!xdg-open " . l:out[2] | redraw!
 endfunction
 
 function! s:init()
