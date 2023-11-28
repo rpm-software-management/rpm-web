@@ -40,7 +40,7 @@ function! s:propen()
 endfunction
 
 function! s:init()
-    nmap <buffer> <silent> <C-SPACE>    :call <sid>cycle()<CR>
+    nmap <buffer> <silent> <NUL>        :call <sid>cycle()<CR>
     nmap <buffer> <silent> <CR>         :call <sid>gitshow()<CR>
     nmap <buffer> <silent> gx           :call <sid>propen()<CR>
 endfunction
