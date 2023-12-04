@@ -31,7 +31,7 @@ function! s:propen()
     if empty(l:hash)
         return
     endif
-    let l:out = systemlist("git changeset " . l:hash)
+    let l:out = systemlist("git changeset -q " . l:hash)
     if empty(l:out)
         echo "No changeset associated with this commit."
         return

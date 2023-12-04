@@ -1,34 +1,80 @@
-#!/bin/bash
+#!/bin/python3
 
-gitdir=$(git rev-parse --path-format=absolute --git-common-dir)
-commit=$1
-dir=${gitdir}/changeset/commits/${commit:0:2}
-path=${dir}/${commit:2}
+import argparse
+import json
+import os
+import subprocess
+import sys
 
-mkdir -p $dir
 
-if [ ! -e "${path}" ]; then
-    echo >&2 "Fetching changeset for commit $commit"
-    json=$(gh pr list --state merged --limit 1 \
-           --json number,title,url,labels --search ${commit}) || exit 1
-    if [ "${json}" == "[]" ] || \
-         echo "${json}" | jq -r ".[].labels[].name" | grep -q '^release$'; then
-        touch ${path}
-        exit 1
-    fi
-    number=$(echo "${json}" | jq ".[].number")
-    title=$(echo "${json}" | jq -r ".[].title")
-    labels=$(echo "${json}" | jq -r ".[].labels[].name" | xargs)
-    mkdir -p ${dir} ${gitdir}/changeset/numbers
-    echo -e "${title}\n${labels}" > ${gitdir}/changeset/numbers/${number}
-    ln -s ../../numbers/${number} ${path}
-fi
+def shell(cmd, sep=None):
+    out = subprocess.run(cmd, capture_output=True, shell=True, text=True)
+    return out.stdout.strip()
 
-if [ -L "${path}" ]; then
-    file=$(readlink -f ${path})
-    number=$(basename ${file})
-    echo -n "PR #${number}: "
-    cat ${file} | sed -n "1p"
-    cat ${file} | sed -n "2p"
-    echo "https://github.com/rpm-software-management/rpm/pull/${number}"
-fi
+
+# Parse args
+parser = argparse.ArgumentParser(
+    description='Print GitHub PR belonging to given commit hash.')
+parser.add_argument('commit', type=str, help='commit hash')
+parser.add_argument('-r', '--refresh', action='store_true',
+                    help='always fetch from server (do not use cache)')
+parser.add_argument('-q', '--quiet', action='store_true',
+                    help='do not print progress messages on stderr')
+args = parser.parse_args()
+
+GIT_DIR = shell('git rev-parse --path-format=absolute --git-common-dir')
+NUMBER_DIR = '{}/changeset/numbers'.format(GIT_DIR)
+# Get full hash in case we're given a shortened variant
+COMMIT_HASH = shell('git rev-parse {}'.format(args.commit))
+COMMIT_DIR = '{}/changeset/commits/{}'.format(GIT_DIR, COMMIT_HASH[:2])
+COMMIT_PATH = '{}/{}'.format(COMMIT_DIR, COMMIT_HASH[2:])
+URL = 'https://github.com/rpm-software-management/rpm/pull/{}'
+
+# Fetch and cache entry if needed
+if args.refresh or not os.path.exists(COMMIT_PATH):
+    # Fetch data
+    if not args.quiet:
+        sys.stderr.write('Fetching changeset for commit {}\n'.format(COMMIT_HASH))
+    data = shell('gh pr list --state merged --limit 1 --json '
+                 'number,title,url,labels --search {}'.format(COMMIT_HASH))
+    data = json.loads(data)
+    os.makedirs(COMMIT_DIR, exist_ok=True)
+    if not data:
+        with open(COMMIT_PATH, 'w') as f:
+            f.write('')
+        sys.exit(1)
+    assert len(data) >= 1
+    data = data[0]
+
+    # Create entry
+    number = data['number']
+    title = data['title']
+    labels = sorted(x['name'] for x in data['labels'])
+    if 'release' in labels:
+        entry = ''
+    else:
+        entry = '{}\n{}'.format(title, ' '.join(labels))
+    number_path = '{}/{}'.format(NUMBER_DIR, number)
+
+    # Write entry to cache
+    os.makedirs(NUMBER_DIR, exist_ok=True)
+    with open(number_path, 'w') as f:
+        f.write(entry)
+    if os.path.exists(COMMIT_PATH):
+        os.unlink(COMMIT_PATH)
+    os.symlink('../../numbers/{}'.format(number), COMMIT_PATH)
+
+# Print entry if cached
+if os.path.islink(COMMIT_PATH):
+    commit_path = os.readlink(COMMIT_PATH)
+    number = os.path.basename(commit_path)
+    with open(COMMIT_PATH) as f:
+        entry = list(map(str.strip, f.readlines()))
+    if not entry:
+        sys.exit(1)
+    print('PR #{}: {}'.format(number, entry[0]))
+    if len(entry) == 2:
+        print(entry[1])
+    else:
+        print()
+    print(URL.format(number))
