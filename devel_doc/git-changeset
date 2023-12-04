@@ -9,6 +9,7 @@ import sys
 
 def shell(cmd, sep=None):
     out = subprocess.run(cmd, capture_output=True, shell=True, text=True)
+    sys.stderr.write(out.stderr)
     return out.stdout.strip()
 
 
