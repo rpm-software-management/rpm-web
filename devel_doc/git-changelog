@@ -120,6 +120,7 @@ def pulls(rng):
             continue
         nums.add(num)
 
+        labels = set(map(lambda x: ALIASES[x] if x in ALIASES else x, labels))
         if labels & ignore:
             continue
         labels = labels & HEADINGS.keys()
@@ -138,6 +139,7 @@ PATTERNS = [re.compile(pattern, re.MULTILINE)
 SECTIONS = config('changelog.sections')
 IGNORE = config('changelog.ignore')
 HEADINGS = config('changelog.headings', Config.MAP)
+ALIASES = config('changelog.aliases', Config.MAP)
 
 parser = argparse.ArgumentParser(
     description='Generate a changelog for the last tag based on changesets.')
