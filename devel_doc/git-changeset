@@ -78,3 +78,5 @@ if os.path.islink(COMMIT_PATH):
     else:
         print()
     print(URL.format(number))
+else:
+    sys.exit(1)
