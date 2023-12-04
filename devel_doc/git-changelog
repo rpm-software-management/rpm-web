@@ -109,7 +109,12 @@ def pulls(rng):
     ignore = set(IGNORE)
 
     for commit in commits(rng):
-        out = shell('git changeset ' + commit)
+        opts = ''
+        if args.refresh:
+            opts += '-r '
+        if args.quiet:
+            opts += '-q '
+        out = shell('git changeset {} {}'.format(opts, commit))
         if not out:
             continue
         lines = out.split('\n')
@@ -158,6 +163,11 @@ parser.add_argument('-w', '--width', type=int, default=80,
 parser.add_argument('-l', '--level', type=int, default=1,
                     help='first heading level in Markdown format '
                          '(default: 1)')
+parser.add_argument('-r', '--refresh', action='store_true',
+                    help='always fetch changeset data from server '
+                         '(do not use cache)')
+parser.add_argument('-q', '--quiet', action='store_true',
+                    help='do not print progress messages on stderr')
 args = parser.parse_args()
 
 if args.markdown:
