@@ -15,8 +15,8 @@ def shell(cmd, sep=None):
 
 # Parse args
 parser = argparse.ArgumentParser(
-    description='Print GitHub PR belonging to given commit hash.')
-parser.add_argument('commit', type=str, help='commit hash')
+    description='Print GitHub PR belonging to given refname.')
+parser.add_argument('refname', type=str, help='git refname')
 parser.add_argument('-r', '--refresh', action='store_true',
                     help='always fetch from server (do not use cache)')
 parser.add_argument('-q', '--quiet', action='store_true',
@@ -25,8 +25,7 @@ args = parser.parse_args()
 
 GIT_DIR = shell('git rev-parse --path-format=absolute --git-common-dir')
 NUMBER_DIR = '{}/changeset/numbers'.format(GIT_DIR)
-# Get full hash in case we're given a shortened variant
-COMMIT_HASH = shell('git rev-parse {}'.format(args.commit))
+COMMIT_HASH = shell('git rev-parse {}'.format(args.refname))
 COMMIT_DIR = '{}/changeset/commits/{}'.format(GIT_DIR, COMMIT_HASH[:2])
 COMMIT_PATH = '{}/{}'.format(COMMIT_DIR, COMMIT_HASH[2:])
 URL = 'https://github.com/rpm-software-management/rpm/pull/{}'
