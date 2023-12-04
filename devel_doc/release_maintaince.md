@@ -68,7 +68,7 @@ Download the default [configuration file](gitconfig) and apply it to your git
 checkout as follows:
 
 ```
-cat gitconfig >> .git/config
+git config include.path /path/to/gitconfig
 ```
 
 You will also need the [GitHub CLI utility](https://cli.github.com/) which is
