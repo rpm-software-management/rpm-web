@@ -72,8 +72,7 @@ if args.refresh or not os.path.exists(DATA_PATH):
 
 # Print entry if cached
 if os.path.islink(COMMIT_PATH):
-    commit_path = os.readlink(COMMIT_PATH)
-    number = os.path.basename(commit_path)
+    number = os.path.basename(os.readlink(COMMIT_PATH))
     with open(COMMIT_PATH) as f:
         entry = list(map(str.strip, f.readlines()))
     if not entry:
