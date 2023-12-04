@@ -23,15 +23,21 @@ parser.add_argument('-q', '--quiet', action='store_true',
                     help='do not print progress messages on stderr')
 args = parser.parse_args()
 
+# Set variables
 GIT_DIR = shell('git rev-parse --path-format=absolute --git-common-dir')
 NUMBER_DIR = '{}/changeset/numbers'.format(GIT_DIR)
 COMMIT_HASH = shell('git rev-parse {}'.format(args.refname))
 COMMIT_DIR = '{}/changeset/commits/{}'.format(GIT_DIR, COMMIT_HASH[:2])
 COMMIT_PATH = '{}/{}'.format(COMMIT_DIR, COMMIT_HASH[2:])
 URL = 'https://github.com/rpm-software-management/rpm/pull/{}'
+if os.path.islink(COMMIT_PATH):
+    DATA_PATH = os.path.abspath(os.path.join(COMMIT_DIR,
+                                             os.readlink(COMMIT_PATH)))
+else:
+    DATA_PATH = COMMIT_PATH
 
 # Fetch and cache entry if needed
-if args.refresh or not os.path.exists(COMMIT_PATH):
+if args.refresh or not os.path.exists(DATA_PATH):
     # Fetch data
     if not args.quiet:
         sys.stderr.write('Fetching changeset for commit {}\n'.format(COMMIT_HASH))
