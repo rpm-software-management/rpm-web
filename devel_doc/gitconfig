@@ -2,7 +2,7 @@
 	portedRegex = ^\\(cherry picked from commit (.*)\\)$
 	portedRegex = ^\\(backported from commit (.*)\\)$
 [changelog]
-	sections = highlight,regression,cli,transaction,security,spec,generator,fileformat,api,build,other
+	sections = highlight,regression,cli,transaction,security,spec,fileformat,generator,api,build,other
 	ignore = cleanup,test,documentation
 [changelog "headings"]
 	api = API
