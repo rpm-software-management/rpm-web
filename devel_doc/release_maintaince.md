@@ -321,7 +321,6 @@ you're preparing, for example `4.19.1`.
 
             * Consult the [libtool
               manual](https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
-
             * soname bumps can only occur at the first version of a new branch
               (i.e. alpha/beta)
 
