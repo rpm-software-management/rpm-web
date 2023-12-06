@@ -303,6 +303,7 @@ you're preparing, for example `4.19.1`.
         1. Bump `VERSION` in `project()` in CMakeLists.txt
 
         1. Bump `RPM_SOVERSION` and `RPM_LIBVERSION` in CMakeLists.txt:
+
             * Consult the associated comment block in CMakeLists.txt for
               instructions.
             * soname bumps can only occur at the first version of a new branch
