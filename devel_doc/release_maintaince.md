@@ -262,6 +262,8 @@ your fork's `<release>` branch into the `<stable>` branch.
 * Review needs a different mindset than new code: look for compatibility and
   stability issues in particular, as per "Selecting commits" above
 
+Make sure the PR is merged before continuing below.
+
 ## Must-have content
 
 The following items should be completed before proceeding to release cutting:
