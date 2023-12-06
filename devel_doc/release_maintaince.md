@@ -276,9 +276,11 @@ The following items should be completed before proceeding to release cutting:
    "Update translation submodule for new translations") and finally cherry-pick
    them onto the stable branch.
 
+    ```
     git submodule update --init
     cd po/
     git pull origin master
+    ```
 
 ## Cutting a release
 
@@ -343,15 +345,15 @@ you're preparing, for example `4.19.1`.
    automatically generated changes.  To inspect the differences, you can use
    the following command:
 
-    diff --color=always -uNr -x docs rpm-X.Y.Z-1 rpm-X.Y.Z | less -R
+    `diff --color=always -uNr -x docs rpm-X.Y.Z-1 rpm-X.Y.Z | less -R`
 
 1. Tag the release:
 
-    git tag -am "RPM X.Y.Z release" rpm-X.Y.Z-release
+    `git tag -am "RPM X.Y.Z release" rpm-X.Y.Z-release`
 
 1. Push the tag.  This is the point of no return for a given release:
 
-    git push rpm-X.Y.Z-release
+    `git push rpm-X.Y.Z-release`
 
 1. Upload the bz2 tarball:
 
