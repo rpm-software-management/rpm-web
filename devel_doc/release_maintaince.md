@@ -251,6 +251,35 @@ While preparing the plan, it can be handy to try this out on a throwaway branch
 every now and then, to make sure you're not missing some pre-requisite
 commit(s).
 
+### Publishing a plan
+
+Now it's time to publish the final selection in the form of a pull request from
+your fork's `<release>` branch into the `<stable>` branch.
+
+* In case of maintenance releases, leave it up for commenting for at least a
+  week to allow for community feedback
+
+* Review needs a different mindset than new code: look for compatibility and
+  stability issues in particular, as per "Selecting commits" above
+
+## Must-have content
+
+The following items should be completed before proceeding to release cutting:
+
+1. All GitHub tickets set to the milestone `X.Y.Z` are completed.  You can
+   check that with the following search query: `is:issue is:open
+   milestone:X.Y.Z`.  If there are some left, make sure they're handled and
+   then go back as many steps as needed.
+
+1. Translations are up-to-date.  If they weren't recently updated, do that with
+   the below commands, then commit and push to master (use the commit message
+   "Update translation submodule for new translations") and finally cherry-pick
+   them onto the stable branch.
+
+    git submodule update --init
+    cd po/
+    git pull origin master
+
 ## Cutting a release
 
 RPM 4.19 has moved to CMake as the build system.  Prior releases (4.18 and
@@ -258,48 +287,45 @@ older) use Automake, though, so the following text will list instructions for
 both build systems for the time being, until 4.18 goes out of support.
 
 In the following text, the `X.Y.Z` string denotes the version number that
-you're preparing, for example `4.19.0`.
+you're preparing, for example `4.19.1`.
 
-1. Check the GitHub milestone:
-
-    1. Go to our GitHub repository, open the Issues tab and filter by the
-       expression `is:issue is:open milestone:X.Y.Z`.
-    1. Verify that there are no matches, otherwise make sure to close any open
-       issues in that milestone before proceeding further.
-
-1. Prepare the sources:
+1. Make a release commit:
 
     1. CMake:
 
-        * Make sure your build is configured with the `-D WITH_IMAEVM=ON`
-          option (this is needed for the `rpm-plugin-ima.8` man page to be
-          generated, a current limitation of the build system, to be fixed).
-        * Bump `VERSION` in `project()` in CMakeLists.txt
-        * Bump `RPM_SOVERSION` and `RPM_LIBVERSION` in CMakeLists.txt:
+        1. Create a fresh build directory.  Make sure your build is configured
+           with the `-D WITH_IMAEVM=ON` option (this is needed for the
+           `rpm-plugin-ima.8` man page to be generated, a current limitation of
+           the build system, to be fixed).
+
+        1. Bump `VERSION` in `project()` in CMakeLists.txt
+
+        1. Bump `RPM_SOVERSION` and `RPM_LIBVERSION` in CMakeLists.txt:
             * Consult the associated comment block in CMakeLists.txt for
               instructions.
             * soname bumps can only occur at the first version of a new branch
               (i.e. alpha/beta).
-        * Update the translations:
-            ```
-            git submodule update --init
-            cd po/
-            git pull origin master
-            ```
+
+        1. Update the static test output: `make static`
 
     1. Automake:
 
-        * Bump the version in `configure.ac`
-        * Bump `rpm_version_info` (i.e. library soname version info) in the
-          `rpm.am` file.  Basic libtool guidelines for maintenance updates to
-          stable versions apply:
-            * Consult the [libtool manual](https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
+        1. Bump the version in `configure.ac`
+
+        1. Bump `rpm_version_info` (i.e. library soname version info) in the
+           `rpm.am` file.  Basic libtool guidelines for maintenance updates to
+           stable versions apply:
+
+            * Consult the [libtool
+              manual](https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
+
             * soname bumps can only occur at the first version of a new branch
               (i.e. alpha/beta)
-        * Update the sources for the above (Makefiles, `.po` regeneration and
-          all): `make dist`
 
-    3. Commit the changes from the previous step with something like "Preparing
+        1. Update the sources for the above (Makefiles, `.po` regeneration and
+           all): `make dist`
+
+    1. Commit the changes from the previous step with something like "Preparing
        for X.Y.Z" as the message
 
 1. Generate the final release tarball:
@@ -317,22 +343,15 @@ you're preparing, for example `4.19.0`.
    automatically generated changes.  To inspect the differences, you can use
    the following command:
 
-    `diff --color=always -uNr -x docs rpm-X.Y.Z-1 rpm-X.Y.Z | less -R`
-
-1. Submit the whole lot as a pull request to the branch in question:
-
-    * In case of maintenance releases, leave it up for commenting for at least
-      a week to allow for community feedback
-    * Review needs a different mindset than new code: look for compatibility
-      and stability issues in particular, as per "Selecting commits" above
+    diff --color=always -uNr -x docs rpm-X.Y.Z-1 rpm-X.Y.Z | less -R
 
 1. Tag the release:
 
-    `git tag -am "RPM X.Y.Z release" rpm-X.Y.Z-release`
+    git tag -am "RPM X.Y.Z release" rpm-X.Y.Z-release
 
 1. Push the tag.  This is the point of no return for a given release:
 
-    `git push rpm-X.Y.Z-release`
+    git push rpm-X.Y.Z-release
 
 1. Upload the bz2 tarball:
 
