@@ -297,11 +297,6 @@ you're preparing, for example `4.19.1`.
 
     1. CMake:
 
-        1. Create a fresh build directory.  Make sure your build is configured
-           with the `-D WITH_IMAEVM=ON` option (this is needed for the
-           `rpm-plugin-ima.8` man page to be generated, a current limitation of
-           the build system, to be fixed).
-
         1. Bump `VERSION` in `project()` in CMakeLists.txt
 
         1. Bump `RPM_SOVERSION` and `RPM_LIBVERSION` in CMakeLists.txt:
