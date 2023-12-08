@@ -1,12 +1,361 @@
-#!/bin/bash
+#!/usr/bin/python3
 
-PROGRAM=cherry-plan
-CONFIG=cherryPlan
-HEAD=$(git rev-parse --abbrev-ref HEAD)
-ABBREV=$(git rev-parse --short HEAD | tr -d '\n' | wc -c)
-DIR=$(git config --get $CONFIG.directory); DIR=${DIR:+$DIR/}
-SUBJECT="# Rebase"
-README="\
+from datetime import datetime
+import argparse
+import os
+import re
+import shutil
+import subprocess
+import sys
+
+from common import shell, KeyType, GitConfig, backports
+
+
+#
+# Classes
+#
+
+class Command(object):
+    """A command in a cherry plan."""
+    REVIEW      = '    '
+    APPLIED     = 'noop'
+    PICK        = 'pick'
+    DROP        = 'drop'
+
+class UnknownCommandError(Exception):
+    pass
+
+class Commit(object):
+    """A single commit in a cherry plan."""
+
+    def __init__(self, command, hash, subject, abbrev):
+        self.command = command
+        self.hash = hash
+        self.subject = subject
+        self.abbrev = abbrev
+
+    def __str__(self):
+        """Return this commit as a text line."""
+        return '{} {} {}'.format(self.command, self.hash[:self.abbrev],
+                                 self.subject)
+
+class Changeset(object):
+    """A group of commits based on git-changeset."""
+
+    def __init__(self, title, labels, url, commits, show_labels=True):
+        self.title = title
+        self.labels = set(labels.split())
+        self.url = url
+        self.commits = commits
+        self.show_labels = show_labels
+
+    def pick(self):
+        """Pick all commits in this changeset."""
+        for commit in self.commits:
+            commit.command = Command.PICK
+
+    def drop(self):
+        """Drop all commits in this changeset."""
+        for commit in self.commits:
+            commit.command = Command.DROP
+
+    def __str__(self):
+        """Return this changeset as a group of text lines."""
+        if self.show_labels:
+            if self.labels:
+                labels = ' '.join(sorted(list(self.labels)))
+            else:
+                labels = 'none'
+            labels = ' (labels: {})'.format(labels)
+        else:
+            labels = ''
+        commits = [str(commit) for commit in self.commits]
+        return '# {}{}\n{}'.format(self.title, labels, '\n'.join(commits))
+
+class Plan(object):
+    """A cherry plan."""
+
+    def __init__(self, branch, changeset_size, show_labels, automark,
+                 add_timestamp):
+        # Branch to pull commits from
+        self.branch = branch
+        self.changeset_size = changeset_size
+        self.show_labels = show_labels
+        self.automark = automark
+        self.add_timestamp = add_timestamp
+
+        self.HEAD = 'HEAD'
+        # Length of an abbreviated commit hash
+        self.abbrev = len(rev_parse(self.HEAD))
+
+        # Patterns for matching a commit line and the footer
+        self.re_commit = re.compile(
+            '^(....) (.{{{abbrev}}}) (.+)$'.format(abbrev=self.abbrev))
+        self.re_footer = re.compile(
+            '^# Rebase .{{{abbrev}}}\\.\\.'.format(abbrev=self.abbrev))
+
+        # All commits in this plan
+        self.log = []
+        # All (unexpanded) text lines in this plan
+        self.lines = []
+
+    @property
+    def head(self):
+        """The hash of the last commit in this plan (or HEAD if none)."""
+        if self.log:
+            return self.log[-1].hash
+        return self.HEAD
+
+    @property
+    def last(self):
+        """The last line in this plan (or the empty string if none)."""
+        return self.lines[-1] if self.lines else ''
+
+    @property
+    def picks(self):
+        """The commit hashes of all picked commits."""
+        return [commit.hash for commit in self.log
+                if commit.command == Command.PICK]
+
+    @property
+    def drops(self):
+        """The commit hashes of all dropped commits."""
+        return [commit.hash for commit in self.log
+                if commit.command == Command.DROP]
+
+    def load(self, file):
+        """Populate the plan from a file on disk."""
+
+        self.log = []
+        self.lines = []
+
+        with open(file) as f:
+            for line in f:
+                line = line.strip('\n')
+
+                # Stop at the footer
+                m = re.match(self.re_footer, line)
+                if m is not None:
+                    break
+
+                # Skip if not a commit
+                m = re.match(self.re_commit, line)
+                if m is None:
+                    self.lines.append(line)
+                    continue
+
+                # Parse a commit
+                command, hash, subject = m.groups()
+                if command not in COMMANDS:
+                    raise UnknownCommandError(command)
+                hash = rev_parse(hash, False)
+                commit = Commit(COMMANDS[command], hash, subject, self.abbrev)
+
+                self.log.append(commit)
+                self.lines.append(commit)
+
+    def save(self, file):
+        """Dump the plan to a file on disk."""
+        with open(file, 'w') as f:
+            f.write(str(self))
+
+    def update(self, show_stats=False):
+        """Mark the applied commits and update the footer."""
+
+        applied = backports(self.branch)
+        changed = 0
+
+        for commit in self.log:
+            if commit.hash not in applied:
+                continue
+            if commit.command != Command.APPLIED:
+                commit.command = Command.APPLIED
+                changed += 1
+
+        if show_stats and changed:
+            print('Updated {} commits'.format(changed))
+
+    def pull(self, show_stats=False):
+        """Append new commits on the branch to the plan."""
+
+        lines = shell('git rev-list --reverse --no-commit-header '
+                      '--pretty="format:%H %s" ' +
+                      git_range(self.head, self.branch), split=True)
+        if not lines:
+            return
+
+        # Prepend a timestamp (if requested)
+        if self.add_timestamp and self.lines:
+            now = datetime.now()
+            self.lines.append('# Pulled ' + now.strftime('%Y-%m-%d %H:%M:%S'))
+
+        # Generate commits (and changesets)
+        for line in lines:
+            commit = Commit(Command.REVIEW, *line.split(' ', 1), self.abbrev)
+            self.log.append(commit)
+
+            # Skip the rest unless grouping is enabled
+            if self.changeset_size == 0:
+                self.lines.append(commit)
+                continue
+
+            # Group commits based on a changeset (if any)
+
+            clines = shell('git changeset ' + commit.hash)
+            if not clines:
+                self.lines.append(commit)
+                continue
+
+            changeset = Changeset(*clines.split('\n'), [], self.show_labels)
+            if (isinstance(self.last, Changeset) and
+                self.last.title == changeset.title):
+                changeset = self.last
+            else:
+                self.lines.append(changeset)
+            changeset.commits.append(commit)
+
+        # Automark changesets
+        if self.automark:
+            for line in self.lines:
+                if not isinstance(line, Changeset):
+                    continue
+                if AUTOPICK & line.labels:
+                    line.pick()
+                elif AUTODROP & line.labels:
+                    line.drop()
+
+        if show_stats:
+            print('Pulled {} commits'.format(len(lines)))
+
+    def __str__(self):
+        """Dump the plan into a string and return it."""
+
+        lines = []
+
+        # Expand all lines
+        for line in self.lines:
+            if isinstance(line, Changeset):
+                # Collapse the changeset if smaller than the threshold
+                if line.commits and len(line.commits) < self.changeset_size:
+                    lines += [str(commit) for commit in line.commits]
+                else:
+                    # Pad the changeset with empty lines
+                    if lines and lines[-1]:
+                        lines += ['']
+                    lines += [str(line), '']
+            else:
+                lines += [str(line)]
+
+        # Strip the trailing newline (if any)
+        if lines and not lines[-1]:
+            del lines[-1]
+
+        # Add the footer
+        lines += [FOOTER.format(rev_parse(self.HEAD), rev_parse(self.head),
+                  rev_parse(self.HEAD), len(self.log))]
+
+        return '\n'.join(lines)
+
+    def apply(self):
+        """Apply the plan to the current branch."""
+        picks = ' '.join(self.picks)
+        shell('echo "{}" | xargs git cherry-pick -x'.format(picks), False)
+
+
+#
+# Helper functions
+#
+
+def git_range(a, b):
+    """Return the git notation for a range between a and b."""
+    return '{}..{}'.format(a, b)
+
+def rev_parse(ref, short=True):
+    """Return the id (commit hash) of the given ref name."""
+    return shell('git rev-parse {} {}'.format('--short' if short else '', ref))
+
+def ensure_exists(file):
+    if not os.path.exists(file):
+        sys.stderr.write('File {} does not exist.\n'.format(file))
+        return True
+    return False
+
+def ensure_not_exists(file):
+    if os.path.exists(file):
+        sys.stderr.write('File {} exists.\n'.format(file))
+        return True
+    return False
+
+#
+# CLI verbs
+#
+
+def make(plan, args):
+    if ensure_not_exists(args.file):
+        return
+    plan.pull()
+    plan.update()
+    plan.save(args.file)
+    print(args.file)
+
+def edit(plan, args):
+    if ensure_exists(args.file):
+        return
+    shell('$EDITOR ' + args.file, False)
+
+def pull(plan, args):
+    if ensure_exists(args.file):
+        return
+    plan.load(args.file)
+    plan.pull(True)
+    plan.save(args.file)
+
+def apply(plan, args):
+    if ensure_exists(args.file):
+        return
+    plan.load(args.file)
+    plan.apply()
+
+def update(plan, args):
+    if ensure_exists(args.file):
+        return
+    plan.load(args.file)
+    plan.update(True)
+    plan.save(args.file)
+
+#
+# Configuration
+#
+
+ABOUT = '''
+Manage persistent rebase-like todo lists ("plans") to cherry-pick commits.
+
+Useful for crafting larger cherry-pick batches and collaborating on them, e.g.
+when preparing a stable release from a development branch.
+
+This tool produces an equivalent of
+
+    git rebase -i HEAD BRANCH
+
+with the following differences:
+
+    * standalone file (can be shared, tracked in git, etc.)
+    * incremental (always applies to HEAD, no rewriting of history)
+    * includes already applied commits for more context ("noop" marker)
+    * supports the empty marker (to indicate unreviewed commits)
+    * groups commits by logical changesets (with git-changeset)
+
+git configuration (cherryPlan section):
+  directory             save plan files here if FILE is unspecified
+                        (default: $PWD)
+  backportPatterns      patterns to extract original commit hash from
+                        backported commit's message (multi-valued key)
+  automark.pick         automatically pick changesets with one of these labels
+  automark.drop         automatically drop changesets with one of these labels
+'''
+
+FOOTER = '''
+# Rebase {}..{} onto {} ({} commands)
 #
 # Commands:
 # pick <commit> = use commit
@@ -16,214 +365,72 @@ README="\
 #
 # These lines MUST NOT be re-ordered; they are executed from top to bottom.
 #
-# vim:syntax=gitrebase"
+# vim:syntax=gitrebase'''
 
-usage() {
-    echo "\
-Usage: git $PROGRAM <command> [<args>]
-
-Manage persistent rebase-like todo lists (\"plans\") to cherry-pick commits.
-
-Useful for crafting larger cherry-pick batches and collaborating on them, e.g.
-when preparing a stable release from a development branch.
-
-This tool produces an equivalent of
-
-    git rebase -i HEAD <branch>
-
-with the following differences:
-
-    * standalone file (can be shared, tracked in git, etc.)
-    * incremental (always applies to HEAD, no rewriting of history)
-    * includes already applied commits for more context (\"noop\" marker)
-    * supports the empty marker (to indicate unreviewed commits)
-    * groups commits by logical changesets (with git-changeset)
-
-Commands:
-    make <branch> [<file>]
-                    create plan for current branch with commits on <branch>,
-                    save to <file>
-    pull <branch> [<file>]
-                    append new commits on <branch> to plan <file>, print them
-                    on stdout
-    update [<file>]
-                    mark applied commits in plan <file>
-    apply [<file>]  apply plan <file> to current branch
-
-Argument defaults:
-    <file>          <current-branch>.plan
-
-Configuration:
-    $CONFIG.directory
-                    where to save plan <file> if unspecified, default: \$PWD
-    $CONFIG.backportPatterns
-                    patterns to extract original commit hash from commit
-                    message of backported commit, set this to mark backported
-                    commits as applied
-"
-    exit 1
+# Map command markers in a plan file to the constants
+COMMANDS = {
+    '    ': Command.REVIEW,
+    'noop': Command.APPLIED,
+    'pick': Command.PICK,
+    'drop': Command.DROP,
 }
 
-get_file() {
-    echo ${1:-$DIR$HEAD.plan}
-}
+# Load git configuration
+CONFIG = GitConfig('cherryPlan')
+DIRECTORY = CONFIG.get('directory', default='.')
+FILE = '{}/{}.plan'.format(DIRECTORY, shell('git rev-parse --abbrev-ref HEAD'))
+AUTOPICK = CONFIG.get('automark.pick', KeyType.SET, set())
+AUTODROP = CONFIG.get('automark.drop', KeyType.SET, set())
 
-fail_exists() {
-    if [ -f $1 ]; then
-        echo "File $1 already exists" >&2
-        exit 1
-    fi
-}
+#
+# Argument parsing
+#
 
-fail_missing() {
-    if [ ! -f $1 ]; then
-        echo "File $1 not found" >&2
-        exit 1
-    fi
-}
+parser = argparse.ArgumentParser(description=ABOUT,
+    formatter_class=argparse.RawDescriptionHelpFormatter)
+parser.add_argument('-b', '--branch', type=str, default='master',
+    help='branch to cherry-pick from (default: master)')
+parser.add_argument('-f', '--file', type=str, default=FILE,
+    help='plan file to use (default: {})'.format(FILE))
+parser.add_argument('-s', '--changeset-size', type=int, default=2,
+    help='only group by changesets with at least this many commits, '
+         '0 disables grouping (default: 2)')
+parser.add_argument('-t', '--timestamp', dest='add_timestamp',
+    action='store_true', help='insert timestamp above newly pulled commits')
+parser.add_argument('--no-automark', dest='automark',
+    action='store_false', help='do not pick or drop commits automatically')
+parser.add_argument('--no-label', dest='show_labels',
+    action='store_false', help='do not show labels in changesets')
+subparsers = parser.add_subparsers()
 
-abbrev() {
-    cut -c -$ABBREV
-}
+parser_make = subparsers.add_parser(
+    'make', help='create plan for current branch with commits on BRANCH')
+parser_make.set_defaults(verb=make)
 
-log() {
-    git rev-list --reverse --no-commit-header --pretty="format:     %h %s" $1
-}
+parser_edit = subparsers.add_parser(
+    'edit', help='edit plan with $EDITOR')
+parser_edit.set_defaults(verb=edit)
 
-get_applied() {
-    local log=$(git rev-list --pretty="format:%b" $1..)
-    local patterns=$(git config --get-all $CONFIG.backportPatterns) || return
-    echo "$patterns" | while read -r line; do
-        echo "$log" | sed -En "s/$line/\1/p"
-    done
-}
+parser_pull = subparsers.add_parser(
+    'pull', help='append new commits on BRANCH to plan')
+parser_pull.set_defaults(verb=pull)
 
-mark() {
-    get_applied $1 | while read line; do
-        sed -i "s/^.....\($(echo $line | abbrev)\)/noop \1/" $2
-    done
-}
+parser_apply = subparsers.add_parser(
+    'apply', help='apply plan to current branch')
+parser_apply.set_defaults(verb=apply)
 
-subject() {
-    local head=$(git rev-parse HEAD | abbrev)
-    local range=$head..$(get_last $1)
-    local count=$(git rev-list --count $range)
-    local text="$SUBJECT $range onto $head ($count commands)"
+parser_update = subparsers.add_parser(
+    'update', help='update plan with current branch (mark applied commits and '
+                   'update footer) ')
+parser_update.set_defaults(verb=update)
 
-    if grep -q "^$SUBJECT" $1; then
-        sed -i "s/^$SUBJECT .*\$/$text/" $1
-    else
-        echo $text >> $1
-    fi
-}
-
-get_hash() {
-    sed 's/^.....//' | cut -d' ' -f1
-}
-
-get_last() {
-    sed '/^#/d; /^$/d' $1 | tail -1 | get_hash
-}
-
-get_line() {
-    grep -n "^.....$2 " $1 | cut -d: -f1
-}
-
-get_branch() {
-    sed -n "s/^$SUBJECT .*\.\.\(.*\) onto .*\$/\1/p" $1
-}
-
-annotate() {
-    local file=$1
-    local from=${2-1}
-
-    local lnum=0
-    local cnum=0
-    local lcnum=0
-    local setnum=0
-    local setbeg=0
-
-    local commit
-    local title
-    local ltitle
-
-    cat $file | while IFS= read line; do
-        let "lnum++"
-        [[ $lnum -lt $from || -z $line || $line = \#* ]] && continue
-
-        let "cnum++"
-        commit=$(echo "$line" | get_hash)
-        title=$(git changeset $commit | head -n1)
-        [ -z "$title" ] && title=$commit
-        [ "$title" == "$ltitle" ] && continue
-
-        # Pad the changeset that just ended (except if single-commit)
-        if [ $cnum -gt 1 ]; then
-            if [[ $lcnum == 1 && $setnum -gt 1 ]]; then
-                sed -i "${setbeg}i \\\\" $file
-                let "lnum++,setbeg++"
-            fi
-            sed -i "${setbeg}i # $ltitle" $file; let "lnum++"
-            sed -i "${lnum}i \\\\" $file; let "lnum++"
-        fi
-
-        let "setnum++"
-        setbeg=$lnum
-        ltitle=$title
-        lcnum=$cnum
-        cnum=0
-    done
-}
-
-CMD=$1; shift
-case $CMD in
-    make)
-        [ "$#" -lt 1 ] && usage
-        branch=$1
-        file=$(get_file $2)
-        fail_exists $file
-
-        log HEAD..$branch > $file
-        mark $branch $file
-        annotate $file
-
-        echo >> $file
-        subject $file
-        echo "$README" >> $file
-        echo $file
-    ;;
-    pull)
-        [ "$#" -lt 1 ] && usage
-        branch=$1
-        file=$(get_file $2)
-        fail_missing $file
-        last=$(get_last $file)
-        lnum=$(get_line $file $last)
-        new=$(log $last..$branch)
-
-        [ -z "$new" ] && exit
-
-        echo "$new" | sed -i "${lnum}r /dev/stdin" $file
-        sed -i "$(( lnum + 1 ))i \\\n#### Pulled $(date +%D) ####" $file
-        annotate $file $(( lnum + 2 ))
-        subject $file
-
-        echo "$new"
-    ;;
-    update)
-        file=$(get_file $1)
-        fail_missing $file
-        branch=$(get_branch $file)
-
-        mark $branch $file
-        subject $file
-    ;;
-    apply)
-        file=$(get_file $1)
-        fail_missing $file
-        grep '^pick ' $file | get_hash | xargs git cherry-pick -x
-    ;;
-    *)
-        usage
-    ;;
-esac
+args = parser.parse_args()
+if hasattr(args, 'verb'):
+    if shutil.which('git-changeset') is None:
+        args.changeset_size = 0
+    plan = Plan(args.branch, args.changeset_size, args.show_labels,
+                args.automark, args.add_timestamp)
+    args.verb(plan, args)
+else:
+    parser.print_usage()
+    sys.exit(2)

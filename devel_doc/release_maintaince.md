@@ -86,7 +86,7 @@ First, generate a plan for the stable branch (e.g. `rpm-4.19.x`):
 
 ```
 git checkout <stable>
-git cherry-plan make master
+git cherry-plan make
 ```
 
 This will create a file `<stable>.plan` in the current directory with a
@@ -110,7 +110,7 @@ git cherry-plan -h
 To later pull new commits from master into the plan, use:
 
 ```
-git cherry-plan pull master
+git cherry-plan pull
 ```
 
 ### Editing a plan

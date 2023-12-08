@@ -1,5 +1,7 @@
 [cherryPlan]
 	backportPatterns = ^\\(backported from commit (.*)\\)$
+[cherryPlan "automark"]
+	pick = test,documentation,build
 [changelog]
 	# Loosely based on https://keepachangelog.com/en/1.1.0/
 	sections = rfe,changed,deprecated,removed,bug,security
