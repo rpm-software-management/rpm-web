@@ -2,6 +2,16 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.19.1 released (Dec 12 2023)
+* This is a bug fix release with a few minor enhancements.
+* See [release notes](wiki/Releases/4.19.1) for details and download information
+* Highlights include:
+    * Add `%_iconsdir` macro ([#2729](https://github.com/rpm-software-management/rpm/pull/2729))
+    * Add a Provides generator for rpm lua modules ([#2659](https://github.com/rpm-software-management/rpm/pull/2659))
+    * Allow `SOURCE_DATE_EPOCH=0` again ([#2756](https://github.com/rpm-software-management/rpm/pull/2756))
+    * Bunch of `sysusers.d` handling fixes ([#2745](https://github.com/rpm-software-management/rpm/pull/2745))
+    * Fix integer overflow in memory calculations on 32bit systems ([#2770](https://github.com/rpm-software-management/rpm/pull/2770))
+
 #### RPM 4.18.2 released (Nov 13 2023)
 * This is a bug fix release with a few minor enhancements.
 * See [release notes](wiki/Releases/4.18.2) for details and download information
