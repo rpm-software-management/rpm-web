@@ -1,5 +1,6 @@
 #!/bin/python3
 
+from functools import cmp_to_key
 from textwrap import shorten
 import argparse
 import re
@@ -26,10 +27,12 @@ class PlainLog(object):
         return HEADINGS[section] + '\n'
 
     def _pull(self, pull):
-        fmt = '  * {} (#{})'
-        title, num, url = pull
-        title = shorten(title, self.width - len(fmt.format('', num)))
-        return fmt.format(title, num)
+        fmt = '  * {}{} (#{})'
+        prefix, title, num, url = pull
+        if prefix:
+            prefix = '{}: '.format(HEADINGS[prefix])
+        title = shorten(title, self.width - len(fmt.format(prefix, '', num)))
+        return fmt.format(prefix, title, num)
 
     def __str__(self):
         out = []
@@ -44,7 +47,7 @@ class PlainLog(object):
                     out.append(heading)
                 continue
             out.append(heading)
-            for pull in sorted(p[section]):
+            for pull in sorted(p[section], key=cmp_to_key(pull_cmp)):
                 out.append(self._pull(pull))
             out.append('')
         return '\n'.join(out)
@@ -65,7 +68,10 @@ class MarkdownLog(PlainLog):
         return self._heading(2, HEADINGS[section])
 
     def _pull(self, pull):
-        return '* {} ([#{}]({}))'.format(*pull)
+        prefix = pull[0]
+        if prefix:
+            prefix = '*{}:* '.format(HEADINGS[prefix])
+        return '* {}{} ([#{}]({}))'.format(prefix, *pull[1:])
 
 
 def shell(cmd, sep=None):
@@ -94,6 +100,22 @@ def config(key, type=Config.SIMPLE):
         k = k.split('.')[-1]
         d[k] = v
     return d
+
+def pull_cmp(pull1, pull2):
+    prefixes = PREFIXES + ['']
+    prefix1 = prefixes.index(pull1[0])
+    prefix2 = prefixes.index(pull2[0])
+    title1 = pull1[1]
+    title2 = pull2[1]
+    if prefix1 < prefix2:
+        return -1
+    elif prefix1 == prefix2:
+        if title1 < title2:
+            return -1
+        else:
+            return 1
+    else:
+        return 1
 
 def logs(rng):
     return shell('git rev-list --pretty="format:%b" ' + rng)
@@ -127,6 +149,13 @@ def pulls(rng):
             continue
         nums.add(num)
 
+        for p in PREFIXES:
+            if p in labels:
+                prefix = p
+                break
+        else:
+            prefix = ''
+
         labels = set(map(lambda x: ALIASES[x] if x in ALIASES else x, labels))
         if labels & ignore:
             continue
@@ -135,7 +164,7 @@ def pulls(rng):
             labels = set(['other'])
 
         for label in labels:
-            pulls.setdefault(label, []).append((title, num, url))
+            pulls.setdefault(label, []).append((prefix, title, num, url))
 
     return pulls
 
@@ -144,6 +173,7 @@ RELEASE = shell("git tag -l --format='%(contents)' $(git describe --abbrev=0)")
 PATTERNS = [re.compile(pattern, re.MULTILINE)
             for pattern in config('cherryPlan.portedRegex', Config.MULTILINE)]
 SECTIONS = config('changelog.sections')
+PREFIXES = config('changelog.prefixes')
 IGNORE = config('changelog.ignore')
 HEADINGS = config('changelog.headings', Config.MAP)
 ALIASES = config('changelog.aliases', Config.MAP)
