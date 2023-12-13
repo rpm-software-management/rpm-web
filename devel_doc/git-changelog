@@ -7,11 +7,8 @@ import re
 import subprocess
 import sys
 
+from common import shell, KeyType, GitConfig
 
-class Config:
-    SIMPLE = 0,
-    MULTILINE = 1,
-    MAP = 2,
 
 class PlainLog(object):
     def __init__(self, prev, empty, no_preamble, width, *args, **kwargs):
@@ -73,34 +70,6 @@ class MarkdownLog(PlainLog):
             prefix = '*{}:* '.format(HEADINGS[prefix])
         return '* {}{} ([#{}]({}))'.format(prefix, *pull[1:])
 
-
-def shell(cmd, sep=None):
-    out = subprocess.run(cmd, capture_output=True, shell=True, text=True)
-    sys.stderr.write(out.stderr)
-    return out.stdout.strip()
-
-def config(key, type=Config.SIMPLE):
-    if type == Config.SIMPLE:
-        cmd = '--get'
-        sep = ','
-    elif type == Config.MULTILINE:
-        cmd = '--get-all'
-        sep = '\n'
-    elif type == Config.MAP:
-        cmd = '--get-regexp'
-        sep = '\n'
-    out = shell('git config {} {}'.format(cmd, key)).split(sep)
-    if type != Config.MAP:
-        return out
-    d = {}
-    for line in out:
-        if not line:
-            continue
-        k, v = line.split(' ', 1)
-        k = k.split('.')[-1]
-        d[k] = v
-    return d
-
 def pull_cmp(pull1, pull2):
     prefixes = PREFIXES + ['']
     prefix1 = prefixes.index(pull1[0])
@@ -136,10 +105,9 @@ def pulls(rng):
             opts += '-r '
         if args.quiet:
             opts += '-q '
-        out = shell('git changeset {} {}'.format(opts, commit))
-        if not out:
+        lines = shell('git changeset {} {}'.format(opts, commit), split=True)
+        if not lines:
             continue
-        lines = out.split('\n')
         title = lines[0].split(':', 1)[1].strip()
         labels = set([label.lower() for label in lines[1].split(' ')])
         url = lines[2]
@@ -169,14 +137,16 @@ def pulls(rng):
     return pulls
 
 
+PLAN_CONFIG = GitConfig('cherryPlan')
+CONFIG = GitConfig('changelog')
 RELEASE = shell("git tag -l --format='%(contents)' $(git describe --abbrev=0)")
 PATTERNS = [re.compile(pattern, re.MULTILINE)
-            for pattern in config('cherryPlan.portedRegex', Config.MULTILINE)]
-SECTIONS = config('changelog.sections')
-PREFIXES = config('changelog.prefixes')
-IGNORE = config('changelog.ignore')
-HEADINGS = config('changelog.headings', Config.MAP)
-ALIASES = config('changelog.aliases', Config.MAP)
+            for pattern in PLAN_CONFIG.get('portedRegex', KeyType.MULTILINE)]
+SECTIONS = CONFIG.get('sections', KeyType.LIST)
+PREFIXES = CONFIG.get('prefixes', KeyType.LIST)
+IGNORE = CONFIG.get('ignore', KeyType.LIST)
+HEADINGS = CONFIG.get('headings', KeyType.MAP)
+ALIASES = CONFIG.get('aliases', KeyType.MAP)
 
 parser = argparse.ArgumentParser(
     description='Generate a changelog for the last tag based on changesets.')

@@ -6,11 +6,7 @@ import os
 import subprocess
 import sys
 
-
-def shell(cmd, sep=None):
-    out = subprocess.run(cmd, capture_output=True, shell=True, text=True)
-    sys.stderr.write(out.stderr)
-    return out.stdout.strip()
+from common import shell
 
 
 # Parse args
