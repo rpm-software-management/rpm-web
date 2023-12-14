@@ -90,7 +90,7 @@ class Plan(object):
 
         # Patterns for matching a commit line and the footer
         self.re_commit = re.compile(
-            '^(....) (.{{{abbrev}}}) (.+)$'.format(abbrev=self.abbrev))
+            '^([^#]...) (.{{{abbrev}}}) (.+)$'.format(abbrev=self.abbrev))
         self.re_footer = re.compile(
             '^# Rebase .{{{abbrev}}}\\.\\.'.format(abbrev=self.abbrev))
 
@@ -147,7 +147,7 @@ class Plan(object):
                 # Parse a commit
                 command, hash, subject = m.groups()
                 if command not in COMMANDS:
-                    raise UnknownCommandError(command)
+                    raise UnknownCommandError(line)
                 hash = rev_parse(hash, False)
                 commit = Commit(COMMANDS[command], hash, subject, self.abbrev)
 
@@ -365,7 +365,8 @@ FOOTER = '''
 #
 # These lines MUST NOT be re-ordered; they are executed from top to bottom.
 #
-# vim:syntax=gitrebase'''
+# vim:syntax=gitrebase
+'''
 
 # Map command markers in a plan file to the constants
 COMMANDS = {
