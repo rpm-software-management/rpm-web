@@ -7,12 +7,12 @@ import re
 import subprocess
 import sys
 
-from common import shell, KeyType, GitConfig
+from common import shell, KeyType, GitConfig, backports
 
 
 class PlainLog(object):
     def __init__(self, prev, empty, no_preamble, width, *args, **kwargs):
-        self.range = '{}..'.format(prev)
+        self.prev = prev
         self.empty = empty
         self.no_preamble = no_preamble
         self.width = width
@@ -35,7 +35,7 @@ class PlainLog(object):
         out = []
         if not self.no_preamble:
             out = [self._preamble(), '']
-        p = pulls(self.range)
+        p = pulls(self.prev)
         last = len(SECTIONS) - 1
         for section in SECTIONS:
             heading = self._section(section)
@@ -86,20 +86,12 @@ def pull_cmp(pull1, pull2):
     else:
         return 1
 
-def logs(rng):
-    return shell('git rev-list --pretty="format:%b" ' + rng)
-
-def commits(rng):
-    s = logs(rng)
-    z = [re.findall(p, s) for p in PATTERNS]
-    return [x for y in z for x in y]
-
-def pulls(rng):
+def pulls(branch):
     pulls = {}
     nums = set()
     ignore = set(IGNORE)
 
-    for commit in commits(rng):
+    for commit in backports(branch):
         opts = ''
         if args.refresh:
             opts += '-r '
@@ -137,11 +129,8 @@ def pulls(rng):
     return pulls
 
 
-PLAN_CONFIG = GitConfig('cherryPlan')
 CONFIG = GitConfig('changelog')
 RELEASE = shell("git tag -l --format='%(contents)' $(git describe --abbrev=0)")
-PATTERNS = [re.compile(pattern, re.MULTILINE)
-            for pattern in PLAN_CONFIG.get('portedRegex', KeyType.MULTILINE)]
 SECTIONS = CONFIG.get('sections', KeyType.LIST)
 PREFIXES = CONFIG.get('prefixes', KeyType.LIST)
 IGNORE = CONFIG.get('ignore', KeyType.LIST)

@@ -1,5 +1,25 @@
+import re
 import subprocess
 import sys
+
+
+def shell(cmd, capture=True, split=False):
+    out = subprocess.run(cmd, capture_output=capture, shell=True, text=True)
+    if capture:
+        sys.stderr.write(out.stderr)
+        out = out.stdout.strip('\n')
+        if out and split:
+            return out.split('\n')
+        return out
+    return out
+
+def backports(branch):
+    """Return the original commit hashes backported from a branch."""
+    res = []
+    log = shell('git rev-list --pretty="format:%b" {}..'.format(branch))
+    for r in BACKPORT_RE:
+        res.extend(re.findall(r, log))
+    return res
 
 
 class KeyType:
@@ -8,7 +28,6 @@ class KeyType:
     SET         = 2,
     MULTILINE   = 3,
     MAP         = 4,
-
 
 class GitConfig(object):
     def __init__(self, section):
@@ -46,12 +65,7 @@ class GitConfig(object):
         return d
 
 
-def shell(cmd, capture=True, split=False):
-    out = subprocess.run(cmd, capture_output=capture, shell=True, text=True)
-    if capture:
-        sys.stderr.write(out.stderr)
-        out = out.stdout.strip('\n')
-        if out and split:
-            return out.split('\n')
-        return out
-    return out
+CONFIG = GitConfig('cherryPlan')
+BACKPORT_RE = ['^\\(cherry picked from commit (.*)\\)$'] + \
+              CONFIG.get('backportPatterns', KeyType.MULTILINE, [])
+BACKPORT_RE = [re.compile(r, re.MULTILINE) for r in BACKPORT_RE]

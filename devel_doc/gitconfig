@@ -1,6 +1,5 @@
 [cherryPlan]
-	portedRegex = ^\\(cherry picked from commit (.*)\\)$
-	portedRegex = ^\\(backported from commit (.*)\\)$
+	backportPatterns = ^\\(backported from commit (.*)\\)$
 [changelog]
 	# Loosely based on https://keepachangelog.com/en/1.1.0/
 	sections = rfe,changed,deprecated,removed,bug,security

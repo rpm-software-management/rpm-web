@@ -56,10 +56,10 @@ Argument defaults:
 Configuration:
     $CONFIG.directory
                     where to save plan <file> if unspecified, default: \$PWD
-    $CONFIG.portedRegex
-                    pattern to extract original commit hash from commit message
-                    of ported commit, set this to mark ported commits as
-                    applied
+    $CONFIG.backportPatterns
+                    patterns to extract original commit hash from commit
+                    message of backported commit, set this to mark backported
+                    commits as applied
 "
     exit 1
 }
@@ -92,7 +92,7 @@ log() {
 
 get_applied() {
     local log=$(git rev-list --pretty="format:%b" $1..)
-    local patterns=$(git config --get-all $CONFIG.portedRegex) || return
+    local patterns=$(git config --get-all $CONFIG.backportPatterns) || return
     echo "$patterns" | while read -r line; do
         echo "$log" | sed -En "s/$line/\1/p"
     done
