@@ -14,14 +14,14 @@
 	postfixes = regression,cosmetic
 	ignore = cleanup,test,documentation
 [changelog "headings"]
-	bug = Fixed
+	bug = Fixes
 	build = Build
-	changed = Changed
+	changed = Changes
 	cosmetic = Cosmetic
-	deprecated = Deprecated
+	deprecated = Deprecations
 	regression = Regression
-	removed = Removed
-	rfe = Added
+	removed = Removals
+	rfe = Enhancements
 	security = Security
 	spec = Packaging
 	transaction = Transaction
