@@ -10,18 +10,21 @@
 [changelog]
 	# Loosely based on https://keepachangelog.com/en/1.1.0/
 	sections = rfe,changed,deprecated,removed,bug,security
-	prefixes = regression,spec,build
+	prefixes = transaction,spec,build
+	postfixes = regression,cosmetic
 	ignore = cleanup,test,documentation
 [changelog "headings"]
 	bug = Fixed
 	build = Build
 	changed = Changed
+	cosmetic = Cosmetic
 	deprecated = Deprecated
 	regression = Regression
 	removed = Removed
 	rfe = Added
 	security = Security
 	spec = Packaging
+	transaction = Transaction
 [changelog "aliases"]
 	crypto = security
 	regression = bug

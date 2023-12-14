@@ -24,12 +24,15 @@ class PlainLog(object):
         return HEADINGS[section] + '\n'
 
     def _pull(self, pull):
-        fmt = '  * {}{} (#{})'
-        prefix, title, num, url = pull
+        fmt = '  * {}{} {}(#{})'
+        prefix, postfix, title, num, url = pull
         if prefix:
             prefix = '{}: '.format(HEADINGS[prefix])
-        title = shorten(title, self.width - len(fmt.format(prefix, '', num)))
-        return fmt.format(prefix, title, num)
+        if postfix:
+            postfix = '[{}] '.format(HEADINGS[postfix])
+        title = shorten(title,
+                        self.width - len(fmt.format(prefix, '', postfix, num)))
+        return fmt.format(prefix, title, postfix, num)
 
     def __str__(self):
         out = []
@@ -65,22 +68,35 @@ class MarkdownLog(PlainLog):
         return self._heading(2, HEADINGS[section])
 
     def _pull(self, pull):
-        prefix = pull[0]
+        prefix, postfix, title, num, url = pull
         if prefix:
-            prefix = '*{}:* '.format(HEADINGS[prefix])
-        return '* {}{} ([#{}]({}))'.format(prefix, *pull[1:])
+            prefix = '{}: '.format(HEADINGS[prefix])
+        if postfix:
+            postfix = '[{}] '.format(HEADINGS[postfix])
+        return '* {}{} {}([#{}]({}))'.format(prefix, title, postfix, num, url)
 
 def pull_cmp(pull1, pull2):
+    prefix1, postfix1, title1 = pull1[:3]
+    prefix2, postfix2, title2 = pull2[:3]
+
     prefixes = PREFIXES + ['']
-    prefix1 = prefixes.index(pull1[0])
-    prefix2 = prefixes.index(pull2[0])
-    title1 = pull1[1]
-    title2 = pull2[1]
+    postfixes = POSTFIXES + ['']
+
+    prefix1 = prefixes.index(prefix1)
+    prefix2 = prefixes.index(prefix2)
+    postfix1 = postfixes.index(postfix1)
+    postfix2 = postfixes.index(postfix2)
+
     if prefix1 < prefix2:
         return -1
     elif prefix1 == prefix2:
-        if title1 < title2:
+        if postfix1 < postfix2:
             return -1
+        elif postfix1 == postfix2:
+            if title1 < title2:
+                return -1
+            else:
+                return 1
         else:
             return 1
     else:
@@ -116,6 +132,13 @@ def pulls(branch):
         else:
             prefix = ''
 
+        for p in POSTFIXES:
+            if p in labels:
+                postfix = p
+                break
+        else:
+            postfix = ''
+
         labels = set(map(lambda x: ALIASES[x] if x in ALIASES else x, labels))
         if labels & ignore:
             continue
@@ -124,7 +147,8 @@ def pulls(branch):
             labels = set(['other'])
 
         for label in labels:
-            pulls.setdefault(label, []).append((prefix, title, num, url))
+            pulls.setdefault(label, []).append(
+                (prefix, postfix, title, num, url))
 
     return pulls
 
@@ -133,6 +157,7 @@ CONFIG = GitConfig('changelog')
 RELEASE = shell("git tag -l --format='%(contents)' $(git describe --abbrev=0)")
 SECTIONS = CONFIG.get('sections', KeyType.LIST)
 PREFIXES = CONFIG.get('prefixes', KeyType.LIST)
+POSTFIXES = CONFIG.get('postfixes', KeyType.LIST)
 IGNORE = CONFIG.get('ignore', KeyType.LIST)
 HEADINGS = CONFIG.get('headings', KeyType.MAP)
 ALIASES = CONFIG.get('aliases', KeyType.MAP)
