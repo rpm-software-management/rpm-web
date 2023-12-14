@@ -1,6 +1,6 @@
 [cherryPlan]
 	backportPatterns = ^\\(backported from commit (.*)\\)$
-        # The following are only here to match existing commits on rpm-4.18.x
+	# The following are only here to match existing commits on rpm-4.18.x
 	backportPatterns = ^\\(backport of (.*)\\)$
 	backportPatterns = ^Backported from commit (.*)$
 	backportPatterns = ^\\(cherry pick of (.*)\\.\\)$
