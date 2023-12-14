@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 
 from functools import cmp_to_key
 from textwrap import shorten
