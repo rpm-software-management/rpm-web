@@ -62,6 +62,10 @@ executable:
 * [git-changeset](git-changeset)
 * [git-changelog](git-changelog)
 
+Also download the following file and place it alongside the above utilities:
+
+* [common.py](common.py)
+
 ### Configuring the scripts
 
 Download the default [configuration file](gitconfig) and apply it to your git
