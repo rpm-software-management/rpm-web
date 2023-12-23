@@ -95,7 +95,7 @@ def changeset(commit, refresh=False, split=True):
 def progressbar(sequence, hide=False):
     """Show a simple progress bar while yielding elements from a sequence."""
 
-    if hide:
+    if hide or not sys.stdout.isatty():
         bar = None
     else:
         bar = SimpleProgressBar(max_value=len(sequence))
