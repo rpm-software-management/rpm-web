@@ -10,74 +10,9 @@ import sys
 from common import shell, backports, changeset, KeyType, GitConfig
 
 
-class PlainLog(object):
-    def __init__(self, prev, empty, no_preamble, width, *args, **kwargs):
-        self.prev = prev
-        self.empty = empty
-        self.no_preamble = no_preamble
-        self.width = width
-
-    def _preamble(self):
-        return RELEASE + ' Changelog'
-
-    def _section(self, section):
-        return HEADINGS[section] + '\n'
-
-    def _pull(self, pull):
-        fmt = '  * {}{} {}(#{})'
-        prefix, postfix, title, num, url = pull
-        if prefix:
-            prefix = '{}: '.format(HEADINGS[prefix])
-        if postfix:
-            postfix = '[{}] '.format(HEADINGS[postfix])
-        title = shorten(title,
-                        self.width - len(fmt.format(prefix, '', postfix, num)))
-        return fmt.format(prefix, title, postfix, num)
-
-    def __str__(self):
-        out = []
-        if not self.no_preamble:
-            out = [self._preamble(), '']
-        p = pulls(self.prev)
-        last = len(SECTIONS) - 1
-        for section in SECTIONS:
-            heading = self._section(section)
-            if section not in p:
-                if self.empty:
-                    out.append(heading)
-                continue
-            out.append(heading)
-            for pull in sorted(p[section], key=cmp_to_key(pull_cmp)):
-                out.append(self._pull(pull))
-            out.append('')
-        return '\n'.join(out)
-
-class MarkdownLog(PlainLog):
-    def __init__(self, prev, empty, no_preamble, width, level,
-                 *args, **kwargs):
-        super(MarkdownLog, self).__init__(prev, empty, no_preamble, width)
-        self.level = level - 1
-
-    def _heading(self, level, name):
-        return '{} {}'.format('#' * (self.level + level), name)
-
-    def _preamble(self):
-        return self._heading(1, RELEASE + ' Changelog')
-
-    def _section(self, section):
-        return self._heading(2, HEADINGS[section])
-
-    def _pull(self, pull):
-        prefix, postfix, title, num, url = pull
-        if prefix:
-            prefix = '{}: '.format(HEADINGS[prefix])
-        if postfix:
-            postfix = '[{}] '.format(HEADINGS[postfix])
-        return '* {}{} {}([#{}]({}))'.format(prefix, title, postfix, num, url)
-
-def pull_cmp(pull1, pull2):
-    prefix1, postfix1, title1 = pull1[:3]
-    prefix2, postfix2, title2 = pull2[:3]
+def chset_cmp(ch1, ch2):
+    prefix1, postfix1, title1 = ch1[:3]
+    prefix2, postfix2, title2 = ch2[:3]
 
     prefixes = PREFIXES + ['']
     postfixes = POSTFIXES + ['']
@@ -102,50 +37,117 @@ def pull_cmp(pull1, pull2):
     else:
         return 1
 
-def pulls(branch):
-    pulls = {}
-    nums = set()
-    ignore = set(IGNORE)
 
-    for commit in backports(branch):
-        lines = changeset(commit, args.refresh, args.quiet)
-        if not lines:
-            continue
-        title = lines[0].split(':', 1)[1].strip()
-        labels = set([label.lower() for label in lines[1].split(' ')])
-        url = lines[2]
+class PlainLog(object):
+    def __init__(self, prev, empty, no_preamble, width, *args, **kwargs):
+        self.prev = prev
+        self.empty = empty
+        self.no_preamble = no_preamble
+        self.width = width
 
-        num = lines[0].split(':')[0][4:]
-        if num in nums:
-            continue
-        nums.add(num)
+    def _format_preamble(self):
+        return RELEASE + ' Changelog'
 
-        for p in PREFIXES:
-            if p in labels:
-                prefix = p
-                break
-        else:
-            prefix = ''
+    def _format_section(self, section):
+        return HEADINGS[section] + '\n'
 
-        for p in POSTFIXES:
-            if p in labels:
-                postfix = p
-                break
-        else:
-            postfix = ''
+    def _format_changeset(self, chset):
+        fmt = '  * {}{} {}(#{})'
+        prefix, postfix, title, num, url = chset
+        if prefix:
+            prefix = '{}: '.format(HEADINGS[prefix])
+        if postfix:
+            postfix = '[{}] '.format(HEADINGS[postfix])
+        title = shorten(title,
+                        self.width - len(fmt.format(prefix, '', postfix, num)))
+        return fmt.format(prefix, title, postfix, num)
 
-        labels = set(map(lambda x: ALIASES[x] if x in ALIASES else x, labels))
-        if labels & ignore:
-            continue
-        labels = labels & HEADINGS.keys()
-        if not labels:
-            labels = set(['other'])
+    @property
+    def _changesets(self):
+        changesets = {}
+        nums = set()
+        ignore = set(IGNORE)
 
-        for label in labels:
-            pulls.setdefault(label, []).append(
-                (prefix, postfix, title, num, url))
+        for commit in backports(self.prev):
+            lines = changeset(commit, args.refresh, args.quiet)
+            if not lines:
+                continue
+            title = lines[0].split(':', 1)[1].strip()
+            labels = set([label.lower() for label in lines[1].split(' ')])
+            url = lines[2]
 
-    return pulls
+            num = lines[0].split(':')[0][4:]
+            if num in nums:
+                continue
+            nums.add(num)
+
+            for p in PREFIXES:
+                if p in labels:
+                    prefix = p
+                    break
+            else:
+                prefix = ''
+
+            for p in POSTFIXES:
+                if p in labels:
+                    postfix = p
+                    break
+            else:
+                postfix = ''
+
+            labels = set(map(lambda x: ALIASES[x] if x in ALIASES else x, labels))
+            if labels & ignore:
+                continue
+            labels = labels & HEADINGS.keys()
+            if not labels:
+                labels = set(['other'])
+
+            for label in labels:
+                changesets.setdefault(label, []).append(
+                    (prefix, postfix, title, num, url))
+
+        return changesets
+
+    def __str__(self):
+        out = []
+        if not self.no_preamble:
+            out = [self._format_preamble(), '']
+        changesets = self._changesets
+        last = len(SECTIONS) - 1
+        for section in SECTIONS:
+            heading = self._format_section(section)
+            if section not in changesets:
+                if self.empty:
+                    out.append(heading)
+                continue
+            out.append(heading)
+            for chset in sorted(changesets[section], key=cmp_to_key(chset_cmp)):
+                out.append(self._format_changeset(chset))
+            out.append('')
+        return '\n'.join(out)
+
+class MarkdownLog(PlainLog):
+    def __init__(self, prev, empty, no_preamble, width, level,
+                 *args, **kwargs):
+        super(MarkdownLog, self).__init__(prev, empty, no_preamble, width)
+        self.level = level - 1
+
+    def _heading(self, level, name):
+        return '{} {}'.format('#' * (self.level + level), name)
+
+    def _format_preamble(self):
+        return self._heading(1, RELEASE + ' Changelog')
+
+    def _format_section(self, section):
+        return self._heading(2, HEADINGS[section])
+
+    def _format_changeset(self, chset):
+        prefix, postfix, title, num, url = chset
+        if prefix:
+            prefix = '{}: '.format(HEADINGS[prefix])
+        if postfix:
+            postfix = '[{}] '.format(HEADINGS[postfix])
+        return '* {}{} {}([#{}]({}))'.format(prefix, title, postfix, num, url)
 
 
 CONFIG = GitConfig('changelog')
