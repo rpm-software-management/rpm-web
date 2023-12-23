@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import sys
 
-from common import shell, backports, changeset, KeyType, GitConfig
+from common import shell, backports, changeset, progressbar, KeyType, GitConfig
 
 
 #
@@ -76,13 +76,15 @@ class Plan(object):
     """A cherry plan."""
 
     def __init__(self, branch, changeset_size, show_labels, automark,
-                 add_timestamp):
+                 add_timestamp, refresh, quiet):
         # Branch to pull commits from
         self.branch = branch
         self.changeset_size = changeset_size
         self.show_labels = show_labels
         self.automark = automark
         self.add_timestamp = add_timestamp
+        self.refresh = refresh
+        self.quiet = quiet
 
         self.HEAD = 'HEAD'
         # Length of an abbreviated commit hash
@@ -190,7 +192,7 @@ class Plan(object):
             self.lines.append('# Pulled ' + now.strftime('%Y-%m-%d %H:%M:%S'))
 
         # Generate commits (and changesets)
-        for line in lines:
+        for line in progressbar(lines, self.quiet):
             commit = Commit(Command.REVIEW, *line.split(' ', 1), self.abbrev)
             self.log.append(commit)
 
@@ -201,7 +203,7 @@ class Plan(object):
 
             # Group commits based on a changeset (if any)
 
-            clines = changeset(commit.hash)
+            clines = changeset(commit.hash, self.refresh)
             if not clines:
                 self.lines.append(commit)
                 continue
@@ -396,6 +398,10 @@ parser.add_argument('-f', '--file', type=str, default=FILE,
 parser.add_argument('-s', '--changeset-size', type=int, default=2,
     help='only group by changesets with at least this many commits, '
          '0 disables grouping (default: 2)')
+parser.add_argument('-r', '--refresh', action='store_true',
+    help='always fetch changeset data from server (do not use cache)')
+parser.add_argument('-q', '--quiet', action='store_true',
+    help='do not print progress messages on stderr')
 parser.add_argument('-t', '--timestamp', dest='add_timestamp',
     action='store_true', help='insert timestamp above newly pulled commits')
 parser.add_argument('--no-automark', dest='automark',
@@ -428,7 +434,7 @@ parser_update.set_defaults(verb=update)
 args = parser.parse_args()
 if hasattr(args, 'verb'):
     plan = Plan(args.branch, args.changeset_size, args.show_labels,
-                args.automark, args.add_timestamp)
+                args.automark, args.add_timestamp, args.refresh, args.quiet)
     args.verb(plan, args)
 else:
     parser.print_usage()

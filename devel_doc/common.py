@@ -1,3 +1,4 @@
+from progressbar import ProgressBar, Bar, Percentage
 import json
 import os
 import re
@@ -17,13 +18,13 @@ def shell(cmd, capture=True, split=False):
 
 def backports(range):
     """Return the original commit hashes backported from a git range."""
-    res = []
+    out = []
     log = shell('git rev-list --pretty="format:%b" {}'.format(range))
     for r in BACKPORT_RE:
-        res.extend(re.findall(r, log))
-    return res
+        out.extend(re.findall(r, log))
+    return out
 
-def changeset(commit, refresh=False, quiet=False, split=True):
+def changeset(commit, refresh=False, split=True):
     """Return the GitHub PR belonging to the given commit hash."""
 
     # Set variables
@@ -42,9 +43,6 @@ def changeset(commit, refresh=False, quiet=False, split=True):
     # Fetch and cache entry if needed
     if refresh or not os.path.exists(data_path):
         # Fetch data
-        if not quiet:
-            sys.stderr.write(
-                'Fetching changeset for commit {}\n'.format(commit))
         data = shell('gh pr list --state merged --limit 1 --json '
                      'number,title,url,labels --search {}'.format(commit))
         data = json.loads(data)
@@ -94,6 +92,27 @@ def changeset(commit, refresh=False, quiet=False, split=True):
 
     return out
 
+def progressbar(sequence, hide=False):
+    """Show a simple progress bar while yielding elements from a sequence."""
+
+    if hide:
+        bar = None
+    else:
+        bar = SimpleProgressBar(max_value=len(sequence))
+        bar.start()
+        bar.update(1, force=True)
+
+    for i, e in enumerate(sequence):
+        yield e
+        if bar is None:
+            continue
+        bar.update(i)
+
+    if bar is None:
+        return
+
+    bar.finish()
+
 
 class KeyType:
     SIMPLE      = 0,
@@ -136,6 +155,27 @@ class GitConfig(object):
             k = k.split('.')[-1]
             d[k] = v
         return d
+
+class SimpleProgressBar(ProgressBar):
+    """A simple progress bar that clears itself once finished."""
+
+    def __init__(self, max_width=80, label='Generating ', *args, **kwargs):
+        # Simple layout
+        widgets = [label, Bar(left='[', right=']'), ' ', Percentage()]
+
+        # Respect maximum width (if given)
+        term_width = os.get_terminal_size().columns
+        if max_width > 0 and term_width > max_width:
+            term_width = max_width
+        term_width = max_width
+
+        super(SimpleProgressBar, self).__init__(
+            widgets=widgets, term_width=term_width, *args, **kwargs)
+
+    def finish(self, *args, **kwargs):
+        # Clear the progress bar
+        super(SimpleProgressBar, self).finish(
+            end='\r{}\r'.format(self.term_width * ' '))
 
 
 GIT_DIR = shell('git rev-parse --path-format=absolute --git-common-dir')

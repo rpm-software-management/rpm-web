@@ -7,7 +7,7 @@ import re
 import subprocess
 import sys
 
-from common import shell, backports, changeset, KeyType, GitConfig
+from common import shell, backports, changeset, progressbar, KeyType, GitConfig
 
 
 def describe(commit):
@@ -64,12 +64,15 @@ class Release(object):
 
 
 class PlainLog(object):
-    def __init__(self, range, empty, no_preamble, width, *args, **kwargs):
+    def __init__(self, range, empty, no_preamble, width, refresh, quiet,
+                 *args, **kwargs):
         self.range = range
         self.release = Release(range)
         self.empty = empty
         self.no_preamble = no_preamble
         self.width = width
+        self.refresh = refresh
+        self.quiet = quiet
 
     def _format_preamble(self):
         out = 'Changelog'
@@ -97,8 +100,8 @@ class PlainLog(object):
         nums = set()
         ignore = set(IGNORE)
 
-        for commit in backports(self.range):
-            lines = changeset(commit, args.refresh, args.quiet)
+        for commit in progressbar(backports(self.range), self.quiet):
+            lines = changeset(commit, self.refresh)
             if not lines:
                 continue
             title = lines[0].split(':', 1)[1].strip()
@@ -156,9 +159,10 @@ class PlainLog(object):
         return '\n'.join(out)
 
 class MarkdownLog(PlainLog):
-    def __init__(self, range, empty, no_preamble, width, level,
+    def __init__(self, range, empty, no_preamble, width, refresh, quiet, level,
                  *args, **kwargs):
-        super(MarkdownLog, self).__init__(range, empty, no_preamble, width)
+        super(MarkdownLog, self).__init__(
+            range, empty, no_preamble, width, refresh, quiet)
         self.level = level - 1
 
     def _heading(self, level, name):
@@ -218,5 +222,6 @@ if args.markdown:
 else:
     Log = PlainLog
 
-log = Log(args.range, args.empty, args.no_preamble, args.width, args.level)
+log = Log(args.range, args.empty, args.no_preamble, args.width, args.refresh,
+          args.quiet, args.level)
 print(log)
