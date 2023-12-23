@@ -365,8 +365,8 @@ you're preparing, for example `4.19.1`.
 
 1. Create the release notes for [rpm.org](https://rpm.org/)
 
-    1. Generate a changelog: `git changelog -m rpm-X.Y.Z-release >
-       changelog.md` (see `git changelog -h` for more details)
+    1. Generate a changelog: `git changelog -m > changelog.md` (see `git
+       changelog -h` for more details)
     1. Clone the [rpm-web](https://github.com/rpm-software-management/rpm-web)
        repository (if not cloned yet) and enter it
     1. Make a copy of the `wiki/Releases/skeleton.md` file and name it

@@ -12,7 +12,7 @@ title: rpm.org - Releases
 ## Summary of changes
 [insert here]
 
-[Full Changelog](https://github.com/rpm-software-management/rpm/compare/rpm-X.Y.Z-release...rpm-X.Y.Z-1-release)
+[Full Changelog](https://github.com/rpm-software-management/rpm/compare/rpm-X.Y.Z-1-release...rpm-X.Y.Z-release)
 
 ## Compatibility notes
 [insert here if needed]
