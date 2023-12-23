@@ -11,13 +11,11 @@ parser = argparse.ArgumentParser(
 parser.add_argument('commit', type=str, help='git commit hash')
 parser.add_argument('-r', '--refresh', action='store_true',
                     help='always fetch from server (do not use cache)')
-parser.add_argument('-q', '--quiet', action='store_true',
-                    help='do not print progress messages on stderr')
 args = parser.parse_args()
 
 
 if __name__ == '__main__':
-    out = changeset(args.commit, args.refresh, args.quiet, split=False)
+    out = changeset(args.commit, args.refresh, split=False)
     if out:
         print(out)
     else:
