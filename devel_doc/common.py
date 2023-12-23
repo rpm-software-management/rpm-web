@@ -98,7 +98,7 @@ def progressbar(sequence, hide=False):
     if hide or not sys.stdout.isatty():
         bar = None
     else:
-        bar = SimpleProgressBar(max_value=len(sequence))
+        bar = SimpleProgressBar(max_value=len(sequence) + 1)
         bar.start()
         bar.update(1, force=True)
 
@@ -106,7 +106,7 @@ def progressbar(sequence, hide=False):
         yield e
         if bar is None:
             continue
-        bar.update(i)
+        bar.update(i + 1)
 
     if bar is None:
         return
