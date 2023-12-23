@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import sys
 
-from common import shell, KeyType, GitConfig, backports
+from common import shell, backports, changeset, KeyType, GitConfig
 
 
 #
@@ -40,7 +40,7 @@ class Commit(object):
                                  self.subject)
 
 class Changeset(object):
-    """A group of commits based on git-changeset."""
+    """A group of commits forming a logical changeset."""
 
     def __init__(self, title, labels, url, commits, show_labels=True):
         self.title = title
@@ -201,18 +201,18 @@ class Plan(object):
 
             # Group commits based on a changeset (if any)
 
-            clines = shell('git changeset ' + commit.hash)
+            clines = changeset(commit.hash)
             if not clines:
                 self.lines.append(commit)
                 continue
 
-            changeset = Changeset(*clines.split('\n'), [], self.show_labels)
+            chset = Changeset(*clines, [], self.show_labels)
             if (isinstance(self.last, Changeset) and
-                self.last.title == changeset.title):
-                changeset = self.last
+                self.last.title == chset.title):
+                chset = self.last
             else:
-                self.lines.append(changeset)
-            changeset.commits.append(commit)
+                self.lines.append(chset)
+            chset.commits.append(commit)
 
         # Automark changesets
         if self.automark:
@@ -343,7 +343,7 @@ with the following differences:
     * incremental (always applies to HEAD, no rewriting of history)
     * includes already applied commits for more context ("noop" marker)
     * supports the empty marker (to indicate unreviewed commits)
-    * groups commits by logical changesets (with git-changeset)
+    * groups commits by logical changesets (e.g. pull requests)
 
 git configuration (cherryPlan section):
   directory             save plan files here if FILE is unspecified
@@ -427,8 +427,6 @@ parser_update.set_defaults(verb=update)
 
 args = parser.parse_args()
 if hasattr(args, 'verb'):
-    if shutil.which('git-changeset') is None:
-        args.changeset_size = 0
     plan = Plan(args.branch, args.changeset_size, args.show_labels,
                 args.automark, args.add_timestamp)
     args.verb(plan, args)

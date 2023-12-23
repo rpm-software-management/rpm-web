@@ -59,7 +59,6 @@ Download the following utilities, put them into your `$PATH` and make them
 executable:
 
 * [git-cherry-plan](git-cherry-plan)
-* [git-changeset](git-changeset)
 * [git-changelog](git-changelog)
 
 Also download the following file and place it alongside the above utilities:
@@ -76,7 +75,7 @@ git config include.path /path/to/gitconfig
 ```
 
 You will also need the [GitHub CLI utility](https://cli.github.com/) which is
-required by `git-changeset`.  On Fedora, get it with:
+required for commit grouping.  On Fedora, get it with:
 
 ```
 dnf install gh
@@ -98,10 +97,11 @@ chronological list of commits on master since the branching point, in a format
 similar to that of `git rebase -i`, and mark with `noop` those that have been
 cherry-picked already.
 
-If the `git-changeset` utility is installed, commits will be grouped by their
-originating GitHub pull requests.  This may take a while on the first run since
-the script needs to fetch the PR data from GitHub.  The data is then cached
-locally in the `.git/changeset/` directory and reused on next runs.
+By default, commits will be grouped by their originating GitHub pull requests.
+This may take a while on the first run since the script needs to fetch the PR
+data from GitHub.  The data is then cached locally in the `.git/changeset/`
+directory and reused on next runs.  This feature can be disabled with the `-s0`
+switch.
 
 For complete usage help, run:
 
@@ -209,8 +209,8 @@ If you use VIM, you can add [this](plan.vim) snippet into your `~/.vimrc` to
 cycle through markers on the current line with the `CTRL+SPACE` key and do a
 `git show` of the current commit with the `Enter` key.
 
-If you also install the `git changeset` script mentioned above, you can type
-`gx` to open the current commit's PR in your default browser.
+If you install the [git-changeset](git-changeset) script into your `$PATH`, you
+can type `gx` to open the current commit's PR in your default browser.
 
 ### Sharing a plan
 

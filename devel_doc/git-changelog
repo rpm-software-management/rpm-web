@@ -7,7 +7,7 @@ import re
 import subprocess
 import sys
 
-from common import shell, KeyType, GitConfig, backports
+from common import shell, backports, changeset, KeyType, GitConfig
 
 
 class PlainLog(object):
@@ -108,12 +108,7 @@ def pulls(branch):
     ignore = set(IGNORE)
 
     for commit in backports(branch):
-        opts = ''
-        if args.refresh:
-            opts += '-r '
-        if args.quiet:
-            opts += '-q '
-        lines = shell('git changeset {} {}'.format(opts, commit), split=True)
+        lines = changeset(commit, args.refresh, args.quiet)
         if not lines:
             continue
         title = lines[0].split(':', 1)[1].strip()
