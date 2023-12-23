@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 
 import argparse
-import json
-import os
-import subprocess
 import sys
 
 from common import shell, changeset
@@ -20,4 +17,8 @@ args = parser.parse_args()
 
 
 if __name__ == '__main__':
-    print(changeset(args.commit, args.refresh, args.quiet, split=False))
+    out = changeset(args.commit, args.refresh, args.quiet, split=False)
+    if out:
+        print(out)
+    else:
+        sys.exit(1)

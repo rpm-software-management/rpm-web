@@ -52,7 +52,7 @@ def changeset(commit, refresh=False, quiet=False, split=True):
         if not data:
             with open(commit_path, 'w') as f:
                 f.write('')
-            sys.exit(1)
+            return out
         assert len(data) >= 1
         data = data[0]
 
@@ -81,7 +81,7 @@ def changeset(commit, refresh=False, quiet=False, split=True):
         with open(commit_path) as f:
             entry = list(map(str.strip, f.readlines()))
         if not entry:
-            sys.exit(1)
+            return out
         out.append('PR #{}: {}'.format(number, entry[0]))
         if len(entry) == 2:
             out.append(entry[1])
