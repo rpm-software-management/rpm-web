@@ -10,6 +10,9 @@ import sys
 from common import shell, backports, changeset, KeyType, GitConfig
 
 
+def describe(commit):
+    return shell('git describe --abbrev=0 {}'.format(commit))
+
 def chset_cmp(ch1, ch2):
     prefix1, postfix1, title1 = ch1[:3]
     prefix2, postfix2, title2 = ch2[:3]
@@ -38,15 +41,41 @@ def chset_cmp(ch1, ch2):
         return 1
 
 
+class Release(object):
+    def __init__(self, range=None):
+        if range is None:
+            b = describe('HEAD')
+            a = describe('{}^'.format(b))
+            range = '{}..{}'.format(a, b)
+        else:
+            a, b = range.split('..')
+            if not b:
+                b = describe('HEAD')
+
+        self.range = range
+        self.name = shell("git tag -l --format='%(contents)' {}".format(b))
+
+        if RELEASE_RE is None:
+            return
+
+        m = re.match(RELEASE_RE, self.name)
+        if m is not None:
+            self.name = m.groups()[0]
+
+
 class PlainLog(object):
-    def __init__(self, prev, empty, no_preamble, width, *args, **kwargs):
-        self.prev = prev
+    def __init__(self, range, empty, no_preamble, width, *args, **kwargs):
+        self.range = range
+        self.release = Release(range)
         self.empty = empty
         self.no_preamble = no_preamble
         self.width = width
 
     def _format_preamble(self):
-        return RELEASE + ' Changelog'
+        out = 'Changelog'
+        if not self.release.name:
+            return out
+        return '{} {}'.format(self.release.name, out)
 
     def _format_section(self, section):
         return HEADINGS[section] + '\n'
@@ -68,7 +97,7 @@ class PlainLog(object):
         nums = set()
         ignore = set(IGNORE)
 
-        for commit in backports(self.prev):
+        for commit in backports(self.range):
             lines = changeset(commit, args.refresh, args.quiet)
             if not lines:
                 continue
@@ -127,16 +156,16 @@ class PlainLog(object):
         return '\n'.join(out)
 
 class MarkdownLog(PlainLog):
-    def __init__(self, prev, empty, no_preamble, width, level,
+    def __init__(self, range, empty, no_preamble, width, level,
                  *args, **kwargs):
-        super(MarkdownLog, self).__init__(prev, empty, no_preamble, width)
+        super(MarkdownLog, self).__init__(range, empty, no_preamble, width)
         self.level = level - 1
 
     def _heading(self, level, name):
         return '{} {}'.format('#' * (self.level + level), name)
 
     def _format_preamble(self):
-        return self._heading(1, RELEASE + ' Changelog')
+        return self._heading(1, super(MarkdownLog, self)._format_preamble())
 
     def _format_section(self, section):
         return self._heading(2, HEADINGS[section])
@@ -151,17 +180,20 @@ class MarkdownLog(PlainLog):
 
 
 CONFIG = GitConfig('changelog')
-RELEASE = shell("git tag -l --format='%(contents)' $(git describe --abbrev=0)")
 SECTIONS = CONFIG.get('sections', KeyType.LIST)
 PREFIXES = CONFIG.get('prefixes', KeyType.LIST)
 POSTFIXES = CONFIG.get('postfixes', KeyType.LIST)
 IGNORE = CONFIG.get('ignore', KeyType.LIST)
 HEADINGS = CONFIG.get('headings', KeyType.MAP)
 ALIASES = CONFIG.get('aliases', KeyType.MAP)
+RELEASE_RE = CONFIG.get('releasePattern', KeyType.SIMPLE)
+RELEASE = Release()
 
 parser = argparse.ArgumentParser(
-    description='Generate a changelog for the last tag based on changesets.')
-parser.add_argument('prev', type=str, help='previous tag')
+    description='Generate a changelog for the given revision range.')
+parser.add_argument('range', nargs='?', type=str, default=RELEASE.range,
+                    help='git revision range (default: {})'.format(
+                        RELEASE.range))
 parser.add_argument('-e', '--empty', action='store_true',
                     help='include empty sections')
 parser.add_argument('-n', '--no-preamble', action='store_true',
@@ -186,5 +218,5 @@ if args.markdown:
 else:
     Log = PlainLog
 
-log = Log(args.prev, args.empty, args.no_preamble, args.width, args.level)
+log = Log(args.range, args.empty, args.no_preamble, args.width, args.level)
 print(log)

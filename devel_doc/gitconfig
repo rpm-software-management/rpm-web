@@ -13,6 +13,7 @@
 	prefixes = transaction,spec,build
 	postfixes = regression,cosmetic
 	ignore = cleanup,test,documentation
+	releasePattern = ^(RPM .*) release$
 [changelog "headings"]
 	bug = Fixes
 	build = Build

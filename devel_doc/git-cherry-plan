@@ -162,7 +162,7 @@ class Plan(object):
     def update(self, show_stats=False):
         """Mark the applied commits and update the footer."""
 
-        applied = backports(self.branch)
+        applied = backports('{}..'.format(self.branch))
         changed = 0
 
         for commit in self.log:

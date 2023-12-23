@@ -15,10 +15,10 @@ def shell(cmd, capture=True, split=False):
         return out
     return out
 
-def backports(branch):
-    """Return the original commit hashes backported from a branch."""
+def backports(range):
+    """Return the original commit hashes backported from a git range."""
     res = []
-    log = shell('git rev-list --pretty="format:%b" {}..'.format(branch))
+    log = shell('git rev-list --pretty="format:%b" {}'.format(range))
     for r in BACKPORT_RE:
         res.extend(re.findall(r, log))
     return res
