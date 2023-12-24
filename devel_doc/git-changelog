@@ -7,7 +7,7 @@ import re
 import subprocess
 import sys
 
-from common import shell, backports, changeset, progressbar, KeyType, GitConfig
+from common import shell, backports, KeyType, GitConfig, ChangesetStore
 
 
 def describe(commit):
@@ -73,6 +73,7 @@ class PlainLog(object):
         self.width = width
         self.refresh = refresh
         self.quiet = quiet
+        self._changesets = ChangesetStore()
 
     def _format_preamble(self):
         out = 'Changelog'
@@ -95,20 +96,24 @@ class PlainLog(object):
         return fmt.format(prefix, title, postfix, num)
 
     @property
-    def _changesets(self):
-        changesets = {}
+    def changesets(self):
+        d = {}
         nums = set()
         ignore = set(IGNORE)
+        commits = backports(self.range)
 
-        for commit in progressbar(backports(self.range), self.quiet):
-            lines = changeset(commit, self.refresh)
-            if not lines:
+        # Prefetch changesets
+        self._changesets.load(commits, self.refresh, not self.quiet)
+
+        for commit in commits:
+            try:
+                chset = self._changesets[commit]
+            except KeyError:
                 continue
-            title = lines[0].split(':', 1)[1].strip()
-            labels = set([label.lower() for label in lines[1].split(' ')])
-            url = lines[2]
 
-            num = lines[0].split(':')[0][4:]
+            num = chset['number']
+            labels = set(map(str.lower, chset['labels']))
+
             if num in nums:
                 continue
             nums.add(num)
@@ -127,24 +132,26 @@ class PlainLog(object):
             else:
                 postfix = ''
 
-            labels = set(map(lambda x: ALIASES[x] if x in ALIASES else x, labels))
+            labels = set(map(lambda x: ALIASES[x]
+                             if x in ALIASES else x, labels))
             if labels & ignore:
                 continue
+
             labels = labels & HEADINGS.keys()
             if not labels:
                 labels = set(['other'])
 
             for label in labels:
-                changesets.setdefault(label, []).append(
-                    (prefix, postfix, title, num, url))
+                d.setdefault(label, []).append(
+                    (prefix, postfix, chset['title'], num, chset['url']))
 
-        return changesets
+        return d
 
     def __str__(self):
         out = []
         if not self.no_preamble:
             out = [self._format_preamble(), '']
-        changesets = self._changesets
+        changesets = self.changesets
         last = len(SECTIONS) - 1
         for section in SECTIONS:
             heading = self._format_section(section)

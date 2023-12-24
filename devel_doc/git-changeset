@@ -3,7 +3,7 @@
 import argparse
 import sys
 
-from common import shell, changeset
+from common import shell, ChangesetStore
 
 
 parser = argparse.ArgumentParser(
@@ -15,8 +15,11 @@ args = parser.parse_args()
 
 
 if __name__ == '__main__':
-    out = changeset(args.commit, args.refresh, split=False)
-    if out:
-        print(out)
-    else:
+    s = ChangesetStore(text=True)
+    s.load([args.commit], args.refresh)
+    try:
+        out = s[args.commit]
+    except KeyError:
         sys.exit(1)
+    else:
+        print(out)

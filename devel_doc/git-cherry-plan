@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import sys
 
-from common import shell, backports, changeset, progressbar, KeyType, GitConfig
+from common import shell, backports, KeyType, GitConfig, ChangesetStore
 
 
 #
@@ -42,10 +42,10 @@ class Commit(object):
 class Changeset(object):
     """A group of commits forming a logical changeset."""
 
-    def __init__(self, title, labels, url, commits, show_labels=True):
-        self.title = title
-        self.labels = set(labels.split())
-        self.url = url
+    def __init__(self, data, commits, show_labels=True):
+        self.title = 'PR #{}: {}'.format(data['number'], data['title'])
+        self.labels = data['labels']
+        self.url = data['url']
         self.commits = commits
         self.show_labels = show_labels
 
@@ -79,6 +79,7 @@ class Plan(object):
                  add_timestamp, refresh, quiet):
         # Branch to pull commits from
         self.branch = branch
+        self.changesets = ChangesetStore()
         self.changeset_size = changeset_size
         self.show_labels = show_labels
         self.automark = automark
@@ -180,41 +181,50 @@ class Plan(object):
     def pull(self, show_stats=False):
         """Append new commits on the branch to the plan."""
 
+        # Obtain a commit log from git
         lines = shell('git rev-list --reverse --no-commit-header '
                       '--pretty="format:%H %s" ' +
                       git_range(self.head, self.branch), split=True)
         if not lines:
             return
 
+        msg = 'Pulled {} commits'.format(len(lines))
+
+        # Populate our log
+        commits = [Commit(Command.REVIEW, *line.split(' ', 1), self.abbrev)
+                   for line in lines]
+        self.log.extend(commits)
+
         # Prepend a timestamp (if requested)
         if self.add_timestamp and self.lines:
             now = datetime.now()
             self.lines.append('# Pulled ' + now.strftime('%Y-%m-%d %H:%M:%S'))
 
-        # Generate commits (and changesets)
-        for line in progressbar(lines, self.quiet):
-            commit = Commit(Command.REVIEW, *line.split(' ', 1), self.abbrev)
-            self.log.append(commit)
+        # Populate lines with commits only
+        if self.changeset_size == 0:
+            self.lines.extend(commits)
+            if show_stats:
+                print(msg)
+            return
 
-            # Skip the rest unless grouping is enabled
-            if self.changeset_size == 0:
+        # Populate lines with changesets too
+        self.changesets.load([c.hash for c in commits],
+                             self.refresh, not self.quiet)
+        for commit in commits:
+            try:
+                s = self.changesets[commit.hash]
+            except KeyError:
                 self.lines.append(commit)
                 continue
 
-            # Group commits based on a changeset (if any)
-
-            clines = changeset(commit.hash, self.refresh)
-            if not clines:
-                self.lines.append(commit)
-                continue
-
-            chset = Changeset(*clines, [], self.show_labels)
-            if (isinstance(self.last, Changeset) and
-                self.last.title == chset.title):
-                chset = self.last
+            s = Changeset(s, [], self.show_labels)
+            if isinstance(self.last, Changeset) and \
+                    self.last.title == s.title:
+                s = self.last
             else:
-                self.lines.append(chset)
-            chset.commits.append(commit)
+                self.lines.append(s)
+
+            s.commits.append(commit)
 
         # Automark changesets
         if self.automark:
@@ -227,7 +237,7 @@ class Plan(object):
                     line.drop()
 
         if show_stats:
-            print('Pulled {} commits'.format(len(lines)))
+            print(msg)
 
     def __str__(self):
         """Dump the plan into a string and return it."""
