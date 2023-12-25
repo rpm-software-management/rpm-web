@@ -135,13 +135,10 @@ class ChangesetStore(dict):
             return '/dev/null'
         return '{}/{}'.format(self.number_dir, number)
 
-    def _link_file(self, commit, base_only=False):
+    def _link_file(self, commit):
         if len(commit) < SHA1_LEN:
             commit = shell('git rev-parse {}'.format(commit))
-        base = '{}/{}'.format(self.commit_dir, commit[:2])
-        if base_only:
-            return base
-        return '{}/{}'.format(base, commit[2:])
+        return '{}/{}/{}'.format(self.commit_dir, commit[:2], commit[2:])
 
     def _fetch(self, commit):
         data = shell('gh pr list --state merged --limit 1 --json '
@@ -180,21 +177,23 @@ class ChangesetStore(dict):
 
         data_file = self._data_file(number)
         link_file = self._link_file(key)
-        link_base = self._link_file(key, True)
 
         # Ensure the write is atomic in case of SIGINT
         done = False
+        excp = None
         while not done:
             try:
                 with open(data_file, 'w') as f:
                     f.write(entry)
                 if os.path.islink(link_file):
                     os.unlink(link_file)
-                os.makedirs(link_base, exist_ok=True)
+                os.makedirs(os.path.dirname(link_file), exist_ok=True)
                 os.symlink(target, link_file)
                 done = True
-            except KeyboardInterrupt:
+            except KeyboardInterrupt as excp:
                 continue
+        if excp is not None:
+            raise excp
 
     def __getitem__(self, key):
         ret = {}
