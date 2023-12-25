@@ -135,11 +135,12 @@ class ChangesetStore(dict):
             return '/dev/null'
         return '{}/{}'.format(self.number_dir, number)
 
-    def _link_file(self, commit):
+    def _link_file(self, commit, base_only=False):
         if len(commit) < SHA1_LEN:
             commit = shell('git rev-parse {}'.format(commit))
         base = '{}/{}'.format(self.commit_dir, commit[:2])
-        os.makedirs(base, exist_ok=True)
+        if base_only:
+            return base
         return '{}/{}'.format(base, commit[2:])
 
     def _fetch(self, commit):
@@ -179,6 +180,7 @@ class ChangesetStore(dict):
 
         data_file = self._data_file(number)
         link_file = self._link_file(key)
+        link_base = self._link_file(key, True)
 
         # Ensure the write is atomic in case of SIGINT
         done = False
@@ -188,6 +190,7 @@ class ChangesetStore(dict):
                     f.write(entry)
                 if os.path.islink(link_file):
                     os.unlink(link_file)
+                os.makedirs(link_base, exist_ok=True)
                 os.symlink(target, link_file)
                 done = True
             except KeyboardInterrupt:
