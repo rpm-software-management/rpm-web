@@ -171,18 +171,27 @@ class ChangesetStore(dict):
                 entry = '{}\n{}\n{}'.format(
                     data['title'], ' '.join(labels), data['url'])
 
-        with open(self._data_file(number), 'w') as f:
-            f.write(entry)
-
-        link_file = self._link_file(key)
-        if os.path.islink(link_file):
-            os.unlink(link_file)
         if number:
             # Use a relative path to make the store portable
             target = '../../numbers/{}'.format(number)
         else:
             target = '/dev/null'
-        os.symlink(target, link_file)
+
+        data_file = self._data_file(number)
+        link_file = self._link_file(key)
+
+        # Ensure the write is atomic in case of SIGINT
+        done = False
+        while not done:
+            try:
+                with open(data_file, 'w') as f:
+                    f.write(entry)
+                if os.path.islink(link_file):
+                    os.unlink(link_file)
+                os.symlink(target, link_file)
+                done = True
+            except KeyboardInterrupt:
+                continue
 
     def __getitem__(self, key):
         ret = {}
