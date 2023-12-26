@@ -150,9 +150,9 @@ class ChangesetStore(dict):
 
     def load(self, commits, force=False, progress=False):
         """Fetch a list of commits and cache them."""
+        if not force:
+            commits = [c for c in commits if c not in self]
         for c in progressbar(commits, 'Fetching changesets ', not progress):
-            if c in self and not force:
-                continue
             self[c] = self._fetch(c)
 
     def __contains__(self, key):
