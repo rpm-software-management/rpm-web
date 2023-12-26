@@ -14,12 +14,11 @@ parser.add_argument('-r', '--refresh', action='store_true',
 args = parser.parse_args()
 
 
-if __name__ == '__main__':
-    s = ChangesetStore(text=True)
-    s.load([args.commit], args.refresh)
-    try:
-        out = s[args.commit]
-    except KeyError:
-        sys.exit(1)
-    else:
-        print(out)
+s = ChangesetStore(text=True)
+s.load([args.commit], args.refresh)
+try:
+    out = s[args.commit]
+except KeyError:
+    sys.exit(1)
+else:
+    print(out)
