@@ -49,6 +49,13 @@ class Changeset(object):
         self.commits = commits
         self.show_labels = show_labels
 
+    def automark(self):
+        """Mark all commits in this changeset automatically."""
+        if self.labels & AUTOPICK:
+            self.pick()
+        elif self.labels & AUTODROP:
+            self.drop()
+
     def pick(self):
         """Pick all commits in this changeset."""
         for commit in self.commits:
@@ -229,12 +236,8 @@ class Plan(object):
         # Automark changesets
         if self.automark:
             for line in self.lines:
-                if not isinstance(line, Changeset):
-                    continue
-                if AUTOPICK & line.labels:
-                    line.pick()
-                elif AUTODROP & line.labels:
-                    line.drop()
+                if isinstance(line, Changeset):
+                    line.automark()
 
         if show_stats:
             print(msg)
