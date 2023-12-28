@@ -33,13 +33,13 @@ class Commit(object):
     def __init__(self, command, hash, subject, abbrev):
         self.command = command
         self.hash = hash
+        self.short = hash[:abbrev]
         self.subject = subject
-        self.abbrev = abbrev
 
     def _str(self, short):
         """Return this commit as a text line."""
         cmd = self.command + ' ' if not short else ''
-        return '{}{} {}'.format(cmd, self.hash[:self.abbrev], self.subject)
+        return '{}{} {}'.format(cmd, self.short, self.subject)
 
     def __str__(self):
         return self._str(False)
@@ -234,7 +234,7 @@ class Plan(object):
         changed = 0
 
         for commit in self.log:
-            if commit.hash not in applied:
+            if commit.short not in applied:
                 continue
             if commit.command != Command.APPLIED:
                 commit.command = Command.APPLIED
