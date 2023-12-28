@@ -49,11 +49,15 @@ endfunction
 function! s:plancheck()
     silent write
     let l:out = systemlist("git cherry-plan -f " . expand('%') . " check -s")
-    if empty(l:out)
+    if v:shell_error == 0
         echo "Plan applies cleanly"
     else
-        call search(l:out[0])
-        call s:print_err("Conflicting commit")
+        if len(l:out) > 0
+            call search(l:out[0])
+            call s:print_err("Conflicting commit, jumping to it")
+        else
+            call s:print_err("Empty commit")
+        endif
     endif
 endfunction
 

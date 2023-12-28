@@ -409,13 +409,24 @@ def check(plan, args):
         out = shell(script, True, False)
 
     if out.returncode:
-        commit = re.findall('^error: could not apply (.+)\\.\\.\\. (.+)$',
-                            out.stderr, re.MULTILINE)[0]
-        hash, subject = commit
+        m = re.findall('^error: could not apply (.+)\\.\\.\\. (.+)$',
+                       out.stderr, re.MULTILINE)
+        if not m:
+            m = re.findall('^The previous cherry-pick is now empty',
+                           out.stderr, re.MULTILINE)
+            if not m:
+                sys.stderr.write(out.stderr)
+                return out.returncode
+            if not args.short:
+                print(git_color('Plan does not apply cleanly due to an '
+                                'empty commit.', GitColor.STATUS_CHANGED))
+            return 1
+
+        hash, subject = m[0]
         if args.short:
             print('{} {}'.format(hash, subject))
         else:
-            print(git_color('Plan does not apply cleanly, '
+            print(git_color('Plan does not apply cleanly due to '
                             'conflicting commit:\n{} {}'.format(hash, subject),
                             GitColor.STATUS_CHANGED))
         return 1
