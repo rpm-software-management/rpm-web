@@ -34,10 +34,13 @@ class Commit(object):
         self.subject = subject
         self.abbrev = abbrev
 
-    def __str__(self):
+    def _str(self, short):
         """Return this commit as a text line."""
-        return '{} {} {}'.format(self.command, self.hash[:self.abbrev],
-                                 self.subject)
+        cmd = self.command + ' ' if not short else ''
+        return '{}{} {}'.format(cmd, self.hash[:self.abbrev], self.subject)
+
+    def __str__(self):
+        return self._str(False)
 
 class Changeset(object):
     """A group of commits forming a logical changeset."""
@@ -83,7 +86,7 @@ class Plan(object):
     """A cherry plan."""
 
     def __init__(self, branch, changeset_size, show_labels, automark,
-                 add_timestamp, refresh, quiet):
+                 add_timestamp, status_limit, refresh, quiet):
         # Branch to pull commits from
         self.branch = branch
         self.changesets = ChangesetStore()
@@ -91,6 +94,7 @@ class Plan(object):
         self.show_labels = show_labels
         self.automark = automark
         self.add_timestamp = add_timestamp
+        self.status_limit = status_limit
         self.refresh = refresh
         self.quiet = quiet
 
@@ -108,6 +112,8 @@ class Plan(object):
         self.log = []
         # All (unexpanded) text lines in this plan
         self.lines = []
+        # Loaded filename
+        self.file = None
 
     @property
     def head(self):
@@ -123,21 +129,73 @@ class Plan(object):
 
     @property
     def picks(self):
-        """The commit hashes of all picked commits."""
-        return [commit.hash for commit in self.log
-                if commit.command == Command.PICK]
+        """All picked commits."""
+        return [c for c in self.log if c.command == Command.PICK]
 
     @property
     def drops(self):
-        """The commit hashes of all dropped commits."""
-        return [commit.hash for commit in self.log
-                if commit.command == Command.DROP]
+        """All dropped commits."""
+        return [c for c in self.log if c.command == Command.DROP]
+
+    @property
+    def noops(self):
+        """All applied commits."""
+        return [c for c in self.log if c.command == Command.APPLIED]
+
+    @property
+    def todo(self):
+        """All unreviewed commits."""
+        return [c for c in self.log if c.command == Command.REVIEW]
+
+    def _log(self):
+        """Return a commit log of new commits on the branch."""
+        return shell('git rev-list --reverse --no-commit-header '
+                     '--pretty="format:%H %s" ' +
+                     git_range(self.head, self.branch), split=True)
+
+    def _list(self, which):
+        if which == 'picks':
+            prefix = 'Picked'
+            commits = self.picks
+            color = 'status.added'
+            default = 2
+        elif which == 'drops':
+            prefix = 'Dropped'
+            commits = self.drops
+            color = 'status.changed'
+            default = 1
+        elif which == 'noops':
+            prefix = 'Applied'
+            commits = self.noops
+            color = None
+            default = None
+        elif which == 'todo':
+            prefix = 'Unreviewed'
+            commits = self.todo
+            color = 'status.untracked'
+            default = 1
+
+        count = len(commits)
+        if count:
+            suffix = ' ({})'.format(count)
+        else:
+            suffix = ''
+        print('{} commits{}:'.format(prefix, suffix))
+        if commits:
+            if count > self.status_limit and self.status_limit > 0:
+                print('  (...)')
+            for c in commits[-self.status_limit:]:
+                print('  ' + git_color(c._str(True), color, default))
+        else:
+            print('  (no commits)')
+        print()
 
     def load(self, file):
         """Populate the plan from a file on disk."""
 
         self.log = []
         self.lines = []
+        self.file = file
 
         with open(file) as f:
             for line in f:
@@ -189,9 +247,7 @@ class Plan(object):
         """Append new commits on the branch to the plan."""
 
         # Obtain a commit log from git
-        lines = shell('git rev-list --reverse --no-commit-header '
-                      '--pretty="format:%H %s" ' +
-                      git_range(self.head, self.branch), split=True)
+        lines = self._log()
         if not lines:
             return
 
@@ -273,8 +329,30 @@ class Plan(object):
 
     def apply(self):
         """Apply the plan to the current branch."""
-        picks = ' '.join(self.picks)
+        picks = [c.hash for c in self.picks]
+        if not picks:
+            return
+        picks = ' '.join(picks)
         shell('echo "{}" | xargs git cherry-pick -x'.format(picks), False)
+
+    def status(self):
+        """Show the plan's status."""
+
+        if self.file is not None:
+            print('On plan {}'.format(os.path.basename(self.file)))
+
+        count = len(self._log())
+        if count:
+            status = "behind '{}' by {} commits".format(self.branch, count)
+        else:
+            status = "up to date with '{}'".format(self.branch)
+        print("Your plan is {}.".format(status))
+        print()
+
+        self._list('picks')
+        self._list('drops')
+        self._list('noops')
+        self._list('todo')
 
 
 #
@@ -284,6 +362,13 @@ class Plan(object):
 def git_range(a, b):
     """Return the git notation for a range between a and b."""
     return '{}..{}'.format(a, b)
+
+def git_color(text, name, default=''):
+    if name is None:
+        return text
+    c = shell("git config --type color "
+              "--default '{}' color.{}".format(default, name))
+    return '{}{}\033[0m'.format(c, text)
 
 def rev_parse(ref, short=True):
     """Return the id (commit hash) of the given ref name."""
@@ -337,6 +422,12 @@ def update(plan, args):
     plan.load(args.file)
     plan.update(True)
     plan.save(args.file)
+
+def status(plan, args):
+    if ensure_exists(args.file):
+        return
+    plan.load(args.file)
+    plan.status()
 
 #
 # Configuration
@@ -444,10 +535,19 @@ parser_update = subparsers.add_parser(
                    'update footer) ')
 parser_update.set_defaults(verb=update)
 
+parser_status = subparsers.add_parser(
+    'status', help='show current status of plan review')
+parser_status.set_defaults(verb=status)
+parser_status.add_argument('-l', '--limit', type=int, default=5,
+    help='maximum number of commits to show in each section, '
+         '0 means no limit (default: 5)')
+
 args = parser.parse_args()
 if hasattr(args, 'verb'):
+    limit = args.limit if hasattr(args, 'limit') else None
     plan = Plan(args.branch, args.changeset_size, args.show_labels,
-                args.automark, args.add_timestamp, args.refresh, args.quiet)
+                args.automark, args.add_timestamp, limit,
+                args.refresh, args.quiet)
     args.verb(plan, args)
 else:
     parser.print_usage()
