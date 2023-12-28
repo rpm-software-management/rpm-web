@@ -180,11 +180,11 @@ keep the previous commits, though, in case some of them turn out to be needed
 to resolve a conflict.
 
 For a newly created plan, if you choose to keep the previous commits, make sure
-to mark them with `drop`, for example (replace `<linenum>` with the last line
+to mark them with `drop` (replace `<commit>` with the hash of the last commit
 to mark):
 
 ```
-sed -i '1,<linenum> s/^     /drop /' <stable>.plan
+git cherry-plan mark drop :<commit>
 ```
 
 #### Choosing a commit budget
@@ -195,12 +195,15 @@ course, feel free to tweak it as needed.
 
 Generally speaking, the budget is for code changes *only*, so any test and
 documentation additions or updates do *not* count and should always be picked
-if possible.
+if possible.  In fact, `git cherry-plan` is already configured to automatically
+pick such commits when generating a plan, based on GitHub PR labels (see the
+[config](gitconfig) file for the list).
 
-You can check the number of picks so far by running:
+The following command will print a summary of the plan (the number of picks and
+other information):
 
 ```
-grep '^pick ' <stable>.plan | wc -l
+git cherry-plan status
 ```
 
 #### VIM config
@@ -211,6 +214,24 @@ cycle through markers on the current line with the `CTRL+SPACE` key and do a
 
 If you install the [git-changeset](git-changeset) script into your `$PATH`, you
 can type `gx` to open the current commit's PR in your default browser.
+
+Lastly, you can [check](#checking-a-plan) if the plan applies cleanly by
+pressing `F8`.  This will also move the cursor to the line with the conflicting
+commit (if any).
+
+### Checking a plan
+
+While working on a plan, it may be handy to quickly check whether the current
+selection of commits would apply cleanly to the stable branch.  To do that,
+run:
+
+```
+git cherry-plan check
+```
+
+This will create a temporary clone of the current checkout,
+[apply](#applying-a-plan) the plan to it and print a "success" message or the
+conflicting commit otherwise.
 
 ### Sharing a plan
 
