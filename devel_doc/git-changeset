@@ -3,7 +3,7 @@
 import argparse
 import sys
 
-from common import shell, ChangesetStore
+from common import ChangesetStore
 
 
 parser = argparse.ArgumentParser(
