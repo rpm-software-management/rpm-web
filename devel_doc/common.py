@@ -13,6 +13,21 @@ def shell(cmd, capture=True, stdout=True):
         out = out.stdout.strip('\n')
     return out
 
+def git_range(a, b):
+    """Return the git notation for a range between a and b."""
+    return '{}..{}'.format(a, b)
+
+def git_color(text, name, default=''):
+    if name is None or not sys.stdout.isatty():
+        return text
+    c = shell("git config --type color "
+              "--default '{}' color.{}".format(default, name))
+    return '{}{}\033[0m'.format(c, text)
+
+def rev_parse(ref, short=True):
+    """Return the id (commit hash) of the given ref name."""
+    return shell('git rev-parse {} {}'.format('--short' if short else '', ref))
+
 def backports(range, abbrev=0):
     """Return the original commit hashes backported from a git range."""
     out = []

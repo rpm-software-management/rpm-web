@@ -9,7 +9,8 @@ import shutil
 import subprocess
 import sys
 
-from common import shell, backports, KeyType, GitConfig, ChangesetStore
+from common import shell, backports, git_range, git_color, rev_parse, \
+                   KeyType, GitConfig, ChangesetStore
 
 
 #
@@ -362,21 +363,6 @@ class Plan(object):
 #
 # Helper functions
 #
-
-def git_range(a, b):
-    """Return the git notation for a range between a and b."""
-    return '{}..{}'.format(a, b)
-
-def git_color(text, name, default=''):
-    if name is None or not sys.stdout.isatty():
-        return text
-    c = shell("git config --type color "
-              "--default '{}' color.{}".format(default, name))
-    return '{}{}\033[0m'.format(c, text)
-
-def rev_parse(ref, short=True):
-    """Return the id (commit hash) of the given ref name."""
-    return shell('git rev-parse {} {}'.format('--short' if short else '', ref))
 
 def ensure_exists(file):
     if not os.path.exists(file):
