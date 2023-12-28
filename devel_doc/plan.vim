@@ -51,13 +51,13 @@ function! s:plancheck()
     let l:out = systemlist("git cherry-plan -f " . expand('%') . " check -s")
     if v:shell_error == 0
         echo "Plan applies cleanly"
+    elseif v:shell_error == 1
+        call search(l:out[0])
+        call s:print_err("Conflicting commit, jumping to it")
+    elseif v:shell_error == 2
+        call s:print_err("Empty commit")
     else
-        if len(l:out) > 0
-            call search(l:out[0])
-            call s:print_err("Conflicting commit, jumping to it")
-        else
-            call s:print_err("Empty commit")
-        endif
+        call s:print_err("Plan check error " . v:shell_error)
     endif
 endfunction
 

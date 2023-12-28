@@ -416,11 +416,11 @@ def check(plan, args):
                            out.stderr, re.MULTILINE)
             if not m:
                 sys.stderr.write(out.stderr)
-                return out.returncode
+                return 3
             if not args.short:
                 print(git_color('Plan does not apply cleanly due to an '
                                 'empty commit.', GitColor.STATUS_CHANGED))
-            return 1
+            return 2
 
         hash, subject = m[0]
         if args.short:
