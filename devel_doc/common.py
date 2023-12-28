@@ -6,15 +6,11 @@ import subprocess
 import sys
 
 
-def shell(cmd, capture=True, split=False):
-    """Run a command in a shell and return its standard output."""
+def shell(cmd, capture=True, stdout=True):
+    """Run a command in a shell."""
     out = subprocess.run(cmd, capture_output=capture, shell=True, text=True)
-    if capture:
-        sys.stderr.write(out.stderr)
+    if capture and stdout:
         out = out.stdout.strip('\n')
-        if out and split:
-            return out.split('\n')
-        return out
     return out
 
 def backports(range, abbrev=0):

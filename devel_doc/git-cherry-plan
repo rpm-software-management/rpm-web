@@ -149,9 +149,12 @@ class Plan(object):
 
     def _log(self):
         """Return a commit log of new commits on the branch."""
-        return shell('git rev-list --reverse --no-commit-header '
-                     '--pretty="format:%H %s" ' +
-                     git_range(self.head, self.branch), split=True)
+        out = shell('git rev-list --reverse --no-commit-header '
+                    '--pretty="format:%H %s" ' +
+                    git_range(self.head, self.branch))
+        if out:
+            out = out.split('\n')
+        return out
 
     def _list(self, which):
         if which == 'picks':
