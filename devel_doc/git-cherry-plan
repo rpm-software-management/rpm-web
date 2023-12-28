@@ -577,11 +577,10 @@ parser_status.add_argument('-l', '--limit', type=int, default=5,
 
 args = parser.parse_args()
 if hasattr(args, 'verb'):
-    short = args.short if hasattr(args, 'short') else None
     limit = args.limit if hasattr(args, 'limit') else None
     plan = Plan(args.branch, args.changeset_size, args.show_labels,
-                args.automark, args.add_timestamp, limit,
-                args.refresh, args.quiet)
+                args.automark, args.add_timestamp, limit, args.refresh,
+                args.quiet)
     code = args.verb(plan, args)
     sys.exit(code)
 else:
