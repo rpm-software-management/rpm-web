@@ -216,7 +216,6 @@ class Plan(object):
                 command, hash, subject = m.groups()
                 if command not in COMMANDS:
                     raise UnknownCommandError(line)
-                hash = rev_parse(hash, False)
                 commit = Commit(COMMANDS[command], hash, subject, self.abbrev)
 
                 self.log.append(commit)
@@ -230,7 +229,7 @@ class Plan(object):
     def update(self, show_stats=False):
         """Mark the applied commits and update the footer."""
 
-        applied = backports('{}..'.format(self.branch))
+        applied = backports('{}..'.format(self.branch), self.abbrev)
         changed = 0
 
         for commit in self.log:

@@ -17,12 +17,14 @@ def shell(cmd, capture=True, split=False):
         return out
     return out
 
-def backports(range):
+def backports(range, abbrev=0):
     """Return the original commit hashes backported from a git range."""
     out = []
     log = shell('git rev-list --pretty="format:%b" {}'.format(range))
     for r in BACKPORT_RE:
         out.extend(re.findall(r, log))
+    if abbrev:
+        out = [c[:abbrev] for c in out]
     return out
 
 def progressbar(sequence, label='', hide=False):
