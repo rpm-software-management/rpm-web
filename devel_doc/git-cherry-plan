@@ -378,7 +378,7 @@ def ensure_not_exists(file):
 
 def make(plan, args):
     if ensure_not_exists(args.file):
-        return
+        return 1
     plan.pull()
     plan.update()
     plan.save(args.file)
@@ -387,13 +387,13 @@ def make(plan, args):
 
 def edit(plan, args):
     if ensure_exists(args.file):
-        return
+        return 1
     shell('$EDITOR ' + args.file, False)
     return 0
 
 def pull(plan, args):
     if ensure_exists(args.file):
-        return
+        return 1
     plan.load(args.file)
     plan.pull(True)
     plan.save(args.file)
@@ -426,13 +426,13 @@ def check(plan, args):
 
 def apply(plan, args):
     if ensure_exists(args.file):
-        return
+        return 1
     plan.load(args.file)
     return plan.apply()
 
 def update(plan, args):
     if ensure_exists(args.file):
-        return
+        return 1
     plan.load(args.file)
     plan.update(True)
     plan.save(args.file)
@@ -440,7 +440,7 @@ def update(plan, args):
 
 def status(plan, args):
     if ensure_exists(args.file):
-        return
+        return 1
     plan.load(args.file)
     plan.status()
     return 0
