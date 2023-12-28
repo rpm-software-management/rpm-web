@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from datetime import datetime
+from tempfile import TemporaryDirectory
 import argparse
 import os
 import re
@@ -416,6 +417,31 @@ def pull(plan, args):
     plan.save(args.file)
     return 0
 
+def check(plan, args):
+    with TemporaryDirectory() as dirname:
+        file = os.path.abspath(args.file)
+        script = '\
+            git clone . {dirname} && \
+            git -C {dirname} cherry-plan -f {file} apply \
+        '.format(dirname=dirname, file=file)
+        out = shell(script, True, False)
+
+    if out.returncode:
+        commit = re.findall('^error: could not apply (.+)\\.\\.\\. (.+)$',
+                            out.stderr, re.MULTILINE)[0]
+        hash, subject = commit
+        if args.short:
+            print('{} {}'.format(hash, subject))
+        else:
+            print(git_color('Plan does not apply cleanly, '
+                            'conflicting commit:\n{} {}'.format(hash, subject),
+                            'status.changed', 1))
+        return 1
+
+    if not args.short:
+        print(git_color('Plan applies cleanly.', 'status.added', 2))
+    return 0
+
 def apply(plan, args):
     if ensure_exists(args.file):
         return
@@ -534,6 +560,12 @@ parser_pull = subparsers.add_parser(
     'pull', help='append new commits on BRANCH to plan')
 parser_pull.set_defaults(verb=pull)
 
+parser_check = subparsers.add_parser(
+    'check', help='check if plan applies cleanly to current branch')
+parser_check.set_defaults(verb=check)
+parser_check.add_argument('-s', '--short', action='store_true',
+    help='brief mode, only print conflicting commit (if any)')
+
 parser_apply = subparsers.add_parser(
     'apply', help='apply plan to current branch')
 parser_apply.set_defaults(verb=apply)
@@ -552,6 +584,7 @@ parser_status.add_argument('-l', '--limit', type=int, default=5,
 
 args = parser.parse_args()
 if hasattr(args, 'verb'):
+    short = args.short if hasattr(args, 'short') else None
     limit = args.limit if hasattr(args, 'limit') else None
     plan = Plan(args.branch, args.changeset_size, args.show_labels,
                 args.automark, args.add_timestamp, limit,

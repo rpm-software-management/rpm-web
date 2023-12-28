@@ -39,10 +39,29 @@ function! s:propen()
     silent exec "!xdg-open " . l:out[2] | redraw!
 endfunction
 
+function! s:print_err(msg) abort
+    execute 'normal! \<Esc>'
+    echohl ErrorMsg
+    echomsg a:msg
+    echohl None
+endfunction
+
+function! s:plancheck()
+    silent write
+    let l:out = systemlist("git cherry-plan -f " . expand('%') . " check -s")
+    if empty(l:out)
+        echo "Plan applies cleanly"
+    else
+        call search(l:out[0])
+        call s:print_err("Conflicting commit")
+    endif
+endfunction
+
 function! s:init()
     nmap <buffer> <silent> <NUL>        :call <sid>cycle()<CR>
     nmap <buffer> <silent> <CR>         :call <sid>gitshow()<CR>
     nmap <buffer> <silent> gx           :call <sid>propen()<CR>
+    nmap <buffer> <silent> <F8>         :call <sid>plancheck()<CR>
 endfunction
 
 autocmd BufNewFile,BufRead *.plan call <sid>init()
