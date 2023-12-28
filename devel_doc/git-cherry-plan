@@ -10,7 +10,7 @@ import subprocess
 import sys
 
 from common import shell, backports, git_range, git_color, rev_parse, \
-                   KeyType, GitConfig, ChangesetStore
+                   KeyType, GitColor, GitConfig, ChangesetStore
 
 
 #
@@ -162,23 +162,19 @@ class Plan(object):
         if which == 'picks':
             prefix = 'Picked'
             commits = self.picks
-            color = 'status.added'
-            default = 2
+            color = GitColor.STATUS_ADDED
         elif which == 'drops':
             prefix = 'Dropped'
             commits = self.drops
-            color = 'status.changed'
-            default = 1
+            color = GitColor.STATUS_CHANGED
         elif which == 'noops':
             prefix = 'Applied'
             commits = self.noops
             color = None
-            default = None
         elif which == 'todo':
             prefix = 'Unreviewed'
             commits = self.todo
-            color = 'status.untracked'
-            default = 1
+            color = GitColor.STATUS_UNTRACKED
 
         count = len(commits)
         if count:
@@ -190,7 +186,7 @@ class Plan(object):
             if count > self.status_limit and self.status_limit > 0:
                 print('  (...)')
             for c in commits[-self.status_limit:]:
-                print('  ' + git_color(c._str(True), color, default))
+                print('  ' + git_color(c._str(True), color))
         else:
             print('  (no commits)')
         print()
@@ -421,11 +417,11 @@ def check(plan, args):
         else:
             print(git_color('Plan does not apply cleanly, '
                             'conflicting commit:\n{} {}'.format(hash, subject),
-                            'status.changed', 1))
+                            GitColor.STATUS_CHANGED))
         return 1
 
     if not args.short:
-        print(git_color('Plan applies cleanly.', 'status.added', 2))
+        print(git_color('Plan applies cleanly.', GitColor.STATUS_ADDED))
     return 0
 
 def apply(plan, args):

@@ -17,9 +17,10 @@ def git_range(a, b):
     """Return the git notation for a range between a and b."""
     return '{}..{}'.format(a, b)
 
-def git_color(text, name, default=''):
-    if name is None or not sys.stdout.isatty():
+def git_color(text, color):
+    if color is None or not sys.stdout.isatty():
         return text
+    name, default = color
     c = shell("git config --type color "
               "--default '{}' color.{}".format(default, name))
     return '{}{}\033[0m'.format(c, text)
@@ -60,14 +61,19 @@ def progressbar(sequence, label='', hide=False):
     bar.finish()
 
 
-class KeyType:
+class KeyType(object):
     """Git config's entry types."""
-
     SIMPLE      = 0,
     LIST        = 1,
     SET         = 2,
     MULTILINE   = 3,
     MAP         = 4,
+
+class GitColor(object):
+    """Git colors."""
+    STATUS_ADDED        = ('status.added', 2)
+    STATUS_CHANGED      = ('status.changed', 1)
+    STATUS_UNTRACKED    = ('status.untracked', 1)
 
 class GitConfig(object):
     """A wrapper for git configuration."""
