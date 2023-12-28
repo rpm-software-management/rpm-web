@@ -298,6 +298,35 @@ class Plan(object):
         if show_stats:
             print(msg)
 
+    def mark(self, cmd, rng):
+        """Mark a range of commits with a command."""
+
+        if cmd == '-':
+            cmd = Command.REVIEW
+
+        if cmd not in COMMANDS:
+            raise UnknownCommandError(cmd)
+
+        if ':' in rng:
+            start, end = rng.split(':')
+        else:
+            start = ''
+            end = rng
+
+        changed = 0
+        for commit in self.log:
+            if start and commit.hash != start:
+                continue
+            start = ''
+            old = commit.command
+            if old != cmd and old != Command.APPLIED:
+                commit.command = cmd
+                changed += 1
+            if commit.hash == end:
+                break
+
+        print('Marked {} commits'.format(changed))
+
     def __str__(self):
         """Dump the plan into a string and return it."""
 
@@ -396,6 +425,14 @@ def pull(plan, args):
         return 1
     plan.load(args.file)
     plan.pull(True)
+    plan.save(args.file)
+    return 0
+
+def mark(plan, args):
+    if ensure_exists(args.file):
+        return 1
+    plan.load(args.file)
+    plan.mark(args.command, args.range)
     plan.save(args.file)
     return 0
 
@@ -552,6 +589,13 @@ parser_edit.set_defaults(verb=edit)
 parser_pull = subparsers.add_parser(
     'pull', help='append new commits on BRANCH to plan')
 parser_pull.set_defaults(verb=pull)
+
+parser_mark = subparsers.add_parser(
+    'mark', help='mark range of commits with given command')
+parser_mark.set_defaults(verb=mark)
+parser_mark.add_argument('command', help='command to mark commits with')
+parser_mark.add_argument('range',
+    help='range of commits to mark in HASH1:HASH2 format (: for all)')
 
 parser_check = subparsers.add_parser(
     'check', help='check if plan applies cleanly to current branch')
