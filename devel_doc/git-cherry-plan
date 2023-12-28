@@ -613,7 +613,7 @@ parser_update = subparsers.add_parser(
 parser_update.set_defaults(verb=update)
 
 parser_status = subparsers.add_parser(
-    'status', help='show current status of plan review')
+    'status', help='show current status of plan')
 parser_status.set_defaults(verb=status)
 parser_status.add_argument('-l', '--limit', type=int, default=5,
     help='maximum number of commits to show in each section, '
