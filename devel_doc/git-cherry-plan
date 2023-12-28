@@ -335,7 +335,8 @@ class Plan(object):
         if not picks:
             return
         picks = ' '.join(picks)
-        shell('echo "{}" | xargs git cherry-pick -x'.format(picks), False)
+        cmd = 'echo "{}" | xargs git cherry-pick -x'.format(picks)
+        return shell(cmd, False).returncode
 
     def status(self):
         """Show the plan's status."""
@@ -399,11 +400,13 @@ def make(plan, args):
     plan.update()
     plan.save(args.file)
     print(args.file)
+    return 0
 
 def edit(plan, args):
     if ensure_exists(args.file):
         return
     shell('$EDITOR ' + args.file, False)
+    return 0
 
 def pull(plan, args):
     if ensure_exists(args.file):
@@ -411,12 +414,13 @@ def pull(plan, args):
     plan.load(args.file)
     plan.pull(True)
     plan.save(args.file)
+    return 0
 
 def apply(plan, args):
     if ensure_exists(args.file):
         return
     plan.load(args.file)
-    plan.apply()
+    return plan.apply()
 
 def update(plan, args):
     if ensure_exists(args.file):
@@ -424,12 +428,14 @@ def update(plan, args):
     plan.load(args.file)
     plan.update(True)
     plan.save(args.file)
+    return 0
 
 def status(plan, args):
     if ensure_exists(args.file):
         return
     plan.load(args.file)
     plan.status()
+    return 0
 
 #
 # Configuration
@@ -550,7 +556,8 @@ if hasattr(args, 'verb'):
     plan = Plan(args.branch, args.changeset_size, args.show_labels,
                 args.automark, args.add_timestamp, limit,
                 args.refresh, args.quiet)
-    args.verb(plan, args)
+    code = args.verb(plan, args)
+    sys.exit(code)
 else:
     parser.print_usage()
     sys.exit(2)
