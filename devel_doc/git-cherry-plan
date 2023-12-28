@@ -366,7 +366,7 @@ def git_range(a, b):
     return '{}..{}'.format(a, b)
 
 def git_color(text, name, default=''):
-    if name is None:
+    if name is None or not sys.stdout.isatty():
         return text
     c = shell("git config --type color "
               "--default '{}' color.{}".format(default, name))
