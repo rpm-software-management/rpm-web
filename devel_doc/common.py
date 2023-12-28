@@ -156,7 +156,7 @@ class ChangesetStore(dict):
 
     def _link_file(self, commit):
         if len(commit) < SHA1_LEN:
-            commit = shell('git rev-parse {}'.format(commit))
+            commit = rev_parse(commit, False)
         return '{}/{}/{}'.format(self.commit_dir, commit[:2], commit[2:])
 
     def _fetch(self, commit):
