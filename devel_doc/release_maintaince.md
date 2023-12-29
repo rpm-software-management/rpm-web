@@ -185,7 +185,7 @@ git cherry-plan cut <commit>
 This will insert a "scissors" line below `<commit>` to mark the starting point
 and automatically mark any unreviewed commits above that line with `drop`.
 
-If you leave out the `<commit>` argument, the first unreviewed commit will be
+If you leave out the `<commit>` argument, the first unmarked commit will be
 chosen as the "cutting" point.
 
 #### Choosing a commit budget
