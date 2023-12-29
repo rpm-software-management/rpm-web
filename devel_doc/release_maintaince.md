@@ -172,20 +172,21 @@ specific cherry-picks, leaving gaps behind that may contain useful material for
 the next stable release.
 
 Otherwise, when editing an existing plan, simply start at the first unmarked
-commit.
+commit.  In either case, it can be handy to keep the previous commits in the
+plan in case some of them turn out to be needed to resolve a conflict.
 
-Once you've chosen your starting point, either delete the lines above it or
-bookmark the place by inserting an empty line(s) or comment.  It's handy to
-keep the previous commits, though, in case some of them turn out to be needed
-to resolve a conflict.
-
-For a newly created plan, if you choose to keep the previous commits, make sure
-to mark them with `drop` (replace `<commit>` with the hash of the last commit
-to mark):
+Once you've chosen your starting point, "cut" the plan in half with the
+following command:
 
 ```
-git cherry-plan mark drop :<commit>
+git cherry-plan cut <commit>
 ```
+
+This will insert a "scissors" line below `<commit>` to mark the starting point
+and automatically mark any unreviewed commits above that line with `drop`.
+
+If you leave out the `<commit>` argument, the first unreviewed commit will be
+chosen as the "cutting" point.
 
 #### Choosing a commit budget
 
@@ -199,8 +200,8 @@ if possible.  In fact, `git cherry-plan` is already configured to automatically
 pick such commits when generating a plan, based on GitHub PR labels (see the
 [config](gitconfig) file for the list).
 
-The following command will print a summary of the plan (the number of picks and
-other information):
+The following command will print a summary of the plan (the number of picks
+etc.) *below* the scissors line:
 
 ```
 git cherry-plan status
@@ -237,8 +238,15 @@ conflicting commit otherwise.
 
 Once you're satisfied with your picks, send the plan as a plain-text email to
 the team and ask for feedback.  That way, people can reply directly to the
-individual commits inline.  Feel free to strip the old commits from the email
-to keep it short.
+individual commits inline.
+
+In most cases, you may only want to include the lines relevant to this review
+session.  You can use the following command that prints the plan to standard
+output, with everything above the scissors line cut off:
+
+```
+git cherry-plan dump > email.txt
+```
 
 ### Applying a plan
 

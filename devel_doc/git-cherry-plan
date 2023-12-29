@@ -116,6 +116,8 @@ class Plan(object):
         self.lines = []
         # Loaded filename
         self.file = None
+        # Position of the scissors line within the log
+        self.scissors = 0
 
     @property
     def head(self):
@@ -130,24 +132,29 @@ class Plan(object):
         return self.lines[-1] if self.lines else ''
 
     @property
+    def slice(self):
+        """All commits below the scissors line."""
+        return self.log[self.scissors:]
+
+    @property
     def picks(self):
         """All picked commits."""
-        return [c for c in self.log if c.command == Command.PICK]
+        return [c for c in self.slice if c.command == Command.PICK]
 
     @property
     def drops(self):
         """All dropped commits."""
-        return [c for c in self.log if c.command == Command.DROP]
+        return [c for c in self.slice if c.command == Command.DROP]
 
     @property
     def noops(self):
         """All applied commits."""
-        return [c for c in self.log if c.command == Command.APPLIED]
+        return [c for c in self.slice if c.command == Command.APPLIED]
 
     @property
     def todo(self):
         """All unreviewed commits."""
-        return [c for c in self.log if c.command == Command.REVIEW]
+        return [c for c in self.slice if c.command == Command.REVIEW]
 
     def _log(self):
         """Return a commit log of new commits on the branch."""
@@ -197,10 +204,16 @@ class Plan(object):
         self.log = []
         self.lines = []
         self.file = file
+        # Number of commits read
+        count = 0
 
         with open(file) as f:
             for line in f:
                 line = line.strip('\n')
+
+                # Mark the position of the scissors line (if any)
+                if not self.scissors and line == SCISSORS:
+                    self.scissors = count
 
                 # Stop at the footer
                 m = re.match(self.re_footer, line)
@@ -221,6 +234,8 @@ class Plan(object):
 
                 self.log.append(commit)
                 self.lines.append(commit)
+
+                count += 1
 
     def save(self, file):
         """Dump the plan to a file on disk."""
@@ -298,13 +313,53 @@ class Plan(object):
         if show_stats:
             print(msg)
 
-    def __str__(self):
+    def cut(self, where, delete=False):
+        """Insert a scissors line below the given commit."""
+
+        # Remove the existing scissors line (if any)
+        if SCISSORS in self.lines:
+            self.lines.remove(SCISSORS)
+
+        if delete:
+            return
+
+        # Locate the last reviewed commit if where is not given
+        if where is None:
+            last = None
+            for commit in self.log:
+                if commit.command == Command.REVIEW:
+                    if last is None:
+                        return
+                    where = last.hash
+                    break
+                last = commit
+            else:
+                return
+
+        # Insert a scissors line and mark all commits above it as dropped
+        for num, line in enumerate(self.lines):
+            if not isinstance(line, Commit):
+                continue
+            if line.hash == where:
+                num += 1
+                self.lines[num:num] = [SCISSORS]
+                break
+            if line.command == Command.REVIEW:
+                line.command = Command.DROP
+
+    def dump(self, cut=False):
         """Dump the plan into a string and return it."""
 
         lines = []
+        start = not (cut and self.scissors)
 
         # Expand all lines
         for line in self.lines:
+            if not start:
+                if line == SCISSORS:
+                    start = True
+                else:
+                    continue
             if isinstance(line, Changeset):
                 # Collapse the changeset if smaller than the threshold
                 if line.commits and len(line.commits) < self.changeset_size:
@@ -326,6 +381,9 @@ class Plan(object):
                   rev_parse(self.HEAD), len(self.log))]
 
         return '\n'.join(lines)
+
+    def __str__(self):
+        return self.dump()
 
     def apply(self):
         """Apply the plan to the current branch."""
@@ -397,6 +455,21 @@ def pull(plan, args):
     plan.load(args.file)
     plan.pull(True)
     plan.save(args.file)
+    return 0
+
+def cut(plan, args):
+    if ensure_exists(args.file):
+        return 1
+    plan.load(args.file)
+    plan.cut(args.where, args.delete)
+    plan.save(args.file)
+    return 0
+
+def dump(plan, args):
+    if ensure_exists(args.file):
+        return 1
+    plan.load(args.file)
+    print(plan.dump(True), end='')
     return 0
 
 def check(plan, args):
@@ -515,6 +588,7 @@ DIRECTORY = CONFIG.get('directory', default='.')
 FILE = '{}/{}.plan'.format(DIRECTORY, shell('git rev-parse --abbrev-ref HEAD'))
 AUTOPICK = CONFIG.get('automark.pick', KeyType.SET, set())
 AUTODROP = CONFIG.get('automark.drop', KeyType.SET, set())
+SCISSORS = '# ------------------------ >8 ------------------------'
 
 #
 # Argument parsing
@@ -553,6 +627,20 @@ parser_pull = subparsers.add_parser(
     'pull', help='append new commits on BRANCH to plan')
 parser_pull.set_defaults(verb=pull)
 
+parser_cut = subparsers.add_parser(
+    'cut', help='insert scissors line below given commit and mark all commits '
+                'above the line as dropped')
+parser_cut.set_defaults(verb=cut)
+parser_cut.add_argument('where', nargs='?',
+    help='hash of commit to cut below '
+         '(or first unreviewed commit if not given)')
+parser_cut.add_argument('-d', '--delete', action='store_true',
+    help='delete existing scissors line (if any)')
+
+parser_dump = subparsers.add_parser('dump',
+    help='print plan to stdout, with everything above scissors line cut off')
+parser_dump.set_defaults(verb=dump)
+
 parser_check = subparsers.add_parser(
     'check', help='check if plan applies cleanly to current branch')
 parser_check.set_defaults(verb=check)
@@ -571,9 +659,9 @@ parser_update.set_defaults(verb=update)
 parser_status = subparsers.add_parser(
     'status', help='show current status of plan')
 parser_status.set_defaults(verb=status)
-parser_status.add_argument('-l', '--limit', type=int, default=5,
+parser_status.add_argument('-l', '--limit', type=int, default=20,
     help='maximum number of commits to show in each section, '
-         '0 means no limit (default: 5)')
+         '0 means no limit (default: 20)')
 
 args = parser.parse_args()
 if hasattr(args, 'verb'):
