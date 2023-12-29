@@ -237,8 +237,10 @@ class Plan(object):
 
                 count += 1
 
-    def save(self, file):
+    def save(self, file=None):
         """Dump the plan to a file on disk."""
+        if file is None:
+            file = self.file
         with open(file, 'w') as f:
             f.write(str(self))
 
@@ -454,7 +456,7 @@ def pull(plan, args):
         return 1
     plan.load(args.file)
     plan.pull(True)
-    plan.save(args.file)
+    plan.save()
     return 0
 
 def cut(plan, args):
@@ -462,7 +464,7 @@ def cut(plan, args):
         return 1
     plan.load(args.file)
     plan.cut(args.where, args.delete)
-    plan.save(args.file)
+    plan.save()
     return 0
 
 def dump(plan, args):
@@ -519,7 +521,7 @@ def update(plan, args):
         return 1
     plan.load(args.file)
     plan.update(True)
-    plan.save(args.file)
+    plan.save()
     return 0
 
 def status(plan, args):
