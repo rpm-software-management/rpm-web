@@ -5,22 +5,6 @@ title: rpm.org - Roadmap
 
 # RPM Roadmap
 
-## 2023
-* Bugfix release for 4.18 (Q1)
-* RPM 4.19 release (Q3)
-  * Build infra modernization
-    * [CMake based build system](https://github.com/rpm-software-management/rpm/pull/2096)
-    * [Replace fakechroot with better technology](https://github.com/rpm-software-management/rpm/issues/1580)
-    * [Migrate away from SemaphoreCI Classic](https://github.com/rpm-software-management/rpm/issues/2569)
-  * Hands-free packaging
-    * [Dynamic spec generation](https://github.com/rpm-software-management/rpm/discussions/2032)
-    * [Declarative user/group handling](https://github.com/rpm-software-management/rpm/issues/1032)
-    * [Resource management for parallel builds](https://github.com/rpm-software-management/rpm/issues/804)
-  * [Deprecate internal OpenPGP parser](https://github.com/rpm-software-management/rpm/issues/1935)
-  * [Purge obsolete API](https://github.com/rpm-software-management/rpm/issues/1989)
-* RPM v6 scoping (ongoing)
-  * First [public draft of RPM v6 format](https://github.com/rpm-software-management/rpm/discussions/2374)
-
 ## 2024
 * RPM 4.20 release (Q3)
   * Hands-free packaging
@@ -33,7 +17,7 @@ title: rpm.org - Roadmap
   * [Finalize plugin API, make public](https://github.com/rpm-software-management/rpm/issues/1536)
   * Security
     * Increased build and install scriptlet isolation
-
+* RPM 4.19 bugfix release
 * RPM v6 specification
 
 ## 2025
