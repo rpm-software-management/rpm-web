@@ -10,7 +10,7 @@
 [changelog]
 	# Loosely based on https://keepachangelog.com/en/1.1.0/
 	sections = rfe,changed,deprecated,removed,bug,security,other
-	prefixes = transaction,packaging,build
+	prefixes = transaction,packaging,lua,build
 	postfixes = regression,cosmetic
 	ignore = cleanup,test,documentation
 	releasePattern = ^(RPM .*) release$
@@ -20,6 +20,7 @@
 	changed = Changes
 	cosmetic = Cosmetic
 	deprecated = Deprecations
+	lua = Lua interface
 	other = Other
 	packaging = Packaging
 	regression = Regression
