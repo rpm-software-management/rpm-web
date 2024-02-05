@@ -339,7 +339,7 @@ you're preparing, for example `4.19.1`.
             * soname bumps can only occur at the first version of a new branch
               (i.e. alpha/beta).
 
-        1. Update the static test output: `make static`
+        1. Update the output of "pinned" tests: `make pinned`
 
     1. Automake:
 
