@@ -10,7 +10,7 @@
 [changelog]
 	# Loosely based on https://keepachangelog.com/en/1.1.0/
 	sections = rfe,changed,deprecated,removed,bug,security,other
-	prefixes = transaction,spec,build
+	prefixes = transaction,packaging,build
 	postfixes = regression,cosmetic
 	ignore = cleanup,test,documentation
 	releasePattern = ^(RPM .*) release$
@@ -21,11 +21,11 @@
 	cosmetic = Cosmetic
 	deprecated = Deprecations
 	other = Other
+	packaging = Packaging
 	regression = Regression
 	removed = Removals
 	rfe = Enhancements
 	security = Security
-	spec = Packaging
 	transaction = Transaction
 [changelog "aliases"]
 	crypto = security
