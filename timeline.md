@@ -2,6 +2,11 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.19.1.1 released (Feb 07 2024)
+* This is a bug fix only release addressing a number of regressions, memory
+  leaks and build system issues.
+* See [release notes](wiki/Releases/4.19.1.1) for details and download information
+
 #### RPM 4.19.1 released (Dec 12 2023)
 * This is a bug fix release with a few minor enhancements.
 * See [release notes](wiki/Releases/4.19.1) for details and download information
