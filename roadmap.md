@@ -21,10 +21,11 @@ title: rpm.org - Roadmap
 ## 2025
 * RPM 6.0 release (Q3)
   * Introducing [RPM v6](https://github.com/rpm-software-management/rpm/discussions/2919) package format
-  * Compatibility with 4.x
+  * Compatibility
     * v6 format is widely compatible with modern rpm 4.x versions
     * Can produce both v4 and v6 packages
     * Full support for v4 and v6 packages
+    * Support for v3 format is dropped
   * Security
     * [Enforced signature-checking by default](https://github.com/rpm-software-management/rpm/issues/1573)
     * Legacy crypto algorithms disabled by default
