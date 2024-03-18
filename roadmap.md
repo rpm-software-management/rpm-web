@@ -31,7 +31,7 @@ title: rpm.org - Roadmap
     * Use full OpenPGP key fingerprints everywhere
   * Hand-free packaging
     * Automatic signing on package build
-  * Compiled with C++
+  * [Compiled with C++](https://github.com/rpm-software-management/rpm/discussions/2983)
     * Gradual transition towards C++ internally
     * C API will remain
 
@@ -53,4 +53,4 @@ title: rpm.org - Roadmap
   * Containers
   * First public C++ API (alongside the trad. C API)
 
-For further information and feedback, head over to our [discussion forum.](https://github.com/rpm-software-management/rpm/discussions/)
+For further information and feedback, head over to our [discussion forum.](https://github.com/rpm-software-management/rpm/discussions/2982)
