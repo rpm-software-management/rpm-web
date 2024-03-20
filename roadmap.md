@@ -16,7 +16,7 @@ title: rpm.org - Roadmap
     * [Guaranteed per-build directory](https://github.com/rpm-software-management/rpm/issues/2078)
   * [Public plugin API](https://github.com/rpm-software-management/rpm/issues/1536)
   * Security
-    * Increased install scriptlet isolation ([https://github.com/rpm-software-management/rpm/issues/2632](#2632), [https://github.com/rpm-software-management/rpm/issues/2665](#2665))
+    * Increased install scriptlet isolation ([#2632](https://github.com/rpm-software-management/rpm/issues/2632), [#2665](https://github.com/rpm-software-management/rpm/issues/2665))
 * RPM 4.19 bugfix release
 * RPM v6 specification
 
