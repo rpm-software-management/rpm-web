@@ -9,7 +9,8 @@ title: rpm.org - Roadmap
 * RPM 4.20 release (Q3)
   * Hands-free packaging
     * [Declarative build system](https://github.com/rpm-software-management/rpm/issues/1087)
-    * Dynamic spec generation extended
+    * [Extended](https://github.com/rpm-software-management/rpm/pull/2646) dynamic spec generation
+    * Support [prepend and append](https://github.com/rpm-software-management/rpm/issues/1240) to build scriptlets
     * [File trigger scriptlet arguments](https://github.com/rpm-software-management/rpm/issues/2655)
     * [Support for spec local dependency generators](https://github.com/rpm-software-management/rpm/issues/782)
     * [Support for sysusers 'm' directive](https://github.com/rpm-software-management/rpm/issues/2816)
