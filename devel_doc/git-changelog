@@ -101,6 +101,7 @@ class PlainLog(object):
         d = {}
         nums = set()
         ignore = set(IGNORE)
+        sections = set(SECTIONS)
 
         if self.devel:
             commits = shell('git rev-list ' + self.range).split('\n')
@@ -142,7 +143,7 @@ class PlainLog(object):
             if labels & ignore:
                 continue
 
-            labels = labels & HEADINGS.keys()
+            labels = labels & sections
             if not labels:
                 labels = set(['other'])
 
