@@ -158,7 +158,6 @@ class PlainLog(object):
         if not self.no_preamble:
             out = [self._format_preamble(), '']
         changesets = self.changesets
-        last = len(SECTIONS) - 1
         for section in SECTIONS:
             heading = self._format_section(section)
             if section not in changesets:
@@ -170,6 +169,7 @@ class PlainLog(object):
                 out.append(self._format_changeset(chset))
             out.append('')
         return '\n'.join(out)
+
 
 class MarkdownLog(PlainLog):
     def __init__(self, range, devel, empty, no_preamble, width, refresh, quiet, level,
