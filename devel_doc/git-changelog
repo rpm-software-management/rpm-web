@@ -92,7 +92,7 @@ class PlainLog(object):
             prefix = '{}: '.format(HEADINGS[prefix])
         if postfix:
             postfix = '[{}] '.format(HEADINGS[postfix])
-        title = shorten(title,
+        title = shorten(title.replace('`', ''),
                         self.width - len(fmt.format(prefix, '', postfix, num)))
         return fmt.format(prefix, title, postfix, num)
 
