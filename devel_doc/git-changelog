@@ -190,9 +190,9 @@ class MarkdownLog(PlainLog):
     def _format_changeset(self, chset):
         prefix, postfix, title, num, url = chset
         if prefix:
-            prefix = '*{}:* '.format(HEADINGS[prefix])
+            prefix = '{}: '.format(HEADINGS[prefix])
         if postfix:
-            postfix = '<sup>{}</sup> '.format(HEADINGS[postfix])
+            postfix = '[{}] '.format(HEADINGS[postfix])
         return '* {}{} {}([#{}]({}))'.format(prefix, title, postfix, num, url)
 
 
