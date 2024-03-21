@@ -64,10 +64,11 @@ class Release(object):
 
 
 class PlainLog(object):
-    def __init__(self, range, empty, no_preamble, width, refresh, quiet,
-                 *args, **kwargs):
+    def __init__(self, range, devel, empty, no_preamble, width, refresh,
+                 quiet, *args, **kwargs):
         self.range = range
         self.release = Release(range)
+        self.devel = devel
         self.empty = empty
         self.no_preamble = no_preamble
         self.width = width
@@ -100,7 +101,11 @@ class PlainLog(object):
         d = {}
         nums = set()
         ignore = set(IGNORE)
-        commits = backports(self.range)
+
+        if self.devel:
+            commits = shell('git rev-list ' + self.range).split('\n')
+        else:
+            commits = backports(self.range)
 
         # Prefetch changesets
         self._changesets.load(commits, self.refresh, not self.quiet)
@@ -166,10 +171,10 @@ class PlainLog(object):
         return '\n'.join(out)
 
 class MarkdownLog(PlainLog):
-    def __init__(self, range, empty, no_preamble, width, refresh, quiet, level,
+    def __init__(self, range, devel, empty, no_preamble, width, refresh, quiet, level,
                  *args, **kwargs):
         super(MarkdownLog, self).__init__(
-            range, empty, no_preamble, width, refresh, quiet)
+            range, devel, empty, no_preamble, width, refresh, quiet)
         self.level = level - 1
 
     def _heading(self, level, name):
@@ -205,6 +210,8 @@ parser = argparse.ArgumentParser(
 parser.add_argument('range', nargs='?', type=str, default=RELEASE.range,
                     help='git revision range (default: {})'.format(
                         RELEASE.range))
+parser.add_argument('-d', '--devel', action='store_true',
+                    help='given range is on development branch')
 parser.add_argument('-e', '--empty', action='store_true',
                     help='include empty sections')
 parser.add_argument('-n', '--no-preamble', action='store_true',
@@ -229,6 +236,6 @@ if args.markdown:
 else:
     Log = PlainLog
 
-log = Log(args.range, args.empty, args.no_preamble, args.width, args.refresh,
-          args.quiet, args.level)
+log = Log(args.range, args.devel, args.empty, args.no_preamble, args.width,
+          args.refresh, args.quiet, args.level)
 print(log)
