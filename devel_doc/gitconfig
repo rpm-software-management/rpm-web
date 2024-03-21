@@ -9,8 +9,8 @@
 	pick = test,documentation,build
 [changelog]
 	# Loosely based on https://keepachangelog.com/en/1.1.0/
-	sections = rfe,changed,deprecated,removed,bug,security,other
-	prefixes = transaction,packaging,lua,build
+	sections = highlight,rfe,changed,deprecated,removed,bug,security,other
+	prefixes = cli,transaction,packaging,macros,generator,lua,build
 	postfixes = regression,cosmetic
 	ignore = cleanup,test,documentation
 	releasePattern = ^(RPM .*) release$
@@ -18,9 +18,13 @@
 	bug = Fixes
 	build = Build
 	changed = Changes
+	cli = Command line
 	cosmetic = Cosmetic
 	deprecated = Deprecations
+	generator = Generators
+	highlight = Highlights
 	lua = Lua interface
+	macros = Macros
 	other = Other
 	packaging = Packaging
 	regression = Regression
