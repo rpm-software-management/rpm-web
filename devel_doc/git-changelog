@@ -102,7 +102,10 @@ class PlainLog(object):
         ignore = set(IGNORE)
         sections = set(SECTIONS)
 
-        commits = backports(self.range)
+        if sys.stdin.isatty():
+            commits = backports(self.range)
+        else:
+            commits = sys.stdin.read().splitlines()
 
         # Prefetch changesets
         self._changesets.load(commits, self.refresh, not self.quiet)
@@ -203,7 +206,8 @@ RELEASE_RE = CONFIG.get('releasePattern', KeyType.SIMPLE)
 RELEASE = Release()
 
 parser = argparse.ArgumentParser(
-    description='Generate a changelog for the given revision range.')
+    description='Generate a changelog for the given revision range.  '
+                'If a commit list is given on stdin, that will be used instead.')
 parser.add_argument('range', nargs='?', type=str, default=RELEASE.range,
                     help='git revision range (default: {})'.format(
                         RELEASE.range))
