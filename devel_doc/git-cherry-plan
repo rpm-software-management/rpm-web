@@ -415,6 +415,14 @@ class Plan(object):
         self._list('noops')
         self._list('todo')
 
+    def list(self, markers, short=False):
+        """List commit hashes, filtered by given markers (if any)."""
+        markers = ['    ' if m == '-' else m for m in markers]
+        for commit in self.log:
+            if markers and commit.command not in markers:
+                continue
+            print(commit.hash if short else rev_parse(commit.hash, False))
+
 
 #
 # Helper functions
@@ -531,6 +539,13 @@ def status(plan, args):
     plan.status()
     return 0
 
+def commits(plan, args):
+    if ensure_exists(args.file):
+        return 1
+    plan.load(args.file)
+    plan.list(args.marker, args.short)
+    return 0
+
 #
 # Configuration
 #
@@ -642,6 +657,14 @@ parser_cut.add_argument('-d', '--delete', action='store_true',
 parser_dump = subparsers.add_parser('dump',
     help='print plan to stdout, with everything above scissors line cut off')
 parser_dump.set_defaults(verb=dump)
+
+parser_list = subparsers.add_parser(
+    'list', help='list commit hashes in plan')
+parser_list.set_defaults(verb=commits)
+parser_list.add_argument('marker', type=str, nargs='*',
+    help='markers to filter by (use - for empty)')
+parser_list.add_argument('-s', '--short', action='store_true',
+    help='print abbreviated hashes')
 
 parser_check = subparsers.add_parser(
     'check', help='check if plan applies cleanly to current branch')
