@@ -20,7 +20,8 @@ capable of
 * See [draft release notes](wiki/Releases/4.20.0) for details and download information
 * Highlights include:
     * [Declarative buildsystem](https://rpm-software-management.github.io/rpm/manual/buildsystem.html) support ([#2774](https://github.com/rpm-software-management/rpm/pull/2774))
-    * A new RPM-controlled per-build directory ([#2885](https://github.com/rpm-software-management/rpm/pull/2885))
+    * Dynamic SPEC generation extended ([#2646](https://github.com/rpm-software-management/rpm/pull/2646))
+    * Guaranteed per-build directory ([#2885](https://github.com/rpm-software-management/rpm/pull/2885))
     * Support for [SPEC-local](https://rpm-software-management.github.io/rpm/manual/dependency_generators.html#using-file-attributes-in-their-own-package) file attributes and generators ([#2911](https://github.com/rpm-software-management/rpm/pull/2911))
     * New prepend and append [modes](https://rpm-software-management.github.io/rpm/manual/spec.html#build-scriptlets) for build scriptlets ([#2728](https://github.com/rpm-software-management/rpm/pull/2728))
     * Python bindings have been ported to the stable ABI ([#2674](https://github.com/rpm-software-management/rpm/pull/2674))
