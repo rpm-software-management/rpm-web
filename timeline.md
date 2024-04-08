@@ -5,17 +5,17 @@ title: rpm.org - Timeline
 #### RPM 4.20.0 ALPHA released (Apr 05 2024)
 * See [draft release notes](wiki/Releases/4.20.0) for details and download information
 * Highlights include:
-    * [Declarative buildsystem](https://rpm-software-management.github.io/rpm/manual/buildsystem.html) support ([#2774](https://github.com/rpm-software-management/rpm/pull/2774))
-    * Dynamic SPEC generation extended ([#2646](https://github.com/rpm-software-management/rpm/pull/2646))
-    * Guaranteed per-build directory ([#2885](https://github.com/rpm-software-management/rpm/pull/2885))
-    * Support for [SPEC-local](https://rpm-software-management.github.io/rpm/manual/dependency_generators.html#using-file-attributes-in-their-own-package) file attributes and generators ([#2911](https://github.com/rpm-software-management/rpm/pull/2911))
-    * New prepend and append [modes](https://rpm-software-management.github.io/rpm/manual/spec.html#build-scriptlets) for build scriptlets ([#2728](https://github.com/rpm-software-management/rpm/pull/2728))
-    * Python bindings have been ported to the stable ABI ([#2674](https://github.com/rpm-software-management/rpm/pull/2674))
-    * Plugin API is now public ([#2661](https://github.com/rpm-software-management/rpm/pull/2661))
-    * Increased isolation of install scriptlets on Linux via a new plugin ([#2666](https://github.com/rpm-software-management/rpm/pull/2666))
-    * File trigger scripts now also receive package count arguments ([#2871](https://github.com/rpm-software-management/rpm/pull/2871), [#2883](https://github.com/rpm-software-management/rpm/pull/2883))
-    * Perl dependency generators have been split out ([#2947](https://github.com/rpm-software-management/rpm/pull/2947))
-    * Internal OpenPGP parser has been removed ([#2986](https://github.com/rpm-software-management/rpm/pull/2986), [#2984](https://github.com/rpm-software-management/rpm/pull/2984))
+    * [Declarative buildsystem](https://rpm-software-management.github.io/rpm/manual/buildsystem.html) support ([#1087](https://github.com/rpm-software-management/rpm/issues/1087))
+    * Dynamic SPEC generation extended
+    * Guaranteed per-build directory ([#2078](https://github.com/rpm-software-management/rpm/issues/2078))
+    * Support for [SPEC-local](https://rpm-software-management.github.io/rpm/manual/dependency_generators.html#using-file-attributes-in-their-own-package) file attributes and generators ([#782](https://github.com/rpm-software-management/rpm/issues/782))
+    * New prepend and append [modes](https://rpm-software-management.github.io/rpm/manual/spec.html#build-scriptlets) for build scriptlets
+    * Python bindings have been ported to the stable ABI ([#2345](https://github.com/rpm-software-management/rpm/issues/2345))
+    * Plugin API is now public ([#1536](https://github.com/rpm-software-management/rpm/issues/1536))
+    * Increased isolation of install scriptlets on Linux via a new plugin ([#2632](https://github.com/rpm-software-management/rpm/issues/2632), [#2665](https://github.com/rpm-software-management/rpm/issues/2665))
+    * File trigger scripts now also receive package count arguments ([#2755](https://github.com/rpm-software-management/rpm/issues/2755))
+    * Perl dependency generators have been split out ([#2873](https://github.com/rpm-software-management/rpm/issues/2873))
+    * Internal OpenPGP parser has been removed ([#2414](https://github.com/rpm-software-management/rpm/issues/2414))
 
 #### RPM 4.19.1.1 released (Feb 07 2024)
 * This is a bug fix only release addressing a number of regressions, memory
