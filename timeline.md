@@ -2,6 +2,13 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.20.0 ALPHA2 released (May 20 2024)
+* This is another alpha snapshot that addresses a couple of bugs found in the first one, most notably the faulty interaction between the scriptlet [prepend/append](https://rpm-software-management.github.io/rpm/manual/spec.html#build-scriptlets) options and the `BuildSystem` tag ([#3024](https://github.com/rpm-software-management/rpm/issues/3024)) which affected the early adopters of the [Declarative buildsystem](https://rpm-software-management.github.io/rpm/manual/buildsystem.html) feature.
+* Two new features are also being introduced in this snapshot:
+    * Proper, built-in debuginfo enablement logic ([#2204](https://github.com/rpm-software-management/rpm/issues/2204))
+    * Support for a [timestamp handling policy](https://rpm-software-management.github.io/rpm/manual/buildprocess.html#reproducability), exposed via the new `%build_mtime_policy` macro
+* See [draft release notes](wiki/Releases/4.20.0) for details and download information
+
 #### RPM 4.20.0 ALPHA released (Apr 05 2024)
 * See [draft release notes](wiki/Releases/4.20.0) for details and download information
 * Highlights include:
