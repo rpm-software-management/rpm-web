@@ -20,6 +20,7 @@ This page attempts to track the various relevant documentation that exists for R
 
 ## RPM API
 * API documentation
+  * [RPM 4.19.x](https://ftp.osuosl.org/pub/rpm/api/4.19.0/)
   * [RPM 4.18.x](https://ftp.osuosl.org/pub/rpm/api/4.18.0/)
   * [RPM 4.17.x](https://ftp.osuosl.org/pub/rpm/api/4.17.0/)
   * [RPM 4.16.x](https://ftp.osuosl.org/pub/rpm/api/4.16.1/)
