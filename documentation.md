@@ -29,6 +29,7 @@ This page attempts to track the various relevant documentation that exists for R
 * [How to ensure Large File Support for tools using the rpm API](devel_doc/large_files.html)
 
 ## RPM Language Bindings
+* [RPM Python examples](python.html) - A showcase of real-life Python RPM examples
 * [RPM Python](https://web.archive.org/web/20050320013335/http://www.ukuug.org/events/linux2004/programme/paper-PNasrat-1/rpm-python-slides/frames.html) slideset / tutorial by Paul Nasrat (2004)
 * [Programming RPM with Python](https://web.archive.org/web/20220628164331/docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html//RPM_Guide/ch-rpm-programming-python.html) from Fedora RPM Guide
 * [Programming RPM with Perl](https://web.archive.org/web/20220628164331/docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html//RPM_Guide/ch-programming-perl.html) from Fedora RPM Guide 
