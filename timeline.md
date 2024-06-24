@@ -2,6 +2,12 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.20.0 BETA1 released (Jun 24 2024)
+* See [draft release notes](wiki/Releases/4.20.0) for details and download information
+* This is all about bugs, alpha regressions and spec backwards compatibility,
+  in particular regarding the new debuginfo enablement and %builddir
+  related issues
+
 #### RPM 4.20.0 ALPHA2 released (May 20 2024)
 * This is another alpha snapshot that addresses a couple of bugs found in the first one, most notably the faulty interaction between the scriptlet [prepend/append](https://rpm-software-management.github.io/rpm/manual/spec.html#build-scriptlets) options and the `BuildSystem` tag ([#3024](https://github.com/rpm-software-management/rpm/issues/3024)) which affected the users test-driving the new [Declarative buildsystem](https://rpm-software-management.github.io/rpm/manual/buildsystem.html) feature.
 * Two new features are also being introduced in this snapshot:
