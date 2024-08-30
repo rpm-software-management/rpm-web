@@ -2,6 +2,13 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.20.0 RC1 released (Aug 30 2024)
+* See [draft release notes](wiki/Releases/4.20.0) for details and download information
+* This release is about the finishing touches for the major features and
+  various other fixes, mostly regarding the declarative buildsystem,
+  `--build-in-place` compatibility with the new build directory layout,
+  debuginfo generation and error reporting
+
 #### RPM 4.20.0 BETA1 released (Jun 24 2024)
 * See [draft release notes](wiki/Releases/4.20.0) for details and download information
 * This is all about bugs, alpha regressions and spec backwards compatibility,
