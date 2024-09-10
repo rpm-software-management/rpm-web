@@ -2,6 +2,12 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.20.0 RC2 released (Sep 10 2024)
+* See [draft release notes](wiki/Releases/4.20.0) for details and download information
+* This release makes `%autosetup -C` also work with zip/7zip archives, fixes a
+  long-standing bug in `%transfiletriggerpostun` where it only matched against
+  the first listed prefix, and includes a handful of other small fixes
+
 #### RPM 4.20.0 RC1 released (Aug 30 2024)
 * See [draft release notes](wiki/Releases/4.20.0) for details and download information
 * This release is about the finishing touches for the major features and
