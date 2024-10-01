@@ -1195,73 +1195,74 @@ Due to a big surge in spam tickets in recent times, ticket creation and modifica
 
  * [rpm-2.0.5.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-2.0.x/rpm-2.0.5.tar.gz)
 
-#### RPM 2.0.4 released (??) ####
+#### RPM 2.0.4 released (Mar 30th 1996) ####
 
  * [rpm-2.0.4.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-2.0.x/rpm-2.0.4.tar.gz)
 
-#### RPM 2.0.3 released (??) ####
+#### RPM 2.0.3 released (Mar 26th 1996) ####
 
  * [rpm-2.0.3.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-2.0.x/rpm-2.0.3.tar.gz)
 
-#### RPM 2.0.2 released (??) ####
+#### RPM 2.0.2 released (Mar 15th 1996) ####
 
  * [rpm-2.0.2.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-2.0.x/rpm-2.0.2.tar.gz)
 
-#### RPM 2.0.1 released (??) ####
+#### RPM 2.0.1 released (Mar 13th 1996) ####
 
  * [rpm-2.0.1.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-2.0.x/rpm-2.0.1.tar.gz)
 
-#### RPM 2.0 released (??) ####
+#### RPM 2.0 released (Mar 5th 1996) ####
 
  * [rpm-2.0.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-2.0.x/rpm-2.0.tar.gz)
+ * This is the first version entirely in C
 
-#### RPM 1.4.7 released (??) ####
+#### RPM 1.4.7 released (Feb 8th 1996) ####
 
  * [rpm-1.4.7.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.4.7.tar.gz)
 
-#### RPM 1.4.6 released (??) ####
+#### RPM 1.4.6 released (Dec 18th 1995) ####
 
  * [rpm-1.4.6.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.4.6.tar.gz)
 
-#### RPM 1.4.5 released (??) ####
+#### RPM 1.4.5 released (Nov 30th 1995) ####
 
  * [rpm-1.4.5.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.4.5.tar.gz)
 
-#### RPM 1.4.4 released (??) ####
+#### RPM 1.4.4 released (Nov 27th 1995) ####
 
  * [rpm-1.4.4.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.4.4.tar.gz)
 
-#### RPM 1.4.2a released (??) ####
-
- * [rpm-1.4.2a.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.4.2a.tar.gz)
-
-#### RPM 1.4.2 released (??) ####
-
- * [rpm-1.4.2.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.4.2.tar.gz)
-
-#### RPM 1.4.1 released (??) ####
-
- * [rpm-1.4.1.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.4.1.tar.gz)
-
-#### RPM 1.4 released (??) ####
-
- * [rpm-1.4.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.4.tar.gz)
-
-#### RPM 1.3.1 released (??) ####
-
- * [rpm-1.3.1.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.3.1.tar.gz)
-
-#### RPM 1.3 released (??) ####
-
- * [rpm-1.3.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.3.tar.gz)
-
-#### RPM 1.2 released (??) ####
-
- * [rpm-1.2.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.2.tar.gz)
-
 #### First commit (Nov 27th 1995) ####
 
- * [The first commit](https://github.com/rpm-software-management/rpm/commit/7153c160969d70a083f791bf75f9b4d09d2f2a45)
+ * [The first commit of RPM in C](https://github.com/rpm-software-management/rpm/commit/7153c160969d70a083f791bf75f9b4d09d2f2a45)
    to what was a state-of-the art CVS repository back then. Whether this
    was done by Marc Ewing or Erik Troan is lost in history as the
    commit was done as root - those were the days...
+#### RPM 1.4.2a released (Nov 24th 1995) ####
+
+ * [rpm-1.4.2a.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.4.2a.tar.gz)
+
+#### RPM 1.4.2 released (Nov 20th 1995) ####
+
+ * [rpm-1.4.2.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.4.2.tar.gz)
+
+#### RPM 1.4.1 released (Nov 3rd 1995) ####
+
+ * [rpm-1.4.1.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.4.1.tar.gz)
+
+#### RPM 1.4 released (Oct 24th 1995) ####
+
+ * [rpm-1.4.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.4.tar.gz)
+
+#### RPM 1.3.1 released (Oct 1995) ####
+
+ * [rpm-1.3.1.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.3.1.tar.gz)
+
+#### RPM 1.3 released (Oct 1995) ####
+
+ * [rpm-1.3.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.3.tar.gz)
+
+#### RPM 1.2 released (Sep 1995) ####
+
+ * [rpm-1.2.tar.gz download](https://ftp.osuosl.org/pub/rpm/releases/historical/rpm-1.x/rpm-1.2.tar.gz)
+
