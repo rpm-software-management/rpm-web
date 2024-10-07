@@ -2,6 +2,20 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.20.0 released (Oct 07 2024)
+* See [release notes](wiki/Releases/4.20.0) for details and download information
+* Highlights include:
+    * [Declarative build system](https://rpm-software-management.github.io/rpm/manual/buildsystem.html) support
+    * [Dynamic spec](https://rpm-software-management.github.io/rpm/manual/dynamic_specs.html) improvements
+    * Guaranteed, RPM-controlled per-build directory
+    * Support for [spec-local](https://rpm-software-management.github.io/rpm/manual/dependency_generators.html#using-file-attributes-in-their-own-package) file attributes and generators
+    * Support for group membership in `sysusers.d(5)` files
+    * Proper distro-agnostic debuginfo support
+    * Sanitized spec comments and indentation syntax
+    * Sanitized `--build-in-place` mode
+    * New `unshare` plugin for scriptlet isolation
+    * Plugin API made public
+
 #### RPM 4.20.0 RC2 released (Sep 10 2024)
 * See [draft release notes](wiki/Releases/4.20.0) for details and download information
 * This release makes `%autosetup -C` also work with zip/7zip archives, fixes a
