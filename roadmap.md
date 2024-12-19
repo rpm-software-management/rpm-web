@@ -33,6 +33,7 @@ title: rpm.org - Roadmap
     * [Enforced signature-checking by default](https://github.com/rpm-software-management/rpm/issues/1573)
     * Legacy crypto algorithms disabled by default
     * Use full OpenPGP key fingerprints everywhere
+    * Support for multiple signatures per package
   * Hand-free packaging
     * Automatic signing on package build
   * [Compiled with C++](https://github.com/rpm-software-management/rpm/discussions/2983)
