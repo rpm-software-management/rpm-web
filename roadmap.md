@@ -5,22 +5,6 @@ title: rpm.org - Roadmap
 
 # RPM Roadmap
 
-## 2024
-* RPM 4.20 release (Q3)
-  * Hands-free packaging
-    * [Declarative build system](https://github.com/rpm-software-management/rpm/issues/1087)
-    * [Extended](https://github.com/rpm-software-management/rpm/pull/2646) dynamic spec generation
-    * Support [prepend and append](https://github.com/rpm-software-management/rpm/issues/1240) to build scriptlets
-    * [File trigger scriptlet arguments](https://github.com/rpm-software-management/rpm/issues/2655)
-    * [Support for spec local dependency generators](https://github.com/rpm-software-management/rpm/issues/782)
-    * [Support for sysusers 'm' directive](https://github.com/rpm-software-management/rpm/issues/2816)
-    * [Guaranteed per-build directory](https://github.com/rpm-software-management/rpm/issues/2078)
-  * [Public plugin API](https://github.com/rpm-software-management/rpm/issues/1536)
-  * Security
-    * Increased install scriptlet isolation ([#2632](https://github.com/rpm-software-management/rpm/issues/2632), [#2665](https://github.com/rpm-software-management/rpm/issues/2665))
-* RPM 4.19 bugfix release
-* RPM v6 specification
-
 ## 2025
 * RPM 6.0 release (Q3)
   * Introducing [RPM v6](https://github.com/rpm-software-management/rpm/discussions/2919) package format
