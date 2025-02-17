@@ -338,6 +338,18 @@ you're preparing, for example `4.19.1`.
     1. Commit the changes from the previous step with something like "Preparing
        for X.Y.Z" as the message
 
+1. Tag the release:
+
+    `git tag -am "RPM X.Y.Z release" rpm-X.Y.Z-release`
+
+1. Push the tag.  This is the point of no return for a given release:
+
+    `git push rpm-X.Y.Z-release`
+
+1. Compile release notes (see `git changelog -h` for more details):
+
+    `git changelog -m > changelog.md`
+
 1. Generate the final release tarball:
 
     `make dist`
@@ -351,25 +363,14 @@ you're preparing, for example `4.19.1`.
 
     `diff --color=always -uNr -x docs rpm-X.Y.Z-1 rpm-X.Y.Z | less -R`
 
-1. Tag the release:
-
-    `git tag -am "RPM X.Y.Z release" rpm-X.Y.Z-release`
-
-1. Push the tag.  This is the point of no return for a given release:
-
-    `git push rpm-X.Y.Z-release`
-
-1. Upload the bz2 tarball:
+1. Upload the tarball to [rpm.org](https://rpm.org/):
 
     1. `scp` it to `rpm@ftp-osl.osuosl.org` into the appropriate per-branch
        directory in `~/ftp/releases/`
     1. Run the `./trigger-rpm` script in the home directory to start mirror
        process
 
-1. Create the release notes for [rpm.org](https://rpm.org/)
-
-    1. Generate a changelog: `git changelog -m > changelog.md` (see `git
-       changelog -h` for more details)
+1. Update the homepage at [rpm.org](https://rpm.org/):
     1. Clone the [rpm-web](https://github.com/rpm-software-management/rpm-web)
        repository (if not cloned yet) and enter it
     1. Make a copy of the `wiki/Releases/skeleton.md` file and name it
@@ -382,24 +383,23 @@ you're preparing, for example `4.19.1`.
     1. Copy the entry into the `timeline.md` file
     1. Add an entry to the `download.md` file
     1. Commit the whole lot with a commit message such as "Release X.Y.Z"
-
-1. Make the release official:
-
     1. Push the above commit to the remote (this will automatically regenerate
        the pages)
-    2. Send out an announcement mail, typically like this:
-        ```
-        To: rpm-announce@lists.rpm.org, rpm-maint@lists.rpm.org, rpm-list@lists.rpm.org
-        Subject: RPM X.Y.Z released!
 
-        [some intro followed by the output of "git changelog"]
+1. Send out an announcement mail:
 
-        For a complete list of changes, visit:
+    ```
+    To: rpm-announce@lists.rpm.org, rpm-maint@lists.rpm.org, rpm-list@lists.rpm.org
+    Subject: RPM X.Y.Z released!
 
-            https://rpm.org/wiki/Releases/X.Y.Z
-        ```
-    3. Open a new [GitHub
-       discussion](https://github.com/rpm-software-management/rpm/discussions)
-       with the content that's similar to the email and pin it.
+    [some intro followed by the output of "git changelog"]
+
+    For a complete list of changes, visit:
+
+        https://rpm.org/wiki/Releases/X.Y.Z
+    ```
+
+1. Open a new [GitHub discussion](https://github.com/rpm-software-management/rpm/discussions)
+   with the content that's similar to the email and pin it.
 
 1. Party!
