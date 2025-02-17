@@ -319,54 +319,28 @@ The following items should be completed before proceeding to release cutting:
 
 ## Cutting a release
 
-RPM 4.19 has moved to CMake as the build system.  Prior releases (4.18 and
-older) use Automake, though, so the following text will list instructions for
-both build systems for the time being, until 4.18 goes out of support.
-
 In the following text, the `X.Y.Z` string denotes the version number that
 you're preparing, for example `4.19.1`.
 
 1. Make a release commit:
 
-    1. CMake:
+    1. Bump `VERSION` in `project()` in CMakeLists.txt
 
-        1. Bump `VERSION` in `project()` in CMakeLists.txt
+    1. Bump `RPM_SOVERSION` and `RPM_LIBVERSION` in CMakeLists.txt:
 
-        1. Bump `RPM_SOVERSION` and `RPM_LIBVERSION` in CMakeLists.txt:
+        * Consult the associated comment block in CMakeLists.txt for
+          instructions.
+        * soname bumps can only occur at the first version of a new branch
+          (i.e. alpha/beta).
 
-            * Consult the associated comment block in CMakeLists.txt for
-              instructions.
-            * soname bumps can only occur at the first version of a new branch
-              (i.e. alpha/beta).
-
-        1. Update the output of "pinned" tests: `make pinned`
-
-    1. Automake:
-
-        1. Bump the version in `configure.ac`
-
-        1. Bump `rpm_version_info` (i.e. library soname version info) in the
-           `rpm.am` file.  Basic libtool guidelines for maintenance updates to
-           stable versions apply:
-
-            * Consult the [libtool
-              manual](https://www.gnu.org/software/libtool/manual/html_node/Updating-version-info.html)
-            * soname bumps can only occur at the first version of a new branch
-              (i.e. alpha/beta)
-
-        1. Update the sources for the above (Makefiles, `.po` regeneration and
-           all): `make dist`
+    1. Update the output of "pinned" tests: `make pinned`
 
     1. Commit the changes from the previous step with something like "Preparing
        for X.Y.Z" as the message
 
 1. Generate the final release tarball:
 
-    * CMake: `make dist`
-    * Automake: `make distcheck`
-
-1. Automake only: Check that the previous step does not introduce any new
-   changes (e.g. `git diff`).
+    `make dist`
 
 1. Unpack the tarball next to the previous version and inspect the differences,
    watching out for unexpected material.  If you find any, STOP, figure it out
