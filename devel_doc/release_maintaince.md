@@ -350,14 +350,31 @@ you're preparing, for example `4.19.1`.
 
     `git changelog -m > changelog.md`
 
-1. Generate the final release tarball:
+1. Publish the release:
 
-    `make dist`
+    1. Create a draft release on GitHub for the new tag:
+
+        `gh release create --draft --title "RPM X.Y.Z" --notes-file changelog.md rpm-X.Y.Z-release`
+
+    1. View the draft in your browser (see the link printed by the command)
+    1. Verify that the draft looks fine, make any adjustments if necessary
+    1. Tick the "Create a discussion for this release" checkbox
+    1. Click the Publish button to make the release available
+    1. Verify that the release gets a tar.bz2 and CHECKSUM file attached under
+       "Assets" after a few minutes.  This is done by a GitHub Actions workflow
+       named "Release artifacts" that automatically runs when a new release is
+       published.
 
 1. Upload the tarball to [rpm.org](https://rpm.org/):
 
-    1. `scp` it to `rpm@ftp-osl.osuosl.org` into the appropriate per-branch
-       directory in `~/ftp/releases/`
+    1. Download the tar.bz2 and CHECKSUM files from the new release to your
+       current directory
+    1. Verify the tarball's checksum:
+
+       `sha512sum -c CHECKSUM`
+
+    1. `scp` the tarball to `rpm@ftp-osl.osuosl.org` into the appropriate
+       per-branch directory in `~/ftp/releases/`
     1. Run the `./trigger-rpm` script in the home directory to start mirror
        process
 
@@ -389,8 +406,5 @@ you're preparing, for example `4.19.1`.
 
         https://rpm.org/wiki/Releases/X.Y.Z
     ```
-
-1. Open a new [GitHub discussion](https://github.com/rpm-software-management/rpm/discussions)
-   with the content that's similar to the email and pin it.
 
 1. Party!
