@@ -354,15 +354,6 @@ you're preparing, for example `4.19.1`.
 
     `make dist`
 
-1. Unpack the tarball next to the previous version and inspect the differences,
-   watching out for unexpected material.  If you find any, STOP, figure it out
-   and go back as many steps as required.  Note that the `docs/` directory may
-   be omitted in most cases since it typically contains a lot of unimportant,
-   automatically generated changes.  To inspect the differences, you can use
-   the following command:
-
-    `diff --color=always -uNr -x docs rpm-X.Y.Z-1 rpm-X.Y.Z | less -R`
-
 1. Upload the tarball to [rpm.org](https://rpm.org/):
 
     1. `scp` it to `rpm@ftp-osl.osuosl.org` into the appropriate per-branch
