@@ -2,6 +2,17 @@
 layout: default
 title: rpm.org - Timeline
 ---
+#### RPM 4.20.1 released (Feb 19 2025)
+* This is primarily a bugfix release addressing a handful of regressions in RPM 4.20.0 as well as various other issues.
+* See [release notes](wiki/Releases/4.20.1) for details and download information
+* Highlights include:
+    * Support for fully locked user accounts in `sysusers.d(5)` files
+    * Filter Lua deprecation warnings based on the originating RPM version
+    * Fix regressions in `rpmsign(8)`, `rpmspec(8)`, manual invocation of `%debug_package` in specs and more
+    * Fix unmodified `%config` (and possibly other) files being removed in case of unpack failure
+    * Fix IMA plugin causing transaction failures in rootless containers
+    * Fix sqlite rpmdb growing over time
+
 #### RPM 4.20.0 released (Oct 07 2024)
 * See [release notes](wiki/Releases/4.20.0) for details and download information
 * Highlights include:

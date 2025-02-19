@@ -5,6 +5,7 @@ title: rpm.org - Download
 
 ## Current stable releases (supported)
 ### RPM 4.20.x
+* [RPM 4.20.1](https://ftp.osuosl.org/pub/rpm/releases/rpm-4.20.x/rpm-4.20.1.tar.bz2) ([Release notes](wiki/Releases/4.20.1.html))
 * [RPM 4.20.0](https://ftp.osuosl.org/pub/rpm/releases/rpm-4.20.x/rpm-4.20.0.tar.bz2) ([Release notes](wiki/Releases/4.20.0.html))
 
 ### RPM 4.19.x
