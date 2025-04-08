@@ -16,6 +16,19 @@ capable of
 
 ## News
 
+#### RPM 6.0.0 ALPHA released (Apr 08 2025)
+* See [release notes](releases/6.0.0) for details and download information
+* Highlights include:
+    * RPM defaults to enforcing signature checking ([#1573](https://github.com/rpm-software-management/rpm/issues/1573))
+    * RPM uses the full key ID or fingerprint to identify OpenPGP keys everywhere ([#2403](https://github.com/rpm-software-management/rpm/issues/2403))
+    * Support for multiple OpenPGP signatures per package ([#3385](https://github.com/rpm-software-management/rpm/issues/3385))
+    * Support for updating previously imported keys ([#2577](https://github.com/rpm-software-management/rpm/issues/2577))
+    * Support for both RPM v4 and v6 packages
+    * Support for installing RPM v3 packages has been removed ([#1107](https://github.com/rpm-software-management/rpm/issues/1107))
+    * By default, RPM no longer verifies obsolete crypto (MD5, SHA1, DSA) ([#1292](https://github.com/rpm-software-management/rpm/issues/1292))
+    * Man page overhaul (work in progress as of 6.0 alpha)
+    * Pristine and verifiable release tarballs ([#3565](https://github.com/rpm-software-management/rpm/issues/3565)) ([#2702](https://github.com/rpm-software-management/rpm/issues/2702))
+
 #### RPM 4.20.1 released (Feb 19 2025)
 * This is primarily a bugfix release addressing a handful of regressions in RPM 4.20.0 as well as various other issues.
 * See [release notes](wiki/Releases/4.20.1) for details and download information
