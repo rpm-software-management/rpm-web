@@ -1,0 +1,52 @@
+---
+layout: default
+title: rpm.org - Download
+---
+
+{% assign project = site.data.projects | where: "name", "rpm" | first %}
+
+<h2>Current stable releases (supported)</h2>
+{% assign series_list = site.releases |
+    where: "draft", false |
+    where: "snapshot", false |
+    where: "supported", true |
+    sort: "series" | reverse | group_by: "series" %}
+{% for series in series_list %}
+    <h3>{{ project.title }} {{ series.name }}</h3>
+    <ul>
+    {% for release in series.items %}
+        <li><a href="{{ release.tarball }}">{{ release.title }}</a>
+            (<a href="releases/{{ release.version }}">Release notes</a>)
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <li>N/A</li>
+{% endfor %}
+
+<h2>Current test releases</h2>
+{% assign series_list = site.releases |
+    where: "draft", true |
+    sort: "series" | reverse | group_by: "series" %}
+<ul>
+{% for series in series_list %}
+    {% for release in series.items %}
+        <li><a href="{{ release.tarball }}">{{ release.title }}</a>
+            (<a href="releases/{{ release.version }}">Release notes</a>)
+        </li>
+    {% endfor %}
+{% else %}
+    <li>N/A</li>
+{% endfor %}
+</ul>
+
+<h2>Old releases (no longer supported)</h2>
+
+<p>For older releases, head over to <a href="timeline.html">RPM timeline.</a></p>
+
+<h3>POPT</h3>
+<ul>
+    <li><a href="https://ftp.osuosl.org/pub/rpm/popt/releases/popt-1.x/popt-1.19.tar.gz">POPT 1.19</a>
+        (<a href="https://github.com/rpm-software-management/popt/releases/tag/popt-1.19-release">Release notes</a>)
+    </li>
+</ul>

@@ -1,0 +1,28 @@
+---
+layout: default
+---
+
+{% assign title = page.title | append: " Release Notes" %}
+{% if page.draft %}
+    {% assign title = title | append: " (DRAFT)" %}
+{% endif %}
+
+<h1>{{ title }}</h1>
+
+<h3>Download</h3>
+<ul>
+{% if page.tarball %}
+    {% assign filename = page.tarball | split: "/" | slice: -1, 1 %}
+    <li>Source: <a href="{{ page.tarball }}">{{ filename }}</a></li>
+    <li>SHA256SUM: {{ page.checksum }}</li>
+{% else %}
+    <li>Source: N/A</li>
+    <li>SHA256SUM: N/A</li>
+{% endif %}
+</ul>
+
+<h3>Changes since {{ page.baseline }}</h3>
+{% if page.overview %}
+    <h4>Overview</h4>
+{% endif %}
+{{ page.content }}

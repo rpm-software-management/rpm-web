@@ -1,0 +1,11 @@
+- name: rpm
+  title: RPM
+  # Pattern to extract version series
+  series_re: ^([0-9]+\.[0-9]+)\..+$
+  # Supported stable series
+  stable:
+    - 4.20.x
+    - 4.19.x
+  tarball:
+    baseurl: https://ftp.osuosl.org/pub/rpm/releases
+    fileext: tar.bz2

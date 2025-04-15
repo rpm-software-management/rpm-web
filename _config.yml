@@ -1,1 +1,17 @@
-baseurl: 
+defaults:
+  - scope:
+      path: ""
+      type: "releases"
+    values:
+      project: rpm
+      layout: release
+      heading_offset: 0
+      overview: true
+      snapshot: false
+      draft: false
+
+collections:
+  releases:
+    output: true
+
+heading_level: 4
