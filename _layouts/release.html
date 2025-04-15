@@ -17,6 +17,10 @@ layout: default
 {% endif %}
 </p>
 
+{% if page.summary %}
+    <p>{{ page.summary }}.</p>
+{% endif %}
+
 <h3>Download</h3>
 <ul>
 {% if page.tarball %}
