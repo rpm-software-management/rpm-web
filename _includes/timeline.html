@@ -1,0 +1,31 @@
+{% assign posts = site.posts | concat: site.releases |
+    where: "draft", false | sort: "date" | reverse %}
+
+{% for post in posts limit:page.max_posts %}
+    {% case post.collection %}
+
+    {% when "posts" %}
+        <h4>{{ post.title }} ({{ post.date | date: "%b %d %Y" }})</h4>
+        {{ post.content }}
+
+    {% when "releases" %}
+        {% assign release = post %}
+        <h4>{{ release.title }} released!
+            ({{ release.date | date: "%b %d %Y" }})</h4>
+        <ul>
+        {% if release.summary %}
+            <li>{{ release.summary }}.</li>
+        {% endif %}
+            <li>See <a href="releases/{{ release.version }}">
+                {% if release.snapshot %}draft {% endif %}release notes</a>
+                for details and download information.
+            </li>
+        {% if release.overview %}
+            <li>Highlights include:
+                {{ release.excerpt | strip_newlines }}
+            </li>
+        {% endif %}
+        </ul>
+
+    {% endcase %}
+{% endfor %}
