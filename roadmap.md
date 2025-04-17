@@ -28,7 +28,6 @@ title: rpm.org - Roadmap
 * RPM 6.1 release (Q3)
   * Hands-free packaging
     * Safe handling of internal soname dependencies
-    * AI based file classification alternative
   * Transaction robustness
     * Restartable transactions
     * Improved ordering, delayed scriptlet execution
