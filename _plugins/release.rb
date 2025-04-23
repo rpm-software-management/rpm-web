@@ -77,6 +77,12 @@ module Release
         page.content = page.content.gsub(
           /#{pattern}/, '[\1(\2)]('"#{baseurl}"'/\1.\2)')
 
+        # Convert ticket references to links
+        baseurl = prodata['ticket']['baseurl']
+        pattern = prodata['ticket']['pattern']
+        page.content = page.content.gsub(
+          /#{pattern}/, '([#\1]('"#{baseurl}"'/\1))')
+
         # Regenerate excerpt from modified content
         data['excerpt'] = Jekyll::Excerpt.new(page)
       end

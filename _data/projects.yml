@@ -12,3 +12,6 @@
   manual:
     baseurl: https://rpm-software-management.github.io/rpm/man
     pattern: '\*(rpm[-\.[:alnum:]]*|gendiff)\*\(([1-8])\)'
+  ticket:
+    baseurl: https://github.com/rpm-software-management/rpm/issues
+    pattern: '\(#([0-9]+)\)'
