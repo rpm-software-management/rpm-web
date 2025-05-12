@@ -9,3 +9,6 @@
   tarball:
     baseurl: https://ftp.osuosl.org/pub/rpm/releases
     fileext: tar.bz2
+  manual:
+    baseurl: https://rpm-software-management.github.io/rpm/man
+    pattern: '\*(rpm[-\.[:alnum:]]*|gendiff)\*\(([1-8])\)'

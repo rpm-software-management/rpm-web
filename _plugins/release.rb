@@ -70,6 +70,15 @@ module Release
           /^#{offset}/, '#' * site.config['heading_level'])
 
         parent = page
+
+        # Convert man page references to links
+        baseurl = prodata['manual']['baseurl']
+        pattern = prodata['manual']['pattern']
+        page.content = page.content.gsub(
+          /#{pattern}/, '[\1(\2)]('"#{baseurl}"'/\1.\2)')
+
+        # Regenerate excerpt from modified content
+        data['excerpt'] = Jekyll::Excerpt.new(page)
       end
     end
   end
