@@ -29,9 +29,9 @@ page.
 
 Each document in the collection is named after the version it represents (e.g.
 `4.20.1.md`) and contains a YAML front matter describing the release's
-properties.  The body of the document, which is in Markdown format, starts with
-an optional bulleted list of highlights (an "overview") followed by the release
-notes.
+properties.  The body of the document, which is in
+[flavoured](#markdown-flavour) Markdown format, starts with an optional
+bulleted list of highlights (an "overview") followed by the release notes.
 
 ### Required fields
 
@@ -78,6 +78,19 @@ until the final release.
 The stable series (e.g. `4.19.x`) currently in support are configured in the
 `_data/projects.yml` file.  This determines which releases are shown on the
 Download pages.
+
+### Markdown flavour
+
+You can use the following extra syntax elements in the release documents:
+
+* **GitHub ticket references** - Prefix the issue or PR number with a hash sign
+  and put the whole in parentheses, for example: `(#1234)`.  These will be
+  converted into clickable links.
+* **Man page references** - Use italics for the man page name, followed by the
+  section number in parentheses, for example: `*rpm*(8)`.  These will be
+  converted to clickable links.  Note that only our
+  [own](https://rpm-software-management.github.io/rpm/man/) man pages will be
+  linked, though.
 
 ## News entries
 
