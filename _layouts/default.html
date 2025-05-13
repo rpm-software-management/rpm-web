@@ -18,6 +18,9 @@ Released   : 20100423
 <title>{{ page.title }}</title>
 <link href="{{ site.baseurl }}/stylesheets/style.css" rel="stylesheet" type="text/css" media="screen" />
 <link rel="shortcut icon" type="image/x-icon" href="{{ site.baseurl }}/favicon.ico">
+{% if page.css %}
+<link href="{{ page.css }}" rel="stylesheet" type="text/css" media="screen" />
+{% endif %}
 </head>
 <body>
 <div id="wrapper">
@@ -31,7 +34,7 @@ Released   : 20100423
 	<div id="menu">
 		<ul>
             <li><a href="{{ site.baseurl }}/index.html">Home</a></li>
-            <li><a href="{{ site.baseurl }}/documentation.html">Documentation</a></li>
+            <li><a href="{{ site.baseurl }}/docs/">Documentation</a></li>
             <li><a href="{{ site.baseurl }}/download.html">Download</a></li>
             <li><a href="{{ site.baseurl }}/community.html">Community</a></li>
             <li><a href="{{ site.baseurl }}/contribute.html">Contribute</a></li>

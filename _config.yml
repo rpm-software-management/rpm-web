@@ -9,9 +9,14 @@ defaults:
       overview: true
       snapshot: false
       draft: false
+  - scope:
+      path: "docs"
+    values:
+      layout: default
 
 collections:
   releases:
     output: true
 
 heading_level: 4
+exclude: ["_build"]

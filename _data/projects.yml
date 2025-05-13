@@ -6,6 +6,7 @@
   stable:
     - 4.20.x
     - 4.19.x
+  repourl: https://github.com/rpm-software-management/rpm
   tarball:
     baseurl: https://ftp.osuosl.org/pub/rpm/releases
     fileext: tar.bz2
@@ -15,3 +16,34 @@
   ticket:
     baseurl: https://github.com/rpm-software-management/rpm/issues
     pattern: '\(#([0-9]+)\)'
+  docs:
+    - series: 4.20.x
+      build: |
+        podman build --target base --tag rpm/web -f tests/Dockerfile .
+        podman run -it --rm -v $PWD:/srv:z --workdir /srv rpm/web sh -c \
+          "cmake -B _build -DWITH_DOXYGEN=ON && make -C _build apidoc"
+        cp -r _build/docs/html $DESTDIR/api
+        cp -r _build/docs/index.md docs/manual docs/man $DESTDIR/
+    - series: 4.19.x
+      build: |
+        podman build --target base --tag rpm/web -f tests/Dockerfile .
+        podman run -it --rm -v $PWD:/srv:z --workdir /srv rpm/web sh -c \
+          "cmake -B _build -DENABLE_TESTSUITE=OFF && make -C _build apidoc"
+        cp -r _build/docs/html $DESTDIR/api
+        cp -r _build/docs/index.md docs/manual docs/man $DESTDIR/
+    - series: 6.0.x
+      label: draft
+      baseurl: https://rpm-software-management.github.io/rpm
+
+    # Replace the 6.0.x entry with the below ones when rpm-6.0.x is branched:
+    # - series: 6.1.x
+    #   label: git-master
+    #   baseurl: https://rpm-software-management.github.io/rpm
+    # - series: 6.0.x
+    #   label: draft
+    #   build: |
+    #     podman build --target base --tag rpm/web -f tests/Dockerfile .
+    #     podman run -it --rm -v $PWD:/srv:z --workdir /srv rpm/web sh -c \
+    #       "cmake -B _build -DWITH_DOXYGEN=ON && make -C _build pages"
+    #     cp -r _build/site/{index.md,manual,man,api} $DESTDIR/
+    #     cp docs/assets/css/manpage.css $DESTDIR/man/
