@@ -1,0 +1,27 @@
+---
+layout: default
+title: rpm.org - Documentation
+---
+
+{% assign project = site.data.projects | where: "name", "rpm" | first %}
+
+<h2>Documentation</h2>
+<p>Reference documentation shipped with RPM:</p>
+<ul>
+{% for tree in project.docs %}
+    {% if tree.baseurl %}
+        {% assign baseurl = tree.baseurl %}
+    {% else %}
+        {% assign baseurl = tree.series %}
+    {% endif %}
+    <li><a href="{{ baseurl }}/">{{ project.title }} {{ tree.series }}</a>
+        {% if tree.label %}
+            ({{ tree.label }})
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
+
+See also a collection of <a href="howto">HOWTOs</a>, older
+<a href="https://ftp.osuosl.org/pub/rpm/api/">API docs</a> and
+<a href="resources">external resources</a>.
