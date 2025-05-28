@@ -25,4 +25,4 @@ Documentation provided by distributions and the community.
 * **Red Hat RPM Guide** A 2003 book by [Eric Foster-Johnson](https://foster-johnson.com/), this has been released later under the Open Publication License and a draft close to the published version is available on-line as [Fedora RPM Guide](https://web.archive.org/web/20170608211215/docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html//RPM_Guide/index.html). This book covers everything from basic usage to advanced tricks, package creation and API programming.
 
 ### Other
-* [Software related to RPM](software.html)
+* [Software related to RPM](/software.html)
