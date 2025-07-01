@@ -83,6 +83,18 @@ module Release
         page.content = page.content.gsub(
           /#{pattern}/, '([#\1]('"#{baseurl}"'/\1))')
 
+        # Convert jira references to links
+        baseurl = prodata['jira']['baseurl']
+        pattern = prodata['jira']['pattern']
+        page.content = page.content.gsub(
+          /#{pattern}/, '([\1]('"#{baseurl}"'/\1))')
+
+        # Convert bugzilla references to links
+        baseurl = prodata['bugzilla']['baseurl']
+        pattern = prodata['bugzilla']['pattern']
+        page.content = page.content.gsub(
+          /#{pattern}/, '([RhBug:\1]('"#{baseurl}"'/\1))')
+
         # Regenerate excerpt from modified content
         data['excerpt'] = Jekyll::Excerpt.new(page)
       end

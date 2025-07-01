@@ -16,6 +16,12 @@
   ticket:
     baseurl: https://github.com/rpm-software-management/rpm/issues
     pattern: '\(#([0-9]+)\)'
+  jira:
+    baseurl: https://issues.redhat.com/browse
+    pattern: '\((RHEL\-[0-9]+)\)'
+  bugzilla:
+    baseurl: https://bugzilla.redhat.com
+    pattern: '\(RhBug:([0-9]+)\)'
   docs:
     - series: 4.20.x
       build: |

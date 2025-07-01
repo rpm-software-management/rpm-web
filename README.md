@@ -91,6 +91,13 @@ You can use the following extra syntax elements in the release documents:
   converted to clickable links.  Note that only our
   [own](https://rpm-software-management.github.io/rpm/man/) man pages will be
   linked, though.
+* **RHEL Jira references** - Enclose the issue ID in parentheses, for example:
+  `(RHEL-1234)`.  These will be converted into clickable links.
+* **Bugzilla references** - Prefix the bugzilla ID with `RhBug:` and put the
+  whole in parentheses, for example: `(RhBug:123456)`.  These will be converted
+  into clickable links.
+
+URLs enclosed in `<` and `>` will be converted into clickable links as well.
 
 ## News entries
 
