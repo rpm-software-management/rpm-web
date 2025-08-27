@@ -4,16 +4,15 @@ title: rpm.org - Documentation
 ---
 
 {% assign project = site.data.projects | where: "name", "rpm" | first %}
+{% assign docs = project.docs | sort: "series" | reverse %}
 
 <h2>Documentation</h2>
 <p>Reference documentation shipped with RPM.</p>
 
 <h3>Stable Releases</h3>
-{% assign docs = project.docs |
-    where: "draft", false |
-    sort: "series" | reverse %}
 <ul>
 {% for tree in docs %}
+    {% if project.stable contains tree.series %} {% else %} {% continue %} {% endif %}
     <li>
         <a href="{{ tree.series }}/">{{ project.title }} {{ tree.series }}</a>
     </li>
@@ -21,11 +20,9 @@ title: rpm.org - Documentation
 </ul>
 
 <h3>Development</h3>
-{% assign docs = project.docs |
-    where: "draft", true |
-    sort: "series" | reverse %}
 <ul>
 {% for tree in docs %}
+    {% if project.stable contains tree.series %} {% continue %} {% endif %}
     {% if tree.baseurl %}
         {% assign baseurl = tree.baseurl %}
     {% else %}
