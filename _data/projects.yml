@@ -24,6 +24,7 @@
     pattern: '\(RhBug:([0-9]+)\)'
   docs:
     - series: 4.20.x
+      draft: false
       build: |
         podman build --target base --tag rpm/web -f tests/Dockerfile .
         podman run -it --rm -v $PWD:/srv:z --workdir /srv rpm/web sh -c \
@@ -31,22 +32,18 @@
         cp -r _build/docs/html $DESTDIR/api
         cp -r _build/docs/index.md docs/manual docs/man $DESTDIR/
     - series: 4.19.x
+      draft: false
       build: |
         podman build --target base --tag rpm/web -f tests/Dockerfile .
         podman run -it --rm -v $PWD:/srv:z --workdir /srv rpm/web sh -c \
           "cmake -B _build -DENABLE_TESTSUITE=OFF && make -C _build apidoc"
         cp -r _build/docs/html $DESTDIR/api
         cp -r _build/docs/index.md docs/manual docs/man $DESTDIR/
-    - series: 6.0.x
-      label: draft
+    - series: 6.1.x
+      draft: true
       baseurl: https://rpm-software-management.github.io/rpm
-
-    # Replace the 6.0.x entry with the below ones when rpm-6.0.x is branched:
-    # - series: 6.1.x
-    #   label: git-master
-    #   baseurl: https://rpm-software-management.github.io/rpm
     # - series: 6.0.x
-    #   label: draft
+    #   draft: true
     #   build: |
     #     podman build --target base --tag rpm/web -f tests/Dockerfile .
     #     podman run -it --rm -v $PWD:/srv:z --workdir /srv rpm/web sh -c \
