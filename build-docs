@@ -31,7 +31,7 @@ build() {
         [ -d "$tree_dir" ] || git -C $repo_dir worktree add $tree_dir
 
         mkdir -p $dest_dir
-        DESTDIR=$dest_dir sh -c "cd $tree_dir && $build"
+        DESTDIR=$dest_dir bash -c "cd $tree_dir && $build"
     done
 }
 
