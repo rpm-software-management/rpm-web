@@ -21,6 +21,11 @@ layout: default
     <p>{{ page.summary }}.</p>
 {% endif %}
 
+{% if page.snapshot %}
+    For more information on the upcoming {{ page.version }} release, see the
+    <a href="{{ page.version }}">full release notes</a>.
+{% endif %}
+
 <h3>Download</h3>
 <ul>
 {% if page.tarball %}
@@ -33,8 +38,8 @@ layout: default
 {% endif %}
 </ul>
 
-<h3>Changes since {{ page.baseline }}</h3>
-{% if page.overview %}
+<h3>Changes since {{ page.baseline | upcase }}</h3>
+{% if page.snapshot == false and page.overview %}
     <h4>Overview</h4>
 {% endif %}
 {{ page.content }}

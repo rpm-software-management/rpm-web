@@ -61,12 +61,12 @@ Drafts don't require a `checksum` field.  The semantics of the `date` field is
 We also publish prereleases ("snapshots") for upcoming major releases.  These
 are marked by setting the `snapshot` field to one of `alphaN`, `betaN` or `rcN`
 (where `N` is the respin number, starting at `1`).  The `version` field is set
-to the target version (e.g. `4.20.0`), not the one from CMake (e.g. `4.19.93`).
+to the target version (e.g. `4.20.0`), not the one from CMake (e.g. `4.19.93`),
+and the `baseline` field is set to the previous snapshot's name (if any).
 
-Snapshots don't have their own release notes, their documents are only used to
+Snapshot pages aren't directly linked to from the Home page but they're used to
 generate announcements and download entries.  Both of these link to the final
-version's page which must exist and be a draft.  Thus, snapshots don't require
-a `baseline` field.
+version's page which must exist and be a draft.
 
 Draft pages automatically inherit some of the metadata from the latest snapshot
 with the same `version`, such as the title, tarball and checksum information.
