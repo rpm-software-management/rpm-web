@@ -14,6 +14,7 @@ module Release
         data = page.data
         project = data['project']
         version = data['version']
+        baseline = data['baseline']
         draft = data['draft']
         snapshot = data['snapshot']
         slug = data['slug']
@@ -23,6 +24,9 @@ module Release
         title = "#{prodata['title']} #{version}"
         if snapshot then
           title += " #{snapshot.upcase}"
+          if baseline then
+            baseline = "#{baseline.upcase}"
+          end
         end
 
         # Construct series
@@ -52,6 +56,7 @@ module Release
         # Add new variables to page
         data['title'] = title
         data['series'] = series
+        data['baseline'] = baseline
         data['supported'] = supported
         data['tarball'] = tarball
 
