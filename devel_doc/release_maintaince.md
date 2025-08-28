@@ -319,92 +319,87 @@ The following items should be completed before proceeding to release cutting:
 
 ## Cutting a release
 
-In the following text, the `X.Y.Z` string denotes the version number that
-you're preparing, for example `4.19.1`.
+1. Determine the version metadata (to be used in the next steps):
+
+    1. `NUMBER` - RPM version number, as shown in the `rpm --version` output,
+       e.g. `6.0.0` or `5.99.92`
+    1. `VERSION` - RPM version number when final, e.g. `6.0.0` (equivalent to
+       `NUMBER` if final)
+    1. `LABEL` - release label, e.g. `beta1` (if prerelease) or `release` (if
+       final)
 
 1. Make a release commit:
 
-    1. Bump `VERSION` in `project()` in CMakeLists.txt
-
+    1. Set `project(VERSION ...)` in CMakeLists.txt to `NUMBER`
     1. Bump `RPM_SOVERSION` and `RPM_LIBVERSION` in CMakeLists.txt:
-
         * Consult the associated comment block in CMakeLists.txt for
           instructions.
         * soname bumps can only occur at the first version of a new branch
           (i.e. alpha/beta).
-
     1. Update the output of "pinned" tests: `make pinned`
-
-    1. Commit the changes from the previous step with something like "Preparing
-       for X.Y.Z" as the message
+    1. Commit the changes from the previous step with "Preparing for `VERSION
+    LABEL`" as the message
 
 1. Tag the release:
 
-    `git tag -am "RPM X.Y.Z release" rpm-X.Y.Z-release`
+    `git tag -am "RPM VERSION LABEL" rpm-VERSION-LABEL`
 
-1. Push the tag.  This is the point of no return for a given release:
+1. Push the tag:
 
-    `git push rpm-X.Y.Z-release`
+    `git push rpm-VERSION-LABEL`
 
-1. Compile release notes (see `git changelog -h` for more details):
+1. Generate a tarball on GitHub:
 
-    `git changelog -m > changelog.md`
+    1. Create a GitHub release for the new tag:
 
-1. Publish the release:
+        ```
+        gh release create --title "RPM VERSION LABEL" \
+                          --notes "Visit https://rpm.org/releases/NUMBER for the release notes and download information." \
+                          [--prerelease] rpm-VERSION-LABEL
+        ```
 
-    1. Create a draft release on GitHub for the new tag:
+    1. This will trigger a GitHub Actions workflow that generates a `tar.bz2`
+       and `CHECKSUM` file, and attaches both to the newly created release,
+       under "Assets". This may take a few minutes.
 
-        `gh release create --draft --title "RPM X.Y.Z" --notes-file changelog.md rpm-X.Y.Z-release`
+1. Upload the tarball to [ftp.osuosl.org](https://ftp.osuosl.org/):
 
-    1. View the draft in your browser (see the link printed by the command)
-    1. Verify that the draft looks fine, make any adjustments if necessary
-    1. Tick the "Create a discussion for this release" checkbox
-    1. Click the Publish button to make the release available
-    1. Verify that the release gets a tar.bz2 and CHECKSUM file attached under
-       "Assets" after a few minutes.  This is done by a GitHub Actions workflow
-       named "Release artifacts" that automatically runs when a new release is
-       published.
-
-1. Upload the tarball to [rpm.org](https://rpm.org/):
-
-    1. Download the tar.bz2 and CHECKSUM files from the new release to your
+    1. Download the `tar.bz2` and `CHECKSUM` files from the new release to your
        current directory
     1. Verify the tarball's checksum:
 
        `sha512sum -c CHECKSUM`
 
     1. `scp` the tarball to `rpm@ftp-osl.osuosl.org` into the appropriate
-       per-branch directory in `~/ftp/releases/`
-    1. Run the `./trigger-rpm` script in the home directory to start mirror
-       process
+       per-branch directory in `~/ftp/releases/`. Use the `testing/`
+       subdirectory if this is a prerelease.
+    1. Run the `./trigger-rpm` script in the `rpm` user's home directory on the
+       server to start the mirroring process
 
-1. Update the homepage at [rpm.org](https://rpm.org/):
-    1. Clone the [rpm-web](https://github.com/rpm-software-management/rpm-web)
-       repository (if not cloned yet) and enter it
-    1. Make a copy of the `wiki/Releases/skeleton.md` file and name it
-       `wiki/Releases/X.Y.Z.md`
-    1. Fill in the blanks, use the contents of `changelog.md` for the "Summary
-       of changes" section
-    1. Add an entry to the `index.md` file announcing the release (see the
-       existing entries for inspiration), copy the Highlights section from
-       `changelog.md`
-    1. Copy the entry into the `timeline.md` file
-    1. Add an entry to the `download.md` file
-    1. Commit the whole lot with a commit message such as "Release X.Y.Z"
-    1. Push the above commit to the remote (this will automatically regenerate
-       the pages)
+1. Publish the release on [rpm.org](https://rpm.org/):
 
-1. Send out an announcement mail:
+    1. Clone the
+       [rpm-web](https://github.com/rpm-software-management/rpm-web.git)
+       repository (if not cloned already)
+    1. Add a new release page to the `_releases/` directory and name it
+       `NUMBER.md`
+    1. Write the release notes and fill out the top `---` block ("front
+       matter") according to the README file provided in the repo
+    1. Update the release notes draft for the final release (if this is a
+       prerelease) accordingly
+    1. Commit and push
 
-    ```
-    To: rpm-announce@lists.rpm.org, rpm-maint@lists.rpm.org, rpm-list@lists.rpm.org
-    Subject: RPM X.Y.Z released!
+1. Compose an announcement mail. See the previous
+   [announcements](https://lists.rpm.org/pipermail/rpm-announce/) for
+   inspiration. When ready, send it to the following mailing lists:
 
-    [some intro followed by the output of "git changelog"]
+    `rpm-announce@lists.rpm.org, rpm-maint@lists.rpm.org, rpm-list@lists.rpm.org`
 
-    For a complete list of changes, visit:
+1. Open a discussion on GitHub:
 
-        https://rpm.org/wiki/Releases/X.Y.Z
-    ```
+    1. [Start](https://github.com/rpm-software-management/rpm/discussions/new?category=announcements)
+       a new discussion topic in the "Announcements" category
+    1. Use the contents of the announcement mail from above
+    1. Submit and pin the discussion
 
 1. Party!
