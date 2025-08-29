@@ -23,9 +23,8 @@ This will print a localhost URL which you can open in your browser.
 
 RPM releases are represented as a Jekyll
 [collection](https://jekyllrb.com/docs/collections/) in the `_releases/`
-directory.  The collection is used to generate individual release notes pages
-as well as release announcements on the Home page and entries on the Download
-page.
+directory.  The collection is used to generate individual release pages as well
+as release announcements on the Home page.
 
 Each document in the collection is named after the version it represents (e.g.
 `4.20.1.md`) and contains a YAML front matter describing the release's
@@ -59,25 +58,19 @@ Drafts don't require a `checksum` field.  The semantics of the `date` field is
 ### Prereleases
 
 We also publish prereleases ("snapshots") for upcoming major releases.  These
+documents are named after the actual version from CMake (e.g. `5.99.92.md`) and
 are marked by setting the `snapshot` field to one of `alphaN`, `betaN` or `rcN`
-(where `N` is the respin number, starting at `1`).  The `version` field is set
-to the target version (e.g. `4.20.0`), not the one from CMake (e.g. `4.19.93`),
-and the `baseline` field is set to the previous snapshot's name (if any).
+(where `N` is the respin number, starting at `1`).
 
-Snapshot pages aren't directly linked to from the Home page but they're used to
-generate announcements and download entries.  Both of these link to the final
-version's page which must exist and be a draft.
-
-Draft pages automatically inherit some of the metadata from the latest snapshot
-with the same `version`, such as the title, tarball and checksum information.
-This allows for only having one release notes page that's continuously updated
-until the final release.
+The `version` field is set to the target version (e.g. `4.20.0`), for which a
+draft document must exist. The `baseline` field is set to the name of the
+previous snapshot (if any).
 
 ### Supported releases
 
 The stable series (e.g. `4.19.x`) currently in support are configured in the
 `_data/projects.yml` file.  This determines which releases are shown on the
-Download pages.
+Releases page.
 
 ### Markdown flavour
 

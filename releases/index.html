@@ -1,0 +1,53 @@
+---
+layout: default
+title: rpm.org - Releases
+---
+
+{% assign project = site.data.projects | where: "name", "rpm" | first %}
+
+<h2>Releases</h2>
+
+<h3>Stable</h3>
+{% assign series_list = site.releases |
+    where: "draft", false |
+    where: "snapshot", false |
+    where: "supported", true |
+    sort: "series" | reverse | group_by: "series" %}
+{% for series in series_list %}
+    <h4>{{ project.title }} {{ series.name }}</h4>
+    <ul>
+    {% for release in series.items %}
+        <li>
+            <a href="{{ release.version }}">{{ release.title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <li>N/A</li>
+{% endfor %}
+
+<h3>Development</h3>
+{% assign series_list = site.releases |
+    where: "draft", true |
+    sort: "series" | reverse | group_by: "series" %}
+<ul>
+{% for series in series_list %}
+    {% for release in series.items %}
+        <li>
+            <a href="{{ release.parent.slug }}">
+                {{ release.parent.title }}
+            </a>
+        </li>
+    {% endfor %}
+{% else %}
+    <li>N/A</li>
+{% endfor %}
+</ul>
+
+<h3>POPT</h3>
+<ul>
+    <li><a href="https://github.com/rpm-software-management/popt/releases/tag/popt-1.19-release">POPT 1.19</a>
+    </li>
+</ul>
+
+<p>For older releases, head over to the <a href="/timeline">timeline</a>.</p>
