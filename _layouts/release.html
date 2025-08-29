@@ -38,9 +38,11 @@ layout: default
     </ul>
 {% endif %}
 
+{% if page.snapshot == false or page.overview %}
 <h3>Changes since {{ page.baseline }}</h3>
 {% if page.snapshot == false and page.overview %}
     <h4>Overview</h4>
+{% endif %}
 {% endif %}
 {{ page.content }}
 
