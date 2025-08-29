@@ -20,6 +20,10 @@ layout: default
 {% if page.summary %}
     <p>{{ page.summary }}.</p>
 {% endif %}
+{% if page.snapshot %}
+    <p>For more information on the upcoming {{ page.version }} release, see the
+    <a href="{{ page.version }}">full release notes</a>.</p>
+{% endif %}
 
 {% if page.draft %}
     <p>This release is a work in progress and the page is continuously
@@ -45,8 +49,3 @@ layout: default
 {% endif %}
 {% endif %}
 {{ page.content }}
-
-{% if page.snapshot %}
-    For more information on the upcoming {{ page.version }} release, see the
-    <a href="{{ page.version }}">full release notes</a>.
-{% endif %}
