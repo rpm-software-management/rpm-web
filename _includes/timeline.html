@@ -16,8 +16,7 @@
         {% if release.summary %}
             <li>{{ release.summary }}.</li>
         {% endif %}
-            <li>See <a href="releases/{{ release.version }}">
-                {% if release.snapshot %}draft {% endif %}release notes</a>
+            <li>See the <a href="releases/{{ release.slug }}">release notes</a>
                 for details and download information.
             </li>
         {% if release.overview %}

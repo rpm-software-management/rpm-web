@@ -23,7 +23,8 @@ module Release
         # Construct title
         title = "#{prodata['title']} #{version}"
         if snapshot then
-          title += " #{snapshot.upcase}"
+          snapshot = "#{snapshot.upcase}"
+          title += " #{snapshot}"
           if baseline then
             baseline = "#{baseline.upcase}"
           end
@@ -56,6 +57,7 @@ module Release
         # Add new variables to page
         data['title'] = title
         data['series'] = series
+        data['snapshot'] = snapshot
         data['baseline'] = baseline
         data['supported'] = supported
         data['tarball'] = tarball
@@ -63,9 +65,7 @@ module Release
         # Merge parent snapshot if draft
         if draft then
           if parent.data['version'] == version then
-            ['title', 'tarball', 'checksum'].each do|i|
-              data[i] = parent.data[i]
-            end
+            data['parent'] = parent
           end
         end
 

@@ -21,17 +21,22 @@ layout: default
     <p>{{ page.summary }}.</p>
 {% endif %}
 
-<h3>Download</h3>
-<ul>
-{% if page.tarball %}
-    {% assign filename = page.tarball | split: "/" | slice: -1, 1 %}
-    <li>Source: <a href="{{ page.tarball }}">{{ filename }}</a></li>
-    <li>SHA256SUM: {{ page.checksum }}</li>
+{% if page.draft %}
+    <p>This release is a work in progress and the page is continuously
+    updated.</p>
+    {% if page.parent %}
+        <p>To obtain a development release for testing purposes, see the
+        <a href="{{ page.parent.slug }}">
+            {{ page.parent.snapshot }} release notes</a>.</p>
+    {% endif %}
 {% else %}
-    <li>Source: N/A</li>
-    <li>SHA256SUM: N/A</li>
+    {% assign filename = page.tarball | split: "/" | slice: -1, 1 %}
+    <h3>Download</h3>
+    <ul>
+        <li>Source: <a href="{{ page.tarball }}">{{ filename }}</a></li>
+        <li>SHA256SUM: {{ page.checksum }}</li>
+    </ul>
 {% endif %}
-</ul>
 
 <h3>Changes since {{ page.baseline }}</h3>
 {% if page.snapshot == false and page.overview %}

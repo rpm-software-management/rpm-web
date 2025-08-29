@@ -34,8 +34,8 @@ title: rpm.org - Download
 <ul>
 {% for series in series_list %}
     {% for release in series.items %}
-        <li><a href="{{ release.tarball }}">{{ release.title }}</a>
-            (<a href="releases/{{ release.version }}">Release notes</a>)
+        <li><a href="{{ release.parent.tarball }}">{{ release.parent.title }}</a>
+            (<a href="releases/{{ release.parent.slug }}">Release notes</a>)
         </li>
     {% endfor %}
 {% else %}
