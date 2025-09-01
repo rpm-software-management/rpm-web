@@ -6,6 +6,10 @@
 module Release
   class Generator < Jekyll::Generator
     def generate(site)
+      if not site.collections.include?('releases') then
+        return
+      end
+
       releases = site.collections['releases'].docs.sort{
         |a, b| a.data['version'] <=> b.data['version'] }
       parent = nil
