@@ -34,7 +34,7 @@ the [rpm mailing lists](community) with the
 rpm.org development team to avoid situations where efforts go wasted
 because it's not in line with RPM design and goals.**
 
-Do read our [contributing guidelines](https://github.com/rpm-software-management/rpm/blob/master/CONTRIBUTING.md) as the very first thing.
+Do read our [contributing guidelines](https://github.com/rpm-software-management/rpm/blob/master/CONTRIBUTING.html) as the very first thing.
 
 Write access can be granted for established contributors upon request, but
 for most things sending patches to the

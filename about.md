@@ -17,4 +17,4 @@ RPM is quite a mature project in the OSS landscape, with first VCS
 commit of the current tree dating back to 1995. As such it can be
 an interesting dig site for those with a weak spot for software
 archeology. Various major events from the over two decades of
-project history can be found in the [timeline](timeline.md).
+project history can be found in the [timeline](timeline.html).
