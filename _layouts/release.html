@@ -21,8 +21,15 @@ layout: default
     <p>{{ page.summary }}.</p>
 {% endif %}
 {% if page.snapshot %}
-    <p>For more information on the upcoming {{ page.version }} release, see the
-    <a href="{{ page.version }}">full release notes</a>.</p>
+    <p>
+        {% if page.checksum %}
+            For more information on the upcoming {{ page.version }} release,
+        {% else %}
+            This candidate has been promoted for the final release. For
+            download information,
+        {% endif %}
+        see the <a href="{{ page.version }}">full release notes</a>.
+    </p>
 {% endif %}
 
 {% if page.draft %}
@@ -33,7 +40,9 @@ layout: default
         <a href="{{ page.parent.slug }}">
             {{ page.parent.snapshot }} release notes</a>.</p>
     {% endif %}
-{% else %}
+{% endif %}
+
+{% if page.checksum %}
     {% assign filename = page.tarball | split: "/" | slice: -1, 1 %}
     <h3>Download</h3>
     <ul>

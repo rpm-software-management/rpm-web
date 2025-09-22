@@ -66,6 +66,12 @@ The `version` field is set to the target version (e.g. `4.20.0`), for which a
 draft document must exist. The `baseline` field is set to the name of the
 previous snapshot (if any).
 
+Rarely, we may decide to skip an RC tarball altogether and just go ahead with
+the final release. In such a case, do leave out the `checksum` field, which
+will prompt the prerelease page to render in a slightly different way where the
+Download subsection is omitted and replaced with a note about the release
+having been "promoted for final as-is".
+
 ### Supported releases
 
 The stable series (e.g. `4.19.x`) currently in support are configured in the
