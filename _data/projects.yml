@@ -4,6 +4,7 @@
   series_re: ^([0-9]+\.[0-9]+)\..+$
   # Supported stable series
   stable:
+    - 6.0.x
     - 4.20.x
     - 4.19.x
   repourl: https://github.com/rpm-software-management/rpm
