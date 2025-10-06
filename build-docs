@@ -16,7 +16,7 @@ build() {
     local name=$1
     local query=".[] | select(.name == \"$name\")"
     local repo_url=$(yq "${query}.repourl")
-    local stable=$(yq "${query}.stable[0]")
+    local latest=$(yq "${query}.stable[0]")
     local repo_dir=$SCRIPT_DIR/_build/$name
     local src_path dst_path
 
@@ -35,8 +35,8 @@ build() {
         DESTDIR=$dest_dir bash -c "cd $tree_dir && $build"
     done
 
-    # Create stable "alias"
-    cp -r $DEST_DIR/$stable $DEST_DIR/stable
+    # Create latest "alias"
+    cp -r $DEST_DIR/$latest $DEST_DIR/latest
 }
 
 for project in $(yq ".[].name"); do
