@@ -64,7 +64,7 @@ Or-dependencies are not supported in existing RPM versions. This can be
 achieved by having a common virtual provide in A and B, and having C require
 that.
 
-Since rpm version 4.13 you can also use [Boolean Dependencies](/docs/stable/boolean_dependencies). So you can directly use:
+Since rpm version 4.13 you can also use [Boolean Dependencies](/docs/latest/manual/boolean_dependencies). So you can directly use:
 
 ```
 Requires: ( pkgA >= 1.2.3 or pkgB )
