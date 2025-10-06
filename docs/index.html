@@ -11,10 +11,15 @@ title: rpm.org - Documentation
 
 <h3>Stable Releases</h3>
 <ul>
+{% assign latest = true %}
 {% for tree in docs %}
     {% if project.stable contains tree.series %} {% else %} {% continue %} {% endif %}
     <li>
         <a href="{{ tree.series }}/">{{ project.title }} {{ tree.series }}</a>
+        {% if latest %}
+            (<a href="stable/">stable</a>)
+            {% assign latest = false %}
+        {% endif %}
     </li>
 {% endfor %}
 </ul>
