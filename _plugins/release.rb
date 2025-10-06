@@ -11,7 +11,7 @@ module Release
       end
 
       releases = site.collections['releases'].docs.sort{
-        |a, b| a.data['version'] <=> b.data['version'] }
+        |a, b| a.data['slug'] <=> b.data['slug'] }
       parent = nil
 
       releases.each do |page|
