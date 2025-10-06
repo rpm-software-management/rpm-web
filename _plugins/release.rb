@@ -81,7 +81,11 @@ module Release
         parent = page
 
         # Convert man page references to links
-        baseurl = prodata['manual']['baseurl']
+        if supported then
+          baseurl = "/docs/#{series}/man"
+        else
+          baseurl = prodata['manual']['baseurl']
+        end
         pattern = prodata['manual']['pattern']
         page.content = page.content.gsub(
           /#{pattern}/, '[\1(\2)]('"#{baseurl}"'/\1.\2)')
