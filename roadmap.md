@@ -30,7 +30,7 @@ title: rpm.org - Roadmap
   * Hands-free packaging
     * Safe handling of internal soname dependencies
     * Quality of life -improvements
-  *  Paper cuts in recent features
+  * Paper cuts in recent features
     * Bring back NSS user/group support
     * Disabled signing algorithm behavior
   * Complete the man page documentation effort
