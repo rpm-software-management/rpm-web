@@ -29,14 +29,22 @@ title: rpm.org - Roadmap
 * RPM 6.1 release (Q3)
   * Hands-free packaging
     * Safe handling of internal soname dependencies
+    * Quality of life -improvements
+  *  Paper cuts in recent features
+    * Bring back NSS user/group support
+    * Disabled signing algorithm behavior
+  * Complete the man page documentation effort
+
+## 2027
+* RPM 6.2 release (Q3)
   * Transaction robustness
     * Restartable transactions
     * Improved ordering, delayed scriptlet execution
   * Containers
     * rpmdb rebuild on overlayfs
 
-## 2027
-* RPM 6.2 release (Q3)
+## 2028
+* RPM 6.3 release (Q3)
   * Hands-free packaging
     * File-classifier based actions
   * Containers
