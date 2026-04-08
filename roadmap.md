@@ -9,8 +9,7 @@ title: rpm.org - Roadmap
 * RPM 6.0.2 release (Q2)
   * Paper cuts in recent features
     * Bring back NSS user/group support
-    * Disabled signing algorithm behavior
-    * Signature verification behavior with multiple signatures
+    * Disabled signing algorithm behavior wrt multiple signatures
   * Minor new features + documentation updates
 
 ## 2027
