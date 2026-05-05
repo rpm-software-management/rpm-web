@@ -6,7 +6,8 @@
 
     {% when "posts" %}
         <h4>{{ post.title }} ({{ post.date | date: "%b %d %Y" }})</h4>
-        {{ post.content }}
+        {{ post.excerpt }}
+        <a href="{{ post.url | relative_url }}">Read more</a>
 
     {% when "releases" %}
         {% assign release = post %}
