@@ -36,7 +36,8 @@ build() {
     done
 
     # Create latest "alias"
-    cp -r $DEST_DIR/$latest $DEST_DIR/latest
+    mkdir -p $DEST_DIR/latest
+    cp -r $DEST_DIR/$latest/* $DEST_DIR/latest/
 }
 
 for project in $(yq ".[].name"); do
