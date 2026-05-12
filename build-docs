@@ -16,7 +16,7 @@ build() {
     local name=$1
     local query=".[] | select(.name == \"$name\")"
     local repo_url=$(yq "${query}.repourl")
-    local latest=$(yq "${query}.stable[0]")
+    local latest=$(yq "${query}.series[0]")
     local repo_dir=$SCRIPT_DIR/_build/$name
     local src_path dst_path
 

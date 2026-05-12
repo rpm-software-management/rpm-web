@@ -10,7 +10,7 @@ title: rpm.org - Documentation
 
 <ul>
 {% assign latest = true %}
-{% for series in project.stable %}
+{% for series in project.series %}
     <li>
         <a href="{{ series }}">{{ project.title }} {{ series }}</a>
         {% if latest %}

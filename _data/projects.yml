@@ -2,8 +2,8 @@
   title: RPM
   # Pattern to extract version series
   series_re: ^([0-9]+\.[0-9]+)\..+$
-  # Supported stable series
-  stable:
+  # Supported version series
+  series:
     - 6.1.x
     - 6.0.x
     - 4.20.x
