@@ -4,18 +4,15 @@ title: rpm.org - Documentation
 ---
 
 {% assign project = site.data.projects | where: "name", "rpm" | first %}
-{% assign docs = project.docs | sort: "series" | reverse %}
 
 <h2>Documentation</h2>
 <p>Reference documentation shipped with RPM.</p>
 
-<h3>Stable Releases</h3>
 <ul>
 {% assign latest = true %}
-{% for tree in docs %}
-    {% if project.stable contains tree.series %} {% else %} {% continue %} {% endif %}
+{% for series in project.stable %}
     <li>
-        <a href="{{ tree.series }}/">{{ project.title }} {{ tree.series }}</a>
+        <a href="{{ series }}">{{ project.title }} {{ series }}</a>
         {% if latest %}
             (<a href="latest/">latest</a>)
             {% assign latest = false %}
@@ -24,21 +21,13 @@ title: rpm.org - Documentation
 {% endfor %}
 </ul>
 
-<h3>Development</h3>
-<ul>
-{% for tree in docs %}
-    {% if project.stable contains tree.series %} {% continue %} {% endif %}
-    {% if tree.baseurl %}
-        {% assign baseurl = tree.baseurl %}
-    {% else %}
-        {% assign baseurl = tree.series %}
-    {% endif %}
-    <li>
-        <a href="{{ baseurl }}/">{{ project.title }} {{ tree.series }}</a>
-    </li>
-{% endfor %}
-</ul>
+<p>
+    A development preview is also
+    <a href="https://rpm-software-management.github.io/rpm">available</a>.
+</p>
 
-See also a collection of <a href="howto">HOWTOs</a>, older
-<a href="https://ftp.osuosl.org/pub/rpm/api/">API docs</a> and
-<a href="resources">external resources</a>.
+<p>
+    See also a collection of <a href="howto">HOWTOs</a>, older
+    <a href="https://ftp.osuosl.org/pub/rpm/api/">API docs</a> and
+    <a href="resources">external resources</a>.
+</p>

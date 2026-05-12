@@ -13,7 +13,6 @@
     baseurl: https://ftp.osuosl.org/pub/rpm/releases
     fileext: tar.bz2
   manual:
-    baseurl: https://rpm-software-management.github.io/rpm/man
     pattern: '\*(rpm[-\.[:alnum:]]*|gendiff|elfdeps)\*\(([1-8])\)'
   ticket:
     baseurl: https://github.com/rpm-software-management/rpm/issues
@@ -25,8 +24,6 @@
     baseurl: https://bugzilla.redhat.com
     pattern: '\(RhBug:([0-9]+)\)'
   docs:
-    - series: 6.2.x
-      baseurl: https://rpm-software-management.github.io/rpm
     - series: 6.1.x
       build: |
         podman build --target base --tag rpm/web -f tests/Dockerfile .

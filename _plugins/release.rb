@@ -37,9 +37,6 @@ module Release
         # Construct series
         series = version.gsub(/#{prodata['series_re']}/, '\1.x')
 
-        # Determine if supported
-        supported = prodata['stable'].include? series
-
         # Construct tarball URL
         tarball = prodata['tarball']
         baseurl = tarball['baseurl']
@@ -63,7 +60,6 @@ module Release
         data['series'] = series
         data['snapshot'] = snapshot
         data['baseline'] = baseline
-        data['supported'] = supported
         data['tarball'] = tarball
 
         # Merge parent snapshot if draft
@@ -81,11 +77,7 @@ module Release
         parent = page
 
         # Convert man page references to links
-        if supported then
-          baseurl = "/docs/#{series}/man"
-        else
-          baseurl = prodata['manual']['baseurl']
-        end
+        baseurl = "/docs/#{series}/man"
         pattern = prodata['manual']['pattern']
         page.content = page.content.gsub(
           /#{pattern}/, '[\1(\2)]('"#{baseurl}"'/\1.\2)')
