@@ -5,34 +5,47 @@ title: rpm.org - Roadmap
 
 # RPM Roadmap
 
-## 2026
-* RPM 6.0.2 release (Q2)
-  * Paper cuts in recent features
-    * Bring back NSS user/group support
-    * Disabled signing algorithm behavior wrt multiple signatures
-  * Minor new features + documentation updates
+An overview of the project's direction and release plans. Both the dates and
+the content are tentative and subject to change. Everything above the
+horizontal line is completed and only kept for reference.
 
-## 2027
-* RPM 6.1 release (Q3)
-  * Hands-free packaging
-    * Safe handling of internal soname dependencies
-    * Quality of life -improvements
-  * Complete the man page documentation effort
+#### RPM 6.1 release (2026 Q2)
+* Improved keystore locking
+* Restored NSS user/group support
+* Signature verification tweaks
+* Literal and one-shot macros
+* Usable syslog plugin
+* New man pages
+* Clean Clang builds
+* New [release model](../2026/05/11/release-cycle.html)
+* See the [release notes](../releases/6.1.0) for details
 
-## 2028
-* RPM 6.2 release (Q3)
-  * Transaction robustness
-    * Restartable transactions
-    * Improved ordering, delayed scriptlet execution
-  * Containers
-    * rpmdb rebuild on overlayfs
+---
 
-## 2029
-* RPM 6.3 release (Q3)
-  * Hands-free packaging
-    * File-classifier based actions
-  * Containers
-    * Container-friendly alternative rpmdb format
-  * First public C++ API (alongside the trad. C API)
+#### RPM 6.2 release (2026 Q3/Q4)
+* Symbol versioning in librpm (#1127)
+* Database parking (image reproducibility) (#2219)
+* Meaningful operation names in syslog plugin (#4215)
+* First steps towards transaction robustness
+* New man pages (dependencies, spec format)
+
+#### Upcoming releases (2027)
+* Durable, journal-based transactions (#2950)
+* Filesystem capability checks (#2637)
+* Improved file triggers usability (systemd) (#4185)
+* BuildSystem rough edges & shortcomings (#3965)
+* OverlayFS-compatible database rebuilds (#2355)
+* Complete man page suite (#3612)
+
+#### Future releases (2028 and later)
+* Policy based package permissions (#4186)
+* File classifier based actions (#2207)
+* Improved scriptlet ordering (#436)
+* Container-native database format (#2005)
+* Better soname dependencies (#2872)
+* True multiarch support (#2197)
+* Arch-independent source archive format
+* DVCS integration (packaging, `%config` file management)
+* Buildinfo subpackages
 
 For further information and feedback, head over to our [discussion forum.](https://github.com/rpm-software-management/rpm/discussions/2982)
