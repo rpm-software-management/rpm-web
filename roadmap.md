@@ -42,6 +42,7 @@ horizontal line is completed and only kept for reference.
 * File classifier based actions (#2207)
 * Improved scriptlet ordering (#436)
 * Container-native database format (#2005)
+* Optimized payload installation (copy-on-write/reflinks) (#4223)
 * Better soname dependencies (#2872)
 * True multiarch support (#2197)
 * Arch-independent source archive format
