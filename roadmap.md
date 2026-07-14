@@ -33,6 +33,7 @@ horizontal line is completed and only kept for reference.
 * Durable, journal-based transactions (#2950)
 * Filesystem capability checks (#2637)
 * Improved file triggers usability (systemd) (#4185)
+* Payloadless signing support (#3991)
 * BuildSystem rough edges & shortcomings (#3965)
 * OverlayFS-compatible database rebuilds (#2355)
 * Complete man page suite (#3612)
