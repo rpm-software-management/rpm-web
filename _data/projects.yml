@@ -22,6 +22,9 @@
   bugzilla:
     baseurl: https://bugzilla.redhat.com
     pattern: '\(RhBug:([0-9]+)\)'
+  cve:
+    baseurl: https://access.redhat.com/security/cve
+    pattern: '\((CVE-[0-9\-]+)\)'
   docs:
     - series: 6.1.x
       build: |

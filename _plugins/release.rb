@@ -100,6 +100,12 @@ module Release
         page.content = page.content.gsub(
           /#{pattern}/, '([RhBug:\1]('"#{baseurl}"'/\1))')
 
+        # Convert CVE references to links
+        baseurl = prodata['cve']['baseurl']
+        pattern = prodata['cve']['pattern']
+        page.content = page.content.gsub(
+          /#{pattern}/, '([\1]('"#{baseurl}"'/\1))')
+
         # Regenerate excerpt from modified content
         data['excerpt'] = Jekyll::Excerpt.new(page)
       end
